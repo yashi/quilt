@@ -6,6 +6,7 @@ quilt (0.32-2) unstable; urgency=low
     occuring between 0.30 and 0.32 versions. At least people using
     apt-listchanges will be warned about that. It looks like the best we can
     do for now.
+  * pop exits 0 when no patch is to be removed.
 
  -- Martin Quinson <martin.quinson@tuxfamily.org>  Tue,  1 Jun 2004 11:41:51 -0700
 
