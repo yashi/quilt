@@ -23,7 +23,7 @@ usage()
 	quilt_commands \
 	| sort \
 	| column | column -t \
-	| sed -e $'s/^/\t/'
+	| @SED@ -e $'s/^/\t/'
 	echo $"
 Common options to all commands:
 

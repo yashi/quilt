@@ -210,7 +210,7 @@ tmp_result=$(gen_tempfile) || die 1
 if [ -n "$opt_diffstat" ]
 then
 	diffstat="$(@DIFFSTAT@ $tmp_patch)" || die 1
-	awk '
+	@AWK@ '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
 	      for (i=1; i in arr; i++)

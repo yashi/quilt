@@ -70,7 +70,7 @@ included.
 
 colorize() {
 	if [ -n "$opt_color" ]; then
-		awk '
+		@AWK@ '
 		function esc(x) { return "'$'\e''[" x "m" }
 		{ if (/^(Index:|\-\-\-|\+\+\+|\*\*\*) /)
 		    print esc(32) $0 esc(0)

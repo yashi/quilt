@@ -282,10 +282,11 @@ msgid "Usage: quilt edit file ...\\n"
 msgstr "Verwendung: quilt edit datei ...\\n"
 
 #: ../quilt/edit.in:16
+#, fuzzy
 msgid ""
 "\n"
-"Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
-"topmost patch.\n"
+"Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
+"the topmost patch.\n"
 msgstr ""
 "\n"
 "Füge die angegebene(n) Datei(en) demobersten Patch hinzu, und editiere\n"
@@ -982,7 +983,8 @@ msgstr ""
 "Bitte führen Sie \\`quilt upgrade' aus.\\n"
 
 #: ../scripts/rpatch.in:22
-msgid "Usage: $0 [-fRq] patchname\\n"
+#, fuzzy
+msgid "Usage: %s [-fRq] patchname\\n"
 msgstr "Verwendung: $0 [-fRq] patchname\\n"
 
 #: ../scripts/rpatch.in:100

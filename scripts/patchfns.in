@@ -235,7 +235,7 @@ rename_in_db()
 	local from=$1 to=$2
 	local tmpfile
 	tmpfile=$(gen_tempfile) || return 1
-	/usr/bin/gawk '
+	@AWK@ '
 	/^'"$(quote_re $from)"'$/ \
 		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
@@ -467,7 +467,7 @@ files_in_patch_ordered()
 	(   files_in_patch $patch
 	    echo "-"
 	    filenames_in_patch $patch
-	) | awk '
+	) | @AWK@ '
 	$1 == "-" { out=1 ; next }
 	!out	{ files[$0]=1 }
 	out	{ if ($0 in files && !($0 in printed)) {

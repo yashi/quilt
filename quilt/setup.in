@@ -89,7 +89,7 @@ up() {
 
 check_for_existing_files() {
 	local dir status=0
-	for dir in $(awk ' $1 = "patch"	{ print $2 }' $tmpfile | uniq)
+	for dir in $(@AWK@ ' $1 = "patch" { print $2 }' $tmpfile | uniq)
 	do
 		if [ -e "$prefix$dir/$QUILT_PATCHES" ]
 		then

@@ -90,7 +90,7 @@ apatch()
 	then
 		# The reject files are removed in rollback_patch.
 		echo "$output" \
-		| sed -e \
+		| @SED@ -e \
 's/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
 	elif [ -n "$output" ]
 	then

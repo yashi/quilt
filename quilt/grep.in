@@ -120,7 +120,7 @@ find "${myargs[@]}" \( \
 	-type f -print \
 | xargs grep $opt_H "${args[@]}" \
 | if [ ${#myargs[@]} -eq 0 ]; then
-	sed -e 's,^./,,'
+	@SED@ -e 's,^./,,'
 else
 	cat
 fi
