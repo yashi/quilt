@@ -528,7 +528,7 @@ diff_file()
 	fi
 
 	echo Index: $new_hdr
-	diff -Nu $DIFF_OPTS $old_file $new_file |
+	@DIFF@ -Nu $DIFF_OPTS $old_file $new_file |
 	fix_diff_header $old_hdr $new_hdr
 }
 

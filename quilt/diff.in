@@ -187,7 +187,7 @@ then
 	if [ -s $pwd/$patch_file ]
 	then
 		if ! cat_file $pwd/$patch_file \
-		     | patch $patch_args --no-backup-if-mismatch \
+		     | @PATCH@ $patch_args --no-backup-if-mismatch \
 			     -E >/dev/null 2>/dev/null
 		then
 			echo "Failed to patch temporary files"

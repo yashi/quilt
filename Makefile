@@ -13,6 +13,8 @@ LIB_DIR =	$(datadir)/$(PACKAGE)/lib
 
 PERL :=		/usr/bin/perl
 BASH :=		/bin/bash
+DIFF :=		/usr/bin/diff
+PATCH :=	/usr/bin/patch
 
 CFLAGS =	-g -Wall
 
@@ -137,5 +139,7 @@ clean distclean :
 	     -e "s:@QUILT@:$(QUILT_DIR):g" \
 	     -e "s:@PERL@:$(PERL):g" \
 	     -e "s:@BASH@:$(BASH):g" \
+	     -e "s:@DIFF@:$(DIFF):g" \
+	     -e "s:@PATCH@:$(PATCH):g" \
 	     $< > $@
 	@chmod --reference=$< $@

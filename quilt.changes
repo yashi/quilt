@@ -1,9 +1,9 @@
 -------------------------------------------------------------------
-Thu Jan 30 13:06:36 CET 2003 - agruen@suse.de
+Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
 - Fix some regex quoting; use grep -E because we quote for extended
   regexps. Filenames with "+^$" in it did not work in some places. 
-- Prepare for GNU Autoconf: substitute @PERL@ and @BASH@ in
-  scripts.
+- Prepare for GNU Autoconf: substitute @PERL@, @BASH@, @DIFF@,
+  @PATCH@ in scripts.
 - Some cleanups in Makefile.
 
 -------------------------------------------------------------------

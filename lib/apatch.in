@@ -55,15 +55,15 @@ apply_patch()
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
 		gzip -cd $patch_file \
-		| patch $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
 			-E $silent
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| patch $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
 			-E $silent
 	else
-		patch $(patch_args $patch) --no-backup-if-mismatch \
+		@PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
 			-E $silent -i $patch_file
 	fi
 }
