@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 31 09:15:01 +0100 2003 - Martin.Quinson@ens-lyon.fr
+
+- Change '#!@BASH@' to '#! @BASH@'. It can look a bit stupid, but it's needed
+  for maximal portability.
+
+-------------------------------------------------------------------
 Fri Jan 31 08:52:20 +0100 2003 - Martin.Quinson@ens-lyon.fr
 
 - Fight lintian warnings (lintian is a tool to check debian packages):
