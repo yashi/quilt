@@ -216,7 +216,9 @@ install : scripts
 
 	@INSTALL@ -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 	@INSTALL@ -m 644 doc/README \
-		  $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	@INSTALL@ -m 644 doc/quilt.pdf \
+		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
 	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
