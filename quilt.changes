@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Sun Sep 12 17:08:31 CEST 2004 - agruen@suse.de
+Sun Sep 12 18:33:07 CEST 2004 - agruen@suse.de
 
 - scripts/inspect.in: Run the RPM %prep section in /var/tmp and
   not in /tmp: the sources can become large.
+- The fork command at some point broke and did not insert the
+  "serial number" in the right place in patch names anymore.
 
 -------------------------------------------------------------------
 Wed Aug 25 13:40:39 CEST 2004 - agruen@suse.de

@@ -70,16 +70,17 @@ if [ $# -eq 1 ]
 then
 	new_patch="$1"
 else
-	set -- $(echo "$top_patch" \
-		 | @SED@ -e 's: :\ :g' -e 's:-\([0-9]\+\)$: \1:')
-	if [ $# -eq 1 ]; then
-		new_patch="$1-2"
-	else
-		new_patch="$1-$[$2+1]"
-	fi
-	base=$(echo $top_patch \
+	base=$(echo "$top_patch" \
 	       | @SED@ -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
-	new_patch="$new_patch${top_patch#$base}"
+	num=$(echo "$base" \
+	      | @SED@ -ne 's:.*\(-[0-9]\+\)$:\1:'p)
+	if [ -n "$num" ]
+	then
+		new_patch="${base:0:${#base}-${#num}}-$((${num:1}+1))"
+	else
+		new_patch="$base-2"
+	fi
+	new_patch="$new_patch${top_patch:${#base}}"
 fi
 
 new_patch=${new_patch#$QUILT_PATCHES/}
