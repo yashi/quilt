@@ -161,8 +161,7 @@ do
 	tar)
 		tar_dir="$dir"
 		[ "$tar_dir" = . ] && tar_dir=
-		tar_file="$dir${dir:+/}$arg1"
-		tar_file="${tar_file#./}"
+		tar_file="$arg1"
 		;;
 	patch)
 		[ -e "$prefix$dir/$QUILT_PATCHES" ] \
