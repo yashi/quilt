@@ -45,7 +45,7 @@ msgstr ""
 "\tDer Patch, zu dem die Dateien hinzugefügt werden sollen."
 
 #: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
-#: ../quilt/push.in:166 ../quilt/remove.in:75
+#: ../quilt/push.in:175 ../quilt/remove.in:75
 msgid "No patch applied"
 msgstr "Kein Patch angewandt"
 
@@ -220,11 +220,11 @@ msgstr "Konnte temporäre Dateien nicht patchen"
 msgid "Cannot change to source directory"
 msgstr "Kann nicht in Quellverzeichnis wechseln"
 
-#: ../quilt/diff.in:298 ../quilt/refresh.in:144
+#: ../quilt/diff.in:292 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr "Diff fehlgeschlagen, Abbruch."
 
-#: ../quilt/diff.in:305
+#: ../quilt/diff.in:299
 msgid "More recent patches modify files in $last_patch."
 msgstr "Später angewandte Patches verändern Dateien von $last_patch."
 
@@ -474,7 +474,7 @@ msgstr ""
 "-v\tViele Meldungen ausgeben.\n"
 "\n"
 
-#: ../quilt/pop.in:83 ../quilt/push.in:82
+#: ../quilt/pop.in:83 ../quilt/push.in:86
 msgid "Patch $stop_at_patch not found in file series"
 msgstr "Patch $stop_at_patch in series-Datei nicht gefunden"
 
@@ -486,15 +486,15 @@ msgstr "Patch $stop_at_patch ist nicht angewandt."
 msgid "No patch removed"
 msgstr "Kein Patch entfernt"
 
-#: ../quilt/pop.in:180 ../quilt/push.in:183
+#: ../quilt/pop.in:180 ../quilt/push.in:192
 msgid "Interrupted by user"
 msgstr "Unterbrechung durch Benutzer"
 
-#: ../quilt/pop.in:189 ../quilt/push.in:192
+#: ../quilt/pop.in:189 ../quilt/push.in:201
 msgid "No patches applied"
 msgstr "Keine Patches angewandt"
 
-#: ../quilt/pop.in:191 ../quilt/push.in:194
+#: ../quilt/pop.in:191 ../quilt/push.in:203
 msgid "Now at patch $patch"
 msgstr "Jetzt in Patch $patch"
 
@@ -525,6 +525,7 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 msgstr "Verwendung: quilt push [-afqv] [--leave-rejects] [num|patch]"
 
 #: ../quilt/push.in:25
+#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -544,7 +545,11 @@ msgid ""
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
 "\tis not actually applied.\n"
-"\t\n"
+"\n"
+"--interactive\n"
+"\tAllow the patch utility to ask hwo to deal with conflicts. If\n"
+"\tthis option is not given, the -f patch optionch will be used.\n"
+"\n"
 msgstr ""
 "\n"
 "\n"
@@ -567,11 +572,11 @@ msgstr ""
 "\tnicht sauber angewandt werden kann.\n"
 "\t\n"
 
-#: ../quilt/push.in:153
+#: ../quilt/push.in:162
 msgid "Patch $stop_at_patch is already applied."
 msgstr "Patch $stop_at_patch ist bereits angewandt."
 
-#: ../quilt/push.in:168
+#: ../quilt/push.in:177
 msgid "File series fully applied, ends at patch $top"
 msgstr "series-Datei vollständig angewandt, endet in Patch $top"
 
@@ -831,7 +836,7 @@ msgstr "Patch $patch angewandt (erzwungen, muß aufgefrischt werden (Refresh))"
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr "Patch $patch läßt sich nicht anwenden (erzwingen mit -f)"
 
-#: ../scripts/apatch.in:181 ../scripts/rpatch.in:238
+#: ../scripts/apatch.in:186 ../scripts/rpatch.in:238
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Der oberste Patch $top muss zuerst aufgefrischt werden (Refresh)."
 

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 
 #: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
-#: ../quilt/push.in:166 ../quilt/remove.in:75
+#: ../quilt/push.in:176 ../quilt/remove.in:75
 msgid "No patch applied"
 msgstr ""
 
@@ -165,11 +165,11 @@ msgstr ""
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:298 ../quilt/refresh.in:144
+#: ../quilt/diff.in:292 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr ""
 
-#: ../quilt/diff.in:305
+#: ../quilt/diff.in:299
 msgid "More recent patches modify files in $last_patch."
 msgstr ""
 
@@ -356,7 +356,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../quilt/pop.in:83 ../quilt/push.in:82
+#: ../quilt/pop.in:83 ../quilt/push.in:87
 msgid "Patch $stop_at_patch not found in file series"
 msgstr ""
 
@@ -368,15 +368,15 @@ msgstr ""
 msgid "No patch removed"
 msgstr ""
 
-#: ../quilt/pop.in:180 ../quilt/push.in:183
+#: ../quilt/pop.in:180 ../quilt/push.in:193
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:189 ../quilt/push.in:192
+#: ../quilt/pop.in:189 ../quilt/push.in:202
 msgid "No patches applied"
 msgstr ""
 
-#: ../quilt/pop.in:191 ../quilt/push.in:194
+#: ../quilt/pop.in:191 ../quilt/push.in:204
 msgid "Now at patch $patch"
 msgstr ""
 
@@ -419,14 +419,19 @@ msgid ""
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
 "\tis not actually applied.\n"
-"\t\n"
+"\n"
+"--interactive\n"
+"\tAllow the patch utility to ask how to deal with conflicts. If\n"
+"\tthis option is not given, the option -f will be passed to the \n"
+"\tpatch program.\n"
+"\n"
 msgstr ""
 
-#: ../quilt/push.in:153
+#: ../quilt/push.in:163
 msgid "Patch $stop_at_patch is already applied."
 msgstr ""
 
-#: ../quilt/push.in:168
+#: ../quilt/push.in:178
 msgid "File series fully applied, ends at patch $top"
 msgstr ""
 
@@ -629,7 +634,7 @@ msgstr ""
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 
-#: ../scripts/apatch.in:181 ../scripts/rpatch.in:238
+#: ../scripts/apatch.in:186 ../scripts/rpatch.in:238
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr ""
 
