@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+
+Source: quilt
+Section: devel
+Priority: optional
+Maintainer: Martin Quinson <mquinson@debian.org>
+Build-Depends: @cdbs@, gettext
+Standards-Version: 3.6.1.0
+
+Package: quilt
+Architecture: any
+Depends: patch, diffstat, bzip2, gettext, gawk, ${shlibs:Depends}
+Suggests: ccache
+Description: Tool to work with series of patches
+ Quilt manages a series of patches by keeping track of the changes
+ each of them makes. They are logically organized as a stack, and you can
+ apply, un-apply, refresh them easily by traveling into the stack (push/pop).
+ .
+ Quilt is good for managing additional patches applied to a package received
+ as a tarball or maintained in another version control system. The stacked
+ organization proved to be efficient for the management of very large patch
+ sets (more than hundred patches). As matter of fact, it was designed by and
+ for linux kernel hackers (Andrew Morton, from the -mm  branch, is the
+ original author), and its main use by the current upstream maintainer is to
+ manage the (hundreds of) patches against the kernel made for the SUSE
+ distribution. 
+ .
+ This package completely integrates into the CDBS, allowing maintainers
+ using this new paradigm for their packaging script to benefit of the quilt
+ comfort when editing their diff against upstream. The package also provide
+ some basic support for the fool not using CDBS (yet).
+ . 
+ http://savannah.nongnu.org/projects/quilt is the current best approximation
+ of an upstream homepage.
