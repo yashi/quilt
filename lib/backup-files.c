@@ -30,6 +30,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 
@@ -37,8 +38,9 @@ const char *progname;
 
 enum { what_backup, what_restore, what_remove };
 
-const char *opt_prefix="", *opt_suffix="", *opt_file=NULL;
-int opt_silent=0, opt_what=what_backup, opt_ignore_missing=0;
+const char *opt_prefix="", *opt_suffix="", *opt_file;
+int opt_silent, opt_what=what_backup, opt_ignore_missing;
+int opt_nolinks;
 
 #define LINE_LENGTH 1024
 
@@ -46,7 +48,7 @@ int opt_silent=0, opt_what=what_backup, opt_ignore_missing=0;
 void
 usage(void)
 {
-	printf("Usage: %s [-B prefix] [-z suffix] [-f {filelist|-}] [-s] [-r|-x] filename ...\n"
+	printf("Usage: %s [-B prefix] [-z suffix] [-f {filelist|-}] [-s] [-r|-x] [-L] filename ...\n"
 	       "\n"
 	       "\tCreate hard linked backup copies of a list of files\n"
 	       "\tread from standard input.\n"
@@ -55,7 +57,8 @@ usage(void)
 	       "\t-x\tRemove backup files and empty parent directories\n"
 	       "\t-B\tPath name prefix for backup files\n"
 	       "\t-z\tPath name suffix for backup files\n"
-	       "\t-s\tSilent operation; only print error messages\n\n",
+	       "\t-s\tSilent operation; only print error messages\n"
+	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n\n",
 	       progname);
 }
 
@@ -99,11 +102,22 @@ remove_parents(char *filename)
 }
 
 static int
-link_or_copy(const char *from, struct stat *st, const char *to)
+copy(int from_fd, int to_fd)
 {
 	char buffer[4096];
-	int from_fd, to_fd, error = 1;
 	size_t len;
+
+	while ((len = read(from_fd, buffer, sizeof(buffer))) > 0) {
+		if ((write(to_fd, buffer, len)) == -1)
+			return 1;
+	}
+	return (len != 0);
+}
+
+static int
+link_or_copy(const char *from, struct stat *st, const char *to)
+{
+	int from_fd, to_fd, error = 1;
 
 	if (link(from, to) == 0)
 		return 0;
@@ -123,15 +137,8 @@ link_or_copy(const char *from, struct stat *st, const char *to)
 		close(from_fd);
 		return 1;
 	}
-	while ((len = read(from_fd, buffer, sizeof(buffer))) > 0) {
-		if ((write(to_fd, buffer, len)) == -1) {
-			perror(to);
-			unlink(to);
-			goto out;
-		}
-	}
-	if (len != 0) {
-		perror(from);
+	if (copy(from_fd, to_fd)) {
+		fprintf(stderr, "%s -> %s: %s\n", from, to, strerror(errno));
 		unlink(to);
 		goto out;
 	}
@@ -142,6 +149,57 @@ out:
 	close(to_fd);
 
 	return error;
+}
+
+static int
+ensure_nolinks(const char *filename)
+{
+	struct stat st;
+
+	if (stat(filename, &st) != 0) {
+		perror(filename);
+		return 1;
+	}
+	if (st.st_nlink > 1) {
+		char *tmpname = malloc(1 + strlen(filename) + 7 + 1), *c;
+		int from_fd = -1, to_fd = -1;
+		int error = 1;
+
+		if (!tmpname)
+			goto fail;
+		from_fd = open(filename, O_RDONLY);
+		if (from_fd == -1)
+			goto fail;
+		
+		/* Temp file name is "path/to/.file.XXXXXX" */
+		strcpy(tmpname, filename);
+		strcat(tmpname, ".XXXXXX");
+		c = strrchr(tmpname, '/');
+		if (c == NULL)
+			c = tmpname;
+		else
+			c++;
+		memmove(c + 1, c, strlen(c));
+		*c = '.';
+		
+		to_fd = mkstemp(tmpname);
+		if (to_fd == -1)
+			goto fail;
+		if (copy(from_fd, to_fd))
+			goto fail;
+		if (rename(tmpname, filename))
+			goto fail;
+
+		error = 0;
+	fail:
+		if (error)
+			perror(filename);
+		free(tmpname);
+		close(from_fd);
+		close(to_fd);
+		return error;
+	} else
+		return 0;
 }
 
 int
@@ -178,8 +236,12 @@ process_file(char *file)
 		} else {
 			if (!opt_silent)
 				printf("Copying %s\n", file);
-			if (link_or_copy(file, &st, backup) != 0)
+			if (link_or_copy(file, &st, backup))
 				return 1;
+			if (opt_nolinks) {
+				if (ensure_nolinks(file))
+					return 1;
+			}
 		}
 		return 0;
 	} else if (opt_what == what_restore) {
@@ -204,8 +266,12 @@ process_file(char *file)
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link_or_copy(backup, &st, file) != 0)
+			if (link_or_copy(backup, &st, file))
 				return 1;
+			if (opt_nolinks) {
+				if (ensure_nolinks(file))
+					return 1;
+			}
 		}
 		if (!(st.st_mode & S_IWUSR)) {
 			/* Change mode of backup file so that we
@@ -225,14 +291,14 @@ process_file(char *file)
 		return 1;
 }
 
-	int
+int
 main(int argc, char *argv[])
 {
 	int opt, status=0;
 	
 	progname = argv[0];
 
-	while ((opt = getopt(argc, argv, "rxB:z:f:shF")) != -1) {
+	while ((opt = getopt(argc, argv, "rxB:z:f:shFL")) != -1) {
 		switch(opt) {
 			case 'r':
 				opt_what = what_restore;
@@ -260,6 +326,10 @@ main(int argc, char *argv[])
 
 			case 's':
 				opt_silent = 1;
+				break;
+
+			case 'L':
+				opt_nolinks = 1;
 				break;
 
 			case 'h':

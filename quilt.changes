@@ -1,13 +1,24 @@
 -------------------------------------------------------------------
-Sat Mar 13 15:16:49 CET 2004 - agruen@suse.de
+Sun Mar 14 00:25:27 CET 2004 - agruen@suse.de
 
 - Add `quilt graph' command for generating a dependency graph
   between patches. This requires the graphviz package for
   removing transitive edges (optional) and for rendering the
   graph. Please note that the graph command itself is minimal,
   while the underlying scripts/dependency-graph is more flexible.
-- Fix an open issue in the patchname filter in
-  scripts/dependency-graph.
+- Complete one more detail in scripts/dependency-graph.
+- Revert `quilt fork' to how it originally worked: fork the
+  *topmost* patch, not the next unapplied patch. Adapt the
+  test suite accordingly.
+- Add flag to backup-files.c to make sure that files in the
+  working tree have a link count of at most one. Use this where
+  appropriate.
+- Fix a bug in `quilt snapshot': Taking snapshots caused files
+  to get link counts bigger than one, so modifying them could
+  cause multiple files to get modified. Speed up the command,
+  too.
+- Update the documentation. Add example1.test from the
+  documentation.
 
 -------------------------------------------------------------------
 Wed Mar 10 10:46:56 CET 2004 - agruen@suse.de

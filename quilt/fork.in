@@ -23,7 +23,7 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-Fork the next patch. If new_name is missing, the name of the
+Fork the topmost patch. If new_name is missing, the name of the
 forked patch will be the current patch name, followed by \"-2\".
 If the patch name already ends in a dash-and-number, the number is
 further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff)."
@@ -58,46 +58,51 @@ then
 	usage
 fi
 
-next_patch="$(patches_after $(top_patch) | head -n 1)"
-if [ -z "$next_patch" ]
+top_patch=$(top_patch)
+if [ -z "$top_patch" ]
 then
-	echo $"All patches applied" >&2
+	echo $"No patches applied" >&2
 	exit 1
 fi
 
 if [ $# -eq 1 ]
 then
-	patch="$1"
+	new_patch="$1"
 else
-	set -- $(echo "$next_patch" \
+	set -- $(echo "$top_patch" \
 		 | @SED@ -e 's: :\ :g' -e 's:-\([0-9]\+\)$: \1:')
 	if [ $# -eq 1 ]; then
-		patch="$1-2"
+		new_patch="$1-2"
 	else
-		patch="$1-$[$2+1]"
+		new_patch="$1-$[$2+1]"
 	fi
-	base=$(echo $next_patch \
+	base=$(echo $top_patch \
 	       | @SED@ -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
-	patch="$patch${next_patch#$base}"
+	new_patch="$new_patch${top_patch#$base}"
 fi
 
-patch=${patch#$QUILT_PATCHES/}
+new_patch=${new_patch#$QUILT_PATCHES/}
 
-if patch_in_series $patch || \
-   [ -e "$(patch_file_name $patch)" ]
+if patch_in_series $new_patch || \
+   [ -d "$QUILT_PC/$new_patch" ] || \
+   [ -e "$(patch_file_name $new_patch)" ]
 then
-	echo $"Patch $patch exists already, please choose a new name"
+	echo $"Patch $new_patch exists already, please choose a new name"
 	exit 1
 fi
 
-if ! rename_in_series "$next_patch" "$patch" || \
-   ! cp -p "$(patch_file_name $next_patch)" "$(patch_file_name $patch)"
+if ! rename_in_db "$top_patch" "$new_patch" || \
+   ! rename_in_series "$top_patch" "$new_patch" || \
+   ! mv "$QUILT_PC/$top_patch" "$QUILT_PC/$new_patch" || \
+   ( [ -e "$(patch_file_name $top_patch)" ] && \
+     ! cp -p "$(patch_file_name $top_patch)" \
+	     "$(patch_file_name $new_patch)" )
 then
-	echo $"Fork of $next_patch to $patch failed" >&2
+	echo $"Fork of $top_patch to $new_patch failed" >&2
 	exit 1
 fi
 
-echo $"Fork of $next_patch created as $patch"
+echo $"Fork of $top_patch created as $new_patch"
 
 ### Local Variables:
 ### mode: shell-script

@@ -101,7 +101,7 @@ do
 		continue
 	fi
 
-	if ! @LIB@/backup-files -s -B $QUILT_PC/$patch/ $SUBDIR$file
+	if ! @LIB@/backup-files -s -L -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
 		echo $"Failed to back up file $SUBDIR$file" >&2
 		status=1
@@ -110,17 +110,6 @@ do
 
 	if [ -e $SUBDIR$file ]
 	then
-		if [ "$(ls -dl $SUBDIR$file | @AWK@ '{print $2}')" -gt 1 ]
-		then
-			# We have a file with several hard links.
-			# As the file may likely be modified by hand
-			# now, create a copy to make sure nothing
-			# happens to the original file.
-			tmpfile=$(gen_tempfile $SUBDIR$file) &&
-			cp -fp $SUBDIR$file $tmpfile &&
-			mv -f $tmpfile $SUBDIR$file
-			rm -f $tmpfile
-		fi
 		# The original tree may be read-only.
 		chmod u+w $SUBDIR$file
 	fi

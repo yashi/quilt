@@ -1,5 +1,5 @@
 %\documentclass[a4paper]{article}
-\documentclass[letter]{article}
+\documentclass{article}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{fancyvrb}
@@ -293,9 +293,9 @@ editor.  If \textsf{EDITOR} is not set, \prog{vi} is used.)
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt new flower.diff}
-Patch flower is now on top
+Patch flower.diff is now on top
 \sh{$ quilt edit Oberon.txt}
-File Oberon.txt added to patch flower
+File Oberon.txt added to patch flower.diff
 \end{Verbatim}
 \end{small}
 
@@ -368,9 +368,9 @@ we remove the patch from the stack with \quilt{pop}:
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt refresh}
-Refreshed patch flower
+Refreshed patch flower.diff
 \sh{$ quilt pop}
-Removing flower
+Removing flower.diff
 Restoring Oberon.txt
 
 No patches applied
@@ -397,11 +397,11 @@ the following result:
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt push}
-Applying flower
+Applying flower.diff
 patching file Oberon.txt
 Hunk #1 FAILED at 2.
 1 out of 1 hunk FAILED -- rejects in file Oberon.txt
-Patch flower does not apply (enforce with -f)
+Patch flower.diff does not apply (enforce with -f)
 \end{Verbatim}
 \end{small}
 
@@ -418,22 +418,22 @@ however.  Here is what happens when force-applying \textsf{flower.diff}:
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt push -f}
-Applying flower
+Applying flower.diff
 patching file Oberon.txt
 Hunk #1 FAILED at 2.
 1 out of 1 hunk FAILED -- saving rejects to file Oberon.txt.rej
-Applied flower (forced; needs refresh)
+Applied flower.diff (forced; needs refresh)
 \end{Verbatim}
 \end{small}
 
-After re-adding the line of verse from \textsf{flower.diff} to
+After re-adding the lines of verse from \textsf{flower.diff} to
 \textsf{Oberon.txt}, we update the patch with \quilt{refresh}.
 
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt edit Oberon.txt}
 \sh{$ quilt refresh}
-Refreshed patch flower
+Refreshed patch flower.diff
 \end{Verbatim}
 \end{small}
 
@@ -468,11 +468,11 @@ With our previous example, we get the following results:
 \begin{small}
 \begin{Verbatim}
 \sh{$ quilt top}
-flower
+flower.diff
 \sh{$ quilt files}
 Oberon.txt
 \sh{$ quilt patches Oberon.txt}
-flower
+flower.diff
 \end{Verbatim}
 \end{small}
 
@@ -527,10 +527,26 @@ creating a copy of a patch (which must not be applied), and updating the
 patch name in the series file.
 
 The \quilt{fork} command simplifies this: it creates a copy of the
-next patch in the series (the one that \quilt{next} reports), and
-updates the series file. Unless a patch name is explicitly specified,
-\quilt{fork} will generate the following sequence of patch names:
-\textsf{patch.diff}, \textsf{patch-2.diff}, \textsf{patch-3.diff}, \dots
+topmost patch in the series, and updates the series file. Unless a patch
+name is explicitly specified, \quilt{fork} will generate the following
+sequence of patch names: \textsf{patch.diff}, \textsf{patch-2.diff},
+\textsf{patch-3.diff},\dots
+
+\subsection{Dependencies}
+\label{sec:dependencies}
+
+When the number of patches in a project grows large, it becomes
+increasingly difficult to find the right place for adding a new patch in
+the patch series. At a certain point, patches will get inserted at the
+end of the patch series, because finding the right place has become too
+complicated. In the long run this leads to more and more mess.
+
+To help keep the big picture, the \quilt{graph} command generates
+\textit{dot} graphs showing the dependencies between patches.  The ouput
+of this command can be visualized using the tools from AT\&T Research's
+Graph Visualization Project (GraphViz, \url{http://www.graphviz.org/}).
+The \quilt{graph} command can generate various different kinds of
+graphs.
 
 \subsection{Advanced Diffing}
 
@@ -618,24 +634,39 @@ the series file in this case.
 
 \section{Customizing Quilt}
 
-The following settings influence how \textit{quilt} behaves:
+The following settings influence how quilt behaves:
 
 \begin{description}
 
-\item[\textsf{QUILT\_PATCHES}]
-The location of patch files (see Section~\ref{sec:basic}).
-This setting defaults to ``\textsf{patches}''.
+\item[\textsf{QUILT\_BACKUP}]
+When set to ``\textsf{yes}'', the \quilt{refresh} command will create
+backup files when refreshing patches. The backup files have
+``\textsc{\~}'' appended to the patch file names.
 
 \item[\textsf{QUILT\_DIFF\_OPTS}]
-Additional options that \textsf{quilt} shall pass to \prog{GNU diff}
-when generating patches. A useful setting for C source code is
+Additional options that quilt shall pass to \prog{GNU diff} when
+generating patches. A useful setting for C source code is
 ``\textsf{-p}'', which causes \prog{GNU diff} to show in the resulting
 patch which function a change is in.
+
+\item[\textsf{QUILT\_NO\_DIFF\_TIMESTAMPS}]
+When set to ``\textsf{yes}'', the \quilt{diff} and \quilt{refresh}
+commands will not include file timestamps in patches.
+
+\item[\textsf{QUILT\_PATCH\_OPTS}]
+Additional options that quilt shall pass to \prog{GNU patch} when
+applying patches. (For example, some versions of \prog{GNU patch}
+support the ``\textsf{--unified-reject-files}'' option for generating
+reject files in unified diff style.
+
+\item[\textsf{QUILT\_PATCHES}]
+The location of patch files (see Section~\ref{sec:basic}).  This setting
+defaults to ``\textsf{patches}''.
 
 \end{description}
 
 These settings can either be defined in the environment, or in the file
-\textsf{.quiltrc} in a user's home directory. \textsf{.quiltrc} is a
+\textsf{.quiltrc} in user home directories. \textsf{.quiltrc} is a
 \prog{bash} script.
 
 \section{Pitfalls and Known Problems}

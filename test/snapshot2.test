@@ -17,16 +17,8 @@
 	$ quilt refresh
 	> Refreshed patch snapshot
 	$ quilt snapshot
-	$ quilt pop -q
-	> Removing snapshot
-	> No patches applied
-
 	$ quilt fork
 	> Fork of snapshot created as snapshot-2
-
-	$ quilt push -q
-	> Applying snapshot-2
-	> Now at patch snapshot-2
 
 	$ quilt remove g.txt
 	> File d/g.txt removed from patch snapshot-2

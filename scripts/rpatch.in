@@ -130,7 +130,8 @@ rpatch()
 	then
 		echo $"Removing $patch"
 		rm -f "$QUILT_PC/$patch/.timestamp"
-		@LIB@/backup-files $silent -f $pc_file -B $QUILT_PC/$patch/ -r
+		@LIB@/backup-files $silent -r -L -f $pc_file \
+				   -B $QUILT_PC/$patch/
 		status=$?
 		remove_from_db $patch
 		rm -f $QUILT_PC/$patch~refresh

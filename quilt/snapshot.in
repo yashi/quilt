@@ -75,28 +75,17 @@ then
 fi
 
 # Save current working state
-for patch in $(applied_patches | tac)
-do
-	for file in $(files_in_patch $patch)
-	do
-		if ! [ -e "$QUILT_PC/$snap_subdir/$file" ]
-		then
-			mkdir -p "$QUILT_PC/$snap_subdir/$(dirname $file)"
-			if [ -e "$file" ]
-			then
-				ln "$file" "$QUILT_PC/$snap_subdir/$file"
-			else
-				touch "$QUILT_PC/$snap_subdir/$file"
-			fi
-		fi
-	done
-done
-
-# Now we may have some zero-size files that have no permissions
-# (which represent files that the patch creates). Those may have
-# been created in the meantime, but patch would refuse to touch
-# them: We must remove them here.
-find $QUILT_PC/$snap_subdir -type f -size 0 -exec rm -f '{}' ';'
+for patch in $(applied_patches); do
+	files_in_patch $patch
+done \
+| awk ' # filter out duplicates
+	{ if (seen[$0])
+	      next
+	  seen[$0] = 1
+	}
+	{ print }
+' \
+| @LIB@/backup-files -s -L -f - -B "$QUILT_PC/$snap_subdir/"
 
 ### Local Variables:
 ### mode: shell-script
