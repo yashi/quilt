@@ -58,6 +58,13 @@ fi
 
 patch=${1#$QUILT_PATCHES/}
 
+if [ -n "$SUBDIR" ]
+then
+	echo $"Warning: directory $(echo $SUBDIR | sed -e 's:[^/]\+:..:g')$QUILT_PATCHES exists; ignoring"
+	cd $SUBDIR
+	unset SUBDIR
+fi
+
 if patch_in_series $patch
 then
 	echo $"Patch $patch exists already"

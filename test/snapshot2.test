@@ -1,8 +1,9 @@
-	$ mkdir -p d/patches d/d
-	$ cd d/d
-
+	$ mkdir -p d/d
+	$ cd d
 	$ quilt new snapshot
 	> Patch snapshot is now on top
+
+	$ cd d
 	$ quilt add f.txt
 	> File d/f.txt added to patch snapshot
 	$ cat > f.txt

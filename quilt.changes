@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Fri Feb 20 14:30:11 CET 2004 - agruen@suse.de
+
+- Sub-directory support:
+  + Fix another bug that triggers when /patches exists.
+  + Working in sub-directories: Force `quilt new' to always create
+    the new patch in the current working directory even if there
+    is a patches/ sub-directory further up the directory tree. 
+    This should restore the behavior from before Jan 28 very well.
+- quilt files, diff, refresh: Sort the files in the patch
+  alphabetically.
+
+-------------------------------------------------------------------
 Sun Feb 15 15:53:42 CET 2004 - agruen@suse.de
 
 - Never fail when patching temporary files in `quilt diff -z',

@@ -6,13 +6,13 @@ Regression test: Quilt did reorder files in patches.
 	$ echo one > g
 	$ mkdir patches
 	$ cat > patches/test.diff
-	< --- g.orig	2003-04-09 01:48:01.000000000 +0200
-	< +++ g	2003-04-09 01:49:17.000000000 +0200
+	< --- g.orig
+	< +++ g
 	< @@ -1 +1 @@
 	< -one
 	< +two
-	< --- f.orig	2003-04-09 01:48:01.000000000 +0200
-	< +++ f	2003-04-09 01:49:17.000000000 +0200
+	< --- f.orig
+	< +++ f
 	< @@ -1 +1 @@
 	< -one
 	< +two
@@ -30,8 +30,8 @@ Regression test: Quilt did reorder files in patches.
 	$ echo one > h
 	$ sleep 2
 	$ cat >> patches/test.diff
-	< --- h.orig	2003-04-09 01:48:01.000000000 +0200
-	< +++ h	2003-04-09 01:49:17.000000000 +0200
+	< --- h.orig
+	< +++ h
 	< @@ -1 +1 @@
 	< -one
 	< +two
@@ -41,9 +41,16 @@ Regression test: Quilt did reorder files in patches.
 	> Now at patch test.diff
 
 	$ quilt files
-	> g
 	> f
+	> g
 	> h
+
+	$ quilt refresh
+	> Refreshed patch test.diff
+	$ grep "^+++ " patches/test.diff
+	> +++ f
+	> +++ g
+	> +++ h
 
 	$ cd ..
 	$ rm -rf d

@@ -1,12 +1,13 @@
 (To run, type `./run two.test' in this directory.)
 
-	$ mkdir -p d/patches d/d
-	$ cd d/d
-	$ mkdir dir
-	$ echo "This is file one." > dir/file1
+	$ mkdir -p d/d
+	$ cd d
 	$ quilt new patch1.diff
 	> Patch patch1.diff is now on top
 
+	$ cd d
+	$ mkdir dir
+	$ echo "This is file one." > dir/file1
 	$ quilt add dir/file1
 	> File d/dir/file1 added to patch patch1.diff
 
@@ -64,9 +65,11 @@
 	$ quilt refresh
 	> Refreshed patch patch1.diff
 
+	$ cd ..
 	$ quilt new patch2.diff
 	> Patch patch2.diff is now on top
 
+	$ cd d
 	$ quilt add dir/file3
 	> File d/dir/file3 added to patch patch2.diff
 
@@ -96,9 +99,11 @@
 	>
 	> Now at patch patch2.diff
 
+	$ cd ..
 	$ quilt new subdir/patch3.diff
 	> Patch subdir/patch3.diff is now on top
 
+	$ cd d
 	$ quilt add file4
 	> File d/file4 added to patch subdir/patch3.diff
 

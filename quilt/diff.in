@@ -226,7 +226,7 @@ fi
 
 for patch in ${patches[@]}
 do
-	for file in $(files_in_patch $patch)
+	for file in $(files_in_patch $patch | sort)
 	do
 		if [ ${#opt_files[@]} -gt 0 ] && \
 		   ! in_array "$file" "${opt_files[@]#./}"

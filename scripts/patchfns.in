@@ -43,9 +43,9 @@ then
 	if [ -d "$basedir/$QUILT_PATCHES" ]
 	then
 	    SUBDIR="${PWD#$basedir/}/"
-	    if ! cd $basedir
+	    if ! cd $basedir/
 	    then
-		echo "Cannot change into parent directory $basedir" >&2
+		echo "Cannot change into parent directory $basedir/" >&2
 		exit 1
 	    fi
 	    break

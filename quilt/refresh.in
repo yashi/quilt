@@ -128,7 +128,7 @@ trap "die 1" SIGTERM
 
 tmpfile=$(gen_tempfile)
 
-for file in $(files_in_patch $patch)
+for file in $(files_in_patch $patch | sort)
 do
 	old_file=$(backup_file_name $patch $file)
 	next_patch=$(next_patch_for_file $patch $file)
