@@ -86,6 +86,12 @@ quilt setup:
 	
 	- spec2series also prints -p1; omit.
 
+quilt patches:
+
+	- Add something so that it's possible to show a list of all
+	  patches, with those patches marked that modify the
+	  specified file.
+
 rpatch:
 
 	- If not removing the topmost patch, add checks if any files are
