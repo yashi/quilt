@@ -43,11 +43,6 @@ scan_patches()
 	shift 2
 	local patch
 
-	if [ $# -eq 0 ]
-	then
-		return 0
-	fi
-	
 	for patch in $(modified_files $file -- "$@" \
 		       | cut -d $'\t' -f2)
 	do
@@ -97,9 +92,18 @@ fi
 if [ -n "$opt_verbose" ]
 then
 	top=$(top_patch)
-	scan_patches "+ " $opt_file $(patches_before $top)
-	scan_patches "= " $opt_file $top
-	scan_patches "  " $opt_file $(patches_after $top)
+	if [ -n "$top" ]
+	then
+		patches_before="$(patches_before $top)"
+		[ -n "$patches_before" ] &&
+			scan_patches "+ " $opt_file $patches_before
+		scan_patches "= " $opt_file $top
+		patches_after="$(patches_after $top)"
+		[ -n "$patches_after" ] &&
+			scan_patches "  " $opt_file $(patches_after $top)
+	else
+		scan_patches "  " $opt_file
+	fi
 else
 	scan_patches "" $opt_file
 fi
