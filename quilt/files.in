@@ -23,12 +23,9 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Print the list of files that the topmost or specified patch changes.
 
--v	Verbose, more user friendly output.
-
-"
+-v	Verbose, more user friendly output."
 		exit 0
 	else
 		exit 1

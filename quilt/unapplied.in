@@ -23,13 +23,10 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Print a list of patches that are not applied, or all patches that follow
 the specified patch in the series file.
 
--n	Print patch file names instead of patch names.
-
-"
+-n	Print patch file names instead of patch names."
 		exit 0
 	else
 		exit 1

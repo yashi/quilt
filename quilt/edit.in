@@ -14,10 +14,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Edit the specified file(s) in $EDITOR after adding it (them) to the
-topmost patch.
-"
+topmost patch."
 		exit 0
 	else
 		exit 1

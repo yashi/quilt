@@ -23,7 +23,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Initializes a source tree from a patch series file.  The patch series
 file must contain the name of the relevant tar archive, in addition to
 the list of patches.
@@ -32,8 +31,7 @@ the list of patches.
 	to the directory of the series/spec file.
 
 -l	Make the patches directory a symbolic link. If a series file is
-	specified, also create a symlink to the series file.
-"
+	specified, also create a symlink to the series file."
 		exit 0
 	else
 		exit 1

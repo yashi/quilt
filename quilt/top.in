@@ -23,11 +23,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Print the name of the topmost patch on the current stack of applied
-patches.
-
-"
+patches."
 		exit 0
 	else
 		exit 1

@@ -23,12 +23,9 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Take a snapshot of the current working state.
 
--d	Remove current snapshot.
-
-"
+-d	Remove current snapshot."
 		exit 0
 	else
 		exit 1

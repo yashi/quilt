@@ -23,7 +23,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Apply patch(es) from the series file.  A number of patches to apply, or
 a patch name can be specified.  If a patch name is given, apply all
 patches up to and including the named patch.  If neither a number nor a
@@ -44,9 +43,7 @@ patch name is specified, apply the next patch from the series file.
 --interactive
 	Allow the patch utility to ask how to deal with conflicts. If
 	this option is not given, the option -f will be passed to the 
-	patch program.
-
-"
+	patch program."
 		exit 0
 	else
 		exit 1

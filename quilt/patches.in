@@ -23,16 +23,13 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Print the list of patches that modify the specified file. (Uses a
 heuristic to determine which files are modified by unapplied patches.
 Note that this heuristic is much slower than scanning applied patches.)
 
 -n	Print the patch file names instead of the patch names.
 
--v	Verbose, more user friendly output.
-
-"
+-v	Verbose, more user friendly output."
 		exit 0
 	else
 		exit 1

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jan 31 14:05:22 CET 2004 - agruen@suse.de
+
+- Fix generating doc/README after subdirectory support broke it.
+- Remove excessive newlines in -h messages.
+
+-------------------------------------------------------------------
 Wed Jan 28 02:42:40 CET 2004 - agruen@suse.de
 
 - Fix bugs introduced while merging Chris's patch.

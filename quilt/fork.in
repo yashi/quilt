@@ -26,8 +26,7 @@ usage()
 Fork the next patch. If new_name is missing, the name of the
 forked patch will be the current patch name, followed by \"-2\".
 If the patch name already ends in a dash-and-number, the number is
-further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).
-"
+further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff)."
 		exit 0
 	else
 		exit 1

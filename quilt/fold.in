@@ -23,7 +23,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Integrate the patch read from standard input into the topmost patch:
 After making sure that all files modified are part of the topmost
 patch, the patch is applied with the specified strip level (which

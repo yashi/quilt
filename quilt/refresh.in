@@ -29,7 +29,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Refreshes the specified patch, or the topmost patch by default.
 Documentation that comes before the actual patch in the patch file is
 retained.
@@ -45,9 +44,7 @@ patch.
 -p n	Create a -p n style patch (-p0 or -p1 supported).
 	
 -f	Force refresh, even if more recent patches modify
-	some of the same files.
-
-"
+	some of the same files."
 		exit 0
 	else
 		exit 1

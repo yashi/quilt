@@ -23,7 +23,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Add one or more files to the topmost or named patch.  Files must be
 added to the patch before being modified.  Files that are modified by
 patches on top of the specified patch cannot be added.

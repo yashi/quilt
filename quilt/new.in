@@ -23,11 +23,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Create a new patch with the specified file name, and insert it after the
-topmost patch in the patch series file.
-
-"
+topmost patch in the patch series file."
 		exit 0
 	else
 		exit 1

@@ -125,14 +125,15 @@ doc/README : doc/README.in
 	done 2>&1 < $< > $@
 
 .PHONY :: reference
-reference : $(QUILT:%=quilt/%)
-	@for i in $+; \
+reference : $(QUILT:%=quilt/%) scripts/patchfns
+	@dir=$(CURDIR); \
+	for i in $(filter-out scripts/patchfns,$+); \
 	do \
-		echo "$$i >> README" >&2; \
 		echo; \
-		(bash -c ". scripts/patchfns ;LC_ALL=C . $$i -h"); \
+		(bash -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
+		echo; \
 	done | \
-	sed -e 's/^Usage: \?//' -e 's/^/  /'
+	sed -e '/^Usage:/{s/^Usage: \?//;b}' -e '/^$$/!s/^/  /'
 
 bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
@@ -174,7 +175,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	| scripts/parse-patch -u changelog $@
 
 % : %.in
-	@echo "$< -> $@"
+	@echo "$< -> $@" >&2
 	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
 	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
 	     -e 's:@SCRIPTS''@:$(SCRIPTS_DIR):g' \

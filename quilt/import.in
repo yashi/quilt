@@ -23,7 +23,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Import an external patch.  If a patch file name is specified, the patch
 will be stored in this relative path in the patches/ directory.  Else,
 if an input file name is given this name is used as the patch name.
@@ -34,9 +33,7 @@ if an input file name is given this name is used as the patch name.
 -n patch
 	File name relative to patches/ to use.
 
--f	Overwite/update existing patches.
-
-"
+-f	Overwite/update existing patches."
 		exit 0
 	else
 		exit 1

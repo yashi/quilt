@@ -23,14 +23,11 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Remove one or more files from the topmost or named patch.  Files that
 are modified by patches on top of the specified patch cannot be removed.
 
 -p patch
-	Patch to remove files from.
-
-"
+	Patch to remove files from."
 		exit 0
 	else
 		exit 1

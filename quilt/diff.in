@@ -29,7 +29,6 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Produces a diff of the specified file(s) in the topmost or specified
 patch.  If no files are specified, all files that are modified are
 included.
@@ -52,9 +51,7 @@ included.
 
 --diff=utility
 	Use the specified utility for generating the diff. The utility
-	is invoked with the original and new file name as arguments.
-
-"
+	is invoked with the original and new file name as arguments."
 		exit 0
 	else
 		exit 1

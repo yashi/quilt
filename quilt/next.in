@@ -23,13 +23,10 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-
 Print the name of the next patch after the specified or topmost patch in
 the series file.
 
--n	Print patch file names instead of patch names.
-
-"
+-n	Print patch file names instead of patch names."
 		exit 0
 	else
 		exit 1
