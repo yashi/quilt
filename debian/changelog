@@ -1,3 +1,15 @@
+quilt (0.21-2) unstable; urgency=low
+
+  * Fight lintian warnings and error: 
+    - Format copyright file properly
+    - Don't depend on essential packages
+    - Change Build-Depends-Indep: to Build-Depends: since the package is
+      now arch-dependent. 
+    - Update to lastest standards
+  * The documentation did move one more time.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 31 Jan 2003 09:21:03 +0100
+
 quilt (0.21-1) unstable; urgency=low
 
   * New upstream release.
