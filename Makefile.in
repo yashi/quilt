@@ -75,7 +75,7 @@ LIB :=		backup-files
 SRC +=		$(LIB_SRC:%=lib/%)
 DIRT +=		lib/backup-files lib/backup-files.o
 
-DOC_IN :=	README
+DOC_IN :=	README 
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
@@ -83,7 +83,7 @@ SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
 		doc/sample.quiltrc
 DIRT +=		$(DOC_IN:%=doc/%)
 
-MAN1 :=		bin/guards.1
+MAN1 :=		bin/guards.1 doc/quilt.1
 
 #DEBIAN :=	changelog control copyright rules 
 #
@@ -112,7 +112,7 @@ rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
 
 doc/README : doc/README.in
-	@echo README.in -> README
+	@echo "README.in -> README"
 	@while read line; do \
 		case "$$line" in \
 		'@REFERENCE''@') \
@@ -122,6 +122,32 @@ doc/README : doc/README.in
 			echo $$line \
 			;; \
 		esac ; \
+	done 2>&1 < $< > $@
+	
+doc/quilt.1: doc/quilt.1.in
+	@echo "quilt.1.in -> quilt.1"
+	@while read line; do                             \
+	  case "$$line" in                               \
+	    '@REFERENCE''@')                             \
+	       for cmd in $(QUILT:%=quilt/%) ; do        \
+		(bash -c ". scripts/patchfns ; LC_ALL=C . $$cmd -h")| \
+		   sed -e 's/Usage: quilt //'            \
+	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
+		       -e 's/^/.IP "/' -e 's/$$/ " 4/' | \
+	           head -n 1;                            \
+	         echo ;                                  \
+		(bash -c ". scripts/patchfns ; LC_ALL=C . $$cmd -h")| \
+	         grep -v 'Usage: quilt' |                \
+	           sed -e 's/^\t//'                      \
+	               -e 's/\t/\n/' |                   \
+	 	   sed -e 's/^\(-.*\)$$/.IP "    \1" 8/';\
+	         echo;                                   \
+	       done                                      \
+	     ;;                                          \
+	     *)                                          \
+	       echo "$$line"                             \
+	     ;;                                          \
+	   esac ;                                        \
 	done 2>&1 < $< > $@
 
 .PHONY :: reference

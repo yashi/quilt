@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun, 22 Feb 2004 16:04:36 -0800 - martin.quinson@tuxfamily.org
+
+- Add a man page (generated automatically from -h)
+
+-------------------------------------------------------------------
 Sat Feb 21 15:20:57 CET 2004 - agruen@suse.de
 
 - Sub-directory support: `quilt setup' could get confused, too.
