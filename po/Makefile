@@ -14,7 +14,8 @@ all: $(LINGUAS:%=%.mo)
 
 %.po : quilt.pot
 	msgmerge -o $@ $@ $^
-
+	msgfmt --statistics -o /dev/null $@
+	
 quilt.pot: $(QUILT_IN:%=../quilt/%.in) $(SCRIPTS_IN:%=../scripts/%.in) ../bin/quilt.in
 	rm -f quilt.pot; touch quilt.pot
 	for file in $+ ; do \
