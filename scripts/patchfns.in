@@ -140,12 +140,11 @@ change_db_strip_level()
 			}
 			{ print }
 		' $SERIES > $tmpfile
-		if cmp $SERIES $tmpfile >/dev/null 2>/dev/null
+		if ! cmp $SERIES $tmpfile >/dev/null 2>/dev/null
 		then
-			rm -f $tmpfile
-		else
-			mv -f $tmpfile $SERIES
+			cat $tmpfile > $SERIES
 		fi
+		rm -f $tmpfile
 	else
 		return 1
 	fi
@@ -190,13 +189,14 @@ insert_in_series()
 			return 1
 		fi
 	else
-		echo $patch$patch_args > $tmpfile
+		echo "$patch$patch_args" > $tmpfile
 		if [ -e $SERIES ]
 		then
 			cat $SERIES >> $tmpfile
 		fi
 	fi
-	mv -f $tmpfile $SERIES
+	cat $tmpfile > $SERIES
+	rm -f $tmpfile
 }
 
 remove_from_series()
@@ -208,13 +208,13 @@ remove_from_series()
 	! /^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 				{ print }
 	' $SERIES > $tmpfile
-	if [ $? -eq 0 ]
+	if [ $? -ne 0 ]
 	then
-		mv -f $tmpfile $SERIES
-	else
 		rm -f $tmpfile
 	   	return 1
 	fi
+	cat $tmpfile > $SERIES
+	rm -f $tmpfile
 }
 
 rename_in_series()
@@ -230,13 +230,13 @@ rename_in_series()
 		{ print }
 	END	{ exit(! good) }
 	' $SERIES > $tmpfile
-	if [ $? -eq 0 ]
+	if [ $? -ne 0 ]
 	then
-		mv -f $tmpfile $SERIES
-	else
 		rm -f $tmpfile
 		return 1
 	fi
+	cat $tmpfile > $SERIES
+	rm -f $tmpfile
 }
 
 pc_file_name()
