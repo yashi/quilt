@@ -84,6 +84,7 @@ SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
+DIRT +=		$(MAN1)
 
 #DEBIAN :=	changelog control copyright rules 
 #

@@ -6,6 +6,15 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+#
+# Guards:
+#
+# +xxx   include if xxx is defined
+# -xxx   exclude if xxx is defined
+# +!xxx  include if xxx is not defined
+# -!xxx  exclude if xxx is not defined
+#
+
 use FileHandle;
 use Getopt::Long;
 use strict;
@@ -36,7 +45,7 @@ sub files_in($$) {
     opendir $dh, length("$dir$path") ? "$dir$path" : '.'
 	or die "$dir$path: $!\n";
     while ($file = readdir($dh)) {
-	next if $file =~ /^(\.|\.\.|\.#.*|CVS)$/;
+	next if $file =~ /^(\.|\.\.|\.#.*|CVS|.*~)$/;
 	if (-d "$dir$path$file") {
 		@files = (@files, files_in($dir, "$path$file/"));
 	} else {
@@ -54,30 +63,34 @@ sub files_in($$) {
 sub parse($$) {
     my ($fh, $callback) = @_;
 
-    my $mode = 0;
+    my $line = "";
 
     while (<$fh>) {
-        my @guards = ();
+	chomp;
 	s/(^|\s+)#.*//;
-	foreach my $token (split) {
+	if (s/\\$/ /) {
+		$line .= $_;
+		next;
+	}
+	$line .= $_;
+        my @guards = ();
+	foreach my $token (split /[\s\t\n]+/, $line) {
+	    next if $token eq "";
 	    if ($token =~ /^[-+]/) {
-		if ($mode == 1) {
-		    @guards = ();
-		    $mode = 0;
-		}
 		push @guards, $token;
 	    } else {
-		$mode = 1;
-		#print "[" . join(",", @guards) . "] $patch\n";
+		#print "[" . join(",", @guards) . "] $token\n";
 		&$callback($token, @guards);
 	    }
 	}
+	$line = "";
     }
 }
 
 # Command line options
 #
-my ($dir, $config, $default, $check) = ('', '-', 1, 0);
+my ($dir, $config, $default, $check, $list, $invert_match) =
+   (  '',     '-',        1,      0,     0,             0);
 my @path;
 
 # Help text
@@ -85,7 +98,8 @@ my @path;
 sub help() {
     print "$0 - select from a list of files guarded by conditions\n";
     print "SYNOPSIS: $0 [--prefix=dir] [--path=dir1:dir2:...]\n" .
-	"	[--default=0|1] [--check] [--config=file] symbol ...\n\n" .
+	"	[--default=0|1] [--check|--list] [--config=file] " .
+							"symbol ...\n\n" .
 	"	(Default values: --path='" . join(':', @path) . "', " .
 		"--default=$default)\n";
     exit 0;
@@ -99,8 +113,10 @@ eval {
 	'd|prefix=s' => \$dir,
 	'c|config=s' => \$config,
 	'C|check' => \$check,
+	'l|list' => \$list,
 	'p|path=s' => \@path,
 	'D|default=i' => \$default,
+	'v|invert-match' => \$invert_match,
 	'h|help' => sub { help(); exit 0; })) {
 	help();
 	exit 1;
@@ -148,12 +164,22 @@ if ($check) {
     while (($file, $ref) = each %files) {
 	next if $ref == 1;
 
-	print "Unused: $file\n" if $ref == 0;
-	print "Multiple uses: $file\n" if $ref > 1;
-        $problems++;
+	if ($ref == 0) {
+	    print "Unused: $file\n" if $ref == 0;
+	    $problems++;
+	}
+	if ($ref > 1) {
+	    print "Warning: multiple uses: $file\n" if $ref > 1;
+	    # This is not an error if the entries are mutually exclusive...
+	}
     }
     exit $problems ? 1 : 0;
 
+} elsif ($list) {
+    parse($fh, sub {
+	my ($patch, @guards) = @_;
+	print "$dir$patch\n";
+	});
 } else {
     # Generate a list of patches to apply.
 
@@ -185,7 +211,7 @@ if ($check) {
 	}
 
 	print "$dir$patch\n"
-	    if $selected;
+	    if $selected ^ $invert_match;
 	});
 
     $fh->close();
@@ -201,8 +227,8 @@ guards - select from a list of files guarded by conditions
 
 =head1 SYNOPSIS
 
-F<guards> [--prefix=F<dir>] [--path=F<dir2:dir2:...>]
-	  [--default=I<0>|I<1>] [--check] [--config=F<file>]
+F<guards> [--prefix=F<dir>] [--path=F<dir2:dir2:...>] [--default=I<0>|I<1>]
+	  [-v|--invert-match] [--list|--check] [--config=F<file>]
 	  I<symbol> ...
 
 =head1 DESCRIPTION
@@ -243,4 +269,3 @@ I<--prefix> option specifies the location of the files.
 =head1 AUTHOR
 
 Andreas Gruenbacher <agruen@suse.de> (SuSE Linux AG)
-
