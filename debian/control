@@ -5,11 +5,11 @@ Section: devel
 Priority: optional
 Maintainer: Martin Quinson <martin.quinson@ens-lyon.fr>
 Build-Depends: debhelper (>> 3.0.0), cdbs
-Standards-Version: 3.5.8.0
+Standards-Version: 3.6.1.0
 
 Package: quilt
 Architecture: any
-Depends: patch, diffstat, bzip2, gettext
+Depends: bash, patch, diffstat, bzip2, gettext
 Suggests: ccache
 Description: Scripts for working with series of patches
  The scripts allow to manage a series of patches by keeping track of the
