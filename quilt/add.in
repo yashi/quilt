@@ -36,6 +36,30 @@ patches already applied on top of the specified patch cannot be added.
 	fi
 }
 
+in_valid_dir()
+{
+	local p=$1 path
+
+	path=${p%/*}
+	while [ "$p" != "$path" ]
+	do
+		if [ "$path" -ef "$QUILT_PATCHES" ]
+		then
+			printf $"File \`%s' is located below \`%s'\n" \
+			       "$1" "$QUILT_PATCHES/"
+			return 1
+		fi
+		if [ "$path" -ef "$QUILT_PC" ]
+		then
+			printf $"File \`%s' is located below \`%s'\n" \
+			       "$1" "$QUILT_PC/"
+			return 1
+		fi
+		p=$path
+		path=${path%/*}
+	done
+}
+
 options=`getopt -o p:h -- "$@"`
 
 if [ $? -ne 0 ]
@@ -87,6 +111,11 @@ fi
 status=0
 for file in $*
 do
+	if ! in_valid_dir $SUBDIR$file
+	then
+		status=1
+		continue
+	fi
 	if file_in_patch $SUBDIR$file $patch
 	then
 		printf $"File %s is already in patch %s\n" \

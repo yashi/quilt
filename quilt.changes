@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Feb 18 11:01:57 CET 2005 - agruen@suse.de
+
+- quilt add: Add check to ensure that no files below patches/
+  or .pc/ will be added.
+
+-------------------------------------------------------------------
 Thu Feb 10 12:02:21 CET 2005 - agruen@suse.de
 
 - quilt remove: Update restored file's timestamp. Also, some uses
