@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar  7 09:20:14 CET 2005 - agruen@suse.de
+
+- Another Japanese translation update from Yasushi SHOJI.
+
+-------------------------------------------------------------------
 Sun Mar  6 22:56:12 CET 2005 - agruen@suse.de
 
 - Add `graph', `grep' and `mail' to QUILT_IN in po/Makefile.
