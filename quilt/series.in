@@ -41,7 +41,7 @@ cat_patches()
 
 	for patch in "$@"
 	do
-		echo "$prefix$(print_patch $patch)"
+		echo "$prefix$(print_patch "$patch")"
 	done
 }
 
@@ -82,7 +82,7 @@ then
 	[ -n "$top" ] && cat_patches "= " $top
 	cat_patches "  " $(patches_after $top)
 else
-	cat_series
+	cat_patches "" $(cat_series)
 fi
 ### Local Variables:
 ### mode: shell-script

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep 21 15:39:09 CEST 2004 - agruen@suse.de
+
+- Series command: add missing paths to patches if
+  $QUILT_PATCHES_PREFIX is set.
+- test/run script: Add export and unset statements.
+
+-------------------------------------------------------------------
 Tue Sep 14 01:00:43 CEST 2004 - agruen@suse.de
 
 - bin/quilt.in: Add optional verbose modifier to --trace option
