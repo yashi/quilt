@@ -260,9 +260,12 @@ then
 			# If a patch was force applied (and therefore needs
 			# refreshing), we know that patching the temporary
 			# files won't succeed, either. So, ignore the error
-			# in that particular case.
+			# in that particular case. Also, generating a
+			# relative diff for a subset of files in the patch
+			# will fail.
 			
-			if ! [ -e $pwd/.pc/$last_patch~refresh ]
+			if ! [ -e $pwd/.pc/$last_patch~refresh -a \
+			       ${#opt_files[@]} -eq 0 ]
 			then
 				echo $"Failed to patch temporary files"
 				die 1

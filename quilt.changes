@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Nov 24 13:23:39 CET 2003 - agruen@suse.de
+
+- Error check for `quilt diff -z filelist' was too strict; relax.
+
+-------------------------------------------------------------------
 Mon Nov 17 20:31:36 CET 2003 - agruen@suse.de
 
 - Add new command `quilt fold' to fold one patch into another.
