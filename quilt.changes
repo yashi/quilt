@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jan 23 19:27:17 CET 2005 - agruen@suse.de
+
+- Add color support for push command output and allow to customize
+  colors via the QUILT_COLORS environment variable (for reverse
+  video, etc.).
+
+-------------------------------------------------------------------
 Sun Jan 23 05:03:08 CET 2005 - agruen@suse.de
 
 - Add mail command, doc/README.MAIL and example ``mail'' command

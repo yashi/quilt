@@ -15,15 +15,15 @@ General:
 	- Support different diff/patch options for different patches.
 	  (By specifying them in the series file?)
 
-	- Syntax coloring: Allow to change the colors (for reverse video,
-	  ...)
-
 	- Add command that generates a summary (patch names + descriptions).
 
 	- Add command to extract a header.
 
 	- Add more long-form options, and add some nagative options so that
 	  defaults from .quiltrc can easily be overruled.
+
+	- series.conf: Allow to specify options like -R, -u, -Unum, -c,
+	  -Cnum per patch.
 
 Documentation:
 
@@ -41,7 +41,9 @@ quilt push:
 	
 	- Add option to print the reject to stdout
 
-	- Syntax color patch output (fuzz and rejects)
+	- If push fails, check if patch can be reversed.
+
+	- Add -l option to ignore whitespace changes.
 
 quilt pop:
 	
@@ -52,6 +54,8 @@ quilt diff:
 	
 	- Error message when a file is specified that isn't in the
 	  patch(es).
+
+	- When a directory is specified, diff all files below it.
 
 quilt refresh:
 
@@ -81,6 +85,10 @@ quit edit:
 
 	- Check for actual changes, and remove files again that haven't been
 	  changed.
+
+quilt files:
+
+	- Print filenames relative to the working directory.
 
 quilt mail:
 

@@ -6,6 +6,7 @@ QUILT_DIFF_OPTS="--show-c-function"
 #QUILT_PATCH_OPTS="--ignore-whitespace"
 
 # Options to pass to commands (QUILT_${COMMAND}_ARGS)
+QUILT_PUSH_ARGS="--color=auto"
 QUILT_DIFF_ARGS="--no-timestamps --color=auto"
 QUILT_REFRESH_ARGS="--no-timestamps --backup"
 
