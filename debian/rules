@@ -1,92 +1,14 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+# $Id: rules,v 1.9 2003/11/20 10:51:31 mquinson Exp $
 
-# This is the debhelper compatibility version to use.
-export DH_COMPAT=3
+# Import Common Debian Build System (CDBS).
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
 
+# installing under debian/tmp...
+DEB_MAKE_ENVVARS := BUILD_ROOT=$(CURDIR)/debian/tmp LC_ALL=C
 
+# ... and moving it to the right dir using dh_install
+DEB_DH_INSTALL_SOURCEDIR := debian/tmp
 
-ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -g
-endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	INSTALL_PROGRAM += -s
-endif
-
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	# Add here commands to configure the package.
-	autoconf
-	./configure --prefix=/usr --with-bash=/bin/bash
-
-	touch configure-stamp
-
-
-build: build-stamp
-
-build-stamp: configure-stamp 
-	dh_testdir
-
-	# Add here commands to compile the package.
-	#/usr/bin/docbook-to-man debian/patchstack.sgml > patchstack.1
-	LC_ALL=C $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt
-
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-
-	# Add here commands to clean up after the build process.
-	-test -f Makefile && touch Makefile && $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt distclean
-
-	dh_clean
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
-
-	# Add here commands to install the package into debian/patchstack.
-	LC_ALL=C $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt install
-	mkdir debian/quilt/usr/include
-	cp debian/debquilt.mk debian/quilt/usr/include
-	mv debian/quilt/usr/share/doc/quilt-*/ debian/quilt/usr/share/doc/quilt/
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples
-	dh_installmenu
-#	dh_installemacsen
-	dh_installman
-	dh_installinfo
-#	dh_undocumented
-	dh_installchangelogs quilt.changes
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_makeshlibs
-	dh_installdeb
-#	dh_perl
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure

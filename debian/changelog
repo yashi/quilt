@@ -1,3 +1,23 @@
+quilt (0.29-1) unstable; urgency=low
+
+  * New upstream version.
+  * Repackage to use cdbs.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Thu, 20 Nov 2003 11:04:34 +0100
+
+quilt (0.25-4) unstable; urgency=low
+
+  * Various cleanup in the packaging (like removing a `pwd` in the debian/rules)
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Thu,  6 Nov 2003 16:27:15 +0100
+
+quilt (0.25-3) unstable; urgency=low
+
+  * Do not invoque autoconf during the build process since I do not change this file.
+    That way, autobuilder will be happy even without build-depend (Closes: #217055).
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 31 Oct 2003 00:18:43 +0100
+
 quilt (0.25-2) unstable; urgency=low
 
   * Do not install anything under /usr/share/doc/quilt-version/
