@@ -42,8 +42,9 @@ patch name is specified, apply the next patch from the series file.
 	is not actually applied.
 
 --interactive
-	Allow the patch utility to ask hwo to deal with conflicts. If
-	this option is not given, the -f patch optionch will be used.
+	Allow the patch utility to ask how to deal with conflicts. If
+	this option is not given, the option -f will be passed to the 
+	patch program.
 
 "
 		exit 0
