@@ -43,6 +43,11 @@ scan_patches()
 	shift 2
 	local patch
 
+	if [ $# -eq 0 ]
+	then
+		return 0
+	fi
+	
 	for patch in $(modified_files $file -- "$@" \
 		       | cut -d $'\t' -f2)
 	do
