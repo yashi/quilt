@@ -1,3 +1,18 @@
+quilt (0.35-2) unstable; urgency=low
+
+  * NOT YET RELEASED
+  * Acknoledge NMU. Thanks Matt! (Closes: #264053)
+  * Use my Debian address as maintainer
+
+ -- Martin Quinson <mquinson@debian.org>  Sat,  7 Aug 2004 14:58:21 -0700
+
+quilt (0.35-1.1) unstable; urgency=low
+
+  * NMU at maintainer's request
+  * Add ${shlibs:Depends} to debian/control:Depends (Closes: #264053)
+    
+ -- Matt Zimmerman <mdz@debian.org>  Fri,  6 Aug 2004 18:41:46 -0700
+ 
 quilt (0.35-1) unstable; urgency=low
 
   * New upstream version.
