@@ -220,7 +220,7 @@ do
 			continue
 		fi
 		echo "$file" >&4
-	done < <(files_in_patch $patch)
+	done
 done
 
 exec 4>&-  # close $tmp_files
@@ -238,7 +238,8 @@ then
 		echo $"Cannot change into $QUILT_PC/$last_patch"
 		die 1
 	fi
-	if ! cp -l --parents "${files[@]}" $workdir/
+	if [ ${#files[@]} -gt 0 ] \
+	   && ! cp -l --parents "${files[@]}" $workdir/
 	then
 		echo $"Failed to copy files to temporary directory"
 		die 1

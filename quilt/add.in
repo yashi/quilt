@@ -105,17 +105,17 @@ do
 		continue
 	fi
 
-	if [ -e $file ]
+	if [ -e $SUBDIR$file ]
 	then
-		if [ "$(ls -dl $file | @AWK@ '{print $2}')" -gt 1 ]
+		if [ "$(ls -dl $SUBDIR$file | @AWK@ '{print $2}')" -gt 1 ]
 		then
 			# We have a file with several hard links.
 			# As the file may likely be modified by hand
 			# now, create a copy to make sure nothing
 			# happens to the original file.
-			tmpfile=$(gen_tempfile $file) &&
-			cp -fp $file $tmpfile &&
-			mv -f $tmpfile $file
+			tmpfile=$(gen_tempfile $SUBDIR$file) &&
+			cp -fp $SUBDIR$file $tmpfile &&
+			mv -f $tmpfile $SUBDIR$file
 			rm -f $tmpfile
 		fi
 	fi

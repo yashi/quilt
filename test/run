@@ -13,11 +13,12 @@ use strict;
 use FileHandle;
 use Getopt::Std;
 use POSIX qw(isatty setuid);
-use vars qw($opt_v);
+use vars qw($opt_l $opt_v);
 
 no warnings qw(taint);
 
-getopts('v');
+$opt_l = ~0;  # a really huge number
+getopts('l:v');
 
 my ($OK, $FAILED) = ("ok", "failed");
 if (isatty(fileno(STDOUT))) {
@@ -28,12 +29,12 @@ if (isatty(fileno(STDOUT))) {
 sub exec_test($$);
 
 my ($prog, $in, $out) = ([], [], []);
-my $line_number = 0;
 my $prog_line;
 my ($tests, $failed) = (0,0);
+my $lineno;
 
 for (;;) {
-  my $line = <>; $line_number++;
+  my $line = <>; $lineno++;
   if (defined $line) {
     # Substitute %VAR and %{VAR} with environment variables.
     $line =~ s[%(?:(\w+)|\{(\w+)\})][$ENV{"$1$2"}]eg;
@@ -45,6 +46,7 @@ for (;;) {
       push @$out, $line;
     } else {
       process_test($prog, $prog_line, $in, $out);
+      last if $prog_line >= $opt_l;
 
       $prog = [];
       $prog_line = 0;
@@ -52,7 +54,7 @@ for (;;) {
     if ($line =~ s/^\s*\$ ?//) {
       $line =~ s/\s+#.*//;  # remove comments here...
       $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
-      $prog_line = $line_number;
+      $prog_line = $lineno;
       $in = [];
       $out = [];
     }

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 28 02:32:51 CET 2004 - agruen@suse.de
+
+- Add a few more test cases for subdirectory support.
+- Fix a few bugs introduced while merging Chris's patch.
+
+-------------------------------------------------------------------
 Wed Jan 28 01:13:16 CET 2004 - agruen@suse.de
 
 - Patch from Chris Mason <mason@suse.de>: Add support for working
