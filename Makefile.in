@@ -21,7 +21,6 @@ BASH :=		@BASH@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
-GUIDIFF :=	@GUIDIFF@
 
 CFLAGS :=	@CFLAGS@ -Wall
 
@@ -154,7 +153,6 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@DIFF''@:$(DIFF):g' \
 	     -e 's:@PATCH''@:$(PATCH):g' \
 	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
-	     -e 's:@GUIDIFF''@:$(GUIDIFF):g' \
 	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
 	     -e 's:@VERSION''@:$(VERSION):g' \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \
