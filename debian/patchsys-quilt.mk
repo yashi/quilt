@@ -72,11 +72,15 @@ debian/stamp-patched:
 	    (cd $(DEB_SRCDIR); ln -s $(DEB_PATCHDIRS) $(DEB_QUILT_PATCHDIR_LINK)) ; \
 	  fi ; \
 	fi
-	$(DEB_QUILT_CMD) push -a
+	# quilt exits with 2 as return when there was nothing to do. 
+	# That's not an error here (but it's usefull to break loops in crude scripts)
+	$(DEB_QUILT_CMD) push -a || test $$? == 2
 	touch debian/stamp-patched
 
 reverse-patches:
-	if [ -d "$(DEB_SRCDIR)" ] ; then $(DEB_QUILT_CMD) pop -a -R ; fi
+	if [ -d "$(DEB_SRCDIR)" ] ; then \
+	  $(DEB_QUILT_CMD) pop -a -R || test $$? == 2 ; \
+	fi 
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then \
 	    rm $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ; \
