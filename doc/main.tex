@@ -173,8 +173,9 @@ scripts until they became what they are now~\cite{quilt}.
 The remainder of this document discusses the script collection
 \textit{quilt.}
 
-With quilt, all work occurs within a single directory tree. Commands are
-invoked in the root of that tree.  Commands are of the form
+With quilt, all work occurs within a single directory tree. Since version
+0.30, commands can be invoqued from anywhere within the source tree.
+Commands are of the form
 ``\quilt{cmd},'' similar to CVS commands. They can be abbreviated as
 long as the specified part of the command is unique. All commands print
 some help text with ``\quilt{cmd -h}.''
@@ -207,8 +208,8 @@ renames patches, it automatically updates the series file.  Users of
 quilt can modify series files while some patches are applied, as long as
 the applied patches remain in their original order.
 
-There is no notion of different development branches, but different
-series files can be used to assemble patches in different ways.
+Different series files can be used to assemble patches in different ways,
+corresponding for example to different development branches.
 
 \begin{figure}
 \begin{center}
@@ -239,8 +240,8 @@ directory.\footnote{
 	the sub-directory below the \textsf{.pc} directory.  \prog{GNU patch},
 	which quilt uses internally to apply patches, creates backup
 	files and applies the patch in one step.
-} The patch is added to \textsf{.pc/applied-patches}, the list of
-currently applied patches.  Later when a patch is regenerated
+} The patch is added to the list of
+currently applied patches (\textsf{.pc/applied-patches}).  Later when a patch is regenerated
 (\quilt{refresh}), the backup copies in \textsf{.pc/\textit{patch}} are
 compared with the current versions of the files in the source tree
 using \prog{GNU diff}.
