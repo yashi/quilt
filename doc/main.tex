@@ -544,13 +544,12 @@ complicated. In the long run, a mess accumulates.
 To help avoid this by keeping the big picture, the \quilt{graph} command
 generates \textit{dot} graphs showing the dependencies between
 patches.\footnote{
-	Currently, \quilt{graph} only considers which files the
-	patches modify. Multiple patches may modify different areas
-	in the same file(s) without conflicting, in which case
-	\quilt{graph} would report false dependencies. It is
-	difficult to determine reliably whether or not two patches
-	have conflicts without actually applying the patches in
-	different orders.
+	The \quilt{graph} command computes dependencies based on
+	which patches modify which files, and optionally will also
+	check for overlapping changes in the files. While the former
+	approach will often result in false positives, the latter
+	approach may result in false negatives (that is, \quilt{graph}
+	may overlook dependencies).
 } The ouput of this command can be visualized using the tools from AT\&T
 Research's Graph Visualization Project (GraphViz,
 \url{http://www.graphviz.org/}).  The \quilt{graph} command supports

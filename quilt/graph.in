@@ -24,15 +24,16 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo $"Usage: quilt graph [-P path|--all] [--reduce] [--edge-labels=files]" $redirect
+	echo $"Usage: quilt graph [-P path|--all] [--reduce] [--lines[=num]] [--edge-labels=files]" $redirect
 
 	if [ x$1 = x-h ]
 	then
 		echo $"
 Generate a dot(1) directed graph showing the dependencies between
 applied patches. A patch depends on another patch if both touch the same
-file. Unless otherwise specified, the graph includes all patches that
-the topmost patch depends on.
+file or, with the --lines option, if their modifications overlap. Unless
+otherwise specified, the graph includes all patches that the topmost
+patch depends on.
 
 -P patch
 	Instead of the topmost patch, create a graph for the specified
@@ -45,6 +46,11 @@ the topmost patch depends on.
 --reduce
 	Eliminate transitive edges from the graph.
 
+--lines[=num]
+	Compute dependencies by looking at the lines the patches modify.
+	Unless a diferent num is specified, two lines of context are
+	included.
+
 --edge-labels=files
 	Label graph edges with the file names that the adjacent patches
 	modify.
@@ -56,7 +62,7 @@ the topmost patch depends on.
 	fi
 }
 
-options=`getopt -o P:T:h --long all,reduce,edge-labels: -- "$@"`
+options=`getopt -o P:T:h --long all,reduce,lines::,edge-labels: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -95,6 +101,10 @@ do
 		opt_reduce=1
 		shift ;;
 
+	--lines)
+		opt_lines=${2:-2}
+		shift 2 ;;
+		
 	--edge-labels)
 		if [ "$2" != files ]
 		then
@@ -131,6 +141,7 @@ options=
 [ -n "$patch" ] && options="--select-patch $patch"
 [ -n "$opt_reduce" ] && options="$options --reduce"
 [ "$opt_edge_labels" = files ] && options="$options --edge-files"
+[ -n "$opt_lines" ] && options="$options --lines=$opt_lines"
 
 pipe=
 [ -n "$opt_format" ] && pipe="| dot -T$opt_format"

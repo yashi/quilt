@@ -32,6 +32,8 @@ my $filter_patchnames;		# filter for compacting filenames
 my $selected_patch;		# only include patches related on this patch
 my $selected_distance = -1;	# infinity
 my @highlight_patches;		# a list of patches to highlight
+my $lines;			# check ranges with this number of context
+				# lines.
 
 unless (GetOptions(
 	"h|help"		=> \$help,
@@ -47,7 +49,8 @@ unless (GetOptions(
 	"filter-patchnames=s"	=> \$filter_patchnames,
 	"select-patch=s"	=> \$selected_patch,
 	"select-distance=i"	=> \$selected_distance,
-	"highlight=s"		=> \@highlight_patches ) && !$help) {
+	"highlight=s"		=> \@highlight_patches,
+	"lines=i"		=> \$lines) && !$help) {
     my $basename = $0;
     $basename =~ s:.*/::;
     my $fd = $help ? *STDOUT : *STDERR;
@@ -56,6 +59,7 @@ SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
 	  [--short-edge-files] [--long-edge-files] [--edge-length]
 	  [--node-numbers] [--isolated] [--reduce] [--filter-patchnames=filter]
 	  [--select-patch=patch] [--select-distance=num] [--highlight=patch]
+	  [--lines=num]
 
 --short-edge=num, --long-edge=num
 	Define the maximum edge length of short edges, and minimum edge
@@ -97,8 +101,119 @@ SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
 --highlight=patch
 	Highlight the specified patch. This option can be specified more
 	than once.
+
+--lines=num
+	Check the ranges of lines that the patches modify for computing
+	dependencies. Include up to num lines of context.
 EOF
     exit $help ? 0 : 1;
+}
+
+my @nodes;
+
+sub next_patch_for_file($$)
+{
+    my ($n, $file) = @_;
+
+    for (my $i = $n + 1; $i < @nodes; $i++) {
+	return $i
+	    if (exists $nodes[$i]{files}{$file});
+    }
+    return undef;
+}
+
+# Compute the ranges of lines that a patch modifies: The patch should
+# have no context lines. The return value is a list of pairs of line
+# numbers, alternatingly marking the start and end of a modification.
+sub ranges($) {
+    my ($fd) = @_;
+    my (@left, @right);
+    while (<$fd>) {
+	if (/^\@\@ -(\d+)(?:,(\d+)?) \+(\d+)(?:,(\d+)?) \@\@/) {
+	    push @left,  ($3, $3 + $4);
+	    push @right, ($1, $1 + $2);
+	}
+    }
+    return [ [ @left ], [ @right ] ];
+}
+
+# Compute the lists of lines that a patch changes in a file.
+sub compute_ranges($$) {
+    my ($n, $file) = @_;
+    my $file1 = $ENV{QUILT_PC} . "/" . $nodes[$n]{file} . "/" . $file;
+    my $file2;
+    my $n2 = next_patch_for_file($n, $file);
+    if (defined $n2) {
+	$file2 = $ENV{QUILT_PC} . "/" . $nodes[$n2]{file} . "/" . $file;
+    } else {
+	$file2 = $file;
+    }
+
+    #print STDERR "diff -NU$lines \"$file1\" \"$file2\"\n";
+    if (-z $file1) {
+	$file1="/dev/null";
+	return [[], []]
+	    if (-z $file2);
+    } else {
+	$file2="/dev/null"
+	    if (-z $file2);
+    }
+    my $fd = new FileHandle("diff -NU$lines \"$file1\" \"$file2\" |");
+    my $ranges = ranges($fd);
+    $fd->close();
+    return $ranges;
+}
+
+# Binary search
+sub binsearch($$) {
+    my ($key, $array) = @_;
+    my ($low, $high) = (-1, scalar @$array - 1);
+    #print STDERR "$low:$high\n";
+    my $i;
+    while ($low + 1 < $high) {
+	$i = ($low + $high) >> 1;
+	if ($key < $array->[$i]) {
+	    $high = $i;
+	} else {
+	    $low = $i;
+	}
+	#print STDERR "$low:$high\n";
+    }
+    my $res;
+    if ($low == -1) {
+	$res = $low;
+    } else {
+	$res = ($key < $array->[$high]) ? $low : $high;
+    }
+    #print STDERR "$key -> [", join(" ", @$array), "] = $res\n";
+    return $res
+}
+
+sub is_a_conflict($$$) {
+    my ($from, $to, $filename) = @_;
+
+    $nodes[$from]{$filename} = compute_ranges($from, $filename)
+	unless $nodes[$from]{$filename};
+    $nodes[$to]{$filename} = compute_ranges($to, $filename)
+	unless $nodes[$to]{$filename};
+
+    my ($ra, $rb) = ($nodes[$from]{$filename}[1], $nodes[$to]{$filename}[0]);
+    my $d = 0;
+    foreach my $l (@$ra) {
+	unless (binsearch($l - $d, $rb) % 2) {
+	    return 1;
+	}
+	# Alternate to convert from [in, out) regions to [in, in] regions
+	$d = 1 - $d;
+    }
+    foreach my $l (@$rb) {
+	unless (binsearch($l - $d, $ra) % 2) {
+	    return 1;
+	}
+	# Alternate to convert from [in, out) regions to [in, in] regions
+	$d = 1 - $d;
+    }
+    return 0;
 }
 
 # Fetch the list of patches (all of them must be applied)
@@ -110,24 +225,26 @@ if (@ARGV) {
 	@patches = @ARGV;
     }
 } else {
-    my $fh = new FileHandle("< .pc/applied-patches")
-	or die ".pc/applied-patches: $!\n";
+    my $fh = new FileHandle("< $ENV{QUILT_PC}/applied-patches")
+	or die ".$ENV{QUILT_PC}/applied-patches: $!\n";
     @patches = map { chomp; $_ } <$fh>;
     $fh->close();
 }
 
 # Fetch the list of files
-my @nodes;
 my $n = 0;
 foreach my $patch (@patches) {
-    if (! -d ".pc/$patch") {
-	print STDERR ".pc/$patch does not exist; skipping\n";
+    if (! -d "$ENV{QUILT_PC}/$patch") {
+	print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
 	next;
     }
-    my @files = split(/\n/, `cd .pc/$patch ; find -type f ! -name .timestamp`);
+    my @files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
     @files = map { s:\./::; $_ } @files;
-    push @nodes, {number=>$n++, name=>$patch, file=>$patch, files=>[ @files ] };
+    push @nodes, {number=>$n++, name=>$patch, file=>$patch,
+		  files=>{ map {$_ => []} @files } };
 }
+
+my %used_nodes;		# nodes to which at least one edge is attached
 
 # If a patch is selected, limit the graph to nodes that depend on this patch,
 # and nodes that are dependent on this patch.
@@ -138,12 +255,19 @@ if ($selected_patch) {
     die "Patch $selected_patch not included\n"
 	if ($n == @nodes);
 
+    $used_nodes{$n} = 1;
     my $selected_node = $nodes[$n];
     push @{$selected_node->{attrs}}, $highlighted_node_style;
 
     my %sel;
-    map { $sel{$_} = 1 } @{$selected_node->{files}};
-    map { $_->{files} = [ grep { exists $sel{$_} } @{$_->{files}} ] } @nodes;
+    map { $sel{$_} = 1 } keys %{$selected_node->{files}};
+    foreach my $node (@nodes) {
+	foreach my $file (keys %{$node->{files}}) {
+	    unless (exists $sel{$file}) {
+		delete $node->{files}{$file};
+	    }
+	}
+    }
 }
 
 # Optionally highlight a list of patches
@@ -192,13 +316,17 @@ if ($filter_patchnames) {
 }
 
 my %files_seen;		# remember the last patch that touched each file
-my %used_nodes;		# nodes to which at least one edge is attached
 my %edges;
 
 foreach my $node (@nodes) {
     my $number = $node->{number};
-    foreach my $file (@{$node->{files}}) {
+    foreach my $file (keys %{$node->{files}}) {
 	if (exists $files_seen{$file}) {
+	    # Optionally look at the line ranges the patches touch
+	    if (defined $lines) {
+		next unless is_a_conflict($number, $files_seen{$file}, $file);
+	    }
+
 	    push @{$edges{"$number:$files_seen{$file}"}{names}}, $file;
 	    $used_nodes{$number} = 1;
 	    $used_nodes{$files_seen{$file}} = 1;

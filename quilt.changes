@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Mar 15 00:01:56 CET 2004 - agruen@suse.de
+
+- Extend `quilt graph' to also support checking for overlapping
+  changes in patches.
+- Export QUILT_PATCHES QUILT_PC SUBDIR SERIES DB for use in
+  non-shell components of quilt.
+
+-------------------------------------------------------------------
 Sun Mar 14 00:39:46 CET 2004 - agruen@suse.de
 
 - Change `quilt import' to allow importing multiple patches

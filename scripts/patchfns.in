@@ -9,9 +9,9 @@
 
 ORIGINAL_LANG=$LANG
 export LANG=POSIX
-
 export TEXTDOMAIN=quilt
-		
+export QUILT_PATCHES QUILT_PC SUBDIR SERIES DB
+
 : ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
 
