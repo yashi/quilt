@@ -264,7 +264,7 @@ then
 			# relative diff for a subset of files in the patch
 			# will fail.
 			
-			if ! [ -e $pwd/.pc/$last_patch~refresh -a \
+			if [ ! -e $pwd/.pc/$last_patch~refresh -a \
 			       ${#opt_files[@]} -eq 0 ]
 			then
 				echo $"Failed to patch temporary files"
