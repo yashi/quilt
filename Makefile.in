@@ -84,7 +84,7 @@ scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 
 dist : $(PACKAGE)-$(VERSION).tar.gz
 
-dist-snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
+snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
 rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
