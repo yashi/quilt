@@ -118,15 +118,14 @@ Please refere to the pdf documentation for an example.
 
 .SH CONFIGURATION FILE
 
-The file ~/.quiltrc is used by default as configuration file, but that can
-be changed with the option --quiltrc. This file is to be sourced by bash.
-Here are the existing settings and their effects:
+Upon startup, quilt evaluates the file .quiltrc in the user's
+home directory, or the file specified with the --quiltrc option.
+This file is a regular bash script. Default options can be passed to
+any command by defining a QUILT_COMMAND_ARGS variable
+(for example, QUILT_DIFF_ARGS="--color=auto" causes the output
+of quilt diff to be syntax colored when writing to a terminal).
 
-.IP QUILT_BACKUP 4
-
-When set to "yes", the quilt refresh command will create backup files when
-refreshing patches. The backup files have "~" appended to the patch file
-names.
+In addition to that, quilt recognizes the following variables:
 
 .IP QUILT_DIFF_OPTS 4
 
@@ -134,11 +133,6 @@ Additional options that quilt shall pass to GNU diff when generating
 patches. A useful setting for C source code is "-p", which causes GNU diff
 to show in the resulting patch which function a change is in.
     
-.IP QUILT_NO_DIFF_TIMESTAMPS 4 
-
-When set to "yes", the quilt diff and quilt refresh commands will not
-include file timestamps in patches.
-	
 .IP QUILT_PATCH_OPTS 4
 
 Additional options that quilt shall pass to GNU patch when applying patches.

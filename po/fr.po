@@ -66,12 +66,12 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:54 ../quilt/diff.in:140 ../quilt/diff.in:151
+#: ../quilt/add.in:54 ../quilt/diff.in:139 ../quilt/diff.in:150
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr "Le patch $2 n'est pas dans la série"
 
-#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:106
+#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:112
 #: ../quilt/remove.in:73
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
@@ -79,7 +79,7 @@ msgstr "Le patch $patch n'est pas appliqué"
 #: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:211
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
 #: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
-#: ../quilt/refresh.in:113 ../quilt/remove.in:80
+#: ../quilt/refresh.in:119 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
 
@@ -139,15 +139,15 @@ msgstr ""
 "actuelle. Si le patch est appliqué, quilt tentera de le retirer avant.\n"
 "(Seul le patch au sommet peut être retiré pour l'instant)."
 
-#: ../quilt/delete.in:73
+#: ../quilt/delete.in:75
 msgid "Patch $patch is not in series"
 msgstr "Le patch $patch n'est pas dans la série"
 
-#: ../quilt/delete.in:82
+#: ../quilt/delete.in:84
 msgid "Patch $patch is currently applied"
 msgstr "Le patch $patch est appliqué"
 
-#: ../quilt/delete.in:88
+#: ../quilt/delete.in:90
 msgid "Failed to remove patch $patch"
 msgstr "Impossible de retirer le patch $patch"
 
@@ -192,8 +192,7 @@ msgid ""
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
 "--no-timestamps\n"
-"\tDo not include file timestamps in patch headers (as if\n"
-"        QUILT_DIFF_NO_TIMESTAMPS were set to yes).\n"
+"\tDo not include file timestamps in patch headers.\n"
 "\t\n"
 "--color[=always|auto|never]\n"
 "\tUse ANSI escape sequences to colorize the result."
@@ -277,7 +276,7 @@ msgstr "Impossible d'entrer dans le répertoire source"
 msgid "File $file is not being modified."
 msgstr "Le fichier $file n'est pas modifié."
 
-#: ../quilt/diff.in:370 ../quilt/refresh.in:145
+#: ../quilt/diff.in:370 ../quilt/refresh.in:151
 msgid "Diff failed, aborting."
 msgstr "Le diff a échoué. Abandon."
 
@@ -391,12 +390,13 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ..."
 msgstr "Usage : quilt import [-f] [-p num] [-n patch] fichier_de_patch ..."
 
 #: ../quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.\n"
 "\n"
 "-p num\n"
-"\tNumber of directory levels to strip when aplying (default=1)\n"
+"\tNumber of directory levels to strip when applying (default=1)\n"
 "\n"
 "-n patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
@@ -686,10 +686,12 @@ msgid "File series fully applied, ends at patch $top"
 msgstr "La série est complètement appliquée. Le dernier patch est $top."
 
 #: ../quilt/refresh.in:22
-msgid "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
+#, fuzzy
+msgid "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--backup] [patch]"
 msgstr "Usage : quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
 
 #: ../quilt/refresh.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -710,8 +712,10 @@ msgid ""
 "\tsome of the same files.\n"
 "\n"
 "--no-timestamps\n"
-"\tDo not include file timestamps in patch headers (as if\n"
-"        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
+"\tDo not include file timestamps in patch headers.\n"
+"\t\n"
+"--backup\n"
+"\tCreate a backup copy of the old version of a patch as patch~."
 msgstr ""
 "\n"
 "Rafraîchit un patch appliqué. Si aucun patch n'est spécifié, il s'agit de\n"
@@ -736,11 +740,11 @@ msgstr ""
 "\tSupprime les timestamps des entêtes du patch (comme si\n"
 "        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/refresh.in:101
+#: ../quilt/refresh.in:107
 msgid "Patch $opt_patch is not in series"
 msgstr "Le patch $opt_patch est introuvable dans le fichier de série"
 
-#: ../quilt/refresh.in:124
+#: ../quilt/refresh.in:130
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -748,21 +752,21 @@ msgstr ""
 "Impossible de rafraîchir des patchs avec -p$opt_strip_level. Veuillez\n"
 "spécifier -p0 ou -p1 à la place."
 
-#: ../quilt/refresh.in:151
+#: ../quilt/refresh.in:157
 msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que $patch.\n"
 "Forcez le rafraîchissement avec -f."
 
-#: ../quilt/refresh.in:158
+#: ../quilt/refresh.in:164
 msgid "Nothing in patch $patch"
 msgstr "Le patch $patch ne contient rien"
 
-#: ../quilt/refresh.in:183
+#: ../quilt/refresh.in:189
 msgid "Patch $patch is unchanged"
 msgstr "Le patch $patch n'a pas été modifié"
 
-#: ../quilt/refresh.in:197
+#: ../quilt/refresh.in:203
 msgid "Refreshed patch $patch"
 msgstr "Le patch $patch a été rafraichi."
 
@@ -992,7 +996,7 @@ msgstr ""
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
-#: ../scripts/patchfns.in:697
+#: ../scripts/patchfns.in:698
 msgid ""
 "The quilt meta-data in this tree has version $version, but this version of "
 "quilt can only handle meta-data formats up to and including version "
@@ -1005,7 +1009,7 @@ msgstr ""
 "version utilisée pour les appliquer avant d'installer une version\n"
 "plus ancienne."
 
-#: ../scripts/patchfns.in:759
+#: ../scripts/patchfns.in:760
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'."

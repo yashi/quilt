@@ -6,5 +6,5 @@ all: $(patsubst %,_test_%,$(TESTS))
 $(patsubst %,_test_%,$(TESTS)):
 	@test=$(patsubst _test_%,%,$@); \
 	echo "[$$test]" ; \
-	export QUILTRC=test.quiltrc ; \
+	export QUILTRC=$(CURDIR)/test.quiltrc ; \
 	./run $$test

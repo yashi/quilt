@@ -26,7 +26,7 @@ usage()
 Import external patches.
 
 -p num
-	Number of directory levels to strip when aplying (default=1)
+	Number of directory levels to strip when applying (default=1)
 
 -n patch
 	Patch filename to use inside quilt. This option can only be
@@ -82,7 +82,7 @@ do
 	then
 		patch=$opt_patch
 	else
-		patch=${patch_file#*/}
+		patch=${patch_file##*/}
 	fi
 
 	if is_applied $patch

@@ -494,21 +494,10 @@ touched_by_patch()
 	}'
 }
 
-fix_diff_header()
-{
-	local from=$1 to=$2 z
-	if [ -n "$QUILT_NO_DIFF_TIMESTAMPS" ]
-	then
-		sed -e 's:^\(\(---\|+++\) .*\)\t.*:\1:'
-	else
-		cat
-	fi
-}
-
 diff_file()
 {
 	local file=$1 old_file=$2 new_file=$3
-	local index old_hdr new_hdr line
+	local index old_hdr old_date new_hdr new_date line
 
 	: ${opt_strip_level:=1}
 	if [ $opt_strip_level -eq 0 ]
@@ -526,21 +515,33 @@ diff_file()
 	then
 		old_file=/dev/null
 		old_hdr=/dev/null
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| old_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
+	else
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| old_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
+					-r "$old_file")
 	fi
 	if ! [ -s "$new_file" ]
 	then
 		new_file=/dev/null
 		new_hdr=/dev/null
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| new_date="1970-01-01 00:00:00.000000000 +0000"
+	else
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| new_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
+					-r "$new_file")
 	fi
 
 	@DIFF@ -Nu $QUILT_DIFF_OPTS $old_file $new_file \
-	       --label "$old_hdr" --label "$new_hdr" \
+	       --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
 	| if read line
 	then
 		echo "Index: $index"
 		echo "==================================================================="
-		(echo "$line" ; cat) \
-		| fix_diff_header
+		echo "$line"
+		cat
 	fi
 }
 

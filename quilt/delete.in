@@ -68,8 +68,10 @@ then
 		exit 1
 	fi
 else
+	save_patch=$patch
 	if ! patch=$(find_patch $patch)
 	then
+		patch=$save_patch
 		echo $"Patch $patch is not in series"
 		exit 1
 	fi

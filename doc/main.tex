@@ -641,24 +641,22 @@ the series file in this case.
 
 \section{Customizing Quilt}
 
-The following settings influence how quilt behaves:
+Upon startup, quilt evaluates the file \textsf{.quiltrc} in the user's
+home directory, or the file specified with the \textsf{--quiltrc} option.
+This file is a regular bash script. Default options can be passed to
+any command by defining a \textsf{QUILT\_\textit{COMMAND}\_ARGS} variable
+(for example, \textsf{QUILT\_DIFF\_ARGS="--color=auto"} causes the output
+of \quilt{diff} to be syntax colored when writing to a terminal).
+
+In addition to that, quilt recognizes the following variables:
 
 \begin{description}
-
-\item[\textsf{QUILT\_BACKUP}]
-When set to ``\textsf{yes}'', the \quilt{refresh} command will create
-backup files when refreshing patches. The backup files have
-``\textsc{\~}'' appended to the patch file names.
 
 \item[\textsf{QUILT\_DIFF\_OPTS}]
 Additional options that quilt shall pass to \prog{GNU diff} when
 generating patches. A useful setting for C source code is
 ``\textsf{-p}'', which causes \prog{GNU diff} to show in the resulting
 patch which function a change is in.
-
-\item[\textsf{QUILT\_NO\_DIFF\_TIMESTAMPS}]
-When set to ``\textsf{yes}'', the \quilt{diff} and \quilt{refresh}
-commands will not include file timestamps in patches.
 
 \item[\textsf{QUILT\_PATCH\_OPTS}]
 Additional options that quilt shall pass to \prog{GNU patch} when
@@ -671,10 +669,6 @@ The location of patch files (see Section~\ref{sec:basic}).  This setting
 defaults to ``\textsf{patches}''.
 
 \end{description}
-
-These settings can either be defined in the environment, or in the file
-\textsf{.quiltrc} in user home directories. \textsf{.quiltrc} is a
-\prog{bash} script.
 
 \section{Pitfalls and Known Problems}
 

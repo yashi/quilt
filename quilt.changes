@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Fri Jul  2 03:08:39 CEST 2004 - agruen@suse.de
+
+- Several Fixes from Joe Green <jgreen@mvista.com>:
+  + Another sed \t\r problem, in Makefile.in
+  + Bad error message on "quilt delete" of non-existent patch
+  + "import" doesn't remove all leading components on patch file
+  + Misspelling in "import" help text
+- With using the GNU diff --label option, file timestamps
+  disappeared. Specify the timestamps in --label by hand: This
+  gives us added flexibility when generating patches; we may
+  some day want to support diff styles other than unified.
+  Also reported by Joe Green.
+- Add --backup option to quilt refresh.
+- Update documentation to QUILT_${COMMAND}_ARGS in .quiltrc.
+  (The old settings still work but they are no longer documented.)
+- Update German translation.
+
+-------------------------------------------------------------------
 Thu Jul  1 22:55:11 CEST 2004 - agruen@suse.de
 
 - Allow passing of default options to commands by defining

@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
+	echo $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--backup] [patch]"
 	
 	if [ x$1 = x-h ]
 	then
@@ -42,8 +42,10 @@ patch.
 	some of the same files.
 
 --no-timestamps
-	Do not include file timestamps in patch headers (as if
-        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
+	Do not include file timestamps in patch headers.
+	
+--backup
+	Create a backup copy of the old version of a patch as patch~."
 		exit 0
 	else
 		exit 1
@@ -58,7 +60,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:fh --long no-timestamps -- "$@"`
+options=`getopt -o p:fh --long no-timestamps,backup -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -79,7 +81,11 @@ do
 	-h)
 		usage -h ;;
 	--no-timestamps)
-		QUILT_DIFF_NO_TIMESTAMPS=yes ;;
+		QUILT_NO_DIFF_TIMESTAMPS=1
+		shift ;;
+	--backup)
+		QUILT_BACKUP=1
+		shift ;;
 	--)
 		shift
 		break ;;
@@ -184,7 +190,7 @@ then
 	exit 0
 fi
 
-if ( [ "$QUILT_BACKUP" = yes -a -e $patch_file ] && \
+if ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \
      ! cp $patch_file $patch_file~ ) || \
    ! cat_to_file $patch_file < $tmpfile2
 then

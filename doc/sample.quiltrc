@@ -1,15 +1,16 @@
 # Additional options passed to GNU diff
 # -p : Show which C function each change is in.
-QUILT_DIFF_OPTS="-p${QUILT_DIFF_OPTS:+ $QUILT_DIFF_OPTS}"
+QUILT_DIFF_OPTS="--show-c-function"
 
 # Additional options passed to GNU patch
-#QUILT_PATCH_OPTS=""
+#QUILT_PATCH_OPTS="--ignore-whitespace"
 
 # The directory in which patches are found (defaults to "patches").
 #QUILT_PATCHES=patches
 
-# Define this to generate diffs without timestamps.
-#QUILT_NO_DIFF_TIMESTAMPS=yes
+# Generate syntax-colored diffs without timestamps.
+QUILT_DIFF_ARGS="--color=auto --no-timestamps"
 
-# Create backup when refreshing patches.
-QUILT_BACKUP=yes
+# Generate patches without timestamps, and keep a backup of the previous
+# patch.
+QUILT_REFRESH_ARGS="--no-timestamps --backup"

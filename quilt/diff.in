@@ -52,11 +52,10 @@ included.
 	is invoked with the original and new file name as arguments.
 
 --no-timestamps
-	Do not include file timestamps in patch headers (as if
-        QUILT_DIFF_NO_TIMESTAMPS were set to yes).
+	Do not include file timestamps in patch headers.
 	
 --color[=always|auto|never]
-	Use ANSI escape sequences to colorize the result."
+	Use syntax coloring."
 		exit 0
 	else
 		exit 1
@@ -168,7 +167,8 @@ do
 		opt_diff="$2"
 		shift 2 ;;
 	--no-timestamps)
-		QUILT_DIFF_NO_TIMESTAMPS=yes ;;
+		QUILT_NO_DIFF_TIMESTAMPS=1
+		shift ;;
 	--color)
 		case "$2" in
 		"" | always)

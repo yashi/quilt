@@ -81,7 +81,7 @@ DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
 		doc/sample.quiltrc doc/quilt.1.in
-DIRT +=		$(DOC_IN:%=doc/%)
+DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
 
@@ -141,8 +141,8 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	         echo ;                                  \
 		(bash -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
 	         grep -v 'Usage: quilt' |                \
-	           sed -e 's/^\t//'                      \
-	               -e 's/\t/\n/' |                   \
+	           sed -e $$'s/^\t//'                    \
+	               -e $$'s/\t/\\\n/' |               \
 	 	   sed -e 's/^\(-.*\)$$/.IP "    \1" 8/';\
 	         echo;                                   \
 	       done                                      \
