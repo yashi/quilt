@@ -23,7 +23,7 @@ Fri Feb 24 13:12:57 CET 2005 - mquinson@debian.org
 
 - quilt add: Add check to ensure that no symlink will be added since we fail
   to backup them properly (see #295913 in Debian).
-  
+
 -------------------------------------------------------------------
 Fri Feb 18 11:01:57 CET 2005 - agruen@suse.de
 
