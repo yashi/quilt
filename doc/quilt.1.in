@@ -1,9 +1,9 @@
-.\" Created by Martin Quinson from the tex documentation
-.\"
+.\\" Created by Martin Quinson from the tex documentation
+.\\"
 .TH quilt 1 "February 21, 2004" "quilt"
  
 .SH NAME
-quilt \- tool to manage series of patches
+quilt \\- tool to manage series of patches
 
 .SH SYNOPSIS
 .B quilt
