@@ -529,7 +529,7 @@ fix_diff_header()
 
 diff_file()
 {
-	local file=$1 suffix=$2 old_file=$3 new_file=$4
+	local file=$1 old_file=$2 new_file=$3
 	local old_hdr new_hdr line
 
 	if [ ! -e "$old_file" -a ! -e "$new_file" ]
@@ -538,11 +538,11 @@ diff_file()
 	fi
 	if [ $opt_strip_level -eq 0 ]
 	then
-		old_hdr=$file$suffix
+		old_hdr=$file.orig
 		new_hdr=$file
 	else
 		local dir=$(basename $PWD)
-		old_hdr=$dir$suffix/$file
+		old_hdr=$dir.orig/$file
 		new_hdr=$dir/$file
 	fi
 
@@ -550,6 +550,7 @@ diff_file()
 	if read line
 	then
 		echo "Index: $new_hdr"
+		echo "==================================================================="
 		(echo "$line" ; cat) \
 		| fix_diff_header $old_hdr $new_hdr
 	fi

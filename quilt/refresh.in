@@ -139,7 +139,7 @@ do
 		new_file=$(backup_file_name $next_patch $file)
 		files_were_shadowed=1
 	fi
-	if ! diff_file $file "~${patch//\//_}" $old_file $new_file >> $tmpfile
+	if ! diff_file $file $old_file $new_file >> $tmpfile
 	then
 		echo $"Diff failed, aborting." >&2
 		die 1

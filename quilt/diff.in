@@ -58,7 +58,7 @@ included.
 
 do_diff()
 {
-	local file=$1 suffix=$2 old_file=$3 new_file=$4
+	local file=$1 old_file=$2 new_file=$3
 
 	if [ -n "$opt_reverse" ]
 	then
@@ -75,7 +75,7 @@ do_diff()
 			true
 		fi
 	else
-		diff_file $file $suffix $old_file $new_file
+		diff_file $file $old_file $new_file
 	fi
 }
 
@@ -281,16 +281,10 @@ do
 
 	if [ -z "$opt_relative" ]
 	then
-		if [ -z "$opt_combine" ]
-		then
-			suffix="~${last_patch//\//_}"
-		else
-			suffix=".orig"
-		fi
 		old_file=$(backup_file_name $first_patch $file)
-		do_diff $file $suffix $old_file $new_file
+		do_diff $file $old_file $new_file
 	else
-		do_diff $file ".orig" "$workdir/$file" $new_file
+		do_diff $file "$workdir/$file" $new_file
 	fi
 
 	if [ $? -ne 0 ]
