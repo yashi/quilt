@@ -23,36 +23,6 @@ usage()
 	exit 1
 }
 
-verify_removal()
-{
-	local patch=$1
-	local bup file status=0
-	local dir=$(basename $PWD) suffix=${patch//\//_}
-
-	# Check if all changes of the patch are undone
-	for file in $(files_in_patch $patch)
-	do
-		bup=$(backup_file_name $patch $file)
-		if ! [ -s $file -o -s $bup ] || \
-		   cmp $file $bup > /dev/null 2> /dev/null
-		then
-			continue
-		fi
-
-		if [ $status -eq 0 ]
-		then
-			echo $"Patch does not remove changes:"
-		fi
-
-		@DIFF@ -Nu $QUILT_DIFF_OPTS $bup $file \
-		| @SED@ -e 's:^--- [^ '$'\t'']*:--- '"$dir/$file.orig"':' \
-		      -e 's:^+++ [^ '$'\t'']*:+++ '"$dir/$file"':'
-
-		status=1
-	done
-	return $status
-}
-
 files_may_have_changed()
 {
 	local patch=$1 file
@@ -81,46 +51,75 @@ files_may_have_changed()
 	return 1
 }
 
-rollback_patch()
+# Check if all changes have been folded back into the patch (quilt refresh),
+# and report any pending changes.
+check_for_pending_changes()
 {
 	local patch=$1 pc_file=$2
-
-	# We may only have applied the patch half-way, so only some of the
-	# backup files may exist. Ignore missing files (-F).
-	@LIB@/backup-files $silent_unless_verbose -f $pc_file -z ~rpatch -rF
-	@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
-}
-
-reverse_patch()
-{
-	local patch=$1
 	local patch_file=$(patch_file_name $patch)
+	local patch_args=$(patch_args $patch)
+	local workdir=$(gen_tempfile -d quilt) status=0
 
-	if ! [ -s $patch_file ]
+	if [ -d .pc/$patch ]
 	then
-		echo $"Patch file $patch_file appears to be empty"
-		return 0
+		if ! rmdir $workdir ||  # note that this is racey...
+		   ! cp -rl .pc/$patch $workdir/
+		then
+			echo $"Failed to copy files to temporary directory"
+			rm -rf $workdir
+			return 1
+		fi
+
+		# Now we may have some zero-size files that have no
+		# permissions (which represent files that the patch
+		# creates). Those may have been created in the meantime,
+		# but patch would refuse to touch them: We must remove
+		# them here.
+		find $workdir -type f -size 0 -exec rm -f '{}' ';'
+
 	fi
 	
-	if [ "x${patch_file:(-3)}" = "x.gz" ]
+	if [ -s $patch_file ]
 	then
-		gzip -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
-			-R -E $silent
-	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
-	then
-		bzip2 -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
-			-R -E $silent
-	else
-		@PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
-			-R -E $silent -i $patch_file
+		if ! cat_file $patch_file \
+		     | @PATCH@ -d $workdir $patch_args \
+			       --no-backup-if-mismatch -E \
+			       >/dev/null 2>/dev/null
+		then
+			# If a patch was force applied (and therefore needs
+			# refreshing), we know that patching the temporary
+			# files won't succeed, either. So, ignore the error
+			# in that particular case.
+			
+			if ! [ -e .pc/$patch ]
+			then
+				echo $"Failed to patch temporary files"
+				rm -rf $workdir
+				return 1
+			fi
+		fi
 	fi
+	
+	local remains=$(gen_tempfile)
+	while read file
+	do
+		diff_file $file $workdir/$file $file >> $remains
+	done < $pc_file
+	
+	if [ -s $remains ]
+	then
+		echo $"Patch $patch does not remove cleanly (enforce with -f)."
+		status=1
+	fi
+	rm -f $remains
+	rm -rf $workdir
+
+	return $status
 }
 
 rpatch()
 {
-	local patch=$1 pc_file=$(gen_tempfile)
+	local patch=$1 pc_file=$(gen_tempfile) status=0
 
 	# FIXME backup-files should scan the directory tree itself.
 	files_in_patch $patch > $pc_file
@@ -131,50 +130,24 @@ rpatch()
 		return 0
 	fi
 
-	echo $"Removing $patch"
 	trap "" SIGINT
-	if [ -n "$opt_force" ] || \
-	   ( [ -z "$opt_remove" ] && ! files_may_have_changed $patch )
+	if [ -z "$opt_force" ] && \
+	   ( [ -n "$opt_remove" ] || files_may_have_changed $patch )
 	then
-		# Optimize: Force remove if the patch has not been
-		# modified since it was applied. (Forced remove is
-		# faster!)
+		check_for_pending_changes $patch $pc_file || status=1
+	fi
 
+	if [ $status -eq 0 ]
+	then
+		echo $"Removing $patch"
 		@LIB@/backup-files $silent -f $pc_file -B .pc/$patch/ -r
 		status=$?
 		remove_from_db $patch
 		rm -f .pc/$patch~refresh
-		if [ $status != 0 ]
-		then
-			exit $status
-		fi
-	else
-		trap "interrupted=1" SIGINT
-		reverse_patch $patch
-		status=$?
-		trap "" SIGINT
-
-		if [ $status -eq 0 ] && verify_removal $patch
-		then 
-			@LIB@/backup-files $silent_unless_verbose \
-					-f $pc_file -z ~rpatch -x
-			@LIB@/backup-files $silent_unless_verbose \
-					-f $pc_file -B .pc/$patch/ -x
-
-			remove_from_db $patch
-		else
-			rollback_patch $patch $pc_file
-			if [ -n "$interrupted" ]
-			then
-				echo $"Interrupted by user; patch $patch was not removed."
-			else
-				echo $"Patch $patch does not remove (enforce with -f)"
-			fi
-			return 1
-		fi
 	fi
 	rm -f $pc_file
 	trap - SIGINT
+	return $status
 }
 
 options=`getopt -o fRqvh -- "$@"`

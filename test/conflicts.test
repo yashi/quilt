@@ -60,7 +60,7 @@ anymore, then the patch is fixed.
 	$ sed -e "s/^\\([123567]\\)\$/\\1-/" one.orig > one.txt
 	$ quilt push -q
 	> Applying a
-	> 1 out of 2 hunks FAILED -- saving rejects to file one.txt.rej
+	> 1 out of 2 hunks FAILED -- rejects in file one.txt
 	> Patch a does not apply (enforce with -f)
 
 	$ quilt push -qf

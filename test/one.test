@@ -76,7 +76,7 @@ of the installed quilt with `make check'.
 
 	$ quilt pop -R
 	> Removing patch2
-	> patching file dir/file3
+	> Removing dir/file3
 	>
 	> Now at patch patch1
 
@@ -138,7 +138,7 @@ of the installed quilt with `make check'.
 	$ echo "Another line here, too." >> dir/file3
 	$ quilt pop -R
 	> Removing subdir/patch3
-	> patching file file4
+	> Restoring file4
 	>
 	> Now at patch patch2
 

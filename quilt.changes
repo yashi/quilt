@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Oct 31 15:55:29 CET 2003 - agruen@suse.de
+
+- No longer verify if patches remove cleanly by reverse applying
+  them: This doesn't always succeed, and the  the equivalent of
+  `quilt diff -z' should suffice, anyway.
+- Add `touch .pc/$patch' after successful refresh: Speeds up
+  `quilt pop' after a refresh.
+- Update test suite.
+- apatch was printing a spurious newline.
+
+-------------------------------------------------------------------
 Wed Oct 29 17:19:24 CET 2003 - agruen@suse.de
 
 - If a patch does not apply cleanly and `quilt push' removes

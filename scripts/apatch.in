@@ -78,7 +78,8 @@ apply_patch()
 		# The reject files are removed in rollback_patch.
 		echo "$output" \
 		| sed -e 's/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
-	else
+	elif [ -n "$output" ]
+	then
 		echo "$output"
 	fi
 	return $status

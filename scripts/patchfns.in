@@ -437,6 +437,7 @@ diff_file()
 	[ -s "$old_file" ] || old_file=/dev/null
 	[ -s "$new_file" ] || new_file=/dev/null
 
+	: ${opt_strip_level:=1}
 	if [ $opt_strip_level -eq 0 ]
 	then
 		old_hdr=$file.orig
