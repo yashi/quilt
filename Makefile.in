@@ -85,9 +85,9 @@ DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1
 
-DEBIAN :=	changelog control copyright rules 
-
-SRC +=		$(DEBIAN:%=debian/%)
+#DEBIAN :=	changelog control copyright rules 
+#
+#SRC +=		$(DEBIAN:%=debian/%)
 
 LINGUAS :=	fr de
 PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
