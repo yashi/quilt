@@ -1,0 +1,11 @@
+At the begining was the void. Then Andrew Morton <akpm@digeo.com> begun a
+collection of small scripts for patch management. The contributions came of
+Stephen Cameron <steve.cameron@hp.com>, Matt Reppert <arashi@arashi.yi.org>
+and Jeremy Fitzhardinge <jeremy@digeo.com>.
+
+Then, Andreas Gruenbacher <agruen@suse.de> came to cleanup, reorganize,
+document and speed up the code. He did also package it to rpm
+
+Finally, Martin Quinson <Martin.Quinson@tuxfamily.org> did a debian package
+and came with several little patches.
+
