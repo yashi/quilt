@@ -91,7 +91,7 @@ stack
 .RB ( "quilt pop" ),
 and refreshing patches 
 .RB ( "quilt refresh" ).
-Files in the \textsf{.pc} directory are automatically removed when they are
+Files in the .pc directory are automatically removed when they are
 no longer needed, so there is no need to clean up manually.
 
 .SH QUILT COMMANDS REFERENCE
@@ -116,10 +116,39 @@ no longer needed, so there is no need to clean up manually.
 
 Please refere to the pdf documentation for an example.
 
-.SH FILES
+.SH CONFIGURATION FILE
 
-.IP ~/.quiltrc 4
-Configuration (see pdf documentation for more details).
+The file ~/.quiltrc is used by default as configuration file, but that can
+be changed with the option --quiltrc. This file is to be sourced by bash.
+Here are the existing settings and their effects:
+
+.IP QUILT_BACKUP 4
+
+When set to "yes", the quilt refresh command will create backup files when
+refreshing patches. The backup files have "~" appended to the patch file
+names.
+
+.IP QUILT_DIFF_OPTS 4
+
+Additional options that quilt shall pass to GNU diff when generating
+patches. A useful setting for C source code is "-p", which causes GNU diff
+to show in the resulting patch which function a change is in.
+    
+.IP QUILT_NO_DIFF_TIMESTAMPS 4 
+
+When set to "yes", the quilt diff and quilt refresh commands will not
+include file timestamps in patches.
+	
+.IP QUILT_PATCH_OPTS 4
+
+Additional options that quilt shall pass to GNU patch when applying patches.
+(For example, some versions of GNU patch sup- port the
+"­unified-reject-files" option for generating reject files in unified diff
+style.
+    
+.IP QUILT_PATCHES 4
+
+The location of patch files, defaulting to "patches".
 
 .SH AUTHORS
 
@@ -136,4 +165,4 @@ the pdf documentation, and in the help messages of each commands.
 The pdf documentation, which should be under /usr/share/doc/quilt/quilt.pdf.
 
 .BR diff ( 1 ),
-.BR patch ( 1 )
+.BR patch ( 1 ).
