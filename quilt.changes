@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Feb 14 14:10:39 +0100 2003 - martin.quinson@tuxfamily.org
+
+- Implement i18n, along with the french l10n.
+- It was long enough that we didn't release, so bump the version number.
+
+-------------------------------------------------------------------
 Sat Feb  8 15:43:26 +0100 2003 - agruen@suse.de
 
 - Merge James Rowe <Jay@jnrowe.uklinux.net>'s quilt-help.diff

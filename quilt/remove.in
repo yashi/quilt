@@ -19,19 +19,19 @@ fi
 
 usage()
 {
-	echo "Usage: quilt remove [-p patch] {file} ..."
+	echo $"Usage: quilt remove [-p patch] {file} ..."
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Remove one or more files from the topmost or named patch.
 Files that are modified by patches on top of the specified
 patch cannot be removed.
 
 -p patch
-	Patch to add files to.
+	Patch to remove files from.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -73,12 +73,12 @@ then
 fi
 if [ -z "$patch" ]
 then
-	echo "No patches applied"
+	echo $"No patch applied"
 fi
 
 if ! is_applied $patch
 then
-	echo "Patch $patch is not applied"
+	echo $"Patch $patch is not applied"
 	exit 1
 fi
 
@@ -87,7 +87,7 @@ for file in $*
 do
 	if ! file_in_patch $file $patch
 	then
-		echo "File $file is not in patch $patch"
+		echo $"File $file is not in patch $patch"
 		status=1
 		continue
 	fi
@@ -95,7 +95,7 @@ do
 	next_patch=$(next_patch_for_file $patch $file)
 	if [ -n "$next_patch" ]
 	then
-		echo "File $file modified by patch $next_patch"
+		echo $"File $file modified by patch $next_patch"
 		status=1
 		continue
 	fi
@@ -103,7 +103,7 @@ do
 	# Restore file from backup
 	if ! @LIB@/backup-files -s -B .pc/$patch/ -r $file
 	then
-		echo "Failed to remove file $file from patch $patch"
+		echo $"Failed to remove file $file from patch $patch"
 		status=1
 		continue
 	fi
@@ -114,7 +114,7 @@ do
 	mv -f $tmpfile $pc_file
 	rm -f $tmpfile
 
-	echo "File $file removed from patch $patch"
+	echo $"File $file removed from patch $patch"
 done
 exit $status
 ### Local Variables:

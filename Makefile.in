@@ -186,6 +186,8 @@ install : scripts
 
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
 	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
+	
+	BUILD_ROOT=$(BUILD_ROOT) $(MAKE) -C po install
 
 clean :
 	rm -f $(DIRT)

@@ -24,11 +24,11 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo "Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [file ...]" $redirect
+	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [file ...]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Produces a diff of the specified file(s) in the topmost or
 specified patch. If no files are specified, all files that
@@ -49,7 +49,7 @@ are modified are included.
 -z	Write to standard output the changes that have been
 	made relative to the topmost or specified patch.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -128,7 +128,7 @@ opt_files=( "$@" )
 
 if [ -n "$opt_combine" -a -n "$opt_relative" ]
 then
-	echo "Options \`-c patch' and \`-z' cannot be combined."
+	echo $"Options \`-c patch' and \`-z' cannot be combined."
 	die 1
 fi
 
@@ -137,14 +137,14 @@ then
 	last_patch=$(top_patch)
 	if [ -z "$last_patch" ]
 	then
-		echo "No patches seem to be applied" >&2
+		echo $"No patch seem to be applied" >&2
 		die 1
 	fi
 fi
 
 if ! is_applied "$last_patch"
 then
-	echo "Patch $last_patch is not applied" >&2
+	echo $"Patch $last_patch is not applied" >&2
 	die 1
 fi
 
@@ -154,8 +154,7 @@ then
 fi
 if [ $opt_strip_level -lt 0 -o $opt_strip_level -gt 1 ]
 then
-	echo "Cannot diff patches with -p$opt_strip_level," \
-	     "please specify -p0 or -p1 instead" >&2
+	echo $"Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 instead" >&2
 	die 1
 fi
 
@@ -163,7 +162,7 @@ if [ -n "$opt_combine" ]
 then
 	if ! refresh_patches_per_file
 	then
-		echo "refresh_patches_per_file failed."
+		echo $"refresh_patches_per_file failed."
 		die 1
 	fi
 	
@@ -176,8 +175,7 @@ then
 		done
 		if [ $# -eq 0 ]
 		then
-			echo "Patch $opt_combine not applied" \
-			     "before $last_patch."
+			echo $"Patch $opt_combine not applied before $last_patch."
 			die 1
 		fi
 	fi
@@ -211,7 +209,7 @@ then
 	do
 		if ! in_array "$file" "${files[@]}"
 		then
-			echo "File $file is not being modified."
+			echo $"File $file is not being modified."
 		fi
 	done
 fi
@@ -228,17 +226,17 @@ then
 
 	if ! cd .pc/$last_patch
 	then
-		echo "Cannot change into .pc/$last_patch"
+		echo $"Cannot change into .pc/$last_patch"
 		die 1
 	fi
 	if ! cp -l --parents "${files[@]}" $workdir/
 	then
-		echo "Failed to copy files to temporary directory"
+		echo $"Failed to copy files to temporary directory"
 		die 1
 	fi
 	if ! cd $workdir
 	then
-		echo "Cannot change to temporary directory"
+		echo $"Cannot change to temporary directory"
 		die 1
 	fi
 	
@@ -255,14 +253,14 @@ then
 			
 			if ! [ -e $pwd/$pc_file~refresh ]
 			then
-				echo "Failed to patch temporary files"
+				echo $"Failed to patch temporary files"
 				die 1
 			fi
 		fi
 	fi
 	if ! cd $pwd
 	then
-		echo "Cannot change to source directory"
+		echo $"Cannot change to source directory"
 		die 1
 	fi
 fi
@@ -297,14 +295,14 @@ do
 
 	if [ $? -ne 0 ]
 	then
-		echo "Diff failed, aborting." >&2
+		echo $"Diff failed, aborting." >&2
 		die 1
 	fi
 done
 
 if [ -n "$files_were_shadowed" ]
 then
-	echo "More recent patches modify the same files."
+	echo $"More recent patches modify the same files."
 	die 1
 fi
 die 0

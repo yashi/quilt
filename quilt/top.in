@@ -19,15 +19,15 @@ fi
 
 usage()
 {
-	echo "Usage: quilt top"
+	echo $"Usage: quilt top"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print the name of the topmost patch on the current stack of applied
 patches.
 
-EOF
+"
 		exit 0
 	else
 		exit 1

@@ -1,3 +1,9 @@
+quilt (0.22) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 14 Feb 2003 14:12:31 +0100
+
 quilt (0.21-2) unstable; urgency=low
 
   * Fight lintian warnings and error: 

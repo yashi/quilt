@@ -19,14 +19,15 @@ fi
 
 usage()
 {
-	echo "Usage: quilt guidiff"
+	echo $"Usage: quilt guidiff"
+	guidiffname="@GUIDIFF@"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
-Display in @GUIDIFF@ the changes to files in the topmost patch.
+Display in $guidiffname the changes to files in the topmost patch.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -61,7 +62,7 @@ fi
 patch=$(top_patch)
 if [ -z "$patch" ]
 then
-	echo "No patches applied" >&2
+	echo $"No patch applied" >&2
 	exit 1
 fi
 
@@ -75,11 +76,11 @@ then
 		then
 			@GUIDIFF@ $(backup_file_name $patch $file) $file
 		else
-			echo "The file $file doesn't exist before this patch"
+			echo $"The file $file doesn't exist before this patch"
 		fi
 	done
 else
-	echo "No files in patch $patch"
+	echo $"No file in patch $patch"
 fi
 ### Local Variables:
 ### mode: shell-script

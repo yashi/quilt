@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo "Usage: $0 [-fqv] patchname"
+	echo $"Usage: $0 [-fqv] patchname"
 	exit 1
 }
 
@@ -37,7 +37,7 @@ rollback_patch()
 interrupt()
 {
 	rollback_patch $1
-	echo "Interrupted by user; patch $patch was not applied."
+	echo $"Interrupted by user; patch $patch was not applied."
 	exit 1
 }
 
@@ -48,7 +48,7 @@ apply_patch()
 
 	if ! [ -s $patch_file ]
 	then
-		echo "Patch file $patch_file appears to be empty"
+		echo $"Patch file $patch_file appears to be empty"
 		return 0
 	fi
 	
@@ -77,14 +77,14 @@ apatch()
 	trap "" SIGINT
 	if ! refresh_file_list $patch
 	then
-		echo "refresh_file_list failed"
+		echo $"refresh_file_list failed"
 		return 1
 	fi
 
-	echo "Applying $patch"
+	echo $"Applying $patch"
 	if ! [ -e $pc_file ]
 	then
-		echo "Patch $patch appears to be empty, applied"
+		echo $"Patch $patch appears to be empty, applied"
 		add_to_db $patch
 		return 0
 	fi
@@ -92,7 +92,7 @@ apatch()
 	status=$?
 	if [ $status -eq 2 ]
 	then
-		[ -z "$opt_quiet" ] && echo "Recreated file list for $patch"
+		[ -z "$opt_quiet" ] && echo $"Recreated file list for $patch"
 	elif [ $status -ne 0 ]
 	then
 		return 1
@@ -123,11 +123,11 @@ apatch()
 			rm -f $pc_file~refresh
 		else
 			touch $pc_file~refresh
-			echo "Applied $patch (forced; needs refresh)"
+			echo $"Applied $patch (forced; needs refresh)"
 		fi
 	else
 		rollback_patch $patch
-		echo "Patch $patch does not apply (enforce with -f)"
+		echo $"Patch $patch does not apply (enforce with -f)"
 	fi
 	trap - SIGINT
 	return $status
@@ -178,7 +178,7 @@ patch=$(stripit $1)
 top=$(top_patch)
 if [ -n "$top" -a -e $(pc_file_name $top)~refresh ]
 then
-	echo "The topmost patch $top needs to be refreshed first."
+	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1
 fi
 

@@ -19,17 +19,17 @@ fi
 
 usage()
 {
-	echo "Usage: quilt files [-v] [patch]"
+	echo $"Usage: quilt files [-v] [patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print the list of files that the topmost or specified patch
 changes.
 
 -v	Verbose, more user friendly output.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -72,7 +72,7 @@ else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo "No patches applied" >&2
+		echo $"No patch applied" >&2
 		exit 1
 	fi
 fi
@@ -81,10 +81,10 @@ if ! is_applied $patch
 then
 	if [ -n "$opt_verbose" ]
 	then
-		echo "Patch is not applied (no verbose output)" >&2
+		echo $"Patch is not applied (no verbose output)" >&2
 		opt_verbose=0
 	else
-		echo "Patch is not applied" >&2
+		echo $"Patch is not applied" >&2
 	fi
 fi
 

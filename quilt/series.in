@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo "Usage: quilt series [-v]"
+	echo $"Usage: quilt series [-v]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print the names of all patches in the series file.
 
@@ -30,7 +30,7 @@ Print the names of all patches in the series file.
 
 -v	Verbose, more user friendly output.
 
-EOF
+"
 		exit 0
 	else
 		exit 1

@@ -19,17 +19,17 @@ fi
 
 usage()
 {
-	echo "Usage: quilt unapplied [patch]"
+	echo $"Usage: quilt unapplied [patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print a list of patches that are not applied, or all patches that follow
 the specified patch in the series file.
 
 -n	Print patch file names instead of patch names.
 
-EOF
+"
 		exit 0
 	else
 		exit 1

@@ -19,17 +19,17 @@ fi
 
 usage()
 {
-	echo "Usage: quilt next [patch]"
+	echo $"Usage: quilt next [patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print the name of the next patch after the specified or topmost patch in
 the series file.
 
 -n	Print patch file names instead of patch names.
 
-EOF
+"
 		exit 0
 	else
 		exit 1

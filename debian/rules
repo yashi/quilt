@@ -21,6 +21,8 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
+	autoconf
+	./configure --prefix=$(CURDIR)/debian/quilt
 
 	touch configure-stamp
 
@@ -42,7 +44,7 @@ clean:
 	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	$(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt clean
+	-test -f Makefile && $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt clean
 
 	dh_clean
 

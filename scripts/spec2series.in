@@ -97,7 +97,7 @@ echo -n "### md5: " >&2
 	set -- `md5sum < $file`
 	echo "$1 cat   ${file}"
 done) > $WORK/md5sum
-echo " done" >&2
+echo $" done" >&2
 
 # prepare rpm dir fixups and hooks
 RPM="rpm --rcfile=/usr/lib/rpm/rpmrc:$WORK/rpmrc"
@@ -189,7 +189,7 @@ ln -s patch "$WORK/bin/tar"
 echo -n "### rpm: " >&2
 touch $WORK/patchlog
 $RPM --nodeps --quiet -bp "$specdir/$specfile" </dev/null
-echo " done" >&2
+echo $" done" >&2
 
 # print results saved by the wrapper script
 (

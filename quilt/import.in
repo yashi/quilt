@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo "Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
+	echo $"Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Import an external patch. If a patch file name is specified,
 the patch will be stored in this relative path in the patches/
@@ -37,7 +37,7 @@ used as the patch name.
 
 -f	Overwite/update existing patches.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -95,7 +95,7 @@ else
 	then
 		opt_patch="$patch.patch"
 	else
-		echo "Please use -n to specify a patch file name."
+		echo $"Please use -n to specify a patch file name."
 		exit 1
 	fi
 	patch_file="${P}patches/$opt_patch"
@@ -103,13 +103,13 @@ fi
 
 if echo "$patch_file" | grep -q -e $'[ \t]'
 then
-	echo "Patch file name \"$patch_file\" contains whitespace."
+	echo $"Patch file name \"$patch_file\" contains whitespace."
 	exit 1
 fi
 
 if is_applied $patch
 then
-	echo "Patch $patch is applied."
+	echo $"Patch $patch is applied."
 	exit 1
 fi
 
@@ -118,7 +118,7 @@ case "$input_file" in
 	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! cat > $tmpfile
 	then
-		echo "Cannot read from standard input."
+		echo $"Cannot read from standard input."
 		rm -f $tmpfile
 		exit 1
 	fi
@@ -127,7 +127,7 @@ case "$input_file" in
 	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! gzip -cd "$input_file" > $tmpfile
 	then
-		echo "Cannot decompress file $input_file"
+		echo $"Cannot decompress file $input_file"
 		rm -f $tmpfile
 		exit 1
 	fi
@@ -136,7 +136,7 @@ case "$input_file" in
 	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! bzip2 -cd "$input_file" > $tmpfile
 	then
-		echo "Cannot decompress file $input_file"
+		echo $"Cannot decompress file $input_file"
 		rm -f $tmpfile
 		exit
 	fi
@@ -144,7 +144,7 @@ case "$input_file" in
 *)
 	if ! [ -r "$input_file" ]
 	then
-		echo "Cannot read from file $input_file"
+		echo $"Cannot read from file $input_file"
 		exit 1
 	fi
 esac
@@ -153,36 +153,36 @@ if [ -e "$patch_file" ]
 then
 	if [ -z "$opt_force" ]
 	then
-		echo "Patch $patch exists. Replace with -f."
+		echo $"Patch $patch exists. Replace with -f."
 		exit 1
 	fi
 
 	if grep -q '^%patch$' "$patch_file" &&
 	   ! grep -q '^%patch$' "$input_file"
 	then
-		echo "Updating %patch section of patch $patch"
+		echo $"Updating %patch section of patch $patch"
 		if ! @SCRIPTS@/parse-patch -u patch $patch_file < "$input_file"
 		then
-			echo "Failed to update %patch section of patch $patch"
+			echo $"Failed to update %patch section of patch $patch"
 			exit 1
 		fi
 	else
-		echo "Replacing patch $patch with new version"
+		echo $"Replacing patch $patch with new version"
 		if ! cat "$input_file" > "$patch_file"
 		then
-			echo "Failed to replace patch $patch"
+			echo $"Failed to replace patch $patch"
 			exit 1
 		fi
 	fi
 else
-	echo "Importing patch $patch (stored as $patch_file)"
+	echo $"Importing patch $patch (stored as $patch_file)"
 	if ! grep -q '^%patch$' "$input_file"
 	then
 		echo "%patch" >> "$patch_file"
 	fi
 	if ! cat "$input_file" >> "$patch_file"
 	then
-		echo "Failed to import patch $patch"
+		echo $"Failed to import patch $patch"
 		exit 1
 	fi
 fi
@@ -192,7 +192,7 @@ rm -rf .pc/$patch
 if ! patch_in_series $patch &&
    ! insert_in_series $opt_patch "$patch_args"
 then
-	echo "Failed to insert $patch in file series."
+	echo $"Failed to insert $patch in file series."
 fi
 
 if [ -n "$tmpfile" ]

@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
+	echo $"Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Apply patch(es) from the series file. A number of patches
 to apply, or a patch name can be specified. If a patch
@@ -42,7 +42,7 @@ specified, apply the next patch from the series file.
 	Leave around the reject files patch produced, even if
 	the patch is not actually applied.
 	
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -80,7 +80,7 @@ list_patches()
 		done
 		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
 		then
-			echo "Patch $stop_at_patch not found in file series" >&2
+			echo $"Patch $stop_at_patch not found in file series" >&2
 			return 1
 		fi
 	fi
@@ -151,7 +151,7 @@ if [ -n "$stop_at_patch" ]
 then
 	if is_applied $stop_at_patch
 	then
-		echo "Patch $stop_at_patch is already applied."
+		echo $"Patch $stop_at_patch is already applied."
 		exit 1
 	fi
 fi
@@ -164,9 +164,9 @@ then
 	top=$(top_patch)
 	if [ -z "$top" ]
 	then
-		echo "No patches applied"
+		echo $"No patch applied"
 	else
-		echo "File series fully applied, ends at patch $top"
+		echo $"File series fully applied, ends at patch $top"
 	fi
 	exit 0
 fi
@@ -181,7 +181,7 @@ do
 	fi
 	if [ -n "$interrupted" ]
 	then
-		echo "Interrupted by user"
+		echo $"Interrupted by user"
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo

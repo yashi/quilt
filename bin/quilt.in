@@ -6,11 +6,13 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+export TEXTDOMAIN=quilt
+
 usage()
 {
 
-	echo "Usage: quilt command [-h] ..."
-	#echo "Commands are:" $(
+	echo $"Usage: quilt command [-h] ..."
+	#echo $"Commands are:" $(
 	#	local command
 	#	for command in @QUILT@/*
 	#	do
@@ -21,7 +23,7 @@ usage()
 	#	done \
 	#	| sort
 	#)
-	echo "Commands are:"
+	echo $"Commands are:"
 	quilt_commands \
 	| sort \
 	| column | column -t \
@@ -78,7 +80,7 @@ then
 		command="${commands[0]}"
 		unset commands
 	else
-		echo "$command:" "${commands[@]}" >&2
+		echo $"$command:" "${commands[@]}" >&2
 		exit 1
 	fi
 fi

@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo "Usage: quilt patches {file}"
+	echo $"Usage: quilt patches {file}"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Print the list of patches that modify the specified file.
 
@@ -30,7 +30,7 @@ Print the list of patches that modify the specified file.
 
 -v	Verbose, more user friendly output.
 
-EOF
+"
 		exit 0
 	else
 		exit 1

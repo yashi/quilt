@@ -24,11 +24,11 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo "Usage: quilt refresh [-p n] [-f] [patch]" $redirect
+	echo $"Usage: quilt refresh [-p n] [-f] [patch]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Refresh an applied patch. Refreshes the specified patch, or
 the topmost patch by default. Documentation on top of the
@@ -49,7 +49,7 @@ specified patch.
 -f	Force refresh, even if more recent patches modify
 	some of the same files.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -105,14 +105,14 @@ else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo "No patches seem to be applied" >&2
+		echo $"No patch seem to be applied" >&2
 		exit 1
 	fi
 fi
 
 if ! is_applied "$patch"
 then
-	echo "Patch $patch is not applied" >&2
+	echo $"Patch $patch is not applied" >&2
 	exit 1
 fi
 
@@ -122,8 +122,7 @@ then
 fi
 if [ $opt_strip_level -gt 1 ]
 then
-	echo "Cannot refresh patches with -p$opt_strip_level," \
-	     "please specify -p0 or -p1 instead" >&2
+	echo $"Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 instead" >&2
 	exit 1
 fi
 
@@ -144,21 +143,20 @@ do
 	fi
 	if ! diff_file $file "~${patch//\//_}" $old_file $new_file >> $tmpfile
 	then
-		echo "Diff failed, aborting." >&2
+		echo $"Diff failed, aborting." >&2
 		die 1
 	fi
 
 	if [ -n "$files_were_shadowed" -a -z "$opt_force" ]
 	then
-		echo "More recent patches modify the same files." \
-		     "Enforce refresh with -f." >&2
+		echo $"More recent patches modify the same files. Enforce refresh with -f." >&2
 		die 1
 	fi
 done
 
 if ! [ -s $tmpfile ]
 then
-	echo "Nothing in patch $patch" >&2
+	echo $"Nothing in patch $patch" >&2
 	die 1
 fi
 
@@ -198,7 +196,7 @@ then
 fi
 
 rm -f $(pc_file_name $patch)~refresh
-echo "Refreshed patch $patch"
+echo $"Refreshed patch $patch"
 if ! change_db_strip_level -p$opt_strip_level $patch
 then
 	die 1

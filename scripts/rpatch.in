@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo "Usage: $0 [-fRq] patchname"
+	echo $"Usage: $0 [-fRq] patchname"
 	exit 1
 }
 
@@ -41,7 +41,7 @@ verify_removal()
 
 		if [ $status -eq 0 ]
 		then
-			echo "Patch does not remove changes:"
+			echo $"Patch does not remove changes:"
 		fi
 
 		@DIFF@ -Nu $DIFF_OPTS $bup $file \
@@ -99,7 +99,7 @@ interrupt()
 {
 	local patch=$1
 	rollback_patch $patch
-	echo "Interrupted by user; patch $patch was not removed."
+	echo $"Interrupted by user; patch $patch was not removed."
 	exit 1
 }
 
@@ -110,7 +110,7 @@ reverse_patch()
 
 	if ! [ -s $patch_file ]
 	then
-		echo "Patch file $patch_file appears to be empty"
+		echo $"Patch file $patch_file appears to be empty"
 		return 0
 	fi
 	
@@ -136,7 +136,7 @@ rpatch()
 
 	if ! [ -e $pc_file ]
 	then
-		echo "Patch $patch appears to be empty, removed"
+		echo $"Patch $patch appears to be empty, removed"
 		remove_from_db $patch
 		return 0
 	fi
@@ -161,7 +161,7 @@ rpatch()
 		if ! @LIB@/backup-files $silent_unless_verbose \
 					-f $pc_file -z ~rpatch
 		then
-			echo "Failed to create temporary files" >&2
+			echo $"Failed to create temporary files" >&2
 			return 1
 		fi
 		
@@ -182,7 +182,7 @@ rpatch()
 			remove_from_db $patch
 		else
 			rollback_patch $patch
-			echo "Patch $patch does not remove (enforce with -f)"
+			echo $"Patch $patch does not remove (enforce with -f)"
 			return 1
 		fi
 	fi
@@ -191,11 +191,11 @@ rpatch()
 	local top=$(top_patch) where
 	if [ -z "$top" ]
 	then
-		where="no patches applied"
+		where=$"no patch applied"
 	else
-		where="now at $top"
+		where=$"now at $top"
 	fi
-	echo "Removed $patch, $where"
+	echo $"Removed $patch, $where"
 }
 
 options=`getopt -o fRqvh -- "$@"`
@@ -243,7 +243,7 @@ patch=$(stripit $1)
 top=$(top_patch)
 if [ -n "$top" -a -e $(pc_file_name $top)~refresh -a -z "$opt_force" ]
 then
-	echo "The topmost patch $top needs to be refreshed first."
+	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1
 fi
 

@@ -19,15 +19,15 @@ fi
 
 usage()
 {
-	echo "Usage: quilt new {patchname}"
+	echo $"Usage: quilt new {patchname}"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Create a new patch with the specified file name, and insert
 it after the topmost patch in the patch series file.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -64,7 +64,7 @@ patch=$(stripit $patch_file)
 
 if patch_in_series $patch
 then
-	echo "Patch $patch exists already"
+	echo $"Patch $patch exists already"
 	exit 1
 fi
 
@@ -74,10 +74,10 @@ rm -f $(pc_file_name $patch)
 if ! insert_in_series $patch_file || \
    ! add_to_db $patch
 then
-	echo "Failed to create patch $patch"
+	echo $"Failed to create patch $patch"
 	exit 1
 else
-	echo "Patch $patch is now on top"
+	echo $"Patch $patch is now on top"
 fi
 ### Local Variables:
 ### mode: shell-script

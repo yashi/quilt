@@ -19,16 +19,15 @@ fi
 
 usage()
 {
-	echo "Usage: quilt delete [patch]"
+	echo $"Usage: quilt delete [patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Remove the specified or topmost patch from the series file. If the 
 patch is applied, quilt will attempt to remove it first. (Only the 
-topmost patch can be removed right now.)
+topmost patch can be removed right now.)"
 
-EOF
 		exit 0
 	else
 		exit 1
@@ -67,13 +66,13 @@ then
 	patch="$(top_patch)"
 	if [ -z "$patch" ]
 	then
-		echo "No patches applied"
+		echo $"No patch applied"
 		exit 1
 	fi
 else
 	if ! patch_in_series $patch
 	then
-		echo "Patch $patch does not exist"
+		echo $"Patch $patch does not exist"
 		exit 1
 	fi
 fi
@@ -82,13 +81,13 @@ then
 	if [ "$patch" != "$(top_patch)" ] || \
 	   ! @SCRIPTS@/rpatch -fq "$patch"
 	then
-		echo "Patch $patch is currently applied"
+		echo $"Patch $patch is currently applied"
 		exit 1
 	fi
 fi
 if ! remove_from_series $patch
 then
-	echo "Failed to remove patch $patch"
+	echo $"Failed to remove patch $patch"
 fi
 ### Local Variables:
 ### mode: shell-script

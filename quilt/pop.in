@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo "Usage: quilt pop [-afRqv] [num|patch]"
+	echo $"Usage: quilt pop [-afRqv] [num|patch]"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Remove patch(es) from the current stack. A number of
 patches to remove, or a patch name can be specified. If a
@@ -42,7 +42,7 @@ name is specified, remove the next patch from the series file.
 
 -v	Verbose operation.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -81,7 +81,7 @@ list_patches()
 		done
 		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
 		then
-			echo "Patch $stop_at_patch not found in file series" >&2
+			echo $"Patch $stop_at_patch not found in file series" >&2
 			return 1
 		fi
 	fi
@@ -154,7 +154,7 @@ if [ -n "$stop_at_patch" ]
 then
 	if ! is_applied $stop_at_patch
 	then
-		echo "Patch $stop_at_patch is not applied."
+		echo $"Patch $stop_at_patch is not applied."
 		exit 1
 	fi
 fi
@@ -164,7 +164,7 @@ then
 	exit 1
 elif [ -z "$patches" ]
 then
-        echo "No patches removed"
+        echo $"No patch removed"
 	exit 0
 fi
 
@@ -178,7 +178,7 @@ do
 	fi
 	if [ -n "$interrupted" ]
 	then
-		echo "Interrupted by user"
+		echo $"Interrupted by user"
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo

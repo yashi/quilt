@@ -19,16 +19,16 @@ fi
 
 usage()
 {
-	echo "Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
+	echo $"Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
 	if [ x$1 = x-h ]
 	then
-		cat <<EOF
+		echo $"
 
 Initializes a source tree from a patch series file. The
 patch series file must contain the name of the relevant
 tar archive, in addition to the list of patches.
 
-EOF
+"
 		exit 0
 	else
 		exit 1
@@ -97,7 +97,7 @@ case "$1" in
 	series_file=$1
 	if ! [ -e "$series_file" ]
 	then
-		echo "Series file $series_file not found"
+		echo $"Series file $series_file not found"
 		exit 1
 	fi
 	;;
@@ -122,10 +122,10 @@ do
 	SOURCEDIR)
 		# Directory for package sources
 		source="$arg"
-		echo "Reading sources from $arg"
+		echo $"Reading sources from $arg"
 		;;
 	SOURCE)
-		echo "Unpacking archive $source/$arg"
+		echo $"Unpacking archive $source/$arg"
 		mkdir -p "$arg2" && \
 		cat_file "$source/$arg" \
 		| tar xf - -C "${arg2:-.}"
@@ -135,23 +135,23 @@ do
 		packagedir="$arg"
 		if [ -d "$packagedir" ]
 		then
-			echo "Directory $packagedir exists already."
+			echo $"Directory $packagedir exists already."
 			status=1
 			break
 		elif [ -e "$packagedir" ]
 		then
-			echo "File $packagedir exists."
+			echo $"File $packagedir exists."
 			status=1
 			break
 		fi
 		;;
 	PATCH)
-		echo "Copying patch $source/$arg"
+		echo $"Copying patch $source/$arg"
 		mkdir -p "$packagedir/patches/" && \
 		cp "$source/$arg" "$packagedir/patches/" \
 		;;
 	SERIES)
-		echo "Copying series file"
+		echo $"Copying series file"
 		cp "$arg" "$packagedir/patches/series"
 		;;
 	*)
@@ -175,7 +175,7 @@ fi
 
 if [ "$packagedir" != "." ]
 then
-	echo "Directory $packagedir set up."
+	echo $"Directory $packagedir set up."
 fi
 ### Local Variables:
 ### mode: shell-script
