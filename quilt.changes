@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 25 13:53:23 CET 2005 - agruen@suse.de
+
+- Fix pop command for recent coreutils (cp dir dir2/ no longer
+  works if dir2 doesn't yet exist).
+
+-------------------------------------------------------------------
 Sun Jan 23 19:27:17 CET 2005 - agruen@suse.de
 
 - Add color support for push command output and allow to customize

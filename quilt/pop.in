@@ -110,7 +110,7 @@ check_for_pending_changes()
 	if [ -d $QUILT_PC/$patch ]
 	then
 		if ! rmdir $workdir ||  # note that this is racey...
-		   ! cp -rl $QUILT_PC/$patch $workdir/
+		   ! cp -rl $QUILT_PC/$patch $workdir
 		then
 			printf $"Failed to copy files to temporary directory\n" >&2
 			rm -rf $workdir
