@@ -46,6 +46,11 @@ SRC +=		$(DOC_SRC) docco.txt
 DIRT +=		$(DOC_IN)
 
 MAN1 :=		bin/guards.1
+
+DEBIAN :=	changelog control copyright docs prerm rules 
+
+SRC +=		$(DEBIAN:%=debian/%)
+
 #-----------------------------------------------------------------------
 
 all : scripts
