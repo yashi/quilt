@@ -9,7 +9,7 @@ Standards-Version: 3.6.1.0
 
 Package: quilt
 Architecture: any
-Depends: bash, patch, diffstat, bzip2, gettext, gawk
+Depends: patch, diffstat, bzip2, gettext, gawk
 Suggests: ccache
 Description: Scripts for working with series of patches
  The scripts allow to manage a series of patches by keeping track of the
