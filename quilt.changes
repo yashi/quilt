@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Thu Jun 10 22:08:07 CEST 2004 - agruen@suse.de
+
+- Add meta-data version check/upgrade code from Martin Quinson and
+  me; new `quilt upgrade' command.
+- Handle new/removed files correctly in generated patches: If the
+  old or new file is missing, the file name in the patch should
+  be /dev/null. Fix test suite accordingly, and add
+  test/create-delete.diff. GNU patch recognizes this, and does
+  additional file existance tests when a patch creates/deletes a
+  file. Also use the --label option of GNU diff instead of
+  hand-editing file name headers.
+- Add test/Makefile for running the test suite. Note: The tests
+  run against the installed version of quilt!
+- Bump version to 0.34.
+
+-------------------------------------------------------------------
 Sun Jun  6 20:16:44 CEST 2004 - agruen@suse.de
 
 - Preserve the order of files in patches in the diff and refresh

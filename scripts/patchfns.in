@@ -11,6 +11,7 @@ ORIGINAL_LANG=$LANG
 export LANG=POSIX
 export TEXTDOMAIN=quilt
 export QUILT_PATCHES QUILT_PC SUBDIR SERIES DB
+DB_VERSION=2
 
 : ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
@@ -19,55 +20,6 @@ if [ -e "$QUILTRC" ]
 then
 	source "$QUILTRC"
 fi
-
-#
-# If the working directory does not contain a $QUILT_PATCHES directory,
-# quilt searches for its base directory up the directory tree. If no
-# $QUILT_PATCHES directory exists, the quilt operations that create
-# patches will create $QUILT_PATCHES in the current working directory.
-#
-# When quilt is invoked from a directory below the base directory, it
-# changes into the base directory, and sets $SUBDIR to the relative
-# path from the base directory to the directory in which it was
-# invoked. (e.g., if quilt is invoked in /usr/src/linux/drivers/net
-# and the base direcory is /usr/src/linux, $SUBDIR is set to
-# drivers/net/.
-
-unset SUBDIR
-if ! [ -d "$QUILT_PATCHES" ]
-then
-    basedir=$PWD
-    while [ -n "$basedir" ]
-    do
-	basedir=${basedir%/*}
-	if [ -d "$basedir/$QUILT_PATCHES" ]
-	then
-	    SUBDIR="${PWD#$basedir/}/"
-	    if ! cd $basedir/
-	    then
-		echo "Cannot change into parent directory $basedir/" >&2
-		exit 1
-	    fi
-	    break
-	fi
-    done
-    unset basedir
-fi
-
-if [ -n "$QUILT_SERIES" ]
-then
-	SERIES=$QUILT_SERIES
-elif [ -e $QUILT_PC/series ]
-then
-	SERIES=$QUILT_PC/series
-elif [ -e series ]
-then
-	SERIES=series
-else
-	SERIES=$QUILT_PATCHES/series
-fi
-
-DB="$QUILT_PC/applied-patches"
 
 
 # Quote a string for use in a basic regular expression.
@@ -539,18 +491,18 @@ touched_by_patch()
 fix_diff_header()
 {
 	local from=$1 to=$2 z
-	[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] && z='.*'
-	@SED@ -e 's/^--- [^ '$'\t'']*'$z'/--- '"$(quote_bre $from)"'/' \
-	      -e 's/^+++ [^ '$'\t'']*'$z'/+++ '"$(quote_bre $to)"'/'
+	if [ -n "$QUILT_NO_DIFF_TIMESTAMPS" ]
+	then
+		sed -e 's:^\(\(---\|+++\) .*\)\t.*:\1:'
+	else
+		cat
+	fi
 }
 
 diff_file()
 {
 	local file=$1 old_file=$2 new_file=$3
-	local old_hdr new_hdr line
-
-	[ -s "$old_file" ] || old_file=/dev/null
-	[ -s "$new_file" ] || new_file=/dev/null
+	local index old_hdr new_hdr line
 
 	: ${opt_strip_level:=1}
 	if [ $opt_strip_level -eq 0 ]
@@ -562,14 +514,27 @@ diff_file()
 		old_hdr=$dir.orig/$file
 		new_hdr=$dir/$file
 	fi
-
-	@DIFF@ -Nu $QUILT_DIFF_OPTS $old_file $new_file |
-	if read line
+	index=$new_hdr
+	
+	if ! [ -s "$old_file" ]
 	then
-		echo "Index: $new_hdr"
+		old_file=/dev/null
+		old_hdr=/dev/null
+	fi
+	if ! [ -s "$new_file" ]
+	then
+		new_file=/dev/null
+		new_hdr=/dev/null
+	fi
+
+	@DIFF@ -Nu $QUILT_DIFF_OPTS $old_file $new_file \
+	       --label "$old_hdr" --label "$new_hdr" \
+	| if read line
+	then
+		echo "Index: $index"
 		echo "==================================================================="
 		(echo "$line" ; cat) \
-		| fix_diff_header $old_hdr $new_hdr
+		| fix_diff_header
 	fi
 }
 
@@ -706,6 +671,88 @@ first_modified_by()
 	done
 	return 1
 }
+
+create_db() {
+	if ! [ -e $QUILT_PC ]
+	then
+		mkdir -p $QUILT_PC
+		echo $DB_VERSION > $QUILT_PC/.version
+	fi
+}
+
+version_check() {
+	[ -e $QUILT_PC ] || return 0
+
+	if [ -e $QUILT_PC/.version ]
+	then
+		version="$(< $QUILT_PC/.version)"
+		if [ "$version" -gt $DB_VERSION ]
+		then
+			echo $"The quilt meta-data in this tree has version $version, but this version of quilt can only handle meta-data formats up to and including version $DB_VERSION. Please pop all the patches using the version of quilt used to push them before downgrading." >&2
+			exit 1
+		elif [ "$version" = $DB_VERSION ]
+		then
+			return 0
+		fi
+	fi
+	return 1
+}
+
+
+#
+# If the working directory does not contain a $QUILT_PATCHES directory,
+# quilt searches for its base directory up the directory tree. If no
+# $QUILT_PATCHES directory exists, the quilt operations that create
+# patches will create $QUILT_PATCHES in the current working directory.
+#
+# When quilt is invoked from a directory below the base directory, it
+# changes into the base directory, and sets $SUBDIR to the relative
+# path from the base directory to the directory in which it was
+# invoked. (e.g., if quilt is invoked in /usr/src/linux/drivers/net
+# and the base direcory is /usr/src/linux, $SUBDIR is set to
+# drivers/net/.
+
+unset SUBDIR
+if ! [ -d "$QUILT_PATCHES" ]
+then
+    basedir=$PWD
+    while [ -n "$basedir" ]
+    do
+	basedir=${basedir%/*}
+	if [ -d "$basedir/$QUILT_PATCHES" ]
+	then
+	    SUBDIR="${PWD#$basedir/}/"
+	    if ! cd $basedir/
+	    then
+		echo "Cannot change into parent directory $basedir/" >&2
+		exit 1
+	    fi
+	    break
+	fi
+    done
+    unset basedir
+fi
+
+if [ -n "$QUILT_SERIES" ]
+then
+	SERIES=$QUILT_SERIES
+elif [ -e $QUILT_PC/series ]
+then
+	SERIES=$QUILT_PC/series
+elif [ -e series ]
+then
+	SERIES=series
+else
+	SERIES=$QUILT_PATCHES/series
+fi
+
+DB="$QUILT_PC/applied-patches"
+
+if [ -z "$skip_version_check" ] && ! version_check
+then
+	echo $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'." >&2
+	exit 1
+fi
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -27,7 +27,7 @@ of the installed quilt with `make check'.
 	$ quilt diff | sed -e "s/\\t.*//"
 	> Index: d/file2
 	> ===================================================================
-	> --- d.orig/file2
+	> --- /dev/null
 	> +++ d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
@@ -35,7 +35,7 @@ of the installed quilt with `make check'.
 	$ quilt diff -z | sed -e "s/\\t.*//"
 	> Index: d/file2
 	> ===================================================================
-	> --- d.orig/file2
+	> --- /dev/null
 	> +++ d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
@@ -109,7 +109,7 @@ of the installed quilt with `make check'.
 	> Index: d/file4
 	> ===================================================================
 	> --- d.orig/file4
-	> +++ d/file4
+	> +++ /dev/null
 	> @@ -1 +0,0 @@
 	> -This is file 4.
 

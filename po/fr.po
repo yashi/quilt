@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.30\n"
-"PO-Revision-Date: 2004-06-01 10:21-0700\n"
+"Project-Id-Version: quilt 0.33\n"
+"PO-Revision-Date: 2004-06-09 00:08-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Le patch $patch n'est pas appliqué"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:168
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
-#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:214
+#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
 #: ../quilt/refresh.in:107 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
@@ -459,11 +459,11 @@ msgstr ""
 msgid "Patch $patch exists already"
 msgstr "Le patch $patch existe déjà"
 
-#: ../quilt/new.in:80
+#: ../quilt/new.in:81
 msgid "Failed to create patch $patch"
 msgstr "Impossible de crée le patch $patch"
 
-#: ../quilt/new.in:83
+#: ../quilt/new.in:84
 msgid "Patch $patch is now on top"
 msgstr "Le patch $patch est maintenant au sommet"
 
@@ -565,11 +565,11 @@ msgstr "Le patch $stop_at_patch n'est pas appliqué."
 msgid "No patch removed"
 msgstr "Aucun patch retiré"
 
-#: ../quilt/pop.in:172 ../quilt/push.in:205
+#: ../quilt/pop.in:172 ../quilt/push.in:206
 msgid "Interrupted by user"
 msgstr "Interrompu par l'utilisateur"
 
-#: ../quilt/pop.in:188 ../quilt/push.in:216
+#: ../quilt/pop.in:188 ../quilt/push.in:217
 msgid "Now at patch $patch"
 msgstr "Le patch $patch est maintenant au sommet"
 
@@ -888,6 +888,51 @@ msgstr ""
 "\n"
 "-n\tAffiche les noms de fichier au lieu des noms de patch."
 
+#: ../quilt/upgrade.in:25
+msgid "Usage: quilt upgrade"
+msgstr "Usage : quilt upgrade"
+
+#: ../quilt/upgrade.in:28
+msgid ""
+"\n"
+"Upgrade the meta-data in a working tree from an old version of quilt to the\n"
+"current version. This command is only needed when the quilt meta-data "
+"format\n"
+"has changed, and the working tree still contains old-format meta-data. In "
+"that\n"
+"case, quilt will request to run \\`quilt upgrade'."
+msgstr ""
+
+#: ../quilt/upgrade.in:66
+msgid ""
+"The quilt meta-data in $QUILT_PC/ already are have format version "
+"$DB_VERSION; nothing to do"
+msgstr ""
+
+#: ../quilt/upgrade.in:70
+#, fuzzy
+msgid "Converting meta-data to version $DB_VERSION"
+msgstr "Tentative de conversion des méta-donées au format v$DB_VERSION... "
+
+#: ../quilt/upgrade.in:101
+msgid "Conversion failed"
+msgstr ""
+
+#: ../quilt/upgrade.in:102
+#, fuzzy
+msgid ""
+"\n"
+"Please remove all patches using \\`quilt pop -a' from the quilt version used "
+"to create this working tree, or remove the $QUILT_PC directory and apply the "
+"patches from scratch."
+msgstr ""
+"\n"
+"Veuillez retirer tous les patchs avec la version utilisée pour les "
+"appliquer\n"
+"avant d'installer une version plus récente, ou effacez le répertoire "
+"$QUILT_PC\n"
+"et recommencez vos patchs de zéro. Désolé."
+
 #: ../scripts/apatch.in:22
 msgid "Usage: $0 [-fqv] patchname"
 msgstr "Usage : $0 [-fqv] patchname"
@@ -921,6 +966,30 @@ msgstr ""
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
+#: ../scripts/patchfns.in:691
+#, fuzzy
+msgid ""
+"The quilt meta-data in this tree has version $version, but this version of "
+"quilt can only handle meta-data formats up to and including version "
+"$DB_VERSION. Please pop all the patches using the version of quilt used to "
+"push them before downgrading."
+msgstr ""
+"Votre arbre a été créé par une version de quilt plus récente que celle-ci. "
+"La\n"
+"compatibilité descendante est impossible, veuillez retirer tous les patches\n"
+"avec la version utilisée pour les appliquer avant d'installer une version "
+"plus\n"
+"ancienne."
+
+#: ../scripts/patchfns.in:753
+#, fuzzy
+msgid ""
+"The working tree was created by an older version of quilt. Please run 'quilt "
+"upgrade'."
+msgstr ""
+"Votre arbre a été créé par une vieille version de quilt. Veuillez utiliser "
+"'quilt upgrade'."
+
 #: ../scripts/rpatch.in:22
 msgid "Usage: $0 [-fRq] patchname"
 msgstr "Usage: $0 [-fRq] nom_de_patch"
@@ -932,3 +1001,29 @@ msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
 #: ../scripts/rpatch.in:122
 msgid "Removing $patch"
 msgstr "Retrait de $patch"
+
+#, fuzzy
+#~ msgid "failed."
+#~ msgstr "échec !"
+
+#~ msgid "successful."
+#~ msgstr "réussite."
+
+#~ msgid "Your tree already use the format v$DB_VERSION."
+#~ msgstr "Les méta-données de votre arbre sont déjà au format v$DB_VERSION."
+
+#~ msgid ""
+#~ "\n"
+#~ "Upgrades the meta-data contained in a working tree from an old version "
+#~ "of\n"
+#~ "quilt to the current one. You only have to use this command when an "
+#~ "upgraded\n"
+#~ "version of the quilt program breaks on your tree with a message like:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Converti au nouveau format les méta-données contenues dans un arbre de "
+#~ "travail\n"
+#~ "créé par une ancienne version de quilt. Il n'est nécessaire d'utiliser "
+#~ "cette\n"
+#~ "commande que lorsqu'une mise à jour du programme quilt s'avère incapable\n"
+#~ "d'utiliser votre arbre, et affiche le message suivant :\n"

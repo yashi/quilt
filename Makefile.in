@@ -57,7 +57,7 @@ DIRT +=		$(BIN_IN:%=bin/%)
 
 QUILT_IN :=	add applied delete diff edit files fold fork graph grep \
 		import new next patches pop previous push refresh remove \
-		series setup snapshot top unapplied
+		series setup snapshot top unapplied upgrade
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)

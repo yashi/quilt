@@ -38,13 +38,13 @@
 	$ quilt diff | sed -e "s/\\t.*//"
 	> Index: d/dir/file3.txt
 	> ===================================================================
-	> --- d.orig/dir/file3.txt
+	> --- /dev/null
 	> +++ d/dir/file3.txt
 	> @@ -0,0 +1 @@
 	> +This is file3.txt.
 	> Index: d/file1.txt
 	> ===================================================================
-	> --- d.orig/file1.txt
+	> --- /dev/null
 	> +++ d/file1.txt
 	> @@ -0,0 +1 @@
 	> +This is file1.txt.

@@ -71,6 +71,7 @@ then
 	exit 1
 fi
 
+create_db
 rm -rf "$QUILT_PC/$patch"
 mkdir -p "$QUILT_PC/$patch"
 

@@ -46,7 +46,7 @@ msgstr ""
 
 #: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:168
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
-#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:214
+#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
 #: ../quilt/refresh.in:107 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr ""
@@ -342,11 +342,11 @@ msgstr ""
 msgid "Patch $patch exists already"
 msgstr ""
 
-#: ../quilt/new.in:80
+#: ../quilt/new.in:81
 msgid "Failed to create patch $patch"
 msgstr ""
 
-#: ../quilt/new.in:83
+#: ../quilt/new.in:84
 msgid "Patch $patch is now on top"
 msgstr ""
 
@@ -413,11 +413,11 @@ msgstr ""
 msgid "No patch removed"
 msgstr ""
 
-#: ../quilt/pop.in:172 ../quilt/push.in:205
+#: ../quilt/pop.in:172 ../quilt/push.in:206
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:188 ../quilt/push.in:216
+#: ../quilt/pop.in:188 ../quilt/push.in:217
 msgid "Now at patch $patch"
 msgstr ""
 
@@ -641,6 +641,43 @@ msgid ""
 "-n\tPrint patch file names instead of patch names."
 msgstr ""
 
+#: ../quilt/upgrade.in:25
+msgid "Usage: quilt upgrade"
+msgstr ""
+
+#: ../quilt/upgrade.in:28
+msgid ""
+"\n"
+"Upgrade the meta-data in a working tree from an old version of quilt to the\n"
+"current version. This command is only needed when the quilt meta-data "
+"format\n"
+"has changed, and the working tree still contains old-format meta-data. In "
+"that\n"
+"case, quilt will request to run \\`quilt upgrade'."
+msgstr ""
+
+#: ../quilt/upgrade.in:66
+msgid ""
+"The quilt meta-data in $QUILT_PC/ already are have format version "
+"$DB_VERSION; nothing to do"
+msgstr ""
+
+#: ../quilt/upgrade.in:70
+msgid "Converting meta-data to version $DB_VERSION"
+msgstr ""
+
+#: ../quilt/upgrade.in:101
+msgid "Conversion failed"
+msgstr ""
+
+#: ../quilt/upgrade.in:102
+msgid ""
+"\n"
+"Please remove all patches using \\`quilt pop -a' from the quilt version used "
+"to create this working tree, or remove the $QUILT_PC directory and apply the "
+"patches from scratch."
+msgstr ""
+
 #: ../scripts/apatch.in:22
 msgid "Usage: $0 [-fqv] patchname"
 msgstr ""
@@ -671,6 +708,20 @@ msgstr ""
 
 #: ../scripts/apatch.in:180 ../scripts/rpatch.in:178
 msgid "The topmost patch $top needs to be refreshed first."
+msgstr ""
+
+#: ../scripts/patchfns.in:691
+msgid ""
+"The quilt meta-data in this tree has version $version, but this version of "
+"quilt can only handle meta-data formats up to and including version "
+"$DB_VERSION. Please pop all the patches using the version of quilt used to "
+"push them before downgrading."
+msgstr ""
+
+#: ../scripts/patchfns.in:753
+msgid ""
+"The working tree was created by an older version of quilt. Please run 'quilt "
+"upgrade'."
 msgstr ""
 
 #: ../scripts/rpatch.in:22

@@ -1,6 +1,6 @@
 QUILT_IN :=   add applied delete diff files import new next patches \
               pop previous push refresh remove series setup top unapplied \
-	      fold fork snapshot edit
+	      fold fork snapshot edit upgrade
 SCRIPTS_IN := apatch rpatch patchfns inspect patchfns
 # scripts/parse-patch is perl based
 

@@ -194,6 +194,7 @@ fi
 
 trap "interrupted=1" SIGINT
 
+create_db
 for patch in $patches
 do
 	if ! @SCRIPTS@/apatch $apatch_options $patch

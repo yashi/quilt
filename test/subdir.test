@@ -48,14 +48,14 @@
 	> +new contents
 	> Index: d/subdir/file2
 	> ===================================================================
-	> --- d.orig/subdir/file2
+	> --- /dev/null
 	> +++ d/subdir/file2
 	> @@ -0,0 +1 @@
 	> +another file
 	> Index: d/subdir/file3
 	> ===================================================================
 	> --- d.orig/subdir/file3
-	> +++ d/subdir/file3
+	> +++ /dev/null
 	> @@ -1 +0,0 @@
 	> -yet another file
 
