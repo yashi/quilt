@@ -1,3 +1,20 @@
+quilt (0.30-2) unstable; urgency=low
+ 
+  * [debian/control] Remove the dependency on bash since it's an essential
+    package. 
+  * [debian/quilt.install] Reput quilt.pdf in the package back, and make sure 
+    it won't disapear anymore.
+ 
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon,  2 Feb 2004 16:25:12 -0800
+
+quilt (0.30-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix the URL of the project (Closes #223387).  
+  * add a dependency on gawk (Closes #227111).
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 30 Jan 2004 16:10:23 -0800
+
 quilt (0.29-3) unstable; urgency=low
 
   * force the shell to be bash, since we use tons of bashism
