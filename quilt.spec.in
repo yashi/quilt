@@ -27,9 +27,6 @@ Authors:
     Andreas Gruenbacher <agruen@suse.de>
 
 %prep
-if [ -n "${RPM_BUILD_ROOT%/}" ]; then
-	rm -rf $RPM_BUILD_ROOT
-fi
 %setup
 
 %build
@@ -37,7 +34,11 @@ fi
 make prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 
 %install
+rm -rf $RPM_BUILD_ROOT
 make install prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
