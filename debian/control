@@ -4,7 +4,7 @@ Source: quilt
 Section: devel
 Priority: optional
 Maintainer: Martin Quinson <mquinson@debian.org>
-Build-Depends: debhelper (>= 4.1.0), cdbs, gettext
+Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 4.1.0), gettext
 Standards-Version: 3.6.1.0
 
 Package: quilt

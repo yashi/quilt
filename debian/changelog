@@ -1,3 +1,31 @@
+quilt (0.37-5) unstable; urgency=low
+
+  * Let cdbs track the build-dep automatically.
+  * Make sure people letting cdbs tracking the builddeps for them will get
+    the one on quilt when using the quilt patchsys.
+  Fix upstream bugs:
+  * Strip out the letters from the bash version before [numerical] comparison
+    (Closes: #288839)
+  * Make sure directories are completed with the trailing '/' (for further
+    completion) where quilt expects a file and refuses any directory.
+    (Closes: #281256)
+
+ -- Martin Quinson <mquinson@debian.org>  Thu,  6 Jan 2005 07:51:02 +0100
+
+quilt (0.37-4) unstable; urgency=low
+
+  * Fix the 'patches' command (print the patch names again).
+    (Closes: #286293).
+
+ -- Martin Quinson <mquinson@debian.org>  Thu, 23 Dec 2004 14:48:35 +0100
+
+quilt (0.37-3) unstable; urgency=low
+
+  * Fix extra trailing space in series file after quilt refresh.
+    (Closes: #285865)
+
+ -- Martin Quinson <mquinson@debian.org>  Thu, 16 Dec 2004 21:33:54 +0100
+
 quilt (0.37-2) unstable; urgency=low
 
   * Fix a quoting issue in bash_autocompletion. Patch from upstream CVS.

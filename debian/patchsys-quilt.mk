@@ -60,6 +60,9 @@ DEB_QUILT_SERIES = $(DEB_PATCHDIRS)/series
 # Internal variables, do not change it unless you know what you're doing
 DEB_QUILT_CMD = cd $(DEB_SRCDIR) && $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHES=$(DEB_QUILT_PATCHDIR_LINK)) quilt
 
+# Declare Build-Dep of packages using this file onto quilt
+CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), quilt
+
 post-patches:: apply-patches
 
 clean:: reverse-patches

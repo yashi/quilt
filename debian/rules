@@ -1,7 +1,11 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-# $Id: rules,v 1.14 2004/12/08 19:04:26 mquinson Exp $
+# $Id: rules,v 1.15 2005/01/06 19:32:53 mquinson Exp $
+
+# Let cdbs track the build-dep for me
+debian/control:: debian/control.in debian/rules
+DEB_AUTO_UPDATE_DEBIAN_CONTROL = yes
 
 # Import Common Debian Build System (CDBS).
 include /usr/share/cdbs/1/rules/debhelper.mk
