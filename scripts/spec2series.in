@@ -188,7 +188,7 @@ ln -s patch "$WORK/bin/tar"
 # let rpm do all the dirty specfile stuff ...
 echo -n "### $(basename @RPMBUILD@): " >&2
 touch $WORK/patchlog
-$RPM --nodeps --quiet -bp "$specdir/$specfile" </dev/null
+$RPM --nodeps --quiet -bp "$specdir/$specfile" </dev/null >/dev/null
 echo $" done" >&2
 
 # print results saved by the wrapper script

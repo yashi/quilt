@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep  2 15:24:51 CEST 2003 - agruen@suse.de
+
+- Pipe rpmbuild output to /dev/null in spec2series (seems to be
+  necessary since rpm4).
+
+-------------------------------------------------------------------
 Mon Jul 28 01:00:24 CEST 2003 - agruen@suse.de
 
 - Use %{find_lang} macro in spec file.
