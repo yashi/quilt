@@ -28,7 +28,7 @@ usage()
 	quilt_commands \
 	| sort \
 	| column | column -t \
-	| sed -e 's/^/\t/'
+	| sed -e $'s/^/\t/'
 	exit 1
 }
 

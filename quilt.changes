@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Apr 21 20:50:23 CEST 2004 - agruen@suse.de
+
+- Replace two occurrences of \t in sed regular expressions
+  with bash $'\t': Some older versions of sed don't understand
+  \t. Thanks to Randy Dunlap <rddunlap@osdl.org> for reporting
+  this.
+
+-------------------------------------------------------------------
 Sat Mar 20 18:04:01 CET 2004 - agruen@suse.de
 
 - Fix an algorithmic bug in `quilt graph --lines': Edges were
