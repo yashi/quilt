@@ -24,7 +24,7 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--diff=utility] [file ...]" $redirect
+	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [file ...]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
@@ -48,6 +48,9 @@ included.
 
 -z	Write to standard output the changes that have been made
 	relative to the topmost or specified patch.
+
+--snapshot
+	Diff agains snapshot (see \`quilt snapshot -h').
 
 --diff=utility
 	Use the specified utility for generating the diff. The utility

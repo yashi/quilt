@@ -54,7 +54,10 @@ then
     unset basedir
 fi
 
-if [ -e $QUILT_PC/series ]
+if [ -n "$QUILT_SERIES" ]
+then
+	SERIES=$QUILT_SERIES
+elif [ -e $QUILT_PC/series ]
 then
 	SERIES=$QUILT_PC/series
 elif [ -e series ]

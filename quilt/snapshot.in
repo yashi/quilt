@@ -23,7 +23,10 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-Take a snapshot of the current working state.
+Take a snapshot of the current working state.  After taking the snapshot,
+the tree can be modified in the usual ways, including pushing and
+popping patches.  A diff against the tree at the moment of the
+snapshot can be generated with \`quilt diff --snapshot'.
 
 -d	Remove current snapshot."
 		exit 0
