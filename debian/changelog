@@ -1,11 +1,13 @@
 quilt (0.30-2) unstable; urgency=low
  
-  * [debian/control] Remove the dependency on bash since it's an essential
-    package. 
-  * [debian/quilt.install] Reput quilt.pdf in the package back, and make sure 
-    it won't disapear anymore.
+  * [debian/control]
+    - Remove the dependency on bash since it's an essential package.
+    - Upgrade the dependency on debhelper to (>= 4.1.0) as requested by cdbs.
+  * [debian/quilt.install] 
+    - Reput quilt.pdf in the package back, and make sure it won't disapear
+      anymore. 
  
- -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon,  2 Feb 2004 16:25:12 -0800
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon,  2 Feb 2004 16:45:12 -0800
 
 quilt (0.30-1) unstable; urgency=low
 
