@@ -105,6 +105,11 @@ apatch:
 	  Needs to check if any of the files in the patch are touched by
 	  later patches.
 	  
+quilt diff:
+
+	- If a patch has been force applied, quilt diff -z cannot succeed
+	  (unless the patch has been refreshed later). Check for this!
+	
 touched_by_patch:
 
 	- Implement more of patch's filename heuristic: The following
