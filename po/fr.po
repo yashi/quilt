@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.22\n"
-"PO-Revision-Date: 2003-11-20 10:45+0100\n"
+"Project-Id-Version: quilt 0.29\n"
+"PO-Revision-Date: 2003-11-20 12:59+0100\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr ""
 "\tPatch auquel les fichiers doivent être ajoutés."
 
 #: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
-#: ../quilt/push.in:176 ../quilt/remove.in:75
+#: ../quilt/fold.in:79 ../quilt/push.in:176 ../quilt/remove.in:75
 msgid "No patch applied"
 msgstr "Aucun patch n'est appliqué"
 
@@ -177,7 +177,9 @@ msgstr ""
 
 #: ../quilt/diff.in:140
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
-msgstr "Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être combinées."
+msgstr ""
+"Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être "
+"combinées."
 
 #: ../quilt/diff.in:149 ../quilt/refresh.in:106
 msgid "No patch seem to be applied"
@@ -231,6 +233,22 @@ msgstr "Le diff a échoué. Abandon."
 msgid "More recent patches modify files in $last_patch."
 msgstr "Un patch plus recent modifie des fichiers communs à $last_patch."
 
+#: ../quilt/edit.in:13
+msgid "Usage: quilt edit file ..."
+msgstr "Usage : quilt edit {fichier} ..."
+
+#: ../quilt/edit.in:16
+msgid ""
+"\n"
+"\n"
+"Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
+"topmost patch.\n"
+msgstr ""
+"\n"
+"\n"
+"Édite le(s) fichier(s) spécifiés au sein de $EDITOR après addition au patche\n"
+"du sommet.\n"
+
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]"
 msgstr "Usage : quilt files [-v] [patch]"
@@ -259,6 +277,73 @@ msgstr "Le patch n'est pas appliqué (affichage non verbeux)"
 #: ../quilt/files.in:86
 msgid "Patch is not applied"
 msgstr "Le patch n'est pas appliqué"
+
+#: ../quilt/fold.in:22
+msgid "Usage: quilt fold [-p strip-level]"
+msgstr "Usage : quilt fold [-p strip-level]"
+
+#: ../quilt/fold.in:25
+msgid ""
+"\n"
+"\n"
+"Fold the patch read from standard input into the topmost patch: After\n"
+"making sure that all files modified by the patchfile are part of the\n"
+"topmost patch, the patch is applied with the specified strip level\n"
+"(which defaults to 1).\n"
+"\n"
+"-p strip-level\n"
+"\tThe number of pathname components to strip from file names\n"
+"\twhen applying patchfile."
+msgstr ""
+"\n"
+"\n"
+"Intégrer le patch lu depuis l'entrée standard dans le patch au sommet :\n"
+"Après s'être assuré que tous les fichiers modifiés par le patch en entrée \n"
+"font déjà partie du patch au sommet, le patch d'entrée est appliqué avec \n"
+"le strip-level spécifié.\n"
+"\n"
+"-p strip-level\n"
+"\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
+"\tpatch (1 par défaut).\n"
+
+#: ../quilt/fold.in:110
+msgid "File ${file:${#workdir}+1} may be corrupted"
+msgstr "Le fichier ${file:${#workdir}+1} est peut-être corrompu"
+
+#: ../quilt/fork.in:22
+msgid "Usage: quilt fork [new_name]"
+msgstr "Usage : quilt fork [{nouveau_nom}]"
+
+#: ../quilt/fork.in:25
+msgid ""
+"\n"
+"Fork the next patch. If new_name is missing, the name of the\n"
+"forked patch will be the current patch name, followed by \\\"-2\\\".\n"
+"If the patch name already ends in a dash-and-number, the number is\n"
+"further incremented (e.g., patch.diff, patch-2.diff).\n"
+msgstr ""
+"Fork (c-à-d duplique) le patch suivant dans la pile.\n"
+"Si {nouveau_nom} n'est pas spécifié, il s'agira du nom actuel du patch \n"
+"dupliqué suivi de \\\"-2\\\". Si le nom du patch se termine déjà par\n"
+"un tiret et un nombre, ce nombre sera incrémenté. \n"
+"\n"
+"On aura par exemple patch.diff puis patch-2.diff puis patch-3.diff.\n"
+
+#: ../quilt/fork.in:65
+msgid "All patches applied"
+msgstr "Tous les patches sont appliqués"
+
+#: ../quilt/fork.in:93
+msgid "Patch $patch exists already, please choose a new name"
+msgstr "Le patch $patch existe déjà, veuillez choisir un nouveau nom"
+
+#: ../quilt/fork.in:100
+msgid "Fork of $next_file_name to $patch_file failed"
+msgstr "Le fork de $next_file_name en $patch_file a échoué"
+
+#: ../quilt/fork.in:104
+msgid "Fork of $next_file_name created as $(patch_file_name $patch)"
+msgstr "Le fork de $next_file_name a été créé en tant que $(patch_file_name $patch)"
 
 #: ../quilt/import.in:22
 msgid "Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
@@ -753,7 +838,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Initialise une arborescence source à partir d'un fichier de série de patches. \n"
+"Initialise une arborescence source à partir d'un fichier de série de "
+"patches. \n"
 "Ce fichier doit contenir le nom de l'archive tar correspondante en plus de \n"
 "la liste des patches.\n"
 "\n"
@@ -807,6 +893,26 @@ msgstr "Création d'un lien vers le fichier de série $arg"
 #: ../quilt/setup.in:237
 msgid "Directory $packagedir set up."
 msgstr "Le répertoire $packagedir est configuré."
+
+#: ../quilt/snapshot.in:22
+msgid "Usage: quilt snapshot [-d]"
+msgstr "Usage : quilt snapshot [-d]"
+
+#: ../quilt/snapshot.in:25
+msgid ""
+"\n"
+"\n"
+"Take a snapshot of the current working state.\n"
+"\n"
+"-d\tRemove current snapshot.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Crée un instantané (snapshot) de l'état actuel des travaux.\n"
+"\n"
+"-d\tEfface l'instantané actuel.\n"
+"\n"
 
 #: ../quilt/top.in:22
 msgid "Usage: quilt top"
@@ -864,20 +970,20 @@ msgstr "Le fichier de patch $patch_file semble vide"
 msgid "Applying $patch"
 msgstr "Application de $patch"
 
-#: ../scripts/apatch.in:109
+#: ../scripts/apatch.in:114
 msgid "Patch $patch appears to be empty, applied"
 msgstr "Le patch $patch semble vide. Il a été appliqué."
 
-#: ../scripts/apatch.in:112
+#: ../scripts/apatch.in:117
 msgid "Applied $patch (forced; needs refresh)"
 msgstr "$patch a été appliqué (forcé ; vous devriez le rafraîchir)"
 
-#: ../scripts/apatch.in:116
+#: ../scripts/apatch.in:121
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 "Le patch $patch ne s'applique pas proprement (forcez l'application avec -f)"
 
-#: ../scripts/apatch.in:173 ../scripts/rpatch.in:192
+#: ../scripts/apatch.in:178 ../scripts/rpatch.in:192
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
