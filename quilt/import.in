@@ -53,9 +53,7 @@ while true
 do
         case "$1" in
         -n)
-		opt_patch=$(echo "$2" |
-			    @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///' \
-			          -e 's/^\$QUILT_PC\///')
+		opt_patch=${2#$QUILT_PATCHES/}
 		shift 2 ;;
 	-p)
 		opt_strip=$2
@@ -83,23 +81,12 @@ fi
 
 if [ -n "$opt_patch" ]
 then
-	patch=$(stripit "$opt_patch")
-	patch_file="$QUILT_PATCHES/$opt_patch"
-else
-	patch="$(stripit "$input_file")"
-	if [ -n "$patch" ]
-	then
-		opt_patch="$patch.patch"
-	else
-		echo $"Please use -n to specify a patch file name."
-		exit 1
-	fi
-	patch_file="$QUILT_PATCHES/$opt_patch"
-fi
-
-if echo "$patch_file" | grep -q -e $'[ \t]'
+	patch="$opt_patch"
+elif [ -n "$input_file" ]
 then
-	echo $"Patch file name \"$patch_file\" contains whitespace."
+	patch="$input_file"
+else
+	echo $"Please use -n to specify a patch file name."
 	exit 1
 fi
 
@@ -109,66 +96,28 @@ then
 	exit 1
 fi
 
-case "$input_file" in
-'')
-	tmpfile=$(gen_tempfile)
-	if ! cat > $tmpfile
-	then
-		echo $"Cannot read from standard input."
-		rm -f $tmpfile
-		exit 1
-	fi
-	input_file=$tmpfile ;;
-*.gz)
-	tmpfile=$(gen_tempfile)
-	if ! gzip -cd "$input_file" > $tmpfile
-	then
-		echo $"Cannot decompress file $input_file"
-		rm -f $tmpfile
-		exit 1
-	fi
-	input_file=$tmpfile ;;
-*.bz2)
-	tmpfile=$(gen_tempfile)
-	if ! bzip2 -cd "$input_file" > $tmpfile
-	then
-		echo $"Cannot decompress file $input_file"
-		rm -f $tmpfile
-		exit
-	fi
-	input_file=$tmpfile ;;
-*)
-	if ! [ -r "$input_file" ]
-	then
-		echo $"Cannot read from file $input_file"
-		exit 1
-	fi
-esac
-
-if [ -e "$patch_file" ]
+if [ -e "$QUILT_PATCHES/$patch" ]
 then
 	if [ -z "$opt_force" ]
 	then
 		echo $"Patch $patch exists. Replace with -f."
 		exit 1
 	fi
-
 	echo $"Replacing patch $patch with new version"
-	if ! cat "$input_file" > "$patch_file"
-	then
-		echo $"Failed to replace patch $patch"
-		exit 1
-	fi
 else
-	echo $"Importing patch $patch (stored as $patch_file)"
-	if ! cat "$input_file" >> "$patch_file"
-	then
-		echo $"Failed to import patch $patch"
-		exit 1
-	fi
+	echo $"Importing patch $patch (stored as $patch)"
 fi
-
-rm -rf $QUILT_PC/$patch
+if [ -n "$input_file" ]
+then
+	cp "$input_file" "$QUILT_PATCHES/$patch"
+else
+	cat > "$QUILT_PATCHES/$patch"
+fi
+if [ $? -ne 0 ]
+then
+	echo $"Failed to import patch $patch"
+	exit 1
+fi
 
 if ! patch_in_series $patch &&
    ! insert_in_series $opt_patch "$patch_args"
@@ -176,10 +125,7 @@ then
 	echo $"Failed to insert $patch in file series."
 fi
 
-if [ -n "$tmpfile" ]
-then
-	rm -f $tmpfile
-fi
+rm -rf $QUILT_PC/$patch
 ### Local Variables:
 ### mode: shell-script
 ### End:
