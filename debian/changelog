@@ -1,3 +1,9 @@
+quilt (0.24-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Thu, 26 Jun 2003 15:26:16 +0200
+
 quilt (0.23-1) unstable; urgency=low
 
   * New upstream release
