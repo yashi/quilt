@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jul 28 01:00:24 CEST 2003 - agruen@suse.de
+
+- Use %{find_lang} macro in spec file.
+
+-------------------------------------------------------------------
 Sat Jul 26 13:10:19 CEST 2003 - agruen@suse.de
 
 - Pushing is only possible if the topmost file is found in the
