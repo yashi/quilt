@@ -243,7 +243,7 @@ msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 msgid "Cannot change into directory %s\\n"
 msgstr "ディレクトリ %s に移動できません\\n"
 
-#: ../quilt/diff.in:318 ../quilt/pop.in:115 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:318 ../quilt/pop.in:115
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
@@ -251,7 +251,7 @@ msgstr "テンポラリディレクトリへのファイルコピーに失敗し
 msgid "Cannot change to temporary directory\\n"
 msgstr "テンポラリディレクトリに移動できません\\n"
 
-#: ../quilt/diff.in:348 ../quilt/pop.in:138 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:348 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
@@ -548,17 +548,17 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: ../quilt/pop.in:153 ../scripts/rpatch.in:100
+#: ../quilt/pop.in:153
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "パッチ %s を、正常にはずすことができません (リフレッシュするか -fを付\n"
 "けてはずしてください)\\n"
 
-#: ../quilt/pop.in:176 ../scripts/rpatch.in:123
+#: ../quilt/pop.in:176
 msgid "Removing patch %s\\n"
 msgstr "パッチ %s を削除します\\n"
 
-#: ../quilt/pop.in:260 ../scripts/rpatch.in:179
+#: ../quilt/pop.in:260
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 
@@ -635,28 +635,28 @@ msgstr ""
 "\tまま残す。\n"
 "\n"
 
-#: ../quilt/push.in:59 ../scripts/apatch.in:29
+#: ../quilt/push.in:59
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ % は適用されていません。\\n"
 
-#: ../quilt/push.in:71 ../scripts/apatch.in:41
+#: ../quilt/push.in:71
 msgid "Patch %s appears to be empty\\n"
 msgstr "パッチ %sは、空のようです\\n"
 
-#: ../quilt/push.in:109 ../scripts/apatch.in:79
+#: ../quilt/push.in:109
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: ../quilt/push.in:159 ../scripts/apatch.in:130
+#: ../quilt/push.in:159
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "パッチ %s は、空のようですが、適用しました\\n"
 
-#: ../quilt/push.in:163 ../scripts/apatch.in:134
+#: ../quilt/push.in:163
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: ../quilt/push.in:168 ../scripts/apatch.in:139
+#: ../quilt/push.in:168
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %sが適用できません (強制適用する場合は -fを付けてください)\\n"
 
@@ -668,7 +668,7 @@ msgstr "パッチ %s が seriesファイル内で見つかりません。\\n"
 msgid "Patch %s is already applied\\n"
 msgstr "パッチ %s は、すでに適用済です\\n"
 
-#: ../quilt/push.in:291 ../scripts/apatch.in:197
+#: ../quilt/push.in:291
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
@@ -967,10 +967,6 @@ msgstr ""
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
 
-#: ../scripts/apatch.in:22
-msgid "Usage: $0 [-fqv] patchname\\n"
-msgstr "使い方: $0 [-fqv] パッチ名\\n"
-
 #: ../scripts/patchfns.in:703
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
@@ -991,9 +987,11 @@ msgstr ""
 "現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
 "す。'quilt upgrade'を実行してください。\\n"
 
-#: ../scripts/rpatch.in:22
-msgid "Usage: %s [-fRq] patchname\\n"
-msgstr "使い方: %s [-fRq] パッチ名\\n"
+#~ msgid "Usage: $0 [-fqv] patchname\\n"
+#~ msgstr "使い方: $0 [-fqv] パッチ名\\n"
+
+#~ msgid "Usage: %s [-fRq] patchname\\n"
+#~ msgstr "使い方: %s [-fRq] パッチ名\\n"
 
 #~ msgid "Interrupted by user\\n"
 #~ msgstr "ユーザによって中断されました\\n"

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Nov 19 13:02:32 CET 2004 - agruen@suse.de
+
+- Push command: Write out output of patch process immediately
+  instead of reading into a variable and then printing that
+  variable. This helps to see what's happening with large patches.
+
+-------------------------------------------------------------------
 Mon Nov 15 23:36:40 CET 2004 - agruen@suse.de
 
 - Get rid of the apatch and rpatch helper scripts: Integrate them

@@ -101,6 +101,32 @@ rollback_patch()
 	@LIB@/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
 }
 
+cleanup_patch_output() {
+	if [ -z "$opt_leave_rejects" ]
+	then
+		if [ -n "$opt_quiet" ]; then
+			# In this case, patch does not allow us to find out
+			# which file contains the rejects; it only tells us
+			# which reject file is used. We use a single temporary
+			# reject file, so this does not help us.
+
+			@AWK@ '
+			{ gsub(/ -- saving rejects to file .*/, "") }
+			{ print }
+			'
+		else
+			@AWK@ '
+			/^patching file / { filename = substr($0, 15) }
+			{ gsub(/ -- saving rejects to file .*/,
+			       " -- rejects in file " filename) }
+			{ print }
+			'
+		fi
+	else
+		cat
+	fi
+}
+
 add_patch()
 {
 	local patch=$1
@@ -116,28 +142,10 @@ add_patch()
 		no_reject_files="-r $tmp"
 	fi
 
-	output="$(apply_patch $patch)"
+	apply_patch $patch \
+	| cleanup_patch_output
 	status=${PIPESTATUS[0]}
 	trap "" SIGINT
-
-	if [ $status -ne 0 -a -z "$opt_leave_rejects" ]
-	then
-		# The reject files are removed in rollback_patch.
-		echo "$output" \
-		| @AWK@ '
-		/^patching file / { filename = substr($0, 15) }
-		{ if ('${#silent}' != 0)
-		    gsub(/ -- saving rejects to file .*/, "")
-		  else
-		    gsub(/ -- saving rejects to file .*/,
-			 " -- rejects in file " filename)
-		}
-		{ print }
-		'
-	elif [ -n "$output" ]
-	then
-		echo "$output"
-	fi
 
 	if [ $status -eq 0 -o -n "$opt_force" ]
 	then

@@ -248,7 +248,7 @@ msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 msgid "Cannot change into directory %s\\n"
 msgstr "Kann nicht in Verzeichnis %s wechseln\\n"
 
-#: ../quilt/diff.in:318 ../quilt/pop.in:115 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:318 ../quilt/pop.in:115
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
@@ -256,7 +256,7 @@ msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 msgid "Cannot change to temporary directory\\n"
 msgstr "Kann nicht in temporäres Verzeichnis wechseln\\n"
 
-#: ../quilt/diff.in:348 ../quilt/pop.in:138 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:348 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
@@ -557,17 +557,17 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: ../quilt/pop.in:153 ../scripts/rpatch.in:100
+#: ../quilt/pop.in:153
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Patch %s kann nicht entfernt werden (Patch auffrischen oder Entfernen "
 "erzwingen mit -f)\\n"
 
-#: ../quilt/pop.in:176 ../scripts/rpatch.in:123
+#: ../quilt/pop.in:176
 msgid "Removing patch %s\\n"
 msgstr "Entferne patch %s\\n"
 
-#: ../quilt/pop.in:260 ../scripts/rpatch.in:179
+#: ../quilt/pop.in:260
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
@@ -647,27 +647,27 @@ msgstr ""
 "\tErlaubt GNU patch, interaktiv Fragen zu stellen. Wenn diese Option\n"
 "\tnicht angegeben wird, wird die Option -f an GNU patch übergeben.\n"
 
-#: ../quilt/push.in:59 ../scripts/apatch.in:29
+#: ../quilt/push.in:59
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Unterbrechung durch Benutzer; Patch %s wurde nicht angewandt.\\n"
 
-#: ../quilt/push.in:71 ../scripts/apatch.in:41
+#: ../quilt/push.in:71
 msgid "Patch %s appears to be empty\\n"
 msgstr "Patch %s scheint leer zu sein\\n"
 
-#: ../quilt/push.in:109 ../scripts/apatch.in:79
+#: ../quilt/push.in:109
 msgid "Applying patch %s\\n"
 msgstr "Wende Patch %s an\\n"
 
-#: ../quilt/push.in:159 ../scripts/apatch.in:130
+#: ../quilt/push.in:159
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "Patch %s scheint leer zu sein, angewandt\\n"
 
-#: ../quilt/push.in:163 ../scripts/apatch.in:134
+#: ../quilt/push.in:163
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Patch %s angewandt (erzwungen, muß aufgefrischt werden (Refresh))\\n"
 
-#: ../quilt/push.in:168 ../scripts/apatch.in:139
+#: ../quilt/push.in:168
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s läßt sich nicht anwenden (erzwingen mit -f)\\n"
 
@@ -679,7 +679,7 @@ msgstr "Patch %s nicht in series-Datei gefunden\\n"
 msgid "Patch %s is already applied\\n"
 msgstr "Patch %s ist bereits angewandt\\n"
 
-#: ../quilt/push.in:291 ../scripts/apatch.in:197
+#: ../quilt/push.in:291
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
@@ -982,10 +982,6 @@ msgstr ""
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
 
-#: ../scripts/apatch.in:22
-msgid "Usage: $0 [-fqv] patchname\\n"
-msgstr "Verwendung: $0 [-fqv] patchname\\n"
-
 #: ../scripts/patchfns.in:703
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
@@ -1007,9 +1003,11 @@ msgstr ""
 "Das Arbeitsverzeichnis wurde von einer älteren Version von quilt erstellt. "
 "Bitte führen Sie \\`quilt upgrade' aus.\\n"
 
-#: ../scripts/rpatch.in:22
-msgid "Usage: %s [-fRq] patchname\\n"
-msgstr "Verwendung: %s [-fRq] patchname\\n"
+#~ msgid "Usage: $0 [-fqv] patchname\\n"
+#~ msgstr "Verwendung: $0 [-fqv] patchname\\n"
+
+#~ msgid "Usage: %s [-fRq] patchname\\n"
+#~ msgstr "Verwendung: %s [-fRq] patchname\\n"
 
 #~ msgid "Interrupted by user\\n"
 #~ msgstr "Unterbrechung durch Benutzer\\n"
