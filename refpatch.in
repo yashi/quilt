@@ -1,0 +1,329 @@
+#!/bin/sh
+
+# Read in library functions
+if ! [ -r @LIB@/patchfns ]
+then
+	echo "Cannot read library @LIB@/patchfns" >&2
+	exit 1
+fi
+. @LIB@/patchfns
+
+usage()
+{
+	local redirect
+	if [ x$1 != x-h ]
+	then
+		redirect='>&2'
+	fi
+	echo "Usage: refpatch [-cfz] [patchname]" $redirect
+	
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+Refresh an applied patch. Refreshes the specified patch, or
+the topmost patch by default. Documentation on top of the
+actual patch is retained.
+
+It is possible to refresh patches that are not on top.
+If any patches on top of the patch to refresh modify the
+same files, refpatch prints out the file and patch names.
+If there are any such conflicts, patches can still be
+refreshed with -f. In that case refpatch will print a
+warning for each thus shadowed file, changes by more
+recent patches will be ignored, and only changes in files
+that have not been modified by any more recent patches
+will end up in the specified patch.
+
+-c	Write to standard output only; don't update the patch.
+
+-f	Force refresh, even if more recent patches modify
+	some of the same files.
+
+-z	Write to standard output the changes that have been
+	made relative to the topmost or specified patch.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+fix_diff_header()
+{
+	local from=$1 to=$2
+	sed -e 's:^--- [^ \t]*:--- '"$from"':' \
+	    -e 's:^+++ [^ \t]*:+++ '"$to"':'
+}
+
+diff_file()
+{
+	local file=$1 patch=$2 status=0
+	local next_patch=$(next_patch_for_file $patch $file)
+	local old_file=$(backup_file_name $patch $file)
+	local new_file file_was_shadowed
+	if [ -n "$next_patch" ]
+	then
+		new_file=$(backup_file_name $next_patch $file)
+		file_was_shadowed=1
+	else
+		new_file=$file
+	fi
+
+	if [ ! -e $old_file -a ! -e $new_file ]
+	then
+		echo "File $new_file does not exist" >&2
+		return 0
+	fi
+	local dir=$(basename $PWD) suffix=${patch//\//_} old_hdr new_hdr
+	if [ $opt_strip -eq 0 ]
+	then
+		old_hdr=$file~$suffix
+		new_hdr=$file
+	else
+		old_hdr=$dir~$suffix/$file
+		new_hdr=$dir/$file
+	fi
+
+	if [ -z "$opt_post" ]
+	then
+		echo diff -Nu $DIFF_OPTS $old_file $new_file >&2
+		diff -Nu $DIFF_OPTS $old_file $new_file |
+		fix_diff_header $old_hdr $new_hdr
+		status=$?
+
+		if [ $status -eq 0 -a -n "$file_was_shadowed" ]
+		then
+			status=2
+		fi
+	elif [ -n "$file_was_shadowed" ]
+	then
+		return 0
+	else
+		local tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
+		if ! filterdiff $(patch_args $patch) -i $file \
+				$(patch_file_name $patch) \
+		     | patch -s -o $tmp $old_file --no-backup-if-mismatch
+		then
+			echo "Failed to patch temporary file" >&2
+			return 1
+		fi
+
+		echo diff -Nu $DIFF_OPTS $new_file.orig $new_file >&2
+		diff -Nu $DIFF_OPTS $tmp $new_file |
+		fix_diff_header $new_file.orig $new_hdr
+		status=$?
+		rm -f $tmp
+	fi
+	return $status
+}
+
+die ()
+{
+	local status=$1
+	[ -n "$tmp" ] && rm -f $tmp
+	[ -n "$tmp2" ] && rm -f $tmp2
+	[ -n "$workdir" ] && rm -rf $workdir
+	exit $status
+}
+
+options=`getopt -o p:fczh -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-p)
+		opt_strip=$2
+		shift 2 ;;
+	-c)
+		opt_stdout=1
+		shift ;;
+	-f)
+		opt_force=1
+		shift ;;
+	-z)
+		opt_post=1
+		opt_stdout=1
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -eq 1 ]
+then
+	opt_patch=$1
+elif [ $# -gt 1 ]
+then
+	usage
+fi
+
+if [ -n "$opt_patch" ]
+then
+	patch=$(stripit $opt_patch)
+else
+	patch=$(top_patch)
+	if [ -z "$patch" ]
+	then
+		echo "No patches seem to be applied" >&2
+		exit 1
+	fi
+fi
+
+if ! is_applied "$patch"
+then
+	echo "Patch $patch is not applied" >&2
+	exit 1
+fi
+
+if [ -z "$opt_strip" ]
+then
+	opt_strip=$(patch_strip_level $patch)
+fi
+if [ $opt_strip -gt 1 ]
+then
+	echo "Cannot refresh patches with -p$opt_strip," \
+	     "please specify -p0 or -p1 instead" >&2
+	exit 1
+fi
+
+trap "die 1" SIGTERM
+
+if [ -z "$opt_stdout" ]
+then
+	tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
+fi
+
+if [ -n "$opt_post" ]
+then
+	patch_file=$(patch_file_name $patch)
+	files=$(files_in_patch $patch)
+	workdir=$(mktemp -d patch-scripts.XXXXXX)
+	pwd=$PWD
+
+	if ! cd .pc/$patch
+	then
+		echo "Cannot change into .pc/$patch"
+		die 1
+	fi
+	if ! cp -l --parents $files $pwd/$workdir/
+	then
+		echo "Failed to copy files to temporary directory"
+		die 1
+	fi
+	if ! cd $pwd/$workdir
+	then
+		echo "Cannot change to temporary directory"
+		die 1
+	fi
+	if ! patch $(patch_args $patch) --no-backup-if-mismatch \
+		-E -i $pwd/$patch_file >/dev/null 2>/dev/null
+	then
+		echo "Failed to patch temporary files"
+		die 1
+	fi
+	if ! cd $pwd
+	then
+		echo "Cannot change to source directory"
+		die 1
+	fi
+
+	for file in $(files_in_patch $patch)
+	do
+		suffix=${patch//\//_}
+		if [ $opt_strip -eq 0 ]
+		then
+			old_hdr=$file.orig
+			new_hdr=$file
+		else
+			dir=$(basename $PWD)
+			old_hdr=$dir.orig/$file
+			new_hdr=$dir/$file
+		fi
+		echo diff -Nu $DIFF_OPTS $new_hdr.orig $new_hdr >&2
+		diff -Nu $DIFF_OPTS $workdir/$file $file \
+		| fix_diff_header $old_hdr $new_hdr
+		if [ $? -ne 0 ]
+		then
+			status=1
+		fi
+	done
+	die $status
+else
+	for file in $(files_in_patch $patch)
+	do
+		diff_file $file $patch
+		status=$?
+		if [ $status -eq 2 ]
+		then
+			files_were_shadowed=1
+		elif [ $status -ne 0 ]
+		then
+			echo "Diff failed, aborting." >&2
+			die 1
+		fi
+
+		if [ -n "$files_were_shadowed" -a -z "$opt_force" ]
+		then
+			echo "More recent patches modify the same files." \
+			     "Enforce refresh with -f." >&2
+			die 1
+		fi
+	done
+fi \
+| if [ -z "$opt_stdout" ]
+then
+	cat > $tmp
+else
+	cat
+fi
+	
+if [ -z "$opt_stdout" ]
+then
+	if ! [ -s $tmp ]
+	then
+		echo "Nothing in patch $patch" >&2
+		die 1
+	fi
+
+	patch_file=$(patch_file_name $patch)
+
+	trap "" SIGINT
+
+	if [ ! -e $patch_file ] || grep -q '^%patch$' $patch_file
+	then
+		touch $patch_file
+		cat $tmp \
+		| @LIB@/parse-patch -u patch $patch_file
+	else
+		tmp2=$(mktemp /tmp/patch-scripts.XXXXXX) &&
+		patch_description $patch_file > $tmp2 &&
+		cat $tmp >> $tmp2 &&
+		mv $tmp2 $patch_file
+	fi
+	status=$?
+
+	rm -f $tmp $tmp2
+	if [ $status -ne 0 ]
+	then
+		die 1
+	fi
+
+	rm -f $(pc_file_name $patch)~forced
+	echo "Refreshed patch $patch"
+	if ! change_db_strip_level -p$opt_strip $patch
+	then
+		die 1
+	fi
+fi

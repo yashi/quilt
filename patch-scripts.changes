@@ -1,0 +1,11 @@
+-------------------------------------------------------------------
+Tue Jan 14 10:02:50 CET 2003 - agruen@suse.de
+
+- Move library files to /usr/share/lib/patch-scripts
+- Try to recover from keyboard interrupt (^C)
+
+-------------------------------------------------------------------
+Mon Jan 13 13:04:27 CET 2003 - agruen@suse.de
+
+- Initial package
+

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. patchfns 2>/dev/null ||
+. /usr/lib/patch-scripts/patchfns 2>/dev/null ||
+. $PATCHSCRIPTS_LIBDIR/patchfns 2>/dev/null ||
+{
+	echo "Impossible to find my library 'patchfns'."
+	echo "Check your install, or go to the right directory"
+	exit 1
+}
+
+OLD=$(stripit $1)
+NEW=$(stripit $2)
+
+mv $(pc_file_name $OLD) $(pc_file_name $NEW)
+mv $(patch_file_name $OLD) $(patch_file_name $NEW)
+mv $(txt_file_name $OLD) $(txt_file_name $NEW)
+
+cvs remove $(pc_file_name $OLD) $(patch_file_name $OLD) $(txt_file_name $OLD)
+cvs add $(pc_file_name $NEW) $(patch_file_name $NEW) $(txt_file_name $NEW)

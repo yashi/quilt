@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. patchfns 2>/dev/null ||
+. /usr/lib/patch-scripts/patchfns 2>/dev/null ||
+. $PATCHSCRIPTS_LIBDIR/patchfns 2>/dev/null ||
+{
+	echo "Impossible to find my library 'patchfns'."
+	echo "Check your install, or go to the right directory"
+	exit 1
+}
+
+desc1()
+{
+	PATCH=$(stripit $1)
+	TXT=$(txt_file_name $PATCH)
+	echo $PATCH.patch
+	desc < $TXT
+	echo
+}
+
+for i in $*
+do
+	desc1 $i
+done

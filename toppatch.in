@@ -1,0 +1,132 @@
+#!/bin/sh
+
+# Read in library functions
+if ! [ -r @LIB@/patchfns ]
+then
+	echo "Cannot read library @LIB@/patchfns" >&2
+	exit 1
+fi
+. @LIB@/patchfns
+
+usage()
+{
+	echo "Usage: toppatch [-bpnfa] [patchname]"
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+Print the name of the topmost patch on the current stack
+of applied patches, or the names of one or more patches
+relative to this patch.
+
+-b	Print the names of all patches before the
+	topmost or specified patch.
+
+-p	Print the name of the previous patch in the
+	series.
+
+-n	Print the name of the next patch in the series.
+
+-f	Print the names of all patches following the
+	topmost or specified patch.
+
+-a	Print the names of all patches in the file series.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o bpnfah -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+opt_what=here
+
+while true
+do
+	case "$1" in
+	-b)
+		opt_what=before
+		shift ;;
+	-p)
+		opt_what=previous
+		shift ;;
+	-n)
+		opt_what=next
+		shift ;;
+	-f)
+		opt_what=follow
+		shift ;;
+	-a)
+		opt_what=all
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -gt 1 ]
+then
+	usage
+elif [ $# -eq 1 ]
+then
+	opt_patch=$1
+fi
+
+if [ -n "$opt_patch" ]
+then
+	patch=$(stripit $opt_patch)
+else
+	patch=$(top_patch)
+fi
+
+case $opt_what in
+before)
+	if [ -n "$patch" ]
+	then
+		patches_before $patch
+	fi
+	;;
+previous)
+	if [ -n "$patch" ]
+	then
+		patches_before $patch | tail -1
+	fi
+	;;
+here)
+	if [ -n "$patch" ]
+	then
+		echo $patch
+	fi
+	;;
+next)
+	if [ -z "$patch" ]
+	then
+		cat_series | head -1
+	else
+		patches_after $patch | head -1
+	fi
+	;;
+follow)
+	if [ -z "$patch" ]
+	then
+		cat_series
+	else
+		patches_after $patch
+	fi
+	;;
+all)
+	cat_series
+	;;
+esac

@@ -1,0 +1,63 @@
+#!/bin/sh
+# Extract names of new files from a patch, print them out
+
+usage()
+{
+	echo "Usage: touched-by-patch [-p num] patchname"
+	exit 1
+}
+
+options=`getopt -o p:h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-p)
+		opt_p=$2
+		shift 2 ;;
+	-h)
+		usage ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+
+patch_file=$1
+[ -z "$opt_p" ] && opt_p=1
+
+case "$patch_file" in
+*.bz2)
+	command="bzip2 -cd $patch_file";;
+*.gz)
+	command="gzip -cd $patch_file";;
+*)
+	command="cat $patch_file";;
+esac
+
+# Neither `+++' nor `---' works for all patches; patch looks at the
+# file system to determine which file name to use.
+
+eval $command \
+|  awk '/^\+\+\+[ \t]/ {
+	sub(/^\+\+\+[ \t]/, "")
+	sub(/[ \t].*/, "")
+	sub(/^\/dev\/null/, "")
+	for (i=0; i<'$opt_p'; i++)
+		sub(/^[^\/]*\//, "")
+	print
+	}' \
+| sort \
+| uniq

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# tag-series tagname series-file-name
+#
+# Does a `cvs tag tagname' of all the .pc, .txt and .patch files mentioned
+# in series-file-name.  Also tags series-file-name.
+#
+
+. patchfns 2>/dev/null ||
+. /usr/lib/patch-scripts/patchfns 2>/dev/null ||
+. $PATCHSCRIPTS_LIBDIR/patchfns 2>/dev/null ||
+{
+	echo "Impossible to find my library 'patchfns'."
+	echo "Check your install, or go to the right directory"
+	exit 1
+}
+
+# tag_one tag patchname
+#
+tag_one()
+{
+	PN=$(stripit $2)
+	if [ -r $(txt_file_name $PN) ]
+	then
+		cvs tag $1 $(pc_file_name $PN) $(patch_file_name $PN) $(txt_file_name $PN)
+	else
+		cvs tag $1 $(pc_file_name $PN) $(patch_file_name $PN)
+	fi
+}
+
+if [ $# -ne 2 ]
+then
+	echo Usage: tag-series tagname series-file-name
+	exit 1
+fi
+
+TAG=$1
+SERIES=$2
+
+for p in $(__cat_series $SERIES)
+do
+	tag_one $TAG $p
+done
+cvs tag $TAG $SERIES

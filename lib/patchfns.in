@@ -1,0 +1,393 @@
+debug()
+{
+	#echo "$@" >&2
+	true
+}
+
+if [ -n "$PATCHSCRIPTS" ]
+then
+	P=$PATCHSCRIPTS/
+else
+	unset P
+fi
+
+if [ -e .pc/series ]
+then
+	SERIES=.pc/series
+elif [ -e series ]
+then
+	SERIES=series
+else
+	SERIES=${P}patches/series
+fi
+
+DB=".pc/applied-patches"
+
+quote_re()
+{
+	echo "$1" | sed -e 's:\([/.+*\[\\]\):\\\1:g'
+}
+
+patch_file_name()
+{
+	local patch=$1
+
+	if [ -e $SERIES ]
+	then
+		awk '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)([ \t]|$)/ \
+			{ printf "'"$P"'patches/%s\n", $1; exit }' \
+		    $SERIES
+	fi
+}
+
+# The -pN option and possibly others that should be passed to patch.
+patch_args()
+{
+	local patch=$1
+
+	if [ -e $SERIES ]
+	then
+		awk '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)([ \t]|$)/ \
+			{ if (NF >= 2)
+				for (i=2; i <= NF; i++)
+					print $i ;
+			  else print "-p1" ;
+			  exit }' \
+		    $SERIES
+	fi
+}
+
+patch_strip_level()
+{
+	local patch=$1 i
+	for i in $(patch_args $patch)
+	do
+		case $i in
+		-p)
+			echo $2
+			return ;;
+		-p*)
+			echo ${i:2}
+			return ;;
+		esac
+	done
+	echo "1"
+}
+
+change_db_strip_level()
+{
+	local level=$1 patch=$2
+
+	if [ x$level != x-p1 ]
+	then
+		level="$level"
+	else
+		level=""
+	fi
+
+	if [ -e $SERIES ]
+	then
+		local tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
+		awk '/^'"$(quote_re $patch)"'(\.patch|\.diff?)([ \t]|$)/ \
+			{for(i=2; i<=NF; i++)
+				if ($i ~ /^-p/)
+					{$i="'"$level"'" ; break}
+			 if (i > NF)
+				 $i="'"$level"'"}
+			{print}' \
+		    $SERIES > $tmp
+		if cmp $SERIES $tmp >/dev/null 2>/dev/null
+		then
+			rm -f $tmp
+		else
+			mv -f $tmp $SERIES
+		fi
+	else
+		return 1
+	fi
+}
+
+patch_in_series()
+{
+	local patch=$1
+
+	if ! [ -e $SERIES ]
+	then
+		return 1
+	else
+		grep -q '^'"$(quote_re $patch)"'\(\|\.patch\|.diff\?\)\([ \t]\|$\)' $SERIES
+	fi
+}
+
+# Insert new patch after topmost patch
+insert_in_series()
+{
+	local patch=$1 patch_args=$2
+	local top=$(top_patch) tmp
+
+	if [ -n "$patch_args" ]
+	then
+		patch_args=" $patch_args"
+	fi
+
+	tmp=$(mktemp /tmp/patch-scripts.XXXXXX) || return 1
+	if [ -n "$top" ]
+	then
+		awk '		{ print }
+		     /^'"$(quote_re $top)"'(|\.patch|\.diff?)([ \t]|$)/ \
+		     		{ print "'"$patch$patch_args"'" }' \
+		    < $SERIES \
+		    > $tmp \
+		    || return 1
+	else
+		echo $patch$patch_args > $tmp
+		if [ -e $SERIES ]
+		then
+			cat $SERIES >> $tmp
+		fi
+	fi
+	mkdir -p $(dirname $SERIES)
+	mv -f $tmp $SERIES
+}
+
+pc_file_name()
+{
+	while [ $# -gt 0 ]
+	do
+		echo ".pc/$1/.pc"
+		shift
+	done
+
+}
+
+backup_file_name()
+{
+	local patch=$1
+	while [ $# -gt 1 ]
+	do
+		echo ".pc/$patch/$2"
+		shift
+	done
+}
+
+__cat_series()
+{
+	local series=$1
+	if [ -e $series ]
+	then
+		sed -e '/^#/d' -e 's/^[ \t]*//' -e 's/[ \t].*//' \
+		    -e 's/\.patch$//' -e 's/\.diff\?//' $series
+	else
+		return 1
+	fi
+}
+
+cat_series()
+{
+	__cat_series $SERIES
+}
+
+top_patch()
+{
+	[ -e $DB ] && tail -1 $DB
+}
+
+die()
+{
+	echo "error: $*"
+	exit 1
+}
+
+is_numeric()
+{
+	echo $1 | grep -q -e '^[0-9]*$'
+}
+
+is_applied_last()
+{
+	local patch=$1
+	[ "$(top_patch)" == $patch ]
+}
+
+is_applied()
+{
+	local patch=$1
+	[ -e $DB ] || return 1
+	grep -q "^$patch\$" $DB
+}
+
+patches_before()
+{
+	local patch=$1
+	cat_series \
+	| awk '$0 == "'"$patch"'"	{ exit }
+					{ print }'
+}
+
+patches_after()
+{
+	local patch=$1
+	cat_series \
+	| awk 'seen			{ print }
+	       $0 == "'"$patch"'"	{ seen=1 }'
+}
+
+# List all patches that have been applied on top of patch $1
+patches_on_top_of()
+{
+	local patch=$1
+	[ -e $DB ] || return
+	awk '$0 == "'"$patch"'"		{ seen=1 ; next }
+	     seen			{ print }' $DB
+}
+
+# Print the name of the patch that modified the file $2 next after
+# patch $1, or print nothing if patch $1 is on top.
+next_patch_for_file()
+{
+	local patch=$1 file=$2
+	local patches_on_top=$(patches_on_top_of $patch)
+
+	if [ -n "$patches_on_top" ]
+	then
+		grep -l -e "^$(quote_re $file)\$" \
+			$(pc_file_name $patches_on_top) \
+		| head -1 \
+		| sed -e 's:^\.pc/::' -e 's:/\.pc$::'
+	fi
+}
+
+can_apply()
+{
+	local silent
+	if [ "x$1" == "x-s" ]
+	then
+		silent=-s
+		shift
+	fi
+	local patch=$1
+	patch -p1 --dry-run -f $silent -i $(patch_file_name $patch) < /dev/null
+}
+
+can_remove()
+{
+	local silent
+	if [ "x$1" == "x-s" ]
+	then
+		silent=-s
+		shift
+	fi
+	local patch=$1
+	patch -R -p1 --dry-run -f $silent -i $(patch_file_name $patch) < /dev/null
+}
+
+add_to_db()
+{
+	echo $1 >> $DB
+}
+
+remove_from_db()
+{
+	local patch=$1
+	local tmpfile
+	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	grep -v "^$patch\$" $DB > $tmpfile
+	mv -f $tmpfile $DB
+	[ -s $DB ] || rm -f $DB
+}
+
+stripit()
+{
+	if [ -n "$1" ]
+	then
+		echo $1 |
+		sed -e 's/^\(\.\/\)*//' \
+		    -e 's/^'"$P"'patches\///' -e 's/^\.pc\///' \
+		    -e 's/\.patch$//' -e 's/\.diff\?$//'
+	fi
+}
+
+file_in_patch()
+{
+	local file=$1 patch=$2
+	files_in_patch $patch | grep -q "^$file\$"
+}
+
+files_in_patch()
+{
+	local pc_file=$(pc_file_name $1)
+	if [ -e "$pc_file" ]
+	then
+		cat $pc_file
+	fi
+}
+
+install_file_in_patch()
+{
+	local file=$1 patch=$2 bup_file=$(backup_file_name $patch $file)
+	
+	if ! echo $file  @LIB@/backup-file -s -B .pc/$patch/ || \
+	   ! echo $file >> $(pc_file_name $patch)
+	then
+		return 1
+	fi
+}
+
+refresh_file_list()
+{
+	local patch=$1
+	local pc_file=$(pc_file_name $patch)
+	local patch_file=$(patch_file_name $patch)
+	
+	if ! [ -e "$patch_file" ]
+	then
+		echo "Patch file $patch_file does not exist"
+		return 1
+	fi
+	if [ ! -e $pc_file -o $pc_file -ot $patch_file ]
+	then
+		mkdir -p $(dirname $pc_file)
+		echo "touched-by-patch $(patch_strip_level $patch) $patch_file > $pc_file" >&2
+		@LIB@/touched-by-patch -p$(patch_strip_level $patch) \
+			$patch_file > $pc_file
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+		return 2
+	fi
+}
+
+directory_names()
+{
+	echo "$@" \
+	| awk 'BEGIN	{RS=" "}
+			{sub(/\/?[^\/]*$/, "") ; printf "[%s]\n", $0}
+			{if (last != $0)
+				print last
+			 last = $0}
+		END	{print last}'
+}
+
+need_file_there()
+{
+	if [ ! -e $1 ]
+	then
+		echo "File $1 does not exist"
+		exit 1
+	fi
+}
+
+patch_description()
+{
+	local patch_file=$1
+
+	if [ -e "$patch_file" ]
+	then
+		awk	'/^--- /	{exit}
+			 diff		{print diff ; diff=""}
+			 /^diff /	{diff=$0 ; next}
+					{print}' \
+			$patch_file
+	fi
+}

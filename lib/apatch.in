@@ -1,0 +1,135 @@
+#!/bin/sh
+
+if ! [ -r @LIB@/patchfns ]
+then
+	echo "Cannot read library @LIB@/patchfns" >&2
+	exit 1
+fi
+. @LIB@/patchfns
+
+usage()
+{
+	echo "Usage: apatch [-fq] patchname"
+	exit 1
+}
+
+interrupt()
+{
+	local pc_file=$(pc_file_name $1)
+	@LIB@/backup-files -s -f $pc_file -B .pc/$patch/ -r
+	echo "apatch interrupted by user"
+	exit 1
+}
+
+apply_patch()
+{
+	local patch=$(stripit $1)
+	local pc_file=$(pc_file_name $patch)
+	local patch_file=$(patch_file_name $patch)
+	local file status
+
+	if ! [ -e "$patch_file" ]
+	then
+		echo "No patch named $patch found."
+		return 1
+	fi
+
+	#if is_applied "$patch"
+	#then
+	#	echo "$patch" is already applied
+	#	return 1
+	#fi
+
+	trap "" SIGINT
+	refresh_file_list $patch
+	status=$?
+	if [ $status -eq 2 ]
+	then
+		[ -z "$opt_quiet" ] && echo "Recreated file list for $patch"
+	elif [ $status -ne 0 ]
+	then
+		return 1
+	fi
+
+	if ! @LIB@/backup-files -s -f $pc_file -B .pc/$patch/
+	then
+		exit 1
+	fi
+	
+	trap "interrupt $patch" SIGINT
+	# (patch -b fails if a file appears more than once in a patch!)
+	#patch $(patch_args $patch) --no-backup-if-mismatch \
+	#	-E $silent -i $patch_file
+	patch $(patch_args $patch) --no-backup-if-mismatch \
+		-E $silent -i $patch_file
+	status=$?
+	trap "" SIGINT
+
+	# Remember date/time of applying so that poppatch can
+	# avoid reverse applying the patch in the usual cases.
+	touch $pc_file
+
+	if [ $status -eq 0 -o -n "$opt_force" ]
+	then
+		add_to_db $patch
+		if [ $status -eq 0 ]
+		then
+			echo "Applied $patch"
+			rm -f $(pc_file_name $patch)~forced
+		else
+			touch $(pc_file_name $patch)~forced
+			echo "Applied $patch (forced; needs refpatch)"
+		fi
+	else
+		@LIB@/backup-files -s -f $pc_file -B .pc/$patch/ -r
+		echo "Patch $patch does not apply"
+	fi
+	trap - SIGINT
+	return $status
+}
+
+options=`getopt -o fqh -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-f)
+		opt_force=1
+		shift ;;
+	-q)
+		opt_quiet=1
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+
+[ -n "$opt_quiet" ] && silent=-s
+
+patch=$(stripit $1)
+
+top=$(top_patch)
+if [ -n "$top" -a -e $(pc_file_name $top)~forced ]
+then
+	echo "The topmost patch $top was force applied. Please run" \
+	     "refpatch before applying other patches."
+	exit 1
+fi
+
+apply_patch $patch
+

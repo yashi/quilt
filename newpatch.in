@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# Read in library functions
+if ! [ -r @LIB@/patchfns ]
+then
+	echo "Cannot read library @LIB@/patchfns" >&2
+	exit 1
+fi
+. @LIB@/patchfns
+
+usage()
+{
+	echo "Usage: newpatch patchname"
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+  Create a new patch, and insert it after the topmost patch
+  in the patch series file.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+
+patch_file=$(echo $1 | sed -e 's:^'"$P"'patches/::' -e 's:^\.pc/::')
+patch=$(stripit $patch_file)
+if [ -z "$patch" ]
+then
+	usage
+fi
+
+if patch_in_series $patch
+then
+	echo "Patch $patch exists already"
+	exit 1
+fi
+
+pc_file=$(pc_file_name $patch)
+mkdir -p $(dirname $pc_file)
+touch $pc_file
+
+insert_in_series $patch_file || exit 1
+add_to_db $patch || exit 1
+
+echo "Patch $patch is now on top"

@@ -1,0 +1,13 @@
+Keep -p0 and -p1 patches, and convert -pN (N>1) to -p1 in refpatch
+
+Test Suite
+
+Support compressed files in .pc/?
+
+Use proper temporary files in parse-patch, so that parse-patch can be used
+multiple times in pipes!
+
+check if things like reading the patch file list should be done globally
+in some scripts.
+
+Clean up temp file handling
