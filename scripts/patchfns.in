@@ -635,6 +635,7 @@ first_modified_by()
 		if [ -f ".pc/$patch/$file" ]
 		then
 			echo $patch
+			return 0
 		fi
 	done
 	return 1
