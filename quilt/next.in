@@ -76,7 +76,7 @@ then
 else
 	next=$(patches_after $patch | head -n 1)
 fi
-if [ -n "$previous" ]
+if [ -n "$next" ]
 then
 	[ -n "$opt_filenames" ] && next=$(patch_file_name $next)
 	echo "$next"
