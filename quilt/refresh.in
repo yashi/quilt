@@ -38,12 +38,16 @@ patch.
 
 -p n	Create a -p n style patch (-p0 or -p1 supported).
 
--f	Force refresh, even if more recent patches modify
-	some of the same files.
+-u, -U num, -c, -C num
+	Create a unified diff (-u, -U) with num lines of context. Create
+	a context diff (-c, -C) with num lines of context. The number of
+	context lines defaults to 3.
 
 --no-timestamps
 	Do not include file timestamps in patch headers.
 	
+-f	Enforce refreshing of a patch that is not on top.
+
 --backup
 	Create a backup copy of the old version of a patch as patch~."
 		exit 0
@@ -60,7 +64,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:fh --long no-timestamps,backup -- "$@"`
+options=`getopt -o p:uU:cC:fh --long no-timestamps,backup -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -69,6 +73,7 @@ fi
 
 eval set -- "$options"
 
+opt_format=-u
 while true
 do
 	case "$1" in
@@ -78,6 +83,12 @@ do
 	-f)
 		opt_force=1
 		shift ;;
+	-u|-c)
+		opt_format=$1
+		shift ;;
+	-U|-C)
+		opt_format="$1 $2"
+		shift 2 ;;
 	-h)
 		usage -h ;;
 	--no-timestamps)
@@ -99,6 +110,8 @@ elif [ $# -gt 1 ]
 then
 	usage
 fi
+
+QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
 if [ -n "$opt_patch" ]
 then

@@ -220,6 +220,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \
 	     -e 's:@RPMBUILD''@:$(RPMBUILD):g' \
 	     -e 's:@DIFFSTAT''@:$(DIFFSTAT):g' \
+	     -e 's:@LOCALEDIR''@:$(localedir):g' \
 	     $< > $@
 	@chmod --reference=$< $@
 

@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Jul  4 04:29:25 CEST 2004 - agruen@suse.de
+
+- Add common GNU Diff format options to diff and refresH commands:
+  -u, -U num, -c, -C num. REname old -c option (combine patches)
+  of diff command to --combine.
+- Extend the function that splits comments froM patches and
+  syntax coloring to handLe combined diff format.
+- Honor the LAnG environment variable again; this goT broken at
+  some point.
+- Set TEXTDOMAINDIR to where the translations are put so that
+  Messages are found even when not installing into /usr.
+
+-------------------------------------------------------------------
 Fri Jul  2 03:08:39 CEST 2004 - agruen@suse.de
 
 - Several Fixes from Joe Green <jgreen@mvista.com>:

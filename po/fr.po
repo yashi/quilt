@@ -66,20 +66,20 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:54 ../quilt/diff.in:139 ../quilt/diff.in:150
+#: ../quilt/add.in:54 ../quilt/diff.in:147 ../quilt/diff.in:158
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr "Le patch $2 n'est pas dans la série"
 
-#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:112
+#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:125
 #: ../quilt/remove.in:73
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:211
+#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:227
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
 #: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
-#: ../quilt/refresh.in:119 ../quilt/remove.in:80
+#: ../quilt/refresh.in:132 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
 
@@ -170,19 +170,27 @@ msgid ""
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 are supported).\n"
 "\n"
+"-u, -U num, -c, -C num\n"
+"\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
+"\ta context diff (-c, -C) with num lines of context. The number of\n"
+"\tcontext lines defaults to 3.\n"
+"\n"
+"--no-timestamps\n"
+"\tDo not include file timestamps in patch headers.\n"
+"\n"
+"-z\tWrite to standard output the changes that have been made\n"
+"\trelative to the topmost or specified patch.\n"
+"\n"
+"-R\tCreate a reverse diff.\n"
+"\n"
 "-P patch\n"
 "\tCreate a diff for the specified patch.  (Defaults to the topmost\n"
 "\tpatch.)\n"
 "\n"
-"-c patch\n"
+"--combine patch\n"
 "\tCreate a combined diff for all patches between this patch and\n"
 "\tthe patch specified with -P. A patch name of \\\"-\\\" is equivalent\n"
 "\tto specifying the first applied patch.\n"
-"\n"
-"-R\tCreate a reverse diff.\n"
-"\n"
-"-z\tWrite to standard output the changes that have been made\n"
-"\trelative to the topmost or specified patch.\n"
 "\n"
 "--snapshot\n"
 "\tDiff agains snapshot (see \\`quilt snapshot -h').\n"
@@ -191,11 +199,8 @@ msgid ""
 "\tUse the specified utility for generating the diff. The utility\n"
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
-"--no-timestamps\n"
-"\tDo not include file timestamps in patch headers.\n"
-"\t\n"
 "--color[=always|auto|never]\n"
-"\tUse ANSI escape sequences to colorize the result."
+"\tUse syntax coloring."
 msgstr ""
 "\n"
 "Produit un diff du ou des fichiers spécifiés par le patch spécifié (ou à\n"
@@ -230,17 +235,17 @@ msgstr ""
 "\tSupprime les timestamps des entêtes du patch (comme si\n"
 "        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/diff.in:196
+#: ../quilt/diff.in:212
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 "Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être "
 "combinées."
 
-#: ../quilt/diff.in:204
+#: ../quilt/diff.in:220
 msgid "Patch $last_patch is not applied"
 msgstr "Le patch $last_patch ne semble pas appliqué"
 
-#: ../quilt/diff.in:222
+#: ../quilt/diff.in:238
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -248,39 +253,39 @@ msgstr ""
 "Impossible de créer des patches avec -p$opt_strip_level. Veuillez spécifier -"
 "p0 ou -p1 à la place"
 
-#: ../quilt/diff.in:256
+#: ../quilt/diff.in:272
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr "Le patch $first_patch n'est pas appliqué avant $last_patch."
 
-#: ../quilt/diff.in:290
+#: ../quilt/diff.in:306
 msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr "Impossible d'entrer dans $QUILT_PC/$last_patch"
 
-#: ../quilt/diff.in:296 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:312 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire"
 
-#: ../quilt/diff.in:307
+#: ../quilt/diff.in:323
 msgid "Cannot change to temporary directory"
 msgstr "Impossible d'entrer dans le répertoire temporaire"
 
-#: ../quilt/diff.in:326 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:342 ../scripts/rpatch.in:85
 msgid "Failed to patch temporary files"
 msgstr "Impossible de patcher les fichiers temporaires"
 
-#: ../quilt/diff.in:332
+#: ../quilt/diff.in:348
 msgid "Cannot change to source directory"
 msgstr "Impossible d'entrer dans le répertoire source"
 
-#: ../quilt/diff.in:350
+#: ../quilt/diff.in:366
 msgid "File $file is not being modified."
 msgstr "Le fichier $file n'est pas modifié."
 
-#: ../quilt/diff.in:370 ../quilt/refresh.in:151
+#: ../quilt/diff.in:386 ../quilt/refresh.in:164
 msgid "Diff failed, aborting."
 msgstr "Le diff a échoué. Abandon."
 
-#: ../quilt/diff.in:377
+#: ../quilt/diff.in:393
 msgid "More recent patches modify files in $last_patch."
 msgstr "Un patch plus recent modifie des fichiers communs à $last_patch."
 
@@ -708,12 +713,16 @@ msgid ""
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
 "\n"
-"-f\tForce refresh, even if more recent patches modify\n"
-"\tsome of the same files.\n"
+"-u, -U num, -c, -C num\n"
+"\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
+"\ta context diff (-c, -C) with num lines of context. The number of\n"
+"\tcontext lines defaults to 3.\n"
 "\n"
 "--no-timestamps\n"
 "\tDo not include file timestamps in patch headers.\n"
 "\t\n"
+"-f\tEnforce refreshing of a patch that is not on top.\n"
+"\n"
 "--backup\n"
 "\tCreate a backup copy of the old version of a patch as patch~."
 msgstr ""
@@ -740,11 +749,11 @@ msgstr ""
 "\tSupprime les timestamps des entêtes du patch (comme si\n"
 "        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/refresh.in:107
+#: ../quilt/refresh.in:120
 msgid "Patch $opt_patch is not in series"
 msgstr "Le patch $opt_patch est introuvable dans le fichier de série"
 
-#: ../quilt/refresh.in:130
+#: ../quilt/refresh.in:143
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -752,21 +761,21 @@ msgstr ""
 "Impossible de rafraîchir des patchs avec -p$opt_strip_level. Veuillez\n"
 "spécifier -p0 ou -p1 à la place."
 
-#: ../quilt/refresh.in:157
+#: ../quilt/refresh.in:170
 msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que $patch.\n"
 "Forcez le rafraîchissement avec -f."
 
-#: ../quilt/refresh.in:164
+#: ../quilt/refresh.in:177
 msgid "Nothing in patch $patch"
 msgstr "Le patch $patch ne contient rien"
 
-#: ../quilt/refresh.in:189
+#: ../quilt/refresh.in:202
 msgid "Patch $patch is unchanged"
 msgstr "Le patch $patch n'a pas été modifié"
 
-#: ../quilt/refresh.in:203
+#: ../quilt/refresh.in:216
 msgid "Refreshed patch $patch"
 msgstr "Le patch $patch a été rafraichi."
 
@@ -996,7 +1005,7 @@ msgstr ""
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
-#: ../scripts/patchfns.in:698
+#: ../scripts/patchfns.in:702
 msgid ""
 "The quilt meta-data in this tree has version $version, but this version of "
 "quilt can only handle meta-data formats up to and including version "
@@ -1009,7 +1018,7 @@ msgstr ""
 "version utilisée pour les appliquer avant d'installer une version\n"
 "plus ancienne."
 
-#: ../scripts/patchfns.in:760
+#: ../scripts/patchfns.in:764
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'."

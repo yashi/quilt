@@ -7,9 +7,14 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+export TEXTDOMAIN=quilt
+export TEXTDOMAINDIR=@LOCALEDIR@
+
+: ${LC_CTYPE:=$LANG}
+: ${LC_MESSAGES:=$LANG}
 ORIGINAL_LANG=$LANG
 export LANG=POSIX
-export TEXTDOMAIN=quilt
+
 export QUILT_PATCHES QUILT_PC SUBDIR SERIES DB
 DB_VERSION=2
 
@@ -534,7 +539,7 @@ diff_file()
 					-r "$new_file")
 	fi
 
-	@DIFF@ -Nu $QUILT_DIFF_OPTS $old_file $new_file \
+	@DIFF@ -N $QUILT_DIFF_OPTS $old_file $new_file \
 	       --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
 	| if read line
 	then
@@ -591,13 +596,12 @@ patch_description()
 	if [ -e "$patch_file" -o -z "$patch_file" ]
 	then
 		@AWK@ '
-		$1 == "---"	{ exit }
-               /^Index:[ \t]|^diff[ \t]|^==*$/ \
-				{ eat = eat $0
-				  next }
-		eat		{ print eat
-				  eat="" }
-				{ print }
+		$1 == "***" || $1 == "---"	{ exit }
+		/^Index:[ \t]|^diff[ \t]|^==*$/ \
+			{ eat = eat $0 "\n"
+			  next }
+			{ print eat $0
+			  eat="" }
 		' $patch_file
 	fi
 }

@@ -30,19 +30,27 @@ included.
 
 -p n	Create a -p n style patch (-p0 or -p1 are supported).
 
+-u, -U num, -c, -C num
+	Create a unified diff (-u, -U) with num lines of context. Create
+	a context diff (-c, -C) with num lines of context. The number of
+	context lines defaults to 3.
+
+--no-timestamps
+	Do not include file timestamps in patch headers.
+
+-z	Write to standard output the changes that have been made
+	relative to the topmost or specified patch.
+
+-R	Create a reverse diff.
+
 -P patch
 	Create a diff for the specified patch.  (Defaults to the topmost
 	patch.)
 
--c patch
+--combine patch
 	Create a combined diff for all patches between this patch and
 	the patch specified with -P. A patch name of \"-\" is equivalent
 	to specifying the first applied patch.
-
--R	Create a reverse diff.
-
--z	Write to standard output the changes that have been made
-	relative to the topmost or specified patch.
 
 --snapshot
 	Diff agains snapshot (see \`quilt snapshot -h').
@@ -51,9 +59,6 @@ included.
 	Use the specified utility for generating the diff. The utility
 	is invoked with the original and new file name as arguments.
 
---no-timestamps
-	Do not include file timestamps in patch headers.
-	
 --color[=always|auto|never]
 	Use syntax coloring."
 		exit 0
@@ -66,15 +71,17 @@ colorize() {
 	if [ -n "$opt_color" ]; then
 		awk '
 		function esc(x) { return "'$'\e''[" x "m" }
-		{ if (/^(Index:|\-\-\-|\+\+\+) /)
+		{ if (/^(Index:|\-\-\-|\+\+\+|\*\*\*) /)
 		    print esc(32) $0 esc(0)
 		  else if (/^\+/)
 		    print esc(36) $0 esc(0)
-		  else if (/^\-/)
+		  else if (/^(\-|!)/)
 		    print esc(35) $0 esc(0)
 		  else if (/^@@ \-[0-9]+(,[0-9]+)? \+[0-9]+(,[0-9]+)? @@/)
 		    print gensub(/^(@@[^@]*@@)([ \t]*)(.*)/,
 		         esc(33) "\\1" esc(0) "\\2" esc(35) "\\3" esc(0), "")
+		  else if (/^\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/)
+		    print esc(33) $0 esc(0)
 		  else
 		    print
 		}'
@@ -118,7 +125,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:Rzh --long diff:,snapshot,no-timestamps,color:: -- "$@"`
+options=`getopt -o p:P:RuU:cC:zh --long diff:,snapshot,no-timestamps,combine:,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -127,6 +134,7 @@ fi
 
 eval set -- "$options"
 
+opt_format=-u
 while true
 do
 	case "$1" in
@@ -140,7 +148,7 @@ do
 			exit 1
 		fi
 		shift 2 ;;
-	-c)
+	--combine)
 		opt_combine=1
 		if [ "$2" = - ]
 		then
@@ -157,6 +165,12 @@ do
 	-z)
 		opt_relative=1
 		shift ;;
+	-u|-c)
+		opt_format=$1
+		shift ;;
+	-U|-C)
+		opt_format="$1 $2"
+		shift 2 ;;
 	-h)
 		usage -h ;;
 	--snapshot)
@@ -187,6 +201,8 @@ do
 		break ;;
 	esac
 done
+
+QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
 opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
 
