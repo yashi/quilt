@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2004-06-09 00:08-0700\n"
+"PO-Revision-Date: 2004-06-11 01:24-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,20 +66,20 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:54 ../quilt/diff.in:112 ../quilt/diff.in:123
+#: ../quilt/add.in:54 ../quilt/diff.in:116 ../quilt/diff.in:127
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr "Le patch $2 n'est pas dans la série"
 
-#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:100
+#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:106
 #: ../quilt/remove.in:73
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:168
+#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:174
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
 #: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
-#: ../quilt/refresh.in:107 ../quilt/remove.in:80
+#: ../quilt/refresh.in:113 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
 
@@ -187,7 +187,11 @@ msgid ""
 "\n"
 "--diff=utility\n"
 "\tUse the specified utility for generating the diff. The utility\n"
-"\tis invoked with the original and new file name as arguments."
+"\tis invoked with the original and new file name as arguments.\n"
+"\t\n"
+"--no-timestamps\n"
+"\tDo not include file timestamps in patch headers (as if\n"
+"        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
 msgstr ""
 "\n"
 "Produit un diff du ou des fichiers spécifiés par le patch spécifié (ou à\n"
@@ -216,19 +220,23 @@ msgstr ""
 "--diff=programme\n"
 "\tUtilise le programme spécifié pour générer les diff. Ce programme\n"
 "\test invoqué avec le nom du fichier originel et celui du nouveau \n"
-"\tfichier comme arguments."
+"\tfichier comme arguments.\n"
+"\n"
+"--no-timestamps\n"
+"\tSupprime les timestamps des entêtes du patch (comme si\n"
+"        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/diff.in:153
+#: ../quilt/diff.in:159
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 "Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être "
 "combinées."
 
-#: ../quilt/diff.in:161
+#: ../quilt/diff.in:167
 msgid "Patch $last_patch is not applied"
 msgstr "Le patch $last_patch ne semble pas appliqué"
 
-#: ../quilt/diff.in:179
+#: ../quilt/diff.in:185
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -236,39 +244,39 @@ msgstr ""
 "Impossible de créer des patches avec -p$opt_strip_level. Veuillez spécifier -"
 "p0 ou -p1 à la place"
 
-#: ../quilt/diff.in:213
+#: ../quilt/diff.in:219
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr "Le patch $first_patch n'est pas appliqué avant $last_patch."
 
-#: ../quilt/diff.in:247
+#: ../quilt/diff.in:253
 msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr "Impossible d'entrer dans $QUILT_PC/$last_patch"
 
-#: ../quilt/diff.in:253 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:259 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire"
 
-#: ../quilt/diff.in:264
+#: ../quilt/diff.in:270
 msgid "Cannot change to temporary directory"
 msgstr "Impossible d'entrer dans le répertoire temporaire"
 
-#: ../quilt/diff.in:283 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:289 ../scripts/rpatch.in:85
 msgid "Failed to patch temporary files"
 msgstr "Impossible de patcher les fichiers temporaires"
 
-#: ../quilt/diff.in:289
+#: ../quilt/diff.in:295
 msgid "Cannot change to source directory"
 msgstr "Impossible d'entrer dans le répertoire source"
 
-#: ../quilt/diff.in:307
+#: ../quilt/diff.in:313
 msgid "File $file is not being modified."
 msgstr "Le fichier $file n'est pas modifié."
 
-#: ../quilt/diff.in:326 ../quilt/refresh.in:139
+#: ../quilt/diff.in:332 ../quilt/refresh.in:145
 msgid "Diff failed, aborting."
 msgstr "Le diff a échoué. Abandon."
 
-#: ../quilt/diff.in:333
+#: ../quilt/diff.in:339
 msgid "More recent patches modify files in $last_patch."
 msgstr "Un patch plus recent modifie des fichiers communs à $last_patch."
 
@@ -673,8 +681,8 @@ msgid "File series fully applied, ends at patch $top"
 msgstr "La série est complètement appliquée. Le dernier patch est $top."
 
 #: ../quilt/refresh.in:22
-msgid "Usage: quilt refresh [-p n] [-f] [patch]"
-msgstr "Usage : quilt refresh [-p n] [-f] [patch]"
+msgid "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
+msgstr "Usage : quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
 
 #: ../quilt/refresh.in:26
 msgid ""
@@ -694,7 +702,11 @@ msgid ""
 "-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
 "\t\n"
 "-f\tForce refresh, even if more recent patches modify\n"
-"\tsome of the same files."
+"\tsome of the same files.\n"
+"\t\n"
+"--no-timestamps\n"
+"\tDo not include file timestamps in patch headers (as if\n"
+"        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
 msgstr ""
 "\n"
 "Rafraîchit un patch appliqué. Si aucun patch n'est spécifié, il s'agit de\n"
@@ -713,13 +725,17 @@ msgstr ""
 "-p n\tCrée un patch du style -p n (-p0 ou -p1)\n"
 "\n"
 "-f\tForce le rafraîchissement, même si des patches plus haut changent \n"
-"\tles mêmes fichiers."
+"\tles mêmes fichiers.\n"
+"\n"
+"--no-timestamps\n"
+"\tSupprime les timestamps des entêtes du patch (comme si\n"
+"        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/refresh.in:95
+#: ../quilt/refresh.in:101
 msgid "Patch $opt_patch is not in series"
 msgstr "Le patch $opt_patch est introuvable dans le fichier de série"
 
-#: ../quilt/refresh.in:118
+#: ../quilt/refresh.in:124
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -727,21 +743,21 @@ msgstr ""
 "Impossible de rafraîchir des patchs avec -p$opt_strip_level. Veuillez\n"
 "spécifier -p0 ou -p1 à la place."
 
-#: ../quilt/refresh.in:145
+#: ../quilt/refresh.in:151
 msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que $patch.\n"
 "Forcez le rafraîchissement avec -f."
 
-#: ../quilt/refresh.in:152
+#: ../quilt/refresh.in:158
 msgid "Nothing in patch $patch"
 msgstr "Le patch $patch ne contient rien"
 
-#: ../quilt/refresh.in:177
+#: ../quilt/refresh.in:183
 msgid "Patch $patch is unchanged"
 msgstr "Le patch $patch n'a pas été modifié"
 
-#: ../quilt/refresh.in:191
+#: ../quilt/refresh.in:197
 msgid "Refreshed patch $patch"
 msgstr "Le patch $patch a été rafraichi."
 
@@ -779,8 +795,8 @@ msgid "File $SUBDIR$file removed from patch $patch"
 msgstr "Le fichier $SUBDIR$file a été enlevé du patch $patch."
 
 #: ../quilt/series.in:22
-msgid "Usage: quilt series [-v]"
-msgstr "Usage : quilt series [-v]"
+msgid "Usage: quilt series [-n] [-v]"
+msgstr "Usage : quilt series [-n] [-v]"
 
 #: ../quilt/series.in:25
 msgid ""
@@ -844,17 +860,15 @@ msgid ""
 "popping patches.  A diff against the tree at the moment of the\n"
 "snapshot can be generated with \\`quilt diff --snapshot'.\n"
 "\n"
-"-d\tRemove current snapshot."
+"-d\tOnly remove current snapshot."
 msgstr ""
 "\n"
-"Prend un instantané de l'état courant du répertoire de travail. Après "
-"cela, \n"
+"Prend un instantané de l'état courant du répertoire de travail. Après cela, \n"
 "il reste possible de travailler normalement avec quilt en poussant et en \n"
-"retirant des patches. Un différentiel entre l'arbre au moment de "
-"l'instantané \n"
+"retirant des patches. Un différentiel entre l'arbre au moment de l'instantané \n"
 "et son état courant peut être généré avec `quilt diff --snapshot'.\n"
 "\n"
-"-d\tSupprime l'instantané actuel."
+"-d\tSupprime l'instantané actuel et termine."
 
 #: ../quilt/top.in:22
 msgid "Usage: quilt top"
@@ -902,24 +916,31 @@ msgid ""
 "that\n"
 "case, quilt will request to run \\`quilt upgrade'."
 msgstr ""
+"\n"
+"Convertit les méta-données contenues dans un arbre de travail d'une \n"
+"ancienne version de quilt à la version actuelle. Cette commande n'est\n"
+"nécessaire que lorsque le format de ces méta-données change lors d'une\n"
+"mise à jour de quilt, mais que l'arbre de travail contient des données\n"
+"à l'ancien format. Dans ce cas, quilt vous demandera d'utiliser\n"
+"« quilt upgrade » explicitement."
 
 #: ../quilt/upgrade.in:66
 msgid ""
 "The quilt meta-data in $QUILT_PC/ already are have format version "
 "$DB_VERSION; nothing to do"
 msgstr ""
+"Les méta-données de quilt dans $QUILT_PC/ sont déjà au format $DB_VERSION ; "
+"rien à faire"
 
 #: ../quilt/upgrade.in:70
-#, fuzzy
 msgid "Converting meta-data to version $DB_VERSION"
-msgstr "Tentative de conversion des méta-donées au format v$DB_VERSION... "
+msgstr "Conversion des méta-donées au format v$DB_VERSION... "
 
 #: ../quilt/upgrade.in:101
 msgid "Conversion failed"
-msgstr ""
+msgstr "Échec de la convertion"
 
 #: ../quilt/upgrade.in:102
-#, fuzzy
 msgid ""
 "\n"
 "Please remove all patches using \\`quilt pop -a' from the quilt version used "
@@ -927,11 +948,9 @@ msgid ""
 "patches from scratch."
 msgstr ""
 "\n"
-"Veuillez retirer tous les patchs avec la version utilisée pour les "
-"appliquer\n"
-"avant d'installer une version plus récente, ou effacez le répertoire "
-"$QUILT_PC\n"
-"et recommencez vos patchs de zéro. Désolé."
+"Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
+"version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
+"$QUILT_PC et réappliquez complètement vos patchs."
 
 #: ../scripts/apatch.in:22
 msgid "Usage: $0 [-fqv] patchname"
@@ -967,28 +986,25 @@ msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
 #: ../scripts/patchfns.in:691
-#, fuzzy
 msgid ""
 "The quilt meta-data in this tree has version $version, but this version of "
 "quilt can only handle meta-data formats up to and including version "
 "$DB_VERSION. Please pop all the patches using the version of quilt used to "
 "push them before downgrading."
 msgstr ""
-"Votre arbre a été créé par une version de quilt plus récente que celle-ci. "
-"La\n"
-"compatibilité descendante est impossible, veuillez retirer tous les patches\n"
-"avec la version utilisée pour les appliquer avant d'installer une version "
-"plus\n"
-"ancienne."
+"Les méta-données de quilt dans cet arbre de travail sont au format \n"
+"v$version, mais cette version de quilt ne peut traiter que jusqu'au \n"
+"format $DB_VERSION (inclus). Veuillez retirer vos patches avec la\n"
+"version utilisée pour les appliquer avant d'installer une version\n"
+"plus ancienne."
 
 #: ../scripts/patchfns.in:753
-#, fuzzy
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'."
 msgstr ""
-"Votre arbre a été créé par une vieille version de quilt. Veuillez utiliser "
-"'quilt upgrade'."
+"Votre arbre a été créé par une vieille version de quilt. Veuillez \n"
+"utiliser « quilt upgrade »."
 
 #: ../scripts/rpatch.in:22
 msgid "Usage: $0 [-fRq] patchname"
@@ -1001,29 +1017,3 @@ msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
 #: ../scripts/rpatch.in:122
 msgid "Removing $patch"
 msgstr "Retrait de $patch"
-
-#, fuzzy
-#~ msgid "failed."
-#~ msgstr "échec !"
-
-#~ msgid "successful."
-#~ msgstr "réussite."
-
-#~ msgid "Your tree already use the format v$DB_VERSION."
-#~ msgstr "Les méta-données de votre arbre sont déjà au format v$DB_VERSION."
-
-#~ msgid ""
-#~ "\n"
-#~ "Upgrades the meta-data contained in a working tree from an old version "
-#~ "of\n"
-#~ "quilt to the current one. You only have to use this command when an "
-#~ "upgraded\n"
-#~ "version of the quilt program breaks on your tree with a message like:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Converti au nouveau format les méta-données contenues dans un arbre de "
-#~ "travail\n"
-#~ "créé par une ancienne version de quilt. Il n'est nécessaire d'utiliser "
-#~ "cette\n"
-#~ "commande que lorsqu'une mise à jour du programme quilt s'avère incapable\n"
-#~ "d'utiliser votre arbre, et affiche le message suivant :\n"
