@@ -19,12 +19,7 @@ fi
 
 usage()
 {
-	local redirect
-	if [ x$1 != x-h ]
-	then
-		redirect='>&2'
-	fi
-	echo $"Usage: quilt refresh [-p n] [-f] [patch]" $redirect
+	echo $"Usage: quilt refresh [-p n] [-f] [patch]"
 	
 	if [ x$1 = x-h ]
 	then

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Mar 20 18:04:01 CET 2004 - agruen@suse.de
+
+- Fix an algorithmic bug in `quilt graph --lines': Edges were
+  sometimes lost.
+- A few minor cleanups.
+
+-------------------------------------------------------------------
 Mon Mar 15 00:01:56 CET 2004 - agruen@suse.de
 
 - Extend `quilt graph' to also support checking for overlapping

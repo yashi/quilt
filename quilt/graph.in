@@ -19,12 +19,7 @@ fi
 
 usage()
 {
-	local redirect
-	if [ x$1 != x-h ]
-	then
-		redirect='>&2'
-	fi
-	echo $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]" $redirect
+	echo $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]"
 
 	if [ x$1 = x-h ]
 	then

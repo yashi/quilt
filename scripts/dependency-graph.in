@@ -164,54 +164,29 @@ sub compute_ranges($$) {
     return $ranges;
 }
 
-# Binary search
-sub binsearch($$) {
-    my ($key, $array) = @_;
-    my ($low, $high) = (-1, scalar @$array - 1);
-    #print STDERR "$low:$high\n";
-    my $i;
-    while ($low + 1 < $high) {
-	$i = ($low + $high) >> 1;
-	if ($key < $array->[$i]) {
-	    $high = $i;
-	} else {
-	    $low = $i;
-	}
-	#print STDERR "$low:$high\n";
-    }
-    my $res;
-    if ($low == -1) {
-	$res = $low;
-    } else {
-	$res = ($key < $array->[$high]) ? $low : $high;
-    }
-    #print STDERR "$key -> [", join(" ", @$array), "] = $res\n";
-    return $res
-}
-
 sub is_a_conflict($$$) {
     my ($from, $to, $filename) = @_;
 
-    $nodes[$from]{$filename} = compute_ranges($from, $filename)
-	unless $nodes[$from]{$filename};
-    $nodes[$to]{$filename} = compute_ranges($to, $filename)
-	unless $nodes[$to]{$filename};
+    $nodes[$from]{files}{$filename} = compute_ranges($from, $filename)
+	unless @{$nodes[$from]{files}{$filename}};
+    $nodes[$to]{files}{$filename} = compute_ranges($to, $filename)
+	unless @{$nodes[$to]{files}{$filename}};
 
-    my ($ra, $rb) = ($nodes[$from]{$filename}[1], $nodes[$to]{$filename}[0]);
-    my $d = 0;
-    foreach my $l (@$ra) {
-	unless (binsearch($l - $d, $rb) % 2) {
-	    return 1;
+    my @a = @{$nodes[$from]{files}{$filename}[1]};
+    my @b = @{$nodes[$to  ]{files}{$filename}[0]};
+
+    while (@a && @b) {
+	if ($a[0] < $b[0]) {
+	    return 1 if @b % 2;
+	    shift @a;
+	} elsif ($a[0] > $b[0]) {
+	    return 1 if @a % 2;
+	    shift @b;
+	} else {
+	    return 1 if (@a % 2) == (@b % 2);
+	    shift @a;
+	    shift @b;
 	}
-	# Alternate to convert from [in, out) regions to [in, in] regions
-	$d = 1 - $d;
-    }
-    foreach my $l (@$rb) {
-	unless (binsearch($l - $d, $ra) % 2) {
-	    return 1;
-	}
-	# Alternate to convert from [in, out) regions to [in, in] regions
-	$d = 1 - $d;
     }
     return 0;
 }
@@ -219,29 +194,29 @@ sub is_a_conflict($$$) {
 # Fetch the list of patches (all of them must be applied)
 my @patches;
 if (@ARGV) {
-    if (@ARGV == 1 && $ARGV[0] eq "-") {
-	@patches = map { chomp ; $_ } <STDIN>;
-    } else {
-	@patches = @ARGV;
-    }
+	if (@ARGV == 1 && $ARGV[0] eq "-") {
+		@patches = map { chomp ; $_ } <STDIN>;
+	} else {
+		@patches = @ARGV;
+	}
 } else {
-    my $fh = new FileHandle("< $ENV{QUILT_PC}/applied-patches")
-	or die ".$ENV{QUILT_PC}/applied-patches: $!\n";
-    @patches = map { chomp; $_ } <$fh>;
-    $fh->close();
+	my $fh = new FileHandle("< $ENV{QUILT_PC}/applied-patches")
+		or die ".$ENV{QUILT_PC}/applied-patches: $!\n";
+	@patches = map { chomp; $_ } <$fh>;
+	$fh->close();
 }
 
 # Fetch the list of files
 my $n = 0;
 foreach my $patch (@patches) {
-    if (! -d "$ENV{QUILT_PC}/$patch") {
-	print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
-	next;
-    }
-    my @files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
-    @files = map { s:\./::; $_ } @files;
-    push @nodes, {number=>$n++, name=>$patch, file=>$patch,
-		  files=>{ map {$_ => []} @files } };
+	if (! -d "$ENV{QUILT_PC}/$patch") {
+		print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
+		next;
+	}
+	my @files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
+	@files = map { s:\./::; $_ } @files;
+	push @nodes, {number=>$n++, name=>$patch, file=>$patch,
+		files=>{ map {$_ => []} @files } };
 }
 
 my %used_nodes;		# nodes to which at least one edge is attached
@@ -322,16 +297,26 @@ foreach my $node (@nodes) {
     my $number = $node->{number};
     foreach my $file (keys %{$node->{files}}) {
 	if (exists $files_seen{$file}) {
+	    my $patches = $files_seen{$file};
+	    my $patch;
 	    # Optionally look at the line ranges the patches touch
 	    if (defined $lines) {
-		next unless is_a_conflict($number, $files_seen{$file}, $file);
+		for (my $n = $#$patches; $n >= 0; $n--) {
+		    if (is_a_conflict($number, $patches->[$n], $file)) {
+			$patch = $patches->[$n];
+			last;
+		    }
+		}
+	    } else {
+		$patch = $patches->[$#$patches];
 	    }
-
-	    push @{$edges{"$number:$files_seen{$file}"}{names}}, $file;
-	    $used_nodes{$number} = 1;
-	    $used_nodes{$files_seen{$file}} = 1;
+	    if (defined $patch) {
+		push @{$edges{"$number:$patch"}{names}}, $file;
+		$used_nodes{$number} = 1;
+		$used_nodes{$patch} = 1;
+	    }
 	}
-	$files_seen{$file} = $number;
+	push @{$files_seen{$file}}, $number;
     }
 }
 
