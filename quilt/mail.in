@@ -209,7 +209,7 @@ for patch in "$@"; do
 	#	sleep 1
 	#done
 	((last_ts++))
-	new_date="$(date --rfc-822 -d "1970/01/01 UTC + $last_ts seconds")"
+	new_date="$(date --rfc-822 -d "1970/01/01 UTC $last_ts seconds")"
 
 	cat_file $(patch_file_name $patch) \
 	| quilt_mail_patch_filter $patch > $body
