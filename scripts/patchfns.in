@@ -603,7 +603,7 @@ patch_description()
 	then
 		@AWK@ '
 		$1 == "---"	{ exit }
-               /^Index:[ \t]|^diff[ \t]|^=*$/ \
+               /^Index:[ \t]|^diff[ \t]|^==*$/ \
                                { eat = eat $0
 				  next }
 		eat		{ print eat

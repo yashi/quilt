@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr  9 02:38:30 CEST 2003 - agruen@suse.de
+
+- The change from Mar 24 caused empty lines to be removed in
+  patch descriptions.
+
+-------------------------------------------------------------------
 Mon Apr  7 16:03:55 CEST 2003 - agruen@suse.de
 
 - `head -1' and `tail -1' is non-standard and deprecated, and
