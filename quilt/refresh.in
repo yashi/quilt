@@ -95,20 +95,23 @@ fi
 
 if [ -n "$opt_patch" ]
 then
-	patch=$(stripit $opt_patch)
+	if ! patch=$(find_patch $opt_patch)
+	then
+		echo $"Patch $opt_patch is not in series" >&2
+		exit 1
+	fi
+	if ! is_applied "$patch"
+	then
+		echo $"Patch $patch is not applied" >&2
+		exit 1
+	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patch seem to be applied" >&2
+		echo $"No patches applied" >&2
 		exit 1
 	fi
-fi
-
-if ! is_applied "$patch"
-then
-	echo $"Patch $patch is not applied" >&2
-	exit 1
 fi
 
 if [ -z "$opt_strip_level" ]
@@ -159,34 +162,24 @@ patch_file=$(patch_file_name $patch)
 
 trap "" SIGINT
 
-if [ -e $patch_file ] && grep -q '^%patch$' $patch_file
+if ! tmpfile2=$(gen_tempfile)
 then
-	if [ -x "@DIFFSTAT@" ]
-	then
-		@DIFFSTAT@ $tmpfile 2>/dev/null \
-		| @SCRIPTS@/parse-patch -u diffstat $patch_file
-	fi
-	cat $tmpfile \
-	| @SCRIPTS@/parse-patch -u patch $patch_file
-else
-	if ! tmpfile2=$(gen_tempfile)
-	then
-		die 1
-	fi
-
-	mkdir -p $(dirname $patch_file)
-
-	if ! cat_file $patch_file \
-	     | patch_description > $tmpfile2 || \
-	   ! cat $tmpfile >> $tmpfile2 || \
-	   ! cat $tmpfile2 \
-	     | cat_to_file $patch_file
-	then
-		die 1
-	fi
+	die 1
 fi
-if [ $? -ne 0 ]
+
+mkdir -p $(dirname $patch_file)
+
+if ! cat_file $patch_file \
+     | patch_description > $tmpfile2 || \
+   ! cat $tmpfile >> $tmpfile2 || \
+   ! cat $tmpfile2 \
+     | cat_to_file $patch_file
 then
+	die 1
+fi
+if [ $? != 0 ]
+then
+	echo $""
 	die 1
 fi
 

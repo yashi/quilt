@@ -58,20 +58,19 @@ then
 	usage
 fi
 
-patch=$(stripit $1)
-
+patch="$1"
 if [ -z "$patch" ]
 then
 	patch="$(top_patch)"
 	if [ -z "$patch" ]
 	then
-		echo $"No patch applied"
+		echo $"No patches applied"
 		exit 1
 	fi
 else
-	if ! patch_in_series $patch
+	if ! patch=$(find_patch $patch)
 	then
-		echo $"Patch $patch does not exist"
+		echo $"Patch $patch is not in series"
 		exit 1
 	fi
 fi

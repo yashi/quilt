@@ -136,7 +136,11 @@ then
 	then
 		number=$1
 	else
-		stop_at_patch=$(stripit $1)
+		if ! stop_at_patch=$(find_patch $1)
+		then
+			echo $"Patch $1 is not in series" >&2
+			exit 1
+		fi
 	fi
 else
 	[ -z "$opt_all" ] && number=1
@@ -170,7 +174,7 @@ then
 	top=$(top_patch)
 	if [ -z "$top" ]
 	then
-		echo $"No patch applied"
+		echo $"No patches applied"
 	elif [ -z "$(patch_file_name $top)" ]
 	then
 		echo -e \

@@ -77,7 +77,7 @@ rollback_patch()
 
 apatch()
 {
-	local patch=$(stripit $1)
+	local patch=$1
 	local file status
 
 	echo $"Applying $patch"
@@ -175,7 +175,7 @@ fi
 [ -z "$opt_interactive" ] && force_apply=-f
 [ -n "$opt_force" ] && opt_leave_rejects=1
 
-patch=$(stripit $1)
+patch=$1
 
 top=$(top_patch)
 if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]

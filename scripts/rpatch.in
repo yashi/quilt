@@ -183,7 +183,7 @@ then
 	usage
 fi
 
-patch=$(stripit $1)
+patch=$1
 [ -n "$opt_quiet" ] && silent=-s
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
 

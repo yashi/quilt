@@ -58,49 +58,46 @@ then
 	usage
 fi
 
-next="$(patches_after $(top_patch) | head -n 1)"
-if [ -z "$next" ]
+next_patch="$(patches_after $(top_patch) | head -n 1)"
+if [ -z "$next_patch" ]
 then
 	echo $"All patches applied" >&2
 	exit 1
 fi
-next_file_name="$(patch_file_name $next)"
 
 if [ $# -eq 1 ]
 then
-	patch_file="$1"
+	patch="$1"
 else
-	set -- $(echo "$next" \
+	set -- $(echo "$next_patch" \
 		 | @SED@ -e 's: :\ :g' -e 's:-\([0-9]\+\)$: \1:')
 	if [ $# -eq 1 ]; then
-		patch_file="$1-2"
+		patch="$1-2"
 	else
-		patch_file="$1-$[$2+1]"
+		patch="$1-$[$2+1]"
 	fi
-	ext="$(echo $next_file_name \
-	       | @SED@ -e '\:\.\(diff\?\|patch\)\(\.gz\|\.bz2\|\)$:!d' \
-		       -e 's:.*\(\.\(diff\?\|patch\)\(\.gz\|\.bz2\|\)\)$:\1:')"
-	patch_file="$patch_file$ext"
+	base=$(echo $next_patch \
+	       | @SED@ -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
+	patch="$patch${next_patch#$base}"
 fi
 
-patch_file=$(echo $patch_file | @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///')
-patch=$(stripit $patch_file)
+patch=${patch#$QUILT_PATCHES/}
 
 if patch_in_series $patch || \
-   [ -e "patches/$patch_file" ]
+   [ -e "$(patch_file_name $patch)" ]
 then
 	echo $"Patch $patch exists already, please choose a new name"
 	exit 1
 fi
 
-if ! rename_in_series "$next" "$patch_file" || \
-   ! cp -p "$next_file_name" "$(patch_file_name $patch)"
+if ! rename_in_series "$next_patch" "$patch" || \
+   ! cp -p "$(patch_file_name $next_patch)" "$(patch_file_name $patch)"
 then
-	echo $"Fork of $next_file_name to $patch_file failed" >&2
+	echo $"Fork of $next_patch to $patch failed" >&2
 	exit 1
 fi
 
-echo $"Fork of $next_file_name created as $(patch_file_name $patch)"
+echo $"Fork of $next_patch created as $patch"
 
 ### Local Variables:
 ### mode: shell-script

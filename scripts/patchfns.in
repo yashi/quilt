@@ -7,6 +7,9 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+ORIINAL_LANG=$LANG
+export LANG=POSIX
+
 export TEXTDOMAIN=quilt
 		
 if [ -e $HOME/.quiltrc ]
@@ -97,14 +100,7 @@ patch_file_name()
 {
 	local patch=$1
 
-	if [ -e $SERIES ]
-	then
-		@AWK@ '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
-			{ printf "'"$QUILT_PATCHES"'/%s\n", $1
-			  exit
-			}
-		' $SERIES
-	fi
+	echo "$QUILT_PATCHES/$1"
 }
 
 # The -pN option and possibly others that should be passed to patch.
@@ -115,7 +111,7 @@ patch_args()
 	if [ -e $SERIES ]
 	then
 		@AWK@ '
-		/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
+		$1 == "'"$patch"'" \
 			{ if (NF >= 2)
 				for (i=2; i <= NF; i++)
 					print $i
@@ -159,7 +155,7 @@ change_db_strip_level()
 	then
 		local tmpfile=$(gen_tempfile)
 		@AWK@ '
-		/^'"$(quote_re $patch)"'(\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
+		/^'"$(quote_re $patch)"'([ \t]|$)/ \
 			{ for(i=2; i<=NF; i++)
 				if ($i ~ /^-p/) {
 					$i="'"$level"'"
@@ -188,7 +184,7 @@ patch_in_series()
 	then
 		return 1
 	else
-		grep -q -E '^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)' $SERIES
+		grep -q -E "^$(quote_re $patch)([ \t]|$)" $SERIES
 	fi
 }
 
@@ -209,7 +205,7 @@ insert_in_series()
 	then
 		@AWK@ '
 				{ print }
-		/^'"$(quote_re $top)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
+		/^'"$(quote_re $top)"'([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
 		' $SERIES > $tmpfile
 		status=$?
@@ -235,7 +231,7 @@ remove_from_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	@AWK@ '
-	! /^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
+	! /^'"$(quote_re $patch)"'([ \t]|$)/ \
 				{ print }
 	' $SERIES > $tmpfile
 	if [ $? -ne 0 ]
@@ -253,9 +249,8 @@ rename_in_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	/usr/bin/gawk '
-	/^'"$(quote_re $from)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
-		{ sub(/'"$(quote_re $from)(|\.patch|\.diff?)(|\.gz|\.bz2)"'/,
-		      "'"${to//\"/\\\"}"'")
+	/^'"$(quote_re $from)"'([ \t]|$)/ \
+		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
 		{ print }
 	END	{ exit(! good) }
@@ -284,8 +279,7 @@ cat_series()
 	if [ -e $SERIES ]
 	then
 		@SED@ -e '/^#/d' -e 's/^[ '$'\t'']*//' -e 's/[ '$'\t''].*//' \
-		      -e 's/\.gz$//' -e 's/\.bz2$//' \
-		      -e 's/\.patch$//' -e 's/\.diff\?$//' $SERIES
+		      $SERIES
 	else
 		return 1
 	fi
@@ -411,16 +405,34 @@ remove_from_db()
 	fi
 }
 
-stripit()
+find_patch()
 {
-	if [ -n "$1" ]
+	set -- $*
+	if [ $# -eq 1 -a -n "$1" -a -e "$SERIES" ]
 	then
-		echo $1 |
-		@SED@ -e 's/^\(\.\/\)*//' \
-		      -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///' \
-		      -e 's/\.gz$//' -e 's/\.bz2$//' \
-		      -e 's/\.patch$//' -e 's/\.diff\?$//'
+		local patch="${1#$QUILT_PATCHES/}"
+		local bre=$(quote_bre "$patch")
+		set -- $(@SED@ -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ \t]\|$\)/!d" \
+			       -e 's/[ \t].*//' $SERIES)
+		if [ $# -eq 1 ]
+		then
+			echo $1
+			return 0
+		else
+			# We may have an exact match, which overrides
+			# extension expansion
+			while [ $# -gt 0 ]
+			do
+				if [ $1 = "$patch" ]
+				then
+					echo $1
+					return 0
+				fi
+				shift
+			done
+		fi
 	fi
+	return 1
 }
 
 file_in_patch()

@@ -12,16 +12,12 @@ General:
 	- Allow to add a directory? Then we could detect also new files
 	  in the directory, without having to add them individually.
 
-	- Instead of passing around and storing in applied-patches the
-	  short patch name (=patch file name with .dif .diff .patch .gz
-	  .bz2 stripped), translate from short names to real file names
-	  an the user interface, and work with full names internally.
-	  This will simplify regexp matching in several functions.
-
 	- Support different diff/patch options for different patches.
 	  (By specifying them in the series file?)
 
 Documentation:
+
+	- Document recently added settings in .quiltrc
 
 	- How to import a new version of a patch?
 
@@ -32,7 +28,7 @@ quilt refresh:
 
 	- Add an -m option similar to `cvs commit -m "..."' to simplify
 	  keeping a change log in the patch documentation?
-	
+
 quilt import:
 
 	- Add option to replace the currently applied patch with a new
@@ -61,6 +57,11 @@ apatch:
 
 quilt diff:
 
-	- The number of contetx lines cannot be overridden in QUILT_DIFF_OPTS:
+	- The number of context lines cannot be overridden in QUILT_DIFF_OPTS:
 	  GNU diff uses three context lines as soon as -u or -U3 is on the
 	  command line, no matter which order of arguments are specified.
+
+quit edit:
+
+	- Check for actual changes, and remove files again that haven't been
+	  changed.

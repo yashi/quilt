@@ -21,7 +21,7 @@
 	> No patches applied
 
 	$ quilt fork
-	> Fork of patches/snapshot created as patches/snapshot-2
+	> Fork of snapshot created as snapshot-2
 
 	$ quilt push -q
 	> Applying snapshot-2

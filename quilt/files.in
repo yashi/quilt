@@ -63,12 +63,16 @@ opt_patch=$1
 
 if [ -n "$opt_patch" ]
 then
-	patch=$(stripit "$opt_patch")
+	if ! patch=$(find_patch $opt_patch)
+	then
+		echo $"Patch $1 is not in series" >&2
+		exit 1
+	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patch applied" >&2
+		echo $"No patches applied" >&2
 		exit 1
 	fi
 fi
@@ -97,8 +101,6 @@ do
 		if [ -s $file ]
 		then
 			status="+"
-		else
-			continue
 		fi
 	fi
 	if [ -z "$opt_verbose" ]

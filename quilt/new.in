@@ -56,8 +56,7 @@ then
 	usage
 fi
 
-patch_file=$(echo $1 | @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///')
-patch=$(stripit $patch_file)
+patch=${1#$QUILT_PATCHES/}
 
 if patch_in_series $patch
 then
@@ -68,7 +67,7 @@ fi
 rm -rf "$QUILT_PC/$patch"
 mkdir -p "$QUILT_PC/$patch"
 
-if ! insert_in_series $patch_file || \
+if ! insert_in_series $patch || \
    ! add_to_db $patch
 then
 	echo $"Failed to create patch $patch"

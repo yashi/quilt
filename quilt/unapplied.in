@@ -61,7 +61,11 @@ then
 	usage
 elif [ $# -eq 1 ]
 then
-	patch=$(stripit $1)
+	if ! patch=$(find_patch $1)
+	then
+		echo $"Patch $1 is not in series" >&2
+		exit 1
+	fi
 else
 	patch=$(top_patch)
 fi

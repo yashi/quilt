@@ -75,7 +75,9 @@ do_diff()
 		[ -s "$new_file" ] || new_file=/dev/null
 		if ! @DIFF@ -qN $old_file $new_file >/dev/null
 		then
+			export LANG=$ORIGINAL_LANG
 			$opt_diff $old_file $new_file
+			export LANG=POSIX
 			true
 		fi
 	else
@@ -107,11 +109,22 @@ do
 		opt_strip_level=$2
 		shift 2 ;;
 	-P)
-		last_patch=$(stripit $2)
+		if ! last_patch=$(find_patch $2)
+		then
+			echo $"Patch $2 is not in series" >&2
+			exit 1
+		fi
 		shift 2 ;;
 	-c)
 		opt_combine=1
-		first_patch=$(stripit $2)
+		if [ "$2" = - ]
+		then
+			first_patch=-
+		elif ! first_patch=$(find_patch $2)
+		then
+			echo $"Patch $2 is not in series" >&2
+			exit 1
+		fi
 		shift 2 ;;
 	-R)
 		opt_reverse=1
@@ -138,24 +151,25 @@ opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
 
 if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
-	echo $"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined."
+	echo \
+$"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined."
 	die 1
 fi
 
-if [ -z "$last_patch" ]
+if [ -n "$last_patch" ]
 then
+	if ! is_applied "$last_patch"
+	then
+		echo $"Patch $last_patch is not applied" >&2
+		die 1
+	fi
+else
 	last_patch=$(top_patch)
 	if [ -z "$last_patch" ]
 	then
-		echo $"No patch seem to be applied" >&2
+		echo $"No patches applied" >&2
 		die 1
 	fi
-fi
-
-if ! is_applied "$last_patch"
-then
-	echo $"Patch $last_patch is not applied" >&2
-	die 1
 fi
 
 if [ -z "$opt_strip_level" ]
@@ -256,8 +270,9 @@ then
 	if [ -s $pwd/$patch_file ]
 	then
 		if ! cat_file $pwd/$patch_file \
-		     | @PATCH@ $QUILT_PATCH_OPTS $patch_args --no-backup-if-mismatch \
-			     -Ef >/dev/null 2>/dev/null
+		     | @PATCH@ $QUILT_PATCH_OPTS $patch_args \
+		     	       --no-backup-if-mismatch -Ef \
+			       >/dev/null 2>/dev/null
 		then
 			# If a patch was force applied (and therefore needs
 			# refreshing), we know that patching the temporary

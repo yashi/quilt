@@ -44,30 +44,42 @@ msgstr ""
 "-p patch\n"
 "\tDer Patch, zu dem die Dateien hinzugefügt werden sollen."
 
-#: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
-#: ../quilt/fold.in:79 ../quilt/push.in:176 ../quilt/remove.in:75
-msgid "No patch applied"
-msgstr "Kein Patch angewandt"
+#: ../quilt/add.in:56 ../quilt/diff.in:118 ../quilt/diff.in:127
+#: ../quilt/remove.in:56
+#, fuzzy
+msgid "Patch $2 is not in series"
+msgstr "Patch ist nicht angewandt"
 
-#: ../quilt/add.in:80 ../quilt/applied.in:71 ../quilt/refresh.in:113
-#: ../quilt/remove.in:80
+#: ../quilt/add.in:77 ../quilt/applied.in:76 ../quilt/refresh.in:109
+#: ../quilt/remove.in:77
 msgid "Patch $patch is not applied"
 msgstr "Patch $patch ist nicht angewandt"
 
-#: ../quilt/add.in:89
-msgid "File $file is already in patch $patch"
+#: ../quilt/add.in:84 ../quilt/delete.in:68 ../quilt/diff.in:172
+#: ../quilt/files.in:79 ../quilt/fold.in:79 ../quilt/pop.in:184
+#: ../quilt/push.in:181 ../quilt/push.in:215 ../quilt/refresh.in:116
+#: ../quilt/remove.in:84
+msgid "No patches applied"
+msgstr "Keine Patches angewandt"
+
+#: ../quilt/add.in:94
+#, fuzzy
+msgid "File $SUBDIR$file is already in patch $patch"
 msgstr "Datei $file ist bereits in Patch $patch enthalten"
 
-#: ../quilt/add.in:96 ../quilt/remove.in:97
-msgid "File $file modified by patch $next_patch"
+#: ../quilt/add.in:101 ../quilt/remove.in:102
+#, fuzzy
+msgid "File $SUBDIR$file modified by patch $next_patch"
 msgstr "Datei $file wird von Patch $next_patch verändert"
 
-#: ../quilt/add.in:103
-msgid "Failed to back up file $file"
+#: ../quilt/add.in:108
+#, fuzzy
+msgid "Failed to back up file $SUBDIR$file"
 msgstr "Konnte Datei $file nicht sichern"
 
-#: ../quilt/add.in:123
-msgid "File $file added to patch $patch"
+#: ../quilt/add.in:128
+#, fuzzy
+msgid "File $SUBDIR$file added to patch $patch"
 msgstr "Datei $file zu Patch $patch hinzugefügt"
 
 #: ../quilt/applied.in:22
@@ -91,6 +103,13 @@ msgstr ""
 "\n"
 "-n\tPatch-Dateinamen statt Patch-Namen ausgeben.\n"
 
+#: ../quilt/applied.in:71 ../quilt/files.in:72 ../quilt/next.in:70
+#: ../quilt/pop.in:130 ../quilt/previous.in:70 ../quilt/push.in:145
+#: ../quilt/unapplied.in:70
+#, fuzzy
+msgid "Patch $1 is not in series"
+msgstr "Patch ist nicht angewandt"
+
 #: ../quilt/delete.in:22
 msgid "Usage: quilt delete [patch]"
 msgstr "Verwendung: quilt delete [patch]"
@@ -110,7 +129,8 @@ msgstr ""
 "nur der oberste Patch entfernt werden.)"
 
 #: ../quilt/delete.in:75
-msgid "Patch $patch does not exist"
+#, fuzzy
+msgid "Patch $patch is not in series"
 msgstr "Patch $patch existiert nicht"
 
 #: ../quilt/delete.in:84
@@ -122,11 +142,15 @@ msgid "Failed to remove patch $patch"
 msgstr "Konnte Patch $patch nicht entfernen"
 
 #: ../quilt/diff.in:27
-msgid "Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [file ...]"
+#, fuzzy
+msgid ""
+"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--diff=utility] "
+"[file ...]"
 msgstr ""
 "Verwendung: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [datei ...]"
 
 #: ../quilt/diff.in:31
+#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -150,6 +174,10 @@ msgid ""
 "-z\tWrite to standard output the changes that have been made\n"
 "\trelative to the topmost or specified patch.\n"
 "\n"
+"--diff=utility\n"
+"\tUse the specified utility for generating the diff. The utility\n"
+"\tis invoked with the original and new file name as arguments.\n"
+"\n"
 msgstr ""
 "\n"
 "\n"
@@ -172,60 +200,57 @@ msgstr ""
 "-z\tÄnderungen relativ zum angewandten Patch ausgeben.\n"
 "\n"
 
-#: ../quilt/diff.in:140
+#: ../quilt/diff.in:157
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 "Die Optionen \\`-c patch', \\`--snapshot', und \\`-z' können nicht "
 "kombiniert werden."
 
-#: ../quilt/diff.in:149 ../quilt/refresh.in:106
-msgid "No patch seem to be applied"
-msgstr "Es ist kein Patch angewandt"
-
-#: ../quilt/diff.in:156
+#: ../quilt/diff.in:165
 msgid "Patch $last_patch is not applied"
 msgstr "Patch $last_patch ist nicht angewandt"
 
-#: ../quilt/diff.in:166
+#: ../quilt/diff.in:183
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
 msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 
-#: ../quilt/diff.in:200
+#: ../quilt/diff.in:217
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr "Patch $first_patch ist nicht vor Patch $last_patch angewandt."
 
-#: ../quilt/diff.in:234
-msgid "Cannot change into .pc/$last_patch"
+#: ../quilt/diff.in:251
+#, fuzzy
+msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr "Kann nicht in Verzeichnis .pc/$last_patch wechseln."
 
-#: ../quilt/diff.in:239 ../scripts/rpatch.in:61
+#: ../quilt/diff.in:257 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr "Konnte Dateien nicht in ein temporäres Verzeichnis kopieren"
 
-#: ../quilt/diff.in:250
+#: ../quilt/diff.in:268
 msgid "Cannot change to temporary directory"
 msgstr "Kann nicht in temporäres Verzeichnis wechseln"
 
-#: ../quilt/diff.in:270 ../scripts/rpatch.in:89
+#: ../quilt/diff.in:289 ../scripts/rpatch.in:90
 msgid "Failed to patch temporary files"
 msgstr "Konnte temporäre Dateien nicht patchen"
 
-#: ../quilt/diff.in:277
+#: ../quilt/diff.in:296
 msgid "Cannot change to source directory"
 msgstr "Kann nicht in Quellverzeichnis wechseln"
 
-#: ../quilt/diff.in:295
+#: ../quilt/diff.in:314
 msgid "File $file is not being modified."
 msgstr "Datei $file wird nicht verändert."
 
-#: ../quilt/diff.in:314 ../quilt/refresh.in:144
+#: ../quilt/diff.in:333 ../quilt/refresh.in:148
 msgid "Diff failed, aborting."
 msgstr "Diff fehlgeschlagen, Abbruch."
 
-#: ../quilt/diff.in:321
+#: ../quilt/diff.in:340
 msgid "More recent patches modify files in $last_patch."
 msgstr "Später angewandte Patches verändern Dateien von $last_patch."
 
@@ -262,11 +287,11 @@ msgstr ""
 "-v\tAusführlichere, benutzerfreundliche Ausgabe.\n"
 "\n"
 
-#: ../quilt/files.in:83
+#: ../quilt/files.in:88
 msgid "Patch is not applied (no verbose output)"
 msgstr "Patch ist nicht angewandt (keine ausführliche Ausgabe)"
 
-#: ../quilt/files.in:86
+#: ../quilt/files.in:91
 msgid "Patch is not applied"
 msgstr "Patch ist nicht angewandt"
 
@@ -298,8 +323,9 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen."
 
-#: ../quilt/fold.in:110
-msgid "File ${file:${#workdir}+1} may be corrupted"
+#: ../quilt/fold.in:115
+#, fuzzy
+msgid "File $file may be corrupted"
 msgstr "Datei ${file:${#workdir}+1} ist möglicherweise defekt"
 
 #: ../quilt/fork.in:22
@@ -325,16 +351,16 @@ msgstr ""
 msgid "All patches applied"
 msgstr "Alle Patches angewandt"
 
-#: ../quilt/fork.in:93
+#: ../quilt/fork.in:90
 msgid "Patch $patch exists already, please choose a new name"
 msgstr "Patch $patch existiert bereits, bitte neuen Namen wählen"
 
-#: ../quilt/fork.in:100
-msgid "Fork of $next_file_name to $patch_file failed"
+#: ../quilt/fork.in:97
+msgid "Fork of $next_patch to $patch failed"
 msgstr ""
 
-#: ../quilt/fork.in:104
-msgid "Fork of $next_file_name created as $(patch_file_name $patch)"
+#: ../quilt/fork.in:101
+msgid "Fork of $next_patch created as $patch"
 msgstr ""
 
 #: ../quilt/import.in:22
@@ -449,15 +475,15 @@ msgstr ""
 "ihn nach dem obersten Patch in die series-Datei ein.\n"
 "\n"
 
-#: ../quilt/new.in:67
+#: ../quilt/new.in:66
 msgid "Patch $patch exists already"
 msgstr "Patch $patch existiert bereits"
 
-#: ../quilt/new.in:77
+#: ../quilt/new.in:76
 msgid "Failed to create patch $patch"
 msgstr "Konnte Patch $patch nicht erzeugen"
 
-#: ../quilt/new.in:80
+#: ../quilt/new.in:79
 msgid "Patch $patch is now on top"
 msgstr "Der oberste Patch ist jetzt $patch"
 
@@ -558,23 +584,19 @@ msgstr ""
 "-v\tViele Meldungen ausgeben.\n"
 "\n"
 
-#: ../quilt/pop.in:146
+#: ../quilt/pop.in:151
 msgid "Patch $stop_at_patch is not applied."
 msgstr "Patch $stop_at_patch ist nicht angewandt."
 
-#: ../quilt/pop.in:156
+#: ../quilt/pop.in:161
 msgid "No patch removed"
 msgstr "Kein Patch entfernt"
 
-#: ../quilt/pop.in:170 ../quilt/push.in:201
+#: ../quilt/pop.in:175 ../quilt/push.in:206
 msgid "Interrupted by user"
 msgstr "Unterbrechung durch Benutzer"
 
-#: ../quilt/pop.in:179 ../quilt/push.in:210
-msgid "No patches applied"
-msgstr "Keine Patches angewandt"
-
-#: ../quilt/pop.in:181 ../quilt/push.in:212
+#: ../quilt/pop.in:186 ../quilt/push.in:217
 msgid "Now at patch $patch"
 msgstr "Jetzt in Patch $patch"
 
@@ -660,18 +682,18 @@ msgstr ""
 msgid "Patch $stop_at_patch not found in file series"
 msgstr "Patch $stop_at_patch in series-Datei nicht gefunden"
 
-#: ../quilt/push.in:163
+#: ../quilt/push.in:168
 msgid "Patch $stop_at_patch is already applied."
 msgstr "Patch $stop_at_patch ist bereits angewandt."
 
-#: ../quilt/push.in:180
+#: ../quilt/push.in:185
 msgid ""
 "The topmost patch $top is not in the series file anymore;\n"
 "cannot determine the next patch from the series file.\n"
 "Please pop -f the top patch and check your series file."
 msgstr ""
 
-#: ../quilt/push.in:186
+#: ../quilt/push.in:191
 msgid "File series fully applied, ends at patch $top"
 msgstr "series-Datei vollständig angewandt, endet in Patch $top"
 
@@ -722,7 +744,12 @@ msgstr ""
 "\teinige der selben Dateien verändern.\n"
 "\n"
 
-#: ../quilt/refresh.in:123
+#: ../quilt/refresh.in:104
+#, fuzzy
+msgid "Patch $opt_patch is not in series"
+msgstr "Patch $stop_at_patch in series-Datei nicht gefunden"
+
+#: ../quilt/refresh.in:127
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -730,17 +757,17 @@ msgstr ""
 "Kann Patches mit Level -p$opt_strip_level nicht auffrischen, bitte -p0 oder -"
 "p1 angeben"
 
-#: ../quilt/refresh.in:150
+#: ../quilt/refresh.in:154
 msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
 "Später angewandte Patches verändern Dateien von $patch. Auffrischen mit -f "
 "erzwingen."
 
-#: ../quilt/refresh.in:157
+#: ../quilt/refresh.in:161
 msgid "Nothing in patch $patch"
 msgstr "Patch $patch is leer"
 
-#: ../quilt/refresh.in:199
+#: ../quilt/refresh.in:192
 msgid "Refreshed patch $patch"
 msgstr "Patch $patch aufgefrischt."
 
@@ -769,16 +796,19 @@ msgstr ""
 "\tPatch, aus dem Dateien entfernt werden sollen.\n"
 "\n"
 
-#: ../quilt/remove.in:89
-msgid "File $file is not in patch $patch"
+#: ../quilt/remove.in:94
+#, fuzzy
+msgid "File $SUBDIR$file is not in patch $patch"
 msgstr "Datei $file ist nicht in Patch $patch enthalten."
 
-#: ../quilt/remove.in:105
-msgid "Failed to remove file $file from patch $patch"
+#: ../quilt/remove.in:110
+#, fuzzy
+msgid "Failed to remove file $SUBDIR$file from patch $patch"
 msgstr "Konnte Datei $file nicht aus Patch $patch entfernen."
 
-#: ../quilt/remove.in:110
-msgid "File $file removed from patch $patch"
+#: ../quilt/remove.in:115
+#, fuzzy
+msgid "File $SUBDIR$file removed from patch $patch"
 msgstr "Datei $file aus Patch $patch entfernt."
 
 #: ../quilt/series.in:22
@@ -932,23 +962,23 @@ msgstr "Unterbrechung durch Benutzer; Patch $patch wurde nicht angewandt."
 msgid "Patch file $patch_file appears to be empty"
 msgstr "Patch-Datei $patch_file scheint leer zu sein"
 
-#: ../scripts/apatch.in:79
+#: ../scripts/apatch.in:83
 msgid "Applying $patch"
 msgstr "Anwenden von $patch"
 
-#: ../scripts/apatch.in:114
+#: ../scripts/apatch.in:119
 msgid "Patch $patch appears to be empty, applied"
 msgstr "Patch $patch scheint leer zu sein, angewandt"
 
-#: ../scripts/apatch.in:117
+#: ../scripts/apatch.in:122
 msgid "Applied $patch (forced; needs refresh)"
 msgstr "Patch $patch angewandt (erzwungen, muß aufgefrischt werden (Refresh))"
 
-#: ../scripts/apatch.in:121
+#: ../scripts/apatch.in:126
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr "Patch $patch läßt sich nicht anwenden (erzwingen mit -f)"
 
-#: ../scripts/apatch.in:178 ../scripts/rpatch.in:192
+#: ../scripts/apatch.in:183 ../scripts/rpatch.in:193
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Der oberste Patch $top muss zuerst aufgefrischt werden (Refresh)."
 
@@ -956,18 +986,24 @@ msgstr "Der oberste Patch $top muss zuerst aufgefrischt werden (Refresh)."
 msgid "Usage: $0 [-fRq] patchname"
 msgstr "Verwendung: $0 [-fRq] patchname"
 
-#: ../scripts/rpatch.in:104
+#: ../scripts/rpatch.in:105
 msgid "Patch $patch does not remove cleanly (enforce with -f)."
 msgstr "Patch $patch kann nicht entfernt werden (erzwingen mit -f)."
 
-#: ../scripts/rpatch.in:121
+#: ../scripts/rpatch.in:122
 msgid "Patch $patch appears to be empty, removed"
 msgstr "Patch $patch scheint leer zu sein, entfernt"
 
-#: ../scripts/rpatch.in:135
+#: ../scripts/rpatch.in:136
 msgid "Removing $patch"
 msgstr "Entferne $patch"
 
 #: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
 msgid " done"
 msgstr " fertig"
+
+#~ msgid "No patch applied"
+#~ msgstr "Kein Patch angewandt"
+
+#~ msgid "No patch seem to be applied"
+#~ msgstr "Es ist kein Patch angewandt"

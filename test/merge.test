@@ -36,10 +36,10 @@ Test the patch merging functionality of `quilt diff'.
 	< +c+
 
 	$ quilt push -qa
-	> Applying a
-	> Applying b
-	> Applying c
-	> Now at patch c
+	> Applying a.diff
+	> Applying b.diff
+	> Applying c.diff
+	> Now at patch c.diff
 
 	$ quilt diff -P b.diff | grep -v "^\\(---\\|+++\\)"
 	> Index: d/abc.txt
@@ -49,7 +49,7 @@ Test the patch merging functionality of `quilt diff'.
 	> -b
 	> +b+
 	>  c
-	> More recent patches modify files in b.
+	> More recent patches modify files in b.diff.
 
 	$ quilt diff -c a.diff -P b.diff | grep -v "^\\(---\\|+++\\)"
 	> Index: d/abc.txt
@@ -60,7 +60,7 @@ Test the patch merging functionality of `quilt diff'.
 	> +a+
 	> +b+
 	>  c
-	> More recent patches modify files in b.
+	> More recent patches modify files in b.diff.
 
 	$ quilt diff -c b.diff | grep -v "^\\(---\\|+++\\)"
 	> Index: d/abc.txt

@@ -1,6 +1,11 @@
 -------------------------------------------------------------------
-Sat Jan 31 14:05:22 CET 2004 - agruen@suse.de
+Sat Jan 31 14:33:48 CET 2004 - agruen@suse.de
 
+- No longer remove common extensions (.dif, .diff, .patch, .gz,
+  .bz2) from patch names. This allows patches in the same series
+  that only differ by extension, and cleans up the scripts a
+  little. Also don't remove extensions when printing patch names.
+- Remove unused diffstat code.
 - Fix generating doc/README after subdirectory support broke it.
 - Remove excessive newlines in -h messages.
 

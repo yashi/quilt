@@ -5,23 +5,23 @@
 	< This is test.txt.
 
 	$ quilt new test.diff
-	> Patch test is now on top
+	> Patch test.diff is now on top
 
 	$ quilt add test.txt
-	> File test.txt added to patch test
+	> File test.txt added to patch test.diff
 
 	$ cat >> test.txt
 	< Line two.
 
 	$ quilt refresh
-	> Refreshed patch test
+	> Refreshed patch test.diff
 
 	$ sleep 2
 
 	$ sed -e "s/ /_/g" patches/test.diff > patches/test.new
 	$ mv patches/test.new patches/test.diff
 	$ quilt pop
-	> Patch test does not remove cleanly (enforce with -f).
+	> Patch test.diff does not remove cleanly (enforce with -f).
 
 	$ cd ..
 	$ rm -rf d

@@ -49,7 +49,11 @@ while true
 do
 	case "$1" in
 	-p)
-		opt_patch=$2
+		if ! patch=$(find_patch $2)
+		then
+			echo $"Patch $2 is not in series" >&2
+			exit 1
+		fi
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -64,20 +68,20 @@ then
 	usage
 fi
 
-patch=$(stripit $opt_patch)
-if [ -z "$patch" ]
+if [ -n "$patch" ]
 then
+	if ! is_applied $patch
+	then
+		echo $"Patch $patch is not applied" >&2
+		exit 1
+	fi
+else
 	patch=$(top_patch)
-fi
-if [ -z "$patch" ]
-then
-	echo $"No patch applied"
-fi
-
-if ! is_applied $patch
-then
-	echo $"Patch $patch is not applied"
-	exit 1
+	if [ -z "$patch" ]
+	then
+		echo $"No patches applied" >&2
+		exit 1
+	fi
 fi
 
 status=0

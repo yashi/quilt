@@ -22,13 +22,13 @@ accidentally removed.
 	< test.diff -p0
 
 	$ quilt push
-	> Applying test
+	> Applying test.diff
 	> patching file f
 	>
-	> Now at patch test
+	> Now at patch test.diff
 
 	$ quilt refresh
-	> Refreshed patch test
+	> Refreshed patch test.diff
 	$ sed -e "s/\\t.*//" patches/test.diff
 	> C1
 	>

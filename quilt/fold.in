@@ -75,7 +75,7 @@ fi
 top=$(top_patch)
 if [ -z "$top" ]
 then
-	echo $"No patch applied"
+	echo $"No patches applied"
 fi
 
 trap "failed=1" SIGINT

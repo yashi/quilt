@@ -27,18 +27,14 @@
 	< +This is file3.txt.
 
 	$ quilt push -q
-	> Applying patch1
-	> Now at patch patch1
+	> Applying patch1.diff
+	> Now at patch patch1.diff
 
 	$ quilt files
 	> file1.txt
 	> file2.txt
 
 	$ quilt fold -q < patches/patch2.diff
-	$ quilt files
-	> dir/file3.txt
-	> file1.txt
-
 	$ quilt diff | sed -e "s/\\t.*//"
 	> Index: d/dir/file3.txt
 	> ===================================================================

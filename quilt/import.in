@@ -153,29 +153,14 @@ then
 		exit 1
 	fi
 
-	if grep -q '^%patch$' "$patch_file" &&
-	   ! grep -q '^%patch$' "$input_file"
+	echo $"Replacing patch $patch with new version"
+	if ! cat "$input_file" > "$patch_file"
 	then
-		echo $"Updating %patch section of patch $patch"
-		if ! @SCRIPTS@/parse-patch -u patch $patch_file < "$input_file"
-		then
-			echo $"Failed to update %patch section of patch $patch"
-			exit 1
-		fi
-	else
-		echo $"Replacing patch $patch with new version"
-		if ! cat "$input_file" > "$patch_file"
-		then
-			echo $"Failed to replace patch $patch"
-			exit 1
-		fi
+		echo $"Failed to replace patch $patch"
+		exit 1
 	fi
 else
 	echo $"Importing patch $patch (stored as $patch_file)"
-	if ! grep -q '^%patch$' "$input_file"
-	then
-		echo "%patch" >> "$patch_file"
-	fi
 	if ! cat "$input_file" >> "$patch_file"
 	then
 		echo $"Failed to import patch $patch"
