@@ -204,8 +204,8 @@ msgstr ""
 #: ../quilt/edit.in:16
 msgid ""
 "\n"
-"Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
-"topmost patch.\n"
+"Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
+"the topmost patch.\n"
 msgstr ""
 
 #: ../quilt/files.in:22
@@ -716,7 +716,7 @@ msgid ""
 msgstr ""
 
 #: ../scripts/rpatch.in:22
-msgid "Usage: $0 [-fRq] patchname\\n"
+msgid "Usage: %s [-fRq] patchname\\n"
 msgstr ""
 
 #: ../scripts/rpatch.in:100
