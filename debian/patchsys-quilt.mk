@@ -87,7 +87,7 @@ clean:: reverse-patches
 # The patch subsystem
 apply-patches: pre-build debian/stamp-patched
 debian/stamp-patched: 
-	$(MAKE) -f debian/rules reverse-config 
+	$(MAKE) -f debian/rules reverse-config # must be first
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
 	    (cd $(DEB_SRCDIR); ln -s $(DEB_PATCHDIRS) $(DEB_QUILT_PATCHDIR_LINK)) ; \
@@ -97,10 +97,10 @@ debian/stamp-patched:
 	# That's not an error here (but it's usefull to break loops in crude scripts)
 	$(DEB_QUILT_CMD) push -a || test $$? = 2
 	touch debian/stamp-patched
-	$(MAKE) -f debian/rules reverse-config
+	$(MAKE) -f debian/rules reverse-config # must be last
 
 reverse-patches:
-	$(MAKE) -f debian/rules reverse-config
+	$(MAKE) -f debian/rules reverse-config # must be first
 	if [ -d "$(DEB_SRCDIR)" ] ; then \
 	  $(DEB_QUILT_CMD) pop -a -R || test $$? = 2 ; \
 	fi 
@@ -111,6 +111,6 @@ reverse-patches:
 	fi
 	rm -rf $(DEB_SRCDIR)/.pc
 	rm -f debian/stamp-patch*
-	$(MAKE) -f debian/rules reverse-config
+	$(MAKE) -f debian/rules reverse-config # must be last
 
 endif
