@@ -79,7 +79,6 @@ do_diff()
 			true
 		fi
 	else
-		echo diff_file $file $suffix $old_file $new_file
 		diff_file $file $suffix $old_file $new_file
 	fi
 }
