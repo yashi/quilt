@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/next.in:62
-#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:265
+#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:273
 #: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
@@ -80,7 +80,7 @@ msgstr "Le patch %s n'est pas appliqué\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:286 ../quilt/push.in:303 ../quilt/refresh.in:143
+#: ../quilt/pop.in:286 ../quilt/push.in:311 ../quilt/refresh.in:143
 #: ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
@@ -589,7 +589,7 @@ msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: ../quilt/pop.in:293 ../quilt/push.in:321
+#: ../quilt/pop.in:293 ../quilt/push.in:329
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -675,36 +675,36 @@ msgstr "Interrompu par l'utilisateur ; le patch %s n'a pas été appliqué.\\n"
 msgid "Patch %s appears to be empty\\n"
 msgstr "Le patch %s semble vide.\\n"
 
-#: ../quilt/push.in:109
+#: ../quilt/push.in:135
 msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
-#: ../quilt/push.in:159
+#: ../quilt/push.in:167
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
-#: ../quilt/push.in:163
+#: ../quilt/push.in:171
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
-#: ../quilt/push.in:168
+#: ../quilt/push.in:176
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
-#: ../quilt/push.in:207
+#: ../quilt/push.in:215
 msgid "Patch %s not found in file series\\n"
 msgstr "Le patch %s est introuvable dans le fichier de série\\n"
 
-#: ../quilt/push.in:282
+#: ../quilt/push.in:290
 msgid "Patch %s is already applied\\n"
 msgstr "Le patch %s est déjà appliqué.\\n"
 
-#: ../quilt/push.in:291
+#: ../quilt/push.in:299
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
-#: ../quilt/push.in:305
+#: ../quilt/push.in:313
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
