@@ -19,19 +19,18 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
+	echo $"Usage: quilt import [-f] [-p num] [-n patch] patchfile ..."
 	if [ x$1 = x-h ]
 	then
 		echo $"
-Import an external patch.  If a patch file name is specified, the patch
-will be stored in this relative path in the patches/ directory.  Else,
-if an input file name is given this name is used as the patch name.
+Import external patches.
 
 -p num
 	Number of directory levels to strip when aplying (default=1)
 
 -n patch
-	File name relative to patches/ to use.
+	Patch filename to use inside quilt. This option can only be
+	used when importing a single patch.
 
 -f	Overwite/update existing patches."
 		exit 0
@@ -69,63 +68,54 @@ do
         esac
 done
 
-if [ $# -eq 1 ]
+if [ $# -gt 1 -a -n "$opt_patch" ]
 then
-	input_file=$1
-elif [ $# -gt 1 ]
-then
-        usage
+	echo $"Option \`-n' can only be used when importing a single patch"
+	exit 1
 fi
 
 [ -n "$opt_strip" ] && patch_args="-p$opt_strip"
 
-if [ -n "$opt_patch" ]
-then
-	patch="$opt_patch"
-elif [ -n "$input_file" ]
-then
-	patch="$input_file"
-else
-	echo $"Please use -n to specify a patch file name."
-	exit 1
-fi
-
-if is_applied $patch
-then
-	echo $"Patch $patch is applied."
-	exit 1
-fi
-
-if [ -e "$QUILT_PATCHES/$patch" ]
-then
-	if [ -z "$opt_force" ]
+for patch_file in "$@"
+do
+	if [ -n "$opt_patch" ]
 	then
-		echo $"Patch $patch exists. Replace with -f."
+		patch=$opt_patch
+	else
+		patch=$patch_file
+	fi
+
+	if is_applied $patch
+	then
+		echo $"Patch $patch is applied."
 		exit 1
 	fi
-	echo $"Replacing patch $patch with new version"
-else
-	echo $"Importing patch $patch (stored as $patch)"
-fi
-if [ -n "$input_file" ]
-then
-	cp "$input_file" "$QUILT_PATCHES/$patch"
-else
-	cat > "$QUILT_PATCHES/$patch"
-fi
-if [ $? -ne 0 ]
-then
-	echo $"Failed to import patch $patch"
-	exit 1
-fi
 
-if ! patch_in_series $patch &&
-   ! insert_in_series $opt_patch "$patch_args"
-then
-	echo $"Failed to insert $patch in file series."
-fi
+	if [ -e "$QUILT_PATCHES/$patch" ]
+	then
+		if [ -z "$opt_force" ]
+		then
+			echo $"Patch $patch exists. Replace with -f."
+			exit 1
+		fi
+		echo $"Replacing patch $patch with new version"
+	else
+		echo $"Importing patch $patch (stored as $patch)"
+	fi
+	if ! cp "$patch_file" "$QUILT_PATCHES/$patch"
+	then
+		echo $"Failed to import patch $patch"
+		exit 1
+	fi
 
-rm -rf $QUILT_PC/$patch
+	if ! patch_in_series $patch &&
+	   ! insert_in_series $opt_patch "$patch_args"
+	then
+		echo $"Failed to insert $patch in file series."
+	fi
+
+	rm -rf $QUILT_PC/$patch
+done
 ### Local Variables:
 ### mode: shell-script
 ### End:

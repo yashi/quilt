@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Mar 14 00:39:46 CET 2004 - agruen@suse.de
+
+- Change `quilt import' to allow importing multiple patches
+  at once.
+- Update to version 0.32.
+
+-------------------------------------------------------------------
 Sun Mar 14 00:25:27 CET 2004 - agruen@suse.de
 
 - Add `quilt graph' command for generating a dependency graph
