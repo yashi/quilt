@@ -1,5 +1,10 @@
 -------------------------------------------------------------------
-Sun, 22 Feb 2004 16:04:36 -0800 - martin.quinson@tuxfamily.org
+Wed, Feb 25 10:45:39 CET 2004 - martin.quinson@tuxfamily.org
+
+- Add completion to the edit command in bash
+
+-------------------------------------------------------------------
+Sun, Feb 22 16:04:36 CET 2004 - martin.quinson@tuxfamily.org
 
 - Add a man page (generated automatically from -h)
 
