@@ -1,3 +1,20 @@
+quilt (0.30-4) unstable; urgency=low
+
+  * patchsys-quilt.mk: 
+    Various improvements from David Kimdon. Closes: #234449
+    - rm debian/stamp-patch in reverse-patches (instead of clean) so that this
+      target can be called directly.
+    - Make those rules usable along with the cdbs tarball.mk ones.
+    - remove a dupplicated useless line
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Wed, 25 Feb 2004 10:22:39 -0800
+
+quilt (0.30-3) unstable; urgency=low
+
+  * Add a man page from the upstream CVS. Closes: #219318
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon, 23 Feb 2004 08:43:08 -0800
+
 quilt (0.30-2) unstable; urgency=low
  
   * [debian/control]
