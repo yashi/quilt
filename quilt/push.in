@@ -70,7 +70,7 @@ colorize()
 {
 	if [ -n "$opt_color" ]; then
 		@AWK@ '
-		{ if (/FAILED|hunk ignored|can'\''t find file|file .* already exists/)
+		{ if (/FAILED|hunks? ignored|can'\''t find file|file .* already exists/)
 		    print "'$color_patch_fail'" $0 "'$color_clear'"
 		  else if (/^Hunk/) {
 		    sub(/^Hunk .* with fuzz [0-9]*/,
