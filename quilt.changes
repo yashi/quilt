@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Nov  8 12:47:37 CET 2004 - agruen@suse.de
+
+- Fix extra trailing space in series file after quilt refresh
+  (David Vrabel <dvrabel@arcom.com>).
+
+-------------------------------------------------------------------
 Sun Oct 17 22:19:09 CEST 2004 - agruen@suse.de
 
 - When applying a patch with -q and without -f no (individual)

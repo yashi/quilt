@@ -128,7 +128,7 @@ change_db_strip_level()
 					$i="'"$level"'"
 					break
 				}
-			  if (i > NF)
+			  if (i > NF && "'"$level"'" != "")
 				 $i="'"$level"'"
 			}
 			{ print }
