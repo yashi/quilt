@@ -1,10 +1,13 @@
-quilt (0.32.1-1) unstable; urgency=low
+quilt (0.32-2) unstable; urgency=low
 
-  * Sync to upstream CVS (minor bugs and gliches fixup).
   * Use relative link for debian/patches. Closes: #242342
   * Specify we want to use gawk since mawk causes trouble. Closes: #251972.
+  * Add an entry to NEWS.Debian warning about the breakage in opened tree
+    occuring between 0.30 and 0.32 versions. At least people using
+    apt-listchanges will be warned about that. It looks like the best we can
+    do for now.
 
- -- Martin Quinson <martin.quinson@tuxfamily.org>  Tue,  1 Jun 2004 09:56:51 -0700
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Tue,  1 Jun 2004 11:41:51 -0700
 
 quilt (0.32-1) unstable; urgency=low
 
