@@ -46,10 +46,10 @@ SRC +=		$(LIB_SRC:%=lib/%)
 DIRT +=		$(LIB_IN:%=lib/%) lib/backup-files{,.o}
 
 DOC_IN :=	README
-DOC_SRC :=	$(DOC_IN:%=%.in)
-DOC :=		$(DOC_IN) docco.txt
-SRC +=		$(DOC_SRC) docco.txt
-DIRT +=		$(DOC_IN)
+DOC_SRC :=	$(DOC_IN:%=doc/%.in)
+DOC :=		$(DOC_IN) doc/docco.txt
+SRC +=		$(DOC_SRC) doc/docco.txt
+DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1
 

@@ -1,0 +1,56 @@
+From: Andreas Gruenbacher <agruen@suse.de>
+Organization: SuSE Linux AG
+To: Andrew Morton <akpm@digeo.com>
+Subject: Patch scripts 0.9 improvements
+Date: Tue, 7 Jan 2003 14:39:16 +0100
+
+Hi Andrew,
+
+I still find your patch management scripts very useful. There are a fewg
+small limitations that still keeps me from using them for the SuSEg
+kernel at the moment. Particularly I need a way to have sub-directoriesg
+in patches/ etc.
+
+Please find some improvements and ideas in the attached patch.
+
+Also I think it would be a good idea to keep all (non-temporary)g
+information pertaining to a patch in a single file, rather thang
+splitting into .patch, .txt, .pc files. I have a format like theg
+following in mind. A simple parser for that proposed format is alsog
+attached.
+
+	Summary: Test patch
+	Author: Andreas Gruenbacher <agruen@suse.de>
+	URL: http://www.suse.de/
+
+	%description
+	DESCRIPTION
+
+	%files
+	FILE1
+	FILE2
+	FILE3
+
+	%patch
+	PATCH
+
+I think that it doesn't make much sense to keep the .pc files (%filesg
+section) as part of the patch set; they can easily be regenerated fromg
+the .patch files. They are useful while working on a set of patchesg
+though. What do you think of always generating them on the fly, insteadg
+of using import_patch? Then the patches and series files could beg
+checked out from CVS, and patching could start immediately; no cruftg
+would assemble in the .pc files.
+
+Another idea: Maybe all the *~* files could live in their own directoryg
+tree, e.g., under pc/? Then the file names would become more simple,g
+e.g., from file.x~patch to ps/patch/file.x and file.x~dir_patch tog
+dir/patch/file.x, with a smaller chance of clashes. What do you think
+of that?
+
+Cheers,
+Andreas.
+
+
+[ Attachments removed ]
+
