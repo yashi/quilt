@@ -68,7 +68,7 @@ DIRT +=		$(SCRIPTS_IN:%=scripts/%)
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files
 SRC +=		$(LIB_SRC:%=lib/%)
-DIRT +=		lib/backup-files{,.o}
+DIRT +=		lib/backup-files lib/backup-files.o
 
 DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
