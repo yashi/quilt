@@ -202,7 +202,7 @@ do
 				then
 					arg="$PWD/$arg"
 				fi
-				echo $"Creatig link to series file $arg"
+				echo $"Creating link to series file $arg"
 				ln -s "$arg" "$packagedir/series"
 			fi
 		else
