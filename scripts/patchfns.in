@@ -479,6 +479,48 @@ files_in_patch()
 	fi
 }
 
+filenames_in_patch()
+{
+	local patch=$1
+	local patch_file=$(patch_file_name $patch)
+	if [ -e "$patch_file" ]
+	then
+		local strip=$(patch_strip_level $patch)
+		@AWK@ '
+		($1 == "+++" || $1 == "---" || $1 == "***") && \
+		$3 != "----" && $3 != "****" \
+			{ sub(/\t.*/, "")
+			  sub(/^... /, "")
+			  for (n=0 ; n<'"$strip"'; n++)
+			      sub(/^([^/]+\/)/, "")
+			  print $0 }' $patch_file
+	fi
+}
+
+files_in_patch_ordered()
+{
+	local patch=$1
+
+	(   files_in_patch $patch
+	    echo "-"
+	    filenames_in_patch $patch
+	) | awk '
+	$1 == "-" { out=1 ; next }
+	!out	{ files[$0]=1 }
+	out	{ if ($0 in files && !($0 in printed)) {
+		    print $0
+		    printed[$0]=1
+		  }
+		}
+	END	{
+		  for (file in files) {
+		    if (!(file in printed))
+		      print file
+		  }
+		}
+	'
+}
+
 touched_by_patch()
 {
 	local strip=$1 patch=$2

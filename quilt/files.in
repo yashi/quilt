@@ -88,7 +88,7 @@ then
 	fi
 fi
 
-for file in $(files_in_patch $patch | sort)
+for file in $(files_in_patch_ordered $patch)
 do
 	status=" "
 	if [ -s $(backup_file_name $patch $file) ]

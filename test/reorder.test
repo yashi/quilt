@@ -19,6 +19,7 @@ Regression test: Quilt did reorder files in patches.
 
 	$ cat > patches/series
 	< test.diff -p0
+
 	$ quilt push -q
 	> Applying test.diff
 	> Now at patch test.diff
@@ -28,7 +29,6 @@ Regression test: Quilt did reorder files in patches.
 	> No patches applied
 
 	$ echo one > h
-	$ sleep 2
 	$ cat >> patches/test.diff
 	< --- h.orig
 	< +++ h
@@ -41,15 +41,20 @@ Regression test: Quilt did reorder files in patches.
 	> Now at patch test.diff
 
 	$ quilt files
-	> f
 	> g
+	> f
 	> h
+
+	$ grep "^+++ " patches/test.diff
+	> +++ g
+	> +++ f
+	> +++ h
 
 	$ quilt refresh
 	> Refreshed patch test.diff
 	$ grep "^+++ " patches/test.diff
-	> +++ f
 	> +++ g
+	> +++ f
 	> +++ h
 
 	$ cd ..

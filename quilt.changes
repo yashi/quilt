@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Jun  6 20:16:44 CEST 2004 - agruen@suse.de
+
+- Preserve the order of files in patches in the diff and refresh
+  commands. Files added to a patch appear at the end of a patch.
+  The files command also lists the files in the order in which
+  they appear in patches.
+- Update to version 0.33.
+
+-------------------------------------------------------------------
 Sun Jun  6 12:21:11 CEST 2004 - agruen@suse.de
 
 - dependency-graph: Fix for --lines option in patcher mode;

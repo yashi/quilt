@@ -19,10 +19,6 @@ General:
 
 Documentation:
 
-	- Document recently added settings in .quiltrc
-
-	- How to import a new version of a patch?
-
 	- How to import a complete directory, before doing
 	  wild changes?
 
@@ -49,7 +45,7 @@ rpatch:
 
 	- If not removing the topmost patch, add checks if any files are
 	  hidden by later patches. If so, refuse to remove patch! (Note
-	  that poppatch takes care of that currently.)
+	  that pop takes care of that currently.)
 
 apatch:
 	
@@ -62,7 +58,7 @@ quilt diff:
 
 	- The number of context lines cannot be overridden in QUILT_DIFF_OPTS:
 	  GNU diff uses three context lines as soon as -u or -U3 is on the
-	  command line, no matter which order of arguments are specified.
+	  command line, no matter which other arguments are specified.
 
 quit edit:
 
