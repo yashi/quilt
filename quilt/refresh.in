@@ -37,10 +37,10 @@ been modified by any more recent patches will end up in the specified
 patch.
 
 -p n	Create a -p n style patch (-p0 or -p1 supported).
-	
+
 -f	Force refresh, even if more recent patches modify
 	some of the same files.
-	
+
 --no-timestamps
 	Do not include file timestamps in patch headers (as if
         QUILT_DIFF_NO_TIMESTAMPS were set to yes)."

@@ -50,7 +50,7 @@ included.
 --diff=utility
 	Use the specified utility for generating the diff. The utility
 	is invoked with the original and new file name as arguments.
-	
+
 --no-timestamps
 	Do not include file timestamps in patch headers (as if
         QUILT_DIFF_NO_TIMESTAMPS were set to yes)."

@@ -28,7 +28,7 @@ Common options to all commands:
 
 --trace
 	Runs the command in bash trace mode (-x). For internal debugging.
-	
+
 --quiltrc file
 	Use the specified configuration file instead of ~/.quiltrc. 
 	See pdf documentation for details about its possible content."

@@ -1,9 +1,19 @@
+-------------------------------------------------------------------
+Sat Jun 12 03:03:46 CEST 2004 - agruen@suse.de
+
+- Fix another upgrade bug: The series file may optionally contain
+  a strip level argument (-pN) which must be stripped off when
+  determining the patch name.
+- A minor correction in the doumentation; some whitespace fixes.
+- Translation update.
+
+-------------------------------------------------------------------
 Fri Jun 11 00:43:07 PDT 2004 - mquinson@tuxfamily.org
 
 - Fix the man page generation
 - Add a --no-timestamps option to diff and refresh doing what
-  QUILT_NO_DIFF_TIMESTAMPS does. This should make more visible a feature
-  I was about reimplementing ;)
+  QUILT_NO_DIFF_TIMESTAMPS does. This should make more visible a
+  feature I was about reimplementing ;)
 - Document all options from the pdf into the man page.
 - update the bash completion stuff so that :
   - it does not kill the shell when completing in a tree not matching the

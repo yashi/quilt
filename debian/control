@@ -23,7 +23,7 @@ Description: Tool to work with series of patches
  designed by and for linux kernel hackers (Andrew Morton, from the -mm
  branch, is the original author), and its main use by the current upstream
  maintainer is to manage the (hundreds of) patches against the kernel made
- for the Suse distribution. 
+ for the SUSE distribution. 
  .
  This package completely integrates into the CDBS, allowing maintainers
  using this new paradigm for their packaging script to benefit of the quilt
