@@ -11,6 +11,9 @@ quilt (0.39-1) unstable; urgency=low
   * Take care of the lost souls patching their config.* files. 
     Cdbs updates them automatically. Thanks to Robert Millan for detecting
     the issue (in cdbs) and proposing a fix (in quilt). (Closes: #295913).
+    
+    This implies a versionned depend on cdbs (>=0.4.27-1) for using packages, 
+    since part of the fix is in there. quilt itself suggests this version.
 
  -- Martin Quinson <mquinson@debian.org>  Thu, 24 Feb 2005 13:51:10 +0100
 

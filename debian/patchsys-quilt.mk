@@ -69,6 +69,9 @@ CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), quilt
 
 CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), patchutils
 
+# target reverse-config, which we use, don't exist in old cdbs 
+CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), cdbs (>= 0.4.27-1)
+
 evil_patches_that_do_nasty_things := $(shell \
 if lsdiff=`which lsdiff` ; then \
   patchlist=`$(DEB_QUILT_CMD) series \
