@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Aug 11 14:28:59 CEST 2004 - agruen@suse.de
+
+- Merge improvement to files command from Dean Roehrich: Allow to
+  list all files modified, or all files modified by a range of
+  patches.
+- Fix pop command help.
+
+-------------------------------------------------------------------
 Wed Aug 11 09:18:56 CEST 2004 - agruen@suse.de
 
 - Working in sub-directories: `quilt new' so far did always
@@ -11,8 +19,8 @@ Wed Aug 11 09:18:56 CEST 2004 - agruen@suse.de
 -------------------------------------------------------------------
 Sat Aug  7 14:47:53 PDT 2004 - mquinson@fuxfamily.org
 
-- Small fix by Yasushi SHOJI: display the name of the patch which is not
-  applied in the error message.
+- Small fix by Yasushi SHOJI: display the name of the patch which
+  is not applied in the error message.
 
 -------------------------------------------------------------------
 Wed Jul 21 19:38:14 PDT 2004 - mquinson@tuxfamily.org
@@ -24,8 +32,9 @@ Wed Jul 21 19:38:14 PDT 2004 - mquinson@tuxfamily.org
 -------------------------------------------------------------------
 Thu Jul 15 15:23:33 PDT 2004 - mquinson@tuxfamily.org
 
-- patch from Joe Green to "Complete options for a partial command as long as
-  it's unique. quilt will accept such a partial command as valid."
+- patch from Joe Green to "Complete options for a partial command
+  as long as it's unique. quilt will accept such a partial command
+  as valid."
 
 -------------------------------------------------------------------
 Thu Jul 15 02:25:44 CEST 2004 - agruen@suse.de

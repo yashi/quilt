@@ -19,13 +19,23 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt files [-v] [patch]\n"
+	printf $"Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Print the list of files that the topmost or specified patch changes.
 
+-a	List all files in all applied patches.
+
+-l	Add patch name to output.
+
 -v	Verbose, more user friendly output.
+
+--combine patch
+	Create a listing for all patches between this patch and
+	the topmost applied patch. A patch name of \"-\" is equivalent
+	to specifying the first applied patch.
+
 "
 		exit 0
 	else
@@ -33,7 +43,7 @@ Print the list of files that the topmost or specified patch changes.
 	fi
 }
 
-options=`getopt -o vh -- "$@"`
+options=`getopt -o vhal --long combine: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -48,8 +58,25 @@ do
 	-v)
 		opt_verbose=1
 		shift ;;
+	-a)
+		opt_all=1
+		shift ;;
+	-l)
+		opt_labels=1
+		shift ;;
 	-h)
 		usage -h ;;
+	--combine)
+		opt_all=1
+		if [ "$2" = - ]
+		then
+			:
+		elif ! first_patch=$(find_patch $2)
+		then
+			printf $"Patch %s is not in series file\n" "$2" >&2
+			exit 1
+		fi
+		shift 2 ;;
 	--)
 		shift
 		break ;;
@@ -60,58 +87,100 @@ if [ $# -gt 1 ]
 then
 	usage
 fi
-opt_patch=$1
+last_patch=$1
 
-if [ -n "$opt_patch" ]
+if [ -n "$last_patch" ]
 then
-	if ! patch=$(find_patch $opt_patch)
+	if ! patch=$(find_patch $last_patch)
 	then
-		printf $"Patch %s is not in series\n" "$opt_patch" >&2
+		printf $"Patch %s is not in series file\n" "$last_patch" >&2
 		exit 1
 	fi
 else
-	patch=$(top_patch)
-	if [ -z "$patch" ]
+	last_patch=$(top_patch)
+	if [ -z "$last_patch" ]
 	then
 		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi
 
-if ! is_applied $patch
+if [ -n "$opt_all" -a -z "$first_patch" ]
 then
-	if [ -n "$opt_verbose" ]
-	then
-		printf $"Patch %s is not applied (no verbose output)\n" \
-		       "$patch" >&2
-		opt_verbose=0
-	else
-		printf $"Patch %s is not applied\n" "$patch" >&2
-	fi
+	first_patch=$(applied_patches | head -n 1)
 fi
 
-for file in $(files_in_patch_ordered $patch)
+if [ -n "$opt_all" ]
+then
+	set -- $(patches_before $last_patch) $last_patch
+	while [ $# -ge 1 -a "$1" != "$first_patch" ]
+	do
+		shift
+	done
+	if [ $# -eq 0 ]
+	then
+		printf $"Patch %s not applied before patch %s\n" \
+		       "$(print_patch $first_patch)" \
+		       "$(print_patch $last_patch)" >&2
+		exit 1
+	fi
+	patches=( $@ )
+else
+	patches=( $last_patch )
+fi
+
+list_files_in_patch()
+{
+	local patch=$1
+	local status
+
+	if [ -n "$opt_all" ] && [ -n "$opt_verbose" ] && [ -z "$opt_labels" ]
+	then
+		echo "$patch"
+	fi
+	if [ -n "$opt_verbose" ] && [ -z "$opt_labels" ]
+	then
+		use_status=yes
+	fi
+	# Note: If opt_labels is set, then use_status is not set.
+	for file in $(files_in_patch_ordered $patch)
+	do
+		status=" "
+		if [ -s $(backup_file_name $patch $file) ]
+		then
+			if ! [ -s $file ]
+			then
+				status="-"
+			fi
+		else
+			if [ -s $file ]
+			then
+				status="+"
+			fi
+		fi
+		if [ -n "$opt_labels" ]
+		then
+			if [ -n "$opt_verbose" ]
+			then
+				echo -n "[$patch] "
+			else
+				echo -n "$patch "
+			fi
+		fi
+		if [ -z "$use_status" ]
+		then
+			echo "$file"
+		else
+			echo "$status $file"
+		fi
+	done
+}
+
+for patch in ${patches[@]}
 do
-	status=" "
-	if [ -s $(backup_file_name $patch $file) ]
-	then
-		if ! [ -s $file ]
-		then
-			status="-"
-		fi
-	else
-		if [ -s $file ]
-		then
-			status="+"
-		fi
-	fi
-	if [ -z "$opt_verbose" ]
-	then
-		echo "$file"
-	else
-		echo "$status $file"
-	fi
+	list_files_in_patch $patch
 done
+
 ### Local Variables:
 ### mode: shell-script
 ### End:

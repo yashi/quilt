@@ -25,10 +25,10 @@ usage()
 		printf $"
 Remove patch(es) from the stack of applied patches.  Without options,
 the topmost patch is removed.  When a number is specified, remove the
-specified number of patches.  When a patch name is specified, remove all
-patches up to and including the specified patch.  Patch names may
-include the patches/ prefix, which means that filename completion can be
-used.
+specified number of patches.  When a patch name is specified, remove
+patches until the specified patch end up on top of the stack.  Patch
+names may include the patches/ prefix, which means that filename
+completion can be used.
 
 -a	Remove all applied patches.
 
