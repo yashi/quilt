@@ -28,7 +28,10 @@ rollback_patch()
 	local patch=$1 pc_file=$(pc_file_name $patch)
 	@LIB@/backup-files $silent_unless_verbose \
 			   -f $pc_file -B .pc/$patch/ -r
-	rm -f $(files_in_patch $patch | sed -e 's/$/\.rej/')
+	if [ -z "$opt_leave_rejects" ]
+	then
+		rm -f $(files_in_patch $patch | sed -e 's/$/\.rej/')
+	fi
 }
 
 interrupt()
@@ -130,7 +133,7 @@ apatch()
 	return $status
 }
 
-options=`getopt -o fqvh -- "$@"`
+options=`getopt -o fqvh --long leave-rejects -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -150,6 +153,9 @@ do
 		shift ;;
 	-v)
 		opt_verbose=1
+		shift ;;
+	--leave-rejects)
+		opt_leave_rejects=1
 		shift ;;
 	-h)
 		usage -h ;;

@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo "Usage: quilt push [-afqv] [num|patch]"
+	echo "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
@@ -38,6 +38,10 @@ specified, apply the next patch.
 
 -v	Verbose operation.
 
+--leave-rejects
+	Leave around the reject files patch produced, even if
+	the a patch is not actually applied.
+	
 EOF
 		exit 0
 	else
@@ -82,7 +86,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvah -- "$@"`
+options=`getopt -o fqvah --long leave-rejects -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -108,6 +112,9 @@ do
 		shift ;;
 	-h)
 		usage -h ;;
+	--leave-rejects)
+		opt_leave_rejects=1
+		shift ;;
         --)
                 shift
 		break ;;
@@ -137,6 +144,8 @@ fi
 	apatch_options="$apatch_options -q"
 [ -n "$opt_verbose" ] &&
 	apatch_options="$apatch_options -v"
+[ -n "$opt_leave_rejects" ] &&
+	apatch_options="="$apatch_options --leave-rejects"
 
 if [ -n "$stop_at_patch" ]
 then
