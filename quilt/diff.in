@@ -152,7 +152,7 @@ if [ -z "$opt_strip_level" ]
 then
 	opt_strip_level=$(patch_strip_level $last_patch)
 fi
-if [ $opt_strip_level -lt 0 -o $opt_strip_level -gt 1 ]
+if [ "$opt_strip_level" != 0 -a "$opt_strip_level" != 1 ]
 then
 	echo $"Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 instead" >&2
 	die 1

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Apr  5 22:17:44 CEST 2003 - agruen@suse.de
+
+- Improve error checking of `quilt diff'.
+
+-------------------------------------------------------------------
 Mon Mar 24 12:29:58 CET 2003 - agruen@suse.de
 
 - Update patch_description function used in `quilt refresh' to
