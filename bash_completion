@@ -75,7 +75,7 @@ fi
 
 _quilt_completion()
 {
-    local cur prev cmds
+    local cur prev cmds command_matches
 
     COMPREPLY=()
     cur=${COMP_WORDS[COMP_CWORD]}
@@ -99,8 +99,14 @@ _quilt_completion()
             return 0
     fi
     
+    # Accept a partial command if it's unique, because quilt will accept it.
+    command_matches=( $(compgen -W "$cmds" -- ${COMP_WORDS[1]}) )
+    if [ ${#command_matches[@]} -ne 1 ] ; then
+	return 0
+    fi
+
     # Complete depending on options
-    case ${COMP_WORDS[1]} in
+    case ${command_matches[0]} in
 	add)
 	   case $prev in
 	     -p)
