@@ -1,7 +1,11 @@
 -------------------------------------------------------------------
-Mon Jul 12 02:11:02 CEST 2004 - agruen@suse.de
+Mon Jul 12 03:02:19 CEST 2004 - agruen@suse.de
 
 - Some more QUILT_PATCHES_PREFIX fixes.
+- Disable CDPATH within quilt (Joe Green writes: I've seen some
+  cases where having CDPATH set results in the path being printed
+  by cd, and I suppose it's possible that the wrong destination
+  might be selected in some cases.)
 
 -------------------------------------------------------------------
 Tue Jul  6 18:58:00 CEST 2004 - agruen@suse.de

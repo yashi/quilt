@@ -21,6 +21,8 @@ DB_VERSION=2
 : ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
 
+unset CDPATH
+
 if [ -e "$QUILTRC" ]
 then
 	source "$QUILTRC"
