@@ -6,10 +6,6 @@ msgstr ""
 msgid "Commands are:"
 msgstr ""
 
-#: ../bin/quilt.in:83
-msgid "$command:"
-msgstr ""
-
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ..."
 msgstr ""
@@ -32,7 +28,7 @@ msgstr ""
 msgid "No patch applied"
 msgstr ""
 
-#: ../quilt/add.in:81 ../quilt/refresh.in:115 ../quilt/remove.in:81
+#: ../quilt/add.in:81 ../quilt/refresh.in:113 ../quilt/remove.in:81
 msgid "Patch $patch is not applied"
 msgstr ""
 
@@ -124,7 +120,7 @@ msgstr ""
 msgid "Options \\`-c patch' and \\`-z' cannot be combined."
 msgstr ""
 
-#: ../quilt/diff.in:140 ../quilt/refresh.in:108
+#: ../quilt/diff.in:140 ../quilt/refresh.in:106
 msgid "No patch seem to be applied"
 msgstr ""
 
@@ -170,7 +166,7 @@ msgstr ""
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:298 ../quilt/refresh.in:146
+#: ../quilt/diff.in:298 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr ""
 
@@ -346,11 +342,11 @@ msgid ""
 "\n"
 "Remove patch(es) from the current stack. A number of\n"
 "patches to remove, or a patch name can be specified. If a\n"
-"patch name is given, remove all patches up to and\n"
-"including the named patch. If neither a number nor a patch\n"
-"name is specified, remove the next patch from the series file.\n"
+"patch name is given, remove all patches applied on top of the\n"
+"named patch. If neither a number nor a patch name is specified,\n"
+"remove the next patch from the series file.\n"
 "\n"
-"-a\tRemove all patches in the series file.\n"
+"-a\tRemove all applied patches.\n"
 "\n"
 "-f\tForce remove. The state before the patch(es) were\n"
 "\tapplied will be restored from backup files.\n"
@@ -447,19 +443,17 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"Refresh an applied patch. Refreshes the specified patch, or\n"
-"the topmost patch by default. Documentation on top of the\n"
-"actual patch is retained.\n"
+"Refreshes the specified patch, or the topmost patch by default.\n"
+"Documentation that comes before the actual patch in the patch file\n"
+"is retained.\n"
 "\n"
-"It is possible to refresh patches that are not on top.  If\n"
-"any patches on top of the patch to refresh modify the same\n"
-"files, this script prints out the file and patch names.  If\n"
-"there are any such conflicts, patches can still be refreshed\n"
-"with -f. In that case this script will print a warning for\n"
-"each shadowed file, changes by more recent patches will be\n"
-"ignored, and only changes in files that have not been\n"
-"modified by any more recent patches will end up in the\n"
-"specified patch.\n"
+"It is possible to refresh patches that are not on top.  If any\n"
+"patches on top of the patch to refresh modify the same files, the\n"
+"script aborts by default. Patches can still be refreshed with -f.\n"
+"In that case this script will print a warning for each shadowed\n"
+"file, changes by more recent patches will be ignored, and only\n"
+"changes in files that have not been modified by any more recent\n"
+"patches will end up in the specified patch.\n"
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
 "\t\n"
@@ -468,21 +462,21 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../quilt/refresh.in:125
+#: ../quilt/refresh.in:123
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
 msgstr ""
 
-#: ../quilt/refresh.in:152
+#: ../quilt/refresh.in:150
 msgid "More recent patches modify the same files. Enforce refresh with -f."
 msgstr ""
 
-#: ../quilt/refresh.in:159
+#: ../quilt/refresh.in:157
 msgid "Nothing in patch $patch"
 msgstr ""
 
-#: ../quilt/refresh.in:199
+#: ../quilt/refresh.in:197
 msgid "Refreshed patch $patch"
 msgstr ""
 
