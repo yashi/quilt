@@ -66,7 +66,7 @@ usage(void)
 	       "\t-s\tSilent operation; only print error messages\n"
 	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n"
 	       "\t-f\tRead the filenames to process from file (- = standard input)\n"
-i	       "\t-t\tTouch original files after restore (update their mtimes)\n\n"
+	       "\t-t\tTouch original files after restore (update their mtimes)\n\n"
 
 	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n\n",
 	       progname);
