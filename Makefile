@@ -11,6 +11,9 @@ docdir :=	$(datadir)/doc/packages
 QUILT_DIR =	$(datadir)/$(PACKAGE)
 LIB_DIR =	$(datadir)/$(PACKAGE)/lib
 
+PERL :=		/usr/bin/perl
+BASH :=		/bin/bash
+
 CFLAGS =	-g -Wall
 
 #-----------------------------------------------------------------------
@@ -20,9 +23,9 @@ SRC +=		COPYING AUTHORS TODO BUGS Makefile \
 		quilt.spec.in quilt.spec quilt.changes
 DIRT +=		quilt.spec
 
-BIN_IN :=	quilt
-BIN_SRC :=	$(BIN_IN:%=%.in) guards
-BIN :=		$(BIN_IN) guards
+BIN_IN :=	quilt guards
+BIN_SRC :=	$(BIN_IN:%=%.in)
+BIN :=		$(BIN_IN)
 SRC +=		$(BIN_SRC:%=bin/%)
 DIRT +=		$(BIN_IN:%=bin/%)
 
@@ -34,10 +37,9 @@ QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-LIB_IN :=	apatch rpatch patchfns 
-LIB_SRC :=	$(LIB_IN:%=%.in) parse-patch spec2series \
-		backup-files.c
-LIB :=		$(LIB_IN) parse-patch spec2series backup-files
+LIB_IN :=	apatch rpatch patchfns parse-patch spec2series
+LIB_SRC :=	$(LIB_IN:%=%.in) backup-files.c
+LIB :=		$(LIB_IN) backup-files
 SRC +=		$(LIB_SRC:%=lib/%)
 DIRT +=		$(LIB_IN:%=lib/%) lib/backup-files{,.o}
 
@@ -79,12 +81,15 @@ bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
 
-dist : spec
+dist : $(PACKAGE)-$(VERSION).tar.gz
+
+$(PACKAGE)-$(VERSION).tar.gz : $(SRC)
 	rm -f $(PACKAGE)-$(VERSION)
 	ln -s . $(PACKAGE)-$(VERSION)
-	tar cvfz $(PACKAGE)-$(VERSION).tar.gz \
-		$(SRC:%=$(PACKAGE)-$(VERSION)/%)
+	tar cfz $(PACKAGE)-$(VERSION).tar.gz \
+		$(+:%=$(PACKAGE)-$(VERSION)/%)
 	rm -f $(PACKAGE)-$(VERSION)
+	@echo "File $@ created."
 
 install : all
 	install -d $(BUILD_ROOT)$(bindir)
@@ -105,8 +110,8 @@ install : all
 	install -d $(BUILD_ROOT)$(mandir)/man1
 	install -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 
-spec : $(PACKAGE).spec
-$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes
+$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
+		  lib/parse-patch
 	@echo "Generating spec file"
 	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
 	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
@@ -130,5 +135,7 @@ clean distclean :
 	@echo "$< -> $@"
 	@sed -e "s:@LIB@:$(LIB_DIR):g" \
 	     -e "s:@QUILT@:$(QUILT_DIR):g" \
+	     -e "s:@PERL@:$(PERL):g" \
+	     -e "s:@BASH@:$(BASH):g" \
 	     $< > $@
 	@chmod --reference=$< $@
