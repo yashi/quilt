@@ -64,6 +64,8 @@ top=$(top_patch)
 if [ -n "$top" ]
 then
 	echo "$top"
+else
+	exit 2
 fi
 ### Local Variables:
 ### mode: shell-script

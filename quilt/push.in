@@ -177,6 +177,7 @@ then
 	if [ -z "$top" ]
 	then
 		echo $"No patches applied"
+		exit 2
 	elif [ -z "$(patch_file_name $top)" ]
 	then
 		echo -e \
@@ -187,8 +188,8 @@ Please pop -f the top patch and check your series file."
 
 	else
 		echo $"File series fully applied, ends at patch $top"
+		exit 2
 	fi
-	exit 1
 fi
 
 trap "interrupted=1" SIGINT

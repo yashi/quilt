@@ -19,6 +19,7 @@ my $highlighted_node_style = "style=bold";
 
 # Command line arguments
 my $help = 0;
+my $use_patcher = 0;		# Assume patcher format for metadata
 my $short_edge_thresh = 0;	# threshold for coloring as "short", 0 = disable
 my $long_edge_thresh = 0;	# threshold for coloring as "long",0 = disable
 my $edge_labels;		# label all edges with filenames
@@ -37,6 +38,7 @@ my $lines;			# check ranges with this number of context
 
 unless (GetOptions(
 	"h|help"		=> \$help,
+	"patcher"		=> \$use_patcher,
 	"short-edge=i"		=> \$short_edge_thresh,
 	"long-edge=i"		=> \$long_edge_thresh,
 	"edge-files"		=> \$edge_labels,
@@ -55,11 +57,15 @@ unless (GetOptions(
     $basename =~ s:.*/::;
     my $fd = $help ? *STDOUT : *STDERR;
     print $fd <<EOF;
-SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
+SYNOPSIS: $basename [-h] [--patcher] [--short-edge=num] [--long-edge=num]
 	  [--short-edge-files] [--long-edge-files] [--edge-length]
 	  [--node-numbers] [--isolated] [--reduce] [--filter-patchnames=filter]
 	  [--select-patch=patch] [--select-distance=num] [--highlight=patch]
 	  [--lines=num]
+
+--patcher
+	Assume patch manager is Holger Schurig's patcher script instead
+	of the default quilt.
 
 --short-edge=num, --long-edge=num
 	Define the maximum edge length of short edges, and minimum edge
@@ -199,6 +205,13 @@ if (@ARGV) {
 	} else {
 		@patches = @ARGV;
 	}
+} elsif ($use_patcher) {
+	# Since patcher maintains a file called patchname.files,
+	# we can generate the graph for patches which are not applied!
+	my $fh = new FileHandle("< .patches/series")
+		or die ".patches/applied: $!\n";
+	@patches = map { chomp; $_ } <$fh>;
+	$fh->close();
 } else {
 	my $fh = new FileHandle("< $ENV{QUILT_PC}/applied-patches")
 		or die ".$ENV{QUILT_PC}/applied-patches: $!\n";
@@ -209,12 +222,20 @@ if (@ARGV) {
 # Fetch the list of files
 my $n = 0;
 foreach my $patch (@patches) {
-	if (! -d "$ENV{QUILT_PC}/$patch") {
-		print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
-		next;
+	my @files;
+	if ($use_patcher) {
+		my $fh = new FileHandle("< .patches/$patch.files")
+			or die ".patches/$patch.files: $!\n";
+		@files = map { chomp; $_ } <$fh>;
+		$fh->close();
+	} else {
+		if (! -d "$ENV{QUILT_PC}/$patch") {
+			print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
+			next;
+		}
+		@files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
+		@files = map { s:\./::; $_ } @files;
 	}
-	my @files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
-	@files = map { s:\./::; $_ } @files;
 	push @nodes, {number=>$n++, name=>$patch, file=>$patch,
 		files=>{ map {$_ => []} @files } };
 }

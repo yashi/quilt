@@ -75,6 +75,8 @@ if [ -n "$previous" ]
 then
 	[ -n "$opt_filenames" ] && previous=$(patch_file_name $previous)
 	echo "$previous"
+else
+	exit 2
 fi
 
 ### Local Variables:

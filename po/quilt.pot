@@ -46,7 +46,7 @@ msgstr ""
 
 #: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:168
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
-#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:213
+#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:214
 #: ../quilt/refresh.in:107 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr ""
@@ -413,11 +413,11 @@ msgstr ""
 msgid "No patch removed"
 msgstr ""
 
-#: ../quilt/pop.in:172 ../quilt/push.in:204
+#: ../quilt/pop.in:172 ../quilt/push.in:205
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:183 ../quilt/push.in:215
+#: ../quilt/pop.in:183 ../quilt/push.in:216
 msgid "Now at patch $patch"
 msgstr ""
 
@@ -474,14 +474,14 @@ msgstr ""
 msgid "Patch $stop_at_patch is already applied."
 msgstr ""
 
-#: ../quilt/push.in:183
+#: ../quilt/push.in:184
 msgid ""
 "The topmost patch $top is not in the series file anymore;\n"
 "cannot determine the next patch from the series file.\n"
 "Please pop -f the top patch and check your series file."
 msgstr ""
 
-#: ../quilt/push.in:189
+#: ../quilt/push.in:190
 msgid "File series fully applied, ends at patch $top"
 msgstr ""
 

@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sat Jun  5 16:12:17 CEST 2004 - agruen@suse.de
+
+- Return exit status 2 when commands go beyond the series (top
+  with no series, push/next when all patches are applied, pop/
+  previous when no patches are applied).
+- From  John Lenz <jelenz@students.wisc.edu>: Add compatibility
+  code to the dependency-graph script for reading the meta-data
+  of Holger Schurig's patcher tool,
+  http://www.holgerschurig.de/patcher.html.
+- Update German translation.
+
+-------------------------------------------------------------------
 Tue Jun  1 22:59:41 CEST 2004 - agruen@suse.de
 
 - Fix from Dean Roehrich <roehrich@sgi.com>: Preserve file mode
