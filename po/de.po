@@ -224,8 +224,7 @@ msgstr ""
 "\n"
 "--no-timestamps\n"
 "\tKeine Zeitstempel in Patches angeben (wie QUILT_DIFF_NO_TIMESTAMPS in~/."
-"quiltrc)."
-"\t\n"
+"quiltrc).\t\n"
 "--color[=always|auto|never]\n"
 "\tVerwende ANSI Escapesequenzen, und f‰rbe das Ergebnis ein."
 
@@ -975,7 +974,7 @@ msgstr "Patch $patch l‰ﬂt sich nicht anwenden (erzwingen mit -f)"
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Der oberste Patch $top muss zuerst aufgefrischt werden (Refresh)."
 
-#: ../scripts/patchfns.in:691
+#: ../scripts/patchfns.in:697
 msgid ""
 "The quilt meta-data in this tree has version $version, but this version of "
 "quilt can only handle meta-data formats up to and including version "
@@ -988,7 +987,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde."
 
-#: ../scripts/patchfns.in:753
+#: ../scripts/patchfns.in:759
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'."

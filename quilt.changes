@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul  1 22:55:11 CEST 2004 - agruen@suse.de
+
+- Allow passing of default options to commands by defining
+  QUILT_${COMMAND}_ARGS in .quiltrc. This should eventually get
+  us rid of some of the mess in .quiltrc.
+
+-------------------------------------------------------------------
 Thu Jul  1 00:39:53 CEST 2004 - agruen@suse.de
 
 - Quilt diff: add --color option for optionally colorizing the

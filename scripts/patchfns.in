@@ -21,6 +21,12 @@ then
 	source "$QUILTRC"
 fi
 
+# Add default arguments for this command
+if [ -n "$QUILT_COMMAND" ]; then
+	args="QUILT_$(echo $QUILT_COMMAND | tr a-z A-Z)_ARGS"
+	set -- ${!args} "$@"
+	unset args
+fi
 
 # Quote a string for use in a basic regular expression.
 quote_bre()

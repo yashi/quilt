@@ -992,7 +992,7 @@ msgstr ""
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
-#: ../scripts/patchfns.in:691
+#: ../scripts/patchfns.in:697
 msgid ""
 "The quilt meta-data in this tree has version $version, but this version of "
 "quilt can only handle meta-data formats up to and including version "
@@ -1005,7 +1005,7 @@ msgstr ""
 "version utilisée pour les appliquer avant d'installer une version\n"
 "plus ancienne."
 
-#: ../scripts/patchfns.in:753
+#: ../scripts/patchfns.in:759
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'."
