@@ -380,11 +380,11 @@ msgstr ""
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:189
+#: ../quilt/pop.in:190 ../quilt/push.in:193
 msgid "No patches applied"
 msgstr ""
 
-#: ../quilt/pop.in:191
+#: ../quilt/pop.in:192 ../quilt/push.in:195
 msgid "Now at patch $patch"
 msgstr ""
 

@@ -2,6 +2,7 @@
 Fri Feb 14 15:53:52 CET 2003 - agruen@suse.de
 
 - A couple more I18N fixes, minor cleanups in status messages.
+- Remove "quilt guidiff" (obsolete).
 
 -------------------------------------------------------------------
 Fri Feb 14 14:10:39 +0100 2003 - martin.quinson@tuxfamily.org
