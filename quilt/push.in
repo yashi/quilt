@@ -23,10 +23,12 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-Apply patch(es) from the series file.  A number of patches to apply, or
-a patch name can be specified.  If a patch name is given, apply all
-patches up to and including the named patch.  If neither a number nor a
-patch name is specified, apply the next patch from the series file.
+Apply patch(es) from the series file.  Without options, the next patch
+in the series file is applied.  When a number is specified, apply the
+specified number of patches.  When a patch name is specified, apply
+all patches up to and including the specified patch.  Patch names may
+include the patches/ prefix, which means that filename completion can
+be used.
 
 -a	Apply all patches in the series file.
 
