@@ -80,7 +80,7 @@ DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
-		doc/sample.quiltrc
+		doc/sample.quiltrc doc/quilt.1.in
 DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1 doc/quilt.1
@@ -104,6 +104,8 @@ all : scripts
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
 
+$(QUILT:%=quilt/%) : $(SCRIPTS:%=scripts/%)
+
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
 snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
@@ -124,12 +126,12 @@ doc/README : doc/README.in
 		esac ; \
 	done 2>&1 < $< > $@
 	
-doc/quilt.1: doc/quilt.1.in
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	@echo "quilt.1.in -> quilt.1"
 	@while read line; do                             \
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
-	       for cmd in $(QUILT:%=quilt/%) ; do        \
+	       for cmd in $(sort $(QUILT:%=quilt/%)) ; do \
 		(bash -c ". scripts/patchfns ; LC_ALL=C . $$cmd -h")| \
 		   sed -e 's/Usage: quilt //'            \
 	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
