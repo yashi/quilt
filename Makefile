@@ -32,7 +32,7 @@ SRC +=		$(BIN_SRC:%=bin/%)
 DIRT +=		$(BIN_IN:%=bin/%)
 
 QUILT_IN :=	add applied delete diff files import new next patches \
-		pop previous push refresh remove rest series setup top
+		pop previous push refresh remove series setup top unapplied
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)
