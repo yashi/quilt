@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.21],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 #AC_PREREQ(2.57)
-AC_REVISION ($Revision: 1.1 $)
+AC_REVISION ($Revision: 1.2 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -34,6 +34,7 @@ AC_ARG_WITH(bash, AC_HELP_STRING(
     [
 	BASH="$withval"
 	AC_SUBST(BASH)
+	AC_MSG_NOTICE([Using bash executable $BASH])
     ],[
 	AC_PATH_PROG(BASH, bash)
     ])
@@ -47,6 +48,7 @@ AC_ARG_WITH(perl, AC_HELP_STRING(
     [
 	PERL="$withval"
 	AC_SUBST(PERL)
+	AC_MSG_NOTICE([Using Perl executable $PERL])
     ],[
 	AC_PATH_PROGS(PERL, [perl perl5])
     ])
@@ -60,6 +62,7 @@ AC_ARG_WITH(mktemp, AC_HELP_STRING(
     [
 	MKTEMP="$withval"
 	AC_SUBST(MKTEMP)
+	AC_MSG_NOTICE([Using mktemp executable $MKTEMP])
     ],[
 	AC_PATH_PROG(MKTEMP, mktemp)
     ])
@@ -82,6 +85,7 @@ AC_ARG_WITH(diff, AC_HELP_STRING(
     [
 	DIFF="$withval"
 	AC_SUBST(DIFF)
+	AC_MSG_NOTICE([Using diff executable $DIFF])
     ],[
 	AC_PATH_PROG(DIFF, diff)
     ])
@@ -95,6 +99,7 @@ AC_ARG_WITH(patch, AC_HELP_STRING(
     [
 	PATCH="$withval"
 	AC_SUBST(PATCH)
+	AC_MSG_NOTICE([Using patch executable $PATCH])
     ],[
 	AC_PATH_PROG(PATCH, patch)
     ])
@@ -116,6 +121,17 @@ can supply its path with the '--with-patch=' option.
 else
 	AC_MSG_RESULT(yes)
 fi
+
+# Allow to specify a GUI diff utility used by `quilt guidiff'
+AC_ARG_WITH(guidiff, AC_HELP_STRING(
+    [--with-guidiff], [name of a GUI diff utility (default: none)]),
+    [
+	GUIDIFF="$withval"
+	AC_MSG_NOTICE([Using guidiff executable $GUIDIFF])
+    ],[
+    	GUIDIFF=""
+    ])
+AC_SUBST(GUIDIFF)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT

@@ -21,6 +21,7 @@ BASH :=		@BASH@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
+GUIDIFF :=	@GUIDIFF@
 
 CFLAGS :=	@CFLAGS@ -Wall
 
@@ -30,7 +31,7 @@ ISODATE :=	$(shell date +%Y-%m-%d)
 DIRT +=		$(shell find -name '*~')
 
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
-		configure.ac configure config/install-sh \
+		configure.ac config/install-sh \
 		quilt.spec.in quilt.spec quilt.changes
 DIRT +=		quilt.spec
 
@@ -42,6 +43,9 @@ DIRT +=		$(BIN_IN:%=bin/%)
 
 QUILT_IN :=	add applied delete diff files import new next patches \
 		pop previous push refresh remove series setup top unapplied
+ifneq "$(GUIDIFF)" ""
+QUILT_IN +=	guidiff
+endif
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)
@@ -82,7 +86,6 @@ dist : $(PACKAGE)-$(VERSION).tar.gz
 
 dist-snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
-
 rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
 
@@ -106,21 +109,24 @@ bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
 
-$(PACKAGE)-$(VERSION).tar.gz : $(SRC)
+$(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure
 	rm -f $(PACKAGE)-$(VERSION) $@
 	ln -s . $(PACKAGE)-$(VERSION)
 	tar chf - $(+:%=$(PACKAGE)-$(VERSION)/%) | gzip -9 > $@
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
-$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC)
+$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure
 	rm -f $(PACKAGE)-$(ISODATE) $@
 	ln -s . $(PACKAGE)-$(ISODATE)
 	tar chf - $(+:%=$(PACKAGE)-$(ISODATE)/%) | bzip2 -9 > $@
 	rm -f $(PACKAGE)-$(ISODATE)
 	@echo "File $@ created."
 
-install : all
+configure : configure.ac
+	autoconf
+
+install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
 	@INSTALL@ -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
@@ -160,8 +166,12 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	' $(PACKAGE).changes \
 	| scripts/parse-patch -u changelog $@
 
-clean distclean :
+clean :
 	rm -f $(DIRT)
+	
+distclean : clean
+	rm -f config.log config.status Makefile
+	rm -rf autom4te.cache/
 
 % : %.in
 	@echo "$< -> $@"
@@ -173,6 +183,7 @@ clean distclean :
 	     -e 's:@DIFF''@:$(DIFF):g' \
 	     -e 's:@PATCH''@:$(PATCH):g' \
 	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
+	     -e 's:@GUIDIFF''@:$(GUIDIFF):g' \
 	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
 	     -e 's:@VERSION''@:$(VERSION):g' \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \

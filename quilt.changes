@@ -3,6 +3,11 @@ Sat Feb  1 18:52:15 CET 2003 - agruen@suse.de
 
 - Integrate James Rowe's Autoconf setup (with a comple of
   additional changes/fixes).
+- Add some messages in configure.ac.
+- Make distclean removes autoconf garbage. The configure script is
+  no source file. Add rule to create it when necessary.
+- Invoke configure in the RPM spec file.
+- Merge James Rowe's guidiff.
 
 -------------------------------------------------------------------
 Fri Jan 31 13:05:18 CET 2003 - agruen@suse.de
