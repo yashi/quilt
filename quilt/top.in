@@ -61,7 +61,10 @@ fi
 
 top=$(top_patch)
 [ -n "$opt_filenames" ] && top=$(patch_file_name $top)
-echo "$top"
+if [ -n "$top" ]
+then
+	echo "$top"
+fi
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -4,6 +4,8 @@ Thu Feb  5 11:51:21 CET 2004 - agruen@suse.de
 - Add some fixes from Manuel Estrada Sainz <ranty@debian.org>.
 - Add QUILT_SERIES setting: Override the location of the series
   file to use.
+- Don't print an empty line for `quilt top' if no patches are
+  applied.
 
 -------------------------------------------------------------------
 Tue Feb  3 12:58:49 CET 2004 - agruen@suse.de
