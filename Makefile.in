@@ -40,7 +40,7 @@ ISODATE :=	$(shell date +%Y-%m-%d)
 
 #-----------------------------------------------------------------------
 DIRT +=		$(shell find -name '*~')
-DIRT +=		$(shell find -name '.#*')
+DIRT +=		$(shell find -name '.\#*')
 
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
 		configure.ac config/install-sh \
@@ -90,7 +90,7 @@ PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo
 
-SRC +=		test/one.test test/run
+SRC +=		$(wildcard test/*.test) test/run
 
 #-----------------------------------------------------------------------
 
