@@ -14,8 +14,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Edit the specified file(s) in %s after adding it (them) to the
-topmost patch.
+Edit the specified file(s) in \$EDITOR (%s) after adding it (them) to
+the topmost patch.
 " "$EDITOR"
 		exit 0
 	else
