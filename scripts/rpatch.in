@@ -44,7 +44,7 @@ verify_removal()
 			echo $"Patch does not remove changes:"
 		fi
 
-		@DIFF@ -Nu $DIFF_OPTS $bup $file \
+		@DIFF@ -Nu $QUILT_DIFF_OPTS $bup $file \
 		| @SED@ -e 's:^--- [^ '$'\t'']*:--- '"$dir/$file.orig"':' \
 		      -e 's:^+++ [^ '$'\t'']*:+++ '"$dir/$file"':'
 
