@@ -1,6 +1,6 @@
-QUILT_IN :=   add applied delete diff files import new next patches \
-              pop previous push refresh remove series setup top unapplied \
-	      fold fork snapshot edit upgrade
+QUILT_IN :=   add applied delete diff edit files fold fork graph grep \
+	      import mail new next patches pop previous push refresh \
+	      remove series setup snapshot top unapplied upgrade
 SCRIPTS_IN := patchfns inspect patchfns
 # scripts/parse-patch is perl based
 
