@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jul 13 15:26:18 PDT 2004 - mquinson@tuxfamily.org
+
+- Fix a typo (s/prinf/printf/) reported by Dean Roehrich.
+- Track down two variable expensions in printf $"" constructs.
+- update the french translation accordingly
+
+-------------------------------------------------------------------
 Tue Jul 13 00:31:38 CEST 2004 - agruen@suse.de
 
 - refresh command: Fix --diffstat option; it did swap lines. Also
