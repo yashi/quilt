@@ -25,6 +25,11 @@ General:
 	- series.conf: Allow to specify options like -R, -u, -Unum, -c,
 	  -Cnum per patch.
 
+	- Whenever the contents of the QUILT_PATCHES directory change,
+	  optionally call a trigger so that another tool can keep track of
+	  the patches directory history (e.g., CVS, RCS). Also call the
+	  trigger when the series file changes?
+
 Documentation:
 
 	- How to import a complete directory before doing wild changes?
