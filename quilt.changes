@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 15 15:23:33 PDT 2004 = mquinson@tuxfamily.org
+
+- patch from Joe Green to "Complete options for a partial command as long as
+  it's unique. quilt will accept such a partial command as valid."
+
+-------------------------------------------------------------------
 Thu Jul 15 02:25:44 CEST 2004 - agruen@suse.de
 
 - Add test case for permissions.
