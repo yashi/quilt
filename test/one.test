@@ -55,9 +55,9 @@ $ quilt refresh
 Refreshed patch patch2
 $ quilt add -p patch1 dir/file3
 File dir/file3 modified by patch patch2
-$ quilt pop
+$ quilt pop -R
 Removing patch2
-Removing dir/file3
+patching file dir/file3
 
 Now at patch patch1
 $ quilt add file4
@@ -102,14 +102,14 @@ More recent patches modify files in patch1. Enforce refresh with -f.
 $ quilt refresh -f patch1
 Refreshed patch patch1
 $ echo "Another line here, too." >> dir/file3
-$ quilt pop
+$ quilt pop -R
 Removing subdir/patch3
 patching file file4
 
 Now at patch patch2
 $ quilt refresh patch2
 Refreshed patch patch2
-$ quilt pop -qa
+$ quilt pop -qaR
 Removing patch2
 Removing patch1
 No patches applied
