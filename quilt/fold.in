@@ -1,0 +1,122 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @SCRIPTS@/patchfns ]
+	then
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		exit 1
+	fi
+	. @SCRIPTS@/patchfns
+fi
+
+usage()
+{
+	echo $"Usage: quilt fold [-p strip-level]"
+	if [ x$1 = x-h ]
+	then
+		echo $"
+
+Fold the patch read from standard input into the topmost patch: After
+making sure that all files modified by the patchfile are part of the
+topmost patch, the patch is applied with the specified strip level
+(which defaults to 1).
+
+-p strip-level
+	The number of pathname components to strip from file names
+	when applying patchfile."
+
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o p:qh -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-p)
+		opt_strip_level=$2
+		shift 2 ;;
+	-q)
+		opt_silent=1
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 0 ]
+then
+	usage
+fi
+
+: ${opt_strip_level:=1}
+[ -n "$opt_silent" ] && silent=-s
+
+top=$(top_patch)
+if [ -z "$top" ]
+then
+	echo $"No patch applied"
+fi
+
+trap "failed=1" SIGINT
+
+workdir=$(gen_tempfile -d $PWD)
+@PATCH@ -p$opt_strip_level $silent --backup --prefix="$workdir/" -E \
+|| failed=1
+
+if [ -z "$failed" ]
+then
+	for file in $(find $workdir -type f -a ! -path "$workdir/.timestamp")
+	do
+		backup_file="$(backup_file_name $top "${file:${#workdir}+1}")"
+		if ! [ -e "$backup_file" ]
+		then
+			if ! ln "$file" "$backup_file"
+			then
+				failed=1
+				break
+			fi
+		fi
+	done
+fi
+if [ -n "$failed" ]
+then
+	for file in $(find $workdir -type f -a ! -path "$workdir/.timestamp")
+	do
+		backup_file="$(backup_file_name $top "${file:${#workdir}+1}")"
+		if ! mv -f "$backup_file" "$file"
+		then
+			echo $"File ${file:${#workdir}+1} may be corrupted"
+		fi
+	done
+	rm -rf $workdir
+	exit 1
+fi
+
+rm -rf $workdir
+exit 0
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

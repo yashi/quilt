@@ -23,10 +23,6 @@ of the installed quilt with `make check'.
 	$ quilt refresh
 	> Nothing in patch patch1
 
-	$ quilt files
-	> dir/file1
-	> file2
-
 	$ echo "This is file two." > file2
 	$ quilt diff | sed -e "s/\\t.*//"
 	> Index: d/file2

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon Nov 17 20:31:36 CET 2003 - agruen@suse.de
+
+- Add new command `quilt fold' to fold one patch into another.
+- Fix bug in `quilt files': Files that are neither present in the
+  working directory and have an empty backup copy sometimes were
+  still listed.
+- Some minor cleanups in apatch.
+- Add test/fold.test, and fix a now-useless check in one.test.
+
+-------------------------------------------------------------------
 Sat Nov 15 08:44:19 CET 2003 - agruen@suse.de
 
 - Merge some changes from wangdi:

@@ -1,0 +1,57 @@
+	$ mkdir d
+	$ cd d
+
+	$ mkdir patches
+	$ cat > patches/series
+	< patch1.diff
+	< patch2.diff
+	
+	$ cat > patches/patch1.diff
+	< --- q.orig/file1.txt
+	< +++ q/file1.txt
+	< @@ -0,0 +1 @@
+	< +This is file1.txt.
+	< --- q.orig/file2.txt
+	< +++ q/file2.txt
+	< @@ -0,0 +1 @@
+	< +This is file2.txt.
+
+	$ cat > patches/patch2.diff
+	< --- q.orig/file2.txt
+	< +++ q/file2.txt
+	< @@ -1 +0,0 @@
+	< -This is file2.txt.
+	< --- q.orig/file3.txt  
+	< +++ q/file3.txt
+	< @@ -0,0 +1 @@
+	< +This is file3.txt.
+
+	$ quilt push -q
+	> Applying patch1
+	> Now at patch patch1
+
+	$ quilt files
+	> file1.txt
+	> file2.txt
+
+	$ quilt fold -q < patches/patch2.diff
+	$ quilt files
+	> file1.txt
+	> file3.txt
+
+	$ quilt diff | sed -e "s/\\t.*//"
+	> Index: d/file1.txt
+	> ===================================================================
+	> --- d.orig/file1.txt
+	> +++ d/file1.txt
+	> @@ -0,0 +1 @@
+	> +This is file1.txt.
+	> Index: d/file3.txt
+	> ===================================================================
+	> --- d.orig/file3.txt
+	> +++ d/file3.txt
+	> @@ -0,0 +1 @@
+	> +This is file3.txt.
+
+	$ cd ..
+	$ rm -rf d

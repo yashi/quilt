@@ -87,28 +87,30 @@ then
 	fi
 fi
 
-if [ -z "$opt_verbose" ]
-then
-	files_in_patch $patch
-else
-	for file in $(files_in_patch $patch)
-	do
-		status=" "
-		if [ -s $(backup_file_name $patch $file) ]
+for file in $(files_in_patch $patch)
+do
+	status=" "
+	if [ -s $(backup_file_name $patch $file) ]
+	then
+		if ! [ -s $file ]
 		then
-			if ! [ -s $file ]
-			then
-				status="-"
-			fi
-		else
-			if [ -s $file ]
-			then
-				status="+"
-			fi
+			status="-"
 		fi
+	else
+		if [ -s $file ]
+		then
+			status="+"
+		else
+			continue
+		fi
+	fi
+	if [ -z "$opt_verbose" ]
+	then
+		echo "$file"
+	else
 		echo "$status $file"
-	done
-fi
+	fi
+done
 ### Local Variables:
 ### mode: shell-script
 ### End:

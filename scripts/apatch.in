@@ -23,20 +23,6 @@ usage()
 	exit 1
 }
 
-rollback_patch()
-{
-	local patch=$1 pc_file=$(gen_tempfile)
-
-	# FIXME backup_files should scan the directory hierarchy itself.
-	files_in_patch $patch > $pc_file
-	@LIB@/backup-files $silent_unless_verbose -f $pc_file -B .pc/$patch/ -r
-	if [ -z "$opt_leave_rejects" ]
-	then
-		@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
-	fi
-	rm -f $pc_file
-}
-
 interrupt()
 {
 	rollback_patch $1
@@ -57,32 +43,32 @@ apply_patch()
 	
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
-		output="$(
 		gzip -cd $patch_file \
 		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
-			-E $silent $force_apply 2>&1 )"
+			-E $silent $force_apply 2>&1
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
-		output="$(
 		bzip2 -cd $patch_file \
 		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
-			-E $silent $force_apply 2>&1 )"
+			-E $silent $force_apply 2>&1
 	else
-		output="$(
 		@PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
-			-E $silent -i $patch_file $force_apply 2>&1 )"
+			-E $silent $force_apply -i $patch_file 2>&1
 	fi
-	status=${PIPESTATUS[0]}
-	if [ $status -ne 0 -a -z "$opt_leave_rejects" ]
+}
+
+rollback_patch()
+{
+	local patch=$1 pc_file=$(gen_tempfile)
+
+	# FIXME backup_files should scan the directory hierarchy itself.
+	files_in_patch $patch > $pc_file
+	@LIB@/backup-files $silent_unless_verbose -f $pc_file -B .pc/$patch/ -r
+	if [ -z "$opt_leave_rejects" ]
 	then
-		# The reject files are removed in rollback_patch.
-		echo "$output" \
-		| sed -e 's/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
-	elif [ -n "$output" ]
-	then
-		echo "$output"
+		@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
 	fi
-	return $status
+	rm -f $pc_file
 }
 
 apatch()
@@ -93,10 +79,20 @@ apatch()
 	echo $"Applying $patch"
 	trap "interrupt $patch" SIGINT
 
-	apply_patch $patch
-	status=$?
+	output="$(apply_patch $patch)"
+	status=${PIPESTATUS[0]}
 
 	trap "" SIGINT
+
+	if [ $status -ne 0 -a -z "$opt_leave_rejects" ]
+	then
+		# The reject files are removed in rollback_patch.
+		echo "$output" \
+		| sed -e 's/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
+	elif [ -n "$output" ]
+	then
+		echo "$output"
+	fi
 
 	if [ $status -eq 0 -o -n "$opt_force" ]
 	then
