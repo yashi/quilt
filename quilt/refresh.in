@@ -176,13 +176,14 @@ then
 	die 1
 fi
 
-if @DIFF@ -q $patch_file $tmpfile2 > /dev/null
+if [ -e $patch_file ] && \
+   @DIFF@ -q $patch_file $tmpfile2 > /dev/null
 then
 	echo $"Patch $patch is unchanged"
 	exit 0
 fi
 
-if ( [ "$QUILT_BACKUP" = yes ] && \
+if ( [ "$QUILT_BACKUP" = yes -a -e $patch_file ] && \
      ! cp $patch_file $patch_file~ ) || \
    ! cat_to_file $patch_file < $tmpfile2
 then

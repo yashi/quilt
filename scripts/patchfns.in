@@ -7,18 +7,18 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-ORIINAL_LANG=$LANG
+ORIGINAL_LANG=$LANG
 export LANG=POSIX
 
 export TEXTDOMAIN=quilt
 		
-if [ -e $HOME/.quiltrc ]
-then
-	. $HOME/.quiltrc
-fi
-
 : ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
+
+if [ -e "$QUILTRC" ]
+then
+	source "$QUILTRC"
+fi
 
 #
 # If the working directory does not contain a $QUILT_PATCHES directory,

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb  3 12:58:49 CET 2004 - agruen@suse.de
+
+- Add --quiltrc={rcfile|-} option. Remove some superfluous quoting
+  from quilt wrapper.
+- Extra tests in `quilt refresh' did not check if the old patch
+  was missing.
+
+-------------------------------------------------------------------
 Mon Feb  2 14:04:31 CET 2004 - agruen@suse.de
 
 - Fix test for bash in configure.ac.
