@@ -29,9 +29,6 @@ fi
 
 DB=".pc/applied-patches"
 
-# Define where diffstat lives (may be missing)
-DIFFSTAT=/usr/bin/diffstat
-
 # Quote a string for use in a basic regular expression.
 quote_bre()
 {

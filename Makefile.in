@@ -23,6 +23,7 @@ DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
 MSGFMT :=	@MSGFMT@
+DIFFSTAT :=	@DIFFSTAT@
 
 ifeq "$(MSGFMT)" ""
 MAKE_NLS :=	@true
@@ -166,6 +167,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
 	     -e 's:@VERSION''@:$(VERSION):g' \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \
+		 -e 's:@DIFFSTAT''@:$(DIFFSTAT):g' \
 	     $< > $@
 	@chmod --reference=$< $@
 
