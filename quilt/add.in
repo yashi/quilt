@@ -121,6 +121,8 @@ do
 			mv -f $tmpfile $SUBDIR$file
 			rm -f $tmpfile
 		fi
+		# The original tree may be read-only.
+		chmod u+w $SUBDIR$file
 	fi
 
 	echo $"File $SUBDIR$file added to patch $patch"

@@ -1,10 +1,16 @@
 -------------------------------------------------------------------
-Wed, Feb 25 10:45:39 CET 2004 - martin.quinson@tuxfamily.org
+Tue Mar  9 02:00:14 CET 2004 - agruen@suse.de
+
+- Make files writeable in `quilt add' (and `quilt edit') for
+  working with read-only trees.
+
+-------------------------------------------------------------------
+Wed Feb 25 10:45:39 CET 2004 - martin.quinson@tuxfamily.org
 
 - Add completion to the edit command in bash
 
 -------------------------------------------------------------------
-Sun, Feb 22 16:04:36 CET 2004 - martin.quinson@tuxfamily.org
+Sun Feb 22 16:04:36 CET 2004 - martin.quinson@tuxfamily.org
 
 - Add a man page (generated automatically from -h)
 
