@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 21 10:42:27 CET 2003 - agruen@suse.de
+
+- Bump version number to 0.23 (CVS tag VER_0_23).
+
+-------------------------------------------------------------------
 Fri Feb 14 15:53:52 CET 2003 - agruen@suse.de
 
 - A couple more I18N fixes, minor cleanups in status messages.
