@@ -1,8 +1,11 @@
 -------------------------------------------------------------------
-Sun Mar  6 17:19:23 CET 2005 - agruen@suse.de
+Sun Mar  6 22:56:12 CET 2005 - agruen@suse.de
 
-- Add `graph', `grep' and `mail' to QUILT_IN in po/Makefile
-  (from Yasushi SHOJI).
+- Add `graph', `grep' and `mail' to QUILT_IN in po/Makefile.
+- Fix typo and translation updates.
+- Add a missing ``exit 1'' to quilt/fold.in when no patches are
+  applied. (All except the German translation update from Yasushi
+  SHOJI -- thanks.)
 
 -------------------------------------------------------------------
 Fri Feb 24 13:12:57 CET 2005 - mquinson@debian.org

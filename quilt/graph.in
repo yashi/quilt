@@ -42,7 +42,7 @@ patch.
 
 --lines[=num]
 	Compute dependencies by looking at the lines the patches modify.
-	Unless a diferent num is specified, two lines of context are
+	Unless a different num is specified, two lines of context are
 	included.
 
 --edge-labels=files

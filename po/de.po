@@ -20,7 +20,6 @@ msgid "Commands are:"
 msgstr "Vorhandene Befehle:"
 
 #: ../bin/quilt.in:30
-#, fuzzy
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -40,8 +39,9 @@ msgstr ""
 "\tFührt die Kommandos im bash Trace-Modus (-x) aus. Für Debugging.\n"
 "\n"
 "--quiltrc datei\n"
-"\tVerwende die angegebene Konfigrationsdatei statt ~/.quiltrc.\n"
-"\tSiehe die pdf-Dokumentation für mögliche Einstellungen."
+"\tVerwende die angegebene Konfigrationsdatei statt ~/.quiltrc (oder\n"
+"\t/etc/quilt.quiltrc, wenn ~/.quiltrc fehlt). Siehe die pdf-Dokumentation\n"
+"\tfür mögliche Einstellungen."
 
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ...\\n"
@@ -66,38 +66,47 @@ msgstr ""
 "-p patch\n"
 "\tPatch, zu dem die Dateien hinzugefügt werden sollen.\n"
 
-#: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
-#: ../quilt/diff.in:153 ../quilt/diff.in:164 ../quilt/next.in:62
-#: ../quilt/pop.in:239 ../quilt/previous.in:62 ../quilt/push.in:311
-#: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
+#: ../quilt/add.in:48 ../quilt/add.in:54
+msgid "File \\`%s' is located below \\`%s'\\n"
+msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
+
+#: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
+#: ../quilt/diff.in:153 ../quilt/diff.in:164 ../quilt/graph.in:116
+#: ../quilt/next.in:62 ../quilt/pop.in:239 ../quilt/previous.in:62
+#: ../quilt/push.in:311 ../quilt/refresh.in:129 ../quilt/remove.in:53
+#: ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
 
-#: ../quilt/add.in:75 ../quilt/diff.in:226 ../quilt/pop.in:254
-#: ../quilt/refresh.in:135 ../quilt/remove.in:74
+#: ../quilt/add.in:99 ../quilt/diff.in:226 ../quilt/graph.in:121
+#: ../quilt/pop.in:254 ../quilt/refresh.in:135 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:234
+#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:234
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:288 ../quilt/push.in:349 ../quilt/refresh.in:143
-#: ../quilt/remove.in:81
+#: ../quilt/graph.in:131 ../quilt/pop.in:288 ../quilt/push.in:349
+#: ../quilt/refresh.in:143 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
-#: ../quilt/add.in:92
+#: ../quilt/add.in:121
 msgid "File %s is already in patch %s\\n"
 msgstr "Datei %s ist bereits in Patch $patch enthalten\\n"
 
-#: ../quilt/add.in:100 ../quilt/remove.in:100
+#: ../quilt/add.in:129 ../quilt/remove.in:100
 msgid "File %s modified by patch %s\\n"
 msgstr "Datei %s wird von Patch %s verändert\\n"
 
-#: ../quilt/add.in:108
+#: ../quilt/add.in:137
+msgid "Cannot add symbolic link %s\\n"
+msgstr "Kann symbolische Verknüpfung %s nicht hinzufügen\\n"
+
+#: ../quilt/add.in:144
 msgid "Failed to back up file %s\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: ../quilt/add.in:119
+#: ../quilt/add.in:155
 msgid "File %s added to patch %s\\n"
 msgstr "Datei %s zu Patch %s hinzugefügt\\n"
 
@@ -359,7 +368,7 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
 
-#: ../quilt/fold.in:115
+#: ../quilt/fold.in:116
 msgid "File %s may be corrupted\\n"
 msgstr "Datei %s ist möglicherweise defekt\\n"
 
@@ -393,6 +402,94 @@ msgstr "Fehler beim Aufspalten von %s auf %s\\n"
 #: ../quilt/fork.in:110
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Neue Version von %s erstellt als %s\\n"
+
+#: ../quilt/graph.in:22
+msgid ""
+"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
+"[patch]\\n"
+msgstr ""
+"Verwendung: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-"
+"labels=files]\\n"
+
+#: ../quilt/graph.in:26
+msgid ""
+"\n"
+"Generate a dot(1) directed graph showing the dependencies between\n"
+"applied patches. A patch depends on another patch if both touch the same\n"
+"file or, with the --lines option, if their modifications overlap. Unless\n"
+"otherwise specified, the graph includes all patches that the topmost\n"
+"patch depends on.\n"
+"When a patch name is specified, instead of the topmost patch, create a\n"
+"graph for the specified patch. The graph will include all other patches\n"
+"that this patch depends on, as well as all patches that depend on this\n"
+"patch.\n"
+"\n"
+"--all\tGenerate a graph including all applied patches and their\n"
+"\tdependencies. (Unapplied patches are not included.)\n"
+"\n"
+"--reduce\n"
+"\tEliminate transitive edges from the graph.\n"
+"\n"
+"--lines[=num]\n"
+"\tCompute dependencies by looking at the lines the patches modify.\n"
+"\tUnless a different num is specified, two lines of context are\n"
+"\tincluded.\n"
+"\n"
+"--edge-labels=files\n"
+"\tLabel graph edges with the file names that the adjacent patches\n"
+"\tmodify.\n"
+"\n"
+"-T ps\tDirectly produce a PostScript output file.\n"
+msgstr ""
+"\n"
+"Erzeuge einen gerichteten dot(1)-Graphen, der die Abhängigkeiten zwischen\n"
+"den angewandten Patches zeigt. Ein Patch hängt voni einem anderen ab, wenn\n"
+"beide dieselbe Datei verändern, oder mit der --lines-Option, wenn sich die\n"
+"Anderungen in den Patches überlappen. Wenn nicht anders angegeben, zeigt\n"
+"der Graph alle Patches, von denen der oberste Patch abhängt.\n"
+"Wenn ein Patchname angegeben wird, wird ein Graph erzeugt, der alle Patches\n"
+"beinhaltet, von denen der angegebene Patch abhängt, sowie alle, die von\n"
+"diesem Patch abhängen.\n"
+"\n"
+"--all\tErzeuge einen Graph, der alle Abhängigkeiten zwischen allen\n"
+"\tangewandten Patches beinhaltet. (Nicht angewandte Patches sind nicht\n"
+"\tbeinhaltet.)\n"
+"\n"
+"--reduce\n"
+"\tEliminiere transitive Kanten.\n"
+"\n"
+"--lines[=num]\n"
+"\tErmittle Abhängigkeiten durch Vergleich der veränderten Zeilen.\n"
+"\tSolange nicht anders angegeben, werden zwei Kontextzeilen angenommen.\n"
+"\n"
+"--edge-labels=files\n"
+"\tBeschrifte Kanten mit den Namen der betroffenen Dateien.\n"
+"\n"
+"-T ps\tErzeuge direkt eine PostScript-Datei.\n"
+
+#: ../quilt/grep.in:22
+msgid "Usage: quilt grep [-h|options] {pattern}\\n"
+msgstr "Verwendung: quilt grep [-h|options] {suchausdruck}\\n"
+
+#: ../quilt/grep.in:25
+msgid ""
+"\n"
+"Grep through the source files, recursively, skipping patches and quilt\n"
+"meta-information. If no filename argument is given, the whole source\n"
+"tree is searched. Please see the grep(1) manual page for options.\n"
+"\n"
+"-h\tPrint this help. The grep -h option can be passed after a\n"
+"\tdouble-dash (--). Search expressions that start with a dash\n"
+"\tcan be passed after a second double-dash (-- --).\n"
+msgstr ""
+"\n"
+"Durchsuche die Quelldateien rekursiv, und überspringe Patches und Quilt-\n"
+"Metainformation. Wenn kein Dateiname angegeben wird, wird der gesamte\n"
+"Quellbaum durchsucht. Siehe die grep(1) Manual Page zu Optionen.\n"
+"\n"
+"-h\tGib diese Hilfsmeldung aus. Die grep -h - Option kann nach einem\n"
+"\tDoppelstrick (--) angegeben werden. Suchausdrücke, die mit einem Strich\n"
+"\tbeginnen, können nach einem weiteren Doppelstrich (--) angegeben werden.\n"
 
 #: ../quilt/import.in:22
 msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
@@ -453,6 +550,55 @@ msgstr "Konnte Patch %s nicht importieren\\n"
 #: ../quilt/import.in:122
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
+
+#: ../quilt/mail.in:25
+msgid ""
+"Usage: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--cc ...] [--"
+"bcc ...] [--subject ...]\\n"
+msgstr ""
+"Verwendung: quilt mail {--mbox datei|--send} [--from ...] [--to ...] [--"
+"cc ...] [--bcc ...] [--subject ...]\\n"
+
+#: ../quilt/mail.in:28
+msgid ""
+"\n"
+"Create mail messages from all patches in the series file, and either store\n"
+"them in a mailbox file, or send them immediately. The editor is opened\n"
+"with a template for the introductory message. Please see the file\n"
+"@DOCSUBDIR@/README.MAIL for details.\n"
+"\n"
+"--mbox file\n"
+"\tStore all messages in the specified file in mbox format. The mbox\n"
+"\tcan later be sent using formail, for example.\n"
+"\n"
+"--send\n"
+"\tSend the messages directly using @MTA@.\n"
+"\n"
+"--from, --subject\n"
+"\tThe values for the From and Subject headers to use.\n"
+"\n"
+"--to, --cc, --bcc\n"
+"\tAppend a recipient to the To, Cc, or Bcc header.\n"
+msgstr ""
+"\n"
+"Erzeuge E-Mail-Nachrichten für alle Patches in der series-Datei, und\n"
+"speichere sie in einer Mailbox-Datei, oder versende sie sofort. Der Editor\n"
+"wird mit der Vorlage einer Einleitungs-Nachricht geöffnet. Für Details "
+"siehe\n"
+"@DOCSUBDIR@/README.MAIL.\n"
+"\n"
+"--mbox datei\n"
+"\tAlle Nachrichten in der angegebenen Datei im mbox-Format speichern. Die\n"
+"\tMailbox kann dann später mit formail o.ä. verschickt werden.\n"
+"\n"
+"--send\n"
+"\tVerschicke die Nachrichten direkt über @MTA@.\n"
+"\n"
+"--from, --subject\n"
+"\tDie Werte für die From- und Subject-Kopfzeilen.\n"
+"\n"
+"--to, --cc, --bcc\n"
+"\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
 #: ../quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
@@ -600,7 +746,6 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr "Verwendung: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 
 #: ../quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -652,6 +797,9 @@ msgstr ""
 "--interactive\n"
 "\tErlaubt GNU patch, interaktiv Fragen zu stellen. Wenn diese Option\n"
 "\tnicht angegeben wird, wird die Option -f an GNU patch übergeben.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"        Syntax-Einfärbung aktivieren (immer, automatisch, nie).\n"
 
 #: ../quilt/push.in:64
 msgid "Interrupted by user; patch %s was not applied.\\n"
@@ -824,7 +972,7 @@ msgstr "Datei %s ist nicht in Patch %s enthalten\\n"
 msgid "Failed to remove file %s from patch %s\\n"
 msgstr "Konnte Datei %s nicht aus Patch %s entfernen\\n"
 
-#: ../quilt/remove.in:115
+#: ../quilt/remove.in:123
 msgid "File %s removed from patch %s\\n"
 msgstr "Datei %s aus Patch %s entfernt\\n"
 
@@ -1008,21 +1156,3 @@ msgid ""
 msgstr ""
 "Das Arbeitsverzeichnis wurde von einer älteren Version von quilt erstellt. "
 "Bitte führen Sie \\`quilt upgrade' aus.\\n"
-
-#~ msgid "Usage: $0 [-fqv] patchname\\n"
-#~ msgstr "Verwendung: $0 [-fqv] patchname\\n"
-
-#~ msgid "Usage: %s [-fRq] patchname\\n"
-#~ msgstr "Verwendung: %s [-fRq] patchname\\n"
-
-#~ msgid "Interrupted by user\\n"
-#~ msgstr "Unterbrechung durch Benutzer\\n"
-
-#~ msgid ""
-#~ "The topmost patch %s is not in the series file anymore;\n"
-#~ "cannot determine the next patch from the series file.\n"
-#~ "Please pop -f the top patch and check your series file.\\n"
-#~ msgstr ""
-#~ "Der oberste Patch $top ist nicht mehr in der series-Datei;\n"
-#~ "kann den nächsten Patch nicht ermitteln. Bitte entfernen Sie\n"
-#~ "mit pop -f den obersten Patch, und überprüfen Sie die series-Datei.\\n"
