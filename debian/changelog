@@ -1,3 +1,19 @@
+quilt (0.39-1) unstable; urgency=low
+
+  * New upstream release. 
+    0.38 were mostly bugfixes, and those bugs were also reported against
+      debian package, so I had to steal most of the cvs content already.
+    0.39 is also mainly bugfixes. There is a new "mail" command I didn't
+      test yet. ;)
+      
+  * Refuse to add symlinks into patches since we fail to backup them
+    properly. (Closes: #294424). Will be in 0.40 ;)
+  * Take care of the lost souls patching their config.* files. 
+    Cdbs updates them automatically. Thanks to Robert Millan for detecting
+    the issue (in cdbs) and proposing a fix (in quilt). (Closes: #295913).
+
+ -- Martin Quinson <mquinson@debian.org>  Thu, 24 Feb 2005 13:51:10 +0100
+
 quilt (0.37-5) unstable; urgency=low
 
   * Let cdbs track the build-dep automatically.
