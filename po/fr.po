@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2004-07-13 15:31-0700\n"
+"PO-Revision-Date: 2004-07-21 19:40-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "Le patch %s n'est pas appliqué\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:76 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:184 ../quilt/push.in:182 ../quilt/push.in:220
+#: ../quilt/pop.in:184 ../quilt/push.in:182 ../quilt/push.in:221
 #: ../quilt/refresh.in:143 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
@@ -560,11 +560,11 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: ../quilt/pop.in:175 ../quilt/push.in:211
+#: ../quilt/pop.in:175 ../quilt/push.in:212
 msgid "Interrupted by user\\n"
 msgstr "Interrompu par l'utilisateur\\n"
 
-#: ../quilt/pop.in:191 ../quilt/push.in:222
+#: ../quilt/pop.in:191 ../quilt/push.in:223
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -1009,8 +1009,8 @@ msgid "Usage: %s [-fRq] patchname\\n"
 msgstr "Usage: %s [-fRq] nom_de_patch\\n"
 
 #: ../scripts/rpatch.in:100
-msgid "Patch %s does not remove cleanly (enforce with -f)\\n"
-msgstr "Le patch %s ne se retire pas proprement (forcez avec -f)\\n"
+msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
+msgstr "Le patch %s ne se retire pas proprement (rafraichissez le, ou forcez avec -f)\\n"
 
 #: ../scripts/rpatch.in:123
 msgid "Removing patch %s\\n"

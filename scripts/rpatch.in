@@ -97,7 +97,7 @@ check_for_pending_changes()
 	
 	if [ -s $remains ]
 	then
-		printf $"Patch %s does not remove cleanly (enforce with -f)\n" \
+		printf $"Patch %s does not remove cleanly (refresh it or enforce with -f)\n" \
 		       "$(print_patch $patch)" >&2
 		status=1
 	fi
