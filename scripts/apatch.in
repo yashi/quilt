@@ -103,7 +103,12 @@ apatch()
 		else
 			touch .pc/$patch~refresh
 		fi
-		touch .pc/$patch/.timestamp
+		
+		if [ -e ".pc/$patch" ]
+		then
+			touch .pc/$patch/.timestamp
+		fi
+
 		if [ "$(shopt -s nullglob ; echo .pc/$patch/*)" = "" ]
 		then
 			echo $"Patch $patch appears to be empty, applied"
