@@ -21,8 +21,8 @@
 	< +++ q/file2.txt
 	< @@ -1 +0,0 @@
 	< -This is file2.txt.
-	< --- q.orig/file3.txt  
-	< +++ q/file3.txt
+	< --- q.orig/dir/file3.txt  
+	< +++ q/dir/file3.txt
 	< @@ -0,0 +1 @@
 	< +This is file3.txt.
 
@@ -36,22 +36,22 @@
 
 	$ quilt fold -q < patches/patch2.diff
 	$ quilt files
+	> dir/file3.txt
 	> file1.txt
-	> file3.txt
 
 	$ quilt diff | sed -e "s/\\t.*//"
+	> Index: d/dir/file3.txt
+	> ===================================================================
+	> --- d.orig/dir/file3.txt
+	> +++ d/dir/file3.txt
+	> @@ -0,0 +1 @@
+	> +This is file3.txt.
 	> Index: d/file1.txt
 	> ===================================================================
 	> --- d.orig/file1.txt
 	> +++ d/file1.txt
 	> @@ -0,0 +1 @@
 	> +This is file1.txt.
-	> Index: d/file3.txt
-	> ===================================================================
-	> --- d.orig/file3.txt
-	> +++ d/file3.txt
-	> @@ -0,0 +1 @@
-	> +This is file3.txt.
 
 	$ cd ..
 	$ rm -rf d

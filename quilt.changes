@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 27 17:16:48 CET 2003 - agruen@suse.de
+
+- `quilt fold' did not create directories for additional files,
+  and the code for recovering from failures was wrong.
+
+-------------------------------------------------------------------
 Tue Nov 25 15:48:37 CET 2003 - agruen@suse.de
 
 - Update quilt paper.
