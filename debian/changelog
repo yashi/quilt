@@ -1,4 +1,11 @@
-quilt (0.22) unstable; urgency=low
+quilt (0.23-1) unstable; urgency=low
+
+  * New upstream release
+  * Hardcode location of bash
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Wed,  9 Apr 2003 09:54:30 +0200
+
+quilt (0.22-1) unstable; urgency=low
 
   * New upstream release
 
