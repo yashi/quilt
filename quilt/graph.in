@@ -24,7 +24,7 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo $"Usage: quilt graph [-P path|--all] [--reduce] [--lines[=num]] [--edge-labels=files]" $redirect
+	echo $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]" $redirect
 
 	if [ x$1 = x-h ]
 	then
@@ -34,11 +34,10 @@ applied patches. A patch depends on another patch if both touch the same
 file or, with the --lines option, if their modifications overlap. Unless
 otherwise specified, the graph includes all patches that the topmost
 patch depends on.
-
--P patch
-	Instead of the topmost patch, create a graph for the specified
-	patch. The graph will include all other patches that this patch
-	depends on, as well as all patches that depend on this patch.
+When a patch name is specified, instead of the topmost patch, create a
+graph for the specified patch. The graph will include all other patches
+that this patch depends on, as well as all patches that depend on this
+patch.
 
 --all	Generate a graph including all applied patches and their
 	dependencies. (Unapplied patches are not included.)
@@ -62,7 +61,7 @@ patch depends on.
 	fi
 }
 
-options=`getopt -o P:T:h --long all,reduce,lines::,edge-labels: -- "$@"`
+options=`getopt -o T:h --long all,reduce,lines::,edge-labels: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -74,19 +73,6 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-P)
-		if ! patch=$(find_patch $2)
-		then
-			echo $"Patch $2 is not in series" >&2
-			exit 1
-		fi
-		if ! is_applied $patch
-		then
-			echo $"Patch $patch is not applied" >&2
-			exit 1
-		fi
-		shift 2 ;;
-
 	-T)	if [ "$2" != ps ]; then
 			usage
 		fi
@@ -122,9 +108,23 @@ do
 	esac
 done
 
-if [ $# -ne 0 -o \( -n "$patch" -a -n "$opt_all" \) ]
+if [ $# -gt 1 -o \( $# -ne 0 -a -n "$opt_all" \) ]
 then
 	usage
+fi
+
+if [ $# -eq 1 ]
+then
+	if ! patch=$(find_patch $1)
+	then
+		echo $"Patch $1 is not in series" >&2
+		exit 1
+	fi
+	if ! is_applied $patch
+	then
+		echo $"Patch $patch is not applied" >&2
+		exit 1
+	fi
 fi
 
 if [ -z "$opt_all" -a -z "$patch" ]
