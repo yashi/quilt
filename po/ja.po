@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2004-08-14 07:06+0900\n"
+"PO-Revision-Date: 2005-02-06 02:24+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,6 @@ msgid "Commands are:"
 msgstr "コマンド一覧:"
 
 #: ../bin/quilt.in:30
-#, fuzzy
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -41,8 +40,9 @@ msgstr ""
 "\tコマンドをbashのトレースモード(-x)で実行。内部デバッグ用。\n"
 "\n"
 "--quiltrc file\n"
-"\t~/.quiltrc 以外のコンフィギュレーションファイルを指定。\n"
-"\t内容については PDFのドキュメントを参照。"
+"\t~/.quiltrc (存在しない場合は代わりに /etc/quiltrc) 以外のコン\n"
+"\tフィギュレーションファイルを指定。内容の詳細については PDFのド\n"
+"\tキュメントを参照。"
 
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ...\\n"
@@ -230,8 +230,7 @@ msgstr ""
 
 #: ../quilt/diff.in:213
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
-msgstr ""
-"オプション \\`-c patch'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
+msgstr "オプション \\`-c patch'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
 
 #: ../quilt/diff.in:240
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -651,12 +650,11 @@ msgstr "パッチ %s を適用しています\\n"
 
 #: ../quilt/push.in:166
 msgid "Patch %s appears to be empty, applied\\n"
-msgstr "パッチ %s は、空のようですが、適用しました\\n"
+msgstr "パッチ %s は空のようですが、適用しました\\n"
 
 #: ../quilt/push.in:170
 msgid "Applied patch %s (forced; needs refresh)\\n"
-msgstr ""
-"パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
+msgstr "パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
 #: ../quilt/push.in:175
 msgid "Patch %s does not apply (enforce with -f)\\n"
@@ -676,9 +674,7 @@ msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
 #: ../quilt/push.in:312
 msgid "File series fully applied, ends at patch %s\\n"
-msgstr ""
-"seriesファイルのパッチはすべて適用されています。\n"
-"最終パッチは %s です。\\n"
+msgstr "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
 #: ../quilt/refresh.in:22
 msgid ""
@@ -829,8 +825,7 @@ msgstr ""
 
 #: ../quilt/setup.in:27
 msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
-msgstr ""
-"使い方: quilt setup [-d path-prefix] [-v] {specファイル|seriesファイル}\\n"
+msgstr "使い方: quilt setup [-d path-prefix] [-v] {specファイル|seriesファイル}\\n"
 
 #: ../quilt/setup.in:30
 msgid ""
@@ -988,21 +983,3 @@ msgid ""
 msgstr ""
 "現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
 "す。'quilt upgrade'を実行してください。\\n"
-
-#~ msgid "Usage: $0 [-fqv] patchname\\n"
-#~ msgstr "使い方: $0 [-fqv] パッチ名\\n"
-
-#~ msgid "Usage: %s [-fRq] patchname\\n"
-#~ msgstr "使い方: %s [-fRq] パッチ名\\n"
-
-#~ msgid "Interrupted by user\\n"
-#~ msgstr "ユーザによって中断されました\\n"
-
-#~ msgid ""
-#~ "The topmost patch %s is not in the series file anymore;\n"
-#~ "cannot determine the next patch from the series file.\n"
-#~ "Please pop -f the top patch and check your series file.\\n"
-#~ msgstr ""
-#~ "最上位パッチが seriesファイルの中にないため、次のパッチを seriesファイ\n"
-#~ "ルから選択することができません。pop -fを行ない、seriesファイルをチェッ\n"
-#~ "クしてください。\\n"

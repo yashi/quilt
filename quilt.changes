@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Feb  5 18:55:14 CET 2005 - agruen@suse.de
+
+- Update of the Japanese translation from Yasushi SHOJI
+  <yashi@atmark-techno.com> -- thank you.
+
+-------------------------------------------------------------------
 Wed Feb  2 17:35:19 CET 2005 - agruen@suse.de
 
 - Fix date calculation bug with some versions of GNU date.
