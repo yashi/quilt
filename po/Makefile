@@ -1,6 +1,5 @@
 QUILT_IN :=   add applied delete diff files import new next patches \
-              pop previous push refresh remove series setup top unapplied \
-	      guidiff
+              pop previous push refresh remove series setup top unapplied
 SCRIPTS_IN := apatch rpatch patchfns spec2series patchfns
 # scripts/parse-patch is perl based
 

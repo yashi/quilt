@@ -141,7 +141,7 @@ rpatch()
 		return 0
 	fi
 
-	echo "Removing $patch"
+	echo $"Removing $patch"
 	trap "" SIGINT
 	if [ -n "$opt_force" ] || \
 	   ( [ -z "$opt_remove" ] && ! files_may_have_changed $patch )

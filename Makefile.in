@@ -43,9 +43,6 @@ DIRT +=		$(BIN_IN:%=bin/%)
 
 QUILT_IN :=	add applied delete diff files import new next patches \
 		pop previous push refresh remove series setup top unapplied
-ifneq "$(GUIDIFF)" ""
-QUILT_IN +=	guidiff
-endif
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)
@@ -74,6 +71,9 @@ MAN1 :=		bin/guards.1
 DEBIAN :=	changelog control copyright docs prerm rules 
 
 SRC +=		$(DEBIAN:%=debian/%)
+
+PO :=		Makefile fr.po quilt.pot
+SRC +=		$(PO:%=po/%)
 
 #-----------------------------------------------------------------------
 

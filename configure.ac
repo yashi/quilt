@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.22],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.4 $)
+AC_REVISION ($Revision: 1.5 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -121,17 +121,6 @@ can supply its path with the '--with-patch=' option.
 else
 	AC_MSG_RESULT(yes)
 fi
-
-# Allow to specify a GUI diff utility used by `quilt guidiff'
-AC_ARG_WITH(guidiff, AC_HELP_STRING(
-    [--with-guidiff], [name of a GUI diff utility (default: none)]),
-    [
-	GUIDIFF="$withval"
-	AC_MSG_NOTICE([Using guidiff executable $GUIDIFF])
-    ],[
-    	GUIDIFF=""
-    ])
-AC_SUBST(GUIDIFF)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
