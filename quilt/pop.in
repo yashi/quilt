@@ -184,7 +184,8 @@ do
 	[ -z "$opt_quiet" ] && echo
 done
 
-if [ -z "$(top_patch)" ]
+patch="$(top_patch)"
+if [ -z "$patch" ]
 then
 	echo $"No patches applied"
 else
