@@ -24,10 +24,10 @@ usage()
 	then
 		echo $"
 
-Fold the patch read from standard input into the topmost patch: After
-making sure that all files modified by the patchfile are part of the
-topmost patch, the patch is applied with the specified strip level
-(which defaults to 1).
+Integrate the patch read from standard input into the topmost patch:
+After making sure that all files modified are part of the topmost
+patch, the patch is applied with the specified strip level (which
+defaults to 1).
 
 -p strip-level
 	The number of pathname components to strip from file names
