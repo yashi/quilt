@@ -46,7 +46,7 @@ DIRT +=		$(shell find -name '.\#*')
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
 		configure.ac config/install-sh \
 		quilt.spec.in quilt.changes \
-		bash_completion
+		bash_completion quilt.quiltrc
 DIRT +=		quilt.spec
 
 BIN_IN :=	quilt guards
@@ -252,6 +252,7 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)
 	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
 	@INSTALL@ -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
+	@INSTALL@ -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
 clean :
 	rm -f $(DIRT)

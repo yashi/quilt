@@ -54,12 +54,6 @@ apatch:
 	  Needs to check if any of the files in the patch are touched by
 	  later patches.
 
-quilt diff:
-
-	- The number of context lines cannot be overridden in QUILT_DIFF_OPTS:
-	  GNU diff uses three context lines as soon as -u or -U3 is on the
-	  command line, no matter which other arguments are specified.
-
 quit edit:
 
 	- Check for actual changes, and remove files again that haven't been

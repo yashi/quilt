@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 11 03:53:19 CET 2005 - agruen@suse.de
+
+- Add a default /etc/quilt.quiltrc file that is sourced if no
+  ~/.quiltrc file exists.
+
+-------------------------------------------------------------------
 Fri Nov 19 13:02:32 CET 2004 - agruen@suse.de
 
 - Push command: Write out output of patch process immediately

@@ -11,7 +11,10 @@ export TEXTDOMAINDIR=@LOCALEDIR@
 
 if [ -z "$QUILTRC" ]
 then
-	export QUILTRC=$HOME/.quiltrc
+	for QUILTRC in $HOME/.quiltrc /etc/quilt.quiltrc; do
+		[ -e $QUILTRC ] && break
+	done
+	export QUILTRC
 fi
 
 usage()

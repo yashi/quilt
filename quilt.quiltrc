@@ -1,0 +1,13 @@
+# Example /etc/quilt.quiltrc
+
+# Options passed to GNU diff when generating patches
+QUILT_DIFF_OPTS="--show-c-function"
+# Options passed to GNU patch when applying patches
+#QUILT_PATCH_OPTS="--ignore-whitespace"
+
+# Options to pass to commands (QUILT_${COMMAND}_ARGS)
+QUILT_DIFF_ARGS="--no-timestamps --color=auto"
+QUILT_REFRESH_ARGS="--no-timestamps --backup"
+
+# Prefix all patch names with the relative path to the patch?
+QUILT_PATCHES_PREFIX=yes
