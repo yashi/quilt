@@ -3,6 +3,7 @@ Sun Mar 14 00:39:46 CET 2004 - agruen@suse.de
 
 - Change `quilt import' to allow importing multiple patches
   at once.
+- Fix a bug in backup-files.c (introduced just before).
 - Update to version 0.32.
 
 -------------------------------------------------------------------

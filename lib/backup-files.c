@@ -179,7 +179,7 @@ ensure_nolinks(const char *filename)
 			c = tmpname;
 		else
 			c++;
-		memmove(c + 1, c, strlen(c));
+		memmove(c + 1, c, strlen(c) + 1);
 		*c = '.';
 		
 		to_fd = mkstemp(tmpname);
