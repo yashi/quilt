@@ -1,0 +1,98 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @SCRIPTS@/patchfns ]
+	then
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		exit 1
+	fi
+	. @SCRIPTS@/patchfns
+fi
+
+usage()
+{
+	echo $"Usage: quilt snapshot [-d]"
+	if [ x$1 = x-h ]
+	then
+		echo $"
+
+Take a snapshot of the current working state.
+
+-d	Remove current snapshot.
+
+"
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o dh -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-d)
+		opt_remove=1
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 0 ]
+then
+	usage
+fi
+
+snap_dir=.pc/.snap0
+
+# Clean up from previous snapshot
+rm -rf $snap_dir
+mkdir -p $snap_dir
+
+if [ -n "$opt_remove" ]
+then
+	exit 0
+fi
+
+# Save current working state
+for patch in $(applied_patches | tac)
+do
+	for file in $(files_in_patch $patch)
+	do
+		if ! [ -e "$snap_dir/$file" ]
+		then
+			mkdir -p "$snap_dir/$(dirname $file)"
+			if [ -e "$file" ]
+			then
+				ln "$file" "$snap_dir/$file"
+			else
+				touch "$snap_dir/$file"
+			fi
+		fi
+	done
+done
+
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

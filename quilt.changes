@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Oct 21 20:44:00 CEST 2003 - agruen@suse.de
+
+- Add `quilt fork' command.
+- Add `quilt snapshot' command and `quilt diff --snapshot' option.
+- Bump the version number to 0.26.
+
+-------------------------------------------------------------------
 Tue Sep  9 08:44:12 CEST 2003 - martin.quinson@tuxfamily.org
 
 - fix LC_ALL to C during building the reference so that the 

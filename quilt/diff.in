@@ -87,7 +87,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:Rzh --long diff: -- "$@"`
+options=`getopt -o p:P:c:Rzh --long diff:,snapshot -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -116,8 +116,12 @@ do
 		shift ;;
 	-h)
 		usage -h ;;
+	--snapshot)
+		opt_snapshot=1
+		snap_dir=.pc/.snap0
+		shift ;;
 	--diff)
-		opt_diff=$2
+		opt_diff="$2"
 		shift 2 ;;
 	--)
 		shift
@@ -159,6 +163,25 @@ then
 	die 1
 fi
 
+if [ -n "$opt_snapshot" -a ${#opt_files[@]} -eq 0 ]
+then
+	# Add all files in the snapshot into the file list (they may all
+	# have changed).
+	while read file
+	do
+		patches[${#patches[@]}]="-"
+		file="${file#$snap_dir/}"
+		files[${#files[@]}]="$file"
+	done \
+	< <(find $snap_dir -type f)
+	# Also look at all patches that are currently applied.
+	opt_combine="$(applied_patches | head -n 1)"
+
+	# The patches-per-file cache is buggy -- it should best go away
+	# completely.
+	rm -f .pc/patches-per-file
+fi
+
 if [ -n "$opt_combine" ]
 then
 	if ! refresh_patches_per_file
@@ -188,6 +211,7 @@ then
 		then
 			continue
 		fi
+		in_array "$file" "${files[@]}" && continue
 		patches[${#patches[@]}]="$first"
 		files[${#files[@]}]="$file"
 	done \
@@ -200,11 +224,12 @@ else
 		then
 			continue
 		fi
+		in_array "$file" "${files[@]}" && continue
 		files[${#files[@]}]="$file"
 	done
 fi
 
-if [ ${#opt_files[@]} -gt 0 ]
+if [ ${#opt_files[@]} -gt 0 -a -z "$opt_snapshot" ]
 then
 	for file in "${opt_files[@]}"
 	do
@@ -271,6 +296,16 @@ do
 	file="${files[$i]}"
 	first_patch=${patches[$i]:-$last_patch}
 
+	if [ -n "$opt_snapshot" -a -e "$snap_dir/$file" ]
+	then
+		old_file="$snap_dir/$file"
+	elif [ -z "$opt_relative" ]
+	then
+		old_file="$(backup_file_name $first_patch $file)"
+	else
+		old_file="$workdir/$file"
+	fi
+
 	next_patch=$(next_patch_for_file $last_patch $file)
 	if [ -z "$next_patch" ]
 	then
@@ -280,13 +315,7 @@ do
 		files_were_shadowed=1
 	fi
 
-	if [ -z "$opt_relative" ]
-	then
-		old_file=$(backup_file_name $first_patch $file)
-		do_diff $file $old_file $new_file
-	else
-		do_diff $file "$workdir/$file" $new_file
-	fi
+	do_diff "$file" "$old_file" "$new_file"
 
 	if [ $? -ne 0 ]
 	then
