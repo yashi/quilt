@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Sep  9 08:44:12 CEST 2003 - martin.quinson@tuxfamily.org
+
+- fix LC_ALL to C during building the reference so that the 
+  documentation comes to english and not to french when build 
+  on my box.
+- Update the french translation
+- Bump the version number to 0.25
+
+-------------------------------------------------------------------
 Tue Sep  2 15:24:51 CEST 2003 - agruen@suse.de
 
 - Pipe rpmbuild output to /dev/null in spec2series (seems to be
