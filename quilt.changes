@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun May 16 01:35:10 CEST 2004 - agruen@suse.de
+
+- Add `quilt grep': Grep over all files, recursively, skipping
+  the $QUILT_PATCHES and $QUILT_PC directories.
+
+-------------------------------------------------------------------
 Wed Apr 28 00:46:31 CEST 2004 - agruen@suse.de
 
 - Fix `quilt fork': It destroys .pc/applied patches; that bug got
