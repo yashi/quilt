@@ -40,6 +40,7 @@ ISODATE :=	$(shell date +%Y-%m-%d)
 
 #-----------------------------------------------------------------------
 DIRT +=		$(shell find -name '*~')
+DIRT +=		$(shell find -name '.#*')
 
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
 		configure.ac config/install-sh \
