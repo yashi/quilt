@@ -5,3 +5,4 @@ usr/share/doc/quilt-0.29/* usr/share/doc/quilt/
 usr/share/locale/*
 usr/share/man/*
 usr/share/quilt/*
+../patchsys-quilt.mk /usr/share/cdbs/1/rules/
