@@ -190,7 +190,8 @@ Please pop -f the top patch and check your series file.\n" "$top" >&2
 		exit 1
 
 	else
-		printf $"File series fully applied, ends at patch %s\n" "$top" >&2
+		printf $"File series fully applied, ends at patch %s\n" \
+		       "$(print_patch $top)" >&2
 		exit 2
 	fi
 fi
