@@ -1,4 +1,10 @@
-Wed, 25 Jun 2003 15:35:55 +0200 - martin.quinson@tuxfamily.org
+Wed 26 Jun 15:35:55 CEST - martin.quinson@tuxfamily.org
+
+- Add what needed to have inteligent bash completion when using quilt
+- Bump version to 0.24
+
+-------------------------------------------------------------------
+Wed 25 Jun 15:35:55 CEST - martin.quinson@tuxfamily.org
 
 - Make clean before dist to avoid to put cruft in tarballs
 - remove po/*mo on make clean
