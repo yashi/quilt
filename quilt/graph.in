@@ -39,7 +39,8 @@ the topmost patch depends on.
 	patch. The graph will include all other patches that this patch
 	depends on, as well as all patches that depend on this patch.
 
---all	Generate a graph including all patches and their dependencies.
+--all	Generate a graph including all applied patches and their
+	dependencies. (Unapplied patches are not included.)
 
 --reduce
 	Eliminate transitive edges from the graph.
