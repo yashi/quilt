@@ -246,7 +246,7 @@ cat_series()
 
 top_patch()
 {
-	[ -e $DB ] && tail -1 $DB
+	[ -e $DB ] && tail -n 1 $DB
 }
 
 is_numeric()
@@ -318,7 +318,7 @@ next_patch_for_file()
 	then
 		grep -l -E "^$(quote_re $file)\$" \
 		     $(pc_file_name $patches_on_top) \
-		| head -1 \
+		| head -n 1 \
 		| @SED@ -e 's:^\.pc/::' -e 's:/\.pc$::'
 	fi
 

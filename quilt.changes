@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Apr  7 16:03:55 CEST 2003 - agruen@suse.de
+
+- `head -1' and `tail -1' is non-standard and deprecated, and
+  does not work with coreutils-5.0 any longer.
+
+-------------------------------------------------------------------
 Sat Apr  5 22:17:44 CEST 2003 - agruen@suse.de
 
 - Improve error checking of `quilt diff'.

@@ -71,9 +71,9 @@ fi
 
 if [ -z "$patch" ]
 then
-	next=$(cat_series | head -1)
+	next=$(cat_series | head -n 1)
 else
-	next=$(patches_after $patch | head -1)
+	next=$(patches_after $patch | head -n 1)
 fi
 [ -n "$opt_filenames" ] && next=$(patch_file_name $next)
 echo "$next"

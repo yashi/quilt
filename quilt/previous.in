@@ -71,7 +71,7 @@ fi
 
 if [ -n "$patch" ]
 then
-	previous=$(patches_before $patch | tail -1)
+	previous=$(patches_before $patch | tail -n 1)
 	[ -n "$opt_filenames" ] && previous=$(patch_file_name $previous)
 	echo "$previous"
 fi
