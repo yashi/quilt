@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Nov 15 08:44:19 CET 2003 - agruen@suse.de
+
+- Merge some changes from wangdi:
+  + Use -f (force) option of GNU patch in `quilt diff -z'.
+  + Build source and binary RPMs in `make rpm' target.
+  + Simplify sed expression in Makefile.in.
+
+-------------------------------------------------------------------
 Wed Nov 12 01:37:17 CET 2003 - agruen@suse.de
 
 - Add introductory paper to CVS repository.

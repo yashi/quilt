@@ -255,7 +255,7 @@ then
 	then
 		if ! cat_file $pwd/$patch_file \
 		     | @PATCH@ $patch_args --no-backup-if-mismatch \
-			     -E >/dev/null 2>/dev/null
+			     -Ef >/dev/null 2>/dev/null
 		then
 			# If a patch was force applied (and therefore needs
 			# refreshing), we know that patching the temporary

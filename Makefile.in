@@ -109,7 +109,7 @@ dist : clean $(PACKAGE)-$(VERSION).tar.gz
 snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
-	$(RPMBUILD) -tb $<
+	$(RPMBUILD) -ta $<
 
 doc/README : doc/README.in
 	@echo README.in -> README
@@ -132,8 +132,7 @@ reference : $(QUILT:%=quilt/%)
 		echo; \
 		(bash -c ". scripts/patchfns ;LC_ALL=C . $$i -h"); \
 	done | \
-	sed -e '/^Usage: \?/ {s/^Usage: \?// ; p ; d}' \
-	    -e 's/^/  /'
+	sed -e 's/^Usage: \?//' -e 's/^/  /'
 
 bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
