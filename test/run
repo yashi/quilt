@@ -13,6 +13,7 @@ use strict;
 use FileHandle;
 use Getopt::Std;
 use POSIX qw(isatty setuid);
+use Term::ReadKey;
 use vars qw($opt_l $opt_v);
 
 no warnings qw(taint);
@@ -32,6 +33,7 @@ my ($prog, $in, $out) = ([], [], []);
 my $prog_line;
 my ($tests, $failed) = (0,0);
 my $lineno;
+my $width=((GetTerminalSize)[0] >> 1);
 
 for (;;) {
   my $line = <>; $lineno++;
@@ -103,7 +105,9 @@ sub process_test($$$$) {
 	   chomp $l;
 	   my $r = defined($result->[$n]) ? $result->[$n] : "~";
 	   chomp $r;
-	   print sprintf("%-37s %s %-39s\n", $l, $l eq $r ? '|' : '?', $r);
+	   print sprintf("%-" . ($width-3) .
+	   		 "s %s %-" . ($width-1) .
+			 "s\n", $l, $l eq $r ? '|' : '?', $r);
          }
        } elsif ($opt_v) {
 	 print join('', @$result);

@@ -104,12 +104,20 @@ do
 	fi
 
 	# Restore file from backup
-	if ! @LIB@/backup-files -b -s -B $QUILT_PC/$patch/ -r $SUBDIR$file
+	if ! @LIB@/backup-files -r -t -s -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
 		printf $"Failed to remove file %s from patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		status=1
 		continue
+	fi
+
+	if [ -e $(dirname $QUILT_PC/$patch~refresh) -a \
+	     -e $(patch_file_name $patch) ]
+	then
+		# The patch must be refreshed in order to get rid of the
+		# patch permanently.
+		touch $QUILT_PC/$patch~refresh
 	fi
 	
 	printf $"File %s removed from patch %s\n" \

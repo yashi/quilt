@@ -1,0 +1,49 @@
+	$ mkdir -p d/patches
+	$ cd d
+
+	$ echo f1 > f
+	$ echo g1 > g
+	$ quilt new p.diff
+	> Patch patches/p.diff is now on top
+
+	$ quilt add f g h
+	> File f added to patch patches/p.diff
+	> File g added to patch patches/p.diff
+	> File h added to patch patches/p.diff
+
+	$ echo h1 > h
+	$ rm g
+	$ quilt refresh
+	> Refreshed patch patches/p.diff
+
+	$ quilt remove f
+	> File f removed from patch patches/p.diff
+
+	$ quilt diff -z
+	$ quilt pop -qf
+	> Removing patch patches/p.diff
+	> No patches applied
+
+	$ quilt push -q
+	> Applying patch patches/p.diff
+	> Now at patch patches/p.diff
+
+	$ quilt remove g
+	> File g removed from patch patches/p.diff
+
+	$ quilt diff -z
+	$ quilt pop -qf
+	> Removing patch patches/p.diff
+	> No patches applied
+
+	$ quilt push -q
+	> Applying patch patches/p.diff
+	> Now at patch patches/p.diff
+
+	$ quilt remove h
+	> File h removed from patch patches/p.diff
+
+	$ quilt diff -z
+
+	$ cd ..
+	$ rm -rf d

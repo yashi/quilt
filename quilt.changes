@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Feb 10 12:02:21 CET 2005 - agruen@suse.de
+
+- quilt remove: Update restored file's timestamp. Also, some uses
+  caused a subsequent ``quilt diff -z'' to fail: we must mark
+  the patch as dirty after removing files.
+- test/run: adjust to terminal width.
+- Bump version to 0.39.
+
+-------------------------------------------------------------------
 Sun Feb  6 01:15:03 CET 2005 - agruen@suse.de
 
 - Update of the Japanese translation from Yasushi SHOJI
