@@ -7,3 +7,6 @@
 * Patch destroys the backup files it generates if a file appears more
   than once in a patch. This is the reason why we use the backup-files
   utility instead.
+
+* diff_file prints an `Index: ' line for each file it looks at, not only for
+  those that have differences in them.
