@@ -33,6 +33,7 @@ General:
 	  in the directory, without having to add them individually.
 
 	- Add option for creating hard links.
+
 Documentation:
 
 	- How to rediff with pushpatch -f / poppatch -f?
@@ -43,6 +44,11 @@ Documentation:
 	  wild changes? (This will also cause new files to end up in the
 	  patch.)
 
+quilt refresh:
+
+	- Add an -m option similar to `cvs commit -m "..."' to simplify
+	  keeping a change log in the patch documentation?
+	
 parse-patch:
 
 	- Handle SIGINT in parse-patch -u (in the part that moves the
