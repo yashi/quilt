@@ -275,8 +275,8 @@ rename_in_db()
 	/usr/bin/gawk '
 	/^'"$(quote_re $from)"'$/ \
 		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
-		  print
 		  good=1 }
+		{ print }
 	END	{ exit(! good) }
 	' $DB > $tmpfile
 	if [ $? -eq 0 ]

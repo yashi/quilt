@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr 28 00:46:31 CEST 2004 - agruen@suse.de
+
+- Fix `quilt fork': It destroys .pc/applied patches; that bug got
+  introduced when reverting it to its previous semantics.
+
+-------------------------------------------------------------------
 Wed Apr 21 21:18:14 CEST 2004 - agruen@suse.de
 
 - Replace two occurrences of \t in sed regular expressions
