@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-# $Id: rules,v 1.12 2004/06/01 16:52:36 mquinson Exp $
+# $Id: rules,v 1.13 2004/06/01 19:46:12 mquinson Exp $
 
 # Import Common Debian Build System (CDBS).
 include /usr/share/cdbs/1/rules/debhelper.mk
@@ -17,4 +17,5 @@ DEB_MAKE_ENVVARS := BUILD_ROOT=$(CURDIR)/debian/tmp LC_ALL=C
 DEB_DH_INSTALL_SOURCEDIR := debian/tmp
 
 # force the shell to be bash, since quilt is full of bashism
+# force awk to be gawk, since mawk causes trouble
 DEB_CONFIGURE_EXTRA_FLAGS := --with-bash=/bin/bash --with-awk=/usr/bin/gawk
