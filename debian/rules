@@ -34,7 +34,7 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	#/usr/bin/docbook-to-man debian/patchstack.sgml > patchstack.1
-	$(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt
+	LC_ALL=C $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt
 
 	touch build-stamp
 
@@ -55,7 +55,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/patchstack.
-	$(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt install
+	LC_ALL=C $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt install
 	mkdir debian/quilt/usr/include
 	cp debian/debquilt.mk debian/quilt/usr/include
 
