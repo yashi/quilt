@@ -9,3 +9,6 @@
   utility instead.
 
 * quilt setup doesn't detect if the source file doesn't exist.
+
+* Blank and commented out lines in series file cause problems.
+
