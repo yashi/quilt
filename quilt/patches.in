@@ -45,7 +45,7 @@ scan_applied()
 	do
 		if [ -f "$QUILT_PC/$patch/$file" ]
 		then
-			echo "$prefix$(print_patch patch)"
+			echo "$prefix$(print_patch $patch)"
 		fi
 	done
 }
@@ -61,7 +61,7 @@ scan_unapplied()
 		if touched_by_patch $(patch_strip_level $patch) $patch \
 		   | grep -q "^$file_bre\$"
 		then
-			echo "$prefix$(print_patch patch)"
+			echo "$prefix$(print_patch $patch)"
 		fi
 	done
 }
