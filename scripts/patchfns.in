@@ -226,8 +226,8 @@ rename_in_series()
 	/^'"$(quote_re $from)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 		{ sub(/'"$(quote_re $from)(|\.patch|\.diff?)(|\.gz|\.bz2)"'/,
 		      "'"${to//\"/\\\"}"'")
-		  print
 		  good=1 }
+		{ print }
 	END	{ exit(! good) }
 	' $SERIES > $tmpfile
 	if [ $? -eq 0 ]
@@ -484,27 +484,6 @@ remove_from_db()
 		mv -f $tmpfile $DB
 		rm -f $tmpfile
 		[ -s $DB ] || rm -f $DB
-	fi
-}
-
-rename_in_db()
-{
-	local from=$1 to=$2
-	local tmpfile
-	tmpfile=$(gen_tempfile) || return 1
-	/usr/bin/gawk '
-	/^'"$(quote_re $from)"'$/ \
-		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
-		  print
-		  good=1 }
-	END	{ exit(! good) }
-	' $DB > $tmpfile
-	if [ $? -eq 0 ]
-	then
-		mv -f $tmpfile $DB
-	else
-		rm -f $tmpfile
-		return 1
 	fi
 }
 

@@ -23,8 +23,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		echo $"
-Fork the topmost patch. If new_name is missing, the name of the
-forked patch will be the current patch name, followed by \"-2\".  If the
+Fork the next patch. If new_name is missing, the name of the
+forked patch will be the current patch name, followed by \"-2\".
 If the patch name already ends in a dash-and-number, the number is
 further incremented (e.g., patch.diff, patch-2.diff).
 "
@@ -59,26 +59,26 @@ then
 	usage
 fi
 
-top="$(top_patch)"
-if [ -z "$top" ]
+next="$(patches_after $(top_patch) | head -n 1)"
+if [ -z "$next" ]
 then
-	echo $"No patches applied" >&2
+	echo $"All patches applied" >&2
 	exit 1
 fi
-top_file_name="$(patch_file_name $top)"
+next_file_name="$(patch_file_name $next)"
 
 if [ $# -eq 1 ]
 then
 	patch_file="$1"
 else
-	set -- $(echo "$top" \
+	set -- $(echo "$next" \
 		 | @SED@ -e 's: :\ :g' -e 's:-\([0-9]\+\)$: \1:')
 	if [ $# -eq 1 ]; then
 		patch_file="$1-2"
 	else
 		patch_file="$1-$[$2+1]"
 	fi
-	ext="$(echo $top_file_name \
+	ext="$(echo $next_file_name \
 	       | @SED@ -e '\:\.\(diff\?\|patch\)\(\.gz\|\.bz2\|\)$:!d' \
 		       -e 's:.*\(\.\(diff\?\|patch\)\(\.gz\|\.bz2\|\)\)$:\1:')"
 	patch_file="$patch_file$ext"
@@ -86,26 +86,22 @@ fi
 
 patch_file=$(echo $patch_file | @SED@ -e 's/^'"$(quote_bre $P)"'patches\///')
 patch=$(stripit $patch_file)
-pc_dir=".pc/$patch"
 
 if patch_in_series $patch || \
-   [ -d "$pc_dir" ] || \
    [ -e "patches/$patch_file" ]
 then
 	echo $"Patch $patch exists already, please choose a new name"
 	exit 1
 fi
 
-if ! rename_in_db "$top" "$patch" || \
-   ! rename_in_series "$top" "$patch_file" || \
-   ! mv ".pc/$top" $pc_dir || \
-   ! cp -p "$top_file_name" "$(patch_file_name $patch)"
+if ! rename_in_series "$next" "$patch_file" || \
+   ! cp -p "$next_file_name" "$(patch_file_name $patch)"
 then
-	echo $"Fork of $top_file_name to $patch_file failed" >&2
+	echo $"Fork of $next_file_name to $patch_file failed" >&2
 	exit 1
 fi
 
-echo $"Fork of $top_file_name created as $(patch_file_name $patch)"
+echo $"Fork of $next_file_name created as $(patch_file_name $patch)"
 
 ### Local Variables:
 ### mode: shell-script

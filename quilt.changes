@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Oct 22 01:44:04 CEST 2003 - agruen@suse.de
+
+- `Quilt fork' should better fork the next patch instead of the
+  topmost one. Also fix a bug in updating the series file when
+  forking. The rename_in_db() function is no longer needed.
+
+-------------------------------------------------------------------
 Tue Oct 21 20:44:00 CEST 2003 - agruen@suse.de
 
 - Add `quilt fork' command.
