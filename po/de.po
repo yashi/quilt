@@ -66,20 +66,20 @@ msgstr ""
 
 #: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/files.in:69
-#: ../quilt/next.in:62 ../quilt/pop.in:128 ../quilt/previous.in:62
+#: ../quilt/next.in:62 ../quilt/pop.in:129 ../quilt/previous.in:62
 #: ../quilt/push.in:145 ../quilt/refresh.in:129 ../quilt/remove.in:53
 #: ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
 
 #: ../quilt/add.in:75 ../quilt/diff.in:221 ../quilt/files.in:89
-#: ../quilt/pop.in:149 ../quilt/refresh.in:135 ../quilt/remove.in:74
+#: ../quilt/pop.in:150 ../quilt/refresh.in:135 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:76 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:184 ../quilt/push.in:182 ../quilt/push.in:220
+#: ../quilt/pop.in:185 ../quilt/push.in:182 ../quilt/push.in:221
 #: ../quilt/refresh.in:143 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
@@ -504,11 +504,12 @@ msgstr "Verwendung: quilt pop [-afRqv] [num|patch]\\n"
 #: ../quilt/pop.in:25
 msgid ""
 "\n"
-"Remove patch(es) from the series file.  Without options, the topmost\n"
-"patch is removed.  When a number is specified, remove the specified\n"
-"number of patches.  When a patch name is specified, remove all patches\n"
-"up to and including the specified patch.  Patch names may include the\n"
-"patches/ prefix, which means that filename completion can be used.\n"
+"Remove patch(es) from the stack of applied patches.  Without options,\n"
+"the topmost patch is removed.  When a number is specified, remove the\n"
+"specified number of patches.  When a patch name is specified, remove all\n"
+"patches up to and including the specified patch.  Patch names may\n"
+"include the patches/ prefix, which means that filename completion can be\n"
+"used.\n"
 "\n"
 "-a\tRemove all applied patches.\n"
 "\n"
@@ -523,11 +524,11 @@ msgid ""
 "-v\tVerbose operation.\n"
 msgstr ""
 "\n"
-"Entfernt Patches vom Stapel. Es kann eine Anzahl von Patches, die\n"
-"entfernt werden soll, oder der Name eines Patches angegeben werden.\n"
-"Wenn ein Name angegeben wird, werden alle Patches über dem angegebenen\n"
-"Patch entfernt. Wenn weder ein Patchname noch eine Nummer angegeben\n"
-"wird, wird der oberste Patch entfernt.\n"
+"Entfernt Patches vom Stapel der angewandten Patches. Es kann eine Anzahl\n"
+"von Patches, die entfernt werden soll, oder der Name eines Patches\n"
+"angegeben werden. Wenn ein Name angegeben wird, werden alle Patches über\n"
+"dem angegebenen Patch entfernt. Wenn weder ein Patchname noch eine Nummer\n"
+"angegeben wird, wird der oberste Patch entfernt.\n"
 "\n"
 "-a\tAlle angewandten Patches entfernen.\n"
 "\n"
@@ -541,15 +542,15 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: ../quilt/pop.in:159
+#: ../quilt/pop.in:160
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: ../quilt/pop.in:175 ../quilt/push.in:211
+#: ../quilt/pop.in:176 ../quilt/push.in:212
 msgid "Interrupted by user\\n"
 msgstr "Unterbrechung durch Benutzer\\n"
 
-#: ../quilt/pop.in:191 ../quilt/push.in:222
+#: ../quilt/pop.in:192 ../quilt/push.in:223
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -986,8 +987,8 @@ msgid "Usage: %s [-fRq] patchname\\n"
 msgstr "Verwendung: %s [-fRq] patchname\\n"
 
 #: ../scripts/rpatch.in:100
-msgid "Patch %s does not remove cleanly (enforce with -f)\\n"
-msgstr "Patch %s kann nicht entfernt werden (erzwingen mit -f)\\n"
+msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
+msgstr "Patch %s kann nicht entfernt werden (Patch auffrischen oder Entfernen erzwingen mit -f)\\n"
 
 #: ../scripts/rpatch.in:123
 msgid "Removing patch %s\\n"
