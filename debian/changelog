@@ -1,3 +1,10 @@
+quilt (0.25-2) unstable; urgency=low
+
+  * Do not install anything under /usr/share/doc/quilt-version/
+    Thanks to Daniel Jacobowitz for reporting that bug.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 12 Sep 2003 08:18:29 +0200
+
 quilt (0.25-1) unstable; urgency=low
 
   * New upstream release.

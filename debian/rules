@@ -58,6 +58,7 @@ install: build
 	LC_ALL=C $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt install
 	mkdir debian/quilt/usr/include
 	cp debian/debquilt.mk debian/quilt/usr/include
+	mv debian/quilt/usr/share/doc/quilt-*/ debian/quilt/usr/share/doc/quilt/
 
 # Build architecture-independent files here.
 binary-indep: build install
