@@ -27,6 +27,8 @@ usage()
 Print the name of the next patch after the specified or topmost patch in
 the series file.
 
+-n	Print patch file names instead of patch names.
+
 EOF
 		exit 0
 	else
@@ -34,7 +36,7 @@ EOF
 	fi
 }
 
-options=`getopt -o h -- "$@"`
+options=`getopt -o nh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -46,6 +48,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-n)
+		opt_filenames=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -66,7 +71,9 @@ fi
 
 if [ -z "$patch" ]
 then
-	cat_series | head -1
+	next=$(cat_series | head -1)
 else
-	patches_after $patch | head -1
+	next=$(patches_after $patch | head -1)
 fi
+[ -n "$opt_filenames" ] && next=$(patch_file_name $next)
+echo "$next"

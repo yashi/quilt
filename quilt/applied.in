@@ -27,6 +27,8 @@ usage()
 Print a list of applied patches, or all patches up to and including the
 specified patch in the file series.
 
+-n	Print patch file names instead of patch names.
+
 EOF
 		exit 0
 	else
@@ -34,7 +36,7 @@ EOF
 	fi
 }
 
-options=`getopt -o h -- "$@"`
+options=`getopt -o nh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -46,6 +48,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-n)
+		opt_filenames=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -66,6 +71,12 @@ fi
 
 if [ -n "$patch" ]
 then
-	patches_before $patch
-	echo $patch
+	for patch in $(
+		patches_before $patch
+		echo $patch
+	)
+	do
+		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
+		echo $patch
+	done
 fi

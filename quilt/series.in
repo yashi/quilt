@@ -26,7 +26,10 @@ usage()
 
 Print the names of all patches in the file series.
 
+-n	Print patch file names instead patch names.
+
 -v	Verbose, more user friendly output
+
 EOF
 		exit 0
 	else
@@ -42,11 +45,12 @@ cat_patches()
 
 	for patch in "$@"
 	do
+		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
 		echo "$prefix$patch"
 	done
 }
 
-options=`getopt -o vh -- "$@"`
+options=`getopt -o nvh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -60,6 +64,9 @@ opt_what=here
 while true
 do
 	case "$1" in
+	-n)
+		opt_filenames=1
+		shift ;;
 	-v)
 		opt_verbose=1
 		shift ;;

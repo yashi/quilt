@@ -26,6 +26,8 @@ usage()
 
 Print the list of patches that modify the specified file.
 
+-n	Print the patch file names instead of the patch names.
+
 -v	Verbose, more user friendly output.
 
 EOF
@@ -44,11 +46,13 @@ scan_patches()
 	for patch in $(modified_files $file -- "$@" \
 		       | cut -d $'\t' -f2)
 	do
+		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
+		
 		echo "$prefix$patch"
 	done
 }
 
-options=`getopt -o vh -- "$@"`
+options=`getopt -o nvh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -60,6 +64,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-n)
+		opt_filenames=1
+		shift ;;
 	-v)
 		opt_verbose=1
 		shift ;;

@@ -34,7 +34,7 @@ EOF
 	fi
 }
 
-options=`getopt -o h -- "$@"`
+options=`getopt -o nh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -46,6 +46,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-n)
+		opt_filenames=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -59,4 +62,6 @@ then
 	usage
 fi
 
-top_patch
+top=$(top_patch)
+[ -n "$opt_filenames" ] && top=$(patch_file_name $top)
+echo "$top"
