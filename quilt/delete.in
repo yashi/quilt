@@ -24,9 +24,9 @@ usage()
 	then
 		cat <<EOF
 
-Remove the specified or topmost patchfrom the series file. If the patch
-is applied, it is first tried to remove it. (Only the topmost patch can
-be removed right now.)
+Remove the specified or topmost patch from the series file. If the 
+patch is applied, quilt will attempt to remove it first. (Only the 
+topmost patch can be removed right now.)
 
 EOF
 		exit 0

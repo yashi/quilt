@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo "Usage: quilt rest [patch]"
+	echo "Usage: quilt unapplied [patch]"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF

@@ -24,7 +24,7 @@ usage()
 	then
 		cat <<EOF
 
-Remove one or more files to the topmost or named patch.
+Remove one or more files from the topmost or named patch.
 Files that are modified by patches on top of the specified
 patch cannot be removed.
 

@@ -44,7 +44,7 @@ ignored, and only changes in files that have not been
 modified by any more recent patches will end up in the
 specified patch.
 
--p n	Create a -pn style patch (-p0 or -p1 supported).
+-p n	Create a -p n style patch (-p0 or -p1 supported).
 	
 -f	Force refresh, even if more recent patches modify
 	some of the same files.

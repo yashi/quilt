@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo "Usage: quilt contains {file}"
+	echo "Usage: quilt patches {file}"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF

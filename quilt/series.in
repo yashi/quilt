@@ -24,11 +24,11 @@ usage()
 	then
 		cat <<EOF
 
-Print the names of all patches in the file series.
+Print the names of all patches in the series file.
 
 -n	Print patch file names instead patch names.
 
--v	Verbose, more user friendly output
+-v	Verbose, more user friendly output.
 
 EOF
 		exit 0

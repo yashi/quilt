@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Feb  8 15:43:26 +0100 2003 - agruen@suse.de
+
+- Merge James Rowe <Jay@jnrowe.uklinux.net>'s quilt-help.diff
+  patch that fixes several help messages.
+
+-------------------------------------------------------------------
 Thu Feb  6 01:22:52 +0100 2003 - agruen@suse.de
 
 - Quilt refresh: Create sub-directories in patches directory

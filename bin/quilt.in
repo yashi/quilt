@@ -9,7 +9,7 @@
 usage()
 {
 
-	echo "Usage: quilt command [-h] ..." >&2
+	echo "Usage: quilt command [-h] ..."
 	#echo "Commands are:" $(
 	#	local command
 	#	for command in @QUILT@/*
