@@ -22,14 +22,15 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt upgrade"
+	printf $"Usage: quilt upgrade\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Upgrade the meta-data in a working tree from an old version of quilt to the
 current version. This command is only needed when the quilt meta-data format
 has changed, and the working tree still contains old-format meta-data. In that
-case, quilt will request to run \`quilt upgrade'."
+case, quilt will request to run \`quilt upgrade'.
+"
 		exit 0
 	else
 		exit 1
@@ -63,11 +64,11 @@ fi
 
 if version_check
 then
-	echo $"The quilt meta-data in $QUILT_PC/ already are have format version $DB_VERSION; nothing to do"
+	printf $"The quilt meta-data in %s already are have format version %s; nothing to do\n" "$QUILT_PC/" "$DB_VERSION"
 	exit 0	
 fi
 
-echo $"Converting meta-data to version $DB_VERSION"
+printf $"Converting meta-data to version %s\n" "$DB_VERSION"
 
 # Previously we have stripped standard patch extensions (.dif .diff
 # .patch .gz .bz2) of patch names; we have used the mangled names in
@@ -98,9 +99,9 @@ done
 
 if [ -n "$failed" ]
 then
-        echo $"Conversion failed"
-	echo $"
-Please remove all patches using \`quilt pop -a' from the quilt version used to create this working tree, or remove the $QUILT_PC directory and apply the patches from scratch." >&2
+        printf $"Conversion failed\n" >&2
+	printf $"
+Please remove all patches using \`quilt pop -a' from the quilt version used to create this working tree, or remove the %s directory and apply the patches from scratch.\n" "$QUILT_PC" >&2
 	exit 1
 fi
 echo $DB_VERSION > $QUILT_PC/.version

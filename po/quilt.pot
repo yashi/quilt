@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 
 #: ../quilt/add.in:22
-msgid "Usage: quilt add [-p patch] {file} ..."
+msgid "Usage: quilt add [-p patch] {file} ...\\n"
 msgstr ""
 
 #: ../quilt/add.in:25
@@ -31,44 +31,47 @@ msgid ""
 "patches already applied on top of the specified patch cannot be added.\n"
 "\n"
 "-p patch\n"
-"\tPatch to add files to."
+"\tPatch to add files to.\n"
 msgstr ""
 
-#: ../quilt/add.in:54 ../quilt/diff.in:147 ../quilt/diff.in:158
-#: ../quilt/remove.in:52
-msgid "Patch $2 is not in series"
+#: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
+#: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/files.in:69
+#: ../quilt/next.in:62 ../quilt/pop.in:128 ../quilt/previous.in:62
+#: ../quilt/push.in:145 ../quilt/refresh.in:129 ../quilt/remove.in:53
+#: ../quilt/unapplied.in:62
+msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: ../quilt/add.in:75 ../quilt/applied.in:72 ../quilt/refresh.in:125
-#: ../quilt/remove.in:73
-msgid "Patch $patch is not applied"
+#: ../quilt/add.in:75 ../quilt/diff.in:221 ../quilt/files.in:89
+#: ../quilt/pop.in:149 ../quilt/refresh.in:135 ../quilt/remove.in:74
+msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:227
-#: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
-#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
-#: ../quilt/refresh.in:132 ../quilt/remove.in:80
-msgid "No patches applied"
+#: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
+#: ../quilt/files.in:76 ../quilt/fold.in:79 ../quilt/fork.in:65
+#: ../quilt/pop.in:182 ../quilt/push.in:182 ../quilt/push.in:218
+#: ../quilt/refresh.in:143 ../quilt/remove.in:81
+msgid "No patches applied\\n"
 msgstr ""
 
 #: ../quilt/add.in:92
-msgid "File $SUBDIR$file is already in patch $patch"
+msgid "File %s is already in patch %s\\n"
 msgstr ""
 
-#: ../quilt/add.in:99 ../quilt/remove.in:98
-msgid "File $SUBDIR$file modified by patch $next_patch"
+#: ../quilt/add.in:100 ../quilt/remove.in:100
+msgid "File %s modified by patch %s\\n"
 msgstr ""
 
-#: ../quilt/add.in:106
-msgid "Failed to back up file $SUBDIR$file"
+#: ../quilt/add.in:108
+msgid "Failed to back up file %s\\n"
 msgstr ""
 
-#: ../quilt/add.in:117
-msgid "File $SUBDIR$file added to patch $patch"
+#: ../quilt/add.in:119
+msgid "File %s added to patch %s\\n"
 msgstr ""
 
 #: ../quilt/applied.in:22
-msgid "Usage: quilt applied [-n] [patch]"
+msgid "Usage: quilt applied [patch]\\n"
 msgstr ""
 
 #: ../quilt/applied.in:25
@@ -76,18 +79,14 @@ msgid ""
 "\n"
 "Print a list of applied patches, or all patches up to and including the\n"
 "specified patch in the file series.\n"
-"\n"
-"-n\tPrint patch file names instead of patch names."
 msgstr ""
 
-#: ../quilt/applied.in:67 ../quilt/files.in:68 ../quilt/next.in:66
-#: ../quilt/pop.in:127 ../quilt/previous.in:66 ../quilt/push.in:143
-#: ../quilt/unapplied.in:66
-msgid "Patch $1 is not in series"
+#: ../quilt/applied.in:67
+msgid "Patch is not applied\\n"
 msgstr ""
 
 #: ../quilt/delete.in:22
-msgid "Usage: quilt delete [patch]"
+msgid "Usage: quilt delete [patch]\\n"
 msgstr ""
 
 #: ../quilt/delete.in:25
@@ -95,25 +94,21 @@ msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
 "patch is applied, quilt will attempt to remove it first. (Only the\n"
-"topmost patch can be removed right now.)"
+"topmost patch can be removed right now.)\n"
 msgstr ""
 
-#: ../quilt/delete.in:75
-msgid "Patch $patch is not in series"
+#: ../quilt/delete.in:85
+msgid "Patch %s is currently applied\\n"
 msgstr ""
 
-#: ../quilt/delete.in:84
-msgid "Patch $patch is currently applied"
-msgstr ""
-
-#: ../quilt/delete.in:90
-msgid "Failed to remove patch $patch"
+#: ../quilt/delete.in:92
+msgid "Failed to remove patch %s\\n"
 msgstr ""
 
 #: ../quilt/diff.in:22
 msgid ""
-"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--"
-"diff=utility] [--color] [file ...]"
+"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
+"patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
 msgstr ""
 
 #: ../quilt/diff.in:26
@@ -155,72 +150,66 @@ msgid ""
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring."
+"\tUse syntax coloring.\n"
 msgstr ""
 
-#: ../quilt/diff.in:212
-msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
+#: ../quilt/diff.in:213
+msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 
-#: ../quilt/diff.in:220
-msgid "Patch $last_patch is not applied"
+#: ../quilt/diff.in:240
+msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: ../quilt/diff.in:238
-msgid ""
-"Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
-"instead"
+#: ../quilt/diff.in:275
+msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
-#: ../quilt/diff.in:272
-msgid "Patch $first_patch not applied before $last_patch."
+#: ../quilt/diff.in:311
+msgid "Cannot change into directory %s\\n"
 msgstr ""
 
-#: ../quilt/diff.in:306
-msgid "Cannot change into $QUILT_PC/$last_patch"
+#: ../quilt/diff.in:318 ../scripts/rpatch.in:62
+msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: ../quilt/diff.in:312 ../scripts/rpatch.in:62
-msgid "Failed to copy files to temporary directory"
+#: ../quilt/diff.in:329
+msgid "Cannot change to temporary directory\\n"
 msgstr ""
 
-#: ../quilt/diff.in:323
-msgid "Cannot change to temporary directory"
+#: ../quilt/diff.in:348 ../scripts/rpatch.in:85
+msgid "Failed to patch temporary files\\n"
 msgstr ""
 
-#: ../quilt/diff.in:342 ../scripts/rpatch.in:85
-msgid "Failed to patch temporary files"
+#: ../quilt/diff.in:354
+msgid "Cannot change to source directory\\n"
 msgstr ""
 
-#: ../quilt/diff.in:348
-msgid "Cannot change to source directory"
+#: ../quilt/diff.in:372
+msgid "File %s is not being modified\\n"
 msgstr ""
 
-#: ../quilt/diff.in:366
-msgid "File $file is not being modified."
+#: ../quilt/diff.in:392 ../quilt/refresh.in:175
+msgid "Diff failed, aborting\\n"
 msgstr ""
 
-#: ../quilt/diff.in:386 ../quilt/refresh.in:164
-msgid "Diff failed, aborting."
-msgstr ""
-
-#: ../quilt/diff.in:393
-msgid "More recent patches modify files in $last_patch."
+#: ../quilt/diff.in:399
+msgid "More recent patches modify files in patch %s\\n"
 msgstr ""
 
 #: ../quilt/edit.in:13
-msgid "Usage: quilt edit file ..."
+msgid "Usage: quilt edit file ...\\n"
 msgstr ""
 
 #: ../quilt/edit.in:16
 msgid ""
 "\n"
 "Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
-"topmost patch."
+"topmost patch.\n"
 msgstr ""
 
 #: ../quilt/files.in:22
-msgid "Usage: quilt files [-v] [patch]"
+msgid "Usage: quilt files [-v] [patch]\\n"
 msgstr ""
 
 #: ../quilt/files.in:25
@@ -228,19 +217,15 @@ msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
 "\n"
-"-v\tVerbose, more user friendly output."
+"-v\tVerbose, more user friendly output.\n"
 msgstr ""
 
-#: ../quilt/files.in:84
-msgid "Patch is not applied (no verbose output)"
-msgstr ""
-
-#: ../quilt/files.in:87
-msgid "Patch is not applied"
+#: ../quilt/files.in:85
+msgid "Patch %s is not applied (no verbose output)\\n"
 msgstr ""
 
 #: ../quilt/fold.in:22
-msgid "Usage: quilt fold [-p strip-level]"
+msgid "Usage: quilt fold [-p strip-level]\\n"
 msgstr ""
 
 #: ../quilt/fold.in:25
@@ -253,15 +238,15 @@ msgid ""
 "\n"
 "-p strip-level\n"
 "\tThe number of pathname components to strip from file names\n"
-"\twhen applying patchfile."
+"\twhen applying patchfile.\n"
 msgstr ""
 
-#: ../quilt/fold.in:114
-msgid "File $file may be corrupted"
+#: ../quilt/fold.in:115
+msgid "File %s may be corrupted\\n"
 msgstr ""
 
 #: ../quilt/fork.in:22
-msgid "Usage: quilt fork [new_name]"
+msgid "Usage: quilt fork [new_name]\\n"
 msgstr ""
 
 #: ../quilt/fork.in:25
@@ -270,23 +255,23 @@ msgid ""
 "Fork the topmost patch. If new_name is missing, the name of the\n"
 "forked patch will be the current patch name, followed by \\\"-2\\\".\n"
 "If the patch name already ends in a dash-and-number, the number is\n"
-"further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff)."
+"further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
 msgstr ""
 
-#: ../quilt/fork.in:90
-msgid "Patch $new_patch exists already, please choose a new name"
+#: ../quilt/fork.in:91
+msgid "Patch %s exists already, please choose a new name\\n"
 msgstr ""
 
-#: ../quilt/fork.in:101
-msgid "Fork of $top_patch to $new_patch failed"
+#: ../quilt/fork.in:103
+msgid "Fork of patch %s to patch %s failed\\n"
 msgstr ""
 
-#: ../quilt/fork.in:105
-msgid "Fork of $top_patch created as $new_patch"
+#: ../quilt/fork.in:109
+msgid "Fork of patch %s created as %s\\n"
 msgstr ""
 
 #: ../quilt/import.in:22
-msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ..."
+msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr ""
 
 #: ../quilt/import.in:25
@@ -301,68 +286,66 @@ msgid ""
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
-"-f\tOverwite/update existing patches."
+"-f\tOverwite/update existing patches.\n"
 msgstr ""
 
-#: ../quilt/import.in:73
-msgid "Option \\`-n' can only be used when importing a single patch"
+#: ../quilt/import.in:74
+msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 
-#: ../quilt/import.in:90
-msgid "Patch $patch is applied."
+#: ../quilt/import.in:92
+msgid "Patch %s is applied\\n"
 msgstr ""
 
-#: ../quilt/import.in:98
-msgid "Patch $patch exists. Replace with -f."
+#: ../quilt/import.in:100
+msgid "Patch %s exists. Replace with -f.\\n"
 msgstr ""
 
-#: ../quilt/import.in:101
-msgid "Replacing patch $patch with new version"
+#: ../quilt/import.in:104
+msgid "Replacing patch %s with new version\\n"
 msgstr ""
 
-#: ../quilt/import.in:103
-msgid "Importing patch $patch_file (stored as $patch)"
+#: ../quilt/import.in:107
+msgid "Importing patch %s (stored as %s)\\n"
 msgstr ""
 
-#: ../quilt/import.in:109
-msgid "Failed to import patch $patch"
+#: ../quilt/import.in:115
+msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: ../quilt/import.in:116
-msgid "Failed to insert $patch in file series."
+#: ../quilt/import.in:122
+msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
 #: ../quilt/new.in:22
-msgid "Usage: quilt new {patchname}"
+msgid "Usage: quilt new {patchname}\\n"
 msgstr ""
 
 #: ../quilt/new.in:25
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
-"topmost patch in the patch series file."
+"topmost patch in the patch series file.\n"
 msgstr ""
 
-#: ../quilt/new.in:63
-msgid ""
-"Warning: directory $(echo $SUBDIR | sed -e 's:[^/]\\+:..:g')$QUILT_PATCHES "
-"exists; ignoring"
+#: ../quilt/new.in:64
+msgid "Warning: directory %s exists; ignoring\\n"
 msgstr ""
 
-#: ../quilt/new.in:70
-msgid "Patch $patch exists already"
+#: ../quilt/new.in:72
+msgid "Patch %s exists already\\n"
 msgstr ""
 
-#: ../quilt/new.in:81
-msgid "Failed to create patch $patch"
+#: ../quilt/new.in:83
+msgid "Failed to create patch %s\\n"
 msgstr ""
 
-#: ../quilt/new.in:84
-msgid "Patch $patch is now on top"
+#: ../quilt/new.in:86
+msgid "Patch %s is now on top\\n"
 msgstr ""
 
 #: ../quilt/next.in:22
-msgid "Usage: quilt next [patch]"
+msgid "Usage: quilt next [patch]\\n"
 msgstr ""
 
 #: ../quilt/next.in:25
@@ -370,12 +353,10 @@ msgid ""
 "\n"
 "Print the name of the next patch after the specified or topmost patch in\n"
 "the series file.\n"
-"\n"
-"-n\tPrint patch file names instead of patch names."
 msgstr ""
 
 #: ../quilt/patches.in:22
-msgid "Usage: quilt patches {file}"
+msgid "Usage: quilt patches {file}\\n"
 msgstr ""
 
 #: ../quilt/patches.in:25
@@ -385,13 +366,11 @@ msgid ""
 "heuristic to determine which files are modified by unapplied patches.\n"
 "Note that this heuristic is much slower than scanning applied patches.)\n"
 "\n"
-"-n\tPrint the patch file names instead of the patch names.\n"
-"\n"
-"-v\tVerbose, more user friendly output."
+"-v\tVerbose, more user friendly output.\n"
 msgstr ""
 
 #: ../quilt/pop.in:22
-msgid "Usage: quilt pop [-afRqv] [num|patch]"
+msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
 msgstr ""
 
 #: ../quilt/pop.in:25
@@ -413,27 +392,23 @@ msgid ""
 "\n"
 "-q\tQuiet operation.\n"
 "\n"
-"-v\tVerbose operation."
+"-v\tVerbose operation.\n"
 msgstr ""
 
-#: ../quilt/pop.in:148
-msgid "Patch $stop_at_patch is not applied."
+#: ../quilt/pop.in:159
+msgid "No patch removed\\n"
 msgstr ""
 
-#: ../quilt/pop.in:158
-msgid "No patch removed"
+#: ../quilt/pop.in:173 ../quilt/push.in:209
+msgid "Interrupted by user\\n"
 msgstr ""
 
-#: ../quilt/pop.in:172 ../quilt/push.in:206
-msgid "Interrupted by user"
-msgstr ""
-
-#: ../quilt/pop.in:188 ../quilt/push.in:217
-msgid "Now at patch $patch"
+#: ../quilt/pop.in:189 ../quilt/push.in:220
+msgid "Now at patch %s\\n"
 msgstr ""
 
 #: ../quilt/previous.in:22
-msgid "Usage: quilt previous [-n] [patch]"
+msgid "Usage: quilt previous [patch]\\n"
 msgstr ""
 
 #: ../quilt/previous.in:25
@@ -441,12 +416,10 @@ msgid ""
 "\n"
 "Print the name of the previous patch before the specified or topmost\n"
 "patch in the series file.\n"
-"\n"
-"-n\tPrint patch file names instead of patch names."
 msgstr ""
 
 #: ../quilt/push.in:22
-msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
+msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr ""
 
 #: ../quilt/push.in:25
@@ -474,30 +447,32 @@ msgid ""
 "--interactive\n"
 "\tAllow the patch utility to ask how to deal with conflicts. If\n"
 "\tthis option is not given, the option -f will be passed to the \n"
-"\tpatch program."
+"\tpatch program.\n"
 msgstr ""
 
-#: ../quilt/push.in:86
-msgid "Patch $stop_at_patch not found in file series"
+#: ../quilt/push.in:87
+msgid "Patch %s not found in file series\\n"
 msgstr ""
 
-#: ../quilt/push.in:166
-msgid "Patch $stop_at_patch is already applied."
+#: ../quilt/push.in:168
+msgid "Patch %s is already applied\\n"
 msgstr ""
 
-#: ../quilt/push.in:184
+#: ../quilt/push.in:187
 msgid ""
-"The topmost patch $top is not in the series file anymore;\n"
+"The topmost patch %s is not in the series file anymore;\n"
 "cannot determine the next patch from the series file.\n"
-"Please pop -f the top patch and check your series file."
+"Please pop -f the top patch and check your series file.\\n"
 msgstr ""
 
-#: ../quilt/push.in:190
-msgid "File series fully applied, ends at patch $top"
+#: ../quilt/push.in:193
+msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
 #: ../quilt/refresh.in:22
-msgid "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--backup] [patch]"
+msgid ""
+"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
+"[patch]\\n"
 msgstr ""
 
 #: ../quilt/refresh.in:26
@@ -525,40 +500,39 @@ msgid ""
 "--no-timestamps\n"
 "\tDo not include file timestamps in patch headers.\n"
 "\t\n"
+"--diffstat\n"
+"\tAdd a diffstat section to the patch header, or replace the\n"
+"\texisting diffstat section.\n"
+"\n"
 "-f\tEnforce refreshing of a patch that is not on top.\n"
 "\n"
 "--backup\n"
-"\tCreate a backup copy of the old version of a patch as patch~."
+"\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
 
-#: ../quilt/refresh.in:120
-msgid "Patch $opt_patch is not in series"
+#: ../quilt/refresh.in:154
+msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: ../quilt/refresh.in:143
+#: ../quilt/refresh.in:181
 msgid ""
-"Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
-"instead"
+"More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 
-#: ../quilt/refresh.in:170
-msgid "More recent patches modify files in $patch. Enforce refresh with -f."
+#: ../quilt/refresh.in:188
+msgid "Nothing in patch %s\\n"
 msgstr ""
 
-#: ../quilt/refresh.in:177
-msgid "Nothing in patch $patch"
+#: ../quilt/refresh.in:249
+msgid "Patch %s is unchanged\\n"
 msgstr ""
 
-#: ../quilt/refresh.in:202
-msgid "Patch $patch is unchanged"
-msgstr ""
-
-#: ../quilt/refresh.in:216
-msgid "Refreshed patch $patch"
+#: ../quilt/refresh.in:263
+msgid "Refreshed patch %s\\n"
 msgstr ""
 
 #: ../quilt/remove.in:22
-msgid "Usage: quilt remove [-p patch] {file} ..."
+msgid "Usage: quilt remove [-p patch] {file} ...\\n"
 msgstr ""
 
 #: ../quilt/remove.in:25
@@ -568,23 +542,23 @@ msgid ""
 "are modified by patches on top of the specified patch cannot be removed.\n"
 "\n"
 "-p patch\n"
-"\tPatch to remove files from."
+"\tPatch to remove files from.\n"
 msgstr ""
 
-#: ../quilt/remove.in:90
-msgid "File $SUBDIR$file is not in patch $patch"
+#: ../quilt/remove.in:91
+msgid "File %s is not in patch %s\\n"
 msgstr ""
 
-#: ../quilt/remove.in:106
-msgid "Failed to remove file $SUBDIR$file from patch $patch"
+#: ../quilt/remove.in:109
+msgid "Failed to remove file %s from patch %s\\n"
 msgstr ""
 
-#: ../quilt/remove.in:111
-msgid "File $SUBDIR$file removed from patch $patch"
+#: ../quilt/remove.in:115
+msgid "File %s removed from patch %s\\n"
 msgstr ""
 
 #: ../quilt/series.in:22
-msgid "Usage: quilt series [-n] [-v]"
+msgid "Usage: quilt series [-v]\\n"
 msgstr ""
 
 #: ../quilt/series.in:25
@@ -592,13 +566,11 @@ msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
 "\n"
-"-n\tPrint patch file names instead patch names.\n"
-"\n"
-"-v\tVerbose, more user friendly output."
+"-v\tVerbose, more user friendly output.\n"
 msgstr ""
 
 #: ../quilt/setup.in:27
-msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
+msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
 msgstr ""
 
 #: ../quilt/setup.in:30
@@ -608,23 +580,23 @@ msgid ""
 "\n"
 "-d\toptional path prefix (sub-directory).\n"
 "\n"
-"-v\tverbose debug output."
+"-v\tverbose debug output.\n"
 msgstr ""
 
-#: ../quilt/setup.in:95
-msgid "Directory $prefix$dir/$QUILT_PATCHES exists"
+#: ../quilt/setup.in:96
+msgid "Directory %s exists\\n"
 msgstr ""
 
-#: ../quilt/setup.in:100
-msgid "File $prefix$dir/series exists"
+#: ../quilt/setup.in:102
+msgid "File %s exists\\n"
 msgstr ""
 
-#: ../quilt/setup.in:149
-msgid "Unpacking archive $arg1"
+#: ../quilt/setup.in:151
+msgid "Unpacking archive %s\\n"
 msgstr ""
 
 #: ../quilt/snapshot.in:22
-msgid "Usage: quilt snapshot [-d]"
+msgid "Usage: quilt snapshot [-d]\\n"
 msgstr ""
 
 #: ../quilt/snapshot.in:25
@@ -635,22 +607,22 @@ msgid ""
 "popping patches.  A diff against the tree at the moment of the\n"
 "snapshot can be generated with \\`quilt diff --snapshot'.\n"
 "\n"
-"-d\tOnly remove current snapshot."
+"-d\tOnly remove current snapshot.\n"
 msgstr ""
 
 #: ../quilt/top.in:22
-msgid "Usage: quilt top"
+msgid "Usage: quilt top\\n"
 msgstr ""
 
 #: ../quilt/top.in:25
 msgid ""
 "\n"
 "Print the name of the topmost patch on the current stack of applied\n"
-"patches."
+"patches.\n"
 msgstr ""
 
 #: ../quilt/unapplied.in:22
-msgid "Usage: quilt unapplied [patch]"
+msgid "Usage: quilt unapplied [patch]\\n"
 msgstr ""
 
 #: ../quilt/unapplied.in:25
@@ -658,12 +630,10 @@ msgid ""
 "\n"
 "Print a list of patches that are not applied, or all patches that follow\n"
 "the specified patch in the series file.\n"
-"\n"
-"-n\tPrint patch file names instead of patch names."
 msgstr ""
 
 #: ../quilt/upgrade.in:25
-msgid "Usage: quilt upgrade"
+msgid "Usage: quilt upgrade\\n"
 msgstr ""
 
 #: ../quilt/upgrade.in:28
@@ -674,85 +644,89 @@ msgid ""
 "format\n"
 "has changed, and the working tree still contains old-format meta-data. In "
 "that\n"
-"case, quilt will request to run \\`quilt upgrade'."
+"case, quilt will request to run \\`quilt upgrade'.\n"
 msgstr ""
 
-#: ../quilt/upgrade.in:66
+#: ../quilt/upgrade.in:67
 msgid ""
-"The quilt meta-data in $QUILT_PC/ already are have format version "
-"$DB_VERSION; nothing to do"
+"The quilt meta-data in %s already are have format version %s; nothing to do"
+"\\n"
 msgstr ""
 
-#: ../quilt/upgrade.in:70
-msgid "Converting meta-data to version $DB_VERSION"
-msgstr ""
-
-#: ../quilt/upgrade.in:101
-msgid "Conversion failed"
+#: ../quilt/upgrade.in:71
+msgid "Converting meta-data to version %s\\n"
 msgstr ""
 
 #: ../quilt/upgrade.in:102
+msgid "Conversion failed\\n"
+msgstr ""
+
+#: ../quilt/upgrade.in:103
 msgid ""
 "\n"
 "Please remove all patches using \\`quilt pop -a' from the quilt version used "
-"to create this working tree, or remove the $QUILT_PC directory and apply the "
-"patches from scratch."
+"to create this working tree, or remove the %s directory and apply the "
+"patches from scratch.\\n"
 msgstr ""
 
 #: ../scripts/apatch.in:22
-msgid "Usage: $0 [-fqv] patchname"
+msgid "Usage: $0 [-fqv] patchname\\n"
 msgstr ""
 
 #: ../scripts/apatch.in:29
-msgid "Interrupted by user; patch $patch was not applied."
+msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:40
-msgid "Patch file $patch_file appears to be empty"
+#: ../scripts/apatch.in:41
+msgid "Patch %s appears to be empty\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:80
-msgid "Applying $patch"
+#: ../scripts/apatch.in:81
+msgid "Applying patch %s\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:116
-msgid "Patch $patch appears to be empty, applied"
+#: ../scripts/apatch.in:117
+msgid "Patch %s appears to be empty, applied\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:119
-msgid "Applied $patch (forced; needs refresh)"
+#: ../scripts/apatch.in:121
+msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:123
-msgid "Patch $patch does not apply (enforce with -f)"
+#: ../scripts/apatch.in:126
+msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: ../scripts/apatch.in:180 ../scripts/rpatch.in:178
-msgid "The topmost patch $top needs to be refreshed first."
+#: ../scripts/apatch.in:184
+msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:702
+#: ../scripts/patchfns.in:700
 msgid ""
-"The quilt meta-data in this tree has version $version, but this version of "
-"quilt can only handle meta-data formats up to and including version "
-"$DB_VERSION. Please pop all the patches using the version of quilt used to "
-"push them before downgrading."
+"The quilt meta-data in this tree has version %s, but this version of quilt "
+"can only handle meta-data formats up to and including version %s. Please pop "
+"all the patches using the version of quilt used to push them before "
+"downgrading.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:764
+#: ../scripts/patchfns.in:765
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
-"upgrade'."
+"upgrade'.\\n"
 msgstr ""
 
 #: ../scripts/rpatch.in:22
-msgid "Usage: $0 [-fRq] patchname"
+msgid "Usage: $0 [-fRq] patchname\\n"
 msgstr ""
 
 #: ../scripts/rpatch.in:100
-msgid "Patch $patch does not remove cleanly (enforce with -f)."
+msgid "Patch %s does not remove cleanly (enforce with -f)\\n"
 msgstr ""
 
-#: ../scripts/rpatch.in:122
-msgid "Removing $patch"
+#: ../scripts/rpatch.in:123
+msgid "Removing patch %s\\n"
+msgstr ""
+
+#: ../scripts/rpatch.in:179
+msgid "Patch %s needs to be refreshed first.\\n"
 msgstr ""

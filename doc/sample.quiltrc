@@ -8,6 +8,9 @@ QUILT_DIFF_OPTS="--show-c-function"
 # The directory in which patches are found (defaults to "patches").
 #QUILT_PATCHES=patches
 
+# Include the QUILT_PATCHES directory when printing patch names?
+QUILT_PATCHES_PREFIX=yes
+
 # Generate syntax-colored diffs without timestamps.
 QUILT_DIFF_ARGS="--color=auto --no-timestamps"
 

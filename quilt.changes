@@ -1,8 +1,25 @@
 -------------------------------------------------------------------
-Tue Jul  6 19:57:25 PDT 2004 - agruen@suse.de
+Tue Jul  6 18:58:00 CEST 2004 - agruen@suse.de
 
-- Fix the bash_completion by not using quilt internals, but the external
-  commands [Joe Green].
+- Switch from echo to printf for all translations: This is more
+  stable than having expansions in messages that might change
+  independent of the message.
+- Add print_patch function and always use it when printing patch
+  names. Remove -n options from various scripts and use a global
+  switch QUILT_PATCHES_PREFIX in .quiltrc to decide between patch
+  names with and without directory prefix. Depending on user
+  experience this switch may eventually go away.
+- Add --diffstat option to refresh command: If given, this option
+  inserts diffstat statistics at the end of the patch header, or
+  refreshes the existing diffstat output. No special tags in the
+  path file (%diffstat or the like) are needed.
+- Minor fix inserting changelog into RPM specfile.
+
+-------------------------------------------------------------------
+Tue Jul  6 19:57:25 PDT 2004 - mquinson@tuxfamily.org
+
+- Fix the bash_completion by not using quilt internals, but the
+  external commands [Joe Green].
 
 -------------------------------------------------------------------
 Sun Jul  4 04:29:25 CEST 2004 - agruen@suse.de

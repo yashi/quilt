@@ -9,10 +9,10 @@
 	< 5
 
 	$ quilt new test
-	> Patch test is now on top
+	> Patch %{P}test is now on top
 
 	$ quilt add test.txt
-	> File test.txt added to patch test
+	> File test.txt added to patch %{P}test
 
 	$ cat > test.txt
 	< 1

@@ -1,30 +1,30 @@
 	$ mkdir -p d/d
 	$ cd d
 	$ quilt new snapshot
-	> Patch snapshot is now on top
+	> Patch %{P}snapshot is now on top
 
 	$ cd d
 	$ quilt add f.txt
-	> File d/f.txt added to patch snapshot
+	> File d/f.txt added to patch %{P}snapshot
 	$ cat > f.txt
 	< f.txt
 
 	$ quilt add g.txt
-	> File d/g.txt added to patch snapshot
+	> File d/g.txt added to patch %{P}snapshot
 	$ cat > g.txt
 	< g.txt
 
 	$ quilt refresh
-	> Refreshed patch snapshot
+	> Refreshed patch %{P}snapshot
 	$ quilt snapshot
 	$ quilt fork
-	> Fork of snapshot created as snapshot-2
+	> Fork of patch %{P}snapshot created as %{P}snapshot-2
 
 	$ quilt remove g.txt
-	> File d/g.txt removed from patch snapshot-2
+	> File d/g.txt removed from patch %{P}snapshot-2
 
 	$ quilt add h.txt
-	> File d/h.txt added to patch snapshot-2
+	> File d/h.txt added to patch %{P}snapshot-2
 
 	$ cat > h.txt
 	< h.txt
@@ -33,7 +33,7 @@
 	< more changes
 
 	$ quilt refresh
-	> Refreshed patch snapshot-2
+	> Refreshed patch %{P}snapshot-2
 
 	$ quilt diff --snapshot | grep -v "^\\(---\\|+++\\)"
 	> Index: d/d/f.txt

@@ -19,13 +19,14 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt files [-v] [patch]"
+	printf $"Usage: quilt files [-v] [patch]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Print the list of files that the topmost or specified patch changes.
 
--v	Verbose, more user friendly output."
+-v	Verbose, more user friendly output.
+"
 		exit 0
 	else
 		exit 1
@@ -65,14 +66,14 @@ if [ -n "$opt_patch" ]
 then
 	if ! patch=$(find_patch $opt_patch)
 	then
-		echo $"Patch $1 is not in series" >&2
+		printf $"Patch %s is not in series\n" "$opt_patch" >&2
 		exit 1
 	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi
@@ -81,10 +82,11 @@ if ! is_applied $patch
 then
 	if [ -n "$opt_verbose" ]
 	then
-		echo $"Patch is not applied (no verbose output)" >&2
+		printf $"Patch %s is not applied (no verbose output)\n" \
+		       "$patch" >&2
 		opt_verbose=0
 	else
-		echo $"Patch is not applied" >&2
+		printf $"Patch %s is not applied\n" "$patch" >&2
 	fi
 fi
 

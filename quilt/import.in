@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt import [-f] [-p num] [-n patch] patchfile ..."
+	printf $"Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Import external patches.
 
 -p num
@@ -32,7 +32,8 @@ Import external patches.
 	Patch filename to use inside quilt. This option can only be
 	used when importing a single patch.
 
--f	Overwite/update existing patches."
+-f	Overwite/update existing patches.
+"
 		exit 0
 	else
 		exit 1
@@ -70,12 +71,13 @@ done
 
 if [ $# -gt 1 -a -n "$opt_patch" ]
 then
-	echo $"Option \`-n' can only be used when importing a single patch"
+	printf $"Option \`-n' can only be used when importing a single patch\n" >&2
 	exit 1
 fi
 
 [ -n "$opt_strip" ] && patch_args="-p$opt_strip"
 
+status=
 for patch_file in "$@"
 do
 	if [ -n "$opt_patch" ]
@@ -87,7 +89,7 @@ do
 
 	if is_applied $patch
 	then
-		echo $"Patch $patch is applied."
+		printf $"Patch %s is applied\n" "$patch" >&2
 		exit 1
 	fi
 
@@ -95,29 +97,37 @@ do
 	then
 		if [ -z "$opt_force" ]
 		then
-			echo $"Patch $patch exists. Replace with -f."
+			printf $"Patch %s exists. Replace with -f.\n" \
+			       "$(print_patch $patch)" >&2
 			exit 1
 		fi
-		echo $"Replacing patch $patch with new version"
+		printf $"Replacing patch %s with new version\n" \
+		       "$(print_patch $patch)" >&2
 	else
-		echo $"Importing patch $patch_file (stored as $patch)"
+		printf $"Importing patch %s (stored as %s)\n" \
+		       "$(print_patch $patch_file)" \
+		       "$(print_patch $patch)"
 	fi
 	dest=$QUILT_PATCHES/$patch
 	mkdir -p "${dest%/*}"
 	if ! cp "$patch_file" "$dest"
 	then
-		echo $"Failed to import patch $patch"
-		exit 1
+		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
+		status=1
 	fi
 
 	if ! patch_in_series $patch &&
 	   ! insert_in_series $patch "$patch_args"
 	then
-		echo $"Failed to insert $patch in file series."
+		printf $"Failed to insert patch %s into file series\n" \
+		       "$(print_patch $patch)" >&2
+		exit 1
 	fi
 
 	rm -rf $QUILT_PC/$patch
 done
+
+exit $status
 ### Local Variables:
 ### mode: shell-script
 ### End:

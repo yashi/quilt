@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt pop [-afRqv] [num|patch]"
+	printf $"Usage: quilt pop [-afRqv] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Remove patch(es) from the series file.  Without options, the topmost
 patch is removed.  When a number is specified, remove the specified
 number of patches.  When a patch name is specified, remove all patches
@@ -39,7 +39,8 @@ patches/ prefix, which means that filename completion can be used.
 
 -q	Quiet operation.
 
--v	Verbose operation."
+-v	Verbose operation.
+"
 		exit 0
 	else
 		exit 1
@@ -124,7 +125,7 @@ then
 	else
 		if ! stop_at_patch=$(find_patch $1)
 		then
-			echo $"Patch $1 is not in series" >&2
+			printf $"Patch %s is not in series\n" "$1" >&2
 			exit 1
 		fi
 	fi
@@ -145,7 +146,7 @@ if [ -n "$stop_at_patch" ]
 then
 	if ! is_applied $stop_at_patch
 	then
-		echo $"Patch $stop_at_patch is not applied."
+		printf $"Patch %s is not applied\n" "$(print_patch $2)" >&2
 		exit 1
 	fi
 fi
@@ -155,7 +156,7 @@ then
 	exit 1
 elif [ -z "$patches" ]
 then
-        echo $"No patch removed"
+        printf $"No patch removed\n" >&2
 	exit 2
 fi
 
@@ -169,7 +170,7 @@ do
 	fi
 	if [ -n "$interrupted" ]
 	then
-		echo $"Interrupted by user"
+		printf $"Interrupted by user\n" >&2
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo
@@ -178,14 +179,14 @@ done
 patch="$(top_patch)"
 if [ -z "$patch" ]
 then
-	echo $"No patches applied"
+	printf $"No patches applied\n"
 else
 	# Ensure that the files in the topmost patch have a link count
 	# of one: This will automatically be the case in the usual
 	# situations, but we don't want to risk file corruption in weird
 	# corner cases such as files added to a patch but not modified.
 	@LIB@/backup-files -L -s -B $QUILT_PC/$patch/ -
-	echo $"Now at patch $patch"
+	printf $"Now at patch %s\n" "$(print_patch $patch)"
 fi
 ### Local Variables:
 ### mode: shell-script

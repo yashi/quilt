@@ -1,10 +1,15 @@
-TESTS=$(wildcard *.test)
+TESTS=$(shell ls -tr *.test)
 
-all: $(patsubst %,_test_%,$(TESTS))
+export QUILTRC=$(CURDIR)/test.quiltrc
+ifneq ($(shell source $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
+export P=patches/
+endif
+$(warning P=$(P))
 
-.PHONY: $(patsubst %,_test_%,$(TESTS))
-$(patsubst %,_test_%,$(TESTS)):
-	@test=$(patsubst _test_%,%,$@); \
-	echo "[$$test]" ; \
-	export QUILTRC=$(CURDIR)/test.quiltrc ; \
-	./run $$test
+all: $(TESTS)
+
+.PHONY: $(TESTS)
+
+$(TESTS):
+	@echo "[$@]"
+	@./run $@

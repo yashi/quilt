@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.34],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.28 $)
+AC_REVISION ($Revision: 1.29 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -180,6 +180,26 @@ have a more recent version of patch then you can supply its path with the
 ])
 else
 	AC_MSG_RESULT(yes)
+fi
+
+dnl Check for diffstat
+AC_ARG_WITH(diffstat, AC_HELP_STRING(
+    [--with-diffstat], [name of the diffstat executable to use]),
+    [
+       DIFFSTAT="$withval"
+       AC_SUBST(DIFFSTAT)
+       AC_MSG_NOTICE([Using diffstat executable $DIFFSTAT])
+    ],[
+       AC_PATH_PROG(DIFFSTAT, diffstat)
+    ])
+if test -z "$DIFFSTAT"; then
+    AC_MSG_WARN([
+diffstat utility not found; the --diffstat option of the refresh command
+will not work correctly until diffstat is installed. If you have diffstat
+in a directory that is not in the search path you can specify its location
+using the '--with-diffstat' option.
+])
+    DIFFSTAT="diffstat"
 fi
 
 dnl Check for NLS

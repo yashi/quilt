@@ -19,14 +19,13 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt previous [-n] [patch]"
+	printf $"Usage: quilt previous [patch]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Print the name of the previous patch before the specified or topmost
 patch in the series file.
-
--n	Print patch file names instead of patch names."
+"
 		exit 0
 	else
 		exit 1
@@ -45,9 +44,6 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-n)
-		opt_filenames=1
-		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -63,7 +59,7 @@ elif [ $# -eq 1 ]
 then
 	if ! patch=$(find_patch $1)
 	then
-		echo $"Patch $1 is not in series" >&2
+		printf $"Patch %s is not in series\n" "$1" >&2
 		exit 1
 	fi
 else
@@ -73,8 +69,7 @@ fi
 previous=$(applied_before "$patch" | tail -n 1)
 if [ -n "$previous" ]
 then
-	[ -n "$opt_filenames" ] && previous=$(patch_file_name $previous)
-	echo "$previous"
+	echo "$(print_patch $previous)"
 else
 	exit 2
 fi

@@ -19,14 +19,15 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt fork [new_name]"
+	printf $"Usage: quilt fork [new_name]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Fork the topmost patch. If new_name is missing, the name of the
 forked patch will be the current patch name, followed by \"-2\".
 If the patch name already ends in a dash-and-number, the number is
-further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff)."
+further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).
+"
 		exit 0
 	else
 		exit 1
@@ -61,7 +62,7 @@ fi
 top_patch=$(top_patch)
 if [ -z "$top_patch" ]
 then
-	echo $"No patches applied" >&2
+	printf $"No patches applied\n" >&2
 	exit 1
 fi
 
@@ -87,7 +88,8 @@ if patch_in_series $new_patch || \
    [ -d "$QUILT_PC/$new_patch" ] || \
    [ -e "$(patch_file_name $new_patch)" ]
 then
-	echo $"Patch $new_patch exists already, please choose a new name"
+	printf $"Patch %s exists already, please choose a new name\n" \
+	       "$(print_patch $new_patch)" >&2
 	exit 1
 fi
 
@@ -98,11 +100,15 @@ if ! rename_in_db "$top_patch" "$new_patch" || \
      ! cp -p "$(patch_file_name $top_patch)" \
 	     "$(patch_file_name $new_patch)" )
 then
-	echo $"Fork of $top_patch to $new_patch failed" >&2
+	printf $"Fork of patch %s to patch %s failed\n" \
+	       "$(print_patch $top_patch)" \
+	       "$(print_patch $new_patch)" >&2
 	exit 1
 fi
 
-echo $"Fork of $top_patch created as $new_patch"
+printf $"Fork of patch %s created as %s\n" \
+       "$(print_patch $top_patch)" \
+       "$(print_patch $new_patch)"
 
 ### Local Variables:
 ### mode: shell-script

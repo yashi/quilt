@@ -27,8 +27,8 @@
 	< +This is file3.txt.
 
 	$ quilt push -q
-	> Applying patch1.diff
-	> Now at patch patch1.diff
+	> Applying patch %{P}patch1.diff
+	> Now at patch %{P}patch1.diff
 
 	$ quilt files
 	> file1.txt

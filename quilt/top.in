@@ -19,19 +19,20 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt top"
+	printf $"Usage: quilt top\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Print the name of the topmost patch on the current stack of applied
-patches."
+patches.
+"
 		exit 0
 	else
 		exit 1
 	fi
 }
 
-options=`getopt -o nh -- "$@"`
+options=`getopt -o h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -43,9 +44,6 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-n)
-		opt_filenames=1
-		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -60,10 +58,9 @@ then
 fi
 
 top=$(top_patch)
-[ -n "$opt_filenames" ] && top=$(patch_file_name $top)
 if [ -n "$top" ]
 then
-	echo "$top"
+	echo "$(print_patch $top)"
 else
 	exit 2
 fi

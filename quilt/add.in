@@ -19,17 +19,17 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt add [-p patch] {file} ..."
+	printf $"Usage: quilt add [-p patch] {file} ...\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Add one or more files to the topmost or named patch.  Files must be
 added to the patch before being modified.  Files that are modified by
 patches already applied on top of the specified patch cannot be added.
 
 -p patch
-	Patch to add files to."
-
+	Patch to add files to.
+"
 		exit 0
 	else
 		exit 1
@@ -51,7 +51,7 @@ do
 	-p)
 		if ! patch=$(find_patch $2)
 		then
-			echo $"Patch $2 is not in series" >&2
+			printf $"Patch %s is not in series\n" "$2" >&2
 			exit 1
 		fi
 		shift 2 ;;
@@ -72,14 +72,14 @@ if [ -n "$patch" ]
 then
 	if ! is_applied $patch
 	then
-		echo $"Patch $patch is not applied" >&2
+		printf $"Patch %s is not applied\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi
@@ -89,21 +89,23 @@ for file in $*
 do
 	if file_in_patch $SUBDIR$file $patch
 	then
-		echo $"File $SUBDIR$file is already in patch $patch"
+		printf $"File %s is already in patch %s\n" \
+		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		status=2
 		continue
 	fi
 	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
 	if [ -n "$next_patch" ]
 	then
-		echo $"File $SUBDIR$file modified by patch $next_patch"
+		printf $"File %s modified by patch %s\n" \
+		       "$SUBDIR$file" "$(print_patch $next_patch)" >&2
 		status=1
 		continue
 	fi
 
 	if ! @LIB@/backup-files -b -s -L -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
-		echo $"Failed to back up file $SUBDIR$file" >&2
+		printf $"Failed to back up file %s\n" "$SUBDIR$file" >&2
 		status=1
 		continue
 	fi
@@ -114,7 +116,8 @@ do
 		chmod u+w $SUBDIR$file
 	fi
 
-	echo $"File $SUBDIR$file added to patch $patch"
+	printf $"File %s added to patch %s\n" \
+	       "$SUBDIR$file" "$(print_patch $patch)" >&2
 done
 exit $status
 ### Local Variables:

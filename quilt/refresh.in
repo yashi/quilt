@@ -19,11 +19,11 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--backup] [patch]"
+	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] [patch]\n"
 	
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Refreshes the specified patch, or the topmost patch by default.
 Documentation that comes before the actual patch in the patch file is
 retained.
@@ -46,10 +46,15 @@ patch.
 --no-timestamps
 	Do not include file timestamps in patch headers.
 	
+--diffstat
+	Add a diffstat section to the patch header, or replace the
+	existing diffstat section.
+
 -f	Enforce refreshing of a patch that is not on top.
 
 --backup
-	Create a backup copy of the old version of a patch as patch~."
+	Create a backup copy of the old version of a patch as patch~.
+"
 		exit 0
 	else
 		exit 1
@@ -59,12 +64,13 @@ patch.
 die ()
 {
 	local status=$1
-	[ -n "$tmpfile" ] && rm -f $tmpfile
-	[ -n "$tmpfile2" ] && rm -f $tmpfile2
+	[ -n "$tmp_patch" ] && rm -f $tmp_patch
+	[ -n "$tmp_header" ] && rm -f $tmp_header
+	[ -n "$tmp_result" ] && rm -f $tmp_result
 	exit $status
 }
 
-options=`getopt -o p:uU:cC:fh --long no-timestamps,backup -- "$@"`
+options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -94,6 +100,9 @@ do
 	--no-timestamps)
 		QUILT_NO_DIFF_TIMESTAMPS=1
 		shift ;;
+	--diffstat)
+		opt_diffstat=1
+		shift ;;
 	--backup)
 		QUILT_BACKUP=1
 		shift ;;
@@ -117,19 +126,21 @@ if [ -n "$opt_patch" ]
 then
 	if ! patch=$(find_patch $opt_patch)
 	then
-		echo $"Patch $opt_patch is not in series" >&2
+		printf $"Patch %s is not in series\n" \
+		       "$(print_patch $opt_patch)" >&2
 		exit 1
 	fi
 	if ! is_applied "$patch"
 	then
-		echo $"Patch $patch is not applied" >&2
+		printf $"Patch %s is not applied\n" \
+		       "$(print_patch $patch)" >&2
 		exit 1
 	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi
@@ -140,13 +151,13 @@ then
 fi
 if [ $opt_strip_level -gt 1 ]
 then
-	echo $"Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 instead" >&2
+	printf $"Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\n" "$opt_strip_level\n" >&2
 	exit 1
 fi
 
 trap "die 1" SIGTERM
 
-tmpfile=$(gen_tempfile)
+tmp_patch=$(gen_tempfile)
 
 for file in $(files_in_patch_ordered $patch)
 do
@@ -159,22 +170,22 @@ do
 		new_file=$(backup_file_name $next_patch $file)
 		files_were_shadowed=1
 	fi
-	if ! diff_file $file $old_file $new_file >> $tmpfile
+	if ! diff_file $file $old_file $new_file >> $tmp_patch
 	then
-		echo $"Diff failed, aborting." >&2
+		printf $"Diff failed, aborting\n" >&2
 		die 1
 	fi
 
 	if [ -n "$files_were_shadowed" -a -z "$opt_force" ]
 	then
-		echo $"More recent patches modify files in $patch. Enforce refresh with -f." >&2
+		printf $"More recent patches modify files in patch %s. Enforce refresh with -f.\n" "$(print_patch $patch)" >&2
 		die 1
 	fi
 done
 
-if ! [ -s $tmpfile ]
+if ! [ -s $tmp_patch ]
 then
-	echo $"Nothing in patch $patch" >&2
+	printf $"Nothing in patch %s\n" "$(print_patch $patch)" >&2
 	die 1
 fi
 
@@ -182,30 +193,66 @@ patch_file=$(patch_file_name $patch)
 
 trap "" SIGINT
 
-if ! tmpfile2=$(gen_tempfile)
+if ! tmp_header=$(gen_tempfile)
 then
 	die 1
 fi
 
 mkdir -p $(dirname $patch_file)
 
-if ! cat_file $patch_file \
-     | patch_description > $tmpfile2 || \
-   ! cat $tmpfile >> $tmpfile2
+if ! cat_file $patch_file | patch_description > $tmp_header
 then
 	die 1
 fi
 
-if [ -e $patch_file ] && \
-   @DIFF@ -q $patch_file $tmpfile2 > /dev/null
+tmp_result=$(gen_tempfile) || die 1
+
+if [ -n "$opt_diffstat" ]
 then
-	echo $"Patch $patch is unchanged"
+	diffstat="$(@DIFFSTAT@ $tmp_patch)" || die 1
+	awk '
+	    function print_diffstat(arr, i) {
+	      split(diffstat, arr, "\n")
+	      for (i in arr)
+		print prefix arr[i]
+	    }
+	    BEGIN	{ split(diffstat, ds_arr, /\n/) }
+			{ prefix=""
+			  if (index($0, "#") == 1)
+			    prefix="#"
+			}
+	    /.*\|.*/	{ eat = eat $0 "\n"
+			  next }
+	    /.* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
+			{ print_diffstat()
+			  diffstat = "" ; eat = ""
+			  next }
+			{ print eat $0
+			  eat = "" }
+	    END		{ printf "%s", eat
+	    		  if (diffstat != "") {
+			    print_diffstat()
+			    print prefix
+			  }
+			}
+	    ' diffstat="$diffstat"$ \
+	    $tmp_header > $tmp_result
+else
+	cat $tmp_header > $tmp_result
+fi
+
+cat $tmp_patch >> $tmp_result
+
+if [ -e $patch_file ] && \
+    @DIFF@ -q $patch_file $tmp_result > /dev/null
+then
+	printf $"Patch %s is unchanged\n" "$patch"
 	exit 0
 fi
 
 if ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \
      ! cp $patch_file $patch_file~ ) || \
-   ! cat_to_file $patch_file < $tmpfile2
+   ! cat_to_file $patch_file < $tmp_result
 then
 	die 1
 fi
@@ -213,7 +260,7 @@ fi
 touch $QUILT_PC/$patch/.timestamp
 
 rm -f $QUILT_PC/$patch~refresh
-echo $"Refreshed patch $patch"
+printf $"Refreshed patch %s\n" "$(print_patch $patch)"
 if ! change_db_strip_level -p$opt_strip_level $patch
 then
 	die 1

@@ -19,14 +19,15 @@ fi
 
 usage()
 {
-	echo $"Usage: $0 [-fqv] patchname"
+	printf $"Usage: $0 [-fqv] patchname\n"
 	exit 1
 }
 
 interrupt()
 {
 	rollback_patch $1
-	echo $"Interrupted by user; patch $patch was not applied."
+	printf $"Interrupted by user; patch %s was not applied.\n" \
+	       "$(print_patch $patch)" >&2
 	exit 1
 }
 
@@ -37,7 +38,7 @@ apply_patch()
 
 	if ! [ -s $patch_file ]
 	then
-		echo $"Patch file $patch_file appears to be empty"
+		printf $"Patch %s appears to be empty\n" "$patch_file"
 		return 0
 	fi
 	
@@ -77,7 +78,7 @@ apatch()
 	local patch=$1
 	local file status
 
-	echo $"Applying $patch"
+	printf $"Applying patch %s\n" "$(print_patch $patch)"
 	trap "interrupt $patch" SIGINT
 
 	output="$(apply_patch $patch)"
@@ -113,14 +114,17 @@ apatch()
 
 		if [ "$(shopt -s nullglob ; echo $QUILT_PC/$patch/*)" = "" ]
 		then
-			echo $"Patch $patch appears to be empty, applied"
+			printf $"Patch %s appears to be empty, applied\n" \
+			       "$(print_patch $patch)"
 		elif [ $status -ne 0 ]
 		then
-			echo $"Applied $patch (forced; needs refresh)"
+			printf $"Applied patch %s (forced; needs refresh)\n" \
+			       "$(print_patch $patch)"
 		fi
 	else
 		rollback_patch $patch
-		echo $"Patch $patch does not apply (enforce with -f)"
+		printf $"Patch %s does not apply (enforce with -f)\n" \
+		       "$(print_patch $patch)"
 		status=1
 	fi
 	trap - SIGINT
@@ -177,7 +181,8 @@ patch=$1
 top=$(top_patch)
 if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]
 then
-	echo $"The topmost patch $top needs to be refreshed first."
+	printf $"The topmost patch %s needs to be refreshed first.\n" \
+	       "$(print_patch $top)"
 	exit 1
 fi
 

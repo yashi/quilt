@@ -19,12 +19,13 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt new {patchname}"
+	printf $"Usage: quilt new {patchname}\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Create a new patch with the specified file name, and insert it after the
-topmost patch in the patch series file."
+topmost patch in the patch series file.
+"
 		exit 0
 	else
 		exit 1
@@ -60,14 +61,15 @@ patch=${1#$QUILT_PATCHES/}
 
 if [ -n "$SUBDIR" ]
 then
-	echo $"Warning: directory $(echo $SUBDIR | sed -e 's:[^/]\+:..:g')$QUILT_PATCHES exists; ignoring"
+	printf $"Warning: directory %s exists; ignoring\n" \
+	       "$(echo $SUBDIR | sed -e 's:[^/]\+:..:g')$QUILT_PATCHES" >&2
 	cd $SUBDIR
 	unset SUBDIR
 fi
 
 if patch_in_series $patch
 then
-	echo $"Patch $patch exists already"
+	printf $"Patch %s exists already\n" "$(print_patch $patch)" >&2
 	exit 1
 fi
 
@@ -78,10 +80,10 @@ mkdir -p "$QUILT_PC/$patch"
 if ! insert_in_series $patch || \
    ! add_to_db $patch
 then
-	echo $"Failed to create patch $patch"
+	printf $"Failed to create patch %s\n" "$(print_patch $patch)" >&2
 	exit 1
 else
-	echo $"Patch $patch is now on top"
+	printf $"Patch %s is now on top\n" "$(print_patch $patch)"
 fi
 ### Local Variables:
 ### mode: shell-script

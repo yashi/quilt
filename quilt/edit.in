@@ -10,12 +10,13 @@
 
 usage()
 {
-	echo $"Usage: quilt edit file ..."
+	printf $"Usage: quilt edit file ...\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Edit the specified file(s) in $EDITOR after adding it (them) to the
-topmost patch."
+topmost patch.
+"
 		exit 0
 	else
 		exit 1

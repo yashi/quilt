@@ -19,15 +19,14 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt series [-n] [-v]"
+	printf $"Usage: quilt series [-v]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Print the names of all patches in the series file.
 
--n	Print patch file names instead patch names.
-
--v	Verbose, more user friendly output."
+-v	Verbose, more user friendly output.
+"
 		exit 0
 	else
 		exit 1
@@ -42,12 +41,11 @@ cat_patches()
 
 	for patch in "$@"
 	do
-		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
-		echo "$prefix$patch"
+		echo "$prefix$(print_patch $patch)"
 	done
 }
 
-options=`getopt -o nvh -- "$@"`
+options=`getopt -o vh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -61,9 +59,6 @@ opt_what=here
 while true
 do
 	case "$1" in
-	-n)
-		opt_filenames=1
-		shift ;;
 	-v)
 		opt_verbose=1
 		shift ;;

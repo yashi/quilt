@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
+	printf $"Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Apply patch(es) from the series file.  Without options, the next patch
 in the series file is applied.  When a number is specified, apply the
 specified number of patches.  When a patch name is specified, apply
@@ -45,7 +45,8 @@ be used.
 --interactive
 	Allow the patch utility to ask how to deal with conflicts. If
 	this option is not given, the option -f will be passed to the 
-	patch program."
+	patch program.
+"
 		exit 0
 	else
 		exit 1
@@ -83,7 +84,8 @@ list_patches()
 		done
 		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
 		then
-			echo $"Patch $stop_at_patch not found in file series" >&2
+			printf $"Patch %s not found in file series\n" \
+			       "$stop_at_patch" >&2
 			return 1
 		fi
 	fi
@@ -140,7 +142,7 @@ then
 	else
 		if ! stop_at_patch=$(find_patch $1)
 		then
-			echo $"Patch $1 is not in series" >&2
+			printf $"Patch %s is not in series\n" "$1" >&2
 			exit 1
 		fi
 	fi
@@ -163,7 +165,8 @@ if [ -n "$stop_at_patch" ]
 then
 	if is_applied $stop_at_patch
 	then
-		echo $"Patch $stop_at_patch is already applied."
+		printf $"Patch %s is already applied\n" \
+		       "$(print_patch $stop_at_patch)" >&2
 		exit 1
 	fi
 fi
@@ -176,18 +179,18 @@ then
 	top=$(top_patch)
 	if [ -z "$top" ]
 	then
-		echo $"No patches applied"
+		printf $"No patches applied\n" >&2
 		exit 2
 	elif [ -z "$(patch_file_name $top)" ]
 	then
-		echo -e \
-$"The topmost patch $top is not in the series file anymore;
+		printf \
+$"The topmost patch %s is not in the series file anymore;
 cannot determine the next patch from the series file.
-Please pop -f the top patch and check your series file."
+Please pop -f the top patch and check your series file.\n" "$top" >&2
 		exit 1
 
 	else
-		echo $"File series fully applied, ends at patch $top"
+		printf $"File series fully applied, ends at patch %s\n" "$top" >&2
 		exit 2
 	fi
 fi
@@ -203,7 +206,7 @@ do
 	fi
 	if [ -n "$interrupted" ]
 	then
-		echo $"Interrupted by user"
+		printf $"Interrupted by user\n" >&2
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo
@@ -212,9 +215,9 @@ done
 patch="$(top_patch)"
 if [ -z "$patch" ]
 then
-	echo $"No patches applied"
+	printf $"No patches applied\n"
 else
-	echo $"Now at patch $patch"
+	printf $"Now at patch %s\n" "$(print_patch $patch)"
 fi
 ### Local Variables:
 ### mode: shell-script

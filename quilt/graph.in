@@ -19,11 +19,11 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]"
+	printf $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]\n"
 
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Generate a dot(1) directed graph showing the dependencies between
 applied patches. A patch depends on another patch if both touch the same
 file or, with the --lines option, if their modifications overlap. Unless
@@ -49,7 +49,8 @@ patch.
 	Label graph edges with the file names that the adjacent patches
 	modify.
 
--T ps	Directly produce a PostScript output file."
+-T ps	Directly produce a PostScript output file.
+"
 		exit 0
 	else
 		exit 1
@@ -112,12 +113,12 @@ if [ $# -eq 1 ]
 then
 	if ! patch=$(find_patch $1)
 	then
-		echo $"Patch $1 is not in series" >&2
+		printf $"Patch %s is not in series\n" "$1" >&2
 		exit 1
 	fi
 	if ! is_applied $patch
 	then
-		echo $"Patch $patch is not applied" >&2
+		printf $"Patch %s is not applied\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
 fi
@@ -127,7 +128,7 @@ then
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi

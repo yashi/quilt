@@ -24,15 +24,16 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
+	printf $"Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Initializes a source tree from an rpm spec file or a quilt series file.
 
 -d	optional path prefix (sub-directory).
 
--v	verbose debug output."
+-v	verbose debug output.
+"
 		exit 0
 	else
 		exit 1
@@ -92,12 +93,13 @@ check_for_existing_files() {
 	do
 		if [ -e "$prefix$dir/$QUILT_PATCHES" ]
 		then
-			echo $"Directory $prefix$dir/$QUILT_PATCHES exists" >&2
+			printf $"Directory %s exists\n" \
+			       "$prefix$dir/$QUILT_PATCHES" >&2
 			status=1
 		fi
 		if [ -e "$prefix$dir/series" ]
 		then
-			echo $"File $prefix$dir/series exists" >&2
+			printf $"File %s exists\n" "$prefix$dir/series" >&2
 			status=1
 		fi
 	done
@@ -146,7 +148,7 @@ do
 	mkdir -p "$prefix$dir"
 	case "$tag" in
 	tar)
-		echo $"Unpacking archive $arg1"
+		printf $"Unpacking archive %s\n" "$arg1"
 		cat_file "$arg1" \
 		| tar xf - -C "$prefix$dir"
 		;;

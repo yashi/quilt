@@ -6,10 +6,10 @@
 	< old file
 
 	$ quilt new test.patch
-	> Patch test.patch is now on top
+	> Patch %{P}test.patch is now on top
 
 	$ quilt add subdir/file
-	> File subdir/file added to patch test.patch
+	> File subdir/file added to patch %{P}test.patch
 
 	$ cat > subdir/file
 	< new contents
@@ -17,11 +17,11 @@
 	This creates the patches/ directory:
 
 	$ quilt refresh
-	> Refreshed patch test.patch
+	> Refreshed patch %{P}test.patch
 
 	$ cd subdir
 	$ quilt add file2
-	> File subdir/file2 added to patch test.patch
+	> File subdir/file2 added to patch %{P}test.patch
 
 	$ cat > file2
 	< another file
@@ -30,7 +30,7 @@
 	< yet another file
 
 	$ quilt add file3
-	> File subdir/file3 added to patch test.patch
+	> File subdir/file3 added to patch %{P}test.patch
 
 	$ rm file3
 	$ quilt files
@@ -60,10 +60,10 @@
 	> -yet another file
 
 	$ quilt refresh
-	> Refreshed patch test.patch
+	> Refreshed patch %{P}test.patch
 
 	$ quilt remove file2
-	> File subdir/file2 removed from patch test.patch
+	> File subdir/file2 removed from patch %{P}test.patch
 
 	$ quilt files
 	> subdir/file

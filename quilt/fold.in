@@ -19,10 +19,10 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt fold [-p strip-level]"
+	printf $"Usage: quilt fold [-p strip-level]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Integrate the patch read from standard input into the topmost patch:
 After making sure that all files modified are part of the topmost
 patch, the patch is applied with the specified strip level (which
@@ -30,7 +30,8 @@ defaults to 1).
 
 -p strip-level
 	The number of pathname components to strip from file names
-	when applying patchfile."
+	when applying patchfile.
+"
 
 		exit 0
 	else
@@ -75,7 +76,7 @@ fi
 top=$(top_patch)
 if [ -z "$top" ]
 then
-	echo $"No patches applied"
+	printf $"No patches applied\n" >&2
 fi
 
 trap "failed=1" SIGINT
@@ -111,7 +112,7 @@ then
 		file="${file:${#workdir}+1}"
 		if ! mv -f "$workdir/$file" "$file"
 		then
-			echo $"File $file may be corrupted"
+			printf $"File %s may be corrupted\n" "$file" >&2
 		fi
 	done
 	rm -rf $workdir

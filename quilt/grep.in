@@ -19,17 +19,18 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt grep [-h|options] {pattern}"
+	printf $"Usage: quilt grep [-h|options] {pattern}\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Grep through the source files, recursively, skipping patches and quilt
 meta-information. If no filename argument is given, the whole source
 tree is searched. Please see the grep(1) manual page for options.
 
 -h	Print this help. The grep -h option can be passed after a
 	double-dash (--). Search expressions that start with a dash
-	can be passed after a second double-dash (-- --)."
+	can be passed after a second double-dash (-- --).
+"
 
 		exit 0
 	else

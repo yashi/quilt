@@ -19,15 +19,16 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt remove [-p patch] {file} ..."
+	printf $"Usage: quilt remove [-p patch] {file} ...\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Remove one or more files from the topmost or named patch.  Files that
 are modified by patches on top of the specified patch cannot be removed.
 
 -p patch
-	Patch to remove files from."
+	Patch to remove files from.
+"
 		exit 0
 	else
 		exit 1
@@ -49,7 +50,7 @@ do
 	-p)
 		if ! patch=$(find_patch $2)
 		then
-			echo $"Patch $2 is not in series" >&2
+			printf $"Patch %s is not in series\n" "$2" >&2
 			exit 1
 		fi
 		shift 2 ;;
@@ -70,14 +71,14 @@ if [ -n "$patch" ]
 then
 	if ! is_applied $patch
 	then
-		echo $"Patch $patch is not applied" >&2
+		printf $"Patch %s is not applied\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
 else
 	patch=$(top_patch)
 	if [ -z "$patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		exit 1
 	fi
 fi
@@ -87,7 +88,8 @@ for file in $*
 do	
 	if ! file_in_patch $SUBDIR$file $patch
 	then
-		echo $"File $SUBDIR$file is not in patch $patch"
+		printf $"File %s is not in patch %s\n" \
+		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		status=1
 		continue
 	fi
@@ -95,7 +97,8 @@ do
 	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
 	if [ -n "$next_patch" ]
 	then
-		echo $"File $SUBDIR$file modified by patch $next_patch"
+		printf $"File %s modified by patch %s\n" \
+		       "$SUBDIR$file" "$(print_patch $next_patch)"
 		status=1
 		continue
 	fi
@@ -103,12 +106,14 @@ do
 	# Restore file from backup
 	if ! @LIB@/backup-files -b -s -B $QUILT_PC/$patch/ -r $SUBDIR$file
 	then
-		echo $"Failed to remove file $SUBDIR$file from patch $patch"
+		printf $"Failed to remove file %s from patch %s\n" \
+		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		status=1
 		continue
 	fi
 	
-	echo $"File $SUBDIR$file removed from patch $patch"
+	printf $"File %s removed from patch %s\n" \
+	       "$SUBDIR$file" "$(print_patch $patch)"
 done
 exit $status
 ### Local Variables:

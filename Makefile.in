@@ -197,7 +197,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 		  s/^(...) \s (...) \s (.\d) \s (\d\d:\d\d:\d\d) \s \
 		     ([A-Z]+|[-+]\d{4}) \s (\d\d\d\d) \s - \s (.+) \
 		   /* $$1 $$2 $$3 $$6 - $$7/x || \
-		  m/^(- |  )(?!\s)/ \
+		  m/^(- |  +)(?!\s)/ \
 		  and print \
 		) or die "Syntax error in line $$. of changelog:\n$$_\n"; \
 	' $(PACKAGE).changes \

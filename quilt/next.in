@@ -19,21 +19,20 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt next [patch]"
+	printf $"Usage: quilt next [patch]\n"
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Print the name of the next patch after the specified or topmost patch in
 the series file.
-
--n	Print patch file names instead of patch names."
+"
 		exit 0
 	else
 		exit 1
 	fi
 }
 
-options=`getopt -o nh -- "$@"`
+options=`getopt -o h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -45,9 +44,6 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-n)
-		opt_filenames=1
-		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -63,7 +59,7 @@ elif [ $# -eq 1 ]
 then
 	if ! patch=$(find_patch $1)
 	then
-		echo $"Patch $1 is not in series" >&2
+		printf $"Patch %s is not in series\n" "$1" >&2
 		exit 1
 	fi
 else
@@ -78,8 +74,7 @@ else
 fi
 if [ -n "$next" ]
 then
-	[ -n "$opt_filenames" ] && next=$(patch_file_name $next)
-	echo "$next"
+	echo "$(print_patch $next)"
 else
 	exit 2
 fi

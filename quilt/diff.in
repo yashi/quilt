@@ -19,11 +19,11 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--color] [file ...]"
+	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--color] [file ...]\n"
 	
 	if [ x$1 = x-h ]
 	then
-		echo $"
+		printf $"
 Produces a diff of the specified file(s) in the topmost or specified
 patch.  If no files are specified, all files that are modified are
 included.
@@ -60,7 +60,8 @@ included.
 	is invoked with the original and new file name as arguments.
 
 --color[=always|auto|never]
-	Use syntax coloring."
+	Use syntax coloring.
+"
 		exit 0
 	else
 		exit 1
@@ -144,7 +145,7 @@ do
 	-P)
 		if ! last_patch=$(find_patch $2)
 		then
-			echo $"Patch $2 is not in series" >&2
+			printf $"Patch %s is not in series\n" "$2" >&2
 			exit 1
 		fi
 		shift 2 ;;
@@ -155,7 +156,8 @@ do
 			first_patch=-
 		elif ! first_patch=$(find_patch $2)
 		then
-			echo $"Patch $2 is not in series" >&2
+			printf $"Patch %s is not in series\n" \
+			       "$(print_patch $2)" >&2
 			exit 1
 		fi
 		shift 2 ;;
@@ -208,8 +210,7 @@ opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
 
 if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
-	echo \
-$"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined."
+	printf $"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined.\n" >&2
 	die 1
 fi
 
@@ -217,14 +218,15 @@ if [ -n "$last_patch" ]
 then
 	if ! is_applied "$last_patch"
 	then
-		echo $"Patch $last_patch is not applied" >&2
+		printf $"Patch %s is not applied\n" \
+		       "$(print_patch $last_patch)" >&2
 		die 1
 	fi
 else
 	last_patch=$(top_patch)
 	if [ -z "$last_patch" ]
 	then
-		echo $"No patches applied" >&2
+		printf $"No patches applied\n" >&2
 		die 1
 	fi
 fi
@@ -235,7 +237,8 @@ then
 fi
 if [ "$opt_strip_level" != 0 -a "$opt_strip_level" != 1 ]
 then
-	echo $"Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 instead" >&2
+	printf $"Cannot diff patches with -p%s, please specify -p0 or -p1 instead\n" \
+	       "$opt_strip_level" >&2
 	die 1
 fi
 
@@ -269,7 +272,9 @@ then
 		done
 		if [ $# -eq 0 ]
 		then
-			echo $"Patch $first_patch not applied before $last_patch."
+			printf $"Patch %s not applied before patch %s\n" \
+			       "$(print_patch $first_patch)" \
+			       "$(print_patch $last_patch)" >&2
 			die 1
 		fi
 	fi
@@ -303,13 +308,14 @@ then
 
 	if ! cd $QUILT_PC/$last_patch
 	then
-		echo $"Cannot change into $QUILT_PC/$last_patch"
+		printf $"Cannot change into directory %s\n" \
+		       "$QUILT_PC/$last_patch" >&2
 		die 1
 	fi
 	if [ ${#files[@]} -gt 0 ] \
 	   && ! cp -l --parents "${files[@]}" $workdir/
 	then
-		echo $"Failed to copy files to temporary directory"
+		printf $"Failed to copy files to temporary directory\n" >&2
 		die 1
 	fi
 	# Now we may have some zero-size files that have no permissions
@@ -320,7 +326,7 @@ then
 
 	if ! cd $workdir
 	then
-		echo $"Cannot change to temporary directory"
+		printf $"Cannot change to temporary directory\n" >&2
 		die 1
 	fi
 	
@@ -339,13 +345,13 @@ then
 			if [ ! -e $pwd/$QUILT_PC/$last_patch~refresh -a \
 			       ${#opt_files[@]} -eq 0 ]
 			then
-				echo $"Failed to patch temporary files" >&2
+				printf $"Failed to patch temporary files\n" >&2
 			fi
 		fi
 	fi
 	if ! cd $pwd
 	then
-		echo $"Cannot change to source directory"
+		printf $"Cannot change to source directory\n" >&2
 		die 1
 	fi
 fi
@@ -363,7 +369,7 @@ do
 		if [ -z "$patch" ]
 		then
 			[ -z "$opt_snapshot" ] \
-			&& echo $"File $file is not being modified."
+			&& printf $"File %s is not being modified\n" "$file" >&2
 			continue
 		fi
 		old_file="$(backup_file_name $patch $file)"
@@ -383,14 +389,15 @@ do
 
 	if [ $? -ne 0 ]
 	then
-		echo $"Diff failed, aborting." >&2
+		printf $"Diff failed, aborting\n" >&2
 		die 1
 	fi
 done
 
 if [ -n "$files_were_shadowed" ]
 then
-	echo $"More recent patches modify files in $last_patch."
+	printf $"More recent patches modify files in patch %s\n" \
+	       "$(print_patch $last_patch)" >&2
 	die 1
 fi
 die 0

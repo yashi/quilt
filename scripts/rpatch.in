@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: $0 [-fRq] patchname"
+	printf $"Usage: $0 [-fRq] patchname\n"
 	exit 1
 }
 
@@ -59,7 +59,7 @@ check_for_pending_changes()
 		if ! rmdir $workdir ||  # note that this is racey...
 		   ! cp -rl $QUILT_PC/$patch $workdir/
 		then
-			echo $"Failed to copy files to temporary directory"
+			printf $"Failed to copy files to temporary directory\n" >&2
 			rm -rf $workdir
 			return 1
 		fi
@@ -82,7 +82,7 @@ check_for_pending_changes()
 		then
 			if ! [ -e $QUILT_PC/$patch ]
 			then
-				echo $"Failed to patch temporary files" >&2
+				printf $"Failed to patch temporary files\n" >&2
 				rm -rf $workdir
 				return 1
 			fi
@@ -97,7 +97,8 @@ check_for_pending_changes()
 	
 	if [ -s $remains ]
 	then
-		echo $"Patch $patch does not remove cleanly (enforce with -f)."
+		printf $"Patch %s does not remove cleanly (enforce with -f)\n" \
+		       "$(print_patch $patch)" >&2
 		status=1
 	fi
 	rm -f $remains
@@ -119,7 +120,7 @@ rpatch()
 
 	if [ $status -eq 0 ]
 	then
-		echo $"Removing $patch"
+		printf $"Removing patch %s\n" "$(print_patch $patch)"
 		rm -f "$QUILT_PC/$patch/.timestamp"
 		@LIB@/backup-files $silent -r -B $QUILT_PC/$patch/ -
 		status=$?
@@ -175,7 +176,8 @@ patch=$1
 top=$(top_patch)
 if [ -n "$top" -a -e $QUILT_PC/$top~refresh -a -z "$opt_force" ]
 then
-	echo $"The topmost patch $top needs to be refreshed first."
+	printf $"Patch %s needs to be refreshed first.\n" \
+	       "$(print_patch $top)" >&2
 	exit 1
 fi
 

@@ -16,24 +16,24 @@
 
 
 	$ quilt push
-	> Applying p.diff
+	> Applying patch %{P}p.diff
 	> patching file f
 	> Hunk #1 FAILED at 1.
 	> 1 out of 1 hunk FAILED -- rejects in file f
 	> patching file g
-	> Patch p.diff does not apply (enforce with -f)
+	> Patch %{P}p.diff does not apply (enforce with -f)
 
 	$ quilt push -f
-	> Applying p.diff
+	> Applying patch %{P}p.diff
 	> patching file f
 	> Hunk #1 FAILED at 1.
 	> 1 out of 1 hunk FAILED -- saving rejects to file f.rej
 	> patching file g
-	> Applied p.diff (forced; needs refresh)
+	> Applied patch %{P}p.diff (forced; needs refresh)
 
 	$ echo new > f
 	$ quilt refresh
-	> Refreshed patch p.diff
+	> Refreshed patch %{P}p.diff
 	$ cat patches/p.diff | sed -e "s/\\t.*//"
 	> Index: d/f
 	> ===================================================================

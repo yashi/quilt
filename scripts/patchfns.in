@@ -64,8 +64,6 @@ dirname()
 
 patch_file_name()
 {
-	local patch=$1
-
 	echo "$QUILT_PATCHES/$1"
 }
 
@@ -601,7 +599,7 @@ patch_description()
 			{ eat = eat $0 "\n"
 			  next }
 			{ print eat $0
-			  eat="" }
+			  eat = "" }
 		' $patch_file
 	fi
 }
@@ -699,7 +697,7 @@ version_check() {
 		version="$(< $QUILT_PC/.version)"
 		if [ "$version" -gt $DB_VERSION ]
 		then
-			echo $"The quilt meta-data in this tree has version $version, but this version of quilt can only handle meta-data formats up to and including version $DB_VERSION. Please pop all the patches using the version of quilt used to push them before downgrading." >&2
+			printf $"The quilt meta-data in this tree has version %s, but this version of quilt can only handle meta-data formats up to and including version %s. Please pop all the patches using the version of quilt used to push them before downgrading.\n" "$version" "$DB_VERSION" >&2
 			exit 1
 		elif [ "$version" = $DB_VERSION ]
 		then
@@ -709,6 +707,9 @@ version_check() {
 	return 1
 }
 
+print_patch() {
+	echo -n "${QUILT_PATCHES_PREFIX:+$QUILT_PATCHES/}$1"
+}
 
 #
 # If the working directory does not contain a $QUILT_PATCHES directory,
@@ -761,7 +762,7 @@ DB="$QUILT_PC/applied-patches"
 
 if [ -z "$skip_version_check" ] && ! version_check
 then
-	echo $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'." >&2
+	prinf $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'.\n" >&2
 	exit 1
 fi
 ### Local Variables:
