@@ -74,12 +74,12 @@ debian/stamp-patched:
 	fi
 	# quilt exits with 2 as return when there was nothing to do. 
 	# That's not an error here (but it's usefull to break loops in crude scripts)
-	$(DEB_QUILT_CMD) push -a || test $$? == 2
+	$(DEB_QUILT_CMD) push -a || test $$? = 2
 	touch debian/stamp-patched
 
 reverse-patches:
 	if [ -d "$(DEB_SRCDIR)" ] ; then \
-	  $(DEB_QUILT_CMD) pop -a -R || test $$? == 2 ; \
+	  $(DEB_QUILT_CMD) pop -a -R || test $$? = 2 ; \
 	fi 
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then \
