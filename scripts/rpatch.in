@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: $0 [-fRq] patchname\n"
+	printf $"Usage: %s [-fRq] patchname\n" "$0"
 	exit 1
 }
 
