@@ -87,7 +87,7 @@ if [ $# -gt 1 ]
 then
 	usage
 fi
-last_patch=$1
+last_patch=$(find_patch $1)
 
 if [ -n "$last_patch" ]
 then

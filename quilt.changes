@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan 21 13:49:30 CET 2005 - agruen@suse.de
+
+- Add a missing find_patch call in the files command.
+
+-------------------------------------------------------------------
 Thu Jan 20 12:36:25 CET 2005 - mquinson@debian.org
 
 - fix the bash completion file: 
