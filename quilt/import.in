@@ -24,10 +24,9 @@ usage()
 	then
 		echo $"
 
-Import an external patch. If a patch file name is specified,
-the patch will be stored in this relative path in the patches/
-directory. Else, if an input file name is given this name is
-used as the patch name.
+Import an external patch.  If a patch file name is specified, the patch
+will be stored in this relative path in the patches/ directory.  Else,
+if an input file name is given this name is used as the patch name.
 
 -p num
 	Number of directory levels to strip when aplying (default=1)

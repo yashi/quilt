@@ -24,11 +24,10 @@ usage()
 	then
 		echo $"
 
-Apply patch(es) from the series file. A number of patches
-to apply, or a patch name can be specified. If a patch
-name is given, apply all patches up to and including the
-named patch. If neither a number nor a patch name is
-specified, apply the next patch from the series file.
+Apply patch(es) from the series file.  A number of patches to apply, or
+a patch name can be specified.  If a patch name is given, apply all
+patches up to and including the named patch.  If neither a number nor a
+patch name is specified, apply the next patch from the series file.
 
 -a	Apply all patches in the series file.
 
@@ -39,8 +38,8 @@ specified, apply the next patch from the series file.
 -v	Verbose operation.
 
 --leave-rejects
-	Leave around the reject files patch produced, even if
-	the patch is not actually applied.
+	Leave around the reject files patch produced, even if the patch
+	is not actually applied.
 	
 "
 		exit 0

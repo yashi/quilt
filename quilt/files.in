@@ -24,8 +24,7 @@ usage()
 	then
 		echo $"
 
-Print the list of files that the topmost or specified patch
-changes.
+Print the list of files that the topmost or specified patch changes.
 
 -v	Verbose, more user friendly output.
 

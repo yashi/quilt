@@ -24,9 +24,9 @@ usage()
 	then
 		echo $"
 
-Initializes a source tree from a patch series file. The
-patch series file must contain the name of the relevant
-tar archive, in addition to the list of patches.
+Initializes a source tree from a patch series file.  The patch series
+file must contain the name of the relevant tar archive, in addition to
+the list of patches.
 
 "
 		exit 0

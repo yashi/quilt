@@ -24,8 +24,8 @@ usage()
 	then
 		echo $"
 
-Create a new patch with the specified file name, and insert
-it after the topmost patch in the patch series file.
+Create a new patch with the specified file name, and insert it after the
+topmost patch in the patch series file.
 
 "
 		exit 0

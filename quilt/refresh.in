@@ -31,16 +31,16 @@ usage()
 		echo $"
 
 Refreshes the specified patch, or the topmost patch by default.
-Documentation that comes before the actual patch in the patch file
-is retained.
+Documentation that comes before the actual patch in the patch file is
+retained.
 
-It is possible to refresh patches that are not on top.  If any
-patches on top of the patch to refresh modify the same files, the
-script aborts by default. Patches can still be refreshed with -f.
-In that case this script will print a warning for each shadowed
-file, changes by more recent patches will be ignored, and only
-changes in files that have not been modified by any more recent
-patches will end up in the specified patch.
+It is possible to refresh patches that are not on top.  If any patches
+on top of the patch to refresh modify the same files, the script aborts
+by default.  Patches can still be refreshed with -f.  In that case this
+script will print a warning for each shadowed file, changes by more
+recent patches will be ignored, and only changes in files that have not
+been modified by any more recent patches will end up in the specified
+patch.
 
 -p n	Create a -p n style patch (-p0 or -p1 supported).
 	

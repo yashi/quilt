@@ -24,8 +24,8 @@ usage()
 	then
 		echo $"
 
-Remove the specified or topmost patch from the series file. If the 
-patch is applied, quilt will attempt to remove it first. (Only the 
+Remove the specified or topmost patch from the series file.  If the
+patch is applied, quilt will attempt to remove it first. (Only the
 topmost patch can be removed right now.)"
 
 		exit 0

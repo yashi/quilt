@@ -30,24 +30,24 @@ usage()
 	then
 		echo $"
 
-Produces a diff of the specified file(s) in the topmost or
-specified patch. If no files are specified, all files that
-are modified are included.
+Produces a diff of the specified file(s) in the topmost or specified
+patch.  If no files are specified, all files that are modified are
+included.
 
 -p n	Create a -p n style patch (-p0 or -p1 are supported).
 
 -P patch
-	Create a diff for the specified patch. (Defaults to
-	the topmost patch.)
+	Create a diff for the specified patch.  (Defaults to the topmost
+	patch.)
 
 -c patch
-	Create a combined diff for all patches between this
-	patch and the patch specified with -P.
+	Create a combined diff for all patches between this patch and
+	the patch specified with -P.
 
 -R	Create a reverse diff.
 
--z	Write to standard output the changes that have been
-	made relative to the topmost or specified patch.
+-z	Write to standard output the changes that have been made
+	relative to the topmost or specified patch.
 
 "
 		exit 0
