@@ -83,6 +83,7 @@ do_diff()
 die ()
 {
 	local status=$1
+	[ -e "$tmp_files" ] && rm -f $tmp_files
 	[ -n "$workdir" ] && rm -rf $workdir
 	exit $status
 }
@@ -106,7 +107,8 @@ do
 		last_patch=$(stripit $2)
 		shift 2 ;;
 	-c)
-		opt_combine=$(stripit $2)
+		opt_combine=1
+		first_patch=$(stripit $2)
 		shift 2 ;;
 	-R)
 		opt_reverse=1
@@ -118,7 +120,7 @@ do
 		usage -h ;;
 	--snapshot)
 		opt_snapshot=1
-		snap_dir=.pc/.snap0
+		snap_subdir=.snap
 		shift ;;
 	--diff)
 		opt_diff="$2"
@@ -131,9 +133,9 @@ done
 
 opt_files=( "$@" )
 
-if [ -n "$opt_combine" -a -n "$opt_relative" ]
+if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
-	echo $"Options \`-c patch' and \`-z' cannot be combined."
+	echo $"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined."
 	die 1
 fi
 
@@ -163,84 +165,60 @@ then
 	die 1
 fi
 
+trap "die 1" SIGTERM
+
+tmp_files=$(gen_tempfile)
+exec 4> $tmp_files  # open $tmp_files
+
 if [ -n "$opt_snapshot" -a ${#opt_files[@]} -eq 0 ]
 then
 	# Add all files in the snapshot into the file list (they may all
 	# have changed).
 	while read file
 	do
-		patches[${#patches[@]}]="-"
-		file="${file#$snap_dir/}"
-		files[${#files[@]}]="$file"
+		echo "${file#.pc/$snap_subdir/}" >&4
 	done \
-	< <(find $snap_dir -type f)
+	< <(find .pc/$snap_subdir -type f)
 	# Also look at all patches that are currently applied.
-	opt_combine="$(applied_patches | head -n 1)"
-
-	# The patches-per-file cache is buggy -- it should best go away
-	# completely.
-	rm -f .pc/patches-per-file
+	opt_combine=1
+	first_patch="$(applied_patches | head -n 1)"
 fi
 
 if [ -n "$opt_combine" ]
 then
-	if ! refresh_patches_per_file
-	then
-		echo $"refresh_patches_per_file failed."
-		die 1
-	fi
-	
 	set -- $(patches_before $last_patch) $last_patch
-	if [ "x$opt_combine" != "x-" ]
+	if [ "$first_patch" != "-" ]
 	then
-		while [ $# -ge 1 -a "$1" != "$opt_combine" ]
+		while [ $# -ge 1 -a "$1" != "$first_patch" ]
 		do
 			shift
 		done
 		if [ $# -eq 0 ]
 		then
-			echo $"Patch $opt_combine not applied before $last_patch."
+			echo $"Patch $first_patch not applied before $last_patch."
 			die 1
 		fi
 	fi
-	
-	while read file first garbage
-	do
-		if [ ${#opt_files[@]} -gt 0 ] && \
-		   ! in_array "$file" "${opt_files[@]}"
-		then
-			continue
-		fi
-		in_array "$file" "${files[@]}" && continue
-		patches[${#patches[@]}]="$first"
-		files[${#files[@]}]="$file"
-	done \
-	< <(modified_files -- "$@")
+	patches=( $@ )
 else
-	for file in $(files_in_patch $last_patch)
+	patches=( $last_patch )
+fi
+
+for patch in ${patches[@]}
+do
+	for file in $(files_in_patch $patch)
 	do
 		if [ ${#opt_files[@]} -gt 0 ] && \
 		   ! in_array "$file" "${opt_files[@]}"
 		then
 			continue
 		fi
-		in_array "$file" "${files[@]}" && continue
-		files[${#files[@]}]="$file"
-	done
-fi
+		echo "$file" >&4
+	done < <(files_in_patch $patch)
+done
 
-if [ ${#opt_files[@]} -gt 0 -a -z "$opt_snapshot" ]
-then
-	for file in "${opt_files[@]}"
-	do
-		if ! in_array "$file" "${files[@]}"
-		then
-			echo $"File $file is not being modified."
-		fi
-	done
-fi
-
-trap "die 1" SIGTERM
+exec 4>&-  # close $tmp_files
+files=( $(sort -u $tmp_files) )
 
 if [ -n "$opt_relative" ]
 then
@@ -291,19 +269,23 @@ then
 	fi
 fi
 
-for ((i=0; i<${#files[@]}; i++))
+for file in "${files[@]}"
 do
-	file="${files[$i]}"
-	first_patch=${patches[$i]:-$last_patch}
-
-	if [ -n "$opt_snapshot" -a -e "$snap_dir/$file" ]
+	if [ -n "$opt_snapshot" -a -e ".pc/$snap_subdir/$file" ]
 	then
-		old_file="$snap_dir/$file"
-	elif [ -z "$opt_relative" ]
+		old_file=".pc/$snap_subdir/$file"
+	elif [ -n "$opt_relative" ]
 	then
-		old_file="$(backup_file_name $first_patch $file)"
-	else
 		old_file="$workdir/$file"
+	else
+		patch="$(first_modified_by $file ${patches[@]})"
+		if [ -z "$patch" ]
+		then
+			[ -z "$opt_snapshot" ] \
+			&& echo $"File $file is not being modified."
+			continue
+		fi
+		old_file="$(backup_file_name $patch $file)"
 	fi
 
 	next_patch=$(next_patch_for_file $last_patch $file)

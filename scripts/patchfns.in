@@ -718,6 +718,27 @@ gen_tempfile()
 	fi
 	@MKTEMP@ $dir ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX
 }
+
+first_modified_by()
+{
+	local file=$1 patch
+	local -a patches
+	if [ $# -eq 0 ]
+	then
+		patches=( $(applied_patches) )
+	else
+		shift
+		patches=( "$@" )
+	fi
+	for patch in ${patches[@]}
+	do
+		if [ -f ".pc/$patch/$file" ]
+		then
+			echo $patch
+		fi
+	done
+	return 1
+}
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -63,7 +63,7 @@ then
 	usage
 fi
 
-snap_dir=.pc/.snap0
+snap_dir=.pc/.snap
 
 # Clean up from previous snapshot
 rm -rf $snap_dir
