@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.30\n"
-"PO-Revision-Date: 2004-05-27 11:28-0700\n"
+"PO-Revision-Date: 2004-06-01 10:21-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,19 +13,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../bin/quilt.in:15
-msgid "Usage: quilt command [-h] ..."
-msgstr "Usage : quilt commande [-h] ..."
+msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+msgstr "Usage : quilt [--trace] [--quiltrc=XX] commande [-h] ..."
 
-#: ../bin/quilt.in:27
+#: ../bin/quilt.in:17
 msgid "Commands are:"
 msgstr "Les commandes sont :"
+
+#: ../bin/quilt.in:22
+msgid ""
+"\n"
+"Common options to all commands:\n"
+"\n"
+"--trace\n"
+"\tRuns the command in bash trace mode (-x). For internal debugging.\n"
+"\t\n"
+"--quiltrc file\n"
+"\tUse the specified configuration file instead of ~/.quiltrc. \n"
+"\tSee pdf documentation for details about its possible content."
+msgstr ""
+"\n"
+"Options communes à toutes les commandes :\n"
+"\n"
+"--trace\n"
+"\tLance la commande en mode trace de bash (-x). Pour le debug interne.\n"
+"\t\n"
+"--quiltrc fichier\n"
+"\tUtilise le fichier de configuration spécifié au lieu de ~/.quiltrc.\n"
+"\tVoir la documentation pdf pour plus de détail sur son contenu \n"
+"\tpotentiel."
 
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ..."
 msgstr "Usage : quilt add [-p patch] {fichier} ..."
 
 #: ../quilt/add.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Add one or more files to the topmost or named patch.  Files must be\n"
@@ -325,7 +347,6 @@ msgid "Usage: quilt fork [new_name]"
 msgstr "Usage : quilt fork [{nouveau_nom}]"
 
 #: ../quilt/fork.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Fork the topmost patch. If new_name is missing, the name of the\n"
@@ -334,7 +355,7 @@ msgid ""
 "further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff)."
 msgstr ""
 "\n"
-"Fork (c-à-d duplique) le patch suivant dans la pile.\n"
+"Fork (c-à-d duplique) le patch au sommet.\n"
 "Si {nouveau_nom} n'est pas spécifié, il s'agira du nom actuel du patch \n"
 "dupliqué suivi de «-2». Si le nom du patch se termine déjà par\n"
 "un tiret et un nombre, ce nombre sera incrémenté. (ex: patch.diff,\n"
@@ -496,7 +517,6 @@ msgid "Usage: quilt pop [-afRqv] [num|patch]"
 msgstr "Usage : quilt pop [-afRqv] [num|patch]"
 
 #: ../quilt/pop.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the series file.  Without options, the topmost\n"
@@ -518,14 +538,12 @@ msgid ""
 "-v\tVerbose operation."
 msgstr ""
 "\n"
-"Retire un ou plusieurs patches de la pile. Si aucun argument n'est\n"
-"spécifié, le patch au sommet est retiré. Si un nombre est passé en "
-"argument,\n"
-"cela indique la quantité de patchs à retirer. Si un nom de patch est\n"
-"spécifié, il est retiré ainsi que tous ceux placés avant lui dans la\n"
-"série. Le nom des patchs peut contenir le préfix patches/ de façon à "
-"pouvoir\n"
-"profiter de la complétion sur le nom de fichier.\n"
+"Retire un ou plusieurs patches de la pile. Si aucun argument n'est \n"
+"spécifié, le patch au sommet est retiré. Si un nombre est passé en\n"
+"argument, cela indique la quantité de patchs à retirer. Si un nom \n"
+"de patch est spécifié, il est retiré ainsi que tous ceux placés avant\n"
+"lui dans la série. Le nom des patchs peut contenir le préfix patches/\n"
+"de façon à pouvoir profiter de la complétion sur le nom de fichier.\n"
 "\n"
 "-a\tRetire tous les patches de la série.\n"
 "\n"
@@ -578,7 +596,6 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 
 #: ../quilt/push.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -782,34 +799,36 @@ msgstr ""
 "-v\tAffichage verbeux, plus simple à lire."
 
 #: ../quilt/setup.in:27
-#, fuzzy
-msgid "Usage: quilt setup [-d path-prefix] [-v] specfile"
-msgstr ""
-"Usage : quilt setup [-d répertoire_source] {fichier_séries|fichier_spec}"
+msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
+msgstr "Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
 
 #: ../quilt/setup.in:30
 msgid ""
 "\n"
-"Initializes a source tree from an rpm spec file.\n"
+"Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
 "-d\toptional path prefix (sub-directory).\n"
 "\n"
 "-v\tverbose debug output."
 msgstr ""
+"\n"
+"Initialise un arbre de sources à partir d'un fichier de spécification rpm, ou d'un fichier de série quilt.\n"
+"\n"
+"-d\tpréfix de chemin optionel (sous-répertoire).\n"
+"\n"
+"-v\taffichage verbeux pour le debug."
 
 #: ../quilt/setup.in:95
 msgid "Directory $prefix$dir/$QUILT_PATCHES exists"
-msgstr ""
+msgstr "Le répertoire $prefix$dir/$QUILT_PATCHES existe"
 
 #: ../quilt/setup.in:100
-#, fuzzy
 msgid "File $prefix$dir/series exists"
-msgstr "Le fichier $packagedir existe."
+msgstr "Le fichier $prefix$dir/series existe."
 
-#: ../quilt/setup.in:148
-#, fuzzy
+#: ../quilt/setup.in:149
 msgid "Unpacking archive $arg1"
-msgstr "Désarchivage depuis $source/$arg"
+msgstr "Désarchivage de $arg1"
 
 #: ../quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]"
@@ -915,106 +934,3 @@ msgstr "Le patch $patch semble vide. Il a été retiré."
 #: ../scripts/rpatch.in:131
 msgid "Removing $patch"
 msgstr "Retrait de $patch"
-
-#~ msgid "All patches applied"
-#~ msgstr "Tous les patches sont appliqués"
-
-#~ msgid ""
-#~ "\n"
-#~ "Import an external patch.  If a patch file name is specified, the patch\n"
-#~ "will be stored in this relative path in the patches/ directory.  Else,\n"
-#~ "if an input file name is given this name is used as the patch name.\n"
-#~ "\n"
-#~ "-p num\n"
-#~ "\tNumber of directory levels to strip when aplying (default=1)\n"
-#~ "\n"
-#~ "-n patch\n"
-#~ "\tFile name relative to patches/ to use.\n"
-#~ "\n"
-#~ "-f\tOverwite/update existing patches."
-#~ msgstr ""
-#~ "\n"
-#~ "Importe un patch externe. Si le nom de fichier spécifié est un chemin, "
-#~ "il\n"
-#~ "est relatif au répertoire patches/. Si aucun nom de fichier n'est donné, "
-#~ "le\n"
-#~ "patch sera stocké dans un fichier du même nom que le fichier d'entrée.\n"
-#~ "\n"
-#~ "-p num\n"
-#~ "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
-#~ "\tpatch (1 par défaut).\n"
-#~ "\n"
-#~ "-n patch\n"
-#~ "\tNom de fichier (relatif à patches/) à utiliser.\n"
-#~ "\n"
-#~ "-f\tÉcrase/met à jour les patchs existants."
-
-#~ msgid "Please use -n to specify a patch file name."
-#~ msgstr "Veuillez utiliser -n pour spécifier un nom de fichier de patch."
-
-#~ msgid ""
-#~ "\n"
-#~ "Initializes a source tree from a patch series file.  The patch series\n"
-#~ "file must contain the name of the relevant tar archive, in addition to\n"
-#~ "the list of patches.\n"
-#~ "\n"
-#~ "-d\tThe directory that contains the archives and patches. Defaults\n"
-#~ "\tto the directory of the series/spec file.\n"
-#~ "\n"
-#~ "-l\tMake the patches directory a symbolic link. If a series file is\n"
-#~ "\tspecified, also create a symlink to the series file."
-#~ msgstr ""
-#~ "\n"
-#~ "Initialise une arborescence source à partir d'un fichier de série de "
-#~ "patches. \n"
-#~ "Ce fichier doit contenir le nom de l'archive tar correspondante en plus "
-#~ "de \n"
-#~ "la liste des patches.\n"
-#~ "\n"
-#~ "-d\tLe répertoire contenant l'archive et les patches.\n"
-#~ "\tIl s'agit du répertoire du fichier series/spec par défaut.\n"
-#~ "\n"
-#~ "-l\tFait que le répertoire des patches soit un lien symbolique. Si un\n"
-#~ "\tfichier de série est également spécifié, crèe également un lien \n"
-#~ "\tsymbolique pour ce fichier."
-
-#~ msgid "Series file $series_file not found"
-#~ msgstr "Fichier de série $series_file introuvable"
-
-#~ msgid "Reading sources from $arg"
-#~ msgstr "Lecture des sources depuis $arg"
-
-#~ msgid "Directory $packagedir exists already."
-#~ msgstr "Le répertoire $packagedir existe déjà."
-
-#~ msgid "Creating link to patches directory $arg"
-#~ msgstr "Création d'un lien vers le répertoire de patches $arg"
-
-#~ msgid "Copying patch $source/$arg"
-#~ msgstr "Copie du patch $source/$arg"
-
-#~ msgid "File $packagedir/series exists; will not override."
-#~ msgstr "Le fichier $packagedir/series existe ; il ne sera pas écrasé."
-
-#~ msgid "Copying series file"
-#~ msgstr "Copie du fichier de série"
-
-#~ msgid "Creating link to series file $arg"
-#~ msgstr "Création d'un lien vers le fichier de série $arg"
-
-#~ msgid "Directory $packagedir set up."
-#~ msgstr "Le répertoire $packagedir est configuré."
-
-#~ msgid " done"
-#~ msgstr " fini"
-
-#~ msgid ""
-#~ "\n"
-#~ "Take a snapshot of the current working state.\n"
-#~ "\n"
-#~ "-d\tRemove current snapshot."
-#~ msgstr ""
-#~ "\n"
-#~ "Crée un instantané (snapshot) de l'état actuel des travaux.\n"
-#~ "\n"
-#~ "-d\tEfface l'instantané actuel."
