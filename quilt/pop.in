@@ -26,9 +26,9 @@ usage()
 
 Remove patch(es) from the current stack. A number of
 patches to remove, or a patch name can be specified. If a
-patch name is given, remove all patches up to and
-including the named patch. If neither a number nor a patch
-name is specified, remove the next patch from the series file.
+patch name is given, remove all patches applied on top of the
+named patch. If neither a number nor a patch name is specified,
+remove the next patch from the series file.
 
 -a	Remove all patches in the series file.
 
