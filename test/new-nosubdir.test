@@ -4,7 +4,7 @@
 	$ mkdir patches sub
 	$ cd sub
 	$ quilt new here.diff
-	> Warning: directory ../../patches exists; ignoring
+	> Warning: directory ../patches exists; ignoring
 	> Patch here.diff is now on top
 
 	$ cd ../..
