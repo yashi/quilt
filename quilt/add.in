@@ -115,7 +115,7 @@ do
 			# now, create a copy to make sure nothing
 			# happens to the original file.
 			tmpfile=$(gen_tempfile $file) &&
-			cp -f $file $tmpfile &&
+			cp -fp $file $tmpfile &&
 			mv -f $tmpfile $file
 			rm -f $tmpfile
 		fi

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 20 13:22:18 CEST 2003 - agruen@suse.de
+
+- Preserve permissions of files added with `quilt add'.
+
+-------------------------------------------------------------------
 Sun May 18 15:23:03 CEST 2003 - agruen@suse.de
 
 - Do not add the whole /usr/share/locale directory to the RPM
