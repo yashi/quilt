@@ -33,7 +33,7 @@ fi
 %setup
 
 %build
-configure
+./configure
 make prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 
 %install
@@ -45,6 +45,7 @@ make install prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 /usr/bin/quilt
 
 /usr/share/quilt/
+/usr/lib/quilt/
 
 %doc /usr/share/man/man1/guards.1.gz
 %doc doc/README

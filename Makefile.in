@@ -32,7 +32,7 @@ DIRT +=		$(shell find -name '*~')
 
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
 		configure.ac config/install-sh \
-		quilt.spec.in quilt.spec quilt.changes
+		quilt.spec.in quilt.changes
 DIRT +=		quilt.spec
 
 BIN_IN :=	quilt guards
@@ -109,14 +109,14 @@ bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
 
-$(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure
+$(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(VERSION) $@
 	ln -s . $(PACKAGE)-$(VERSION)
 	tar chf - $(+:%=$(PACKAGE)-$(VERSION)/%) | gzip -9 > $@
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
-$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure
+$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(ISODATE) $@
 	ln -s . $(PACKAGE)-$(ISODATE)
 	tar chf - $(+:%=$(PACKAGE)-$(ISODATE)/%) | bzip2 -9 > $@
@@ -125,6 +125,45 @@ $(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure
 
 configure : configure.ac
 	autoconf
+
+$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
+		  scripts/parse-patch
+	@echo "Generating spec file"
+	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
+	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
+	    < $< > $@
+	@perl -ne ' \
+		m/^(|-+)$$/ and next; \
+		( \
+		  s/^(...) \s (...) \s (.\d) \s (\d\d:\d\d:\d\d) \s \
+		     ([A-Z]+|[-+]\d{4}) \s (\d\d\d\d) \s - \s (.+) \
+		   /* $$1 $$2 $$3 $$6 - $$7/x || \
+		  m/^(- |  )(?!\s)/ \
+		  and print \
+		) or die "Syntax error in line $$. of changelog:\n$$_\n"; \
+	' $(PACKAGE).changes \
+	| scripts/parse-patch -u changelog $@
+
+% : %.in
+	@echo "$< -> $@"
+	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
+	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
+	     -e 's:@SCRIPTS''@:$(SCRIPTS_DIR):g' \
+	     -e 's:@PERL''@:$(PERL):g' \
+	     -e 's:@BASH''@:$(BASH):g' \
+	     -e 's:@DIFF''@:$(DIFF):g' \
+	     -e 's:@PATCH''@:$(PATCH):g' \
+	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
+	     -e 's:@GUIDIFF''@:$(GUIDIFF):g' \
+	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
+	     -e 's:@VERSION''@:$(VERSION):g' \
+	     -e 's:@RELEASE''@:$(RELEASE):g' \
+	     $< > $@
+	@chmod --reference=$< $@
+
+Makefile.in : Makefile
+	echo "Please run ./configure by hand"
+	false
 
 install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
@@ -148,44 +187,9 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
 	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 
-$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
-		  scripts/parse-patch
-	@echo "Generating spec file"
-	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
-	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
-	    < $< > $@
-	@perl -ne ' \
-		m/^(|-+)$$/ and next; \
-		( \
-		  s/^(...) \s (...) \s (.\d) \s (\d\d:\d\d:\d\d) \s \
-		     (...) \s (\d\d\d\d) \s - \s (.+) \
-		   /* $$1 $$2 $$3 $$6 - $$7/x || \
-		  m/^(- |  )(?!\s)/ \
-		  and print \
-		) or die "Syntax error in line $$. of changelog:\n$$_\n"; \
-	' $(PACKAGE).changes \
-	| scripts/parse-patch -u changelog $@
-
 clean :
 	rm -f $(DIRT)
 	
 distclean : clean
 	rm -f config.log config.status Makefile
 	rm -rf autom4te.cache/
-
-% : %.in
-	@echo "$< -> $@"
-	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
-	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
-	     -e 's:@SCRIPTS''@:$(SCRIPTS_DIR):g' \
-	     -e 's:@PERL''@:$(PERL):g' \
-	     -e 's:@BASH''@:$(BASH):g' \
-	     -e 's:@DIFF''@:$(DIFF):g' \
-	     -e 's:@PATCH''@:$(PATCH):g' \
-	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
-	     -e 's:@GUIDIFF''@:$(GUIDIFF):g' \
-	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
-	     -e 's:@VERSION''@:$(VERSION):g' \
-	     -e 's:@RELEASE''@:$(RELEASE):g' \
-	     $< > $@
-	@chmod --reference=$< $@
