@@ -69,14 +69,18 @@ CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), quilt
 
 CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), patchutils
 
-evil_patches_that_do_nasty_things := $(shell\
-if lsdiff=which lsdiff ; then \
-  $$lsdiff -H $(DEB_PATCHES) \
-  | egrep "/config\.(guess|sub|rpath)$" | tr "\n" " " ; \
+evil_patches_that_do_nasty_things := $(shell \
+if lsdiff=`which lsdiff` ; then \
+  patchlist=`$(DEB_QUILT_CMD) series \
+               | sed 's|^|$(if $(DEB_QUILT_PATCHDIR_LINK),$(DEB_QUILT_PATCHDIR_LINK)/)|' \
+               | tr "\n" " "`; \
+  if [ "x$$patchlist" != x ] ; then \
+    $$lsdiff -H $$patchlist \
+    | egrep "/config\.(guess|sub|rpath)$$" | tr "\n" " " ; \
+  fi;\
 fi)
-
 ifneq (, $(evil_patches_that_do_nasty_things))
-$(warning WARNING:  The following patches are modifying auto-updated files. This can result in serious trouble:  $(evil_patches_that_do_nasty_things))
+$(warning WARNING:  The following patches are modifying auto-updated files.  This can result in serious trouble:  $(evil_patches_that_do_nasty_things))
 endif
 
 
@@ -86,8 +90,10 @@ clean:: reverse-patches
 
 # The patch subsystem
 apply-patches: pre-build debian/stamp-patched
-debian/stamp-patched: 
-	$(MAKE) -f debian/rules reverse-config # must be first
+debian/stamp-patched:
+	# reverse-config must be first
+	$(MAKE) -f debian/rules reverse-config
+	
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
 	    (cd $(DEB_SRCDIR); ln -s $(DEB_PATCHDIRS) $(DEB_QUILT_PATCHDIR_LINK)) ; \
@@ -97,10 +103,14 @@ debian/stamp-patched:
 	# That's not an error here (but it's usefull to break loops in crude scripts)
 	$(DEB_QUILT_CMD) push -a || test $$? = 2
 	touch debian/stamp-patched
-	$(MAKE) -f debian/rules reverse-config # must be last
+	
+	$(MAKE) -f debian/rules update-config
+	# update-config must be first
 
 reverse-patches:
-	$(MAKE) -f debian/rules reverse-config # must be first
+	# reverse-config must be first
+	$(MAKE) -f debian/rules reverse-config
+	
 	if [ -d "$(DEB_SRCDIR)" ] ; then \
 	  $(DEB_QUILT_CMD) pop -a -R || test $$? = 2 ; \
 	fi 
@@ -111,6 +121,8 @@ reverse-patches:
 	fi
 	rm -rf $(DEB_SRCDIR)/.pc
 	rm -f debian/stamp-patch*
-	$(MAKE) -f debian/rules reverse-config # must be last
+	
+	$(MAKE) -f debian/rules update-config
+	# update-config must be first
 
 endif
