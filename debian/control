@@ -16,14 +16,14 @@ Description: Tool to work with series of patches
  each of them makes. They are logically organized as a stack, and you can
  apply, un-apply, refresh them easily by traveling into the stack (push/pop).
  .
- Quilt is good for managing additional packages applied to to a package
- received as a tarball or maintained in another version control system. The
- stacked organization proved to be efficient for the management of very
- large patch sets (more than hundred patches). As matter of fact, it was
- designed by and for linux kernel hackers (Andrew Morton, from the -mm
- branch, is the original author), and its main use by the current upstream
- maintainer is to manage the (hundreds of) patches against the kernel made
- for the SUSE distribution. 
+ Quilt is good for managing additional patches applied to a package received
+ as a tarball or maintained in another version control system. The stacked
+ organization proved to be efficient for the management of very large patch
+ sets (more than hundred patches). As matter of fact, it was designed by and
+ for linux kernel hackers (Andrew Morton, from the -mm  branch, is the
+ original author), and its main use by the current upstream maintainer is to
+ manage the (hundreds of) patches against the kernel made for the SUSE
+ distribution. 
  .
  This package completely integrates into the CDBS, allowing maintainers
  using this new paradigm for their packaging script to benefit of the quilt
