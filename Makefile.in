@@ -90,7 +90,7 @@ DIRT +=		$(MAN1)
 #
 #SRC +=		$(DEBIAN:%=debian/%)
 
-LINGUAS :=	fr de
+LINGUAS :=	fr de ja
 PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo

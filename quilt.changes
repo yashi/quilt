@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Aug 14 18:26:24 CEST 2004 - agruen@suse.de
+
+- Add Japanese translation from
+  Yasushi SHOJI <yashi@atmark-techno.com>. Thank you.
+
+-------------------------------------------------------------------
 Fri Aug 13 19:49:59 CEST 2004 - agruen@suse.de
 
 - setup command: detect errors when running ``rpm -bp'' and

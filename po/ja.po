@@ -1,0 +1,1010 @@
+# Quilt japanese translation
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Yasushi SHOJI <yashi@atmark-techno.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: quilt 0.33\n"
+"PO-Revision-Date: 2004-08-14 07:06+0900\n"
+"Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
+"Language-Team: Quilt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../bin/quilt.in:20
+msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+msgstr "使い方: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+
+#: ../bin/quilt.in:22
+msgid "Commands are:"
+msgstr "コマンド一覧:"
+
+#: ../bin/quilt.in:27
+msgid ""
+"\n"
+"Common options to all commands:\n"
+"\n"
+"--trace\n"
+"\tRuns the command in bash trace mode (-x). For internal debugging.\n"
+"\n"
+"--quiltrc file\n"
+"\tUse the specified configuration file instead of ~/.quiltrc. \n"
+"\tSee pdf documentation for details about its possible content."
+msgstr ""
+"\n"
+"全コマンド共通オプション:\n"
+"\n"
+"--trace\n"
+"\tコマンドをbashのトレースモード(-x)で実行。内部デバッグ用。\n"
+"\n"
+"--quiltrc file\n"
+"\t~/.quiltrc 以外のコンフィギュレーションファイルを指定。\n"
+"\t内容については PDFのドキュメントを参照。"
+
+#: ../quilt/add.in:22
+msgid "Usage: quilt add [-p patch] {file} ...\\n"
+msgstr "使い方: quilt add [-p パッチ] {file} ...\\n"
+
+#: ../quilt/add.in:25
+msgid ""
+"\n"
+"Add one or more files to the topmost or named patch.  Files must be\n"
+"added to the patch before being modified.  Files that are modified by\n"
+"patches already applied on top of the specified patch cannot be added.\n"
+"\n"
+"-p patch\n"
+"\tPatch to add files to.\n"
+msgstr ""
+"\n"
+"最上位または指定されたパッチにファイル(複数可)を追加する。ファイルは編\n"
+"集する前にかならず追加する必要がある。指定したパッチより上のパッチで変\n"
+"更されているファイルは追加することができない。\n"
+"\n"
+"-p patch\n"
+"\tファイルを追加するパッチ\n"
+
+#: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
+#: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/next.in:62
+#: ../quilt/pop.in:129 ../quilt/previous.in:62 ../quilt/push.in:145
+#: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
+msgid "Patch %s is not in series\\n"
+msgstr "パッチ %s は seriesの中にありません\\n"
+
+#: ../quilt/add.in:75 ../quilt/diff.in:221 ../quilt/pop.in:150
+#: ../quilt/refresh.in:135 ../quilt/remove.in:74
+msgid "Patch %s is not applied\\n"
+msgstr "パッチ %s は適用されていません\\n"
+
+#: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
+#: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
+#: ../quilt/pop.in:185 ../quilt/push.in:182 ../quilt/push.in:221
+#: ../quilt/refresh.in:143 ../quilt/remove.in:81
+msgid "No patches applied\\n"
+msgstr "適用されているパッチはありません\\n"
+
+#: ../quilt/add.in:92
+msgid "File %s is already in patch %s\\n"
+msgstr "ファイル %s は、すでにパッチ %s に含まれています\\n"
+
+#: ../quilt/add.in:100 ../quilt/remove.in:100
+msgid "File %s modified by patch %s\\n"
+msgstr "ファイル %s は、パッチ %s によってすでに変更されています\\n"
+
+#: ../quilt/add.in:108
+msgid "Failed to back up file %s\\n"
+msgstr "ファイル %s のバックアップに失敗しました\\n"
+
+#: ../quilt/add.in:119
+msgid "File %s added to patch %s\\n"
+msgstr "ファイル %s をパッチ %s に追加しました\\n"
+
+#: ../quilt/applied.in:22
+msgid "Usage: quilt applied [patch]\\n"
+msgstr "使い方: quilt applied [パッチ]\\n"
+
+#: ../quilt/applied.in:25
+msgid ""
+"\n"
+"Print a list of applied patches, or all patches up to and including the\n"
+"specified patch in the file series.\n"
+msgstr ""
+"\n"
+"適用されているパッチの一覧を表示します。指定されたパッチがある場合は、\n"
+"seriesファイル内のパッチ一覧の中から指定されたパッチまでを表示します。\n"
+
+#: ../quilt/applied.in:67
+msgid "Patch is not applied\\n"
+msgstr "パッチは適用されていません\\n"
+
+#: ../quilt/delete.in:22
+msgid "Usage: quilt delete [patch]\\n"
+msgstr "使い方: quilt delete [パッチ]\\n"
+
+#: ../quilt/delete.in:25
+msgid ""
+"\n"
+"Remove the specified or topmost patch from the series file.  If the\n"
+"patch is applied, quilt will attempt to remove it first. (Only the\n"
+"topmost patch can be removed right now.)\n"
+msgstr ""
+"\n"
+"指定されたパッチ、または最上位のパッチをシリーズファイルから削除します。\n"
+"パッチがすでに適用されている場合は、最初にパッチを外します。( 現状、最\n"
+"上位のパッチしか削除することはできません。) \n"
+
+#: ../quilt/delete.in:85
+msgid "Patch %s is currently applied\\n"
+msgstr "パッチ %s は現在適用されています。\\n"
+
+#: ../quilt/delete.in:92
+msgid "Failed to remove patch %s\\n"
+msgstr "パッチ %sを削除することに失敗しました。\\n"
+
+#: ../quilt/diff.in:22
+msgid ""
+"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
+"patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
+msgstr ""
+"使い方: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
+"P パッチ] [--snapshot] [--diff=utility] [--color] [ファイル ...]\\n"
+
+#: ../quilt/diff.in:26
+msgid ""
+"\n"
+"Produces a diff of the specified file(s) in the topmost or specified\n"
+"patch.  If no files are specified, all files that are modified are\n"
+"included.\n"
+"\n"
+"-p n\tCreate a -p n style patch (-p0 or -p1 are supported).\n"
+"\n"
+"-u, -U num, -c, -C num\n"
+"\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
+"\ta context diff (-c, -C) with num lines of context. The number of\n"
+"\tcontext lines defaults to 3.\n"
+"\n"
+"--no-timestamps\n"
+"\tDo not include file timestamps in patch headers.\n"
+"\n"
+"-z\tWrite to standard output the changes that have been made\n"
+"\trelative to the topmost or specified patch.\n"
+"\n"
+"-R\tCreate a reverse diff.\n"
+"\n"
+"-P patch\n"
+"\tCreate a diff for the specified patch.  (Defaults to the topmost\n"
+"\tpatch.)\n"
+"\n"
+"--combine patch\n"
+"\tCreate a combined diff for all patches between this patch and\n"
+"\tthe patch specified with -P. A patch name of \\\"-\\\" is equivalent\n"
+"\tto specifying the first applied patch.\n"
+"\n"
+"--snapshot\n"
+"\tDiff agains snapshot (see \\`quilt snapshot -h').\n"
+"\n"
+"--diff=utility\n"
+"\tUse the specified utility for generating the diff. The utility\n"
+"\tis invoked with the original and new file name as arguments.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring.\n"
+msgstr ""
+"\n"
+"最上位、または指定されたパッチに、指定されたファイルの差分を作成する。\n"
+"ファイルが指定されなかった場合は、変更されたファイルすべてが含まれる。\n"
+"\n"
+"-p n\t-p n スタイルのパッチを作成 (-p0 または -p1がサポートされている)\n"
+"\n"
+"-u, -U num, -c, -C num\n"
+"\tnum行のコンテキストでunified diff (-u, -U) を作成。num行のコン\n"
+"\tテキストで context diff (-c, -C)を作成。デフォルトのコンテキス\n"
+"\tト行数は 3行。\n"
+"\n"
+"--no-timestamps\n"
+"\tパッチヘッダにタイムスタンプを含めない。\n"
+"\n"
+"-z\t最上位、または指定されたパッチに関連した変更を、標準出力に表示。\n"
+"\n"
+"-R\treverse diffを作成。\n"
+"\n"
+"-P patch\n"
+"\t指定されたパッチ用に diffを作成。(デフォルトでは最上位のパッチ。)\n"
+"\n"
+"--combine patch\n"
+"\tこの patchと -Pで指定されたパッチの間すべてのパッチの差分を合\n"
+"\tせて一つのパッチを作成。\\\"-\\\" というパッチ名は最初に適用された\n"
+"\tパッチを指定するするのと同じ意味がある。\n"
+"\n"
+"--snapshot\n"
+"\tスナップショットとの差分を作成 (参照 \\`quilt snapshot -h')。\n"
+"\n"
+"--diff=utility\n"
+"\t指定された utilityを使って差分を生成。オリジナルのファイルと新\n"
+"\tしいファイルを引数として utilityに渡される。\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tシンタックスの色付け指定。\n"
+
+#: ../quilt/diff.in:213
+msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
+msgstr ""
+"オプション \\`-c patch'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
+
+#: ../quilt/diff.in:240
+msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
+msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
+
+#: ../quilt/diff.in:275 ../quilt/files.in:122
+msgid "Patch %s not applied before patch %s\\n"
+msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
+
+#: ../quilt/diff.in:311
+msgid "Cannot change into directory %s\\n"
+msgstr "ディレクトリ %s に移動できません\\n"
+
+#: ../quilt/diff.in:318 ../scripts/rpatch.in:62
+msgid "Failed to copy files to temporary directory\\n"
+msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
+
+#: ../quilt/diff.in:329
+msgid "Cannot change to temporary directory\\n"
+msgstr "テンポラリディレクトリに移動できません\\n"
+
+#: ../quilt/diff.in:348 ../scripts/rpatch.in:85
+msgid "Failed to patch temporary files\\n"
+msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
+
+#: ../quilt/diff.in:354
+msgid "Cannot change to source directory\\n"
+msgstr "ソースディレクトリに移動できません\\n"
+
+#: ../quilt/diff.in:372
+msgid "File %s is not being modified\\n"
+msgstr "ファイル %sは変更されていません\\n"
+
+#: ../quilt/diff.in:392 ../quilt/refresh.in:175
+msgid "Diff failed, aborting\\n"
+msgstr "差分に失敗しました。異常終了します\\n"
+
+#: ../quilt/diff.in:399
+msgid "More recent patches modify files in patch %s\\n"
+msgstr "最近のパッチが、パッチ %s内のファイルを変更しています\\n"
+
+#: ../quilt/edit.in:13
+msgid "Usage: quilt edit file ...\\n"
+msgstr "使い方: quilt edit ファイル ...\\n"
+
+#: ../quilt/edit.in:16
+msgid ""
+"\n"
+"Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
+"the topmost patch.\n"
+msgstr ""
+"\n"
+"最上位のパッチに指定されたファイルを追加後、\\$EDITOR (%s) を使って編集。\n"
+
+#: ../quilt/files.in:22
+msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
+msgstr "使い方: quilt files [-v] [-a] [-l] [--combine パッチ] [パッチ]\\n"
+
+#: ../quilt/files.in:25
+msgid ""
+"\n"
+"Print the list of files that the topmost or specified patch changes.\n"
+"\n"
+"-a\tList all files in all applied patches.\n"
+"\n"
+"-l\tAdd patch name to output.\n"
+"\n"
+"-v\tVerbose, more user friendly output.\n"
+"\n"
+"--combine patch\n"
+"\tCreate a listing for all patches between this patch and\n"
+"\tthe topmost applied patch. A patch name of \\\"-\\\" is equivalent\n"
+"\tto specifying the first applied patch.\n"
+"\n"
+msgstr ""
+"\n"
+"最上位パッチ、または指定されたパッチが変更を加えるファイルの一覧を表示\n"
+"する。\n"
+"\n"
+"-a\t適用されているすべてのパッチが変更するファイルの一覧を表示\n"
+"\n"
+"-l\tパッチ名を追加表示\n"
+"\n"
+"-v\t詳細で見やすい表示。\n"
+"\n"
+"--combine patche\n"
+"\t最上位パッチから指定されたパッチまでのパッチ一覧を作成。パッチ\n"
+"\t名に\\\"-\\\"を指定すると、一番最初に適用されているパッチを指定した\n"
+"\tことになる。\n"
+"\n"
+
+#: ../quilt/files.in:76 ../quilt/files.in:96
+msgid "Patch %s is not in series file\\n"
+msgstr "パッチ %s は seriesの中にありません\\n"
+
+#: ../quilt/fold.in:22
+msgid "Usage: quilt fold [-p strip-level]\\n"
+msgstr "使い方: quilt fold [-p strip-level]\\n"
+
+#: ../quilt/fold.in:25
+msgid ""
+"\n"
+"Integrate the patch read from standard input into the topmost patch:\n"
+"After making sure that all files modified are part of the topmost\n"
+"patch, the patch is applied with the specified strip level (which\n"
+"defaults to 1).\n"
+"\n"
+"-p strip-level\n"
+"\tThe number of pathname components to strip from file names\n"
+"\twhen applying patchfile.\n"
+msgstr ""
+"\n"
+"標準入力から読み込んだパッチを最上位のパッチに統合する:パッチによって\n"
+"変更されるファイルが、最上位のパッチに追加されていることが確認された後、\n"
+"パッチは指定されたストリップレベルを使って適用される (デフォルトは 1)。\n"
+"\n"
+"-p strip-level\n"
+"\tパッチを適用するときに、ファイル名から省くパス名要素の数\n"
+
+#: ../quilt/fold.in:115
+msgid "File %s may be corrupted\\n"
+msgstr "ファイル %s は壊れている可能性があります\\n"
+
+#: ../quilt/fork.in:22
+msgid "Usage: quilt fork [new_name]\\n"
+msgstr "使い方: quilt fork [new_name]\\n"
+
+#: ../quilt/fork.in:25
+msgid ""
+"\n"
+"Fork the topmost patch. If new_name is missing, the name of the\n"
+"forked patch will be the current patch name, followed by \\\"-2\\\".\n"
+"If the patch name already ends in a dash-and-number, the number is\n"
+"further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
+msgstr ""
+"\n"
+"最上位のパッチを分岐。new_nameが指定されなかった場合、分岐したパッチ名\n"
+"は現在のパッチ名の後に \\\"-2\\\"が付く。すでにパッチ名がハイフンと番号で\n"
+"終っている場合、番号の値が1増える (例: patch.diff、patch-2.diff、\n"
+"patch-3.diff)。\n"
+
+#: ../quilt/fork.in:91
+msgid "Patch %s exists already, please choose a new name\\n"
+msgstr "パッチ %sはすでに存在します。新しい名前を選んでください\\n"
+
+#: ../quilt/fork.in:103
+msgid "Fork of patch %s to patch %s failed\\n"
+msgstr "パッチ %sからパッチ %sへの分岐に失敗しました\\n"
+
+#: ../quilt/fork.in:109
+msgid "Fork of patch %s created as %s\\n"
+msgstr "パッチ %sの分岐で %sが作成されました\\n"
+
+#: ../quilt/import.in:22
+msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
+msgstr "使い方: quilt import [-f] [-p num] [-n パッチ] パッチファイル ...\\n"
+
+#: ../quilt/import.in:25
+msgid ""
+"\n"
+"Import external patches.\n"
+"\n"
+"-p num\n"
+"\tNumber of directory levels to strip when applying (default=1)\n"
+"\n"
+"-n patch\n"
+"\tPatch filename to use inside quilt. This option can only be\n"
+"\tused when importing a single patch.\n"
+"\n"
+"-f\tOverwite/update existing patches.\n"
+msgstr ""
+"\n"
+"外部パッチを取り込む。\n"
+"\n"
+"-p num\n"
+"\tパッチを適用するときに省く、ディレクトリレベルの数 (デフォルトは 1)\n"
+"\n"
+"-n パッチ\n"
+"\tquiltの内部で使用するパッチのファイル名。このオプションはパッチを\n"
+"\t一つだけ取り込むときに有効。\n"
+"\n"
+"-f\t存在するパッチの上書き、またはアップデート。\n"
+
+#: ../quilt/import.in:74
+msgid "Option \\`-n' can only be used when importing a single patch\\n"
+msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です。\\n"
+
+#: ../quilt/import.in:92
+msgid "Patch %s is applied\\n"
+msgstr "パッチ %s は、すでに適用されています\\n"
+
+#: ../quilt/import.in:100
+msgid "Patch %s exists. Replace with -f.\\n"
+msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます。\\n"
+
+#: ../quilt/import.in:104
+msgid "Replacing patch %s with new version\\n"
+msgstr "パッチ % を新しいバージョンに置き換えます\\n"
+
+#: ../quilt/import.in:107
+msgid "Importing patch %s (stored as %s)\\n"
+msgstr "パッチ %s を取り込んでいます (%sとして保存されます)\\n"
+
+#: ../quilt/import.in:115
+msgid "Failed to import patch %s\\n"
+msgstr "パッチ %s の取り込みに失敗しました\\n"
+
+#: ../quilt/import.in:122
+msgid "Failed to insert patch %s into file series\\n"
+msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
+
+#: ../quilt/new.in:22
+msgid "Usage: quilt new {patchname}\\n"
+msgstr "使い方: quilt new {パッチ名}\\n"
+
+#: ../quilt/new.in:25
+msgid ""
+"\n"
+"Create a new patch with the specified file name, and insert it after the\n"
+"topmost patch in the patch series file.\n"
+msgstr ""
+"\n"
+"指定されたファイル名で新しいパッチを作成し、seriesファイルにに追加する。\n"
+"追加される場所は、現在最上位のパッチの次です。\n"
+"\n"
+
+#: ../quilt/new.in:64
+msgid "Patch %s exists already\\n"
+msgstr "パッチ %s は、すでに存在します\\n"
+
+#: ../quilt/new.in:75
+msgid "Failed to create patch %s\\n"
+msgstr "パッチ %s の作成に失敗しました\\n"
+
+#: ../quilt/new.in:78
+msgid "Patch %s is now on top\\n"
+msgstr "パッチ %s を最上位にしました\\n"
+
+#: ../quilt/next.in:22
+msgid "Usage: quilt next [patch]\\n"
+msgstr "使い方: quilt next [パッチ]\\n"
+
+#: ../quilt/next.in:25
+msgid ""
+"\n"
+"Print the name of the next patch after the specified or topmost patch in\n"
+"the series file.\n"
+msgstr ""
+"\n"
+"最上位または指定されたパッチの次のパッチ名を表示。\n"
+
+#: ../quilt/patches.in:22
+msgid "Usage: quilt patches {file}\\n"
+msgstr "使い方: quilt patches {ファイル}\\n"
+
+#: ../quilt/patches.in:25
+msgid ""
+"\n"
+"Print the list of patches that modify the specified file. (Uses a\n"
+"heuristic to determine which files are modified by unapplied patches.\n"
+"Note that this heuristic is much slower than scanning applied patches.)\n"
+"\n"
+"-v\tVerbose, more user friendly output.\n"
+msgstr ""
+"\n"
+"指定されたファイルに対し、変更を行なうパッチのリストを表示。 (適用されて\n"
+"いないパッチが指定されたファイルに対して変更を及ぼすかどうかを調べるには\n"
+"発見的方法 (a heuristic)が用いられる。この方法は適用されているパッチを\n"
+"スキャンするより大幅に遅い。\n"
+"\n"
+"-v\t詳細で見やすい表示。\n"
+
+#: ../quilt/pop.in:22
+msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
+msgstr "使い方: quilt pop [-afRqv] [数字|パッチ]\\n"
+
+#: ../quilt/pop.in:25
+msgid ""
+"\n"
+"Remove patch(es) from the stack of applied patches.  Without options,\n"
+"the topmost patch is removed.  When a number is specified, remove the\n"
+"specified number of patches.  When a patch name is specified, remove\n"
+"patches until the specified patch end up on top of the stack.  Patch\n"
+"names may include the patches/ prefix, which means that filename\n"
+"completion can be used.\n"
+"\n"
+"-a\tRemove all applied patches.\n"
+"\n"
+"-f\tForce remove. The state before the patch(es) were applied will\n"
+"\tbe restored from backup files.\n"
+"\n"
+"-R\tRemove the patch with \\`patch -R' and check if the patch reverts\n"
+"\tall changes properly.\n"
+"\n"
+"-q\tQuiet operation.\n"
+"\n"
+"-v\tVerbose operation.\n"
+msgstr ""
+"\n"
+"適用されているパッチスタックからパッチをはずす。オプションが無い場合は\n"
+"最上位パッチをはずす。数字が指定されたときは、指定された数のパッチをは\n"
+"ずす。パッチ名が指定されたときは、指定されたパッチが最上位パッチになる\n"
+"まで、その上に積まれているパッチをはずしていく。シェルのファイル名補完\n"
+"機能を有効に使うために、パッチ名の前に patches/を付けて指定することも\n"
+"可能。\n"
+"\n"
+"-a\t適用されている、すべてのパッチをはずす。\n"
+"\n"
+"-f\t問題があるパッチでも、処理を進める。バックアップファイルを使って、\n"
+"\tパッチが適用される前の状態に復旧する。\n"
+"\n"
+"-R\t\\`patch -R'をつかってパッチをはずし、変更点が正常に元に戻ることを\n"
+"\t確認。\n"
+"\n"
+"-q\t表示を抑制。\n"
+"\n"
+"-v\t詳細に表示。\n"
+
+#: ../quilt/pop.in:160
+msgid "No patch removed\\n"
+msgstr "適用されているパッチはありません\\n"
+
+#: ../quilt/pop.in:176 ../quilt/push.in:212
+msgid "Interrupted by user\\n"
+msgstr "ユーザによって中断されました\\n"
+
+#: ../quilt/pop.in:192 ../quilt/push.in:223
+msgid "Now at patch %s\\n"
+msgstr "現在位置はパッチ %s です"
+
+#: ../quilt/previous.in:22
+msgid "Usage: quilt previous [patch]\\n"
+msgstr "使い方: quilt previous [パッチ]\\n"
+
+#: ../quilt/previous.in:25
+msgid ""
+"\n"
+"Print the name of the previous patch before the specified or topmost\n"
+"patch in the series file.\n"
+msgstr ""
+"\n"
+"最上位のパッチの前のパッチ名を表示。パッチ名が指定されたときは、指定\n"
+"されたパッチの前のパッチ名を表示。\n"
+
+#: ../quilt/push.in:22
+msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
+msgstr "使い方: quilt push [-afqv] [--leave-rejects] [数字|パッチ]\\n"
+
+#: ../quilt/push.in:25
+msgid ""
+"\n"
+"Apply patch(es) from the series file.  Without options, the next patch\n"
+"in the series file is applied.  When a number is specified, apply the\n"
+"specified number of patches.  When a patch name is specified, apply\n"
+"all patches up to and including the specified patch.  Patch names may\n"
+"include the patches/ prefix, which means that filename completion can\n"
+"be used.\n"
+"\n"
+"-a\tApply all patches in the series file.\n"
+"\n"
+"-f\tForce apply, even if the patch has rejects.\n"
+"\n"
+"-q\tQuiet operation.\n"
+"\n"
+"-v\tVerbose operation.\n"
+"\n"
+"--leave-rejects\n"
+"\tLeave around the reject files patch produced, even if the patch\n"
+"\tis not actually applied.\n"
+"\n"
+"--interactive\n"
+"\tAllow the patch utility to ask how to deal with conflicts. If\n"
+"\tthis option is not given, the option -f will be passed to the \n"
+"\tpatch program.\n"
+msgstr ""
+"\n"
+"seriesに登録されているパッチを適用する。オプションが無い場合は series \n"
+"ファイル内の次のパッチを適用する。数字が与えられた場合は、与えられた個\n"
+"数のパッチを適用する。パッチ名が指定された場合は、指定されたパッチから\n"
+"上のパッチすべてを適用する。シェルの補完機能を有効活用するために、パッ\n"
+"チ名に patches/を付けて指定することも可能。\n"
+"\n"
+"-a\tseriesファイルに登録されているすべてのパッチを適用します。\n"
+"\n"
+"-f\t問題があるパッチでも、処理を進める。\n"
+"\n"
+"-q\t表示を抑制。\n"
+"\n"
+"-v\t詳細に表示。\n"
+"\n"
+"--leave-rejects\n"
+"\tパッチが適用されなくても、生成されたリジェックトファイルをその\n"
+"\tまま残す。\n"
+"\n"
+
+#: ../quilt/push.in:87
+msgid "Patch %s not found in file series\\n"
+msgstr "パッチ %s が seriesファイル内で見つかりません。\\n"
+
+#: ../quilt/push.in:168
+msgid "Patch %s is already applied\\n"
+msgstr "パッチ %s は、すでに適用済です\\n"
+
+#: ../quilt/push.in:187
+msgid ""
+"The topmost patch %s is not in the series file anymore;\n"
+"cannot determine the next patch from the series file.\n"
+"Please pop -f the top patch and check your series file.\\n"
+msgstr ""
+"最上位パッチが seriesファイルの中にないため、次のパッチを seriesファイ\n"
+"ルから選択することができません。pop -fを行ない、seriesファイルをチェッ\n"
+"クしてください。\\n"
+
+#: ../quilt/push.in:193
+msgid "File series fully applied, ends at patch %s\\n"
+msgstr ""
+"seriesファイルのパッチはすべて適用されています。\n"
+"最終パッチは %s です。\\n"
+
+#: ../quilt/refresh.in:22
+msgid ""
+"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
+"[patch]\\n"
+msgstr ""
+"使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
+"[パッチ]\\n"
+
+#: ../quilt/refresh.in:26
+msgid ""
+"\n"
+"Refreshes the specified patch, or the topmost patch by default.\n"
+"Documentation that comes before the actual patch in the patch file is\n"
+"retained.\n"
+"\n"
+"It is possible to refresh patches that are not on top.  If any patches\n"
+"on top of the patch to refresh modify the same files, the script aborts\n"
+"by default.  Patches can still be refreshed with -f.  In that case this\n"
+"script will print a warning for each shadowed file, changes by more\n"
+"recent patches will be ignored, and only changes in files that have not\n"
+"been modified by any more recent patches will end up in the specified\n"
+"patch.\n"
+"\n"
+"-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
+"\n"
+"-u, -U num, -c, -C num\n"
+"\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
+"\ta context diff (-c, -C) with num lines of context. The number of\n"
+"\tcontext lines defaults to 3.\n"
+"\n"
+"--no-timestamps\n"
+"\tDo not include file timestamps in patch headers.\n"
+"\t\n"
+"--diffstat\n"
+"\tAdd a diffstat section to the patch header, or replace the\n"
+"\texisting diffstat section.\n"
+"\n"
+"-f\tEnforce refreshing of a patch that is not on top.\n"
+"\n"
+"--backup\n"
+"\tCreate a backup copy of the old version of a patch as patch~.\n"
+msgstr ""
+"\n"
+"指定されたパッチを作成し直す。これをリフレッシュすると呼ぶ。デフォルト\n"
+"では最上位パッチのリフレッシュを行う。パッチの先頭に書かれているドキュ\n"
+"メントは保持される。\n"
+"\n"
+"スタックの一番上以外のパッチもリフレッシュすることができる。リフレッシュ\n"
+"するパッチとその上に乗っているパッチが、同じファイルを変更している場合\n"
+"はデフォルトで異常終了する。-fオプションを付けることでリフレッシュを強\n"
+"制することができるが、影になったファイルごとに quiltは警告を出す。最近\n"
+"のパッチによる変更は無視されるため、それ以外の変更だけが指定されたパッ\n"
+"チに反映される。\n"
+"\n"
+"-p n\t-p n スタイルのパッチを作成 (-p0 または -p1がサポートされている)。\n"
+"\n"
+"-u, -U num, -c, -C num\n"
+"\tnum行のコンテキストでunified diff (-u, -U) を作成。num行のコン\n"
+"\tテキストで context diff (-c, -C)を作成。デフォルトのコンテキス\n"
+"\tト行数は 3行。\n"
+"\n"
+"--no-timestamps\n"
+"\tパッチヘッダにタイムスタンプを含めない。\n"
+"\n"
+"--diffstat\n"
+"\tdiffstatのセクションをパッチの先頭部分に追加、または既存の \n"
+"\tdiffstatセクションを上書きする。\n"
+"\n"
+"-f\tスタックの一番上にないパッチのリフレッシュを強要する\n"
+"\n"
+"--backup\n"
+"\tバックアップ用のコピーとして古いバージョンのパッチを patch~の\n"
+"\t形で作成する。\n"
+
+#: ../quilt/refresh.in:154
+msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
+msgstr ""
+"-p%sではリフレッシュすることができません。-p0または -p1を指定してください\\n"
+
+#: ../quilt/refresh.in:181
+msgid ""
+"More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
+msgstr ""
+"より最近のパッチがパッチ %sのファイルに変更を加えています。リフレッシュを実行"
+"する場合は -f オプションを使用してください。\\n"
+
+#: ../quilt/refresh.in:188
+msgid "Nothing in patch %s\\n"
+msgstr "パッチ %s にはなにも含まれていません\\n"
+
+#: ../quilt/refresh.in:249
+msgid "Patch %s is unchanged\\n"
+msgstr "パッチ % に変更はありません\\n"
+
+#: ../quilt/refresh.in:263
+msgid "Refreshed patch %s\\n"
+msgstr "パッチ %s をリフレッシュしました\\n"
+
+#: ../quilt/remove.in:22
+msgid "Usage: quilt remove [-p patch] {file} ...\\n"
+msgstr "使い方: quilt remove [-p パッチ] {ファイル} ...\\n"
+
+#: ../quilt/remove.in:25
+msgid ""
+"\n"
+"Remove one or more files from the topmost or named patch.  Files that\n"
+"are modified by patches on top of the specified patch cannot be removed.\n"
+"\n"
+"-p patch\n"
+"\tPatch to remove files from.\n"
+msgstr ""
+"\n"
+"指定されたファイルを最上位パッチまたは指定されたパッチから削除する。指\n"
+"定されたファイルがより上のパッチで変更されている場合は、削除できない。\n"
+"\n"
+"-p パッチ\n"
+"\tファイルを削除するパッチを指定。\n"
+
+#: ../quilt/remove.in:91
+msgid "File %s is not in patch %s\\n"
+msgstr "ファイル %sは、パッチ %sに含まれていません\\n"
+
+#: ../quilt/remove.in:109
+msgid "Failed to remove file %s from patch %s\\n"
+msgstr "ファイル %s を、パッチ %s から削除することに失敗しました\\n"
+
+#: ../quilt/remove.in:115
+msgid "File %s removed from patch %s\\n"
+msgstr "ファイル %s を、パッチ %s から削除しました\\n"
+
+#: ../quilt/series.in:22
+msgid "Usage: quilt series [-v]\\n"
+msgstr "使い方: quilt series [-v]\\n"
+
+#: ../quilt/series.in:25
+msgid ""
+"\n"
+"Print the names of all patches in the series file.\n"
+"\n"
+"-v\tVerbose, more user friendly output.\n"
+msgstr ""
+"\n"
+"seriesファイルに登録されている、すべてのパッチを表示。\n"
+"\n"
+"-v\t詳細で見やすい表示。\n"
+"\n"
+
+#: ../quilt/setup.in:27
+msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
+msgstr ""
+"使い方: quilt setup [-d path-prefix] [-v] {specファイル|seriesファイル}\\n"
+
+#: ../quilt/setup.in:30
+msgid ""
+"\n"
+"Initializes a source tree from an rpm spec file or a quilt series file.\n"
+"\n"
+"-d\toptional path prefix (sub-directory).\n"
+"\n"
+"-v\tverbose debug output.\n"
+msgstr ""
+"\n"
+"rpmの specファイルまたは quiltの seriesファイルを使ってソースツリーを\n"
+"初期化する。\n"
+"\n"
+"-d\tオプション的なパスのプレフィクス(サブディレクトリ)。\n"
+"\n"
+"-v\t詳細なデバッグ表示\n"
+
+#: ../quilt/setup.in:96
+msgid "Directory %s exists\\n"
+msgstr "ディレクトリ %s は、すでに存在します\\n"
+
+#: ../quilt/setup.in:102
+msgid "File %s exists\\n"
+msgstr "ファイル %s は、すでに存在します\\n"
+
+#: ../quilt/setup.in:118
+msgid "The %%prep section of %s failed; results may be incomplete\\n"
+msgstr ""
+"%%prepセクションの解析に失敗しました。完全に作業が完了していない場合がありま"
+"す\\n"
+
+#: ../quilt/setup.in:121
+msgid "The -v option will show rpm's output\\n"
+msgstr "-vオプションを使って、rpmの出力を表示できます"
+
+#: ../quilt/setup.in:155
+msgid "Unpacking archive %s\\n"
+msgstr "アーカイブ %sを展開しています\\n"
+
+#: ../quilt/snapshot.in:22
+msgid "Usage: quilt snapshot [-d]\\n"
+msgstr "使い方: quilt snapshot [-d]\\n"
+
+#: ../quilt/snapshot.in:25
+msgid ""
+"\n"
+"Take a snapshot of the current working state.  After taking the snapshot,\n"
+"the tree can be modified in the usual ways, including pushing and\n"
+"popping patches.  A diff against the tree at the moment of the\n"
+"snapshot can be generated with \\`quilt diff --snapshot'.\n"
+"\n"
+"-d\tOnly remove current snapshot.\n"
+msgstr ""
+"\n"
+"現在の作業状態のスナップショットを作成する。スナップショットを作成した\n"
+"後、ツリーはいつものように変更することが可能。パッチを pushしたり pop\n"
+"することができる。スナップショットへの diffは、\\`quilt diff\n"
+"--snapshot'とすることで生成できる。\n"
+"\n"
+"-d\t現在のスナップショットを削除。\n"
+"\n"
+
+#: ../quilt/top.in:22
+msgid "Usage: quilt top\\n"
+msgstr "使い方: quilt top\\n"
+
+#: ../quilt/top.in:25
+msgid ""
+"\n"
+"Print the name of the topmost patch on the current stack of applied\n"
+"patches.\n"
+msgstr ""
+"\n"
+"現在適用されているパッチスタックの最上位パッチ名を表示\n"
+
+#: ../quilt/unapplied.in:22
+msgid "Usage: quilt unapplied [patch]\\n"
+msgstr "使い方: quilt unapplied [パッチ]\\n"
+
+#: ../quilt/unapplied.in:25
+msgid ""
+"\n"
+"Print a list of patches that are not applied, or all patches that follow\n"
+"the specified patch in the series file.\n"
+msgstr ""
+"\n"
+"適用されていないパッチを表示。パッチが指定された場合は、指定されたパッ\n"
+"チ以降で適用されていないパッチを表示。\n"
+
+#: ../quilt/upgrade.in:25
+msgid "Usage: quilt upgrade\\n"
+msgstr "使い方: quilt upgrade\\n"
+
+#: ../quilt/upgrade.in:28
+msgid ""
+"\n"
+"Upgrade the meta-data in a working tree from an old version of quilt to the\n"
+"current version. This command is only needed when the quilt meta-data "
+"format\n"
+"has changed, and the working tree still contains old-format meta-data. In "
+"that\n"
+"case, quilt will request to run \\`quilt upgrade'.\n"
+msgstr ""
+"\n"
+"作業ツリーにある古いバージョンのメタデータを新しいバージョンにアップグ\n"
+"レードする。このコマンドは、quiltのメタデータフォーマットが変更された\n"
+"場合のみ必要。変更が確認された場合、quiltから \\`quilt upgrade'の実行が\n"
+"要求される。\n"
+
+#: ../quilt/upgrade.in:67
+msgid ""
+"The quilt meta-data in %s already are have format version %s; nothing to do"
+"\\n"
+msgstr ""
+"%s内の quiltメタデータはすでに version %s フォーマットのため、処理する必要が"
+"ありません。\\n"
+
+#: ../quilt/upgrade.in:71
+msgid "Converting meta-data to version %s\\n"
+msgstr "メタデータを version %sに変更中です\\n"
+
+#: ../quilt/upgrade.in:102
+msgid "Conversion failed\\n"
+msgstr "変更に失敗しました\\n"
+
+#: ../quilt/upgrade.in:103
+msgid ""
+"\n"
+"Please remove all patches using \\`quilt pop -a' from the quilt version used "
+"to create this working tree, or remove the %s directory and apply the "
+"patches from scratch.\\n"
+msgstr ""
+"\n"
+"現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
+"pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
+"トリを削除し、最初からパッチをあて直してください。\\n"
+
+#: ../scripts/apatch.in:22
+msgid "Usage: $0 [-fqv] patchname\\n"
+msgstr "使い方: $0 [-fqv] パッチ名\\n"
+
+#: ../scripts/apatch.in:29
+msgid "Interrupted by user; patch %s was not applied.\\n"
+msgstr "ユーザによって中断されました。パッチ % は適用されていません。\\n"
+
+#: ../scripts/apatch.in:41
+msgid "Patch %s appears to be empty\\n"
+msgstr "パッチ %sは、空のようです\\n"
+
+#: ../scripts/apatch.in:81
+msgid "Applying patch %s\\n"
+msgstr "パッチ %s を適用しています\\n"
+
+#: ../scripts/apatch.in:117
+msgid "Patch %s appears to be empty, applied\\n"
+msgstr "パッチ %s は、空のようですが、適用しました\\n"
+
+#: ../scripts/apatch.in:121
+msgid "Applied patch %s (forced; needs refresh)\\n"
+msgstr ""
+"パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
+
+#: ../scripts/apatch.in:126
+msgid "Patch %s does not apply (enforce with -f)\\n"
+msgstr "パッチ %sが適用できません (強制適用する場合は -fを付けてください)\\n"
+
+#: ../scripts/apatch.in:184
+msgid "The topmost patch %s needs to be refreshed first.\\n"
+msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
+
+#: ../scripts/patchfns.in:702
+msgid ""
+"The quilt meta-data in this tree has version %s, but this version of quilt "
+"can only handle meta-data formats up to and including version %s. Please pop "
+"all the patches using the version of quilt used to push them before "
+"downgrading.\\n"
+msgstr ""
+"このツリー内にはバージョン %sの quiltメタデータが存在します。しかしこ\n"
+"のバージョンの quiltでは、バージョン %s までのメタデータしかサポートし\n"
+"ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
+"すべてのパッチを pop してください。\\n"
+
+#: ../scripts/patchfns.in:769
+msgid ""
+"The working tree was created by an older version of quilt. Please run 'quilt "
+"upgrade'.\\n"
+msgstr ""
+"現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
+"す。'quilt upgrade'を実行してください。\\n"
+
+#: ../scripts/rpatch.in:22
+msgid "Usage: %s [-fRq] patchname\\n"
+msgstr "使い方: %s [-fRq] パッチ名\\n"
+
+#: ../scripts/rpatch.in:100
+msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
+msgstr ""
+"パッチ %s を、正常にはずすことができません (リフレッシュするか -fを付\n"
+"けてはずしてください)\\n"
+
+#: ../scripts/rpatch.in:123
+msgid "Removing patch %s\\n"
+msgstr "パッチ %s を削除します\\n"
+
+#: ../scripts/rpatch.in:179
+msgid "Patch %s needs to be refreshed first.\\n"
+msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
