@@ -145,7 +145,7 @@ fi
 [ -n "$opt_verbose" ] &&
 	apatch_options="$apatch_options -v"
 [ -n "$opt_leave_rejects" ] &&
-	apatch_options="="$apatch_options --leave-rejects"
+	apatch_options="$apatch_options --leave-rejects"
 
 if [ -n "$stop_at_patch" ]
 then
