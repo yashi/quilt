@@ -1,3 +1,12 @@
+quilt (0.25-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix LC_ALL to C during the build so that the README.gz becomes in 
+    english and not french. Thanks to Jan-Benedict Glaw for reporting that 
+    issue.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Tue,  9 Sep 2003 08:30:52 +0200
+
 quilt (0.24-1) unstable; urgency=low
 
   * New upstream release
