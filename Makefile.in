@@ -1,29 +1,36 @@
-PACKAGE :=	quilt
-VERSION :=	0.21
-RELEASE :=	1
+PACKAGE :=	@PACKAGE_NAME@
+VERSION :=	@PACKAGE_VERSION@
+RELEASE :=	@PACKAGE_RELEASE@
+PACKAGE_BUGREPORT := @PACKAGE_BUGREPORT@
 
-prefix :=	/usr/local
-bindir :=	$(prefix)/bin
-datadir :=	$(prefix)/share
+prefix :=	@prefix@
+exec_prefix :=	@exec_prefix@
+bindir :=	@bindir@
+libdir :=	@libdir@
+datadir :=	@datadir@
 mandir :=	$(datadir)/man
 docdir :=	$(datadir)/doc/packages
 
 QUILT_DIR =	$(datadir)/$(PACKAGE)
 SCRIPTS_DIR =	$(QUILT_DIR)/scripts
-LIB_DIR =	$(prefix)/lib/$(PACKAGE)
+LIB_DIR =	$(libdir)/$(PACKAGE)
 
-PERL :=		/usr/bin/perl
-BASH :=		/bin/bash
-DIFF :=		/usr/bin/diff
-PATCH :=	/usr/bin/patch
-MKTEMP :=	/bin/mktemp
+INSTALL :=	@INSTALL@
+PERL :=		@PERL@
+BASH :=		@BASH@
+DIFF :=		@DIFF@
+PATCH :=	@PATCH@
+MKTEMP :=	@MKTEMP@
 
-CFLAGS =	-g -Wall
+CFLAGS :=	@CFLAGS@ -Wall
+
+ISODATE :=	$(shell date +%Y-%m-%d)
 
 #-----------------------------------------------------------------------
 DIRT +=		$(shell find -name '*~')
 
-SRC +=		COPYING AUTHORS TODO BUGS Makefile \
+SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
+		configure.ac configure config/install-sh \
 		quilt.spec.in quilt.spec quilt.changes
 DIRT +=		quilt.spec
 
@@ -73,6 +80,9 @@ scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 
 dist : $(PACKAGE)-$(VERSION).tar.gz
 
+dist-snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
+
+
 rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
 
@@ -97,33 +107,40 @@ bin/guards.1 : bin/guards
 	pod2man $< > $@
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC)
-	rm -f $(PACKAGE)-$(VERSION)
+	rm -f $(PACKAGE)-$(VERSION) $@
 	ln -s . $(PACKAGE)-$(VERSION)
-	tar cfz $(PACKAGE)-$(VERSION).tar.gz \
-		$(+:%=$(PACKAGE)-$(VERSION)/%)
+	tar chf - $(+:%=$(PACKAGE)-$(VERSION)/%) | gzip -9 > $@
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
+$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC)
+	rm -f $(PACKAGE)-$(ISODATE) $@
+	ln -s . $(PACKAGE)-$(ISODATE)
+	tar chf - $(+:%=$(PACKAGE)-$(ISODATE)/%) | bzip2 -9 > $@
+	rm -f $(PACKAGE)-$(ISODATE)
+	@echo "File $@ created."
+
 install : all
-	install -d $(BUILD_ROOT)$(bindir)
-	install -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
+	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
+	@INSTALL@ -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
-	install -d $(BUILD_ROOT)$(QUILT_DIR)
-	install -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
+	@INSTALL@ -d $(BUILD_ROOT)$(QUILT_DIR)
+	@INSTALL@ -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
 	
-	install -d $(BUILD_ROOT)$(SCRIPTS_DIR)
-	install -m 755 $(filter-out scripts/patchfns, $(SCRIPTS:%=scripts/%)) \
-		$(BUILD_ROOT)$(SCRIPTS_DIR)
-	install -m 644 scripts/patchfns $(BUILD_ROOT)$(SCRIPTS_DIR)
+	@INSTALL@ -d $(BUILD_ROOT)$(SCRIPTS_DIR)
+	@INSTALL@ -m 755 $(filter-out scripts/patchfns, \
+				      $(SCRIPTS:%=scripts/%)) \
+		  $(BUILD_ROOT)$(SCRIPTS_DIR)
+	@INSTALL@ -m 644 scripts/patchfns $(BUILD_ROOT)$(SCRIPTS_DIR)
 
-	install -d $(BUILD_ROOT)$(LIB_DIR)
-	install -m 755 -s $(LIB:%=lib/%) $(BUILD_ROOT)$(LIB_DIR)/
+	@INSTALL@ -d $(BUILD_ROOT)$(LIB_DIR)
+	@INSTALL@ -m 755 -s $(LIB:%=lib/%) $(BUILD_ROOT)$(LIB_DIR)/
 
-	install -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)
-	install -m 644 doc/README $(BUILD_ROOT)$(docdir)/$(PACKAGE)/
+	@INSTALL@ -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)
+	@INSTALL@ -m 644 doc/README $(BUILD_ROOT)$(docdir)/$(PACKAGE)/
 
-	install -d $(BUILD_ROOT)$(mandir)/man1
-	install -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
+	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
+	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 		  scripts/parse-patch
@@ -156,5 +173,8 @@ clean distclean :
 	     -e 's:@DIFF''@:$(DIFF):g' \
 	     -e 's:@PATCH''@:$(PATCH):g' \
 	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
+	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
+	     -e 's:@VERSION''@:$(VERSION):g' \
+	     -e 's:@RELEASE''@:$(RELEASE):g' \
 	     $< > $@
 	@chmod --reference=$< $@
