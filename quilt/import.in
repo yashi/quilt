@@ -57,7 +57,7 @@ do
         case "$1" in
         -n)
 		opt_patch=$(echo "$2" |
-			    @SED@ -e 's/^'"$(quote_bre $P)"'patches\///' \
+			    @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///' \
 			          -e 's/^\.pc\///')
 		shift 2 ;;
 	-p)
@@ -87,7 +87,7 @@ fi
 if [ -n "$opt_patch" ]
 then
 	patch=$(stripit "$opt_patch")
-	patch_file="${P}patches/$opt_patch"
+	patch_file="$QUILT_PATCHES/$opt_patch"
 else
 	patch="$(stripit "$input_file")"
 	if [ -n "$patch" ]
@@ -97,7 +97,7 @@ else
 		echo $"Please use -n to specify a patch file name."
 		exit 1
 	fi
-	patch_file="${P}patches/$opt_patch"
+	patch_file="$QUILT_PATCHES/$opt_patch"
 fi
 
 if echo "$patch_file" | grep -q -e $'[ \t]'

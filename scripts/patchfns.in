@@ -15,12 +15,7 @@ then
 	. $HOME/.quiltrc
 fi
 
-if [ -n "$PATCHSCRIPTS" ]
-then
-	P=$PATCHSCRIPTS/
-else
-	unset P
-fi
+: ${QUILT_PATCHES:=patches}
 
 if [ -e .pc/series ]
 then
@@ -29,7 +24,7 @@ elif [ -e series ]
 then
 	SERIES=series
 else
-	SERIES=${P}patches/series
+	SERIES=$QUILT_PATCHES/series
 fi
 
 DB=".pc/applied-patches"
@@ -70,7 +65,7 @@ patch_file_name()
 	if [ -e $SERIES ]
 	then
 		@AWK@ '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
-			{ printf "'"$P"'patches/%s\n", $1
+			{ printf "'"$QUILT_PATCHES"'/%s\n", $1
 			  exit
 			}
 		' $SERIES
@@ -393,7 +388,7 @@ stripit()
 	then
 		echo $1 |
 		@SED@ -e 's/^\(\.\/\)*//' \
-		      -e 's/^'"$(quote_bre $P)"'patches\///' \
+		      -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///' \
 		      -e 's/\.gz$//' -e 's/\.bz2$//' \
 		      -e 's/\.patch$//' -e 's/\.diff\?$//'
 	fi

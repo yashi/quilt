@@ -84,7 +84,7 @@ else
 	patch_file="$patch_file$ext"
 fi
 
-patch_file=$(echo $patch_file | @SED@ -e 's/^'"$(quote_bre $P)"'patches\///')
+patch_file=$(echo $patch_file | @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///')
 patch=$(stripit $patch_file)
 
 if patch_in_series $patch || \

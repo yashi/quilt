@@ -1,2 +1,5 @@
 # -p : Show which C function each change is in.
 QUILT_DIFF_OPTS="-p${QUILT_DIFF_OPTS:+ $QUILT_DIFF_OPTS}"
+
+# The directory in which patches are found (defaults to "patches").
+#QUILT_PATCHES=patches

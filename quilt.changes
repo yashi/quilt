@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Oct 28 14:32:13 CET 2003 - agruen@suse.de
+
+- Change name and semantics of PATCHSCRIPTS variable: Before, if
+  PATCHSCRIPTS was set, the patches were in $PATCHSCRIPTS/patches.
+  Now, if QUILT_PATCHES is set, the patches are in $QUILT_PATCHES.
+  QUILT_PATCHES defaults to "patches", like before.
+
+-------------------------------------------------------------------
 Sun Oct 26 17:53:53 CET 2003 - agruen@suse.de
 
 - Get rid of patches_per cache_in `quilt patches'. Remove
