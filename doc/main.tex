@@ -539,14 +539,22 @@ When the number of patches in a project grows large, it becomes
 increasingly difficult to find the right place for adding a new patch in
 the patch series. At a certain point, patches will get inserted at the
 end of the patch series, because finding the right place has become too
-complicated. In the long run this leads to more and more mess.
+complicated. In the long run, a mess accumulates.
 
-To help keep the big picture, the \quilt{graph} command generates
-\textit{dot} graphs showing the dependencies between patches.  The ouput
-of this command can be visualized using the tools from AT\&T Research's
-Graph Visualization Project (GraphViz, \url{http://www.graphviz.org/}).
-The \quilt{graph} command can generate various different kinds of
-graphs.
+To help avoid this by keeping the big picture, the \quilt{graph} command
+generates \textit{dot} graphs showing the dependencies between
+patches.\footnote{
+	Currently, \quilt{graph} only considers which files the
+	patches modify. Multiple patches may modify different areas
+	in the same file(s) without conflicting, in which case
+	\quilt{graph} would report false dependencies. It is
+	difficult to determine reliably whether or not two patches
+	have conflicts without actually applying the patches in
+	different orders.
+} The ouput of this command can be visualized using the tools from AT\&T
+Research's Graph Visualization Project (GraphViz,
+\url{http://www.graphviz.org/}).  The \quilt{graph} command supports
+different kinds of graphs.
 
 \subsection{Advanced Diffing}
 
