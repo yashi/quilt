@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 25 15:48:37 CET 2003 - agruen@suse.de
+
+- Update quilt paper.
+
+-------------------------------------------------------------------
 Mon Nov 24 13:23:39 CET 2003 - agruen@suse.de
 
 - Error check for `quilt diff -z filelist' was too strict; relax.
