@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Apr  9 04:00:52 CEST 2003 - agruen@suse.de
+
+- Never reorder files in patches. (Previously the file list
+  was run through (sort | uniq) to remove duplicate entries.)
+- Update test script to new format, and add regression test
+  cases.
+
+-------------------------------------------------------------------
 Wed Apr  9 02:38:30 CEST 2003 - agruen@suse.de
 
 - The change from Mar 24 caused empty lines to be removed in

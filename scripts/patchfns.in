@@ -505,6 +505,8 @@ refresh_file_list()
 			return 1
 		fi
 
+		# Do not reorder files in the file list...
+
 		if [ -e $pc_file ]
 		then
 			cat $pc_file >> $tmpfile
@@ -514,7 +516,10 @@ refresh_file_list()
 		then
 			return 1
 		fi
-		sort $tmpfile | uniq > $pc_file
+		awk '	{ if (seen[$0]) next
+			  seen[$0]=1
+			  print
+			}' $tmpfile > $pc_file
 		rm $tmpfile
 		return 0
 	fi

@@ -1,4 +1,13 @@
-#! /usr/bin/perl -w -U
+#!/usr/bin/perl -w -U
+
+#
+# Possible improvements:
+#
+# - distinguish stdout and stderr output
+# - add environment variable like assignments
+# - run up to a specific line
+# - resume at a specific line
+#
 
 use strict;
 use FileHandle;
@@ -19,62 +28,40 @@ if (isatty(fileno(STDOUT))) {
 sub exec_test($$);
 
 my ($prog, $in, $out) = ([], [], []);
-my $line = 0;
+my $line_number = 0;
 my $prog_line;
 my ($tests, $failed) = (0,0);
 
 for (;;) {
-  my $script = <>; $line++;
-  if (defined $script) {
+  my $line = <>; $line_number++;
+  if (defined $line) {
     # Substitute %VAR and %{VAR} with environment variables.
-    $script =~ s[%(?:(\w+)|\{(\w+)\})][$ENV{"$1$2"}]eg;
+    $line =~ s[%(?:(\w+)|\{(\w+)\})][$ENV{"$1$2"}]eg;
   }
-  next if (defined($script) && $script =~ /^!/);
-  if (!defined($script) || $script =~ s/^\$ ?//) {
-    if (@$prog) {
-       #print "[$prog_line] \$ ", join(' ', @$prog), " -- ";
-       my $p = [ @$prog ];
-       print "[$prog_line] \$ ", join(' ',
-             map { s/\s/\\$&/g; $_ } @$p), " -- ";
-       my $result = exec_test($prog, $in);
-       my $good = 1;
-       my $nmax = (@$out > @$result) ? @$out : @$result;
-       for (my $n=0; $n < $nmax; $n++) {
-	 if (!defined($out->[$n]) || !defined($result->[$n]) ||
-	     $out->[$n] ne $result->[$n]) {
-		 $good = 0;
-		 #chomp $out->[$n];
-		 #chomp $result->[$n];
-		 #print "$out->[$n] != $result->[$n]";
-	 }
-       }
-       $tests++;
-       $failed++ unless $good;
-       print $good ? $OK : $FAILED, "\n";
-       if (!$good) {
-         for (my $n=0; $n < $nmax; $n++) {
-	   my $l = defined($out->[$n]) ? $out->[$n] : "~";
-	   chomp $l;
-	   my $r = defined($result->[$n]) ? $result->[$n] : "~";
-	   chomp $r;
-	   print sprintf("%-37s | %-39s\n", $l, $r);
-         }
-       } elsif ($opt_v) {
-	 print join('', @$result);
-       }
+  if (defined $line) {
+    if ($line =~ s/^\s*< ?//) {
+      push @$in, $line;
+    } elsif ($line =~ s/^\s*> ?//) {
+      push @$out, $line;
+    } else {
+      process_test($prog, $prog_line, $in, $out);
+
+      $prog = [];
+      $prog_line = 0;
     }
-    #$prog = [ split /\s+/, $script ] if $script;
-    $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $script ] if $script;
-    $prog_line = $line;
-    $in = [];
-    $out = [];
-  } elsif ($script =~ s/^> ?//) {
-    push @$in, $script;
+    if ($line =~ s/^\s*\$ ?//) {
+      $line =~ s/\s+#.*//;  # remove comments here...
+      $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
+      $prog_line = $line_number;
+      $in = [];
+      $out = [];
+    }
   } else {
-    push @$out, $script;
+    process_test($prog, $prog_line, $in, $out);
+    last;
   }
-  last unless defined($script);
 }
+
 my $status = sprintf("%d commands (%d passed, %d failed)",
 	$tests, $tests-$failed, $failed);
 if (isatty(fileno(STDOUT))) {
@@ -87,11 +74,48 @@ if (isatty(fileno(STDOUT))) {
 print $status, "\n";
 exit $failed ? 1 : 0;
 
+
+sub process_test($$$$) {
+  my ($prog, $prog_line, $in, $out) = @_;
+
+  return unless @$prog;
+
+       my $p = [ @$prog ];
+       print "[$prog_line] \$ ", join(' ',
+             map { s/\s/\\$&/g; $_ } @$p), " -- ";
+       my $result = exec_test($prog, $in);
+       my $good = 1;
+       my $nmax = (@$out > @$result) ? @$out : @$result;
+       for (my $n=0; $n < $nmax; $n++) {
+	 if (!defined($out->[$n]) || !defined($result->[$n]) ||
+	     $out->[$n] ne $result->[$n]) {
+		 $good = 0;
+	 }
+       }
+       $tests++;
+       $failed++ unless $good;
+       print $good ? $OK : $FAILED, "\n";
+       if (!$good) {
+         for (my $n=0; $n < $nmax; $n++) {
+	   my $l = defined($out->[$n]) ? $out->[$n] : "~";
+	   chomp $l;
+	   my $r = defined($result->[$n]) ? $result->[$n] : "~";
+	   chomp $r;
+	   print sprintf("%-37s %s %-39s\n", $l, $l eq $r ? '|' : '?', $r);
+         }
+       } elsif ($opt_v) {
+	 print join('', @$result);
+       }
+}
+
+
 sub su($) {
   my ($user) = @_;
 
+  $user ||= "root";
+
   my ($login, $pass, $uid, $gid) = getpwnam($user)
-    or return [ "su: user $prog->[1] does not exist\n" ];
+    or return [ "su: user $user does not exist\n" ];
   my @groups = ();
   my $fh = new FileHandle("/etc/group")
     or return [ "opening /etc/group: $!\n" ];
@@ -107,27 +131,58 @@ sub su($) {
 
   my $groups = join(" ", ($gid, $gid, @groups));
   #print STDERR "[[$groups]]\n";
+  $! = 0;  # reset errno
   $> = 0;
   $( = $gid;
   $) = $groups;
   if ($!) {
-    return [ "setgroups: $!\n" ];
+    return [ "su: $!\n" ];
   }
   if ($uid != 0) {
     $> = $uid;
     #$< = $uid;
     if ($!) {
-      return [ "seteuid: $prog->[1]: $!\n" ];
+      return [ "su: $prog->[1]: $!\n" ];
     }
   }
   #print STDERR "[($>,$<)($(,$))]";
   return [];
 }
 
+
+sub sg($) {
+  my ($group) = @_;
+
+  my $gid = getgrnam($group)
+    or return [ "sg: group $group does not exist\n" ];
+  my %groups = map { $_ eq $gid ? () : ($_ => 1) } (split /\s/, $));
+  
+  #print STDERR "<<", join("/", keys %groups), ">>\n";
+  my $groups = join(" ", ($gid, $gid, keys %groups));
+  #print STDERR "[[$groups]]\n";
+  $! = 0;  # reset errno
+  if ($> != 0) {
+	  my $uid = $>;
+	  $> = 0;
+	  $( = $gid;
+	  $) = $groups;
+	  $> = $uid;
+  } else {
+	  $( = $gid;
+	  $) = $groups;
+  }
+  if ($!) {
+    return [ "sg: $!\n" ];
+  }
+  print STDERR "[($>,$<)($(,$))]";
+  return [];
+}
+
+
 sub exec_test($$) {
   my ($prog, $in) = @_;
   local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
-  my $needs_shell = (join('', @$prog) =~ /[|<>"'`\$]/);
+  my $needs_shell = (join('', @$prog) =~ /[][|<>"'`\$\*\?]/);
 
   if ($prog->[0] eq "umask") {
     umask oct $prog->[1];
@@ -139,15 +194,8 @@ sub exec_test($$) {
     return [];
   } elsif ($prog->[0] eq "su") {
     return su($prog->[1]);
-  } elsif ($prog->[0] eq "seteuid") {
-    my $user = $prog->[1];
-    my ($login,$pass,$uid,$gid) = getpwnam($user) or
-      return [ "seteuid: user $prog->[1] does not exist\n" ];
-    $> = $uid;
-    if ($> != $uid) {
-      return [ "seteuid: $prog->[1]: $!\n" ];
-    }
-    return [];
+  } elsif ($prog->[0] eq "sg") {
+    return sg($prog->[1]);
   }
 
   pipe *IN2, *OUT
@@ -213,13 +261,12 @@ sub exec_test($$) {
     open STDERR, ">&STDOUT"
       or die "Can't join STDOUT and STDERR: $!";
 
-    #print ERR_DUP "<", join(' ', @$prog), ">\n";
     if ($needs_shell) {
       exec ('/bin/sh', '-c', join(" ", @$prog));
     } else {
       exec @$prog;
     }
-    print ERR_DUP $prog->[0], ": $!\n";
+    print STDERR $prog->[0], ": $!\n";
     exit;
   }
 }

@@ -1,0 +1,49 @@
+Regression test: Quilt did reorder files in patches.
+
+	$ mkdir d
+	$ cd d
+	$ echo one > f
+	$ echo one > g
+	$ mkdir patches
+	$ cat > patches/test.diff
+	< --- g.orig	2003-04-09 01:48:01.000000000 +0200
+	< +++ g	2003-04-09 01:49:17.000000000 +0200
+	< @@ -1 +1 @@
+	< -one
+	< +two
+	< --- f.orig	2003-04-09 01:48:01.000000000 +0200
+	< +++ f	2003-04-09 01:49:17.000000000 +0200
+	< @@ -1 +1 @@
+	< -one
+	< +two
+
+	$ cat > patches/series
+	< test.diff -p0
+	$ quilt push -q
+	> Applying test
+	> Now at patch test
+
+	$ quilt pop -q
+	> Removing test
+	> No patches applied
+
+	$ echo one > h
+	$ sleep 2
+	$ cat >> patches/test.diff
+	< --- h.orig	2003-04-09 01:48:01.000000000 +0200
+	< +++ h	2003-04-09 01:49:17.000000000 +0200
+	< @@ -1 +1 @@
+	< -one
+	< +two
+
+	$ quilt push -q
+	> Applying test
+	> Now at patch test
+
+	$ quilt files
+	> g
+	> f
+	> h
+
+	$ cd ..
+	$ rm -rf d

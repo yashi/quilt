@@ -1,0 +1,47 @@
+Regresion test case: Empty lines in patch descriptions were
+accidentally removed.
+
+	$ mkdir d
+	$ cd d
+	$ mkdir patches
+	$ echo one > f
+	$ cat > patches/test.diff
+	< C1
+	<
+	< C3
+	<
+	< Index: f
+	< ===================================================================
+	< --- f.orig	2003-04-09 03:18:06.000000000 +0200
+	< +++ f	2003-04-09 03:18:09.000000000 +0200
+	< @@ -1 +1 @@
+	< -one
+	< +two
+
+	$ cat > patches/series
+	< test.diff -p0
+
+	$ quilt push
+	> Applying test
+	> patching file f
+	>
+	> Now at patch test
+
+	$ quilt refresh
+	> Refreshed patch test
+	$ sed -e "s/\\t.*//" patches/test.diff
+	> C1
+	>
+	> C3
+	>
+	> Index: f
+	> ===================================================================
+	> --- f.orig
+	> +++ f
+	> @@ -1 +1 @@
+	> -one
+	> +two
+
+	$ cd ..
+	$ rm -rf d
+
