@@ -9,17 +9,51 @@
 
 export TEXTDOMAIN=quilt
 		
-
 if [ -e $HOME/.quiltrc ]
 then
 	. $HOME/.quiltrc
 fi
 
 : ${QUILT_PATCHES:=patches}
+: ${QUILT_PC:=.pc}
 
-if [ -e .pc/series ]
+#
+# If the working directory does not contain a $QUILT_PATCHES directory,
+# quilt searches for its base directory up the directory tree. If no
+# $QUILT_PATCHES directory exists, the quilt operations that create
+# patches will create $QUILT_PATCHES in the current working directory.
+#
+# When quilt is invoked from a directory below the base directory, it
+# changes into the base directory, and sets $SUBDIR to the relative
+# path from the base directory to the directory in which it was
+# invoked. (e.g., if quilt is invoked in /usr/src/linux/drivers/net
+# and the base direcory is /usr/src/linux, $SUBDIR is set to
+# drivers/net/.
+
+unset SUBDIR
+if ! [ -d "$QUILT_PATCHES" ]
 then
-	SERIES=.pc/series
+    basedir=$PWD
+    while [ -n "$basedir" ]
+    do
+	basedir=${basedir%/*}
+	if [ -d "$basedir/$QUILT_PATCHES" ]
+	then
+	    SUBDIR="${PWD#$basedir/}/"
+	    if ! cd $basedir
+	    then
+		echo "Cannot change into parent directory $basedir" >&2
+		exit 1
+	    fi
+	    break
+	fi
+    done
+    unset basedir
+fi
+
+if [ -e $QUILT_PC/series ]
+then
+	SERIES=$QUILT_PC/series
 elif [ -e series ]
 then
 	SERIES=series
@@ -27,7 +61,8 @@ else
 	SERIES=$QUILT_PATCHES/series
 fi
 
-DB=".pc/applied-patches"
+DB="$QUILT_PC/applied-patches"
+
 
 # Quote a string for use in a basic regular expression.
 quote_bre()
@@ -239,7 +274,7 @@ backup_file_name()
 	local patch=$1
 	while [ $# -gt 1 ]
 	do
-		echo ".pc/$patch/$2"
+		echo "$QUILT_PC/$patch/$2"
 		shift
 	done
 }
@@ -391,13 +426,13 @@ stripit()
 file_in_patch()
 {
 	local file=$1 patch=$2
-	[ -f ".pc/$patch/$file" ]
+	[ -f "$QUILT_PC/$patch/$file" ]
 }
 
 files_in_patch()
 {
 	local patch="$1"
-	local path=".pc/$patch"
+	local path="$QUILT_PC/$patch"
 	if [ -d "$path" ]
 	then
 		for file in $(find "$path" -type f \
@@ -585,7 +620,7 @@ first_modified_by()
 	fi
 	for patch in ${patches[@]}
 	do
-		if [ -f ".pc/$patch/$file" ]
+		if [ -f "$QUILT_PC/$patch/$file" ]
 		then
 			echo $patch
 			return 0

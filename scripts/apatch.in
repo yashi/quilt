@@ -44,15 +44,18 @@ apply_patch()
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
 		gzip -cd $patch_file \
-		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
 			-E $silent $force_apply 2>&1
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
 			-E $silent $force_apply 2>&1
 	else
-		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
 			-E $silent $force_apply -i $patch_file 2>&1
 	fi
 }
@@ -63,7 +66,8 @@ rollback_patch()
 
 	# FIXME backup_files should scan the directory hierarchy itself.
 	files_in_patch $patch > $pc_file
-	@LIB@/backup-files $silent_unless_verbose -f $pc_file -B .pc/$patch/ -r
+	@LIB@/backup-files $silent_unless_verbose \
+		-f $pc_file -B $QUILT_PC/$patch/ -r
 	if [ -z "$opt_leave_rejects" ]
 	then
 		@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
@@ -88,7 +92,8 @@ apatch()
 	then
 		# The reject files are removed in rollback_patch.
 		echo "$output" \
-		| sed -e 's/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
+		| sed -e \
+'s/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
 	elif [ -n "$output" ]
 	then
 		echo "$output"
@@ -99,17 +104,17 @@ apatch()
 		add_to_db $patch
 		if [ $status -eq 0 ]
 		then
-			rm -f .pc/$patch~refresh
+			rm -f $QUILT_PC/$patch~refresh
 		else
-			touch .pc/$patch~refresh
+			touch $QUILT_PC/$patch~refresh
 		fi
 		
-		if [ -e ".pc/$patch" ]
+		if [ -e "$QUILT_PC/$patch" ]
 		then
-			touch .pc/$patch/.timestamp
+			touch $QUILT_PC/$patch/.timestamp
 		fi
 
-		if [ "$(shopt -s nullglob ; echo .pc/$patch/*)" = "" ]
+		if [ "$(shopt -s nullglob ; echo $QUILT_PC/$patch/*)" = "" ]
 		then
 			echo $"Patch $patch appears to be empty, applied"
 		elif [ $status -ne 0 ]
@@ -173,7 +178,7 @@ fi
 patch=$(stripit $1)
 
 top=$(top_patch)
-if [ -n "$top" -a -e .pc/$top~refresh ]
+if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]
 then
 	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1

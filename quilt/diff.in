@@ -137,7 +137,7 @@ do
 	esac
 done
 
-opt_files=( "$@" )
+opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
 
 if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
@@ -182,9 +182,9 @@ then
 	# have changed).
 	while read file
 	do
-		echo "${file#.pc/$snap_subdir/}" >&4
+		echo "${file#$QUILT_PC/$snap_subdir/}" >&4
 	done \
-	< <(find .pc/$snap_subdir -type f)
+	< <(find $QUILT_PC/$snap_subdir -type f)
 	# Also look at all patches that are currently applied.
 	opt_combine=1
 	first_patch="$(applied_patches | head -n 1)"
@@ -233,9 +233,9 @@ then
 	workdir=$(gen_tempfile -d $PWD/quilt)
 	pwd=$PWD
 
-	if ! cd .pc/$last_patch
+	if ! cd $QUILT_PC/$last_patch
 	then
-		echo $"Cannot change into .pc/$last_patch"
+		echo $"Cannot change into $QUILT_PC/$last_patch"
 		die 1
 	fi
 	if ! cp -l --parents "${files[@]}" $workdir/
@@ -268,7 +268,7 @@ then
 			# relative diff for a subset of files in the patch
 			# will fail.
 			
-			if [ ! -e $pwd/.pc/$last_patch~refresh -a \
+			if [ ! -e $pwd/$QUILT_PC/$last_patch~refresh -a \
 			       ${#opt_files[@]} -eq 0 ]
 			then
 				echo $"Failed to patch temporary files"
@@ -285,9 +285,9 @@ fi
 
 for file in "${files[@]}"
 do
-	if [ -n "$opt_snapshot" -a -e ".pc/$snap_subdir/$file" ]
+	if [ -n "$opt_snapshot" -a -e "$QUILT_PC/$snap_subdir/$file" ]
 	then
-		old_file=".pc/$snap_subdir/$file"
+		old_file="$QUILT_PC/$snap_subdir/$file"
 	elif [ -n "$opt_relative" ]
 	then
 		old_file="$workdir/$file"

@@ -41,13 +41,13 @@ Note that this heuristic is much slower than scanning applied patches.)
 
 scan_applied()
 {
-	local prefix=$1 file=$2
+	local prefix=$1 file=$SUBDIR$2
 	shift 2
 	local patch
 
 	for patch in "$@"
 	do
-		if [ -f ".pc/$patch/$file" ]
+		if [ -f "$QUILT_PC/$patch/$file" ]
 		then
 			[ -n "$opt_filenames" ] && \
 				patch=$(patch_file_name $patch)
@@ -58,7 +58,7 @@ scan_applied()
 
 scan_unapplied()
 {
-	local prefix=$1 file=$2
+	local prefix=$1 file=$SUBDIR$2
 	shift 2
 	local file_bre="$(quote_bre $file)" patch
 

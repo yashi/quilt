@@ -83,31 +83,31 @@ fi
 
 status=0
 for file in $*
-do
-	if ! file_in_patch $file $patch
+do	
+	if ! file_in_patch $SUBDIR$file $patch
 	then
-		echo $"File $file is not in patch $patch"
+		echo $"File $SUBDIR$file is not in patch $patch"
 		status=1
 		continue
 	fi
 
-	next_patch=$(next_patch_for_file $patch $file)
+	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
 	if [ -n "$next_patch" ]
 	then
-		echo $"File $file modified by patch $next_patch"
+		echo $"File $SUBDIR$file modified by patch $next_patch"
 		status=1
 		continue
 	fi
 
 	# Restore file from backup
-	if ! @LIB@/backup-files -s -B .pc/$patch/ -r $file
+	if ! @LIB@/backup-files -s -B $QUILT_PC/$patch/ -r $SUBDIR$file
 	then
-		echo $"Failed to remove file $file from patch $patch"
+		echo $"Failed to remove file $SUBDIR$file from patch $patch"
 		status=1
 		continue
 	fi
 	
-	echo $"File $file removed from patch $patch"
+	echo $"File $SUBDIR$file removed from patch $patch"
 done
 exit $status
 ### Local Variables:

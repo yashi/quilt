@@ -28,13 +28,14 @@ files_may_have_changed()
 	local patch=$1 file
 	local patch_file=$(patch_file_name $patch)
 	
-	if [ $? -ne 0 -o ! -e "$patch_file" -o ! -e ".pc/$patch/.timestamp" \
-	     -o ".pc/$patch/.timestamp" -ot "$patch_file" ]
+	if [ $? -ne 0 -o ! -e "$patch_file" \
+	     -o ! -e "$QUILT_PC/$patch/.timestamp" \
+	     -o "$QUILT_PC/$patch/.timestamp" -ot "$patch_file" ]
 	then
 		return 0
 	fi
 	
-	local apply_ts=$(date -r ".pc/$patch/.timestamp" '+%s') ts
+	local apply_ts=$(date -r "$QUILT_PC/$patch/.timestamp" '+%s') ts
 	for file in $(files_in_patch $patch)
 	do
 		ts=$(date -r $file '+%s' 2> /dev/null)
@@ -53,10 +54,10 @@ check_for_pending_changes()
 	local patch_args=$(patch_args $patch)
 	local workdir=$(gen_tempfile -d quilt) status=0
 
-	if [ -d .pc/$patch ]
+	if [ -d $QUILT_PC/$patch ]
 	then
 		if ! rmdir $workdir ||  # note that this is racey...
-		   ! cp -rl .pc/$patch $workdir/
+		   ! cp -rl $QUILT_PC/$patch $workdir/
 		then
 			echo $"Failed to copy files to temporary directory"
 			rm -rf $workdir
@@ -84,7 +85,7 @@ check_for_pending_changes()
 			# files won't succeed, either. So, ignore the error
 			# in that particular case.
 			
-			if ! [ -e .pc/$patch ]
+			if ! [ -e $QUILT_PC/$patch ]
 			then
 				echo $"Failed to patch temporary files"
 				rm -rf $workdir
@@ -133,11 +134,11 @@ rpatch()
 	if [ $status -eq 0 ]
 	then
 		echo $"Removing $patch"
-		rm -f ".pc/$patch/.timestamp"
-		@LIB@/backup-files $silent -f $pc_file -B .pc/$patch/ -r
+		rm -f "$QUILT_PC/$patch/.timestamp"
+		@LIB@/backup-files $silent -f $pc_file -B $QUILT_PC/$patch/ -r
 		status=$?
 		remove_from_db $patch
-		rm -f .pc/$patch~refresh
+		rm -f $QUILT_PC/$patch~refresh
 	fi
 	rm -f $pc_file
 	trap - SIGINT
@@ -187,7 +188,7 @@ patch=$(stripit $1)
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
 
 top=$(top_patch)
-if [ -n "$top" -a -e .pc/$top~refresh -a -z "$opt_force" ]
+if [ -n "$top" -a -e $QUILT_PC/$top~refresh -a -z "$opt_force" ]
 then
 	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1

@@ -84,23 +84,23 @@ fi
 status=0
 for file in $*
 do
-	if file_in_patch $file $patch
+	if file_in_patch $SUBDIR$file $patch
 	then
-		echo $"File $file is already in patch $patch"
+		echo $"File $SUBDIR$file is already in patch $patch"
 		status=2
 		continue
 	fi
-	next_patch=$(next_patch_for_file $patch $file)
+	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
 	if [ -n "$next_patch" ]
 	then
-		echo $"File $file modified by patch $next_patch"
+		echo $"File $SUBDIR$file modified by patch $next_patch"
 		status=1
 		continue
 	fi
 
-	if ! @LIB@/backup-files -s -B .pc/$patch/ $file
+	if ! @LIB@/backup-files -s -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
-		echo $"Failed to back up file $file" >&2
+		echo $"Failed to back up file $SUBDIR$file" >&2
 		status=1
 		continue
 	fi
@@ -120,7 +120,7 @@ do
 		fi
 	fi
 
-	echo $"File $file added to patch $patch"
+	echo $"File $SUBDIR$file added to patch $patch"
 done
 exit $status
 ### Local Variables:

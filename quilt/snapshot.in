@@ -66,8 +66,8 @@ fi
 snap_subdir=.snap
 
 # Clean up from previous snapshot
-rm -rf .pc/$snap_subdir
-mkdir -p .pc/$snap_subdir
+rm -rf $QUILT_PC/$snap_subdir
+mkdir -p $QUILT_PC/$snap_subdir
 
 if [ -n "$opt_remove" ]
 then
@@ -79,14 +79,14 @@ for patch in $(applied_patches | tac)
 do
 	for file in $(files_in_patch $patch)
 	do
-		if ! [ -e ".pc/$snap_subdir/$file" ]
+		if ! [ -e "$QUILT_PC/$snap_subdir/$file" ]
 		then
-			mkdir -p ".pc/$snap_subdir/$(dirname $file)"
+			mkdir -p "$QUILT_PC/$snap_subdir/$(dirname $file)"
 			if [ -e "$file" ]
 			then
-				ln "$file" ".pc/$snap_subdir/$file"
+				ln "$file" "$QUILT_PC/$snap_subdir/$file"
 			else
-				touch ".pc/$snap_subdir/$file"
+				touch "$QUILT_PC/$snap_subdir/$file"
 			fi
 		fi
 	done
@@ -96,7 +96,7 @@ done
 # (which represent files that the patch creates). Those may have
 # been created in the meantime, but patch would refuse to touch
 # them: We must remove them here.
-find .pc/$snap_subdir -type f -size 0 -exec rm -f '{}' ';'
+find $QUILT_PC/$snap_subdir -type f -size 0 -exec rm -f '{}' ';'
 
 ### Local Variables:
 ### mode: shell-script

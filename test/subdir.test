@@ -1,0 +1,73 @@
+	$ mkdir d
+	$ cd d
+
+	$ mkdir subdir
+	$ cat > subdir/file
+	< old file
+
+	$ quilt new test
+	> Patch test is now on top
+
+	$ quilt add subdir/file
+	> File subdir/file added to patch test
+
+	$ cat > subdir/file
+	< new contents
+
+	This creates the patches/ directory:
+
+	$ quilt refresh
+	> Refreshed patch test
+
+	$ cd subdir
+	$ quilt add file2
+	> File subdir/file2 added to patch test
+
+	$ cat > file2
+	< another file
+
+	$ cat > file3
+	< yet another file
+
+	$ quilt add file3
+	> File subdir/file3 added to patch test
+
+	$ rm file3
+	$ quilt files
+	> subdir/file
+	> subdir/file2
+	> subdir/file3
+
+	$ quilt diff | sed -e "s/\\t.*//"
+	> Index: d/subdir/file
+	> ===================================================================
+	> --- d.orig/subdir/file
+	> +++ d/subdir/file
+	> @@ -1 +1 @@
+	> -old file
+	> +new contents
+	> Index: d/subdir/file2
+	> ===================================================================
+	> --- d.orig/subdir/file2
+	> +++ d/subdir/file2
+	> @@ -0,0 +1 @@
+	> +another file
+	> Index: d/subdir/file3
+	> ===================================================================
+	> --- d.orig/subdir/file3
+	> +++ d/subdir/file3
+	> @@ -1 +0,0 @@
+	> -yet another file
+
+	$ quilt refresh
+	> Refreshed patch test
+
+	$ quilt remove file2
+	> File subdir/file2 removed from patch test
+
+	$ quilt files
+	> subdir/file
+	> subdir/file3
+
+	$ cd ../..
+	$ rm -rf d

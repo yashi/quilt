@@ -58,7 +58,7 @@ do
         -n)
 		opt_patch=$(echo "$2" |
 			    @SED@ -e 's/^'"$(quote_bre $QUILT_PATCHES)"'\///' \
-			          -e 's/^\.pc\///')
+			          -e 's/^\$QUILT_PC\///')
 		shift 2 ;;
 	-p)
 		opt_strip=$2
@@ -186,7 +186,7 @@ else
 	fi
 fi
 
-rm -rf .pc/$patch
+rm -rf $QUILT_PC/$patch
 
 if ! patch_in_series $patch &&
    ! insert_in_series $opt_patch "$patch_args"
