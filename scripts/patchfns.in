@@ -436,7 +436,7 @@ find_patch()
 	then
 		local patch="${1#$QUILT_PATCHES/}"
 		local bre=$(quote_bre "$patch")
-		set -- $(@SED@ -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ '$'\t'']\|$\)/!d" \
+		set -- $(@SED@ -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' $SERIES)
 		if [ $# -eq 1 ]
 		then
