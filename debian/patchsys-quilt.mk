@@ -37,11 +37,13 @@ endif
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
 
+DEB_SRCDIR ?= .
+
 _cdbs_patch_system_apply_rule := apply-patches
 _cdbs_patch_system_unapply_rule := reverse-patches
 
 # DEB_PATCHDIRS: directory containing your source file for patches.
-DEB_PATCHDIRS = debian/patches
+DEB_PATCHDIRS = $(shell pwd)/debian/patches
 
 # DEB_QUILT_PATCHDIR_LINK
 # By default, quilt expects to find the patch files into the /patches directory.
@@ -56,7 +58,7 @@ DEB_QUILT_PATCHDIR_LINK = patches
 DEB_QUILT_SERIES = $(DEB_PATCHDIRS)/series
 
 # Internal variables, do not change it unless you know what you're doing
-DEB_QUILT_CMD = $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHES=$(DEB_QUILT_PATCHDIR_LINK)) quilt
+DEB_QUILT_CMD = cd $(DEB_SRCDIR) && $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHES=$(DEB_QUILT_PATCHDIR_LINK)) quilt
 
 post-patches:: apply-patches
 
@@ -67,21 +69,21 @@ apply-patches: pre-build debian/stamp-patched
 debian/stamp-patched: 
 debian/stamp-patched:
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
-	  if [ -L $(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
-	    ln -s $(DEB_PATCHDIRS) $(DEB_QUILT_PATCHDIR_LINK) ; \
+	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
+	    ln -s $(DEB_PATCHDIRS) $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ; \
 	  fi ; \
 	fi
 	$(DEB_QUILT_CMD) push -a
 	touch debian/stamp-patched
 
 reverse-patches:
-	$(DEB_QUILT_CMD) pop -a -R
+	if [ -d "$(DEB_SRCDIR)" ] ; then $(DEB_QUILT_CMD) pop -a -R ; fi
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
-	  if [ -L $(DEB_QUILT_PATCHDIR_LINK) ] ; then \
-	    rm $(DEB_QUILT_PATCHDIR_LINK) ; \
+	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then \
+	    rm $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ; \
 	  fi ; \
 	fi
-	rm -rf .pc
+	rm -rf $(DEB_SRCDIR)/.pc
 	rm -f debian/stamp-patch*
 
 endif
