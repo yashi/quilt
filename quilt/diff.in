@@ -24,7 +24,7 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo "Usage: quilt diff [-p n] [-c patch|-z] [-r] [-P patch] [file ...]" $redirect
+	echo "Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [file ...]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
@@ -48,7 +48,7 @@ by default.
 	Create a combined diff for all patches between this
 	patch and the patch specified with -P.
 
--r	Create a reverse diff.
+-R	Create a reverse diff.
 
 -z	Write to standard output the changes that have been
 	made relative to the topmost or specified patch.
@@ -90,7 +90,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:rzh --long diff: -- "$@"`
+options=`getopt -o p:P:c:Rzh --long diff: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -111,7 +111,7 @@ do
 	-c)
 		opt_combine=$2
 		shift 2 ;;
-	-r)
+	-R)
 		opt_reverse=1
 		shift ;;
 	-z)
@@ -225,6 +225,7 @@ trap "die 1" SIGTERM
 if [ -n "$opt_relative" ]
 then
 	patch_file=$(patch_file_name $last_patch)
+	pc_file=$(pc_file_name $last_patch)
 	patch_args=$(patch_args $last_patch)
 	workdir=$(@MKTEMP@ -d $PWD/patch-scripts.XXXXXX)
 	pwd=$PWD
@@ -256,7 +257,7 @@ then
 			# files won't succeed, either. So, ignore the error
 			# in that particular case.
 			
-			if ! [ -e $(pc_file_name $last_patch)~refresh ]
+			if ! [ -e $pwd/$pc_file~refresh ]
 			then
 				echo "Failed to patch temporary files"
 				die 1

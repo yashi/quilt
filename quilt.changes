@@ -4,7 +4,7 @@ Wed Feb  5 12:37:34 +0100 2003 - agruen@suse.de
 - Quilt diff: If a patch has been force applied, quilt diff -z
   will also have failures when generating the temporary files.
   Ignore these failures in this case.
-- Add -r option to quilt diff to generate a a reverse patch.
+- Add -R option to quilt diff to generate a a reverse patch.
 - Fix deleting the temporary directory (by using an absolute
   instead of a relative path).
 
