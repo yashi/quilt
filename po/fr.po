@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2004-07-11 20:44-0700\n"
+"PO-Revision-Date: 2004-07-13 15:31-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -293,12 +293,12 @@ msgstr "Usage : quilt edit {fichier} ...\\n"
 #: ../quilt/edit.in:16
 msgid ""
 "\n"
-"Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
-"topmost patch.\n"
+"Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
+"the topmost patch.\n"
 msgstr ""
 "\n"
-"Édite le(s) fichier(s) spécifiés au sein de $EDITOR après addition au patch\n"
-"du sommet.\n"
+"Édite le(s) fichier(s) spécifiés au sein de \\$EDITOR (%s) après addition \n"
+"au patch du sommet.\n"
 
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]\\n"
@@ -1005,8 +1005,8 @@ msgstr ""
 "utiliser « quilt upgrade ».\\n"
 
 #: ../scripts/rpatch.in:22
-msgid "Usage: $0 [-fRq] patchname\\n"
-msgstr "Usage: $0 [-fRq] nom_de_patch\\n"
+msgid "Usage: %s [-fRq] patchname\\n"
+msgstr "Usage: %s [-fRq] nom_de_patch\\n"
 
 #: ../scripts/rpatch.in:100
 msgid "Patch %s does not remove cleanly (enforce with -f)\\n"
