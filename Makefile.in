@@ -85,6 +85,7 @@ SRC +=		$(DEBIAN:%=debian/%)
 LINGUAS :=	fr de
 PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
+DIRT +=         po/*.mo
 
 SRC +=		test/one.test test/run
 
@@ -96,7 +97,7 @@ all : scripts
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
 
-dist : $(PACKAGE)-$(VERSION).tar.gz
+dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
 snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
@@ -216,6 +217,7 @@ install : scripts
 
 clean :
 	rm -f $(DIRT)
+	rm -f po/*.mo
 	
 distclean : clean
 	rm -f config.log config.status Makefile
