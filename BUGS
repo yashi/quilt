@@ -7,3 +7,5 @@
 * Patch destroys the backup files it generates if a file appears more
   than once in a patch. This is the reason why we use the backup-files
   utility instead.
+
+* quilt setup doesn't detect if the source file doesn't exist.

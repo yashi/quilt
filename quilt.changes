@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb  6 01:22:52 +0100 2003 - agruen@suse.de
+
+- Quilt refresh: Create sub-directories in patches directory
+  so that new patches in sub-directories can be added easily.
+
+-------------------------------------------------------------------
 Wed Feb  5 12:37:34 +0100 2003 - agruen@suse.de
 
 - Quilt diff: If a patch has been force applied, quilt diff -z

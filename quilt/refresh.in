@@ -181,6 +181,8 @@ else
 		die 1
 	fi
 
+	mkdir -p $(dirname $patch_file)
+
 	if ! cat_file $patch_file \
 	     | patch_description > $tmpfile2 || \
 	   ! cat $tmpfile >> $tmpfile2 || \
