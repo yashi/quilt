@@ -1,3 +1,19 @@
+quilt (0.29-3) unstable; urgency=low
+
+  * force the shell to be bash, since we use tons of bashism
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon, 24 Nov 2003 11:24:15 +0100
+
+quilt (0.29-2) unstable; urgency=low
+
+  * Add the patchsys-quilt.mk file achieving the integration of quilt within
+    cdbs.
+  * Install the upstream changelog under the changelog.gz name.
+  * Remove several files left over in the debian/ dir.
+  * Bump standard-version to 3.6.1.0: convert all control files to utf8.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Mon, 24 Nov 2003 10:24:15 +0100
+
 quilt (0.29-1) unstable; urgency=low
 
   * New upstream version.
@@ -108,3 +124,4 @@ quilt (0.4-1) unstable; urgency=low
 
  -- Martin Quinson <martin.quinson@ens-lyon.fr>  Tue, 29 Oct 2002 09:29:20 +0100
 
+# -*- coding: utf-8 -*-
