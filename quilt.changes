@@ -11,6 +11,8 @@ Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
   This is required by POSIX, and is also used by diffstat.
 - Adjust patch_description documentation extraction function to
   check for Index: lines.
+- Quilt refresh looses text before actual patch due to but in
+  patch_description function.
 
 -------------------------------------------------------------------
 Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de

@@ -582,7 +582,7 @@ patch_description()
 {
 	local patch_file=$1
 
-	if [ -e "$patch_file" ]
+	if [ -e "$patch_file" -o -z "$patch_file" ]
 	then
 		awk '
 		$1 == "---"	{ exit }
