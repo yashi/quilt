@@ -55,16 +55,16 @@ BIN :=		$(BIN_IN)
 SRC +=		$(BIN_SRC:%=bin/%)
 DIRT +=		$(BIN_IN:%=bin/%)
 
-QUILT_IN :=	add applied delete diff files import new next patches \
-		pop previous push refresh remove series setup top unapplied \
-		fold fork snapshot edit
+QUILT_IN :=	add applied delete diff edit files fold fork graph import \
+		new next patches pop previous push refresh remove series \
+		setup snapshot top unapplied
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-SCRIPTS_IN :=	apatch rpatch patchfns parse-patch spec2series
+SCRIPTS_IN :=	apatch rpatch patchfns parse-patch spec2series dependency-graph
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
 SRC +=		$(SCRIPTS_SRC:%=scripts/%)

@@ -1,0 +1,142 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @SCRIPTS@/patchfns ]
+	then
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		exit 1
+	fi
+	. @SCRIPTS@/patchfns
+fi
+
+usage()
+{
+	local redirect
+	if [ x$1 != x-h ]
+	then
+		redirect='>&2'
+	fi
+	echo $"Usage: quilt graph [-P path|--all] [--reduce] [--edge-labels=files]" $redirect
+
+	if [ x$1 = x-h ]
+	then
+		echo $"
+Generate a dot(1) directed graph showing the dependencies between
+applied patches. A patch depends on another patch if both touch the same
+file. Unless otherwise specified, the graph includes all patches that
+the topmost patch depends on.
+
+-P patch
+	Instead of the topmost patch, create a graph for the specified
+	patch. The graph will include all other patches that this patch
+	depends on, as well as all patches that depend on this patch.
+
+--all	Generate a graph including all patches and their dependencies.
+
+--reduce
+	Eliminate transitive edges from the graph.
+
+--edge-labels=files
+	Label graph edges with the file names that the adjacent patches
+	modify.
+
+-T ps	Directly produce a PostScript output file."
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o P:T:h --long all,reduce,edge-labels: -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-P)
+		if ! patch=$(find_patch $2)
+		then
+			echo $"Patch $2 is not in series" >&2
+			exit 1
+		fi
+		if ! is_applied $patch
+		then
+			echo $"Patch $patch is not applied" >&2
+			exit 1
+		fi
+		shift 2 ;;
+
+	-T)	if [ "$2" != ps ]; then
+			usage
+		fi
+		opt_format=ps
+		shift 2 ;;
+
+	--all)
+		opt_all=1
+		shift ;;
+
+	--reduce)
+		opt_reduce=1
+		shift ;;
+
+	--edge-labels)
+		if [ "$2" != files ]
+		then
+			usage
+		fi
+		opt_edge_labels=$2
+		shift 2 ;;
+
+	-h)
+		usage -h ;;
+
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 0 -o \( -n "$patch" -a -n "$opt_all" \) ]
+then
+	usage
+fi
+
+if [ -z "$opt_all" -a -z "$patch" ]
+then
+	patch=$(top_patch)
+	if [ -z "$patch" ]
+	then
+		echo $"No patches applied" >&2
+		exit 1
+	fi
+fi
+
+options=
+[ -n "$patch" ] && options="--select-patch $patch"
+[ -n "$opt_reduce" ] && options="$options --reduce"
+[ "$opt_edge_labels" = files ] && options="$options --edge-files"
+
+pipe=
+[ -n "$opt_format" ] && pipe="| dot -T$opt_format"
+
+applied_patches \
+| eval @SCRIPTS@/dependency-graph $options - $pipe
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

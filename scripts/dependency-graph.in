@@ -1,0 +1,314 @@
+#!@PERL@ -w
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Generate a dot-style graph of dependencies between patches.
+
+use Getopt::Long;
+use FileHandle;
+use strict;
+
+# Constants
+my $short_edge_style = "color=grey";
+my $close_node_style = "color=grey";
+my $highlighted_node_style = "style=bold";
+
+# Command line arguments
+my $help = 0;
+my $short_edge_thresh = 0;	# threshold for coloring as "short", 0 = disable
+my $long_edge_thresh = 0;	# threshold for coloring as "long",0 = disable
+my $edge_labels;		# label all edges with filenames
+my $short_edge_labels;		# label short edges with filenames
+my $long_edge_labels;		# label long edges with filenames
+my $edge_length_labels;		# distance between patches as edge labels
+my $node_numbers;		# include sequence numbers
+my $show_isolated_nodes;	# also include isolated nodes
+my $reduce;			# remove transitive edges
+my $mangle_patchnames;		# filter for compacting filenames
+my $selected_patch;		# only include patches related on this patch
+my $selected_distance = -1;	# infinity
+my @highlight_patches;		# a list of patches to highlight
+
+unless (GetOptions(
+	"h|help"		=> \$help,
+	"short-edge=i"		=> \$short_edge_thresh,
+	"long-edge=i"		=> \$long_edge_thresh,
+	"edge-files"		=> \$edge_labels,
+	"short-edge-files"	=> \$short_edge_labels,
+	"long-edge-files"	=> \$long_edge_labels,
+	"edge-length"		=> \$edge_length_labels,
+	"node-numbers"		=> \$node_numbers,
+	"isolated"		=> \$show_isolated_nodes,
+	"reduce"		=> \$reduce,
+	"mangle-patchnames=s"	=> \$mangle_patchnames,
+	"select-patch=s"	=> \$selected_patch,
+	"select-distance=i"	=> \$selected_distance,
+	"highlight=s"		=> \@highlight_patches ) && !$help) {
+    my $basename = $0;
+    $basename =~ s:.*/::;
+    my $fd = $help ? *STDOUT : *STDERR;
+    print $fd <<EOF;
+SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
+	  [--short-edge-files] [--long-edge-files] [--edge-length]
+	  [--node-numbers] [--isolated] [--reduce] [--mangle-patchnames=filter]
+	  [--select-patch=patch] [--select-distance=num] [--highlight=patch]
+
+--short-edge=num, --long-edge=num
+	Define the maximum edge length of short edges, and minimum edge
+	length of long edges. Short edges are de-emphasized, and long
+	edges are emphasized. The default is to treat all edges equally.
+
+-edge-files, --short-edge-files, --long-edge-files
+	Include conflicting filenames on all edges, short edges, or long
+	edges.
+
+--edge-length
+	Use the edge lengths as edge labels. Cannot be used together with
+	filename labels.
+
+--node-numbers
+	Include the sequence numbers of patches in the patch series in
+	node labels.
+
+--isolated
+	Do not suppress isolated nodes.
+
+--reduce
+	Remove transitive edges.
+
+--mangle-patchnames=filter
+	Define a filter command for transforming patch names into node
+	labels. The filter is passed each patch name on a separate line,
+	and must return the edge label for each patch on a separate line
+	(example: sed -e 's/^prefix//').
+
+--select-patch=patch
+	Reduce the graph to nodes that depend on the specified patch,
+	and nodes that the specified patch depends on (recursively).
+
+--select-distance=num
+	Limit the depth of recusion for --select-patch. The default is
+	to recurse exhaustively.
+
+--highlight=patch
+	Highlight the specified patch. This option can be specified more
+	than once.
+EOF
+    exit $help ? 0 : 1;
+}
+
+# Fetch the list of patches (all of them must be applied)
+my @patches;
+if (@ARGV) {
+    if (@ARGV == 1 && $ARGV[0] eq "-") {
+	@patches = map { chomp ; $_ } <STDIN>;
+    } else {
+	@patches = @ARGV;
+    }
+} else {
+    my $fh = new FileHandle("< .pc/applied-patches")
+	or die ".pc/applied-patches: $!\n";
+    @patches = map { chomp; $_ } <$fh>;
+    $fh->close();
+}
+
+# Fetch the list of files
+my @nodes;
+my $n = 0;
+foreach my $patch (@patches) {
+    if (! -d ".pc/$patch") {
+	print STDERR ".pc/$patch does not exist; skipping\n";
+	next;
+    }
+    my @files = split(/\n/, `cd .pc/$patch ; find -type f ! -name .timestamp`);
+    @files = map { s:\./::; $_ } @files;
+    push @nodes, {number=>$n++, name=>$patch, file=>$patch, files=>[ @files ] };
+}
+
+# If a patch is selected, limit the graph to nodes that depend on this patch,
+# and nodes that are dependent on this patch.
+if ($selected_patch) {
+    for ($n = 0; $n < @nodes; $n++) {
+	last if $nodes[$n]{file} eq $selected_patch;
+    }
+    die "Patch $selected_patch not included\n"
+	if ($n == @nodes);
+
+    my $selected_node = $nodes[$n];
+    push @{$selected_node->{attrs}}, $highlighted_node_style;
+
+    my %sel;
+    map { $sel{$_} = 1 } @{$selected_node->{files}};
+    map { $_->{files} = [ grep { exists $sel{$_} } @{$_->{files}} ] } @nodes;
+}
+
+# Optionally highlight a list of patches
+foreach my $patch (@highlight_patches) {
+    for ($n = 0; $n < @nodes; $n++) {
+	last if $nodes[$n]{file} eq $patch;
+    }
+    die "Patch $patch not included\n"
+	if ($n == @nodes);
+
+    my $node = $nodes[$n];
+    push @{$node->{attrs}}, $highlighted_node_style;
+    $node->{colorized} = 1;
+}
+
+# If a patch name mangling filter is selected, pipe all patchnames through
+# it.
+if ($mangle_patchnames) {
+    # FIXME: which patches ...
+    my $filter = new FileHandle("cat .pc/applied-patches | $mangle_patchnames |");
+    $n = 0;
+    foreach my $name (<$filter>) {
+	last unless $n < @nodes;
+	chomp $name;
+	if ($name eq "") {
+	    delete $nodes[$n++]{name};
+	} else {
+	    $nodes[$n++]{name} = $name;
+	}
+    }
+    $filter->close();
+}
+
+my %files_seen;		# remember the last patch that touched each file
+my %used_nodes;		# nodes to which at least one edge is attached
+my %edges;
+
+foreach my $node (@nodes) {
+    my $number = $node->{number};
+    foreach my $file (@{$node->{files}}) {
+	if (exists $files_seen{$file}) {
+	    push @{$edges{"$number:$files_seen{$file}"}{names}}, $file;
+	    $used_nodes{$number} = 1;
+	    $used_nodes{$files_seen{$file}} = 1;
+	}
+	$files_seen{$file} = $number;
+    }
+}
+
+# Create adjacency lists
+foreach my $node (@nodes) {
+    @{$node->{to}} = ();
+    @{$node->{from}} = ();
+}
+foreach my $key (keys %edges) {
+    my ($from, $to) = split /:/, $key;
+    push @{$nodes[$from]{to}}, $to;
+    push @{$nodes[$to]{from}}, $from;
+}
+
+# Colorize nodes that are close to each other
+foreach my $node (@nodes) {
+    if (!exists $node->{colorized} && !exists $used_nodes{$node->{number}}) {
+	$node->{colorized} = 1;
+	push @{$node->{attrs}}, $close_node_style;
+    }
+}
+
+# Colorize short and long edges
+foreach my $node (@nodes) {
+    my $close = 1;
+    foreach my $node2 (map {$nodes[$_]} @{$node->{to}}) {
+	if (abs($node2->{number} - $node->{number}) > $short_edge_thresh) {
+	    $close = 0
+	}
+    }
+    foreach my $node2 (map {$nodes[$_]} @{$node->{from}}) {
+	if (abs($node2->{number} - $node->{number}) > $short_edge_thresh) {
+	    $close = 0
+	}
+    }
+    if (!exists $node->{colorized} && $close) {
+	$node->{colorized} = 1;
+	push @{$node->{attrs}}, $close_node_style;
+    }
+}
+
+# Add node labels
+foreach my $node (@nodes) {
+    my @label = ();
+    push @label, $node->{number} + 1
+	if ($node_numbers);
+    push @label, $node->{name}
+	if exists $node->{name};
+    push @{$node->{attrs}}, "label=\"" . join(": ", @label) . "\"";
+}
+
+# Add edge labels
+foreach my $key (keys %edges) {
+    my ($from, $to) = split /:/, $key;
+    if ($edge_length_labels) {
+	push @{$edges{$key}->{attrs}}, "label=\"" . abs($to - $from) . "\""
+	    if abs($to - $from) > 1;
+    } elsif (abs($to - $from) < $short_edge_thresh) {
+	push @{$edges{$key}->{attrs}}, $short_edge_style;
+	if ($edge_labels || $short_edge_labels) {
+	    push @{$edges{$key}->{attrs}},
+		"label=\"" . join("\\n", @{$edges{$key}{names}}) . "\"";
+	}
+    } else {
+	if ($long_edge_thresh && abs($to - $from) > $long_edge_thresh) {
+	    push @{$edges{$key}->{attrs}}, "style=bold";
+	    if ($edge_labels || $long_edge_labels) {
+		push @{$edges{$key}->{attrs}},
+		    "label=\"" . join("\\n", @{$edges{$key}{names}}) . "\"";
+	    }
+	} else {
+	    if ($edge_labels) {
+		push @{$edges{$key}->{attrs}},
+		    "label=\"" . join("\\n", @{$edges{$key}{names}}) . "\"";
+	    }
+	}
+    }
+    # Compute a pseudo edge length so that neato works acceptably.
+    push @{$edges{$key}{attrs}}, "len=\"" .
+    	sprintf("%.2f", log(abs($to - $from) + 3)) . "\"";
+}
+
+#foreach my $node (@nodes) {
+#    push @{$node->{attrs}}, "shape=box";
+#}
+
+# Open output file / pipe
+my $out;
+if ($reduce) {
+    $out = new FileHandle("| tred")
+	or die "tred: $!\n";
+} else {
+    $out = new FileHandle("> /dev/stdout")
+	or die "$!\n";
+}
+
+# Write graph
+print $out "digraph dependencies {\n";
+#print "\tsize=\"11,8\"\n";
+foreach my $node (@nodes) {
+    next unless $show_isolated_nodes || exists $used_nodes{$node->{number}};
+    print $out "\tn$node->{number}";
+    if (exists $node->{attrs}) {
+	print $out " [" .
+	      join(",", @{$node->{attrs}}) . "]";
+    }
+    print $out ";\n";
+}
+
+sub w($) {
+    my @n = split /:/, shift;
+    return $n[0] * 10000 + $n[1];
+}
+foreach my $key (sort { w($a) <=> w($b) } keys %edges) {
+    my ($from, $to) = split /:/, $key;
+    print $out "\tn$to -> n$from";
+    if (exists $edges{$key}{attrs}) {
+	print $out " [" . join(",", @{$edges{$key}{attrs}}) . "]";
+    }
+    print $out ";\n";
+}
+print $out "}\n";
