@@ -12,23 +12,22 @@ export QUILTRC=$HOME/.quiltrc
 usage()
 {
 
-	echo $"Usage: quilt command [-h] ..."
-	#echo $"Commands are:" $(
-	#	local command
-	#	for command in @QUILT@/*
-	#	do
-	#		if [ -f "$command" -a -x "$command" ]
-	#		then
-	#			echo "${command#@QUILT@/}"
-	#		fi
-	#	done \
-	#	| sort
-	#)
+	echo $"Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+
 	echo $"Commands are:"
 	quilt_commands \
 	| sort \
 	| column | column -t \
 	| sed -e $'s/^/\t/'
+	echo $"
+Common options to all commands:
+
+--trace
+	Runs the command in bash trace mode (-x). For internal debugging.
+	
+--quiltrc file
+	Use the specified configuration file instead of ~/.quiltrc. 
+	See pdf documentation for details about its possible content."
 	exit 1
 }
 
