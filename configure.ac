@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.22],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.7 $)
+AC_REVISION ($Revision: 1.8 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -144,7 +144,6 @@ You do not appear to have msgfmt, which is part of the GNU Gettext package.  It
 is a required package as you chose the '--enable-nls' option to configure.
 You can download GNU Gettext from ftp.gnu.org.
 ])
-    exit 1
 fi
 if test -z "$MSGFMT" ; then
     AC_MSG_NOTICE([Building without natural language support])
