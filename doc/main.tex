@@ -168,6 +168,7 @@ scripts until they became what they are now~\cite{quilt}.
 % - Other merge tools (e.g., graphical ones)
 
 \section{Quilt: Basic Concepts and Operation}
+\label{sec:basic}
 
 The remainder of this document discusses the script collection
 \textit{quilt.}
@@ -265,7 +266,6 @@ directory are automatically removed when they are no longer needed, so
 usually there is no need to clean up manually.
 
 \section{An Example}
-\label{sec:basic}
 
 This section demonstrates how new patches are created and updated, and
 how conflicts are resolved. Let's start with a short text file:
@@ -614,6 +614,28 @@ meta-information like the archive names are stored as comments in the
 series file. \quilt{setup} also accepts a series file as argument (which
 must contain some meta-information), and sets up the working tree from
 the series file in this case.
+
+\section{Customizing Quilt}
+
+The following settings influence how \textit{quilt} behaves:
+
+\begin{description}
+
+\item[\textsf{QUILT\_PATCHES}]
+The location of patch files (see Section~\ref{sec:basic}).
+This setting defaults to ``\textsf{patches}''.
+
+\item[\textsf{QUILT\_DIFF\_OPTS}]
+Additional options that \textsf{quilt} shall pass to \prog{GNU diff}
+when generating patches. A useful setting for C source code is
+``\textsf{-p}'', which causes \prog{GNU diff} to show in the resulting
+patch which function a change is in.
+
+\end{description}
+
+These settings can either be defined in the environment, or in the file
+\textsf{.quiltrc} file in a user's home directory. The \textsf{.quiltrc}
+file is a \prog{bash} script.
 
 \section{Pitfalls and Known Problems}
 
