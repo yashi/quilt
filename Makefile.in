@@ -78,9 +78,9 @@ DIRT +=		lib/backup-files lib/backup-files.o
 DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
-SRC +=		$(DOC_SRC) doc/docco.txt
-SRC +=          doc/consider-for-docs-1.mail doc/consider-for-docs-2.mail \
-		doc/consider-for-docs-3.mail doc/sample.quiltrc
+SRC +=		$(DOC_SRC)
+SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
+		doc/sample.quiltrc
 DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1
