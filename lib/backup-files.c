@@ -29,6 +29,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <utime.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -44,7 +45,7 @@ enum { what_noop, what_backup, what_restore, what_remove };
 
 const char *opt_prefix="", *opt_suffix="", *opt_file;
 int opt_silent, opt_what=what_noop, opt_ignore_missing;
-int opt_nolinks, opt_walk_directory;
+int opt_nolinks, opt_touch;
 
 #define LINE_LENGTH 1024
 
@@ -242,6 +243,8 @@ process_file(const char *file)
 				printf("Copying %s\n", file);
 			if (link_or_copy(file, &st, backup))
 				return 1;
+			if (opt_touch)
+				utime(backup, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
 					return 1;
@@ -272,6 +275,8 @@ process_file(const char *file)
 			unlink(file);
 			if (link_or_copy(backup, &st, file))
 				return 1;
+			if (opt_touch)
+				utime(file, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
 					return 1;
@@ -335,7 +340,7 @@ main(int argc, char *argv[])
 	
 	progname = argv[0];
 
-	while ((opt = getopt(argc, argv, "brxB:z:f:shFL")) != -1) {
+	while ((opt = getopt(argc, argv, "brxB:z:f:shFLt")) != -1) {
 		switch(opt) {
 			case 'b':
 				opt_what = what_backup;
@@ -371,6 +376,10 @@ main(int argc, char *argv[])
 
 			case 'L':
 				opt_nolinks = 1;
+				break;
+
+			case 't':
+				opt_touch = 1;
 				break;
 
 			case 'h':

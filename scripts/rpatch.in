@@ -122,7 +122,7 @@ rpatch()
 	then
 		printf $"Removing patch %s\n" "$(print_patch $patch)"
 		rm -f "$QUILT_PC/$patch/.timestamp"
-		@LIB@/backup-files $silent -r -B $QUILT_PC/$patch/ -
+		@LIB@/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
 		status=$?
 		remove_from_db $patch
 		rm -f $QUILT_PC/$patch~refresh

@@ -97,8 +97,11 @@ apatch()
 		echo "$output" \
 		| @AWK@ '
 		/^patching file / { filename = substr($0, 15) }
-		{ gsub(/-- saving rejects to file .*/,
-		       "-- rejects in file " filename) }
+		{ if ('${#silent}' != 0)
+		    gsub(/ -- saving rejects to file .*/, "")
+		  else
+		    gsub(/ -- saving rejects to file .*/, " -- rejects in file " filename)
+		}
 		{ print }
 		'
 	elif [ -n "$output" ]

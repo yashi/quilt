@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Oct 17 22:19:09 CEST 2004 - agruen@suse.de
+
+- When applying a patch with -q and without -f no (individual)
+  reject files are created, and the "patching file" comments
+  are missing as well. In that case, we don't know wich files the
+  "-- saving rejects to file /tmp/foo" comments belong to, and we
+  can't fic them up. Remove them, instead.
+- Pop command: Touch files after they are restored so that tools
+  like make don't get confused.
+- Bump to version 0.37.
+
+-------------------------------------------------------------------
 Wed Sep 22 14:24:45 CEST 2004 - agruen@suse.de
 
 - scripts/patchfns.in: set the dotglob option so that dot files
@@ -9,7 +21,7 @@ Wed Sep 22 14:24:45 CEST 2004 - agruen@suse.de
   patch failed, the *.rej files were not removed properly. Change
   the code so that they won't be created in the working tree in
   the first place this case.
-- test/run script: Oops, the previouos commit was not the latest
+- test/run script: Oops, the previous commit was not the latest
   version.
 - Fix the version check in bash_completion for bash 3.
 - Bump version to 0.36.
