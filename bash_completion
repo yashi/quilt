@@ -26,8 +26,9 @@ _quilt()
     prev=${COMP_WORDS[COMP_CWORD-1]}
 
     # commands (added to patches)
-    cmds='add applied delete diff files import new next patches pop \
-          previous push refresh remove series setup top unapplied'
+    cmds='add applied delete diff edit files fork import new next \
+    	  patches pop previous push refresh remove series setup \
+	  snapshot top unapplied'
 
     patches=`cat_series`
     pcount=`cat_series | wc -l`
