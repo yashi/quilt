@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.21\n"
-"PO-Revision-Date: 2003-02-14 14:07+0100\n"
+"PO-Revision-Date: 2003-02-14 16:52+0100\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 "\tPatch auquel les fichiers doivent être ajoutés."
 
 #: ../quilt/add.in:76 ../quilt/delete.in:69 ../quilt/files.in:75
-#: ../quilt/guidiff.in:65 ../quilt/push.in:167 ../quilt/remove.in:76
+#: ../quilt/push.in:167 ../quilt/remove.in:76
 msgid "No patch applied"
 msgstr "Aucun patch n'est appliqué"
 
@@ -263,30 +263,6 @@ msgstr "Le patch n'est pas appliqué (affichage non verbeux)"
 #: ../quilt/files.in:87
 msgid "Patch is not applied"
 msgstr "Le patch n'est pas appliqué"
-
-#: ../quilt/guidiff.in:22
-msgid "Usage: quilt guidiff"
-msgstr "Usage : quilt guidiff"
-
-#: ../quilt/guidiff.in:26
-msgid ""
-"\n"
-"\n"
-"Display in $guidiffname the changes to files in the topmost patch.\n"
-"\n"
-msgstr ""
-"\n"
-"\n"
-"Affiche dans $guidiffname les changements induit par le patch au sommet.\n"
-"\n"
-
-#: ../quilt/guidiff.in:79
-msgid "The file $file doesn't exist before this patch"
-msgstr "Le fichier $file n'existe pas avant ce patch"
-
-#: ../quilt/guidiff.in:83
-msgid "No file in patch $patch"
-msgstr "Le patch $patch ne contient aucun fichier"
 
 #: ../quilt/import.in:22
 msgid "Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
@@ -520,6 +496,14 @@ msgstr "Aucun patch retiré"
 #: ../quilt/pop.in:181 ../quilt/push.in:184
 msgid "Interrupted by user"
 msgstr "Interrompu par l'utilisateur"
+
+#: ../quilt/pop.in:190 ../quilt/push.in:193
+msgid "No patches applied"
+msgstr "Aucun patch n'est appliqué"
+
+#: ../quilt/pop.in:192 ../quilt/push.in:195
+msgid "Now at patch $patch"
+msgstr "Le patch $patch est maintenant au sommet"
 
 #: ../quilt/previous.in:22
 msgid "Usage: quilt previous [patch]"
@@ -864,7 +848,7 @@ msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 "Le patch $patch ne s'applique pas proprement (forcez l'application avec -f)"
 
-#: ../scripts/apatch.in:181 ../scripts/rpatch.in:246
+#: ../scripts/apatch.in:181 ../scripts/rpatch.in:238
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
@@ -884,26 +868,47 @@ msgstr "Interrompu par l'utilisateur ; le patch $patch n'a pas été retiré;"
 msgid "Patch $patch appears to be empty, removed"
 msgstr "Le patch $patch semble vide. Il a été retiré."
 
-#: ../scripts/rpatch.in:164
+#: ../scripts/rpatch.in:144
+msgid "Removing $patch"
+msgstr "Retrait de $patch"
+
+#: ../scripts/rpatch.in:165
 msgid "Failed to create temporary files"
 msgstr "Impossible de créer les fichiers temporaires"
 
-#: ../scripts/rpatch.in:185
+#: ../scripts/rpatch.in:186
 msgid "Patch $patch does not remove (enforce with -f)"
 msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
-
-#: ../scripts/rpatch.in:194
-msgid "no patch applied"
-msgstr "aucun patch n'est appliqué"
-
-#: ../scripts/rpatch.in:196
-msgid "now at $top"
-msgstr "maintenant à $top"
-
-#: ../scripts/rpatch.in:198
-msgid "Removed $patch, $where"
-msgstr "$patch a été retiré, $where"
 
 #: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
 msgid " done"
 msgstr " fini"
+
+#~ msgid "Usage: quilt guidiff"
+#~ msgstr "Usage : quilt guidiff"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Display in $guidiffname the changes to files in the topmost patch.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Affiche dans $guidiffname les changements induit par le patch au sommet.\n"
+#~ "\n"
+
+#~ msgid "The file $file doesn't exist before this patch"
+#~ msgstr "Le fichier $file n'existe pas avant ce patch"
+
+#~ msgid "No file in patch $patch"
+#~ msgstr "Le patch $patch ne contient aucun fichier"
+
+#~ msgid "no patch applied"
+#~ msgstr "aucun patch n'est appliqué"
+
+#~ msgid "now at $top"
+#~ msgstr "maintenant à $top"
+
+#~ msgid "Removed $patch, $where"
+#~ msgstr "$patch a été retiré, $where"
