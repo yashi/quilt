@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.22],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.5 $)
+AC_REVISION ($Revision: 1.6 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -39,7 +39,7 @@ AC_ARG_WITH(bash, AC_HELP_STRING(
 	AC_PATH_PROG(BASH, bash)
     ])
 if test -z "$BASH" ; then
-    AC_MSG_ERROR([Please specify the location of bash with --with-bash])
+    AC_MSG_ERROR([Please specify the location of bash with the option '--with-bash'])
 fi
 
 dnl Check for Perl
@@ -53,7 +53,7 @@ AC_ARG_WITH(perl, AC_HELP_STRING(
 	AC_PATH_PROGS(PERL, [perl perl5])
     ])
 if test -z "$PERL" ; then
-    AC_MSG_ERROR([Please specify the location of Perl with --with-perl])
+    AC_MSG_ERROR([Please specify the location of Perl with the option '--with-perl'])
 fi
 
 dnl Checks for mktemp (for creating temporary files and directories)
@@ -67,7 +67,7 @@ AC_ARG_WITH(mktemp, AC_HELP_STRING(
 	AC_PATH_PROG(MKTEMP, mktemp)
     ])
 if test -z "$MKTEMP" ; then
-    AC_MSG_ERROR([Please specify the location of mktemp with --with-mktemp])
+    AC_MSG_ERROR([Please specify the location of mktemp with the option '--with-mktemp'])
 fi
 
 AC_MSG_CHECKING(whether $MKTEMP -d works)
@@ -90,7 +90,7 @@ AC_ARG_WITH(diff, AC_HELP_STRING(
 	AC_PATH_PROG(DIFF, diff)
     ])
 if test -z "$DIFF"; then
-    AC_MSG_ERROR([Please specify the location of diff with --with-diff])
+    AC_MSG_ERROR([Please specify the location of diff with the option '--with-diff'])
 fi
 
 # Check for patch
@@ -104,7 +104,7 @@ AC_ARG_WITH(patch, AC_HELP_STRING(
 	AC_PATH_PROG(PATCH, patch)
     ])
 if test -z "$PATCH"; then
-    AC_MSG_ERROR([Please specify the location of patch with --with-patch])
+    AC_MSG_ERROR([Please specify the location of patch with the option '--with-patch'])
 fi
 
 # Sun's patch is a mess, issue a warning.  But we are going to continue with
@@ -113,10 +113,20 @@ AC_MSG_CHECKING([whether $PATCH will work])
 if $PATCH -v 2>&1 | grep -q "Sun" >/dev/null 2>&1; then
 	AC_MSG_RESULT(no)
 	AC_MSG_WARN([
-Sorry, you have a Sun version of patch which is notoriously buggy.  $PACKAGE
+Sorry, you have a Sun version of patch which is notoriously buggy.  $PACKAGE_NAME
 may function correctly, or minor errors may occur due to Sun's patch tool.
 Please consider upgrading to GNU patch, if you already have GNU patch then you
 can supply its path with the '--with-patch=' option.
+])
+elif $PATCH --version 2>&1 | grep -q "patch 2.0" >/dev/null 2>&1; then
+	AC_MSG_RESULT(no)
+	AC_MSG_WARN([
+Sorry, the version of patch you are using can cause severe problems when a patch
+creates a directory.  $PACKAGE_NAME may well function correctly with this version
+of patch or small problems could creep in.
+Please consider upgrading your patch to a more recent version, if you already 
+have a more recent version of patch then you can supply its path with the 
+'--with-patch=' option.
 ])
 else
 	AC_MSG_RESULT(yes)
