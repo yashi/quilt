@@ -83,6 +83,14 @@ _quilt()
 	        ;;
 	   esac
 	   ;;
+	edit)
+	   case $prev in
+	     *)
+	        _filedir
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
+	        ;;
+	   esac
+	   ;;
 	files)
 	   COMPREPLY=( $( compgen -W "-v $patches" -- $cur ) )
 	   ;;
