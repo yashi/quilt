@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r @LIB@/patchfns ]
+	if ! [ -r @SCRIPTS@/patchfns ]
 	then
-		echo "Cannot read library @LIB@/patchfns" >&2
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
 		exit 1
 	fi
-	. @LIB@/patchfns
+	. @SCRIPTS@/patchfns
 fi
 
 usage()
@@ -80,7 +80,7 @@ fi
 if is_applied $patch
 then
 	if [ "$patch" != "$(top_patch)" ] || \
-	   ! @LIB@/rpatch -fq "$patch"
+	   ! @SCRIPTS@/rpatch -fq "$patch"
 	then
 		echo "Patch $patch is currently applied"
 		exit 1

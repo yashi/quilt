@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r @LIB@/patchfns ]
+	if ! [ -r @SCRIPTS@/patchfns ]
 	then
-		echo "Cannot read library @LIB@/patchfns" >&2
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
 		exit 1
 	fi
-	. @LIB@/patchfns
+	. @SCRIPTS@/patchfns
 fi
 
 usage()
@@ -171,10 +171,10 @@ then
 	if [ -x "$DIFFSTAT" ]
 	then
 		$DIFFSTAT $tmpfile 2>/dev/null \
-		| @LIB@/parse-patch -u diffstat $patch_file
+		| @SCRIPTS@/parse-patch -u diffstat $patch_file
 	fi
 	cat $tmpfile \
-	| @LIB@/parse-patch -u patch $patch_file
+	| @SCRIPTS@/parse-patch -u patch $patch_file
 else
 	if ! tmpfile2=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	then

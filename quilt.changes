@@ -2,6 +2,10 @@
 Fri Jan 31 13:05:18 CET 2003 - agruen@suse.de
 
 - Add syntax highlighting tags for emacs and vim.
+- Move all scripts from lib/ to scripts/. Install lib/backup-files
+  in /usr/lib/quilt/, and install the scripts in
+  /usr/share/quilt/scripts/, so that no binaries are installed
+  under /usr/share.
 
 -------------------------------------------------------------------
 Fri Jan 31 09:15:01 +0100 2003 - Martin.Quinson@ens-lyon.fr
