@@ -1,0 +1,14 @@
+This package was debianized by Martin Quinson <mquinson@blaise.ens-lyon.fr> on
+Tue, 29 Oct 2002 09:29:20 +0100.
+
+It was downloaded from:
+
+http://www.suse.de/~agruen/patch-scripts/
+
+Upstream Author(s): 
+  Andrew Morton <akpm@digeo.com>
+  Andreas Gruenbacher <agruen@suse.de>
+
+Copyright:
+
+These scripts are released under the GPL

@@ -1,0 +1,23 @@
+Source: quilt
+Section: devel
+Priority: optional
+Maintainer: Martin Quinson <martin.quinson@ens-lyon.fr>
+Build-Depends-Indep: debhelper (>> 3.0.0)
+Standards-Version: 3.5.2
+
+Package: quilt
+Architecture: all
+Depends: patch, diff, diffstat, gzip, bzip2, debianutils
+Suggests: ccache
+Description: Scripts for working with series of patches
+ The scripts allow to manage a series of patches by keeping
+ track of the changes each patch makes. Patches can be
+ applied, un-applied, refreshed, etc.
+ .
+ The scripts are heavily based on Andrew Morton's patch scripts
+ found at http://www.zip.com.au/~akpm/linux/patches/
+ .
+ The key philosophical concept is that your primary output is patches.
+ Not ".c" files, not ".h" files.  But patches.  So patches are the
+ first-class object here.
+
