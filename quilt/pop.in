@@ -183,6 +183,13 @@ do
 	fi
 	[ -z "$opt_quiet" ] && echo
 done
+
+if [ -z "$(top_patch)" ]
+then
+	echo "No patches applied"
+else
+	echo "Now at patch $patch"
+fi
 ### Local Variables:
 ### mode: shell-script
 ### End:

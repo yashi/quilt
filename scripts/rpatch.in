@@ -141,6 +141,7 @@ rpatch()
 		return 0
 	fi
 
+	echo "Removing $patch"
 	trap "" SIGINT
 	if [ -n "$opt_force" ] || \
 	   ( [ -z "$opt_remove" ] && ! files_may_have_changed $patch )
@@ -187,15 +188,6 @@ rpatch()
 		fi
 	fi
 	trap - SIGINT
-	
-	local top=$(top_patch) where
-	if [ -z "$top" ]
-	then
-		where=$"no patch applied"
-	else
-		where=$"now at $top"
-	fi
-	echo $"Removed $patch, $where"
 }
 
 options=`getopt -o fRqvh -- "$@"`
