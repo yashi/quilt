@@ -77,7 +77,8 @@ rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
 
 doc/README : doc/README.in
-	@awk '/@REFERENCE@/ { system("$(MAKE) -s reference") ; next }'$$'\n'' \
+	@awk '/@REFERENCE''@/ { system("$(MAKE) -s reference") ; \
+				next }'$$'\n'' \
 			   { print }' 2>&1 $< > $@
 
 .PHONY :: reference
@@ -147,13 +148,13 @@ clean distclean :
 
 % : %.in
 	@echo "$< -> $@"
-	@sed -e "s:@LIB@:$(LIB_DIR):g" \
-	     -e "s:@QUILT@:$(QUILT_DIR):g" \
-	     -e "s:@SCRIPTS@:$(SCRIPTS_DIR):g" \
-	     -e "s:@PERL@:$(PERL):g" \
-	     -e "s:@BASH@:$(BASH):g" \
-	     -e "s:@DIFF@:$(DIFF):g" \
-	     -e "s:@PATCH@:$(PATCH):g" \
-	     -e "s:@MKTEMP@:$(MKTEMP):g" \
+	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
+	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
+	     -e 's:@SCRIPTS''@:$(SCRIPTS_DIR):g' \
+	     -e 's:@PERL''@:$(PERL):g' \
+	     -e 's:@BASH''@:$(BASH):g' \
+	     -e 's:@DIFF''@:$(DIFF):g' \
+	     -e 's:@PATCH''@:$(PATCH):g' \
+	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
 	     $< > $@
 	@chmod --reference=$< $@

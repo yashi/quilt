@@ -59,7 +59,7 @@ then
 	usage
 fi
 
-patch_file=$(echo $1 | sed -e 's:^'"$P"'patches/::')
+patch_file=$(echo $1 | sed -e 's/^'"$(quote_bre $P)"'patches\///')
 patch=$(stripit $patch_file)
 
 if patch_in_series $patch

@@ -34,6 +34,12 @@ General:
 
 	- Add option for creating hard links.
 
+	- Instead of passing around and storing in applied-patches the
+	  short patch name (=patch file name with .dif .diff .patch .gz
+	  .bz2 stripped), translate from short names to real file names
+	  an the user interface, and work with full names internally.
+	  This will simplify regexp matching in several functions.
+
 Documentation:
 
 	- How to rediff with pushpatch -f / poppatch -f?

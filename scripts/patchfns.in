@@ -29,9 +29,16 @@ DB=".pc/applied-patches"
 # Define where diffstat lives (may be missing)
 DIFFSTAT=/usr/bin/diffstat
 
+# Quote a string for use in a basic regular expression.
+quote_bre()
+{
+	echo "$1" | sed -e 's:\([][^$/.*\\]\):\\\1:g'
+}
+
+# Quote a string for use in an extended regular expression.
 quote_re()
 {
-	echo "$1" | sed -e 's:\([\^\$/.+*\[\\]\):\\\1:g'
+	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
 
 #basename()
@@ -434,7 +441,7 @@ stripit()
 	then
 		echo $1 |
 		sed -e 's/^\(\.\/\)*//' \
-		    -e 's/^'"$P"'patches\///' -e 's/^\.pc\///' \
+		    -e 's/^'"$(quote_bre $P)"'patches\///' -e 's/^\.pc\///' \
 		    -e 's/\.gz$//' -e 's/\.bz2$//' \
 		    -e 's/\.patch$//' -e 's/\.diff\?$//'
 	fi
@@ -536,8 +543,8 @@ diff_file()
 fix_diff_header()
 {
 	local from=$1 to=$2
-	sed -e 's:^--- [^ \t]*:--- '"$from"':' \
-	    -e 's:^+++ [^ \t]*:+++ '"$to"':'
+	sed -e 's/^--- [^ \t]*/--- '"$(quote_bre $from)"'/' \
+	    -e 's/^+++ [^ \t]*/+++ '"$(quote_bre $to)"'/'
 }
 
 cat_file()

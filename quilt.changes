@@ -6,6 +6,9 @@ Fri Jan 31 13:05:18 CET 2003 - agruen@suse.de
   in /usr/lib/quilt/, and install the scripts in
   /usr/share/quilt/scripts/, so that no binaries are installed
   under /usr/share.
+- Fix quoting strings for inclusion in regular expressions.
+- Change literal '@SUBST@' strings in Makefile to '@SUBST''@',
+  so that Autoconf won't mess them up later.
 
 -------------------------------------------------------------------
 Fri Jan 31 09:15:01 +0100 2003 - Martin.Quinson@ens-lyon.fr
