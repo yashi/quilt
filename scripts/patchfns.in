@@ -708,7 +708,7 @@ version_check() {
 }
 
 print_patch() {
-	echo -n "${QUILT_PATCHES_PREFIX:+$QUILT_PATCHES/}$1"
+	echo -n "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
 }
 
 #
@@ -724,16 +724,18 @@ print_patch() {
 # and the base direcory is /usr/src/linux, $SUBDIR is set to
 # drivers/net/.
 
-unset SUBDIR
+unset SUBDIR SUBDIR_DOWN
 if ! [ -d "$QUILT_PATCHES" ]
 then
     basedir=$PWD
     while [ -n "$basedir" ]
     do
 	basedir=${basedir%/*}
+	down=$down../
 	if [ -d "$basedir/$QUILT_PATCHES" ]
 	then
 	    SUBDIR="${PWD#$basedir/}/"
+	    SUBDIR_DOWN=$down
 	    if ! cd $basedir/
 	    then
 		echo "Cannot change into parent directory $basedir/" >&2
@@ -742,7 +744,7 @@ then
 	    break
 	fi
     done
-    unset basedir
+    unset basedir down
 fi
 
 if [ -n "$QUILT_SERIES" ]

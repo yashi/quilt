@@ -79,7 +79,7 @@ msgstr "Patch %s ist nicht angewandt\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:76 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:182 ../quilt/push.in:182 ../quilt/push.in:218
+#: ../quilt/pop.in:184 ../quilt/push.in:182 ../quilt/push.in:220
 #: ../quilt/refresh.in:143 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
@@ -545,11 +545,11 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: ../quilt/pop.in:173 ../quilt/push.in:209
+#: ../quilt/pop.in:175 ../quilt/push.in:211
 msgid "Interrupted by user\\n"
 msgstr "Unterbrechung durch Benutzer\\n"
 
-#: ../quilt/pop.in:189 ../quilt/push.in:220
+#: ../quilt/pop.in:191 ../quilt/push.in:222
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -648,7 +648,8 @@ msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
 "[patch]\\n"
 msgstr ""
-"Verwendung: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] [patch]\\n"
+"Verwendung: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--"
+"backup] [patch]\\n"
 
 #: ../quilt/refresh.in:26
 msgid ""
@@ -972,7 +973,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: ../scripts/patchfns.in:765
+#: ../scripts/patchfns.in:767
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

@@ -85,7 +85,7 @@ msgstr "Le patch n'est pas appliqué"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:76 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:182 ../quilt/push.in:182 ../quilt/push.in:218
+#: ../quilt/pop.in:184 ../quilt/push.in:182 ../quilt/push.in:220
 #: ../quilt/refresh.in:143 ../quilt/remove.in:81
 #, fuzzy
 msgid "No patches applied\\n"
@@ -616,12 +616,12 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré"
 
-#: ../quilt/pop.in:173 ../quilt/push.in:209
+#: ../quilt/pop.in:175 ../quilt/push.in:211
 #, fuzzy
 msgid "Interrupted by user\\n"
 msgstr "Interrompu par l'utilisateur"
 
-#: ../quilt/pop.in:189 ../quilt/push.in:220
+#: ../quilt/pop.in:191 ../quilt/push.in:222
 #, fuzzy
 msgid "Now at patch %s\\n"
 msgstr "Le patch $patch est maintenant au sommet"
@@ -1092,7 +1092,7 @@ msgstr ""
 "version utilisée pour les appliquer avant d'installer une version\n"
 "plus ancienne."
 
-#: ../scripts/patchfns.in:765
+#: ../scripts/patchfns.in:767
 #, fuzzy
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jul 12 02:11:02 CEST 2004 - agruen@suse.de
+
+- Some more QUILT_PATCHES_PREFIX fixes.
+
+-------------------------------------------------------------------
 Tue Jul  6 18:58:00 CEST 2004 - agruen@suse.de
 
 - Switch from echo to printf for all translations: This is more
@@ -24,12 +29,12 @@ Tue Jul  6 19:57:25 PDT 2004 - mquinson@tuxfamily.org
 -------------------------------------------------------------------
 Sun Jul  4 04:29:25 CEST 2004 - agruen@suse.de
 
-- Add common GNU Diff format options to diff and refresH commands:
-  -u, -U num, -c, -C num. REname old -c option (combine patches)
+- Add common GNU diff format options to diff and refresh commands:
+  -u, -U num, -c, -C num. Rename old -c option (combine patches)
   of diff command to --combine.
-- Extend the function that splits comments froM patches and
-  syntax coloring to handLe combined diff format.
-- Honor the LAnG environment variable again; this goT broken at
+- Extend the function that splits comments from patches and
+  syntax coloring to handle combined diff format.
+- Honor the LANG environment variable again; this got broken at
   some point.
 - Set TEXTDOMAINDIR to where the translations are put so that
   Messages are found even when not installing into /usr.

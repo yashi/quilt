@@ -62,7 +62,7 @@ patch=${1#$QUILT_PATCHES/}
 if [ -n "$SUBDIR" ]
 then
 	printf $"Warning: directory %s exists; ignoring\n" \
-	       "$(echo $SUBDIR | sed -e 's:[^/]\+:..:g')$QUILT_PATCHES" >&2
+	       "$SUBDIR_DOWN$QUILT_PATCHES" >&2
 	cd $SUBDIR
 	unset SUBDIR
 fi

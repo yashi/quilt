@@ -5,26 +5,26 @@
 
 	$ cd d
 	$ quilt add f.txt
-	> File d/f.txt added to patch %{P}snapshot
+	> File d/f.txt added to patch %{_P}snapshot
 	$ cat > f.txt
 	< f.txt
 
 	$ quilt add g.txt
-	> File d/g.txt added to patch %{P}snapshot
+	> File d/g.txt added to patch %{_P}snapshot
 	$ cat > g.txt
 	< g.txt
 
 	$ quilt refresh
-	> Refreshed patch %{P}snapshot
+	> Refreshed patch %{_P}snapshot
 	$ quilt snapshot
 	$ quilt fork
-	> Fork of patch %{P}snapshot created as %{P}snapshot-2
+	> Fork of patch %{_P}snapshot created as %{_P}snapshot-2
 
 	$ quilt remove g.txt
-	> File d/g.txt removed from patch %{P}snapshot-2
+	> File d/g.txt removed from patch %{_P}snapshot-2
 
 	$ quilt add h.txt
-	> File d/h.txt added to patch %{P}snapshot-2
+	> File d/h.txt added to patch %{_P}snapshot-2
 
 	$ cat > h.txt
 	< h.txt
@@ -33,7 +33,7 @@
 	< more changes
 
 	$ quilt refresh
-	> Refreshed patch %{P}snapshot-2
+	> Refreshed patch %{_P}snapshot-2
 
 	$ quilt diff --snapshot | grep -v "^\\(---\\|+++\\)"
 	> Index: d/d/f.txt

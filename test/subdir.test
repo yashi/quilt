@@ -21,7 +21,7 @@
 
 	$ cd subdir
 	$ quilt add file2
-	> File subdir/file2 added to patch %{P}test.patch
+	> File subdir/file2 added to patch %{_P}test.patch
 
 	$ cat > file2
 	< another file
@@ -30,7 +30,7 @@
 	< yet another file
 
 	$ quilt add file3
-	> File subdir/file3 added to patch %{P}test.patch
+	> File subdir/file3 added to patch %{_P}test.patch
 
 	$ rm file3
 	$ quilt files
@@ -60,10 +60,10 @@
 	> -yet another file
 
 	$ quilt refresh
-	> Refreshed patch %{P}test.patch
+	> Refreshed patch %{_P}test.patch
 
 	$ quilt remove file2
-	> File subdir/file2 removed from patch %{P}test.patch
+	> File subdir/file2 removed from patch %{_P}test.patch
 
 	$ quilt files
 	> subdir/file

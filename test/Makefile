@@ -3,6 +3,7 @@ TESTS=$(shell ls -tr *.test)
 export QUILTRC=$(CURDIR)/test.quiltrc
 ifneq ($(shell source $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 export P=patches/
+export _P=../patches/
 endif
 $(warning P=$(P))
 
