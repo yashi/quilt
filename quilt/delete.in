@@ -80,7 +80,7 @@ fi
 if is_applied $patch
 then
 	if [ "$patch" != "$(top_patch)" ] || \
-	   ! @SCRIPTS@/rpatch -fq "$patch"
+	   ! @QUILT@/pop -fq "$patch"
 	then
 		printf $"Patch %s is currently applied\n" \
 		       "$(print_patch $patch)" >&2

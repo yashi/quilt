@@ -53,6 +53,126 @@ be used.
 	fi
 }
 
+interrupt()
+{
+	rollback_patch $1
+	printf $"Interrupted by user; patch %s was not applied.\n" \
+	       "$(print_patch $patch)" >&2
+	exit 1
+}
+
+apply_patch()
+{
+	local patch=$1
+	local patch_file=$(patch_file_name $patch) output
+
+	if ! [ -s $patch_file ]
+	then
+		printf $"Patch %s appears to be empty\n" "$patch_file"
+		return 0
+	fi
+	
+	if [ "${patch_file:(-3)}" = ".gz" ]
+	then
+		gzip -cd $patch_file \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
+			-E $silent $force_apply 2>&1
+	elif [ "${patch_file:(-4)}" = ".bz2" ]
+	then
+		bzip2 -cd $patch_file \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
+			-E $silent $force_apply 2>&1
+	else
+		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
+			-E $silent $force_apply -i $patch_file 2>&1
+	fi
+}
+
+rollback_patch()
+{
+	local patch=$1
+
+	@LIB@/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
+}
+
+add_patch()
+{
+	local patch=$1
+	local file status
+
+	printf $"Applying patch %s\n" "$(print_patch $patch)"
+	trap "interrupt $patch" SIGINT
+
+	no_reject_files=
+	if [ -z "$opt_leave_rejects" ]; then
+		local tmp="$(gen_tempfile)"
+		trap "rm -f $tmp" EXIT
+		no_reject_files="-r $tmp"
+	fi
+
+	output="$(apply_patch $patch)"
+	status=${PIPESTATUS[0]}
+	trap "" SIGINT
+
+	if [ $status -ne 0 -a -z "$opt_leave_rejects" ]
+	then
+		# The reject files are removed in rollback_patch.
+		echo "$output" \
+		| @AWK@ '
+		/^patching file / { filename = substr($0, 15) }
+		{ if ('${#silent}' != 0)
+		    gsub(/ -- saving rejects to file .*/, "")
+		  else
+		    gsub(/ -- saving rejects to file .*/,
+			 " -- rejects in file " filename)
+		}
+		{ print }
+		'
+	elif [ -n "$output" ]
+	then
+		echo "$output"
+	fi
+
+	if [ $status -eq 0 -o -n "$opt_force" ]
+	then
+		add_to_db $patch
+		if [ $status -eq 0 ]
+		then
+			rm -f $QUILT_PC/$patch~refresh
+		else
+			touch $QUILT_PC/$patch~refresh
+		fi
+		
+		if [ -e "$QUILT_PC/$patch" ]
+		then
+			touch $QUILT_PC/$patch/.timestamp
+		fi
+
+		if [ "$(shopt -s nullglob ; echo $QUILT_PC/$patch/*)" = "" ]
+		then
+			printf $"Patch %s appears to be empty, applied\n" \
+			       "$(print_patch $patch)"
+		elif [ $status -ne 0 ]
+		then
+			printf $"Applied patch %s (forced; needs refresh)\n" \
+			       "$(print_patch $patch)"
+		fi
+	else
+		rollback_patch $patch
+		printf $"Patch %s does not apply (enforce with -f)\n" \
+		       "$(print_patch $patch)"
+		status=1
+	fi
+	trap - SIGINT
+	return $status
+}
+
 list_patches()
 {
 	local top=$(top_patch) n=0 patch
@@ -150,16 +270,10 @@ else
 	[ -z "$opt_all" ] && number=1
 fi
 
-[ -n "$opt_force" ] &&
-	apatch_options="$apatch_options -f"
-[ -n "$opt_quiet" ] &&
-	apatch_options="$apatch_options -q"
-[ -n "$opt_verbose" ] &&
-	apatch_options="$apatch_options -v"
-[ -n "$opt_leave_rejects" ] &&
-	apatch_options="$apatch_options --leave-rejects"
-[ -n "$opt_interactive" ] &&
-	apatch_options="$apatch_options --interactive"
+[ -n "$opt_quiet" ] && silent=-s
+[ -z "$opt_verbose" ] && silent_unless_verbose=-s
+[ -z "$opt_interactive" ] && force_apply=-f
+[ -n "$opt_force" ] && opt_leave_rejects=1
 
 if [ -n "$stop_at_patch" ]
 then
@@ -171,57 +285,40 @@ then
 	fi
 fi
 
+top=$(top_patch)
+if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]
+then
+	printf $"The topmost patch %s needs to be refreshed first.\n" \
+	       "$(print_patch $top)"
+	exit 1
+fi
+
 if ! patches=$(list_patches) 2>&1
 then
 	exit 1
 elif [ -z "$patches" ]
 then
-	top=$(top_patch)
 	if [ -z "$top" ]
 	then
 		printf $"No patches applied\n" >&2
-		exit 2
-	elif [ -z "$(patch_file_name $top)" ]
-	then
-		printf \
-$"The topmost patch %s is not in the series file anymore;
-cannot determine the next patch from the series file.
-Please pop -f the top patch and check your series file.\n" "$top" >&2
-		exit 1
-
 	else
 		printf $"File series fully applied, ends at patch %s\n" \
 		       "$(print_patch $top)" >&2
-		exit 2
 	fi
+	exit 2
 fi
-
-trap "interrupted=1" SIGINT
 
 create_db
 for patch in $patches
 do
-	[ -n "$SUBDIR" ] && pushd $SUBDIR > /dev/null
-	if ! @SCRIPTS@/apatch $apatch_options $patch
+	if ! add_patch $patch
 	then
-		exit 1
-	fi
-	[ -n "$SUBDIR" ] && popd > /dev/null
-	if [ -n "$interrupted" ]
-	then
-		printf $"Interrupted by user\n" >&2
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo
 done
 
-patch="$(top_patch)"
-if [ -z "$patch" ]
-then
-	printf $"No patches applied\n"
-else
-	printf $"Now at patch %s\n" "$(print_patch $patch)"
-fi
+printf $"Now at patch %s\n" "$(print_patch $patch)"
 ### Local Variables:
 ### mode: shell-script
 ### End:

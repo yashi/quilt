@@ -78,7 +78,7 @@ Or ``quilt edit Oberon.txt''
 	> Oberon.txt
 
 	$ quilt patches Oberon.txt
-	> flower.diff
+	> patches/flower.diff
 	$ quilt pop -f
 	> Removing patch %{P}flower.diff
 	> Restoring Oberon.txt

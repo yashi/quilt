@@ -22,12 +22,6 @@ Helper files/scripts
 patchfns
 	A collection of functions.
 
-apatch
-	Add a patch. Used by pushpatch.
-
-rpatch
-	Remove a patch. Used by poppatch.
-
 parse-patch {-s|-u} section file [< replacement]
 	Select a %section from a patch (-s) or replace a
 	%section with the text from standard input (-u).
