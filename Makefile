@@ -4,7 +4,7 @@ LIB_SCRIPTS_IN := apatch rpatch patchfns backup-files
 LIB_SCRIPTS := touched-by-patch parse-patch
 #LIB_LIB := patchfns
 
-VERSION := 0.11
+VERSION := 0.11.1
 
 prefix := /usr/local
 bindir := $(prefix)/bin
@@ -42,7 +42,7 @@ dist : distclean
 	ln -s . patch-scripts-$(VERSION)
 	tar cvfz patch-scripts-$(VERSION).tar.gz \
 		--exclude=patch-scripts-$(VERSION)/patch-scripts-* \
-		--exclude=patch-scripts-$(VERSION)/CVS \
+		--exclude=CVS \
 		patch-scripts-$(VERSION)/*
 	rm -f patch-scripts-$(VERSION)
 
