@@ -1,0 +1,68 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+: ${EDITOR:=vi}
+
+usage()
+{
+	echo $"Usage: quilt edit file ..."
+	if [ x$1 = x-h ]
+	then
+		echo $"
+
+Edit the specified file(s) in $EDITOR after adding it (them) to the
+topmost patch.
+"
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -eq 0 ]
+then
+	usage
+fi
+
+bash -c ". @QUILT@/add" "quilt add" "$@"
+$EDITOR "$@"
+status=$?
+for file in "$@"
+do
+	if ! [ -e "$file" ]
+	then
+		bash -c ". @QUILT@/remove" "quilt remove" "$file"
+		status=1
+	fi
+done
+
+exit $status
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

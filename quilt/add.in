@@ -87,7 +87,7 @@ do
 	if file_in_patch $file $patch
 	then
 		echo $"File $file is already in patch $patch"
-		status=1
+		status=2
 		continue
 	fi
 	next_patch=$(next_patch_for_file $patch $file)

@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Oct 24 00:50:08 CEST 2003 - agruen@suse.de
+
+- `quilt add': Return exit code 2 when a file has already been
+  added.
+- Add `quilt edit' command: Does a `quilt add' and then invokes
+  $EDITOR (fallback is `vi'). Files that don't exist after editing
+  are again removed from the patch.
+
+-------------------------------------------------------------------
 Wed Oct 22 01:44:04 CEST 2003 - agruen@suse.de
 
 - `Quilt fork' should better fork the next patch instead of the
