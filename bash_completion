@@ -6,8 +6,74 @@
 # This file is part of the distribution of quilt, and is distributed under
 # the same licence than quilt itself
 
-have quilt &&
-_quilt()
+if type quilt &> /dev/null ; then
+
+if ! type _expand &> /dev/null ; then
+    # This function expands tildes in pathnames
+    #
+    _expand()
+    {
+	[ "$cur" != "${cur%\\}" ] && cur="$cur"'\'
+
+	# expand ~username type directory specifications
+	if [[ "$cur" == \~*/* ]]; then
+	    eval cur=$cur
+	elif [[ "$cur" == \~* ]]; then
+	    cur=${cur#\~}
+	    COMPREPLY=( $( compgen -P '~' -u $cur ) )
+	    return ${#COMPREPLY[@]}
+	fi
+    }
+fi
+
+if ! type _filedir &> /dev/null ; then
+    # This function performs file and directory completion. It's better than
+    # simply using 'compgen -f', because it honours spaces in filenames
+    #
+    _filedir()
+    {
+	local IFS=$'\t\n'
+
+	_expand || return 0
+
+	if [ "$1" = -d ]; then
+	    COMPREPLY=( ${COMPREPLY[@]} $( compgen -d -- $cur ) )
+	    return 0
+	fi
+	COMPREPLY=( ${COMPREPLY[@]} $( eval compgen -f -- \"$cur\" ) )
+    }
+fi
+
+if ! type _longopt &> /dev/null ; then
+    _longopt()
+    {
+	local cur opt
+
+	cur=${COMP_WORDS[COMP_CWORD]}
+
+	if [[ "$cur" == "--*=*" ]]; then
+	    opt=${cur%%=*}
+	    # cut backlash that gets inserted before '=' sign
+	    opt=${opt%\\*}
+	    cur=${cur#*=}
+	    _filedir
+	    COMPREPLY=( $( compgen -P "$opt=" -W '${COMPREPLY[@]}' -- $cur))
+	    return 0
+	fi
+
+	if [[ "$cur" == "-*" ]]; then
+	    COMPREPLY=( $( $1 --help 2>&1 | sed  -e '/--/!d' \
+			    -e 's/.*\(--[-A-Za-z0-9]\+=\?\).*/\1/' | \
+			   grep "^$cur" | sort -u ) )
+	elif [[ "$1" == "@(mk|rm)dir" ]]; then
+	    _filedir -d
+	else
+	    _filedir
+	fi
+    }
+fi
+
+_quilt_completion()
 {
     local cur prev cmds
 
@@ -172,6 +238,9 @@ _quilt()
     esac
     return 0
 }
-[ "$have" ] && complete -F _quilt $filenames quilt
 
+[ ${BASH_VERSINFO[1]} '>' 04 ] && _quilt_complete_opt="-o filenames"
+complete -F _quilt_completion $_quilt_complete_opt quilt
+unset -v _quilt_complete_opt
 
+fi
