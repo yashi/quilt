@@ -121,8 +121,11 @@ do
 	case $cmd in
 	SOURCEDIR)
 		# Directory for package sources
-		source="$arg"
-		echo $"Reading sources from $arg"
+		if [ -z "$source" ]
+		then
+			source="$arg"
+			echo $"Reading sources from $arg"
+		fi
 		;;
 	SOURCE)
 		echo $"Unpacking archive $source/$arg"
