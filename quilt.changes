@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Feb 21 15:20:57 CET 2004 - agruen@suse.de
+
+- Sub-directory support: `quilt setup' could get confused, too.
+
+-------------------------------------------------------------------
 Fri Feb 20 14:30:11 CET 2004 - agruen@suse.de
 
 - Sub-directory support:

@@ -15,6 +15,11 @@ then
 		exit 1
 	fi
 	. @SCRIPTS@/patchfns
+	if [ -n "$SUBDIR" ]
+	then
+		cd $SUBDIR
+		unset SUBDIR
+	fi
 fi
 
 usage()
