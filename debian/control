@@ -4,7 +4,7 @@ Source: quilt
 Section: devel
 Priority: optional
 Maintainer: Martin Quinson <martin.quinson@ens-lyon.fr>
-Build-Depends: debhelper (>> 3.0.0), cdbs
+Build-Depends: debhelper (>= 4.1.0), cdbs
 Standards-Version: 3.6.1.0
 
 Package: quilt
