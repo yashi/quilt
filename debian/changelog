@@ -1,3 +1,13 @@
+quilt (0.39-2) unstable; urgency=low
+
+  * Pass -p $opt_strip_level option to diffstat in refresh command.
+    (Closes: #298785)
+  * fixes from upstream cvs:
+    - Add a missing "exit 1" to quilt/fold.in when no patches are applied.
+    - typo in graph help message.
+    
+ -- Martin Quinson <mquinson@debian.org>  Wed, 23 Mar 2005 11:10:07 +0100
+
 quilt (0.39-1) unstable; urgency=low
 
   * New upstream release. 
