@@ -40,6 +40,9 @@ General:
 	  an the user interface, and work with full names internally.
 	  This will simplify regexp matching in several functions.
 
+	- Support different diff/patch options for different patches.
+	  (By specifying them in the series file?)
+
 Documentation:
 
 	- How to rediff with pushpatch -f / poppatch -f?
