@@ -397,7 +397,7 @@ find_patch()
 	set -- $*
 	if [ $# -eq 1 -a -n "$1" -a -e "$SERIES" ]
 	then
-		local patch="${1#$QUILT_PATCHES/}"
+		local patch="${1#$SUBDIR_DOWN$QUILT_PATCHES/}"
 		local bre=$(quote_bre "$patch")
 		set -- $(@SED@ -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' $SERIES)
