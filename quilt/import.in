@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
@@ -7,16 +7,19 @@
 #  See the COPYING and AUTHORS files for more details.
 
 # Read in library functions
-if ! [ -r @LIB@/patchfns ]
+if [ "$(type -t patch_file_name)" != function ]
 then
-	echo "Cannot read library @LIB@/patchfns" >&2
-	exit 1
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
 fi
-. @LIB@/patchfns
 
 usage()
 {
-	echo "Usage: importpatch [-f] [-p num] [-n patchname] [patchfile]"
+	echo "Usage: quilt import [-f] [-p num] [-n patch] [patchfile]"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
@@ -29,7 +32,7 @@ used as the patch name.
 -p num
 	Number of directory levels to strip when aplying (default=1)
 
--n patchfile
+-n patch
 	File name relative to patches/ to use.
 
 -f	Overwite/update existing patches.
@@ -111,29 +114,32 @@ fi
 
 case "$input_file" in
 '')
-	tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
-	if ! cat > $tmp
+	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	if ! cat > $tmpfile
 	then
 		echo "Cannot read from standard input."
+		rm -f $tmpfile
 		exit 1
 	fi
-	input_file=$tmp ;;
+	input_file=$tmpfile ;;
 *.gz)
-	tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
-	if ! gzip -cd "$input_file" > $tmp
+	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	if ! gzip -cd "$input_file" > $tmpfile
 	then
 		echo "Cannot decompress file $input_file"
+		rm -f $tmpfile
 		exit 1
 	fi
-	input_file=$tmp ;;
+	input_file=$tmpfile ;;
 *.bz2)
-	tmp=$(mktemp /tmp/patch-scripts.XXXXXX)
-	if ! bzip2 -cd "$input_file" > $tmp
+	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	if ! bzip2 -cd "$input_file" > $tmpfile
 	then
 		echo "Cannot decompress file $input_file"
+		rm -f $tmpfile
 		exit
 	fi
-	input_file=$tmp ;;
+	input_file=$tmpfile ;;
 *)
 	if ! [ -r "$input_file" ]
 	then
@@ -154,7 +160,7 @@ then
 	   ! grep -q '^%patch$' "$input_file"
 	then
 		echo "Updating %patch section of patch $patch"
-		if ! @LIB@/parse-patch -u patch $patch_file< "$input_file"
+		if ! @LIB@/parse-patch -u patch $patch_file < "$input_file"
 		then
 			echo "Failed to update %patch section of patch $patch"
 			exit 1
@@ -188,7 +194,7 @@ then
 	echo "Failed to insert $patch in file series."
 fi
 
-if [ -n "$tmp" ]
+if [ -n "$tmpfile" ]
 then
-	rm -f $tmp
+	rm -f $tmpfile
 fi

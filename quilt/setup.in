@@ -1,0 +1,172 @@
+#!/bin/bash
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
+fi
+
+usage()
+{
+	echo "Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+Initializes a source tree from a patch series file. The
+patch series file must contain the name of the relevant
+tar archive, in addition to the list of patches.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+parse_series()
+{
+	local series="$1"
+
+	perl -e '
+		while(<>) {
+			if (/^#\s*[Ss]ource:\s*(\S+)\s*(-C\s*(\S+))?/) {
+				print "S $1 ", ($3 ? $3 : "."), "\n";
+			} elsif (/^#\s*[Pp]atchdir:\s*(\S+)/) {
+				print "D $1\n";
+			} elsif (/^([^#\s]+)/) {
+				print "P $1\n";
+			}
+		}
+	' $series
+	echo "I $series"
+}
+
+options=`getopt -o d:h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-d)
+		opt_source=$2
+		shift 2 ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+
+case "$1" in
+*.spec)
+	spec_file="$1"
+	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	series_file=$tmpfile
+	if ! @LIB@/spec2series "$spec_file" > $tmpfile
+	then
+		exit 1
+	fi
+	;;
+*)
+	series_file=$1
+	if ! [ -e "$series_file" ]
+	then
+		echo "Series file $series_file not found"
+		exit 1
+	fi
+	;;
+esac
+
+if [ -n "$opt_source" ]
+then
+	source="$opt_source"
+elif [ -n "$spec_file" ]
+then
+	source="$(dirname "$spec_file")"
+else
+	source="$(dirname "$series_file")"
+fi
+
+status=0
+packagedir=.
+while read cmd arg arg2 && \
+	[ $status -eq 0 ]
+do
+	case $cmd in
+	D)
+		# Base directory for package
+		packagedir="$arg"
+		if [ -d "$packagedir" ]
+		then
+			echo "Directory $packagedir exists already."
+			status=1
+			break
+		elif [ -e "$packagedir" ]
+		then
+			echo "File $packagedir exists."
+			status=1
+			break
+		fi
+		;;
+	S)
+		echo "Unpacking archive $source/$arg"
+		mkdir -p "$arg2" && \
+		cat_file "$source/$arg" \
+		| tar xf - -C "${arg2:-.}"
+		;;
+	P)
+		echo "Copying patch $source/$arg"
+		mkdir -p "$packagedir/patches/" && \
+		cp "$source/$arg" "$packagedir/patches/" \
+		;;
+	I)
+		echo "Copying series file"
+		cp "$arg" "$packagedir/patches/series"
+		;;
+	*)
+		status=1
+		break
+		;;
+	esac
+	status=$?
+done \
+< <(parse_series "$series_file")
+
+if [ -n "$tmpfile" ]
+then
+	rm -f $tmpfile
+fi
+
+if [ $status -ne 0 ]
+then
+	exit 1
+fi
+
+if [ "$packagedir" != "." ]
+then
+	echo "Directory $packagedir set up."
+fi

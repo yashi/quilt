@@ -83,6 +83,13 @@ Command reference
 =================
 @REFERENCE@
 
+guards [--prefix=dir] [--path=dir1:dir2:...] [--default=0|1]
+       [--check] [--config=file] symbol ...
+
+  Convert a series file with conditional statements into a series
+  file as expected; see the guards(1) manual page.
+
+
 Helper files/scripts
 ====================
 

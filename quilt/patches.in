@@ -1,0 +1,93 @@
+#!/bin/bash
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
+fi
+
+usage()
+{
+	echo "Usage: quilt contains {file}"
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+Print the list of patches that modify the specified file.
+
+-v	Verbose, more user friendly output.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+scan_patches()
+{
+	local prefix=$1 file=$2
+	shift 2
+	local patch
+
+	for patch in $(modified_files $file -- "$@" \
+		       | cut -d $'\t' -f2)
+	do
+		echo "$prefix$patch"
+	done
+}
+
+options=`getopt -o vh -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-v)
+		opt_verbose=1
+		shift ;;
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+opt_file=$1
+
+if ! refresh_patches_per_file
+then
+	exit 1
+fi
+
+if [ -n "$opt_verbose" ]
+then
+	top=$(top_patch)
+	scan_patches "+ " $opt_file $(patches_before $top)
+	scan_patches "= " $opt_file $top
+	scan_patches "  " $opt_file $(patches_after $top)
+else
+	scan_patches "" $opt_file
+fi

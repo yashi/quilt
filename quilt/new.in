@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
@@ -7,22 +7,25 @@
 #  See the COPYING and AUTHORS files for more details.
 
 # Read in library functions
-if ! [ -r @LIB@/patchfns ]
+if [ "$(type -t patch_file_name)" != function ]
 then
-	echo "Cannot read library @LIB@/patchfns" >&2
-	exit 1
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
 fi
-. @LIB@/patchfns
 
 usage()
 {
-	echo "Usage: newpatch patchname"
+	echo "Usage: quilt new {patchname}"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
 
-  Create a new patch, and insert it after the topmost patch
-  in the patch series file.
+Create a new patch with the specified file name, and insert
+it after the topmost patch in the patch series file.
 
 EOF
 		exit 0
@@ -56,12 +59,8 @@ then
 	usage
 fi
 
-patch_file=$(echo $1 | sed -e 's:^'"$P"'patches/::' -e 's:^\.pc/::')
+patch_file=$(echo $1 | sed -e 's:^'"$P"'patches/::')
 patch=$(stripit $patch_file)
-if [ -z "$patch" ]
-then
-	usage
-fi
 
 if patch_in_series $patch
 then
@@ -69,11 +68,14 @@ then
 	exit 1
 fi
 
-pc_file=$(pc_file_name $patch)
-mkdir -p $(dirname $pc_file)
-touch $pc_file
+mkdir -p $(dirname $(pc_file_name $patch))
+rm -f $(pc_file_name $patch)
 
-insert_in_series $patch_file || exit 1
-add_to_db $patch || exit 1
-
-echo "Patch $patch is now on top"
+if ! insert_in_series $patch_file || \
+   ! add_to_db $patch
+then
+	echo "Failed to create patch $patch"
+	exit 1
+else
+	echo "Patch $patch is now on top"
+fi

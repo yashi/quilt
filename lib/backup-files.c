@@ -1,14 +1,29 @@
-/* backup-files.c
-   Andreas Gruenbacher, 18 January 2003
+/*
+  File: backup-files.c
 
-   `patch -b' fails to back up files correctly if a file occurs
-   more than once in a patch, so we use this utility instead.
+  Copyright (C) 2003 Andreas Gruenbacher <agruen@suse.de>
+  SuSE Labs, SuSE Linux AG
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Library General Public
+  License as published by the Free Software Foundation; either
+  version 2 of the License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Library General Public License for more details.
+
+  You should have received a copy of the GNU Library General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
 /*
- - catch SIGINT
- - remove backup files and directories
-*/
+ * Create backup files of a list of files similar to GNU patch. A path
+ * name prefix and suffix for the backup file can be specified with the
+ * -B and -Z options.
+ */
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -20,10 +35,18 @@
 
 const char *progname;
 
+enum { what_backup, what_restore, what_remove };
+
+const char *opt_prefix="", *opt_suffix="", *opt_file=NULL;
+int opt_silent=0, opt_what=what_backup;
+
+#define LINE_LENGTH 1024
+
+
 void
 usage(void)
 {
-	printf("Usage: %s [-B prefix] [-z suffix] [-f filelist] [-s] [-r|-x]\n"
+	printf("Usage: %s [-B prefix] [-z suffix] [-f {filelist|-}] [-s] [-r|-x] filename ...\n"
 	       "\n"
 	       "\tCreate hard linked backup copies of a list of files\n"
 	       "\tread from standard input.\n"
@@ -60,26 +83,96 @@ create_parents(char *filename)
 void
 remove_parents(char *filename)
 {
-	char *f;
+	char *f, *g = NULL;
 
+	f = strrchr(filename, '/');
 	while ((f = strrchr(filename, '/')) != NULL) {
-		*f = '\0';
+		if (g != NULL)
+			*g = '/';
+		g = f;
+		*f= '\0';
+		
 		rmdir(filename);
 	}
+	if (g != NULL)
+		*g = '/';
 }
 
-enum { what_backup, what_restore, what_remove };
+int
+process_file(char *file)
+{
+	char backup[LINE_LENGTH];
 
-#define LINE_LENGTH 1024
+	if (strlen(opt_prefix) + strlen(file) +
+	    strlen(opt_suffix) >= sizeof(backup)) {
+		perror("Line buffer too small\n");
+		return 1;
+	}
+
+	snprintf(backup, sizeof(backup), "%s%s%s",
+		 opt_prefix, file, opt_suffix);
+
+	if (opt_what == what_backup) {
+		int fd;
+		create_parents(backup);
+
+		unlink(backup);
+		if (link(file, backup) == 0) {
+			if (!opt_silent)
+				printf("Copying %s\n", file);
+		} else if ((fd = creat(backup, 0666)) != -1) {
+			close(fd);
+			if (!opt_silent)
+				printf("New file %s\n", file);
+		} else {
+			perror(backup);
+			return 1;
+		}
+		return 0;
+	} else if (opt_what == what_restore) {
+		struct stat st;
+		create_parents(file);
+
+		if (stat(backup, &st) != 0) {
+			perror(backup);
+			return 1;
+		}
+		if (st.st_size == 0) {
+			if (unlink(file) == 0 || errno == ENOENT) {
+				if (!opt_silent)
+					printf("Removing %s\n", file);
+				unlink(backup);
+				remove_parents(backup);
+			} else {
+				perror(file);
+				return 1;
+			}
+		} else {
+			unlink(file);
+			if (link(backup, file) == 0) {
+				if (!opt_silent)
+					printf("Restoring %s\n", file);
+				unlink(backup);
+				remove_parents(backup);
+			} else {
+				fprintf(stderr, "Could not restore "
+					      "file `%s' to `%s': %s\n",
+					backup, file, strerror(errno));
+				return 1;
+			}
+		}
+		return 0;
+	} else if (opt_what == what_remove) {
+		unlink(backup);
+		remove_parents(backup);
+		return 0;
+	} else
+		return 1;
+}
 
 int
 main(int argc, char *argv[])
 {
-	char orig[LINE_LENGTH], *o, backup[LINE_LENGTH];
-	FILE *file;
-
-	const char *opt_prefix="", *opt_suffix="", *opt_file=NULL;
-	int opt_silent=0, opt_what=what_backup;
 	int opt, status=0;
 	
 	progname = argv[0];
@@ -117,95 +210,44 @@ main(int argc, char *argv[])
 		}
 	}
 
-	if ((*opt_prefix == '\0' && *opt_suffix == '\0') || optind != argc) {
+	if ((*opt_prefix == '\0' && *opt_suffix == '\0') ||
+	    (opt_file == NULL && optind == argc)) {
 		usage();
 		return 1;
 	}
 
 	if (opt_file != NULL) {
-		if ((file = fopen(opt_file, "r")) == NULL) {
-			perror(opt_file);
-			return 1;
-		}
-	} else {
-		file = stdin;
-	}
+		FILE *file;
+		char line[LINE_LENGTH];
 
-	while (fgets(orig, sizeof(orig), file)) {
-		if (strlen(opt_prefix) + strlen(orig) + strlen(opt_suffix) >=
-		    sizeof(backup)) {
-			perror("Line buffer too small\n");
-			return 1;
-		}
-
-		o = strchr(orig, '\0');
-		if (o > orig && *(o-1) == '\n')
-			*(o-1) = '\0';
-		if (*orig == '\0')
-			continue;
-			
-		snprintf(backup, sizeof(backup), "%s%s%s",
-			 opt_prefix, orig, opt_suffix);
-
-		if (opt_what == what_backup) {
-			int fd;
-			create_parents(backup);
-
-			if (link(orig, backup) == 0) {
-				if (!opt_silent)
-					printf("Copying %s\n", orig);
-			} else if ((fd = creat(backup, 0666)) != -1) {
-				close(fd);
-				if (!opt_silent)
-					printf("New file %s\n", orig);
-			} else {
-				perror(backup);
+		if (!strcmp(opt_file, "-")) {
+			file = stdin;
+		} else {
+			if ((file = fopen(opt_file, "r")) == NULL) {
+				perror(opt_file);
 				return 1;
 			}
-		} else if (opt_what == what_restore) {
-			struct stat st;
+		}
 
-			create_parents(orig);
+		while (fgets(line, sizeof(line), file)) {
+			char *l = strchr(line, '\0');
 
-			if (stat(backup, &st) != 0) {
-				perror(backup);
-				status=1;
+			if (l > line && *(l-1) == '\n')
+				*(l-1) = '\0';
+			if (*line == '\0')
 				continue;
-			}
-			if (st.st_size == 0) {
-				if (unlink(orig) == 0 || errno == ENOENT) {
-					if (!opt_silent)
-						printf("Removing %s\n", orig);
-					unlink(backup);
-					remove_parents(backup);
-				} else {
-					if (errno != ENOENT) {
-						perror(orig);
-						status=1;
-					}
-				}
-			} else {
-				unlink(orig);
-				if (link(backup, orig) == 0) {
-					if (!opt_silent)
-						printf("Restoring %s\n", orig);
-					unlink(backup);
-					remove_parents(backup);
-				} else {
-					fprintf(stderr, "Could not restore "
-						      "file `%s' to `%s': %s\n",
-						backup, orig, strerror(errno));
-					status=1;
-				}
-			}
-		} else {
-			unlink(backup);
-			remove_parents(backup);
+				
+			if ((status = process_file(line)) != 0)
+				return status;
+		}
+
+		if (file != stdin) {
+			fclose(file);
 		}
 	}
-
-	if (file != stdin) {
-		fclose(file);
+	for (; optind < argc; optind++) {
+		if ((status = process_file(argv[optind])) != 0)
+			return status;
 	}
 
 	return status;

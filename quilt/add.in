@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
@@ -7,16 +7,19 @@
 #  See the COPYING and AUTHORS files for more details.
 
 # Read in library functions
-if ! [ -r @LIB@/patchfns ]
+if [ "$(type -t patch_file_name)" != function ]
 then
-	echo "Cannot read library @LIB@/patchfns" >&2
-	exit 1
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
 fi
-. @LIB@/patchfns
 
 usage()
 {
-	echo "Usage: patchadd [-p patchname] filename ..."
+	echo "Usage: quilt add [-p patch] {file} ..."
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
@@ -26,7 +29,7 @@ Files must be added to the patch before being modified.
 Files that are modified by patches on top of the specified
 patch cannot be added.
 
--p patchname
+-p patch
 	Patch to add files to.
 
 EOF
@@ -71,7 +74,7 @@ then
 fi
 if [ -z "$patch" ]
 then
-	echo "No patches seem to be applied"
+	echo "No patches applied"
 fi
 
 if ! is_applied $patch
@@ -80,22 +83,46 @@ then
 	exit 1
 fi
 
+status=0
 for file in $*
 do
 	if file_in_patch $file $patch
 	then
 		echo "File $file is already in patch $patch"
-	else
-		next_patch=$(next_patch_for_file $patch $file)
-		if [ -n "$next_patch" ]
-		then
-			echo "File $file shadowed by patch $next_patch"
-			exit 1
-		fi
+		status=1
+		continue
+	fi
+	next_patch=$(next_patch_for_file $patch $file)
+	if [ -n "$next_patch" ]
+	then
+		echo "File $file modified by patch $next_patch"
+		status=1
+		continue
+	fi
 
-		if install_file_in_patch $file $patch
+	if ! @LIB@/backup-files -s -B .pc/$patch/ $file || \
+	   ! echo $file >> $(pc_file_name $patch)
+	then
+		echo "Failed to back up file $file" >&2
+		status=1
+		continue
+	fi
+
+	if [ -e $file ]
+	then
+		if [ "$(ls -dl $file | awk '{print $2}')" -gt 1 ]
 		then
-			echo "File $file added to patch $patch"
+			# We have a file with several hard links.
+			# As the file may likely be modified by hand
+			# now, create a copy to make sure nothing
+			# happens to the original file.
+			tmpfile=$(mktemp $file.XXXXXX) &&
+			cp -f $file $tmpfile &&
+			mv -f $tmpfile $file
+			rm -f $tmpfile
 		fi
 	fi
+
+	echo "File $file added to patch $patch"
 done
+exit $status

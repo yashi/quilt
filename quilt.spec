@@ -1,27 +1,26 @@
 #
-# spec file for patch scripts
+# spec file for quilt - patch management scripts
 #
-# Copyright (c) 2002 SuSE Linux AG, Nuernberg, Germany.
+# Copyright (c) 2003 SuSE Linux AG, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
 # Please submit bugfixes or comments via http://www.suse.de/feedback/
 #
 
-# neededforbuild fileutils make sed
+# neededforbuild sh-utils
 # usedforbuild
 
-Name:		patch-scripts
+Name:		quilt
 Summary:	Scripts for working with series of patches
 License:	GPL
 Group:		Productivity/Text/Utilities
-Version:	0.11
+Version:	0.21
 Release:	1
 Requires:	textutils diffutils patch gzip bzip2 perl mktemp
 Autoreqprov:	off
-Source:		patch-scripts-%{version}.tar.gz
+Source:		quilt-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
-BuildArchitectures: noarch
 
 %description
 The scripts allow to manage a series of patches by keeping
@@ -37,6 +36,9 @@ Authors:
     Andreas Gruenbacher <agruen@suse.de>
 
 %prep
+if [ "${RPM_BUILD_ROOT%/}" != "" ]; then
+	rm -rf $RPM_BUILD_ROOT
+fi
 %setup
 
 %build
@@ -47,25 +49,14 @@ make install prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-/usr/bin/newpatch
-/usr/bin/patchadd
-/usr/bin/pushpatch
-/usr/bin/poppatch
-/usr/bin/refpatch
-/usr/bin/importpatch
-/usr/bin/toppatch
-/usr/bin/inpatch
+/usr/bin/guards
+/usr/bin/quilt
 
-/usr/share/patch-scripts/patchfns
-/usr/share/patch-scripts/apatch
-/usr/share/patch-scripts/rpatch
-/usr/share/patch-scripts/touched-by-patch
-/usr/share/patch-scripts/parse-patch
-/usr/share/patch-scripts/backup-files
+/usr/share/quilt/
 
-%doc /usr/share/doc/packages/patch-scripts/README
-%doc /usr/share/doc/packages/patch-scripts/docco.txt
+%doc /usr/share/man/man1/guards.1.gz
+%doc README
 
-%changelog -n star
-* Mon Jan 13 2002 - agruen
-- Initial package
+%changelog
+# The changelog is kept in %{name}.changes
+

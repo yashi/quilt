@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
@@ -7,31 +7,40 @@
 #  See the COPYING and AUTHORS files for more details.
 
 # Read in library functions
-if ! [ -r @LIB@/patchfns ]
+if [ "$(type -t patch_file_name)" != function ]
 then
-	echo "Cannot read library @LIB@/patchfns" >&2
-	exit 1
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
 fi
-. @LIB@/patchfns
 
 usage()
 {
-	echo "Usage: pushpatch [-afq] [npatches|patchname]"
+	echo "Usage: quilt pop [-afRqv] [num|patch]"
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
 
-Apply patch(es) from the series file. A number of patches
-to apply, or a patch name can be specified. If a patch
-name is given, apply all patches up to and including the
-named patch. If neither a number nor a patch name is
-specified, apply the next patch.
+Remove patch(es) from the current stack. A number of
+patches to remove, or a patch name can be specified. If a
+patch name is given, remove all patches up to and
+including the named patch. If neither a number nor a patch
+name is specified, remove the next patch.
 
--a	Apply all patches in the series file.
+-a	Remove all patches in the series file.
 
--f	Force apply, even if the patch has rejects.
+-f	Force remove. The state before the patch(es) were
+	applied will be restored from backup files.
+
+-R	Remove the patch with \`patch -R' and check if the
+	patch reverts all changes properly.
 
 -q	Quiet operation.
+
+-v	Verbose operation.
 
 EOF
 		exit 0
@@ -43,12 +52,13 @@ EOF
 list_patches()
 {
 	local top=$(top_patch) n=0 patch
-	if [ -n "$top" ]
+	if [ -z "$top" ]
 	then
-		patches_after $top
-	else
-		cat_series
-	fi \
+		return 0
+	fi
+	( patches_before $top
+	  echo $top ) \
+	| tac \
 	| if [ -n "$opt_all" ]
 	then
 		cat
@@ -63,11 +73,11 @@ list_patches()
 				fi
 				n=$[$n+1]
 			fi
-			echo $patch
 			if [ $patch = "$stop_at_patch" ]
 			then
 				break
 			fi
+			echo $patch
 		done
 		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
 		then
@@ -77,7 +87,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqah -- "$@"`
+options=`getopt -o fRqvah -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -91,9 +101,17 @@ do
         case "$1" in
         -f)
                 opt_force=1
+		unset opt_remove
+		shift ;;
+	-R)
+		opt_remove=1	# remove with patch -R; no tricks
+		unset opt_force
 		shift ;;
         -q)
                 opt_quiet=1
+		shift ;;
+        -v)
+                opt_verbose=1
 		shift ;;
 	-a)
 		opt_all=1
@@ -120,19 +138,23 @@ then
 		stop_at_patch=$(stripit $1)
 	fi
 else
-	[ -z "$opt_all" ] && number=1
+	[ -n "$opt_all" ] || number=1
 fi
 
 [ -n "$opt_force" ] &&
-	apatch_options="$apatch_options -f"
+	rpatch_options="$rpatch_options -f"
+[ -n "$opt_remove" ] &&
+	rpatch_options="$rpatch_options -R"
 [ -n "$opt_quiet" ] &&
-	apatch_options="$apatch_options -q"
+	rpatch_options="$rpatch_options -q"
+[ -n "$opt_verbose" ] &&
+	rpatch_options="$rpatch_options -v"
 
 if [ -n "$stop_at_patch" ]
 then
-	if is_applied $stop_at_patch
+	if ! is_applied $stop_at_patch
 	then
-		echo "Patch $stop_at_patch is already applied."
+		echo "Patch $stop_at_patch is not applied."
 		exit 1
 	fi
 fi
@@ -142,13 +164,7 @@ then
 	exit 1
 elif [ -z "$patches" ]
 then
-	top=$(top_patch)
-	if [ -z "$top" ]
-	then
-		echo "No patches applied"
-	else
-		echo "File series fully applied, ends at patch $top"
-	fi
+        echo "No patches removed"
 	exit 0
 fi
 
@@ -156,13 +172,13 @@ trap "interrupted=1" SIGINT
 
 for patch in $patches
 do
-	if ! @LIB@/apatch $apatch_options $patch
+	if ! @LIB@/rpatch $rpatch_options $patch
 	then
 		exit 1
 	fi
 	if [ -n "$interrupted" ]
 	then
-		echo "pushpatch interrupted by user"
+		echo "Interrupted by user"
 		exit 1
 	fi
 	[ -z "$opt_quiet" ] && echo

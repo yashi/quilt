@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
@@ -6,48 +6,85 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-if ! [ -r @LIB@/patchfns ]
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
 then
-	echo "Cannot read library @LIB@/patchfns" >&2
-	exit 1
+	if ! [ -r @LIB@/patchfns ]
+	then
+		echo "Cannot read library @LIB@/patchfns" >&2
+		exit 1
+	fi
+	. @LIB@/patchfns
 fi
-. @LIB@/patchfns
 
 usage()
 {
-	echo "Usage: apatch [-fq] patchname"
+	echo "Usage: $0 [-fqv] patchname"
 	exit 1
+}
+
+rollback_patch()
+{
+	local patch=$1 pc_file=$(pc_file_name $patch)
+	@LIB@/backup-files $silent_unless_verbose \
+			   -f $pc_file -B .pc/$patch/ -r
+	rm -f $(files_in_patch $patch | sed -e 's/$/\.rej/')
 }
 
 interrupt()
 {
-	local pc_file=$(pc_file_name $1)
-	@LIB@/backup-files -s -f $pc_file -B .pc/$patch/ -r
-	echo "apatch interrupted by user"
+	rollback_patch $1
+	echo "Interrupted by user; patch $patch was not applied."
 	exit 1
 }
 
 apply_patch()
 {
+	local patch=$1
+	local patch_file=$(patch_file_name $patch)
+
+	if ! [ -s $patch_file ]
+	then
+		echo "Patch file $patch_file appears to be empty"
+		return 0
+	fi
+	
+	if [ "x${patch_file:(-3)}" = "x.gz" ]
+	then
+		gzip -cd $patch_file \
+		| patch $(patch_args $patch) --no-backup-if-mismatch \
+			-E $silent
+	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
+	then
+		bzip2 -cd $patch_file \
+		| patch $(patch_args $patch) --no-backup-if-mismatch \
+			-E $silent
+	else
+		patch $(patch_args $patch) --no-backup-if-mismatch \
+			-E $silent -i $patch_file
+	fi
+}
+
+apatch()
+{
 	local patch=$(stripit $1)
 	local pc_file=$(pc_file_name $patch)
-	local patch_file=$(patch_file_name $patch)
 	local file status
 
-	if ! [ -e "$patch_file" ]
+	trap "" SIGINT
+	if ! refresh_file_list $patch
 	then
-		echo "No patch named $patch found."
+		echo "refresh_file_list failed"
 		return 1
 	fi
 
-	#if is_applied "$patch"
-	#then
-	#	echo "$patch" is already applied
-	#	return 1
-	#fi
-
-	trap "" SIGINT
-	refresh_file_list $patch
+	if ! [ -e $pc_file ]
+	then
+		echo "Patch $patch appears to be empty, applied"
+		add_to_db $patch
+		return 0
+	fi
+	
 	status=$?
 	if [ $status -eq 2 ]
 	then
@@ -57,21 +94,20 @@ apply_patch()
 		return 1
 	fi
 
-	if ! @LIB@/backup-files -s -f $pc_file -B .pc/$patch/
+	if ! @LIB@/backup-files $silent_unless_verbose \
+				-f $pc_file -B .pc/$patch/
 	then
 		exit 1
 	fi
 	
 	trap "interrupt $patch" SIGINT
-	# (patch -b fails if a file appears more than once in a patch!)
-	#patch $(patch_args $patch) --no-backup-if-mismatch \
-	#	-E $silent -i $patch_file
-	patch $(patch_args $patch) --no-backup-if-mismatch \
-		-E $silent -i $patch_file
+
+	apply_patch $patch
 	status=$?
+
 	trap "" SIGINT
 
-	# Remember date/time of applying so that poppatch can
+	# Remember date/time of applying so that pop can
 	# avoid reverse applying the patch in the usual cases.
 	touch $pc_file
 
@@ -81,20 +117,20 @@ apply_patch()
 		if [ $status -eq 0 ]
 		then
 			echo "Applied $patch"
-			rm -f $(pc_file_name $patch)~forced
+			rm -f $pc_file~refresh
 		else
-			touch $(pc_file_name $patch)~forced
-			echo "Applied $patch (forced; needs refpatch)"
+			touch $pc_file~refresh
+			echo "Applied $patch (forced; needs refresh)"
 		fi
 	else
-		@LIB@/backup-files -s -f $pc_file -B .pc/$patch/ -r
-		echo "Patch $patch does not apply"
+		rollback_patch $patch
+		echo "Patch $patch does not apply (enforce with -f)"
 	fi
 	trap - SIGINT
 	return $status
 }
 
-options=`getopt -o fqh -- "$@"`
+options=`getopt -o fqvh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -112,6 +148,9 @@ do
 	-q)
 		opt_quiet=1
 		shift ;;
+	-v)
+		opt_verbose=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -126,16 +165,15 @@ then
 fi
 
 [ -n "$opt_quiet" ] && silent=-s
+[ -z "$opt_verbose" ] && silent_unless_verbose=-s
 
 patch=$(stripit $1)
 
 top=$(top_patch)
-if [ -n "$top" -a -e $(pc_file_name $top)~forced ]
+if [ -n "$top" -a -e $(pc_file_name $top)~refresh ]
 then
-	echo "The topmost patch $top was force applied. Please run" \
-	     "refpatch before applying other patches."
+	echo "The topmost patch $top needs to be refreshed first."
 	exit 1
 fi
 
-apply_patch $patch
-
+apatch $patch
