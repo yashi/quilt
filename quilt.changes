@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Aug  7 14:47:53 PDT 2004 - mquinson@fuxfamily.org
+
+- Small fix by Yasushi SHOJI: display the name of the patch which is not
+  applied in the error message.
+
+-------------------------------------------------------------------
 Wed Jul 21 19:38:14 PDT 2004 - mquinson@tuxfamily.org
 
 - repharse the output of rpatch when patch does not remove properly:
