@@ -1,7 +1,7 @@
 etc/bash_completion.d/quilt
 usr/bin/*
 usr/lib/quilt/*
-usr/share/doc/quilt-0.29/* usr/share/doc/quilt/
+usr/share/doc/quilt-*/* usr/share/doc/quilt/
 usr/share/locale/*
 usr/share/man/*
 usr/share/quilt/*
