@@ -14,10 +14,7 @@ CFLAGS =	-g -Wall
 
 #-----------------------------------------------------------------------
 SRC +=		COPYING AUTHORS TODO BUGS Makefile \
-		quilt.spec quilt.changes \
-		misc/akmp-patch-scripts-0.9.tar.gz \
-		misc/jr-quilt-0.1.0.tar.bz2 \
-		misc/test.tar.gz
+		quilt.spec quilt.changes
 
 BIN_IN :=	quilt
 BIN_SRC :=	$(BIN_IN:%=%.in) guards
