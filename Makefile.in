@@ -9,8 +9,9 @@ bindir :=	@bindir@
 libdir :=	@libdir@
 datadir :=	@datadir@
 mandir :=	$(datadir)/man
-docdir :=	$(datadir)/doc/packages
+docdir :=	$(datadir)/doc
 localedir :=	$(datadir)/locale
+etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
 
 QUILT_DIR =	$(datadir)/$(PACKAGE)
 SCRIPTS_DIR =	$(QUILT_DIR)/scripts
@@ -42,7 +43,8 @@ DIRT +=		$(shell find -name '*~')
 
 SRC +=		COPYING AUTHORS TODO BUGS Makefile.in \
 		configure.ac config/install-sh \
-		quilt.spec.in quilt.changes
+		quilt.spec.in quilt.changes \
+		bash_completion
 DIRT +=		quilt.spec
 
 BIN_IN :=	quilt guards
@@ -214,6 +216,10 @@ install : scripts
 	
 	$(MAKE_NLS) -C po install BUILD_ROOT=$(BUILD_ROOT) \
 		LINGUAS="$(LINGUAS)" localedir=$(localedir)
+
+	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)
+	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
+	@INSTALL@ -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 
 clean :
 	rm -f $(DIRT)
