@@ -7,6 +7,7 @@
 #  See the COPYING and AUTHORS files for more details.
 
 export TEXTDOMAIN=quilt
+export TEXTDOMAINDIR=@LOCALEDIR@
 
 if [ -z "$QUILTRC" ]
 then

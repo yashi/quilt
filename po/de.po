@@ -11,15 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../bin/quilt.in:19
+#: ../bin/quilt.in:20
 msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
 msgstr "Verwendung: quilt [--trace] [--quiltrc=XX] befehl [-h] ..."
 
-#: ../bin/quilt.in:21
+#: ../bin/quilt.in:22
 msgid "Commands are:"
 msgstr "Vorhandene Befehle:"
 
-#: ../bin/quilt.in:26
+#: ../bin/quilt.in:27
 msgid ""
 "\n"
 "Common options to all commands:\n"
