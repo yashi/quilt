@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb  2 15:23:20 +0100 2003 - agruen@suse.de
+
+- Make quilt setup recognize the "# Sourcedir:" directive.
+- Fix bug with spurious `Index:' lines in diff/refresh output.
+
+-------------------------------------------------------------------
 Sat Feb  1 18:52:15 +0100 2003 - agruen@suse.de
 
 - Integrate James Rowe's Autoconf setup (with a comple of

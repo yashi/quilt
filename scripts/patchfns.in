@@ -441,7 +441,7 @@ stripit()
 	then
 		echo $1 |
 		sed -e 's/^\(\.\/\)*//' \
-		    -e 's/^'"$(quote_bre $P)"'patches\///' -e 's/^\.pc\///' \
+		    -e 's/^'"$(quote_bre $P)"'patches\///' \
 		    -e 's/\.gz$//' -e 's/\.bz2$//' \
 		    -e 's/\.patch$//' -e 's/\.diff\?$//'
 	fi
@@ -514,17 +514,23 @@ refresh_file_list()
 	fi
 }
 
+fix_diff_header()
+{
+	local from=$1 to=$2
+	sed -e 's/^--- [^ \t]*/--- '"$(quote_bre $from)"'/' \
+	    -e 's/^+++ [^ \t]*/+++ '"$(quote_bre $to)"'/'
+}
+
 diff_file()
 {
 	local file=$1 suffix=$2 old_file=$3 new_file=$4
-	local old_file new_file
+	local old_hdr new_hdr line
 
 	if [ ! -e "$old_file" -a ! -e "$new_file" ]
 	then
 		echo "File $file does not exist" >&2
 		return 0
 	fi
-	local old_hdr new_hdr
 	if [ $opt_strip_level -eq 0 ]
 	then
 		old_hdr=$file$suffix
@@ -535,16 +541,13 @@ diff_file()
 		new_hdr=$dir/$file
 	fi
 
-	echo Index: $new_hdr
 	@DIFF@ -Nu $DIFF_OPTS $old_file $new_file |
-	fix_diff_header $old_hdr $new_hdr
-}
-
-fix_diff_header()
-{
-	local from=$1 to=$2
-	sed -e 's/^--- [^ \t]*/--- '"$(quote_bre $from)"'/' \
-	    -e 's/^+++ [^ \t]*/+++ '"$(quote_bre $to)"'/'
+	if read line
+	then
+		echo "Index: $new_hdr"
+		(echo "$line" ; cat) \
+		| fix_diff_header $old_hdr $new_hdr
+	fi
 }
 
 cat_file()
