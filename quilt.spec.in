@@ -1,22 +1,13 @@
 #
 # spec file for quilt - patch management scripts
 #
-# Copyright (c) 2003 SuSE Linux AG, Nuernberg, Germany.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
-# Please submit bugfixes or comments via http://www.suse.de/feedback/
-#
-
-# neededforbuild sh-utils
-# usedforbuild
 
 Name:		quilt
 Summary:	Scripts for working with series of patches
 License:	GPL
 Group:		Productivity/Text/Utilities
-Version:	0.21
-Release:	1
+Version:	0
+Release:	0
 Requires:	textutils diffutils patch gzip bzip2 perl mktemp
 Autoreqprov:	off
 Source:		quilt-%{version}.tar.gz
@@ -58,5 +49,5 @@ make install prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 %doc README
 
 %changelog
-# The changelog is kept in %{name}.changes
+# The changelog is filled in by "make spec".
 

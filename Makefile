@@ -1,5 +1,6 @@
 PACKAGE :=	quilt
 VERSION :=	0.21
+RELEASE :=	1
 
 prefix :=	/usr/local
 bindir :=	$(prefix)/bin
@@ -14,7 +15,8 @@ CFLAGS =	-g -Wall
 
 #-----------------------------------------------------------------------
 SRC +=		COPYING AUTHORS TODO BUGS Makefile \
-		quilt.spec quilt.changes
+		quilt.spec.in quilt.spec quilt.changes
+DIRT +=		quilt.spec
 
 BIN_IN :=	quilt
 BIN_SRC :=	$(BIN_IN:%=%.in) guards
@@ -70,7 +72,7 @@ bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
 
-dist :
+dist : spec
 	rm -f $(PACKAGE)-$(VERSION)
 	ln -s . $(PACKAGE)-$(VERSION)
 	tar cvfz $(PACKAGE)-$(VERSION).tar.gz \
@@ -95,6 +97,24 @@ install : all
 
 	install -d $(BUILD_ROOT)$(mandir)/man1
 	install -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
+
+spec : $(PACKAGE).spec
+$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes
+	@echo "Generating spec file"
+	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
+	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
+	    < $< > $@
+	@perl -ne ' \
+		m/^(|-+)$$/ and next; \
+		( \
+		  s/^(...) \s (...) \s (.\d) \s (\d\d:\d\d:\d\d) \s \
+		     (...) \s (\d\d\d\d) \s - \s (.+) \
+		   /* $$1 $$2 $$3 $$6 - $$7/x || \
+		  m/^(- |  )(?!\s)/ \
+		  and print \
+		) or die "Syntax error in line $$. of changelog:\n$$_\n"; \
+	' $(PACKAGE).changes \
+	| lib/parse-patch -u changelog $@
 
 clean distclean :
 	rm -f $(DIRT)
