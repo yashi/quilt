@@ -1,3 +1,18 @@
+Fri Jun 11 00:43:07 PDT 2004 - mquinson@tuxfamily.org
+
+- Fix the man page generation
+- Add a --no-timestamps option to diff and refresh doing what
+  QUILT_NO_DIFF_TIMESTAMPS does. This should make more visible a feature
+  I was about reimplementing ;)
+- Document all options from the pdf into the man page.
+- update the bash completion stuff so that :
+  - it does not kill the shell when completing in a tree not matching the
+    meta data version.
+  - it does not move the current directory around, seeking for patches/
+  - it completes on the new commands (grep graph upgrade)
+- Various output messages polishing (and translation fuzzying)
+- French translation unfuzzying
+
 -------------------------------------------------------------------
 Thu Jun 10 22:08:07 CEST 2004 - agruen@suse.de
 
