@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 
 #: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
-#: ../quilt/push.in:176 ../quilt/remove.in:75
+#: ../quilt/fold.in:79 ../quilt/push.in:176 ../quilt/remove.in:75
 msgid "No patch applied"
 msgstr ""
 
@@ -152,24 +152,36 @@ msgstr ""
 msgid "Cannot change to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:267 ../scripts/rpatch.in:89
+#: ../quilt/diff.in:270 ../scripts/rpatch.in:89
 msgid "Failed to patch temporary files"
 msgstr ""
 
-#: ../quilt/diff.in:274
+#: ../quilt/diff.in:277
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:292
+#: ../quilt/diff.in:295
 msgid "File $file is not being modified."
 msgstr ""
 
-#: ../quilt/diff.in:311 ../quilt/refresh.in:144
+#: ../quilt/diff.in:314 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr ""
 
-#: ../quilt/diff.in:318
+#: ../quilt/diff.in:321
 msgid "More recent patches modify files in $last_patch."
+msgstr ""
+
+#: ../quilt/edit.in:13
+msgid "Usage: quilt edit file ..."
+msgstr ""
+
+#: ../quilt/edit.in:16
+msgid ""
+"\n"
+"\n"
+"Edit the specified file(s) in $EDITOR after adding it (them) to the\n"
+"topmost patch.\n"
 msgstr ""
 
 #: ../quilt/files.in:22
@@ -192,6 +204,57 @@ msgstr ""
 
 #: ../quilt/files.in:86
 msgid "Patch is not applied"
+msgstr ""
+
+#: ../quilt/fold.in:22
+msgid "Usage: quilt fold [-p strip-level]"
+msgstr ""
+
+#: ../quilt/fold.in:25
+msgid ""
+"\n"
+"\n"
+"Integrate the patch read from standard input into the topmost patch:\n"
+"After making sure that all files modified are part of the topmost\n"
+"patch, the patch is applied with the specified strip level (which\n"
+"defaults to 1).\n"
+"\n"
+"-p strip-level\n"
+"\tThe number of pathname components to strip from file names\n"
+"\twhen applying patchfile."
+msgstr ""
+
+#: ../quilt/fold.in:110
+msgid "File ${file:${#workdir}+1} may be corrupted"
+msgstr ""
+
+#: ../quilt/fork.in:22
+msgid "Usage: quilt fork [new_name]"
+msgstr ""
+
+#: ../quilt/fork.in:25
+msgid ""
+"\n"
+"Fork the next patch. If new_name is missing, the name of the\n"
+"forked patch will be the current patch name, followed by \\\"-2\\\".\n"
+"If the patch name already ends in a dash-and-number, the number is\n"
+"further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
+msgstr ""
+
+#: ../quilt/fork.in:65
+msgid "All patches applied"
+msgstr ""
+
+#: ../quilt/fork.in:93
+msgid "Patch $patch exists already, please choose a new name"
+msgstr ""
+
+#: ../quilt/fork.in:100
+msgid "Fork of $next_file_name to $patch_file failed"
+msgstr ""
+
+#: ../quilt/fork.in:104
+msgid "Fork of $next_file_name created as $(patch_file_name $patch)"
 msgstr ""
 
 #: ../quilt/import.in:22
@@ -595,6 +658,20 @@ msgstr ""
 msgid "Directory $packagedir set up."
 msgstr ""
 
+#: ../quilt/snapshot.in:22
+msgid "Usage: quilt snapshot [-d]"
+msgstr ""
+
+#: ../quilt/snapshot.in:25
+msgid ""
+"\n"
+"\n"
+"Take a snapshot of the current working state.\n"
+"\n"
+"-d\tRemove current snapshot.\n"
+"\n"
+msgstr ""
+
 #: ../quilt/top.in:22
 msgid "Usage: quilt top"
 msgstr ""
@@ -639,19 +716,19 @@ msgstr ""
 msgid "Applying $patch"
 msgstr ""
 
-#: ../scripts/apatch.in:109
+#: ../scripts/apatch.in:114
 msgid "Patch $patch appears to be empty, applied"
 msgstr ""
 
-#: ../scripts/apatch.in:112
+#: ../scripts/apatch.in:117
 msgid "Applied $patch (forced; needs refresh)"
 msgstr ""
 
-#: ../scripts/apatch.in:116
+#: ../scripts/apatch.in:121
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 
-#: ../scripts/apatch.in:173 ../scripts/rpatch.in:192
+#: ../scripts/apatch.in:178 ../scripts/rpatch.in:192
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr ""
 
