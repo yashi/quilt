@@ -23,12 +23,14 @@ file2
 $ echo "This is file two." > file2
 $ quilt diff | sed -e "s/\\t.*//"
 Index: test/file2
---- test~patch1/file2
+===================================================================
+--- test.orig/file2
 +++ test/file2
 @@ -0,0 +1 @@
 +This is file two.
 $ quilt diff -z | sed -e "s/\\t.*//"
 Index: test/file2
+===================================================================
 --- test.orig/file2
 +++ test/file2
 @@ -0,0 +1 @@
@@ -39,6 +41,7 @@ $ quilt diff -z
 $ echo "Another line has been added." >> dir/file1
 $ quilt diff -z | sed -e "s/\\t.*//"
 Index: test/dir/file1
+===================================================================
 --- test.orig/dir/file1
 +++ test/dir/file1
 @@ -1 +1,2 @@
@@ -77,7 +80,8 @@ File file4 added to patch subdir/patch3
 $ rm file4
 $ quilt diff | sed -e "s/\\t.*//"
 Index: test/file4
---- test~subdir_patch3/file4
+===================================================================
+--- test.orig/file4
 +++ test/file4
 @@ -1 +0,0 @@
 -This is file 4.
@@ -91,6 +95,7 @@ Refreshed patch patch2
 $ echo "Another line added." >> file2
 $ quilt diff -z -P patch1 | sed -e "s/\\t.*//"
 Index: test/file2
+===================================================================
 --- test.orig/file2
 +++ test/file2
 @@ -1 +1,2 @@

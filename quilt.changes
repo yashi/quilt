@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Mar 23 21:37:20 CET 2003 - agruen@suse.de
+
+- Update test script to reflect recent patch format changes.
+
+-------------------------------------------------------------------
 Sat Mar 22 12:28:43 CET 2003 - agruen@suse.de
 
 - Also substitute @SED@ and @AWK@.
