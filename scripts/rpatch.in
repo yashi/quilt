@@ -45,8 +45,8 @@ verify_removal()
 		fi
 
 		@DIFF@ -Nu $DIFF_OPTS $bup $file \
-		| sed -e 's:^--- [^ \t]*:--- '"$dir/$file.orig"':' \
-		      -e 's:^+++ [^ \t]*:+++ '"$dir/$file"':'
+		| @SED@ -e 's:^--- [^ '$'\t'']*:--- '"$dir/$file.orig"':' \
+		      -e 's:^+++ [^ '$'\t'']*:+++ '"$dir/$file"':'
 
 		status=1
 	done
@@ -92,7 +92,7 @@ rollback_patch()
 	local patch=$1 pc_file=$(pc_file_name $patch)
 	@LIB@/backup-files $silent_unless_verbose \
 			   -f $pc_file -z ~rpatch -r
-	rm -f $(files_in_patch $patch | sed -e 's/$/\.rej/')
+	rm -f $(files_in_patch $patch | @SED@ -e 's/$/\.rej/')
 }
 
 interrupt()

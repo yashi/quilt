@@ -103,7 +103,7 @@ echo $" done" >&2
 RPM="rpm --rcfile=/usr/lib/rpm/rpmrc:$WORK/rpmrc"
 PATH="$WORK/bin:$PATH"
 grep ^macrofiles /usr/lib/rpm/rpmrc			\
-	| sed -e "/macrofiles/s|$|:$WORK/rpmmacros|"	\
+	| @SED@ -e "/macrofiles/s|$|:$WORK/rpmmacros|"	\
 	> $WORK/rpmrc
 cat <<-EOF > "$WORK/rpmmacros"
 	%_sourcedir	$specdir
@@ -159,7 +159,7 @@ cat <<-'EOF' > "$WORK/bin/patch"
 	done
 
 	# print results
-	unpackdir=`echo $unpackdir | sed -e "s|$RPM_BUILD_DIR|BUILD|"`
+	unpackdir=`echo $unpackdir | @SED@ -e "s|$RPM_BUILD_DIR|BUILD|"`
 	echo -n "# log: [$unpackdir] $uncompress $unpackfile" >>$WORK/cmdlog
 	echo    " | $unpackcmd $unpackargs"		      >>$WORK/cmdlog
 	if test "$unpackcmd" = "patch" -a \
@@ -205,7 +205,7 @@ echo $" done" >&2
 
 	# additional info for trouble shooting
 	if test "$debug" = "1"; then
-		cat $WORK/md5sum | sed -e 's/^/# md5: /'
+		cat $WORK/md5sum | @SED@ -e 's/^/# md5: /'
 		echo "#"
 
 		test -f $WORK/cmdlog && cat $WORK/cmdlog && echo "#"

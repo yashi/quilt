@@ -32,13 +32,13 @@ DB=".pc/applied-patches"
 # Quote a string for use in a basic regular expression.
 quote_bre()
 {
-	echo "$1" | sed -e 's:\([][^$/.*\\]\):\\\1:g'
+	echo "$1" | @SED@ -e 's:\([][^$/.*\\]\):\\\1:g'
 }
 
 # Quote a string for use in an extended regular expression.
 quote_re()
 {
-	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
+	echo "$1" | @SED@ -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
 
 basename()
@@ -64,7 +64,7 @@ patch_file_name()
 
 	if [ -e $SERIES ]
 	then
-		awk '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
+		@AWK@ '/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 			{ printf "'"$P"'patches/%s\n", $1
 			  exit
 			}
@@ -79,7 +79,7 @@ patch_args()
 
 	if [ -e $SERIES ]
 	then
-		awk '
+		@AWK@ '
 		/^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 			{ if (NF >= 2)
 				for (i=2; i <= NF; i++)
@@ -123,7 +123,7 @@ change_db_strip_level()
 	if [ -e $SERIES ]
 	then
 		local tmpfile=$(gen_tempfile)
-		awk '
+		@AWK@ '
 		/^'"$(quote_re $patch)"'(\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 			{ for(i=2; i<=NF; i++)
 				if ($i ~ /^-p/) {
@@ -173,7 +173,7 @@ insert_in_series()
 	mkdir -p $(dirname $SERIES)
 	if [ -n "$top" ]
 	then
-		awk '
+		@AWK@ '
 				{ print }
 		/^'"$(quote_re $top)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
@@ -199,7 +199,7 @@ remove_from_series()
 	local patch=$1
 
 	tmpfile=$(gen_tempfile) || return 1
-	awk '
+	@AWK@ '
 	! /^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 				{ print }
 	' $SERIES > $tmpfile
@@ -236,9 +236,9 @@ cat_series()
 {
 	if [ -e $SERIES ]
 	then
-		sed -e '/^#/d' -e 's/^[ \t]*//' -e 's/[ \t].*//' \
-		    -e 's/\.gz$//' -e 's/\.bz2$//' \
-		    -e 's/\.patch$//' -e 's/\.diff\?$//' $SERIES
+		@SED@ -e '/^#/d' -e 's/^[ '$'\t'']*//' -e 's/[ '$'\t''].*//' \
+		      -e 's/\.gz$//' -e 's/\.bz2$//' \
+		      -e 's/\.patch$//' -e 's/\.diff\?$//' $SERIES
 	else
 		return 1
 	fi
@@ -274,7 +274,7 @@ patches_before()
 	if [ -n "$patch" ]
 	then
 		cat_series \
-		| awk '
+		| @AWK@ '
 		$0 == "'"$patch"'"	{ exit }
 					{ print }
 		'
@@ -287,7 +287,7 @@ patches_after()
 	if [ -n "$patch" ]
 	then
 		cat_series \
-		| awk '
+		| @AWK@ '
 		seen			{ print }
 		$0 == "'"$patch"'"	{ seen=1 }
 		'
@@ -301,7 +301,7 @@ patches_on_top_of()
 {
 	local patch=$1
 	[ -e $DB ] || return
-	awk '
+	@AWK@ '
 	$0 == "'"$patch"'"	{ seen=1 ; next }
 	seen			{ print }
 	' $DB
@@ -319,7 +319,7 @@ next_patch_for_file()
 		grep -l -E "^$(quote_re $file)\$" \
 		     $(pc_file_name $patches_on_top) \
 		| head -1 \
-		| sed -e 's:^\.pc/::' -e 's:/\.pc$::'
+		| @SED@ -e 's:^\.pc/::' -e 's:/\.pc$::'
 	fi
 
 	#modified_files $file -- $patches_on_top \
@@ -364,7 +364,7 @@ refresh_patches_per_file()
 		return 0
 	fi
 
-	awk '
+	@AWK@ '
 	ARGIND!=saved	{ sub(/^.pc\//, "", FILENAME)
 			  sub(/\/\.pc/, "", FILENAME)
 			  saved=ARGIND
@@ -391,7 +391,7 @@ modified_files()
 		return 1
 	fi
 
-	awk	'
+	@AWK@ '
 	BEGIN		{ no_files=1
 			  no_patches=1
 			  for (i=1; i<ARGC; i++) {
@@ -446,10 +446,10 @@ stripit()
 	if [ -n "$1" ]
 	then
 		echo $1 |
-		sed -e 's/^\(\.\/\)*//' \
-		    -e 's/^'"$(quote_bre $P)"'patches\///' \
-		    -e 's/\.gz$//' -e 's/\.bz2$//' \
-		    -e 's/\.patch$//' -e 's/\.diff\?$//'
+		@SED@ -e 's/^\(\.\/\)*//' \
+		      -e 's/^'"$(quote_bre $P)"'patches\///' \
+		      -e 's/\.gz$//' -e 's/\.bz2$//' \
+		      -e 's/\.patch$//' -e 's/\.diff\?$//'
 	fi
 }
 
@@ -473,7 +473,7 @@ touched_by_patch()
 {
 	local strip=$1 patch=$2
 	cat_file $(patch_file_name $patch) \
-	|  awk '
+	|  @AWK@ '
 	/^\+\+\+[ \t]/ {
 		sub(/^\+\+\+[ \t]/, "")
 		sub(/[ \t].*/, "")
@@ -523,8 +523,8 @@ refresh_file_list()
 fix_diff_header()
 {
 	local from=$1 to=$2
-	sed -e 's/^--- [^ \t]*/--- '"$(quote_bre $from)"'/' \
-	    -e 's/^+++ [^ \t]*/+++ '"$(quote_bre $to)"'/'
+	@SED@ -e 's/^--- [^ '$'\t'']*/--- '"$(quote_bre $from)"'/' \
+	      -e 's/^+++ [^ '$'\t'']*/+++ '"$(quote_bre $to)"'/'
 }
 
 diff_file()
@@ -601,7 +601,7 @@ patch_description()
 
 	if [ -e "$patch_file" -o -z "$patch_file" ]
 	then
-		awk '
+		@AWK@ '
 		$1 == "---"	{ exit }
 		$1 == "Index:"	{ eat = eat $0
 				  next }

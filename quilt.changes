@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Mar 22 12:28:43 CET 2003 - agruen@suse.de
+
+- Also substitute @SED@ and @AWK@.
+- Some versions of sed don't like '\t'. Expand those in the
+  shell instead.
+
+-------------------------------------------------------------------
 Fri Mar 21 10:42:27 CET 2003 - agruen@suse.de
 
 - Bump version number to 0.23 (CVS tag VER_0_23).

@@ -30,7 +30,7 @@ rollback_patch()
 			   -f $pc_file -B .pc/$patch/ -r
 	if [ -z "$opt_leave_rejects" ]
 	then
-		rm -f $(files_in_patch $patch | sed -e 's/$/\.rej/')
+		rm -f $(files_in_patch $patch | @SED@ -e 's/$/\.rej/')
 	fi
 }
 

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.23],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.12 $)
+AC_REVISION ($Revision: 1.13 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -28,7 +28,7 @@ systems implementation of #! being either broken or non-existant.
 ])
 fi
 
-# Check for Bourne-Again Shell
+dnl Check for Bourne-Again Shell
 AC_ARG_WITH(bash, AC_HELP_STRING(
     [--with-bash], [name of the bash executable to use]),
     [
@@ -70,6 +70,35 @@ if test -z "$PERL" ; then
     AC_MSG_ERROR([Please specify the location of Perl with the option '--with-perl'])
 fi
 
+dnl Check for sed
+AC_ARG_WITH(sed, AC_HELP_STRING(
+    [--with-sed], [name of the sed executable to use]),
+    [
+	SED="$withval"
+	AC_SUBST(SED)
+	AC_MSG_NOTICE([Using sed executable $SED])
+    ],[
+	SED="sed"
+	AC_SUBST(SED)
+    ])
+
+dnl Check for awk
+AC_ARG_WITH(awk, AC_HELP_STRING(
+    [--with-awk], [name of the awk executable to use]),
+    [
+	AWK="$withval"
+	AC_SUBST(AWK)
+	AC_MSG_NOTICE([Using awk executable $AWK])
+    ],[
+	AC_PATH_PROGS(AWK, [gawk awk])
+    ])
+
+dnl Test for awk features that may be mising?
+
+if test -z "$PERL" ; then
+    AC_MSG_ERROR([Please specify the location of Perl with the option '--with-perl'])
+fi
+
 dnl Checks for mktemp (for creating temporary files and directories)
 AC_ARG_WITH(mktemp, AC_HELP_STRING(
     [--with-mktemp], [name of the mktemp executable to use (or 'none'
@@ -99,7 +128,7 @@ internal tempfile generation mechanism.
     fi
 fi
 
-# Check for diff
+dnl Check for diff
 AC_ARG_WITH(diff, AC_HELP_STRING(
     [--with-diff], [name of the diff executable to use]),
     [
@@ -113,7 +142,7 @@ if test -z "$DIFF"; then
     AC_MSG_ERROR([Please specify the location of diff with the option '--with-diff'])
 fi
 
-# Check for patch
+dnl Check for patch
 AC_ARG_WITH(patch, AC_HELP_STRING(
     [--with-patch], [name of the patch executable to use]),
     [
@@ -152,7 +181,7 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-# Check for diffstat
+dnl Check for diffstat
 AC_ARG_WITH(diffstat, AC_HELP_STRING(
     [--with-diffstat], [name of the diffstat executable to use]),
     [
@@ -170,7 +199,7 @@ you can specify the location the option '--with-diffstat'.
 ])
 fi
 
-# Check for NLS
+dnl Check for NLS
 AC_ARG_ENABLE(nls, AC_HELP_STRING(
     [--enable-nls], [include natural language support]))
 if test "$enableval" != "no"; then

@@ -57,8 +57,8 @@ do
         case "$1" in
         -n)
 		opt_patch=$(echo "$2" |
-			    sed -e 's/^'"$(quote_bre $P)"'patches\///' \
-			        -e 's/^\.pc\///')
+			    @SED@ -e 's/^'"$(quote_bre $P)"'patches\///' \
+			          -e 's/^\.pc\///')
 		shift 2 ;;
 	-p)
 		opt_strip=$2

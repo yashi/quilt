@@ -108,7 +108,7 @@ do
 
 	if [ -e $file ]
 	then
-		if [ "$(ls -dl $file | awk '{print $2}')" -gt 1 ]
+		if [ "$(ls -dl $file | @AWK@ '{print $2}')" -gt 1 ]
 		then
 			# We have a file with several hard links.
 			# As the file may likely be modified by hand

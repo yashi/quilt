@@ -19,6 +19,8 @@ LIB_DIR =	$(libdir)/$(PACKAGE)
 INSTALL :=	@INSTALL@
 PERL :=		@PERL@
 BASH :=		@BASH@
+SED :=		@SED@
+AWK :=		@AWK@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
@@ -161,6 +163,8 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@SCRIPTS''@:$(SCRIPTS_DIR):g' \
 	     -e 's:@PERL''@:$(PERL):g' \
 	     -e 's:@BASH''@:$(BASH):g' \
+	     -e 's:@SED''@:$(SED):g' \
+	     -e 's:@AWK''@:$(AWK):g' \
 	     -e 's:@DIFF''@:$(DIFF):g' \
 	     -e 's:@PATCH''@:$(PATCH):g' \
 	     -e 's:@MKTEMP''@:$(MKTEMP):g' \
