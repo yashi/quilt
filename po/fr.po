@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2004-07-21 19:40-0700\n"
+"PO-Revision-Date: 2004-08-16 17:23-0700\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -300,9 +300,8 @@ msgstr ""
 "au patch du sommet.\n"
 
 #: ../quilt/files.in:22
-#, fuzzy
 msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
-msgstr "Usage : quilt files [-v] [patch]\\n"
+msgstr "Usage : quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 
 #: ../quilt/files.in:25
 msgid ""
@@ -321,11 +320,24 @@ msgid ""
 "\tto specifying the first applied patch.\n"
 "\n"
 msgstr ""
+"\n"
+"Affiche la liste des fichiers que le patch au sommet (ou celui spécifé)\n"
+"modifie.\n"
+"\n"
+"-a\tListe tous les fichiers de tous les patches actuellement appliqués.\n"
+"\n"
+"-l\tAffiche également le nom du patch.\n"
+"\n"
+"-v\tAffichage verbeux, plus simple à lire.\n"
+"\n"
+"--combine patch\n"
+"\tAffiche les informations pour tous les patches entre celui spécifié et\n"
+"\tcelui appliqué en dernier. Le nom de fichier « - » correspond au \n"
+"\tpremier patch appliqué.\n"
 
 #: ../quilt/files.in:76 ../quilt/files.in:96
-#, fuzzy
 msgid "Patch %s is not in series file\\n"
-msgstr "Le patch %s n'est pas dans la série\\n"
+msgstr "Le patch %s n'est pas dans le fichier series\\n"
 
 #: ../quilt/fold.in:22
 msgid "Usage: quilt fold [-p strip-level]\\n"
@@ -518,7 +530,6 @@ msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
 msgstr "Usage : quilt pop [-afRqv] [num|patch]\\n"
 
 #: ../quilt/pop.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the stack of applied patches.  Without options,\n"
@@ -553,7 +564,7 @@ msgstr ""
 "-f\tForce l'action. L'état des patches avant qu'ils ne soient retirés \n"
 "\tsera restoré depuis les fichiers de sauvegarde.\n"
 "\n"
-"-R\tRetire le patche avec \\`patch -R' et vérifie que cela retire \n"
+"-R\tRetire le patche avec « patch -R » et vérifie que cela retire \n"
 "\tproprement tous les changements.\n"
 "\n"
 "-q\tOpère silencieusement.\n"
@@ -852,11 +863,11 @@ msgstr "Le fichier %s existe\\n"
 
 #: ../quilt/setup.in:118
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
-msgstr ""
+msgstr "La section %%prep de %s a échoué ; les résultats sont peut-être incomplets\\n"
 
 #: ../quilt/setup.in:121
 msgid "The -v option will show rpm's output\\n"
-msgstr ""
+msgstr "L'option -v montre les affichages de rpm\\\\n"
 
 #: ../quilt/setup.in:155
 msgid "Unpacking archive %s\\n"
@@ -1033,18 +1044,3 @@ msgstr "Retrait de %s\\n"
 #: ../scripts/rpatch.in:179
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Le patch %s doit être rafraichi au préalable.\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Print the list of files that the topmost or specified patch changes.\n"
-#~ "\n"
-#~ "-v\tVerbose, more user friendly output.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Affiche la liste des fichiers modifiés par le patch spécifié (ou celui \n"
-#~ "au sommet).\n"
-#~ "\n"
-#~ "-v\tAffichage verbeux, plus simple à lire.\n"
-
-#~ msgid "Patch %s is not applied (no verbose output)\\n"
-#~ msgstr "Le patch %s n'est pas appliqué (affichage non verbeux)"
