@@ -11,15 +11,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../bin/quilt.in:20
+#: ../bin/quilt.in:23
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr "Verwendung: quilt [--trace[=verbose]] [--quiltrc=XX] befehl [-h] ..."
 
-#: ../bin/quilt.in:22
+#: ../bin/quilt.in:25
 msgid "Commands are:"
 msgstr "Vorhandene Befehle:"
 
-#: ../bin/quilt.in:27
+#: ../bin/quilt.in:30
+#, fuzzy
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -28,8 +29,9 @@ msgid ""
 "\tRuns the command in bash trace mode (-x). For internal debugging.\n"
 "\n"
 "--quiltrc file\n"
-"\tUse the specified configuration file instead of ~/.quiltrc. \n"
-"\tSee pdf documentation for details about its possible content."
+"\tUse the specified configuration file instead of ~/.quiltrc (or\n"
+"\t/etc/quilt.quiltrc if ~/.quiltrc is missing).  See the pdf\n"
+"\tdocumentation for details about its possible content."
 msgstr ""
 "\n"
 "Gemeinsame Optionen für alle Befehle:\n"
@@ -66,7 +68,7 @@ msgstr ""
 
 #: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/next.in:62
-#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:265
+#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:272
 #: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
@@ -78,7 +80,7 @@ msgstr "Patch %s ist nicht angewandt\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:286 ../quilt/push.in:303 ../quilt/refresh.in:143
+#: ../quilt/pop.in:286 ../quilt/push.in:310 ../quilt/refresh.in:143
 #: ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
@@ -575,7 +577,7 @@ msgstr "Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: ../quilt/pop.in:293 ../quilt/push.in:321
+#: ../quilt/pop.in:293 ../quilt/push.in:328
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -655,35 +657,35 @@ msgstr "Unterbrechung durch Benutzer; Patch %s wurde nicht angewandt.\\n"
 msgid "Patch %s appears to be empty\\n"
 msgstr "Patch %s scheint leer zu sein\\n"
 
-#: ../quilt/push.in:109
+#: ../quilt/push.in:135
 msgid "Applying patch %s\\n"
 msgstr "Wende Patch %s an\\n"
 
-#: ../quilt/push.in:159
+#: ../quilt/push.in:166
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "Patch %s scheint leer zu sein, angewandt\\n"
 
-#: ../quilt/push.in:163
+#: ../quilt/push.in:170
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Patch %s angewandt (erzwungen, muß aufgefrischt werden (Refresh))\\n"
 
-#: ../quilt/push.in:168
+#: ../quilt/push.in:175
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s läßt sich nicht anwenden (erzwingen mit -f)\\n"
 
-#: ../quilt/push.in:207
+#: ../quilt/push.in:214
 msgid "Patch %s not found in file series\\n"
 msgstr "Patch %s nicht in series-Datei gefunden\\n"
 
-#: ../quilt/push.in:282
+#: ../quilt/push.in:289
 msgid "Patch %s is already applied\\n"
 msgstr "Patch %s ist bereits angewandt\\n"
 
-#: ../quilt/push.in:291
+#: ../quilt/push.in:298
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
-#: ../quilt/push.in:305
+#: ../quilt/push.in:312
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
@@ -982,7 +984,7 @@ msgstr ""
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
 
-#: ../scripts/patchfns.in:703
+#: ../scripts/patchfns.in:750
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -995,7 +997,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: ../scripts/patchfns.in:770
+#: ../scripts/patchfns.in:817
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

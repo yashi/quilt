@@ -1,0 +1,151 @@
+#! @PERL@ -w
+
+use Getopt::Long;
+use strict;
+
+my (%append_name, %append_value, $remove_empty_headers, %remove_header,
+    %extract_recipients, %replace_name, %replace_value, $charset);
+GetOptions('add-recipient:s%' =>
+    sub {
+	$append_name{lc $_[1]} = $_[1];
+	$append_value{lc $_[1]} .= ",\n " . $_[2];
+    },
+    'remove-header:s' => sub { $remove_header{lc $_[1]}++ },
+    'remove-empty-headers' => \$remove_empty_headers,
+    'replace-header:s%' =>
+    sub {
+	$replace_name{lc $_[1]} = $_[1];
+	$replace_value{lc $_[1]} = $_[2];
+    },
+    'extract-recipients:s' => sub { $extract_recipients{lc $_[1]} = 1 },
+    'charset' => \$charset)
+    or exit 1;
+my %recipient_headers = map {lc $_ => 1} (@ARGV, keys %append_name);
+
+# Email address formats understood:
+#    Andreas Gruenbacher <agruen@suse.de>
+#    "Andreas G." <agruen@suse.de>
+#    agruen@suse.de (Andreas Gruenbacher)
+#    agruen@suse.de
+#    agruen@[suse.de]
+#
+# Not understood (needs proper encoding):
+#    Andreas Grünbacher <agruen@suse.de>
+
+sub check_recipient($) {
+    my ($recipient) = @_;
+    my ($display, $deliver);
+    local $_ = $recipient;
+    my $spl = '()<>\[\]:;@\\,"';  # special characters
+    my $spldot = "$spl.";  # special characters + dot
+
+    # FIXME: Take a character set option and if set, encode invalid
+    #	     characters in atoms: =?iso-8859-1?q?Gr=FCnbacher?=
+
+    if (($display, $deliver) = /^(.*?)\s*<(.+)>$/ or
+	($deliver, $display) = /^(\S*)(\s*\(.*\))$/) {
+	$_ = $display;
+	if (/^"((?:[^"\\]|\\[^\n\r])*)"/) {
+	    $display = $1;
+	} else {
+	    # The value is not (properly) quoted. Check for invalid characters.
+	    while (/\(/ or /\)/) {
+		die "Display name '$display' contains unpaired parentheses\n"
+		    unless s/\(([^()]*)\)/$1/;
+	    }
+	    die "Display name '$display' contains invalid characters\n"
+		if /[$spldot]/;
+	}
+	die "Display name '$display' contains non-printable or " .
+	    "8-bit characters\n" if (/[^ \t\40-\176]/);
+    } else {
+	$deliver = $_;
+    }
+    # Check for a valid delivery address
+    die "Delivery address '$deliver' is invalid\n"
+	if $deliver =~ /[ \t]/ or $deliver =~ /[^ \t\40-\176]/ or
+	   $deliver !~ /^[^$spl]+@(\[?)[^$spldot]+(?:\.[^$spldot]+)*(\]?)$/ or
+	   (!$1) != (!$2);
+    return $deliver;
+}
+
+my %recipients;
+sub process_header($) {
+    local ($_) = @_;
+    my ($name, $value);
+
+    return unless defined $_;
+    unless (($name, $value) = /^([\41-\176]+):\s*(.*)\s*/s) {
+	print;
+	return
+    }
+    if (%extract_recipients) {
+	if (exists $extract_recipients{lc $name}) {
+	    #print "(($value))";
+	    $value =~ s/^\s*//;  $value =~ s/\s*$//;
+	    foreach my $recipient (split /\s*,\s*/s, $value) {
+		    next if $recipient =~ /^\s*$/;
+		    #print "<<$recipient>>";
+		    print check_recipient($recipient), "\n";
+	    }
+	}
+	return;
+    }
+    return if exists $remove_header{lc $name};
+    if (exists $replace_name{lc $name}) {
+	    if (exists $replace_value{lc $name}) {
+		print "$replace_name{lc $name}: $replace_value{lc $name}\n"; 
+		delete $replace_value{lc $name};
+	    }
+	    return;
+    }
+    if (exists $recipient_headers{lc $1}) {
+	if (exists $append_name{lc $name}) {
+	    $value .= $append_value{lc $name};
+	    delete $append_name{lc $name};
+	}
+	my @recipients;
+	# This is a recipients field. Split out all the recipients and
+	# check the addresses. Suppress duplicate recipients.
+	$value =~ s/^\s*//;  $value =~ s/\s*$//;
+	foreach my $recipient (split /\s*,\s*/, $value) {
+	    next if $recipient =~ /^\s*$/;
+	    my $deliver = check_recipient($recipient);
+	    push @recipients, $recipient
+	    	unless exists $recipients{$deliver};
+	    $recipients{$deliver} = $deliver;
+	}
+	print "$name: ", join(",\n ", @recipients), "\n"
+	    if @recipients || !$remove_empty_headers;
+    } else {
+	    print if $value ne "" || !$remove_empty_headers;
+    }
+}
+
+my $header;
+while (<STDIN>) {
+    last if (/^$/);
+    if (/^\S/) {
+	process_header $header;
+	undef $header;
+    }
+    $header .= $_;
+}
+process_header $header;
+foreach my $name (keys %append_name) {
+    process_header $append_name{$name} . ': ' . $append_value{$name};
+}
+unless (%extract_recipients) {
+    # Copy the message body to standard output
+    # FIXME check for 7-bit clean, else assume $charset
+    # FIXME if UTF-8, check for invalid characters!
+    # FIXME must make sure that all messages are written in
+    #       either 7-bit or $charset => mbox !!!
+
+    # Content-Transfer-Encoding: 7bit
+    # Content-Transfer-Encoding: 8bit
+    # Content-Type: text/plain; charset=ISO-8859-15
+    # Content-Type: text/plain; charset=UTF-8
+    undef $/;
+    print "\n", <STDIN>;
+}

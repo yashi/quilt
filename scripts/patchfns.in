@@ -32,9 +32,38 @@ fi
 # Add default arguments for this command
 if [ -n "$QUILT_COMMAND" ]; then
 	args="QUILT_$(echo $QUILT_COMMAND | tr a-z A-Z)_ARGS"
-	set -- ${!args} "$@"
+	eval set -- ${!args} \"\$@\"
 	unset args
 fi
+
+# ========================================================
+
+#declare -a exit_handlers
+#
+#add_exit_handler() {
+#	exit_handlers[${#exit_handlers[@]}]=$1
+#}
+#
+#remove_exit_handler() {
+#	declare -a handlers
+#	local h
+#	for h in "${exit_handlers[@]}"; do
+#		[ "$h" = "$1" ] && continue
+#		handlers[${#handlers[@]}]=$h
+#	done
+#	exit_handlers=( "${handlers[@]}" )
+#}
+#
+#run_exit_handlers() {
+#	local h
+#	for h in "${exit_handlers[@]}"; do
+#		eval $h
+#	done
+#}
+#
+#trap run_exit_handlers EXIT
+
+# ========================================================
 
 # Quote a string for use in a basic regular expression.
 quote_bre()
@@ -653,14 +682,32 @@ gen_tempfile()
 		fi
 	}
 
-	local dir
-	if [ x"$1" = x"-d" ]
+	local name
+	if [ "$1" = -d ]
 	then
-		dir=-d
-		shift
+		@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/quilt}.XXXXXX
+	else
+		@MKTEMP@ ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX
 	fi
-	@MKTEMP@ $dir ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX
+#	if [ "$1" = -d ]
+#	then
+#		name=$(@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/quilt}.XXXXXX)
+#		add_exit_handler "rm -rf $name"
+#	else
+#		name=$(@MKTEMP@ ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX)
+#		add_exit_handler "rm -f $name"
+#	fi
+#	echo "$name"
 }
+
+#keep_tempfile()
+#{
+#	if [ "$1" = -d ]; then
+#		remove_exit_handler "rm -rf $2"
+#	else
+#		remove_exit_handler "rm -f $1"
+#	fi
+#}
 
 first_modified_by()
 {

@@ -28,6 +28,7 @@ MKTEMP :=	@MKTEMP@
 MSGFMT :=	@MSGFMT@
 DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
+MTA :=		@MTA@
 
 ifeq "$(MSGFMT)" ""
 MAKE_NLS :=	@true
@@ -56,7 +57,7 @@ SRC +=		$(BIN_SRC:%=bin/%)
 DIRT +=		$(BIN_IN:%=bin/%)
 
 QUILT_IN :=	add applied delete diff edit files fold fork graph grep \
-		import new next patches pop previous push refresh remove \
+		import mail new next patches pop previous push refresh remove \
 		series setup snapshot top unapplied upgrade
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
@@ -64,7 +65,7 @@ QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph
+SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
 SRC +=		$(SCRIPTS_SRC:%=scripts/%)
@@ -80,7 +81,8 @@ DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
-		doc/sample.quiltrc doc/quilt.1.in
+		doc/sample.quiltrc doc/quilt.1.in \
+		doc/README.MAIL
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
@@ -213,7 +215,9 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \
 	     -e 's:@RPMBUILD''@:$(RPMBUILD):g' \
 	     -e 's:@DIFFSTAT''@:$(DIFFSTAT):g' \
+	     -e 's:@MTA''@:$(MTA):g' \
 	     -e 's:@LOCALEDIR''@:$(localedir):g' \
+	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
 	     $< > $@
 	@chmod --reference=$< $@
 
@@ -240,7 +244,7 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 	@INSTALL@ -m 644 doc/README \
 		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	@INSTALL@ -m 644 doc/quilt.pdf \
+	@INSTALL@ -m 644 doc/quilt.pdf doc/README.MAIL \
 		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1

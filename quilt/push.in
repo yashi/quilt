@@ -138,7 +138,6 @@ add_patch()
 	no_reject_files=
 	if [ -z "$opt_leave_rejects" ]; then
 		local tmp="$(gen_tempfile)"
-		trap "rm -f $tmp" EXIT
 		no_reject_files="-r $tmp"
 	fi
 

@@ -34,8 +34,9 @@ Common options to all commands:
 	Runs the command in bash trace mode (-x). For internal debugging.
 
 --quiltrc file
-	Use the specified configuration file instead of ~/.quiltrc. 
-	See pdf documentation for details about its possible content."
+	Use the specified configuration file instead of ~/.quiltrc (or
+	/etc/quilt.quiltrc if ~/.quiltrc is missing).  See the pdf
+	documentation for details about its possible content."
 	exit 1
 }
 

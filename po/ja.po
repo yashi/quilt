@@ -12,15 +12,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../bin/quilt.in:20
+#: ../bin/quilt.in:23
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr "使い方: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 
-#: ../bin/quilt.in:22
+#: ../bin/quilt.in:25
 msgid "Commands are:"
 msgstr "コマンド一覧:"
 
-#: ../bin/quilt.in:27
+#: ../bin/quilt.in:30
+#, fuzzy
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -29,8 +30,9 @@ msgid ""
 "\tRuns the command in bash trace mode (-x). For internal debugging.\n"
 "\n"
 "--quiltrc file\n"
-"\tUse the specified configuration file instead of ~/.quiltrc. \n"
-"\tSee pdf documentation for details about its possible content."
+"\tUse the specified configuration file instead of ~/.quiltrc (or\n"
+"\t/etc/quilt.quiltrc if ~/.quiltrc is missing).  See the pdf\n"
+"\tdocumentation for details about its possible content."
 msgstr ""
 "\n"
 "全コマンド共通オプション:\n"
@@ -66,7 +68,7 @@ msgstr ""
 
 #: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/next.in:62
-#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:265
+#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:272
 #: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
@@ -78,7 +80,7 @@ msgstr "パッチ %s は適用されていません\\n"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:286 ../quilt/push.in:303 ../quilt/refresh.in:143
+#: ../quilt/pop.in:286 ../quilt/push.in:310 ../quilt/refresh.in:143
 #: ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
@@ -566,7 +568,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: ../quilt/pop.in:293 ../quilt/push.in:321
+#: ../quilt/pop.in:293 ../quilt/push.in:328
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です"
 
@@ -643,36 +645,36 @@ msgstr "ユーザによって中断されました。パッチ % は適用され
 msgid "Patch %s appears to be empty\\n"
 msgstr "パッチ %sは、空のようです\\n"
 
-#: ../quilt/push.in:109
+#: ../quilt/push.in:135
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: ../quilt/push.in:159
+#: ../quilt/push.in:166
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "パッチ %s は、空のようですが、適用しました\\n"
 
-#: ../quilt/push.in:163
+#: ../quilt/push.in:170
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: ../quilt/push.in:168
+#: ../quilt/push.in:175
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %sが適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: ../quilt/push.in:207
+#: ../quilt/push.in:214
 msgid "Patch %s not found in file series\\n"
 msgstr "パッチ %s が seriesファイル内で見つかりません。\\n"
 
-#: ../quilt/push.in:282
+#: ../quilt/push.in:289
 msgid "Patch %s is already applied\\n"
 msgstr "パッチ %s は、すでに適用済です\\n"
 
-#: ../quilt/push.in:291
+#: ../quilt/push.in:298
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
-#: ../quilt/push.in:305
+#: ../quilt/push.in:312
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。\n"
@@ -967,7 +969,7 @@ msgstr ""
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
 
-#: ../scripts/patchfns.in:703
+#: ../scripts/patchfns.in:750
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -979,7 +981,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: ../scripts/patchfns.in:770
+#: ../scripts/patchfns.in:817
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

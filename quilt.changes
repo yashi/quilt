@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jan 23 05:03:08 CET 2005 - agruen@suse.de
+
+- Add mail command, doc/README.MAIL and example ``mail'' command
+  filter in quilt.quiltrc.
+- Bump version to 0.38.
+
+-------------------------------------------------------------------
 Fri Jan 21 13:49:30 CET 2005 - agruen@suse.de
 
 - Add a missing find_patch call in the files command.
@@ -63,7 +70,7 @@ Wed Sep 22 14:24:45 CEST 2004 - agruen@suse.de
 - Push command: Without -f or --leave-rejects, when applying a
   patch failed, the *.rej files were not removed properly. Change
   the code so that they won't be created in the working tree in
-  the first place this case.
+  the first place in this case.
 - test/run script: Oops, the previous commit was not the latest
   version.
 - Fix the version check in bash_completion for bash 3.

@@ -1,8 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([quilt],[0.37],[quilt-dev@nongnu.org])
+AC_INIT([quilt],[0.38],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.32 $)
+AC_REVISION ($Revision: 1.33 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -200,6 +200,26 @@ in a directory that is not in the search path you can specify its location
 using the '--with-diffstat' option.
 ])
     DIFFSTAT="diffstat"
+fi
+
+dnl Check for sendmail
+AC_ARG_WITH(mta, AC_HELP_STRING(
+    [--with-mta], [mail transfer agent to use]),
+    [
+	MTA="$withval"
+	AC_SUBST(MTA)
+	AC_MSG_NOTICE([Using mail transfer executable $MTA])
+    ],[
+	AC_PATH_PROG(MTA, sendmail, [], [$PATH:/usr/sbin])
+    ])
+if test -z "$MTA"; then
+    AC_MSG_WARN([
+Mail transfer executable not found; the --send option of the mail command
+will not work correctly. If you have a mail transfer agent in a directory
+that is not in the search path you can specify its location using the
+'--with-mta' option.
+])
+    MTA="sendmail"
 fi
 
 dnl Check for NLS

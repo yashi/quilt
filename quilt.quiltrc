@@ -11,3 +11,40 @@ QUILT_REFRESH_ARGS="--no-timestamps --backup"
 
 # Prefix all patch names with the relative path to the patch?
 QUILT_PATCHES_PREFIX=yes
+
+# The following ``mail'' command filter recognizes the format we use for
+# kernel patches inside SUSE. The format is as follows (slightly
+# simplified; Signed-off-by and Acked-by lines optional):
+#
+#   From: author@some.where
+#   Subject: One-line summary
+#
+#   Patch description
+#
+#   Signed-off-by: reviewer@some.where
+#   Acked-by: reviewer@some.where
+#
+#   <<patch>>
+#
+# To enable, remove or comment out the lines above and below the function.
+
+: <<'EOF'
+quilt_mail_patch_filter() {
+	local x=$(cat)
+	# Replace subject with patch summary, add anybody in To or Cc
+	# headers as recipients, and take all people in Signed-off-by
+	# and Acked-by into the Cc (excluding myself).
+	echo "$x" \
+	| sed -n -e "/${LOGNAME:-$(whoami)}@$(hostname -d)/d" \
+	       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
+	       -e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip' \
+	       -e 's/^Subject:/Replace-Subject:/p' \
+	       -e '/^\*\*\*\|---/q'
+	echo
+	# Discard the patch header, and pass on the rest
+	echo "$x" | awk '
+	!in_body && (/^[-A-Za-z]+:/ || /^$/) { next }
+	{ in_body = 1 ; print }
+	'
+}
+EOF
