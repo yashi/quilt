@@ -29,7 +29,7 @@ tree is searched. Please see the grep(1) manual page for options.
 
 -h	Print this help. The grep -h option can be passed after a
 	double-dash (--). Search expressions that start with a dash
-	can be pssed after a second double-dash (-- --)."
+	can be passed after a second double-dash (-- --)."
 
 		exit 0
 	else
