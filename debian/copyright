@@ -5,10 +5,11 @@ It was downloaded from:
 
 http://www.suse.de/~agruen/patch-scripts/
 
-Upstream Author(s): 
+Upstream Authors: 
   Andrew Morton <akpm@digeo.com>
   Andreas Gruenbacher <agruen@suse.de>
 
 Copyright:
 
-These scripts are released under the GPL
+These scripts are released under the GPL, available on any Debian box at:
+/usr/share/common-licenses/GPL
