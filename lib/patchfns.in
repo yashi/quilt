@@ -30,7 +30,7 @@ DIFFSTAT=/usr/bin/diffstat
 
 quote_re()
 {
-	echo "$1" | sed -e 's:\([/.+*\[\\]\):\\\1:g'
+	echo "$1" | sed -e 's:\([^$/.+*\[\\]\):\\\1:g'
 }
 
 #basename()
@@ -140,7 +140,7 @@ patch_in_series()
 	then
 		return 1
 	else
-		grep -q '^'"$(quote_re $patch)"'\(\|\.patch\|.diff\?\)\(\|\.gz\|\.bz2\)\([ \t]\|$\)' $SERIES
+		grep -q -E '^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)' $SERIES
 	fi
 }
 
@@ -237,7 +237,7 @@ top_patch()
 
 is_numeric()
 {
-	echo $1 | grep -q -e '^[0-9]*$'
+	echo $1 | grep -q '^[0-9]*$'
 }
 
 is_applied_last()
@@ -250,7 +250,7 @@ is_applied()
 {
 	local patch=$1
 	[ -e $DB ] || return 1
-	grep -q "^$patch\$" $DB
+	grep -q -E "^$(quote_re $patch)\$" $DB
 }
 
 patches_before()
@@ -302,8 +302,8 @@ next_patch_for_file()
 
 	if [ -n "$patches_on_top" ]
 	then
-		grep -l -e "^$(quote_re $file)\$" \
-			$(pc_file_name $patches_on_top) \
+		grep -l -E "^$(quote_re $file)\$" \
+		     $(pc_file_name $patches_on_top) \
 		| head -1 \
 		| sed -e 's:^\.pc/::' -e 's:/\.pc$::'
 	fi
@@ -420,7 +420,7 @@ remove_from_db()
 	local tmpfile
 	if tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
 	then
-		grep -v "^$(quote_re $patch)\$" $DB > $tmpfile
+		grep -v -E "^$(quote_re $patch)\$" $DB > $tmpfile
 		mv -f $tmpfile $DB
 		rm -f $tmpfile
 		[ -s $DB ] || rm -f $DB
@@ -442,7 +442,8 @@ stripit()
 file_in_patch()
 {
 	local file=$1 patch=$2
-	files_in_patch $patch | grep -q "^$file\$"
+	files_in_patch $patch \
+	| grep -q -E "^$(quote_re $file)\$"
 }
 
 files_in_patch()

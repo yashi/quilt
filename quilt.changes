@@ -4,6 +4,8 @@ Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de
 - Add --leave-rejects option to quilt push and apatch, to
   leave reject files around for inspection even if a patch
   does not apply.
+- Fix some regex quoting; use grep -E because we quote for extended
+  regexps. Filenames with "+^$" in it did not work in some places. 
 
 -------------------------------------------------------------------
 Tue Jan 28 23:38:59 CET 2003 - agruen@suse.de
