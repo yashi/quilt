@@ -3,6 +3,7 @@ Wed Nov 12 01:37:17 CET 2003 - agruen@suse.de
 
 - Add introductory paper to CVS repository.
 - Remove obsolete documentation.
+- Bump version number to 0.29 (cvs tag VER_0_29).
 
 -------------------------------------------------------------------
 Tue Nov  4 16:51:49 CET 2003 - agruen@suse.de
