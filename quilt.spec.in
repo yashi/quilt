@@ -54,5 +54,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
-# The changelog is filled in by "make spec".
+# The changelog is filled in by "make quilt.spec".
 
