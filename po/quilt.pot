@@ -663,7 +663,7 @@ msgstr ""
 
 #: ../quilt/upgrade.in:67
 msgid ""
-"The quilt meta-data in %s already are have format version %s; nothing to do"
+"The quilt meta-data in %s are already in the version %s format; nothing to do"
 "\\n"
 msgstr ""
 

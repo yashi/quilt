@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Mon Sep 13 22:28:21 CEST 2004 - agruen@suse.de
+Tue Sep 14 01:00:43 CEST 2004 - agruen@suse.de
 
 - bin/quilt.in: Add optional verbose modifier to --trace option
   by request of Dean Roehrich <roehrich@sgi.com>.
+- Fix a message; took a while. Thanks Yasushi SHOJI
+  <yashi@atmark-techno.com>.
 
 -------------------------------------------------------------------
 Sun Sep 12 18:33:07 CEST 2004 - agruen@suse.de

@@ -13,9 +13,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../bin/quilt.in:20
-#, fuzzy
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
-msgstr "使い方: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+msgstr "使い方: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 
 #: ../bin/quilt.in:22
 msgid "Commands are:"
@@ -913,7 +912,7 @@ msgstr ""
 
 #: ../quilt/upgrade.in:67
 msgid ""
-"The quilt meta-data in %s already are have format version %s; nothing to do"
+"The quilt meta-data in %s are already in the version %s format; nothing to do"
 "\\n"
 msgstr ""
 "%s内の quiltメタデータはすでに version %s フォーマットのため、処理する必要が"
