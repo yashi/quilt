@@ -27,6 +27,7 @@ PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
 MSGFMT :=	@MSGFMT@
 DIFFSTAT :=	@DIFFSTAT@
+RPMBUILD :=	@RPMBUILD@
 
 ifeq "$(MSGFMT)" ""
 MAKE_NLS :=	@true
@@ -106,8 +107,8 @@ dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
 snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
-rpm : $(PACKAGE)-$(VERSION).tar.gz
-	rpm -tb $<
+rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
+	$(RPMBUILD) -tb $<
 
 doc/README : doc/README.in
 	@echo README.in -> README

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.24],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.14 $)
+AC_REVISION ($Revision: 1.15 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -215,6 +215,10 @@ fi
 if test -z "$MSGFMT" ; then
     AC_MSG_NOTICE([Building without natural language support])
 fi
+
+dnl Check for rpmbuild (v4) vs. rpm (v3)
+AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
+AC_SUBST(RPMBUILD)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
