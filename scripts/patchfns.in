@@ -528,7 +528,6 @@ diff_file()
 
 	if [ ! -e "$old_file" -a ! -e "$new_file" ]
 	then
-		echo "File $file does not exist" >&2
 		return 0
 	fi
 	if [ $opt_strip_level -eq 0 ]
