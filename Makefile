@@ -64,6 +64,11 @@ all : scripts
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(LIB:%=lib/%) \
 	  $(DOC) $(MAN1)
 
+dist : $(PACKAGE)-$(VERSION).tar.gz
+
+rpm : $(PACKAGE)-$(VERSION).tar.gz
+	rpm -tb $<
+
 README : README.in
 	@awk '/@REFERENCE@/ { system("$(MAKE) -s reference") ; next }'$$'\n'' \
 			   { print }' 2>&1 $< > $@
@@ -82,8 +87,6 @@ reference : $(QUILT:%=quilt/%)
 bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
-
-dist : $(PACKAGE)-$(VERSION).tar.gz
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC)
 	rm -f $(PACKAGE)-$(VERSION)

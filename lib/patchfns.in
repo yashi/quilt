@@ -30,7 +30,7 @@ DIFFSTAT=/usr/bin/diffstat
 
 quote_re()
 {
-	echo "$1" | sed -e 's:\([^$/.+*\[\\]\):\\\1:g'
+	echo "$1" | sed -e 's:\([\^\$/.+*\[\\]\):\\\1:g'
 }
 
 #basename()
