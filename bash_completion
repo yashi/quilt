@@ -245,7 +245,9 @@ _quilt_completion()
     return 0
 }
 
-[ ${BASH_VERSINFO[1]} '>' 04 ] && _quilt_complete_opt="-o filenames"
+[ ${BASH_VERSINFO[0]} > 2 -o \
+  ${BASH_VERSINFO[0]} = 2 -a ${BASH_VERSINFO[1]} '>' 04 ] \
+&& _quilt_complete_opt="-o filenames"
 complete -F _quilt_completion $_quilt_complete_opt quilt
 unset -v _quilt_complete_opt
 

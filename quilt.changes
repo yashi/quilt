@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-Wed Sep 22 13:03:53 CEST 2004 - agruen@suse.de
+Wed Sep 22 14:24:45 CEST 2004 - agruen@suse.de
 
 - scripts/patchfns.in: set the dotglob option so that dot files
   will show up in file globs as well. Bug reported by James Rowe.
@@ -11,6 +11,7 @@ Wed Sep 22 13:03:53 CEST 2004 - agruen@suse.de
   the first place this case.
 - test/run script: Oops, the previouos commit was not the latest
   version.
+- Fix the version check in bash_completion for bash 3.
 - Bump version to 0.36.
 
 -------------------------------------------------------------------
