@@ -193,7 +193,7 @@ then
 	die 1
 fi
 
-rm -f $(pc_file_name $patch)~refresh
+rm -f .pc/$patch~refresh
 echo $"Refreshed patch $patch"
 if ! change_db_strip_level -p$opt_strip_level $patch
 then

@@ -98,8 +98,7 @@ do
 		continue
 	fi
 
-	if ! @LIB@/backup-files -s -B .pc/$patch/ $file || \
-	   ! echo $file >> $(pc_file_name $patch)
+	if ! @LIB@/backup-files -s -B .pc/$patch/ $file
 	then
 		echo $"Failed to back up file $file" >&2
 		status=1

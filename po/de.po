@@ -812,10 +812,6 @@ msgstr "Unterbrechung durch Benutzer; Patch $patch wurde nicht angewandt."
 msgid "Patch file $patch_file appears to be empty"
 msgstr "Patch-Datei $patch_file scheint leer zu sein"
 
-#: ../scripts/apatch.in:80
-msgid "refresh_file_list failed"
-msgstr "Fehler in refresh_file_list"
-
 #: ../scripts/apatch.in:84
 msgid "Applying $patch"
 msgstr "Anwenden von $patch"

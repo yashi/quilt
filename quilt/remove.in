@@ -107,12 +107,6 @@ do
 		continue
 	fi
 	
-	pc_file=$(pc_file_name $patch)
-	tmpfile=$(gen_tempfile)
-	grep -v -E '^'"$(quote_re $file)"'$' $pc_file > $tmpfile
-	mv -f $tmpfile $pc_file
-	rm -f $tmpfile
-
 	echo $"File $file removed from patch $patch"
 done
 exit $status

@@ -70,6 +70,8 @@ do_diff()
 	
 	if [ -n "$opt_diff" ]
 	then
+		[ -s "$old_file" ] || old_file=/dev/null
+		[ -s "$new_file" ] || new_file=/dev/null
 		if ! @DIFF@ -qN $old_file $new_file >/dev/null
 		then
 			$opt_diff $old_file $new_file
@@ -223,7 +225,6 @@ files=( $(sort -u $tmp_files) )
 if [ -n "$opt_relative" ]
 then
 	patch_file=$(patch_file_name $last_patch)
-	pc_file=$(pc_file_name $last_patch)
 	patch_args=$(patch_args $last_patch)
 	workdir=$(gen_tempfile -d $PWD/quilt)
 	pwd=$PWD
@@ -238,6 +239,12 @@ then
 		echo $"Failed to copy files to temporary directory"
 		die 1
 	fi
+	# Now we may have some zero-size files that have no permissions
+	# (which represent files that the patch creates). Those may have
+	# been created in the meantime, but patch would refuse to touch
+	# them: We must remove them here.
+	find $workdir -type f -size 0 -exec rm -f '{}' ';'
+
 	if ! cd $workdir
 	then
 		echo $"Cannot change to temporary directory"
@@ -255,7 +262,7 @@ then
 			# files won't succeed, either. So, ignore the error
 			# in that particular case.
 			
-			if ! [ -e $pwd/$pc_file~refresh ]
+			if ! [ -e $pwd/.pc/$last_patch~refresh ]
 			then
 				echo $"Failed to patch temporary files"
 				die 1

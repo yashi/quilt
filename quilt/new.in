@@ -68,8 +68,8 @@ then
 	exit 1
 fi
 
-mkdir -p $(dirname $(pc_file_name $patch))
-rm -f $(pc_file_name $patch)
+rm -rf ".pc/$patch"
+mkdir -p ".pc/$patch"
 
 if ! insert_in_series $patch_file || \
    ! add_to_db $patch

@@ -834,10 +834,6 @@ msgstr "Interrompu par l'utilisateur ; le patch $patch n'a pas été appliqué."
 msgid "Patch file $patch_file appears to be empty"
 msgstr "Le fichier de patch $patch_file semble vide"
 
-#: ../scripts/apatch.in:80
-msgid "refresh_file_list failed"
-msgstr "refresh_file_list a échoué."
-
 #: ../scripts/apatch.in:84
 msgid "Applying $patch"
 msgstr "Application de $patch"

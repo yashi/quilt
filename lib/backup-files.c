@@ -38,7 +38,7 @@ const char *progname;
 enum { what_backup, what_restore, what_remove };
 
 const char *opt_prefix="", *opt_suffix="", *opt_file=NULL;
-int opt_silent=0, opt_what=what_backup;
+int opt_silent=0, opt_what=what_backup, opt_ignore_missing=0;
 
 #define LINE_LENGTH 1024
 
@@ -99,7 +99,7 @@ remove_parents(char *filename)
 }
 
 static int
-link_or_copy(const char *from, const char *to)
+link_or_copy(const char *from, struct stat *st, const char *to)
 {
 	char buffer[4096];
 	int from_fd, to_fd, error = 1;
@@ -117,7 +117,8 @@ link_or_copy(const char *from, const char *to)
 		perror(from);
 		return 1;
 	}
-	if ((to_fd = open(to, O_WRONLY|O_TRUNC))) {
+	unlink(to);  /* make sure we don't inherit this file's mode. */
+	if ((to_fd = creat(to, st->st_mode))) {
 		perror(to);
 		close(from_fd);
 		return 1;
@@ -168,7 +169,8 @@ process_file(char *file)
 
 			if (!opt_silent)
 				printf("New file %s\n", file);
-			if ((fd = creat(backup, 0666)) == -1) {
+			/* GNU patch creates new files with mode==0. */
+			if ((fd = creat(backup, 0)) == -1) {
 				perror(backup);
 				return 1;
 			}
@@ -176,7 +178,7 @@ process_file(char *file)
 		} else {
 			if (!opt_silent)
 				printf("Copying %s\n", file);
-			if (link_or_copy(file, backup) != 0)
+			if (link_or_copy(file, &st, backup) != 0)
 				return 1;
 		}
 		return 0;
@@ -185,6 +187,8 @@ process_file(char *file)
 
 		create_parents(file);
 		if (stat(backup, &st) != 0) {
+			if (opt_ignore_missing && errno == ENOENT)
+				return 0;
 			perror(backup);
 			return 1;
 		}
@@ -192,8 +196,6 @@ process_file(char *file)
 			if (unlink(file) == 0 || errno == ENOENT) {
 				if (!opt_silent)
 					printf("Removing %s\n", file);
-				unlink(backup);
-				remove_parents(backup);
 			} else {
 				perror(file);
 				return 1;
@@ -202,13 +204,20 @@ process_file(char *file)
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link_or_copy(backup, file) != 0)
+			if (link_or_copy(backup, &st, file) != 0)
 				return 1;
-			unlink(backup);
-			remove_parents(backup);
 		}
+		if (!(st.st_mode & S_IWUSR)) {
+			/* Change mode of backup file so that we
+			   can later remove it. */
+			chmod(backup, st.st_mode | S_IWUSR);
+		}
+		unlink(backup);
+		remove_parents(backup);
 		return 0;
 	} else if (opt_what == what_remove) {
+		/* Change mode of backup file so that we can remove it. */
+		chmod(backup, S_IWUSR);
 		unlink(backup);
 		remove_parents(backup);
 		return 0;
@@ -216,14 +225,14 @@ process_file(char *file)
 		return 1;
 }
 
-int
+	int
 main(int argc, char *argv[])
 {
 	int opt, status=0;
 	
 	progname = argv[0];
 
-	while ((opt = getopt(argc, argv, "rxB:z:f:sh")) != -1) {
+	while ((opt = getopt(argc, argv, "rxB:z:f:shF")) != -1) {
 		switch(opt) {
 			case 'r':
 				opt_what = what_restore;
@@ -239,6 +248,10 @@ main(int argc, char *argv[])
 				
 			case 'f':
 				opt_file = optarg;
+				break;
+
+			case 'F':  /* ignore missing input files */
+				opt_ignore_missing = 1;
 				break;
 
 			case 'z':

@@ -57,16 +57,10 @@ files_may_have_changed()
 {
 	local patch=$1 file
 	local patch_file=$(patch_file_name $patch)
-	local pc_file=$(pc_file_name $patch)
-
-	if ! [ -e $pc_file ]
-	then
-		return 1
-	fi
 	
-	local apply_ts=$(date -r $pc_file '+%s') ts
+	local apply_ts=$(date -r ".pc/$patch" '+%s') ts
 
-	if [ -e "$patch_file" -a $pc_file -ot "$patch_file" ]
+	if [ -e "$patch_file" -a ".pc/$patch" -ot "$patch_file" ]
 	then
 		return 0
 	fi
@@ -89,18 +83,12 @@ files_may_have_changed()
 
 rollback_patch()
 {
-	local patch=$1 pc_file=$(pc_file_name $patch)
-	@LIB@/backup-files $silent_unless_verbose \
-			   -f $pc_file -z ~rpatch -r
-	rm -f $(files_in_patch $patch | @SED@ -e 's/$/\.rej/')
-}
+	local patch=$1 pc_file=$2
 
-interrupt()
-{
-	local patch=$1
-	rollback_patch $patch
-	echo $"Interrupted by user; patch $patch was not removed."
-	exit 1
+	# We may only have applied the patch half-way, so only some of the
+	# backup files may exist. Ignore missing files (-F).
+	@LIB@/backup-files $silent_unless_verbose -f $pc_file -z ~rpatch -rF
+	@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
 }
 
 reverse_patch()
@@ -117,24 +105,26 @@ reverse_patch()
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
 		gzip -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
 			-R -E $silent
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
 			-R -E $silent
 	else
-		@PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		@PATCH@ $(patch_args $patch) --backup --suffix="~rpatch" \
 			-R -E $silent -i $patch_file
 	fi
 }
 
 rpatch()
 {
-	local patch=$1 pc_file=$(pc_file_name $patch)
+	local patch=$1 pc_file=$(gen_tempfile)
 
-	if ! [ -e $pc_file ]
+	# FIXME backup-files should scan the directory tree itself.
+	files_in_patch $patch > $pc_file
+	if ! [ -s $pc_file ]
 	then
 		echo $"Patch $patch appears to be empty, removed"
 		remove_from_db $patch
@@ -153,24 +143,15 @@ rpatch()
 		@LIB@/backup-files $silent -f $pc_file -B .pc/$patch/ -r
 		status=$?
 		remove_from_db $patch
-		rm -f $pc_file~refresh
+		rm -f .pc/$patch~refresh
 		if [ $status != 0 ]
 		then
 			exit $status
 		fi
 	else
-		if ! @LIB@/backup-files $silent_unless_verbose \
-					-f $pc_file -z ~rpatch
-		then
-			echo $"Failed to create temporary files" >&2
-			return 1
-		fi
-		
-		trap "interrupt $patch" SIGINT
-
+		trap "interrupted=1" SIGINT
 		reverse_patch $patch
 		status=$?
-
 		trap "" SIGINT
 
 		if [ $status -eq 0 ] && verify_removal $patch
@@ -182,11 +163,17 @@ rpatch()
 
 			remove_from_db $patch
 		else
-			rollback_patch $patch
-			echo $"Patch $patch does not remove (enforce with -f)"
+			rollback_patch $patch $pc_file
+			if [ -n "$interrupted" ]
+			then
+				echo $"Interrupted by user; patch $patch was not removed."
+			else
+				echo $"Patch $patch does not remove (enforce with -f)"
+			fi
 			return 1
 		fi
 	fi
+	rm -f $pc_file
 	trap - SIGINT
 }
 
@@ -233,7 +220,7 @@ patch=$(stripit $1)
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
 
 top=$(top_patch)
-if [ -n "$top" -a -e $(pc_file_name $top)~refresh -a -z "$opt_force" ]
+if [ -n "$top" -a -e .pc/$top~refresh -a -z "$opt_force" ]
 then
 	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1

@@ -620,10 +620,6 @@ msgstr ""
 msgid "Patch file $patch_file appears to be empty"
 msgstr ""
 
-#: ../scripts/apatch.in:80
-msgid "refresh_file_list failed"
-msgstr ""
-
 #: ../scripts/apatch.in:84
 msgid "Applying $patch"
 msgstr ""

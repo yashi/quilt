@@ -5,6 +5,8 @@ of the installed quilt with `make check'.
 
 (To run, type `./run one.test' in this directory.)
 
+	$ mkdir d
+	$ cd d
 	$ mkdir dir
 	$ echo "This is file one." > dir/file1
 	$ quilt new patch1.diff
@@ -27,18 +29,18 @@ of the installed quilt with `make check'.
 
 	$ echo "This is file two." > file2
 	$ quilt diff | sed -e "s/\\t.*//"
-	> Index: test/file2
+	> Index: d/file2
 	> ===================================================================
-	> --- test.orig/file2
-	> +++ test/file2
+	> --- d.orig/file2
+	> +++ d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
 
 	$ quilt diff -z | sed -e "s/\\t.*//"
-	> Index: test/file2
+	> Index: d/file2
 	> ===================================================================
-	> --- test.orig/file2
-	> +++ test/file2
+	> --- d.orig/file2
+	> +++ d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
 
@@ -48,10 +50,10 @@ of the installed quilt with `make check'.
 	$ quilt diff -z
 	$ echo "Another line has been added." >> dir/file1
 	$ quilt diff -z | sed -e "s/\\t.*//"
-	> Index: test/dir/file1
+	> Index: d/dir/file1
 	> ===================================================================
-	> --- test.orig/dir/file1
-	> +++ test/dir/file1
+	> --- d.orig/dir/file1
+	> +++ d/dir/file1
 	> @@ -1 +1,2 @@
 	>  This is file one.
 	> +Another line has been added.
@@ -99,10 +101,10 @@ of the installed quilt with `make check'.
 
 	$ rm file4
 	$ quilt diff | sed -e "s/\\t.*//"
-	> Index: test/file4
+	> Index: d/file4
 	> ===================================================================
-	> --- test.orig/file4
-	> +++ test/file4
+	> --- d.orig/file4
+	> +++ d/file4
 	> @@ -1 +0,0 @@
 	> -This is file 4.
 
@@ -118,10 +120,10 @@ of the installed quilt with `make check'.
 
 	$ echo "Another line added." >> file2
 	$ quilt diff -z -P patch1 | sed -e "s/\\t.*//"
-	> Index: test/file2
+	> Index: d/file2
 	> ===================================================================
-	> --- test.orig/file2
-	> +++ test/file2
+	> --- d.orig/file2
+	> +++ d/file2
 	> @@ -1 +1,2 @@
 	>  This is file two.
 	> +Another line added.
@@ -148,4 +150,5 @@ of the installed quilt with `make check'.
 	> Removing patch1
 	> No patches applied
 
-	$ rm -r dir patches
+	$ cd ..
+	$ rm -rf d

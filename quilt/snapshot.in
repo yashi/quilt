@@ -63,11 +63,11 @@ then
 	usage
 fi
 
-snap_dir=.pc/.snap
+snap_subdir=.snap
 
 # Clean up from previous snapshot
-rm -rf $snap_dir
-mkdir -p $snap_dir
+rm -rf .pc/$snap_subdir
+mkdir -p .pc/$snap_subdir
 
 if [ -n "$opt_remove" ]
 then
@@ -79,18 +79,24 @@ for patch in $(applied_patches | tac)
 do
 	for file in $(files_in_patch $patch)
 	do
-		if ! [ -e "$snap_dir/$file" ]
+		if ! [ -e ".pc/$snap_subdir/$file" ]
 		then
-			mkdir -p "$snap_dir/$(dirname $file)"
+			mkdir -p ".pc/$snap_subdir/$(dirname $file)"
 			if [ -e "$file" ]
 			then
-				ln "$file" "$snap_dir/$file"
+				ln "$file" ".pc/$snap_subdir/$file"
 			else
-				touch "$snap_dir/$file"
+				touch ".pc/$snap_subdir/$file"
 			fi
 		fi
 	done
 done
+
+# Now we may have some zero-size files that have no permissions
+# (which represent files that the patch creates). Those may have
+# been created in the meantime, but patch would refuse to touch
+# them: We must remove them here.
+find .pc/$snap_subdir -type f -size 0 -exec rm -f '{}' ';'
 
 ### Local Variables:
 ### mode: shell-script

@@ -25,13 +25,16 @@ usage()
 
 rollback_patch()
 {
-	local patch=$1 pc_file=$(pc_file_name $patch)
-	@LIB@/backup-files $silent_unless_verbose \
-			   -f $pc_file -B .pc/$patch/ -r
+	local patch=$1 pc_file=$(gen_tempfile)
+
+	# FIXME backup_files should scan the directory hierarchy itself.
+	files_in_patch $patch > $pc_file
+	@LIB@/backup-files $silent_unless_verbose -f $pc_file -B .pc/$patch/ -r
 	if [ -z "$opt_leave_rejects" ]
 	then
-		rm -f $(files_in_patch $patch | @SED@ -e 's/$/\.rej/')
+		@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
 	fi
+	rm -f $pc_file
 }
 
 interrupt()
@@ -55,15 +58,15 @@ apply_patch()
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
 		gzip -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent $force_apply
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent $force_apply
 	else
-		@PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
+		@PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent -i $patch_file $force_apply
 	fi
 }
@@ -71,39 +74,9 @@ apply_patch()
 apatch()
 {
 	local patch=$(stripit $1)
-	local pc_file=$(pc_file_name $patch)
 	local file status
 
-	trap "" SIGINT
-	if ! refresh_file_list $patch
-	then
-		echo $"refresh_file_list failed"
-		return 1
-	fi
-
 	echo $"Applying $patch"
-	if ! [ -e $pc_file ]
-	then
-		echo $"Patch $patch appears to be empty, applied"
-		add_to_db $patch
-		return 0
-	fi
-	
-	status=$?
-	if [ $status -eq 2 ]
-	then
-		[ -z "$opt_quiet" ] && echo $"Recreated file list for $patch"
-	elif [ $status -ne 0 ]
-	then
-		return 1
-	fi
-
-	if ! @LIB@/backup-files $silent_unless_verbose \
-				-f $pc_file -B .pc/$patch/
-	then
-		exit 1
-	fi
-	
 	trap "interrupt $patch" SIGINT
 
 	apply_patch $patch
@@ -111,18 +84,20 @@ apatch()
 
 	trap "" SIGINT
 
-	# Remember date/time of applying so that pop can
-	# avoid reverse applying the patch in the usual cases.
-	touch $pc_file
-
 	if [ $status -eq 0 -o -n "$opt_force" ]
 	then
 		add_to_db $patch
 		if [ $status -eq 0 ]
 		then
-			rm -f $pc_file~refresh
+			rm -f .pc/$patch~refresh
 		else
-			touch $pc_file~refresh
+			touch .pc/$patch~refresh
+		fi
+		if [ "$(shopt -s nullglob ; echo .pc/$patch/*)" = "" ]
+		then
+			echo $"Patch $patch appears to be empty, applied"
+		elif [ $status -ne 0 ]
+		then
 			echo $"Applied $patch (forced; needs refresh)"
 		fi
 	else
@@ -181,7 +156,7 @@ fi
 patch=$(stripit $1)
 
 top=$(top_patch)
-if [ -n "$top" -a -e $(pc_file_name $top)~refresh ]
+if [ -n "$top" -a -e .pc/$top~refresh ]
 then
 	echo $"The topmost patch $top needs to be refreshed first."
 	exit 1

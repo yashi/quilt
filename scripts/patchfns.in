@@ -234,16 +234,6 @@ rename_in_series()
 	rm -f $tmpfile
 }
 
-pc_file_name()
-{
-	while [ $# -gt 0 ]
-	do
-		echo ".pc/$1/.pc"
-		shift
-	done
-
-}
-
 backup_file_name()
 {
 	local patch=$1
@@ -357,10 +347,14 @@ next_patch_for_file()
 
 	if [ -n "$patches_on_top" ]
 	then
-		grep -l -E "^$(quote_re $file)\$" \
-		     $(pc_file_name $patches_on_top) \
-		| head -n 1 \
-		| @SED@ -e 's:^\.pc/::' -e 's:/\.pc$::'
+		for patch in $patches_on_top
+		do
+			if [ -f $(backup_file_name $patch $file) ]
+			then
+				echo $patch
+				break
+			fi
+		done
 	fi
 }
 
@@ -397,16 +391,19 @@ stripit()
 file_in_patch()
 {
 	local file=$1 patch=$2
-	files_in_patch $patch \
-	| grep -q -E "^$(quote_re $file)\$"
+	[ -f ".pc/$patch/$file" ]
 }
 
 files_in_patch()
 {
-	local pc_file=$(pc_file_name $1)
-	if [ -e "$pc_file" ]
+	local patch="$1"
+	local path=".pc/$patch"
+	if [ -d "$path" ]
 	then
-		cat $pc_file
+		for file in $(find "$path" -type f)
+		do
+			echo "${file:${#path}+1}"
+		done
 	fi
 }
 
@@ -425,47 +422,6 @@ touched_by_patch()
 	}'
 }
 
-refresh_file_list()
-{
-	local patch=$1
-	local pc_file=$(pc_file_name $patch)
-	local patch_file=$(patch_file_name $patch)
-	
-	if ! [ -e "$patch_file" ]
-	then
-		return 0
-	fi
-	if [ ! -e $pc_file -o \
-	     $pc_file -ot $patch_file -o \
-	     $pc_file -ot $SERIES ]
-	then
-		local tmpfile status
-		if ! mkdir -p $(dirname $pc_file) || \
-		   ! tmpfile=$(gen_tempfile)
-		then
-			return 1
-		fi
-
-		# Do not reorder files in the file list...
-
-		if [ -e $pc_file ]
-		then
-			cat $pc_file >> $tmpfile
-		fi
-		if ! touched_by_patch $(patch_strip_level $patch) \
-			$patch >> $tmpfile
-		then
-			return 1
-		fi
-		@AWK@ '	{ if (seen[$0]) next
-			  seen[$0]=1
-			  print
-			}' $tmpfile > $pc_file
-		rm $tmpfile
-		return 0
-	fi
-}
-
 fix_diff_header()
 {
 	local from=$1 to=$2
@@ -478,10 +434,9 @@ diff_file()
 	local file=$1 old_file=$2 new_file=$3
 	local old_hdr new_hdr line
 
-	if [ ! -e "$old_file" -a ! -e "$new_file" ]
-	then
-		return 0
-	fi
+	[ -s "$old_file" ] || old_file=/dev/null
+	[ -s "$new_file" ] || new_file=/dev/null
+
 	if [ $opt_strip_level -eq 0 ]
 	then
 		old_hdr=$file.orig
