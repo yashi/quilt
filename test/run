@@ -199,11 +199,11 @@ sub exec_test($$) {
   } elsif ($prog->[0] eq "sg") {
     return sg($prog->[1]);
   } elsif ($prog->[0] eq "export") {
-    my ($name, $value) = split /=/, prog->[1];
+    my ($name, $value) = split /=/, $prog->[1];
     $ENV{$name} = $value;
     return [];
   } elsif ($prog->[0] eq "unset") {
-    delete $ENV{$name};
+    delete $ENV{$prog->[1]};
     return [];
   }
 

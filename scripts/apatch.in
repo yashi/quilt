@@ -47,16 +47,19 @@ apply_patch()
 		gzip -cd $patch_file \
 		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
 		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	else
 		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
+			$no_reject_files \
 			-E $silent $force_apply -i $patch_file 2>&1
 	fi
 }
@@ -64,11 +67,6 @@ apply_patch()
 rollback_patch()
 {
 	local patch=$1
-
-	if [ -z "$opt_leave_rejects" ]
-	then
-		files_in_patch | @SED@ -e 's/$/\.rej/' | xargs rm -f
-	fi
 
 	@LIB@/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
 }
@@ -81,6 +79,13 @@ apatch()
 	printf $"Applying patch %s\n" "$(print_patch $patch)"
 	trap "interrupt $patch" SIGINT
 
+	no_reject_files=
+	if [ -z "$opt_leave_rejects" ]; then
+		local tmp="$(gen_tempfile)"
+		trap "rm -f $tmp" EXIT
+		no_reject_files="-r $tmp"
+	fi
+
 	output="$(apply_patch $patch)"
 	status=${PIPESTATUS[0]}
 
@@ -90,8 +95,12 @@ apatch()
 	then
 		# The reject files are removed in rollback_patch.
 		echo "$output" \
-		| @SED@ -e \
-'s/-- saving rejects to file \(.\+\)\.rej/-- rejects in file \1/'
+		| @AWK@ '
+		/^patching file / { filename = substr($0, 15) }
+		{ gsub(/-- saving rejects to file .*/,
+		       "-- rejects in file " filename) }
+		{ print }
+		'
 	elif [ -n "$output" ]
 	then
 		echo "$output"

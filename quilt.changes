@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Wed Sep 22 13:03:53 CEST 2004 - agruen@suse.de
+
+- scripts/patchfns.in: set the dotglob option so that dot files
+  will show up in file globs as well. Bug reported by James Rowe.
+- Add a missing tab to the patch header of files that are removed.
+  Bug reported by James Rowe.
+- Push command: Without -f or --leave-rejects, when applying a
+  patch failed, the *.rej files were not removed properly. Change
+  the code so that they won't be created in the working tree in
+  the first place this case.
+- test/run script: Oops, the previouos commit was not the latest
+  version.
+- Bump version to 0.36.
+
+-------------------------------------------------------------------
 Tue Sep 21 15:39:09 CEST 2004 - agruen@suse.de
 
 - Series command: add missing paths to patches if

@@ -22,6 +22,7 @@ DB_VERSION=2
 : ${QUILT_PC:=.pc}
 
 unset CDPATH
+shopt -s dotglob
 
 if [ -e "$QUILTRC" ]
 then
@@ -532,7 +533,7 @@ diff_file()
 		new_file=/dev/null
 		new_hdr=/dev/null
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
-		|| new_date="1970-01-01 00:00:00.000000000 +0000"
+		|| new_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
 	else
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
 		|| new_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
