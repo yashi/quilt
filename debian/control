@@ -9,7 +9,7 @@ Standards-Version: 3.6.1.0
 
 Package: quilt
 Architecture: any
-Depends: patch, diffstat, bzip2, gettext, gawk
+Depends: patch, diffstat, bzip2, gettext, gawk, ${shlibs:Depends}
 Suggests: ccache
 Description: Tool to work with series of patches
  Quilt manages a series of patches by keeping track of the changes
