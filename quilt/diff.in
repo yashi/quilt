@@ -58,6 +58,20 @@ EOF
 	fi
 }
 
+do_diff()
+{
+	local file=$1 suffix=$2 old_file=$3 new_file=$4
+	if [ -n "$opt_diff" ]
+	then
+		if ! @DIFF@ -q $old_file $new_file >/dev/null
+		then
+			$opt_diff $old_file $new_file
+		fi
+	else
+		diff_file $file $suffix $old_file $new_file
+	fi
+}
+
 die ()
 {
 	local status=$1
@@ -65,7 +79,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:zh -- "$@"`
+options=`getopt -o p:P:c:zh --long diff: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -91,6 +105,9 @@ do
 		shift ;;
 	-h)
 		usage -h ;;
+	--diff)
+		opt_diff=$2
+		shift 2 ;;
 	--)
 		shift
 		break ;;
@@ -254,9 +271,9 @@ do
 			suffix=".orig"
 		fi
 		old_file=$(backup_file_name $first_patch $file)
-		diff_file $file $suffix $old_file $new_file
+		do_diff $file $suffix $old_file $new_file
 	else
-		diff_file $file ".orig" "$workdir/$file" $new_file
+		do_diff $file ".orig" "$workdir/$file" $new_file
 	fi
 
 	if [ $? -ne 0 ]

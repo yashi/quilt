@@ -3,6 +3,11 @@ Sun Feb  2 15:23:20 +0100 2003 - agruen@suse.de
 
 - Make quilt setup recognize the "# Sourcedir:" directive.
 - Fix bug with spurious `Index:' lines in diff/refresh output.
+- Add --diff option to quilt diff that allows to specify a
+  different utility that diff to run files through. (That utility
+  is only called for files that contain differences, not for
+  files that are in a patches' file list but jave not been
+  changed.)
 
 -------------------------------------------------------------------
 Sat Feb  1 18:52:15 +0100 2003 - agruen@suse.de
