@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Apr  5 09:20:13 CEST 2005 - agruen@suse.de
+
+- doc/quilt.1.in: Remove an unnecessary 8-bit character.
+
+-------------------------------------------------------------------
 Thu Mar 10 19:12:40 CET 2005 - agruen@suse.de
 
 - Debian Bug #298785: Pass -p $opt_strip_level option to diffstat

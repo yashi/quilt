@@ -140,8 +140,8 @@ to show in the resulting patch which function a change is in.
 .IP QUILT_PATCH_OPTS 4
 
 Additional options that quilt shall pass to GNU patch when applying patches.
-(For example, some versions of GNU patch sup- port the
-"­unified-reject-files" option for generating reject files in unified diff
+(For example, some versions of GNU patch support the
+"-unified-reject-files" option for generating reject files in unified diff
 style.
     
 .IP QUILT_PATCHES 4
