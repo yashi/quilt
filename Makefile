@@ -15,6 +15,7 @@ PERL :=		/usr/bin/perl
 BASH :=		/bin/bash
 DIFF :=		/usr/bin/diff
 PATCH :=	/usr/bin/patch
+MKTEMP :=	/bin/mktemp
 
 CFLAGS =	-g -Wall
 
@@ -144,5 +145,6 @@ clean distclean :
 	     -e "s:@BASH@:$(BASH):g" \
 	     -e "s:@DIFF@:$(DIFF):g" \
 	     -e "s:@PATCH@:$(PATCH):g" \
+	     -e "s:@MKTEMP@:$(MKTEMP):g" \
 	     $< > $@
 	@chmod --reference=$< $@

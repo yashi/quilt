@@ -195,7 +195,7 @@ if [ -n "$opt_relative" ]
 then
 	patch_file=$(patch_file_name $last_patch)
 	patch_args=$(patch_args $last_patch)
-	workdir=$(mktemp -d patch-scripts.XXXXXX)
+	workdir=$(@MKTEMP@ -d patch-scripts.XXXXXX)
 	pwd=$PWD
 
 	if ! cd .pc/$last_patch

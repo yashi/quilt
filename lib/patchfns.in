@@ -108,7 +108,7 @@ change_db_strip_level()
 
 	if [ -e $SERIES ]
 	then
-		local tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+		local tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 		awk '
 		/^'"$(quote_re $patch)"'(\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 			{ for(i=2; i<=NF; i++)
@@ -155,7 +155,7 @@ insert_in_series()
 		patch_args=" $patch_args"
 	fi
 
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX) || return 1
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX) || return 1
 	mkdir -p $(dirname $SERIES)
 	if [ -n "$top" ]
 	then
@@ -184,7 +184,7 @@ remove_from_series()
 {
 	local patch=$1
 
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX) || return 1
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX) || return 1
 	awk '
 	! /^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)/ \
 				{ print }
@@ -418,7 +418,7 @@ remove_from_db()
 {
 	local patch=$1
 	local tmpfile
-	if tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	if tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	then
 		grep -v -E "^$(quote_re $patch)\$" $DB > $tmpfile
 		mv -f $tmpfile $DB
@@ -486,7 +486,7 @@ refresh_file_list()
 	then
 		local tmpfile status
 		if ! mkdir -p $(dirname $pc_file) || \
-		   ! tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+		   ! tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 		then
 			return 1
 		fi

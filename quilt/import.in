@@ -114,7 +114,7 @@ fi
 
 case "$input_file" in
 '')
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! cat > $tmpfile
 	then
 		echo "Cannot read from standard input."
@@ -123,7 +123,7 @@ case "$input_file" in
 	fi
 	input_file=$tmpfile ;;
 *.gz)
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! gzip -cd "$input_file" > $tmpfile
 	then
 		echo "Cannot decompress file $input_file"
@@ -132,7 +132,7 @@ case "$input_file" in
 	fi
 	input_file=$tmpfile ;;
 *.bz2)
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	if ! bzip2 -cd "$input_file" > $tmpfile
 	then
 		echo "Cannot decompress file $input_file"

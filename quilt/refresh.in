@@ -129,7 +129,7 @@ fi
 
 trap "die 1" SIGTERM
 
-tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 
 for file in $(files_in_patch $patch)
 do
@@ -176,7 +176,7 @@ then
 	cat $tmpfile \
 	| @LIB@/parse-patch -u patch $patch_file
 else
-	if ! tmpfile2=$(mktemp /tmp/patch-scripts.XXXXXX)
+	if ! tmpfile2=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	then
 		die 1
 	fi

@@ -84,7 +84,7 @@ fi
 case "$1" in
 *.spec)
 	spec_file="$1"
-	tmpfile=$(mktemp /tmp/patch-scripts.XXXXXX)
+	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
 	series_file=$tmpfile
 	if ! @LIB@/spec2series "$spec_file" > $tmpfile
 	then

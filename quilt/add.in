@@ -116,7 +116,7 @@ do
 			# As the file may likely be modified by hand
 			# now, create a copy to make sure nothing
 			# happens to the original file.
-			tmpfile=$(mktemp $file.XXXXXX) &&
+			tmpfile=$(@MKTEMP@ $file.XXXXXX) &&
 			cp -f $file $tmpfile &&
 			mv -f $tmpfile $file
 			rm -f $tmpfile
