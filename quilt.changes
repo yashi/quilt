@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Oct 31 16:59:06 CET 2003 - agruen@suse.de
+
+- Bump version number to 0.28 (cvs tag VER_0_28).
+
+-------------------------------------------------------------------
 Fri Oct 31 15:55:29 CET 2003 - agruen@suse.de
 
 - No longer verify if patches remove cleanly by reverse applying
