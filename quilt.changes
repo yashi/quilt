@@ -1,36 +1,12 @@
 -------------------------------------------------------------------
-Tue Jan 21 16:49:18 CET 2003 - agruen@suse.de
+Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de
 
-- NOTE: The scripts are in so much a state of flux that keeping
-      a real changelog at this moment doesn't make sense...
-
--------------------------------------------------------------------
-Mon Jan 20 20:12:58 CET 2003 - agruen@suse.de
-
-- Add Gerd Knorr's scripts for generating series files from RPM
-  sources to contrib/
-- Write an initial initseries script that sets up a source tree
-  from a spec file. This version still sucks.
+- Add --leave-rejects option to quilt push and apatch, to
+  leave reject files around for inspection even if a patch
+  does not apply.
 
 -------------------------------------------------------------------
-Mon Jan 20 02:34:40 CET 2003 - agruen@suse.de
+Tue Jan 28 23:38:59 CET 2003 - agruen@suse.de
 
-- Add -r options to newpatch and patchadd.
-- Improve backup-files slightly.
-
--------------------------------------------------------------------
-Sat Jan 18 21:11:21 CET 2003 - agruen@suse.de
-
-- Initial release 0.11
-- Fix a few bugs; 0.12
-
--------------------------------------------------------------------
-Tue Jan 14 10:02:50 CET 2003 - agruen@suse.de
-
-- Move library files to /usr/share/lib/patch-scripts
-- Try to recover from keyboard interrupt (^C)
-
--------------------------------------------------------------------
-Mon Jan 13 13:04:27 CET 2003 - agruen@suse.de
-
-- Initial package
+- Restart change log at quilt-0.21. Let orderly development
+  begin :)
