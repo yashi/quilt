@@ -24,7 +24,7 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [file ...]" $redirect
+	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--diff=utility] [file ...]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
@@ -49,6 +49,10 @@ included.
 
 -z	Write to standard output the changes that have been made
 	relative to the topmost or specified patch.
+
+--diff=utility
+	Use the specified utility for generating the diff. The utility
+	is invoked with the original and new file name as arguments.
 
 "
 		exit 0
@@ -254,7 +258,7 @@ then
 	if [ -s $pwd/$patch_file ]
 	then
 		if ! cat_file $pwd/$patch_file \
-		     | @PATCH@ $patch_args --no-backup-if-mismatch \
+		     | @PATCH@ $QUILT_PATCH_OPTS $patch_args --no-backup-if-mismatch \
 			     -Ef >/dev/null 2>/dev/null
 		then
 			# If a patch was force applied (and therefore needs

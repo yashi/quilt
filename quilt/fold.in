@@ -82,7 +82,7 @@ fi
 trap "failed=1" SIGINT
 
 workdir=$(gen_tempfile -d $PWD)
-@PATCH@ -p$opt_strip_level $silent --backup --prefix="$workdir/" -E \
+@PATCH@ $QUILT_PATCH_OPTS -p$opt_strip_level $silent --backup --prefix="$workdir/" -E \
 || failed=1
 
 if [ -z "$failed" ]

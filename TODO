@@ -1,16 +1,4 @@
-This is my current list of open issues with the patch scripts. I would
-like to do the most intrusive changes before syncing up with the
-Savannah CVS. Of course, contributions are very welcome. It wouldn't
-hurt to know if you want to work on some of the issues in advance to
-avoid duplicate work, though :)
-
-	-- Andreas Gruenbacher <agruen@suse.de>
-
-
 General:
-
-	- Test if patches/ can be moved with environment variable as
-	  planned.
 
 	- Abstract backup operations to/from the .pc/ directory, so that
 	  optionally something like rcs can be used instead of
@@ -35,8 +23,6 @@ General:
 
 Documentation:
 
-	- How to rediff with push -f / pop -f?
-
 	- How to import a new version of a patch?
 
 	- How to import a complete directory, before doing
@@ -60,22 +46,11 @@ quilt setup:
 	
 	- spec2series also prints -p1; omit.
 
-quilt patches:
-
-	- Add something so that it's possible to show a list of all
-	  patches, with those patches marked that modify the
-	  specified file.
-
 rpatch:
 
 	- If not removing the topmost patch, add checks if any files are
 	  hidden by later patches. If so, refuse to remove patch! (Note
 	  that poppatch takes care of that currently.)
-
-	- Instead of reverse-applying a patch to make sure it contains all
-	  changes, forward-apply it to a copy of the .pc/$patch directory,
-	  and check if the resulting files are identical. This also works
-	  with patches that don't reverse-apply.
 
 apatch:
 	
@@ -88,4 +63,4 @@ quilt diff:
 
 	- The number of contetx lines cannot be overridden in QUILT_DIFF_OPTS:
 	  GNU diff uses three context lines as soon as -u or -U3 is on the
-	  command line, no matter which order of arguments.
+	  command line, no matter which order of arguments are specified.

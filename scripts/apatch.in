@@ -44,15 +44,15 @@ apply_patch()
 	if [ "x${patch_file:(-3)}" = "x.gz" ]
 	then
 		gzip -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent $force_apply 2>&1
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| @PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent $force_apply 2>&1
 	else
-		@PATCH@ $(patch_args $patch) --backup --prefix=".pc/$patch/" \
+		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) --backup --prefix=".pc/$patch/" \
 			-E $silent $force_apply -i $patch_file 2>&1
 	fi
 }

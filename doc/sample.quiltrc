@@ -1,5 +1,12 @@
+# Additional options passed to GNU diff
 # -p : Show which C function each change is in.
 QUILT_DIFF_OPTS="-p${QUILT_DIFF_OPTS:+ $QUILT_DIFF_OPTS}"
 
+# Additional options passed to GNU patch
+#QUILT_PATCH_OPTS=""
+
 # The directory in which patches are found (defaults to "patches").
 #QUILT_PATCHES=patches
+
+# Define this to generate diffs without timestamps.
+#QUILT_NO_DIFF_TIMESTAMPS=yes

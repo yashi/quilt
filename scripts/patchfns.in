@@ -425,9 +425,10 @@ touched_by_patch()
 
 fix_diff_header()
 {
-	local from=$1 to=$2
-	@SED@ -e 's/^--- [^ '$'\t'']*/--- '"$(quote_bre $from)"'/' \
-	      -e 's/^+++ [^ '$'\t'']*/+++ '"$(quote_bre $to)"'/'
+	local from=$1 to=$2 z
+	[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] && z='.*'
+	@SED@ -e 's/^--- [^ '$'\t'']*'$z'/--- '"$(quote_bre $from)"'/' \
+	      -e 's/^+++ [^ '$'\t'']*'$z'/+++ '"$(quote_bre $to)"'/'
 }
 
 diff_file()
