@@ -6,6 +6,11 @@ Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
   @PATCH@ in scripts.
 - Some cleanups in Makefile.
 - Move documentation to doc/.
+- Forgot to mention that the patches produced now contain
+  `Index: dir/filename' just before the diff output for each file.
+  This is required by POSIX, and is also used by diffstat.
+- Adjust patch_description documentation extraction function to
+  check for Index: lines.
 
 -------------------------------------------------------------------
 Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de

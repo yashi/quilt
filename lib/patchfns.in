@@ -585,13 +585,13 @@ patch_description()
 	if [ -e "$patch_file" ]
 	then
 		awk '
-		/^--- /		{ exit }
-		diff_line	{ print diff_line
-				  diff_line=""
-				}
-		/^diff /	{ diff_line=$0
-				  next
-				}
+		$1 == "---"	{ exit }
+		$1 == "Index:"	{ eat = eat $0
+				  next }
+		$1 == "diff"	{ eat = eat $0
+				  next }
+		eat		{ print eat
+				  eat="" }
 				{ print }
 		' $patch_file
 	fi
