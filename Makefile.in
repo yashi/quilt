@@ -96,6 +96,7 @@ SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo
 
 SRC +=		$(wildcard test/*.test) test/run
+SRC +=		changes2changelog
 
 #-----------------------------------------------------------------------
 
@@ -192,16 +193,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
 	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
 	    < $< > $@
-	@perl -ne ' \
-		m/^(|-+)$$/ and next; \
-		( \
-		  s/^(...) \s (...) \s (.\d) \s (\d\d:\d\d:\d\d) \s \
-		     ([A-Z]+|[-+]\d{4}) \s (\d\d\d\d) \s - \s (.+) \
-		   /* $$1 $$2 $$3 $$6 - $$7/x || \
-		  m/^(- |  +)(?!\s)/ \
-		  and print \
-		) or die "Syntax error in line $$. of changelog:\n$$_\n"; \
-	' $(PACKAGE).changes \
+	@./changes2changelog $(PACKAGE).changes \
 	| scripts/parse-patch -u changelog $@
 
 % : %.in

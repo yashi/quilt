@@ -1,0 +1,65 @@
+	$ umask 022
+	$ mkdir d
+	$ cd d
+	$ echo foo > foo
+	$ chmod 704 foo
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx---r-- foo
+
+	$ quilt new test.diff
+	> Patch %{P}test.diff is now on top
+
+	$ quilt add foo
+	> File foo added to patch %{P}test.diff
+
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx---r-- foo
+
+	$ echo foobar > foo
+	$ quilt ref
+	> Refreshed patch %{P}test.diff
+
+	$ quilt new test2.diff
+	> Patch %{P}test2.diff is now on top
+
+	$ quilt add foo
+	> File foo added to patch %{P}test2.diff
+
+	$ chmod 702 foo
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx----w- foo
+
+	$ echo foobaz > foo
+	$ quilt ref
+	> Refreshed patch %{P}test2.diff
+
+The permissions of foo as they were in patch2 are lost here (there is no
+way to preserve them in the patch). Quilt will restore the permissions of
+the backup file.
+
+	$ quilt pop -q
+	> Removing patch %{P}test2.diff
+	> Now at patch %{P}test.diff
+
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx---r-- foo
+
+	$ quilt push -q
+	> Applying patch %{P}test2.diff
+	> Now at patch %{P}test2.diff
+
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx---r-- foo
+
+	$ quilt pop -q
+	> Removing patch %{P}test2.diff
+	> Now at patch %{P}test.diff
+
+	$ quilt remove foo
+	> File foo removed from patch %{P}test.diff
+
+	$ ls -l foo | awk '{ print $1,$8 }'
+	> -rwx---r-- foo
+
+	$ cd ..
+	$ rm -rf d

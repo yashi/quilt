@@ -282,15 +282,14 @@ msgid "Usage: quilt edit file ...\\n"
 msgstr "Verwendung: quilt edit datei ...\\n"
 
 #: ../quilt/edit.in:16
-#, fuzzy
 msgid ""
 "\n"
 "Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
 "the topmost patch.\n"
 msgstr ""
 "\n"
-"Füge die angegebene(n) Datei(en) demobersten Patch hinzu, und editiere\n"
-"sie dann in $EDITOR.\n"
+"Füge die angegebene(n) Datei(en) dem obersten Patch hinzu, und editiere\n"
+"sie dann in \\$EDITOR (%s).\n"
 
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]\\n"
@@ -983,9 +982,8 @@ msgstr ""
 "Bitte führen Sie \\`quilt upgrade' aus.\\n"
 
 #: ../scripts/rpatch.in:22
-#, fuzzy
 msgid "Usage: %s [-fRq] patchname\\n"
-msgstr "Verwendung: $0 [-fRq] patchname\\n"
+msgstr "Verwendung: %s [-fRq] patchname\\n"
 
 #: ../scripts/rpatch.in:100
 msgid "Patch %s does not remove cleanly (enforce with -f)\\n"

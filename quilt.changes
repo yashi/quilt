@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jul 15 02:25:44 CEST 2004 - agruen@suse.de
+
+- Add test case for permissions.
+- Very minor translation updates.
+- Convert timestamps in changes file into UTC when generating
+  the RPM changelog: the changelog does not understand
+  timestamps.
+- Bump version to 0.35.
+
+-------------------------------------------------------------------
 Tue Jul 13 15:26:18 PDT 2004 - mquinson@tuxfamily.org
 
 - Fix a typo (s/prinf/printf/) reported by Dean Roehrich.
@@ -31,7 +41,7 @@ Mon Jul 12 03:02:19 CEST 2004 - agruen@suse.de
   might be selected in some cases.)
 
 -------------------------------------------------------------------
-Tue Jul  6 18:58:00 CEST 2004 - agruen@suse.de
+Tue Jul  9 07:26:23 CEST 2004 - agruen@suse.de
 
 - Switch from echo to printf for all translations: This is more
   stable than having expansions in messages that might change
