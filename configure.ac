@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.22],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.8 $)
+AC_REVISION ($Revision: 1.9 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -40,6 +40,20 @@ AC_ARG_WITH(bash, AC_HELP_STRING(
     ])
 if test -z "$BASH" ; then
     AC_MSG_ERROR([Please specify the location of bash with the option '--with-bash'])
+fi
+
+# It would be nice not to have to use backticks, but too many retarded sh
+# implementations still don't support $( )
+# BEWARE:  There is a distinct possibility that we are currently running under
+# bash in this configure script (/bin/sh being a symlink to /bin/bash).  Even
+# though the result /could/ be available to us directly as $BASH_VERSION we
+# don't want to use, or trust it, incase the user is specifying a different
+# bash executable.
+if `$BASH -c '[[ "$BASH_VERSION" \< "2.04" ]]'` ; then
+    AC_MSG_ERROR([
+$PACKAGE_NAME requires at least version 2.04 of bash, you can download a current
+version of bash from ftp.gnu.org
+])
 fi
 
 dnl Check for Perl
@@ -142,7 +156,7 @@ if test "$enableval" = "yes" -a -z "$MSGFMT" ; then
     AC_MSG_ERROR([
 You do not appear to have msgfmt, which is part of the GNU Gettext package.  It
 is a required package as you chose the '--enable-nls' option to configure.
-You can download GNU Gettext from ftp.gnu.org.
+You can download GNU Gettext from ftp.gnu.org
 ])
 fi
 if test -z "$MSGFMT" ; then
