@@ -1,10 +1,11 @@
 -------------------------------------------------------------------
 Wed Jan 28 01:13:16 CET 2004 - agruen@suse.de
 
-- Add support for working in subdirectories of the base directory
-  that contains patches/ and .pc/. In the unlikely case that
-  quilt shall operate in the sub-directory itself, it is
-  sufficient to create a patches/ directory there.
+- Patch from Chris Mason <mason@suse.de>: Add support for working
+  in subdirectories of the base directory that contains patches/
+  and .pc/. In the unlikely case that quilt shall operate in the
+  sub-directory itself, it is sufficient to create a patches/
+  directory there.
 - Add a small testcase for subdirectory support.
 
 -------------------------------------------------------------------
