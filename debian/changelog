@@ -1,3 +1,18 @@
+quilt (0.32-1) unstable; urgency=low
+
+  * New upstream release.
+    - It is now possible to use quilt from within sub-directories of the
+      working tree. Quilt will automatically find the root of the tree.
+    - New 'graph' command to display neat graphics of patch dependencies.
+    - 'fork' semantic reverted to previous one: the forked patch is the
+      topmost one, not the next in the series.
+    - documentation update.
+    - man page (provided by your servitor ;)
+  * Fix a typo in output of setup -l. Closes #236933
+  * Rephrase package description. Closes #236221
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 19 Mar 2004 10:00:03 -0800
+
 quilt (0.30-4) unstable; urgency=low
 
   * patchsys-quilt.mk: 
