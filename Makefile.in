@@ -188,7 +188,8 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@PACKAGE_BUGREPORT''@:$(PACKAGE_BUGREPORT):g' \
 	     -e 's:@VERSION''@:$(VERSION):g' \
 	     -e 's:@RELEASE''@:$(RELEASE):g' \
-		 -e 's:@DIFFSTAT''@:$(DIFFSTAT):g' \
+	     -e 's:@RPMBUILD''@:$(RPMBUILD):g' \
+	     -e 's:@DIFFSTAT''@:$(DIFFSTAT):g' \
 	     $< > $@
 	@chmod --reference=$< $@
 

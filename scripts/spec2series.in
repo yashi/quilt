@@ -100,7 +100,7 @@ done) > $WORK/md5sum
 echo $" done" >&2
 
 # prepare rpm dir fixups and hooks
-RPM="rpm --rcfile=/usr/lib/rpm/rpmrc:$WORK/rpmrc"
+RPM="@RPMBUILD@ --rcfile=/usr/lib/rpm/rpmrc:$WORK/rpmrc"
 PATH="$WORK/bin:$PATH"
 grep ^macrofiles /usr/lib/rpm/rpmrc			\
 	| @SED@ -e "/macrofiles/s|$|:$WORK/rpmmacros|"	\
@@ -186,7 +186,7 @@ chmod 755 "$WORK/bin/patch"
 ln -s patch "$WORK/bin/tar"
 
 # let rpm do all the dirty specfile stuff ...
-echo -n "### rpm: " >&2
+echo -n "### $(basename @RPMBUILD@): " >&2
 touch $WORK/patchlog
 $RPM --nodeps --quiet -bp "$specdir/$specfile" </dev/null
 echo $" done" >&2
