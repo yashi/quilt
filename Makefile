@@ -14,6 +14,8 @@ LIB_DIR =	$(datadir)/$(PACKAGE)/lib
 CFLAGS =	-g -Wall
 
 #-----------------------------------------------------------------------
+DIRT +=		$(shell find -name '*~')
+
 SRC +=		COPYING AUTHORS TODO BUGS Makefile \
 		quilt.spec.in quilt.spec quilt.changes
 DIRT +=		quilt.spec
