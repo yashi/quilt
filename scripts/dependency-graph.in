@@ -28,7 +28,7 @@ my $edge_length_labels;		# distance between patches as edge labels
 my $node_numbers;		# include sequence numbers
 my $show_isolated_nodes;	# also include isolated nodes
 my $reduce;			# remove transitive edges
-my $mangle_patchnames;		# filter for compacting filenames
+my $filter_patchnames;		# filter for compacting filenames
 my $selected_patch;		# only include patches related on this patch
 my $selected_distance = -1;	# infinity
 my @highlight_patches;		# a list of patches to highlight
@@ -44,7 +44,7 @@ unless (GetOptions(
 	"node-numbers"		=> \$node_numbers,
 	"isolated"		=> \$show_isolated_nodes,
 	"reduce"		=> \$reduce,
-	"mangle-patchnames=s"	=> \$mangle_patchnames,
+	"filter-patchnames=s"	=> \$filter_patchnames,
 	"select-patch=s"	=> \$selected_patch,
 	"select-distance=i"	=> \$selected_distance,
 	"highlight=s"		=> \@highlight_patches ) && !$help) {
@@ -54,7 +54,7 @@ unless (GetOptions(
     print $fd <<EOF;
 SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
 	  [--short-edge-files] [--long-edge-files] [--edge-length]
-	  [--node-numbers] [--isolated] [--reduce] [--mangle-patchnames=filter]
+	  [--node-numbers] [--isolated] [--reduce] [--filter-patchnames=filter]
 	  [--select-patch=patch] [--select-distance=num] [--highlight=patch]
 
 --short-edge=num, --long-edge=num
@@ -80,7 +80,7 @@ SYNOPSIS: $basename [-h] [--short-edge=num] [--long-edge=num]
 --reduce
 	Remove transitive edges.
 
---mangle-patchnames=filter
+--filter-patchnames=filter
 	Define a filter command for transforming patch names into node
 	labels. The filter is passed each patch name on a separate line,
 	and must return the edge label for each patch on a separate line
@@ -159,22 +159,36 @@ foreach my $patch (@highlight_patches) {
     $node->{colorized} = 1;
 }
 
-# If a patch name mangling filter is selected, pipe all patchnames through
+# If a patchname filter is selected, pipe all patchnames through
 # it.
-if ($mangle_patchnames) {
-    # FIXME: which patches ...
-    my $filter = new FileHandle("cat .pc/applied-patches | $mangle_patchnames |");
-    $n = 0;
-    foreach my $name (<$filter>) {
-	last unless $n < @nodes;
-	chomp $name;
-	if ($name eq "") {
-	    delete $nodes[$n++]{name};
-	} else {
-	    $nodes[$n++]{name} = $name;
+if ($filter_patchnames) {
+    local *PIPE;
+    my $pid = open(PIPE, "- |");  # fork a child to read from
+    die "fork: $!\n"
+    	unless defined $pid;
+    unless ($pid) {  # child
+	# open a second pipe to the actual filter
+	open(PIPE, "| $filter_patchnames")
+	    or die "\`$filter_patchnames': $!\n";
+	map { print PIPE "$_\n" } @patches;
+	close(PIPE);
+	exit;
+    } else { # parent
+	$n = 0;
+	foreach my $name (<PIPE>) {
+	    last unless $n < @nodes;
+	    chomp $name;
+	    if ($name eq "") {
+		delete $nodes[$n++]{name};
+	    } else {
+		$nodes[$n++]{name} = $name;
+	    }
 	}
+	close(PIPE)
+	    or die "patchname filter failed.\n";
+	die "patchname filter returned too few lines\n"
+	    if $n != @nodes;
     }
-    $filter->close();
 }
 
 my %files_seen;		# remember the last patch that touched each file

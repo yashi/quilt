@@ -6,6 +6,8 @@ Sat Mar 13 15:16:49 CET 2004 - agruen@suse.de
   removing transitive edges (optional) and for rendering the
   graph. Please note that the graph command itself is minimal,
   while the underlying scripts/dependency-graph is more flexible.
+- Fix an open issue in the patchname filter in
+  scripts/dependency-graph.
 
 -------------------------------------------------------------------
 Wed Mar 10 10:46:56 CET 2004 - agruen@suse.de
