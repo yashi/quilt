@@ -146,7 +146,7 @@ if [ -n "$stop_at_patch" ]
 then
 	if ! is_applied $stop_at_patch
 	then
-		printf $"Patch %s is not applied\n" "$(print_patch $2)" >&2
+		printf $"Patch %s is not applied\n" "$(print_patch $stop_at_patch)" >&2
 		exit 1
 	fi
 fi
