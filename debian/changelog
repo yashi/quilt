@@ -1,6 +1,9 @@
 quilt (0.21-1) unstable; urgency=low
 
   * New upstream release.
+  * Change from architecture: all to architecture: any, since we now have a
+    compiled C programm.
+  * Add the new documentation provided.
 
  -- Martin Quinson <martin.quinson@tuxfamily.org>  Wed, 29 Jan 2003 10:19:31 +0100
 
