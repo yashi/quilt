@@ -30,7 +30,7 @@ patch name is given, remove all patches applied on top of the
 named patch. If neither a number nor a patch name is specified,
 remove the next patch from the series file.
 
--a	Remove all patches in the series file.
+-a	Remove all applied patches.
 
 -f	Force remove. The state before the patch(es) were
 	applied will be restored from backup files.
