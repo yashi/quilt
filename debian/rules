@@ -22,7 +22,7 @@ configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 	autoconf
-	./configure --prefix=$(CURDIR)/debian/quilt
+	./configure --prefix=/usr --with-bash=/bin/bash
 
 	touch configure-stamp
 
@@ -72,7 +72,7 @@ binary-arch: build install
 	dh_installman
 	dh_installinfo
 #	dh_undocumented
-	dh_installchangelogs 
+	dh_installchangelogs quilt.changes
 	dh_link
 	dh_strip
 	dh_compress
