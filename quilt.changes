@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 10 19:12:40 CET 2005 - agruen@suse.de
+
+- Debian Bug #298785: Pass -p $opt_strip_level option to diffstat
+  in refresh command.
+
+-------------------------------------------------------------------
 Mon Mar  7 09:20:14 CET 2005 - agruen@suse.de
 
 - Another Japanese translation update from Yasushi SHOJI.
