@@ -5,18 +5,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.29\n"
-"PO-Revision-Date: 2004-02-02 16:20-0800\n"
+"PO-Revision-Date: 2004-02-23 08:40-0800\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../bin/quilt.in:14
+#: ../bin/quilt.in:15
 msgid "Usage: quilt command [-h] ..."
 msgstr "Usage : quilt commande [-h] ..."
 
-#: ../bin/quilt.in:26
+#: ../bin/quilt.in:27
 msgid "Commands are:"
 msgstr "Les commandes sont :"
 
@@ -43,7 +43,7 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:54 ../quilt/diff.in:114 ../quilt/diff.in:125
+#: ../quilt/add.in:54 ../quilt/diff.in:117 ../quilt/diff.in:128
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr "Le patch $2 n'est pas dans la série"
@@ -53,7 +53,7 @@ msgstr "Le patch $2 n'est pas dans la série"
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:170
+#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:173
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/pop.in:180
 #: ../quilt/push.in:177 ../quilt/push.in:211 ../quilt/refresh.in:112
 #: ../quilt/remove.in:80
@@ -130,9 +130,9 @@ msgstr "Impossible de retirer le patch $patch"
 
 #: ../quilt/diff.in:27
 msgid ""
-"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--diff=utility] "
-"[file ...]"
-msgstr "Usage : quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--diff=programme] [fichier ...]"
+"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--"
+"diff=utility] [file ...]"
+msgstr "Usage : quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--diff=programme] [fichier ...]"
 
 #: ../quilt/diff.in:31
 msgid ""
@@ -156,6 +156,9 @@ msgid ""
 "\n"
 "-z\tWrite to standard output the changes that have been made\n"
 "\trelative to the topmost or specified patch.\n"
+"\n"
+"--snapshot\n"
+"\tDiff agains snapshot (see \\`quilt snapshot -h').\n"
 "\n"
 "--diff=utility\n"
 "\tUse the specified utility for generating the diff. The utility\n"
@@ -182,22 +185,25 @@ msgstr ""
 "-z\tÉcrit sur la sortie standard les changements fait par rapport\n"
 "\tau patch spécifié.\n"
 "\n"
+"--snapshot\n"
+"\tCrée un diff à partir de l'instantané (voir `quilt snapshot -h').\n"
+"\n"
 "--diff=programme\n"
 "\tUtilise le programme spécifié pour générer les diff. Ce programme\n"
 "\test invoqué avec le nom du fichier originel et celui du nouveau \n"
 "\tfichier comme arguments."
 
-#: ../quilt/diff.in:155
+#: ../quilt/diff.in:158
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 "Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être "
 "combinées."
 
-#: ../quilt/diff.in:163
+#: ../quilt/diff.in:166
 msgid "Patch $last_patch is not applied"
 msgstr "Le patch $last_patch ne semble pas appliqué"
 
-#: ../quilt/diff.in:181
+#: ../quilt/diff.in:184
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -205,23 +211,23 @@ msgstr ""
 "Impossible de créer des patches avec -p$opt_strip_level. Veuillez spécifier -"
 "p0 ou -p1 à la place"
 
-#: ../quilt/diff.in:215
+#: ../quilt/diff.in:218
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr "Le patch $first_patch n'est pas appliqué avant $last_patch."
 
-#: ../quilt/diff.in:249
+#: ../quilt/diff.in:252
 msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr "Impossible d'entrer dans $QUILT_PC/$last_patch"
 
-#: ../quilt/diff.in:255 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:258 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire"
 
-#: ../quilt/diff.in:266
+#: ../quilt/diff.in:269
 msgid "Cannot change to temporary directory"
 msgstr "Impossible d'entrer dans le répertoire temporaire"
 
-#: ../quilt/diff.in:287 ../scripts/rpatch.in:90
+#: ../quilt/diff.in:288 ../scripts/rpatch.in:85
 msgid "Failed to patch temporary files"
 msgstr "Impossible de patcher les fichiers temporaires"
 
@@ -422,14 +428,20 @@ msgstr ""
 "au sommet dans le fichier de série."
 
 #: ../quilt/new.in:63
+msgid ""
+"Warning: directory $(echo $SUBDIR | sed -e 's:[^/]\\+:..:g')$QUILT_PATCHES "
+"exists; ignoring"
+msgstr "Attention : le répertoire $(echo $SUBDIR | sed -e 's:[^/]\\+:..:g')$QUILT_PATCHES existe; ignoré"
+
+#: ../quilt/new.in:70
 msgid "Patch $patch exists already"
 msgstr "Le patch $patch existe déjà"
 
-#: ../quilt/new.in:73
+#: ../quilt/new.in:80
 msgid "Failed to create patch $patch"
 msgstr "Impossible de crée le patch $patch"
 
-#: ../quilt/new.in:76
+#: ../quilt/new.in:83
 msgid "Patch $patch is now on top"
 msgstr "Le patch $patch est maintenant au sommet"
 
@@ -695,11 +707,11 @@ msgstr ""
 msgid "Nothing in patch $patch"
 msgstr "Le patch $patch ne contient rien"
 
-#: ../quilt/refresh.in:181
+#: ../quilt/refresh.in:182
 msgid "Patch $patch is unchanged"
 msgstr "Le patch $patch n'a pas été modifié"
 
-#: ../quilt/refresh.in:195
+#: ../quilt/refresh.in:196
 msgid "Refreshed patch $patch"
 msgstr "Le patch $patch a été rafraichi."
 
@@ -756,12 +768,12 @@ msgstr ""
 "\n"
 "-v\tAffichage verbeux, plus simple à lire."
 
-#: ../quilt/setup.in:22
+#: ../quilt/setup.in:27
 msgid "Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] {fichier_séries|fichier_spec}"
 
-#: ../quilt/setup.in:25
+#: ../quilt/setup.in:30
 msgid ""
 "\n"
 "Initializes a source tree from a patch series file.  The patch series\n"
@@ -775,7 +787,8 @@ msgid ""
 "\tspecified, also create a symlink to the series file."
 msgstr ""
 "\n"
-"Initialise une arborescence source à partir d'un fichier de série de patches. \n"
+"Initialise une arborescence source à partir d'un fichier de série de "
+"patches. \n"
 "Ce fichier doit contenir le nom de l'archive tar correspondante en plus de \n"
 "la liste des patches.\n"
 "\n"
@@ -786,47 +799,47 @@ msgstr ""
 "\tfichier de série est également spécifié, crèe également un lien \n"
 "\tsymbolique pour ce fichier."
 
-#: ../quilt/setup.in:106
+#: ../quilt/setup.in:111
 msgid "Series file $series_file not found"
 msgstr "Fichier de série $series_file introuvable"
 
-#: ../quilt/setup.in:132
+#: ../quilt/setup.in:137
 msgid "Reading sources from $arg"
 msgstr "Lecture des sources depuis $arg"
 
-#: ../quilt/setup.in:136
+#: ../quilt/setup.in:141
 msgid "Unpacking archive $source/$arg"
 msgstr "Désarchivage depuis $source/$arg"
 
-#: ../quilt/setup.in:146
+#: ../quilt/setup.in:151
 msgid "Directory $packagedir exists already."
 msgstr "Le répertoire $packagedir existe déjà."
 
-#: ../quilt/setup.in:151
+#: ../quilt/setup.in:156
 msgid "File $packagedir exists."
 msgstr "Le fichier $packagedir existe."
 
-#: ../quilt/setup.in:166
+#: ../quilt/setup.in:171
 msgid "Creating link to patches directory $arg"
 msgstr "Création d'un lien vers le répertoire de patches $arg"
 
-#: ../quilt/setup.in:170
+#: ../quilt/setup.in:175
 msgid "Copying patch $source/$arg"
 msgstr "Copie du patch $source/$arg"
 
-#: ../quilt/setup.in:183
+#: ../quilt/setup.in:188
 msgid "File $packagedir/series exists; will not override."
 msgstr "Le fichier $packagedir/series existe ; il ne sera pas écrasé."
 
-#: ../quilt/setup.in:190 ../quilt/setup.in:204
+#: ../quilt/setup.in:195 ../quilt/setup.in:209
 msgid "Copying series file"
 msgstr "Copie du fichier de série"
 
-#: ../quilt/setup.in:200
+#: ../quilt/setup.in:205
 msgid "Creatig link to series file $arg"
 msgstr "Création d'un lien vers le fichier de série $arg"
 
-#: ../quilt/setup.in:235
+#: ../quilt/setup.in:240
 msgid "Directory $packagedir set up."
 msgstr "Le répertoire $packagedir est configuré."
 
@@ -837,14 +850,20 @@ msgstr "Usage : quilt snapshot [-d]"
 #: ../quilt/snapshot.in:25
 msgid ""
 "\n"
-"Take a snapshot of the current working state.\n"
+"Take a snapshot of the current working state.  After taking the snapshot,\n"
+"the tree can be modified in the usual ways, including pushing and\n"
+"popping patches.  A diff against the tree at the moment of the\n"
+"snapshot can be generated with \\`quilt diff --snapshot'.\n"
 "\n"
 "-d\tRemove current snapshot."
 msgstr ""
 "\n"
-"Crée un instantané (snapshot) de l'état actuel des travaux.\n"
+"Prend un instantané de l'état courant du répertoire de travail. Après cela, \n"
+"il reste possible de travailler normalement avec quilt en poussant et en \n"
+"retirant des patches. Un différentiel entre l'arbre au moment de l'instantané \n"
+"et son état courant peut être généré avec `quilt diff --snapshot'.\n"
 "\n"
-"-d\tEfface l'instantané actuel."
+"-d\tSupprime l'instantané actuel."
 
 #: ../quilt/top.in:22
 msgid "Usage: quilt top"
@@ -907,7 +926,7 @@ msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 "Le patch $patch ne s'applique pas proprement (forcez l'application avec -f)"
 
-#: ../scripts/apatch.in:183 ../scripts/rpatch.in:193
+#: ../scripts/apatch.in:183 ../scripts/rpatch.in:188
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
@@ -915,15 +934,15 @@ msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 msgid "Usage: $0 [-fRq] patchname"
 msgstr "Usage: $0 [-fRq] nom_de_patch"
 
-#: ../scripts/rpatch.in:105
+#: ../scripts/rpatch.in:100
 msgid "Patch $patch does not remove cleanly (enforce with -f)."
 msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
 
-#: ../scripts/rpatch.in:122
+#: ../scripts/rpatch.in:117
 msgid "Patch $patch appears to be empty, removed"
 msgstr "Le patch $patch semble vide. Il a été retiré."
 
-#: ../scripts/rpatch.in:136
+#: ../scripts/rpatch.in:131
 msgid "Removing $patch"
 msgstr "Retrait de $patch"
 
@@ -931,14 +950,19 @@ msgstr "Retrait de $patch"
 msgid " done"
 msgstr " fini"
 
+#~ msgid ""
+#~ "\n"
+#~ "Take a snapshot of the current working state.\n"
+#~ "\n"
+#~ "-d\tRemove current snapshot."
+#~ msgstr ""
+#~ "\n"
+#~ "Crée un instantané (snapshot) de l'état actuel des travaux.\n"
+#~ "\n"
+#~ "-d\tEfface l'instantané actuel."
+
 #~ msgid "Patch file name \\\"$patch_file\\\" contains whitespace."
 #~ msgstr "Le nom de fichier de patch \"$patch_file\" contient des espaces."
-
-#~ msgid "Cannot read from standard input."
-#~ msgstr "Impossible de lire depuis l'entrée standard."
-
-#~ msgid "Cannot decompress file $input_file"
-#~ msgstr "Impossible de décompresser le fichier $input_file"
 
 #~ msgid "Cannot read from file $input_file"
 #~ msgstr "Impossible de lire depuis le fichier $input_file"
