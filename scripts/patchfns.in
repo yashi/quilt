@@ -43,13 +43,15 @@ quote_re()
 
 basename()
 {
-	local path="${1%%/}"
+        local path="${1//\/\//}"
+        path="${path%%/}"
 	echo "${path##*/}"
 }
 
 dirname()
 {
-	local path="${1%%/}"
+        local path="${1//\/\//}"
+        path="${path%%/}"
 	local basename="${path##*/}"
 	path="${path:0:${#path}-${#basename}}"
 	[ x"$path" != x"/" ] && path="${path%/}"
