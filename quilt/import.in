@@ -82,11 +82,7 @@ do
 	then
 		patch=$opt_patch
 	else
-		patch=$patch_file
-		while [ "${patch#/}" != "$patch" ]
-		do
-			patch=${patch#/}
-		done
+		patch=${patch_file#*/}
 	fi
 
 	if is_applied $patch

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jun 26 23:24:42 CEST 2004 - agruen@suse.de
+
+- Quilt import: when importing patches with their original file
+  name, strip path prefixes from the patch names.
+
+-------------------------------------------------------------------
 Sat Jun 12 03:03:46 CEST 2004 - agruen@suse.de
 
 - Fix another upgrade bug: The series file may optionally contain
