@@ -107,5 +107,19 @@ apatch:
 	  
 touched_by_patch:
 
-	- Implement more of patch's filename heuristic?
+	- Implement more of patch's filename heuristic: The following
+	  file is not recognized, for example...
+
+	*** linux/drivers/parport/parport_cs.c.orig     Sun Jun 23 09:20:21 2002
+	--- linux/drivers/parport/parport_cs.c  Sun Jun 23 09:21:02 2002
+	***************
+	*** 48,53 ****
+	--- 48,54 ----
+
+	  #include <linux/parport.h>
+	  #include <linux/parport_pc.h>
+	+ #include <linux/major.h>
+
+	  #include <pcmcia/version.h>
+	  #include <pcmcia/cs_types.h>
 

@@ -81,6 +81,7 @@ apatch()
 		return 1
 	fi
 
+	echo "Applying $patch"
 	if ! [ -e $pc_file ]
 	then
 		echo "Patch $patch appears to be empty, applied"
@@ -119,7 +120,6 @@ apatch()
 		add_to_db $patch
 		if [ $status -eq 0 ]
 		then
-			echo "Applied $patch"
 			rm -f $pc_file~refresh
 		else
 			touch $pc_file~refresh
