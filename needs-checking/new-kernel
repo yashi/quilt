@@ -1,4 +1,10 @@
-#!/bin/sh
+#! /bin/bash
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
 
 usage()
 {
@@ -78,5 +84,5 @@ cvs commit -m "'doing $NEXT_KERNEL'"
 cvs update -ko -d -P
 
 TAG=$(echo $NEXT_KERNEL | sed -e 's@\.@_@g')
-cvs tag $TAG
+cvs tag -b $TAG
 rm -f $TEMP_PATCH
