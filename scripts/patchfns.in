@@ -516,7 +516,7 @@ refresh_file_list()
 		then
 			return 1
 		fi
-		awk '	{ if (seen[$0]) next
+		@AWK@ '	{ if (seen[$0]) next
 			  seen[$0]=1
 			  print
 			}' $tmpfile > $pc_file
