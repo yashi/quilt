@@ -40,7 +40,11 @@ patch name is specified, apply the next patch from the series file.
 --leave-rejects
 	Leave around the reject files patch produced, even if the patch
 	is not actually applied.
-	
+
+--interactive
+	Allow the patch utility to ask hwo to deal with conflicts. If
+	this option is not given, the -f patch optionch will be used.
+
 "
 		exit 0
 	else
@@ -85,7 +89,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvah --long leave-rejects -- "$@"`
+options=`getopt -o fqvah --long leave-rejects,interactive -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -113,6 +117,9 @@ do
 		usage -h ;;
 	--leave-rejects)
 		opt_leave_rejects=1
+		shift ;;
+	--interactive)
+		opt_interactive=1
 		shift ;;
         --)
                 shift
@@ -145,6 +152,8 @@ fi
 	apatch_options="$apatch_options -v"
 [ -n "$opt_leave_rejects" ] &&
 	apatch_options="$apatch_options --leave-rejects"
+[ -n "$opt_interactive" ] &&
+	apatch_options="$apatch_options --interactive"
 
 if [ -n "$stop_at_patch" ]
 then

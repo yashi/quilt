@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 11 17:17:35 CEST 2003 - agruen@suse.de
+
+- Apply patches with `patch -f' by default. Add --interactive
+  option top `quilt push' to allow applying patches without
+  `patch -f'.
+
+-------------------------------------------------------------------
 Wed Apr  9 12:08:47 CEST 2003 - agruen@suse.de
 
 - Remove awk hacks in Makefile.in with shell loop and sed hack:

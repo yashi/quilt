@@ -56,15 +56,15 @@ apply_patch()
 	then
 		gzip -cd $patch_file \
 		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
-			-E $silent
+			-E $silent $force_apply
 	elif [ "x${patch_file:(-4)}" = "x.bz2" ]
 	then
 		bzip2 -cd $patch_file \
 		| @PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
-			-E $silent
+			-E $silent $force_apply
 	else
 		@PATCH@ $(patch_args $patch) --no-backup-if-mismatch \
-			-E $silent -i $patch_file
+			-E $silent -i $patch_file $force_apply
 	fi
 }
 
@@ -133,7 +133,7 @@ apatch()
 	return $status
 }
 
-options=`getopt -o fqvh --long leave-rejects -- "$@"`
+options=`getopt -o fqvh --long leave-rejects,interactive -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -157,6 +157,9 @@ do
 	--leave-rejects)
 		opt_leave_rejects=1
 		shift ;;
+	--interactive)
+		opt_interactive=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -172,6 +175,7 @@ fi
 
 [ -n "$opt_quiet" ] && silent=-s
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
+[ -z "$opt_interactive" ] && force_apply=-f
 
 patch=$(stripit $1)
 
