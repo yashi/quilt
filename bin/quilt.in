@@ -43,6 +43,7 @@ quilt_commands()
 	done
 }
 
+BASH_OPTS=
 for arg in "$@"
 do
 	case $arg in
@@ -53,6 +54,10 @@ do
 		else
 			args[${#args[@]}]="$arg"
 		fi ;;
+	--trace)
+		# Trace execution of commands
+		BASH_OPTS=-x ;;
+
 	*)
 		args[${#args[@]}]="$arg" ;;
 	esac
@@ -89,4 +94,4 @@ set -- "${args[@]}"
 unset arg args
 
 #. @QUILT@/$command
-bash -c ". @QUILT@/$command" "quilt ${command##*/}" "$@"
+@BASH@ $BASH_OPTS -c ". @QUILT@/$command" "quilt ${command##*/}" "$@"

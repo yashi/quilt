@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.30],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.23 $)
+AC_REVISION ($Revision: 1.24 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -29,6 +29,7 @@ systems implementation of #! being either broken or non-existant.
 fi
 
 dnl Check for Bourne-Again Shell
+unset BASH  # bash sets this itself!
 AC_ARG_WITH(bash, AC_HELP_STRING(
     [--with-bash], [name of the bash executable to use]),
     [

@@ -10,3 +10,6 @@ QUILT_DIFF_OPTS="-p${QUILT_DIFF_OPTS:+ $QUILT_DIFF_OPTS}"
 
 # Define this to generate diffs without timestamps.
 #QUILT_NO_DIFF_TIMESTAMPS=yes
+
+# Create backup when refreshing patches.
+QUILT_BACKUP=yes

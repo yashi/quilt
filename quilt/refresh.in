@@ -171,15 +171,21 @@ mkdir -p $(dirname $patch_file)
 
 if ! cat_file $patch_file \
      | patch_description > $tmpfile2 || \
-   ! cat $tmpfile >> $tmpfile2 || \
-   ! cat $tmpfile2 \
-     | cat_to_file $patch_file
+   ! cat $tmpfile >> $tmpfile2
 then
 	die 1
 fi
-if [ $? != 0 ]
+
+if @DIFF@ -q $patch_file $tmpfile2 > /dev/null
 then
-	echo $""
+	echo $"Patch $patch is unchanged"
+	exit 0
+fi
+
+if ( [ "$QUILT_BACKUP" = yes ] && \
+     ! cp $patch_file $patch_file~ ) || \
+   ! cat_to_file $patch_file < $tmpfile2
+then
 	die 1
 fi
 

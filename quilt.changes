@@ -1,6 +1,11 @@
 -------------------------------------------------------------------
-Mon Feb  2 13:07:13 CET 2004 - agruen@suse.de
+Mon Feb  2 14:04:31 CET 2004 - agruen@suse.de
 
+- Fix test for bash in configure.ac.
+- Add `--trace' option to quilt wrapper (runs commands with -x,
+  which prints an execution trace).
+- Add QUILT_BACKUP setting in .quiltrc (creates backup copies
+  when refreshing patches).
 - Fix `quilt next'.
 
 -------------------------------------------------------------------
