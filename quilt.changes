@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Wed Jan 28 02:32:51 CET 2004 - agruen@suse.de
+Wed Jan 28 02:42:40 CET 2004 - agruen@suse.de
 
-- Add a few more test cases for subdirectory support.
-- Fix a few bugs introduced while merging Chris's patch.
+- Fix bugs introduced while merging Chris's patch.
+- Add more test cases for subdirectory support.
+- Fix `make dist': Some files in debian/ did not exist.
+- Update to version 0.30.
 
 -------------------------------------------------------------------
 Wed Jan 28 01:13:16 CET 2004 - agruen@suse.de

@@ -85,7 +85,7 @@ DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1
 
-DEBIAN :=	changelog control copyright docs prerm rules 
+DEBIAN :=	changelog control copyright rules 
 
 SRC +=		$(DEBIAN:%=debian/%)
 
