@@ -46,7 +46,7 @@ make install prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
 /usr/share/quilt/
 
 %doc /usr/share/man/man1/guards.1.gz
-%doc README
+%doc doc/README
 
 %changelog
 # The changelog is filled in by "make spec".

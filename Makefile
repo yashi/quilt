@@ -47,7 +47,7 @@ DIRT +=		$(LIB_IN:%=lib/%) lib/backup-files{,.o}
 
 DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
-DOC :=		$(DOC_IN) doc/docco.txt
+DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC) doc/docco.txt
 DIRT +=		$(DOC_IN:%=doc/%)
 
@@ -62,14 +62,14 @@ SRC +=		$(DEBIAN:%=debian/%)
 all : scripts
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(LIB:%=lib/%) \
-	  $(DOC) $(MAN1)
+	  $(DOC:%=doc/%) $(MAN1)
 
 dist : $(PACKAGE)-$(VERSION).tar.gz
 
 rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
 
-README : README.in
+doc/README : doc/README.in
 	@awk '/@REFERENCE@/ { system("$(MAKE) -s reference") ; next }'$$'\n'' \
 			   { print }' 2>&1 $< > $@
 
@@ -110,7 +110,7 @@ install : all
 	install -m 755 -s lib/backup-files $(BUILD_ROOT)$(LIB_DIR)/
 
 	install -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)
-	install -m 644 README $(BUILD_ROOT)$(docdir)/$(PACKAGE)/
+	install -m 644 doc/README $(BUILD_ROOT)$(docdir)/$(PACKAGE)/
 
 	install -d $(BUILD_ROOT)$(mandir)/man1
 	install -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/

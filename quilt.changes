@@ -5,6 +5,7 @@ Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
 - Prepare for GNU Autoconf: substitute @PERL@, @BASH@, @DIFF@,
   @PATCH@ in scripts.
 - Some cleanups in Makefile.
+- Move documentation to doc/.
 
 -------------------------------------------------------------------
 Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de
