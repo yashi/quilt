@@ -1,3 +1,10 @@
+quilt (0.37-2) unstable; urgency=low
+
+  * Fix a quoting issue in bash_autocompletion. Patch from upstream CVS.
+    (Closes: #285322)
+
+ -- Martin Quinson <mquinson@debian.org>  Mon, 13 Dec 2004 14:54:25 +0100
+
 quilt (0.37-1) unstable; urgency=low
 
   * New upstream release(s. I missed the 0.36, sorry):
