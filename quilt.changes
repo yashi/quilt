@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Oct 26 17:53:53 CET 2003 - agruen@suse.de
+
+- Get rid of patches_per cache_in `quilt patches'. Remove
+  patches_per_file and associated functions. `quilt patches'
+  now is a bit slow for unapplied patches.
+
+-------------------------------------------------------------------
 Sun Oct 26 14:45:08 CET 2003 - agruen@suse.de
 
 - Rename snapshot directory from ".snap0" to ".snap".

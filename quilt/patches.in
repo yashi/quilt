@@ -24,7 +24,9 @@ usage()
 	then
 		echo $"
 
-Print the list of patches that modify the specified file.
+Print the list of patches that modify the specified file. (Uses a
+heuristic to determine which files are modified by unapplied patches.
+Note that this heuristic is much slower than scanning applied patches.)
 
 -n	Print the patch file names instead of the patch names.
 
@@ -37,18 +39,38 @@ Print the list of patches that modify the specified file.
 	fi
 }
 
-scan_patches()
+scan_applied()
 {
 	local prefix=$1 file=$2
 	shift 2
 	local patch
 
-	for patch in $(modified_files $file -- "$@" \
-		       | cut -d $'\t' -f2)
+	for patch in "$@"
 	do
-		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
-		
-		echo "$prefix$patch"
+		if [ -f ".pc/$patch/$file" ]
+		then
+			[ -n "$opt_filenames" ] && \
+				patch=$(patch_file_name $patch)
+			echo "$prefix$patch"
+		fi
+	done
+}
+
+scan_unapplied()
+{
+	local prefix=$1 file=$2
+	shift 2
+	local file_bre="$(quote_bre $file)" patch
+
+	for patch in "$@"
+	do
+		if touched_by_patch $(patch_strip_level $patch) $patch \
+		   | grep -q "^$file_bre\$"
+		then
+			[ -n "$opt_filenames" ] && \
+				patch=$(patch_file_name $patch)
+			echo "$prefix$patch"
+		fi
 	done
 }
 
@@ -84,29 +106,23 @@ then
 fi
 opt_file=$1
 
-if ! refresh_patches_per_file
-then
-	exit 1
-fi
+top=$(top_patch)
 
 if [ -n "$opt_verbose" ]
 then
-	top=$(top_patch)
-	if [ -n "$top" ]
-	then
-		patches_before="$(patches_before $top)"
-		[ -n "$patches_before" ] &&
-			scan_patches "+ " $opt_file $patches_before
-		scan_patches "= " $opt_file $top
-		patches_after="$(patches_after $top)"
-		[ -n "$patches_after" ] &&
-			scan_patches "  " $opt_file $(patches_after $top)
-	else
-		scan_patches "  " $opt_file
-	fi
+	applied="+ "
+	current="= "
+	unapplied="  "
 else
-	scan_patches "" $opt_file
+	applied=""
+	current=""
+	unapplied=""
 fi
+
+scan_applied "$applied" $opt_file $(patches_before $top)
+[ -n "$top" ] && \
+	scan_applied "$current" $opt_file $top
+scan_unapplied "$unapplied" $opt_file $(patches_after $top)
 ### Local Variables:
 ### mode: shell-script
 ### End:
