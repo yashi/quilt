@@ -44,7 +44,7 @@ const char *progname;
 enum { what_noop, what_backup, what_restore, what_remove };
 
 const char *opt_prefix="", *opt_suffix="", *opt_file;
-int opt_silent, opt_what=what_noop, opt_ignore_missing;
+int opt_silent, opt_what=what_noop;
 int opt_nolinks, opt_touch;
 
 #define LINE_LENGTH 1024
@@ -53,7 +53,7 @@ int opt_nolinks, opt_touch;
 void
 usage(void)
 {
-	printf("Usage: %s [-B prefix] [-z suffix] [-f {filelist|-}] [-s] [-b|-r|-x] [-L] {filename|-} ...\n"
+	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-s] [-b|-r|-x] [-L] {file|-} ...\n"
 	       "\n"
 	       "\tCreate hard linked backup copies of a list of files\n"
 	       "\tread from standard input.\n"
@@ -64,6 +64,10 @@ usage(void)
 	       "\t-B\tPath name prefix for backup files\n"
 	       "\t-z\tPath name suffix for backup files\n"
 	       "\t-s\tSilent operation; only print error messages\n"
+	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n"
+	       "\t-f\tRead the filenames to process from file (- = standard input)\n"
+i	       "\t-t\tTouch original files after restore (update their mtimes)\n\n"
+
 	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n\n",
 	       progname);
 }
@@ -256,8 +260,6 @@ process_file(const char *file)
 
 		create_parents(file);
 		if (stat(backup, &st) != 0) {
-			if (opt_ignore_missing && errno == ENOENT)
-				return 0;
 			perror(backup);
 			return 1;
 		}
@@ -340,7 +342,7 @@ main(int argc, char *argv[])
 	
 	progname = argv[0];
 
-	while ((opt = getopt(argc, argv, "brxB:z:f:shFLt")) != -1) {
+	while ((opt = getopt(argc, argv, "brxB:z:f:shLt")) != -1) {
 		switch(opt) {
 			case 'b':
 				opt_what = what_backup;
@@ -360,10 +362,6 @@ main(int argc, char *argv[])
 				
 			case 'f':
 				opt_file = optarg;
-				break;
-
-			case 'F':  /* ignore missing input files */
-				opt_ignore_missing = 1;
 				break;
 
 			case 'z':

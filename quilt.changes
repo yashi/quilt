@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jan 27 08:14:34 CET 2005 - agruen@suse.de
+
+- lib/backup-files.c: Remove unused command line option and
+  document the remaining options.
+- quilt/pop.in: Colorize this as well:
+  "Patch attempted to create file *, which already exists."
+  "can't find file to patch at input line *"
+  "* out of * hunk ignored"
+
+-------------------------------------------------------------------
 Tue Jan 25 13:53:23 CET 2005 - agruen@suse.de
 
 - Fix pop command for recent coreutils (cp dir dir2/ no longer
