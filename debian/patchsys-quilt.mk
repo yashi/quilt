@@ -67,7 +67,6 @@ clean:: reverse-patches
 # The patch subsystem
 apply-patches: pre-build debian/stamp-patched
 debian/stamp-patched: 
-debian/stamp-patched:
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
 	    ln -s $(DEB_PATCHDIRS) $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ; \
