@@ -77,6 +77,7 @@ DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC) doc/docco.txt
+SRC +=          doc/consider-for-docs-1.mail doc/consider-for-docs-2.mail doc/consider-for-docs-3.mail
 DIRT +=		$(DOC_IN:%=doc/%)
 
 MAN1 :=		bin/guards.1
