@@ -1,0 +1,2 @@
+# Define this to generate diffs without timestamps.
+QUILT_NO_DIFF_TIMESTAMPS=yes

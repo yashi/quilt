@@ -1,12 +1,12 @@
-#: ../bin/quilt.in:15
+#: ../bin/quilt.in:19
 msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
 msgstr ""
 
-#: ../bin/quilt.in:17
+#: ../bin/quilt.in:21
 msgid "Commands are:"
 msgstr ""
 
-#: ../bin/quilt.in:22
+#: ../bin/quilt.in:26
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -417,7 +417,7 @@ msgstr ""
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:183 ../quilt/push.in:216
+#: ../quilt/pop.in:188 ../quilt/push.in:216
 msgid "Now at patch $patch"
 msgstr ""
 
@@ -653,23 +653,23 @@ msgstr ""
 msgid "Patch file $patch_file appears to be empty"
 msgstr ""
 
-#: ../scripts/apatch.in:83
+#: ../scripts/apatch.in:80
 msgid "Applying $patch"
 msgstr ""
 
-#: ../scripts/apatch.in:119
+#: ../scripts/apatch.in:116
 msgid "Patch $patch appears to be empty, applied"
 msgstr ""
 
-#: ../scripts/apatch.in:122
+#: ../scripts/apatch.in:119
 msgid "Applied $patch (forced; needs refresh)"
 msgstr ""
 
-#: ../scripts/apatch.in:126
+#: ../scripts/apatch.in:123
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 
-#: ../scripts/apatch.in:183 ../scripts/rpatch.in:189
+#: ../scripts/apatch.in:180 ../scripts/rpatch.in:178
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr ""
 
@@ -681,10 +681,6 @@ msgstr ""
 msgid "Patch $patch does not remove cleanly (enforce with -f)."
 msgstr ""
 
-#: ../scripts/rpatch.in:117
-msgid "Patch $patch appears to be empty, removed"
-msgstr ""
-
-#: ../scripts/rpatch.in:131
+#: ../scripts/rpatch.in:122
 msgid "Removing $patch"
 msgstr ""

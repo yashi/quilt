@@ -62,17 +62,14 @@ apply_patch()
 
 rollback_patch()
 {
-	local patch=$1 pc_file=$(gen_tempfile)
+	local patch=$1
 
-	# FIXME backup_files should scan the directory hierarchy itself.
-	files_in_patch $patch > $pc_file
-	@LIB@/backup-files $silent_unless_verbose \
-		-f $pc_file -B $QUILT_PC/$patch/ -r
 	if [ -z "$opt_leave_rejects" ]
 	then
-		@SED@ -e 's/$/\.rej/' $pc_file | xargs rm -f
+		files_in_patch | @SED@ -e 's/$/\.rej/' | xargs rm -f
 	fi
-	rm -f $pc_file
+
+	@LIB@/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
 }
 
 apatch()

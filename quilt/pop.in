@@ -180,6 +180,11 @@ if [ -z "$patch" ]
 then
 	echo $"No patches applied"
 else
+	# Ensure that the files in the topmost patch have a link count
+	# of one: This will automatically be the case in the usual
+	# situations, but we don't want to risk file corruption in weird
+	# corner cases such as files added to a patch but not modified.
+	@LIB@/backup-files -L -s -B $QUILT_PC/$patch/ -
 	echo $"Now at patch $patch"
 fi
 ### Local Variables:

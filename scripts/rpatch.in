@@ -49,7 +49,7 @@ files_may_have_changed()
 # and report any pending changes.
 check_for_pending_changes()
 {
-	local patch=$1 pc_file=$2
+	local patch=$1
 	local patch_file=$(patch_file_name $patch)
 	local patch_args=$(patch_args $patch)
 	local workdir=$(gen_tempfile -d quilt) status=0
@@ -90,10 +90,10 @@ check_for_pending_changes()
 	fi
 	
 	local remains=$(gen_tempfile)
-	while read file
+	for file in $(files_in_patch $patch)
 	do
 		diff_file $file $workdir/$file $file >> $remains
-	done < $pc_file
+	done
 	
 	if [ -s $remains ]
 	then
@@ -108,35 +108,24 @@ check_for_pending_changes()
 
 rpatch()
 {
-	local patch=$1 pc_file=$(gen_tempfile) status=0
-
-	# FIXME backup-files should scan the directory tree itself.
-	files_in_patch $patch > $pc_file
-	if ! [ -s $pc_file ]
-	then
-		echo $"Patch $patch appears to be empty, removed"
-		remove_from_db $patch
-		return 0
-	fi
+	local patch=$1 status=0
 
 	trap "" SIGINT
 	if [ -z "$opt_force" ] && \
 	   ( [ -n "$opt_remove" ] || files_may_have_changed $patch )
 	then
-		check_for_pending_changes $patch $pc_file || status=1
+		check_for_pending_changes $patch || status=1
 	fi
 
 	if [ $status -eq 0 ]
 	then
 		echo $"Removing $patch"
 		rm -f "$QUILT_PC/$patch/.timestamp"
-		@LIB@/backup-files $silent -r -L -f $pc_file \
-				   -B $QUILT_PC/$patch/
+		@LIB@/backup-files $silent -r -B $QUILT_PC/$patch/ -
 		status=$?
 		remove_from_db $patch
 		rm -f $QUILT_PC/$patch~refresh
 	fi
-	rm -f $pc_file
 	trap - SIGINT
 	return $status
 }

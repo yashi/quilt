@@ -101,7 +101,7 @@ do
 		continue
 	fi
 
-	if ! @LIB@/backup-files -s -L -B $QUILT_PC/$patch/ $SUBDIR$file
+	if ! @LIB@/backup-files -b -s -L -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
 		echo $"Failed to back up file $SUBDIR$file" >&2
 		status=1

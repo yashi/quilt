@@ -12,15 +12,15 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../bin/quilt.in:15
+#: ../bin/quilt.in:19
 msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
 msgstr "Usage : quilt [--trace] [--quiltrc=XX] commande [-h] ..."
 
-#: ../bin/quilt.in:17
+#: ../bin/quilt.in:21
 msgid "Commands are:"
 msgstr "Les commandes sont :"
 
-#: ../bin/quilt.in:22
+#: ../bin/quilt.in:26
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -78,7 +78,7 @@ msgstr "Le patch $patch n'est pas appliqué"
 
 #: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:168
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
-#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:213
+#: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:214
 #: ../quilt/refresh.in:107 ../quilt/remove.in:80
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
@@ -565,11 +565,11 @@ msgstr "Le patch $stop_at_patch n'est pas appliqué."
 msgid "No patch removed"
 msgstr "Aucun patch retiré"
 
-#: ../quilt/pop.in:172 ../quilt/push.in:204
+#: ../quilt/pop.in:172 ../quilt/push.in:205
 msgid "Interrupted by user"
 msgstr "Interrompu par l'utilisateur"
 
-#: ../quilt/pop.in:183 ../quilt/push.in:215
+#: ../quilt/pop.in:188 ../quilt/push.in:216
 msgid "Now at patch $patch"
 msgstr "Le patch $patch est maintenant au sommet"
 
@@ -657,7 +657,7 @@ msgstr "Le patch $stop_at_patch est introuvable dans le fichier de série"
 msgid "Patch $stop_at_patch is already applied."
 msgstr "Le patch $stop_at_patch est déjà appliqué."
 
-#: ../quilt/push.in:183
+#: ../quilt/push.in:184
 msgid ""
 "The topmost patch $top is not in the series file anymore;\n"
 "cannot determine the next patch from the series file.\n"
@@ -668,7 +668,7 @@ msgstr ""
 "Veuillez utiliser pop -f pour le patch du sommet, et vérifier \n"
 "votre fichier de série."
 
-#: ../quilt/push.in:189
+#: ../quilt/push.in:190
 msgid "File series fully applied, ends at patch $top"
 msgstr "La série est complètement appliquée. Le dernier patch est $top."
 
@@ -800,7 +800,8 @@ msgstr ""
 
 #: ../quilt/setup.in:27
 msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
-msgstr "Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
+msgstr ""
+"Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
 
 #: ../quilt/setup.in:30
 msgid ""
@@ -812,7 +813,8 @@ msgid ""
 "-v\tverbose debug output."
 msgstr ""
 "\n"
-"Initialise un arbre de sources à partir d'un fichier de spécification rpm, ou d'un fichier de série quilt.\n"
+"Initialise un arbre de sources à partir d'un fichier de spécification rpm, "
+"ou d'un fichier de série quilt.\n"
 "\n"
 "-d\tpréfix de chemin optionel (sous-répertoire).\n"
 "\n"
@@ -898,24 +900,24 @@ msgstr "Interrompu par l'utilisateur ; le patch $patch n'a pas été appliqué."
 msgid "Patch file $patch_file appears to be empty"
 msgstr "Le fichier de patch $patch_file semble vide"
 
-#: ../scripts/apatch.in:83
+#: ../scripts/apatch.in:80
 msgid "Applying $patch"
 msgstr "Application de $patch"
 
-#: ../scripts/apatch.in:119
+#: ../scripts/apatch.in:116
 msgid "Patch $patch appears to be empty, applied"
 msgstr "Le patch $patch semble vide. Il a été appliqué."
 
-#: ../scripts/apatch.in:122
+#: ../scripts/apatch.in:119
 msgid "Applied $patch (forced; needs refresh)"
 msgstr "$patch a été appliqué (forcé ; vous devriez le rafraîchir)"
 
-#: ../scripts/apatch.in:126
+#: ../scripts/apatch.in:123
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 "Le patch $patch ne s'applique pas proprement (forcez l'application avec -f)"
 
-#: ../scripts/apatch.in:183 ../scripts/rpatch.in:189
+#: ../scripts/apatch.in:180 ../scripts/rpatch.in:178
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr "Le patch au sommet $top doit être rafraichi au préalable."
 
@@ -927,10 +929,6 @@ msgstr "Usage: $0 [-fRq] nom_de_patch"
 msgid "Patch $patch does not remove cleanly (enforce with -f)."
 msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
 
-#: ../scripts/rpatch.in:117
-msgid "Patch $patch appears to be empty, removed"
-msgstr "Le patch $patch semble vide. Il a été retiré."
-
-#: ../scripts/rpatch.in:131
+#: ../scripts/rpatch.in:122
 msgid "Removing $patch"
 msgstr "Retrait de $patch"

@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Jun  6 02:02:32 CEST 2004 - agruen@suse.de
+
+- backup-file.c: Add code to recursively search .pc directories.
+  Add a "no-op" mode as default, and allow to just unlink files.
+- apatch/rpatch: let backup-files search .pc directories instead
+  of generating temporary file lists.
+- rpatch/pop: unlink files of topmost patch after popping instead
+  of unlinking at each step.
+- If QUILTRC is set in the environment, use this as the
+  configuration file.
+
+-------------------------------------------------------------------
 Sat Jun  5 16:12:17 CEST 2004 - agruen@suse.de
 
 - Return exit status 2 when commands go beyond the series (top

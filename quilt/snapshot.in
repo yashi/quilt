@@ -67,14 +67,13 @@ snap_subdir=.snap
 
 # Clean up from previous snapshot
 rm -rf $QUILT_PC/$snap_subdir
-mkdir -p $QUILT_PC/$snap_subdir
-
 if [ -n "$opt_remove" ]
 then
 	exit 0
 fi
 
 # Save current working state
+mkdir -p $QUILT_PC/$snap_subdir
 for patch in $(applied_patches); do
 	files_in_patch $patch
 done \
@@ -85,7 +84,7 @@ done \
 	}
 	{ print }
 ' \
-| @LIB@/backup-files -s -L -f - -B "$QUILT_PC/$snap_subdir/"
+| @LIB@/backup-files -b -s -L -f - -B "$QUILT_PC/$snap_subdir/"
 
 ### Local Variables:
 ### mode: shell-script

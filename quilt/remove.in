@@ -101,7 +101,7 @@ do
 	fi
 
 	# Restore file from backup
-	if ! @LIB@/backup-files -s -B $QUILT_PC/$patch/ -r $SUBDIR$file
+	if ! @LIB@/backup-files -b -s -B $QUILT_PC/$patch/ -r $SUBDIR$file
 	then
 		echo $"Failed to remove file $SUBDIR$file from patch $patch"
 		status=1
