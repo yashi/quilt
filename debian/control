@@ -10,14 +10,15 @@ Architecture: any
 Depends: patch, diffstat, bzip2, gettext
 Suggests: ccache
 Description: Scripts for working with series of patches
- The scripts allow to manage a series of patches by keeping
- track of the changes each patch makes. Patches can be
- applied, un-applied, refreshed, etc.
- .
- The scripts are heavily based on Andrew Morton's patch scripts
- found at http://www.zip.com.au/~akpm/linux/patches/
- .
- The key philosophical concept is that your primary output is patches.
+
+ The scripts allow to manage a series of patches by keeping track of the
+ changes each patch makes. Patches can be applied, un-applied, refreshed,
+ etc. The key philosophical concept is that your primary output is patches.
  Not ".c" files, not ".h" files.  But patches.  So patches are the
  first-class object here.
-
+ .
+ This package also provide some basic support to build debian package and
+ handling the diffs with quilt.
+ .	 
+ These scripts are based on Andrew Morton's patch scripts posted a while ago
+ on the linux-kernel mailing-list, but were heavily modified since then.
