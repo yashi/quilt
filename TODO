@@ -16,14 +16,6 @@ General:
 	  optionally something like rcs can be used instead of
 	  lib/backup-files?
 
-	- Add regression test suite; the scripts were broken often enough
-	  already...
-
-	- Add a ~/.quiltrc that contains default options for individual
-	  commands, similar to ~/.cvsrc. Also requires some more
-	  negative options so that the effects of ~/.quiltrc can be
-	  reversed.
-
 	- Add something similar to cvs diff, which scans all files for
 	  changes that have not been folded back into their patches,
 	  similar to:
@@ -31,8 +23,6 @@ General:
 	
 	- Allow to add a directory? Then we could detect also new files
 	  in the directory, without having to add them individually.
-
-	- Add option for creating hard links.
 
 	- Instead of passing around and storing in applied-patches the
 	  short patch name (=patch file name with .dif .diff .patch .gz
@@ -45,32 +35,18 @@ General:
 
 Documentation:
 
-	- How to rediff with pushpatch -f / poppatch -f?
+	- How to rediff with push -f / pop -f?
 
 	- How to import a new version of a patch?
 
 	- How to import a complete directory, before doing
-	  wild changes? (This will also cause new files to end up in the
-	  patch.)
+	  wild changes?
 
 quilt refresh:
 
 	- Add an -m option similar to `cvs commit -m "..."' to simplify
 	  keeping a change log in the patch documentation?
 	
-parse-patch:
-
-	- Handle SIGINT in parse-patch -u (in the part that moves the
-	  temp file to the patch)?
-
-backup-files:
-
-	- Extend so that it can also copy files instead of hard linking,
-	  and when hard links are not possible. Also add option to
-	  disallow hard links on the original file (for patchadd).
-
-	- SIGINT handling?
-
 quilt import:
 
 	- Add option to replace the currently applied patch with a new
@@ -79,11 +55,6 @@ quilt import:
 	- Diff -u the documentation of the old and new file, unless one
 	  of them is empty. Let the user decide whether to keep the left
 	  or the right documentation, or to merge them both. (-d{ona}?)
-
-quilt add:
-
-	- Add option for creating (or rather, leaving) hard links.
-
 
 quilt setup:
 	
@@ -107,22 +78,3 @@ apatch:
 	  inject the patch in its proper position in applied-patches.
 	  Needs to check if any of the files in the patch are touched by
 	  later patches.
-	  
-touched_by_patch:
-
-	- Implement more of patch's filename heuristic: The following
-	  file is not recognized, for example...
-
-	*** linux/drivers/parport/parport_cs.c.orig     Sun Jun 23 09:20:21 2002
-	--- linux/drivers/parport/parport_cs.c  Sun Jun 23 09:21:02 2002
-	***************
-	*** 48,53 ****
-	--- 48,54 ----
-
-	  #include <linux/parport.h>
-	  #include <linux/parport_pc.h>
-	+ #include <linux/major.h>
-
-	  #include <pcmcia/version.h>
-	  #include <pcmcia/cs_types.h>
-
