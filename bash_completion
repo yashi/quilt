@@ -9,8 +9,7 @@
 have quilt &&
 _quilt()
 {
-    local skip_version_check version failed
-    local i cur prev cmds patches pcount patch_nums
+    local cur prev cmds
 
     COMPREPLY=()
     cur=${COMP_WORDS[COMP_CWORD]}
@@ -21,50 +20,6 @@ _quilt()
           import new next patches pop previous push refresh remove \
 	  series setup snapshot top unapplied'
 
-
-#    if [ "$(type -t patch_file_name)" != function ]
-#    then
-        if ! [ -r /usr/share/quilt/scripts/patchfns ]
-	then
-	  # Cannot read library /usr/share/quilt/scripts/patchfns
-	  return 0
-	fi
-	
-	# Check ourselves for the meta-data version to avoid getting the
-	# shell killed when they don't match
-        skip_version_check="pliz"
-	
-	. /usr/share/quilt/scripts/patchfns
-		
-	failed=""
-        if [ -e $QUILT_PC/.version ] ; then
-	  version="$(< $QUILT_PC/.version)"
-	  if [ "$version" != "$DB_VERSION" ] ; then
-	    failed=yes
-	  fi
-	else
-	  failed=yes
-	fi
-#	echo "DB_VERSION=$DB_VERSION. version=$version. failed=$failed." >&2
-	
-  	# get infos we need from quilt about patches if possible
-	if [ -z "$failed" ] ; then 
-          patches=$(cat_series)
-          pcount=`cat_series | wc -l`
-          patch_nums=`i=0; while [[ ++i -le $pcount ]] ; do echo $i; done `
-	fi
-        # patchfns moved to the root directory. Back to where we were
-        if [ -n "$SUBDIR" -a -d "$SUBDIR" ] ; then 
-	  cd $SUBDIR; 
-	fi
-	if [ -n "$failed" ] ; then 
-	  return 0;
-	fi
-#    fi
-    				
-    ## Go ahead for completions
-    ##
-    
     # if no command were given, complete on commands
     if [[ $COMP_CWORD -eq 1 ]] ; then
 	COMPREPLY=( $( compgen -W "$cmds -h" -- $cur ) )
@@ -83,7 +38,7 @@ _quilt()
 	add)
 	   case $prev in
 	     -p)
- 	        COMPREPLY=( $( compgen -W "$patches" -- $cur ) )
+ 	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
 	        _filedir 
@@ -92,10 +47,10 @@ _quilt()
 	   esac
 	   ;;
 	applied) 
-	   COMPREPLY=( $( compgen -W "-n -h $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-n -h $(quilt applied)" -- $cur ) )
 	   ;;
 	delete) 
-	   COMPREPLY=( $( compgen -W "-h $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-h $(quilt series)" -- $cur ) )
 	   ;;
 	diff) 
 	   case $prev in
@@ -103,7 +58,7 @@ _quilt()
  	        COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
 		;;
 	     -P|-c)
-	     	COMPREPLY=( $( compgen -W "$patches" -- $cur ) )
+	     	COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     --diff|--snapshot)
 	        COMREPLY=(  )
@@ -119,7 +74,7 @@ _quilt()
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
 	   ;;
 	files)
-	   COMPREPLY=( $( compgen -W "-v -h $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-v -h $(quilt series)" -- $cur ) )
 	   ;;
 	fold)
 	   case $prev in
@@ -135,7 +90,7 @@ _quilt()
 	  COMPREPLY=( )
 	  ;;
 	graph)
-	   COMPREPLY=( $( compgen -W "-h --all --reduce --lines --edge-labels $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-h --all --reduce --lines --edge-labels $(quilt applied)" -- $cur ) )
 	   ;;
 	grep)
 	   _longopt grep
@@ -157,17 +112,17 @@ _quilt()
 	new)
 	   ;;
 	next|previous)
-	   COMPREPLY=( $( compgen -W "-n $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-n $(quilt series)" -- $cur ) )
 	   ;;
 	patches)
 	   _filedir 
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-v -n -h" -- $cur ) )
 	   ;;
 	pop)
-	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $patches $patch_nums" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt applied)" -- $cur ) )
 	   ;;
 	push)
-	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h --leave-rejects --interactive $patches $patch_nums" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h --leave-rejects --interactive $(quilt unapplied)" -- $cur ) )
 	   ;;
 	refresh)
 	   case $prev in
@@ -175,14 +130,14 @@ _quilt()
  	        COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
 		;;
 	     *)
-	     	COMPREPLY=( $( compgen -W "-p -f -h $patches  --no-timestamps" -- $cur ) )
+	     	COMPREPLY=( $( compgen -W "-p -f -h $(quilt applied)  --no-timestamps" -- $cur ) )
 		;;
 	   esac
 	   ;;
 	remove)
 	   case $prev in
 	     -p)
- 	        COMPREPLY=( $( compgen -W "$patches" -- $cur ) )
+ 	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
 	        _filedir 
@@ -210,7 +165,7 @@ _quilt()
 	 top)
 	   ;;
 	 unapplied)
-	   COMPREPLY=( $( compgen -W "-n -h $patches" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-n -h $(quilt series)" -- $cur ) )
 	   ;;
 	 upgrade)
 	   ;;

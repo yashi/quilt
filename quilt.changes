@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul  6 19:57:25 PDT 2004 - agruen@suse.de
+
+- Fix the bash_completion by not using quilt internals, but the external
+  commands [Joe Green].
+
+-------------------------------------------------------------------
 Sun Jul  4 04:29:25 CEST 2004 - agruen@suse.de
 
 - Add common GNU Diff format options to diff and refresH commands:
