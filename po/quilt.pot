@@ -40,11 +40,11 @@ msgstr ""
 msgid "File $file modified by patch $next_patch"
 msgstr ""
 
-#: ../quilt/add.in:104
+#: ../quilt/add.in:103
 msgid "Failed to back up file $file"
 msgstr ""
 
-#: ../quilt/add.in:124
+#: ../quilt/add.in:123
 msgid "File $file added to patch $patch"
 msgstr ""
 
@@ -118,61 +118,57 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../quilt/diff.in:132
-msgid "Options \\`-c patch' and \\`-z' cannot be combined."
+#: ../quilt/diff.in:140
+msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 
-#: ../quilt/diff.in:141 ../quilt/refresh.in:106
+#: ../quilt/diff.in:149 ../quilt/refresh.in:106
 msgid "No patch seem to be applied"
 msgstr ""
 
-#: ../quilt/diff.in:148
+#: ../quilt/diff.in:156
 msgid "Patch $last_patch is not applied"
 msgstr ""
 
-#: ../quilt/diff.in:158
+#: ../quilt/diff.in:166
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
 msgstr ""
 
-#: ../quilt/diff.in:166
-msgid "refresh_patches_per_file failed."
+#: ../quilt/diff.in:200
+msgid "Patch $first_patch not applied before $last_patch."
 msgstr ""
 
-#: ../quilt/diff.in:179
-msgid "Patch $opt_combine not applied before $last_patch."
-msgstr ""
-
-#: ../quilt/diff.in:213
-msgid "File $file is not being modified."
-msgstr ""
-
-#: ../quilt/diff.in:230
+#: ../quilt/diff.in:234
 msgid "Cannot change into .pc/$last_patch"
 msgstr ""
 
-#: ../quilt/diff.in:235
+#: ../quilt/diff.in:239 ../scripts/rpatch.in:61
 msgid "Failed to copy files to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:240
+#: ../quilt/diff.in:250
 msgid "Cannot change to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:257
+#: ../quilt/diff.in:267 ../scripts/rpatch.in:89
 msgid "Failed to patch temporary files"
 msgstr ""
 
-#: ../quilt/diff.in:264
+#: ../quilt/diff.in:274
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:293 ../quilt/refresh.in:144
+#: ../quilt/diff.in:292
+msgid "File $file is not being modified."
+msgstr ""
+
+#: ../quilt/diff.in:311 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr ""
 
-#: ../quilt/diff.in:300
+#: ../quilt/diff.in:318
 msgid "More recent patches modify files in $last_patch."
 msgstr ""
 
@@ -324,7 +320,9 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"Print the list of patches that modify the specified file.\n"
+"Print the list of patches that modify the specified file. (Uses a\n"
+"heuristic to determine which files are modified by unapplied patches.\n"
+"Note that this heuristic is much slower than scanning applied patches.)\n"
 "\n"
 "-n\tPrint the patch file names instead of the patch names.\n"
 "\n"
@@ -486,7 +484,7 @@ msgstr ""
 msgid "Nothing in patch $patch"
 msgstr ""
 
-#: ../quilt/refresh.in:197
+#: ../quilt/refresh.in:199
 msgid "Refreshed patch $patch"
 msgstr ""
 
@@ -514,7 +512,7 @@ msgstr ""
 msgid "Failed to remove file $file from patch $patch"
 msgstr ""
 
-#: ../quilt/remove.in:116
+#: ../quilt/remove.in:110
 msgid "File $file removed from patch $patch"
 msgstr ""
 
@@ -546,37 +544,54 @@ msgid ""
 "file must contain the name of the relevant tar archive, in addition to\n"
 "the list of patches.\n"
 "\n"
+"-d\tThe directory that contains the archives and patches. Defaults\n"
+"\tto the directory of the series/spec file.\n"
+"\n"
+"-l\tMake the patches directory a symbolic link. If a series file is\n"
+"\tspecified, also create a symlink to the series file.\n"
 msgstr ""
 
-#: ../quilt/setup.in:100
+#: ../quilt/setup.in:108
 msgid "Series file $series_file not found"
 msgstr ""
 
-#: ../quilt/setup.in:125
+#: ../quilt/setup.in:134
 msgid "Reading sources from $arg"
 msgstr ""
 
-#: ../quilt/setup.in:128
+#: ../quilt/setup.in:138
 msgid "Unpacking archive $source/$arg"
 msgstr ""
 
-#: ../quilt/setup.in:138
+#: ../quilt/setup.in:148
 msgid "Directory $packagedir exists already."
 msgstr ""
 
-#: ../quilt/setup.in:143
+#: ../quilt/setup.in:153
 msgid "File $packagedir exists."
 msgstr ""
 
-#: ../quilt/setup.in:149
+#: ../quilt/setup.in:168
+msgid "Creating link to patches directory $arg"
+msgstr ""
+
+#: ../quilt/setup.in:172
 msgid "Copying patch $source/$arg"
 msgstr ""
 
-#: ../quilt/setup.in:154
+#: ../quilt/setup.in:185
+msgid "File $packagedir/series exists; will not override."
+msgstr ""
+
+#: ../quilt/setup.in:192 ../quilt/setup.in:206
 msgid "Copying series file"
 msgstr ""
 
-#: ../quilt/setup.in:178
+#: ../quilt/setup.in:202
+msgid "Creatig link to series file $arg"
+msgstr ""
+
+#: ../quilt/setup.in:237
 msgid "Directory $packagedir set up."
 msgstr ""
 
@@ -612,35 +627,31 @@ msgstr ""
 msgid "Usage: $0 [-fqv] patchname"
 msgstr ""
 
-#: ../scripts/apatch.in:40
+#: ../scripts/apatch.in:29
 msgid "Interrupted by user; patch $patch was not applied."
 msgstr ""
 
-#: ../scripts/apatch.in:51 ../scripts/rpatch.in:113
+#: ../scripts/apatch.in:40
 msgid "Patch file $patch_file appears to be empty"
 msgstr ""
 
-#: ../scripts/apatch.in:84
+#: ../scripts/apatch.in:79
 msgid "Applying $patch"
 msgstr ""
 
-#: ../scripts/apatch.in:87
+#: ../scripts/apatch.in:109
 msgid "Patch $patch appears to be empty, applied"
 msgstr ""
 
-#: ../scripts/apatch.in:95
-msgid "Recreated file list for $patch"
-msgstr ""
-
-#: ../scripts/apatch.in:126
+#: ../scripts/apatch.in:112
 msgid "Applied $patch (forced; needs refresh)"
 msgstr ""
 
-#: ../scripts/apatch.in:130
+#: ../scripts/apatch.in:116
 msgid "Patch $patch does not apply (enforce with -f)"
 msgstr ""
 
-#: ../scripts/apatch.in:186 ../scripts/rpatch.in:238
+#: ../scripts/apatch.in:173 ../scripts/rpatch.in:192
 msgid "The topmost patch $top needs to be refreshed first."
 msgstr ""
 
@@ -648,28 +659,16 @@ msgstr ""
 msgid "Usage: $0 [-fRq] patchname"
 msgstr ""
 
-#: ../scripts/rpatch.in:44
-msgid "Patch does not remove changes:"
+#: ../scripts/rpatch.in:104
+msgid "Patch $patch does not remove cleanly (enforce with -f)."
 msgstr ""
 
-#: ../scripts/rpatch.in:102
-msgid "Interrupted by user; patch $patch was not removed."
-msgstr ""
-
-#: ../scripts/rpatch.in:139
+#: ../scripts/rpatch.in:121
 msgid "Patch $patch appears to be empty, removed"
 msgstr ""
 
-#: ../scripts/rpatch.in:144
+#: ../scripts/rpatch.in:135
 msgid "Removing $patch"
-msgstr ""
-
-#: ../scripts/rpatch.in:165
-msgid "Failed to create temporary files"
-msgstr ""
-
-#: ../scripts/rpatch.in:186
-msgid "Patch $patch does not remove (enforce with -f)"
 msgstr ""
 
 #: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
