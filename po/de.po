@@ -89,7 +89,7 @@ msgstr ""
 "Gibt eine Liste der angewandten Patches aus, oder eine Liste aller Patches\n"
 "vom Anfang der Serie bis zum angegebenen Patch.\n"
 "\n"
-"-n\tPatch-Dateinamen statt Patch-Namen ausgeben."
+"-n\tPatch-Dateinamen statt Patch-Namen ausgeben.\n"
 
 #: ../quilt/delete.in:22
 msgid "Usage: quilt delete [patch]"
