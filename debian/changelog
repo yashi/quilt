@@ -1,3 +1,18 @@
+quilt (0.35-1) unstable; urgency=low
+
+  * New upstream version.
+    - bash completion made usable (even out of Debian).
+    - New configuration variables: QUILT_<command>_ARGS amongst others.
+    - Reintroduction of the diffstat feature (--diffstat option of refresh).
+    - Setting QUILT_PATCHES_PREFIX asks quilt to display the full path to
+      the patches instead of the patch names (for copy/paste).
+    - Ability to specify the type of patch, and the context length (-u, -U
+      num, -c, and -C num options of diff and refresh).
+    - Syntax highlighting (--color option of diff).
+    - Various bug fixes.
+
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Thu, 15 Jul 2004 15:06:43 -0700
+ 
 quilt (0.34-2) unstable; urgency=low
 
   * [patchsys-quilt.mk] Fix a stupid bug preventing to work on empty
