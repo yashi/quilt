@@ -226,8 +226,8 @@ msgid "Diff failed, aborting."
 msgstr "Diff fehlgeschlagen, Abbruch."
 
 #: ../quilt/diff.in:305
-msgid "More recent patches modify the same files."
-msgstr "Später angewandte Patches verändern dieselben Dateien."
+msgid "More recent patches modify files in $last_patch."
+msgstr "Später angewandte Patches verändern Dateien von $last_patch."
 
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]"
@@ -634,10 +634,10 @@ msgstr ""
 "p1 angeben"
 
 #: ../quilt/refresh.in:150
-msgid "More recent patches modify the same files. Enforce refresh with -f."
+msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
-"Später angewandte Patches verändern die selben Datei(en). Auffrischen "
-"erzwingen mit -f."
+"Später angewandte Patches verändern Dateien von $patch. Auffrischen "
+"mit -f erzwingen."
 
 #: ../quilt/refresh.in:157
 msgid "Nothing in patch $patch"

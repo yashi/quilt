@@ -56,9 +56,10 @@ Refreshed patch patch2
 $ quilt add -p patch1 dir/file3
 File dir/file3 modified by patch patch2
 $ quilt pop
+Removing patch2
 Removing dir/file3
-Removed patch2, now at patch1
 
+Now at patch patch1
 $ quilt add file4
 File file4 added to patch patch1
 $ echo "This is file 4." > file4
@@ -68,6 +69,7 @@ $ quilt push
 Applying patch2
 patching file dir/file3
 
+Now at patch patch2
 $ quilt new subdir/patch3.diff
 Patch subdir/patch3 is now on top
 $ quilt add file4
@@ -101,12 +103,14 @@ $ quilt refresh -f patch1
 Refreshed patch patch1
 $ echo "Another line here, too." >> dir/file3
 $ quilt pop
+Removing subdir/patch3
 patching file file4
-Removed subdir/patch3, now at patch2
 
+Now at patch patch2
 $ quilt refresh patch2
 Refreshed patch patch2
 $ quilt pop -qa
-Removed patch2, now at patch1
-Removed patch1, no patches applied
+Removing patch2
+Removing patch1
+No patches applied
 $ rm -r dir patches

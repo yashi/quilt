@@ -126,7 +126,7 @@ fi
 
 trap "die 1" SIGTERM
 
-tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+tmpfile=$(gen_tempfile)
 
 for file in $(files_in_patch $patch)
 do
@@ -147,7 +147,7 @@ do
 
 	if [ -n "$files_were_shadowed" -a -z "$opt_force" ]
 	then
-		echo $"More recent patches modify the same files. Enforce refresh with -f." >&2
+		echo $"More recent patches modify files in $patch. Enforce refresh with -f." >&2
 		die 1
 	fi
 done
@@ -172,7 +172,7 @@ then
 	cat $tmpfile \
 	| @SCRIPTS@/parse-patch -u patch $patch_file
 else
-	if ! tmpfile2=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+	if ! tmpfile2=$(gen_tempfile)
 	then
 		die 1
 	fi

@@ -109,7 +109,7 @@ do
 	fi
 	
 	pc_file=$(pc_file_name $patch)
-	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+	tmpfile=$(gen_tempfile)
 	grep -v -E '^'"$(quote_re $file)"'$' $pc_file > $tmpfile
 	mv -f $tmpfile $pc_file
 	rm -f $tmpfile

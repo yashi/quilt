@@ -221,7 +221,7 @@ then
 	patch_file=$(patch_file_name $last_patch)
 	pc_file=$(pc_file_name $last_patch)
 	patch_args=$(patch_args $last_patch)
-	workdir=$(@MKTEMP@ -d $PWD/patch-scripts.XXXXXX)
+	workdir=$(gen_tempfile -d $PWD/quilt)
 	pwd=$PWD
 
 	if ! cd .pc/$last_patch
@@ -302,7 +302,7 @@ done
 
 if [ -n "$files_were_shadowed" ]
 then
-	echo $"More recent patches modify the same files."
+	echo $"More recent patches modify files in $last_patch."
 	die 1
 fi
 die 0

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.22],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.9 $)
+AC_REVISION ($Revision: 1.10 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -72,7 +72,8 @@ fi
 
 dnl Checks for mktemp (for creating temporary files and directories)
 AC_ARG_WITH(mktemp, AC_HELP_STRING(
-    [--with-mktemp], [name of the mktemp executable to use]),
+    [--with-mktemp], [name of the mktemp executable to use (or 'none'
+		      to use a quilt internal mechanism)]),
     [
 	MKTEMP="$withval"
 	AC_SUBST(MKTEMP)
@@ -80,17 +81,22 @@ AC_ARG_WITH(mktemp, AC_HELP_STRING(
     ],[
 	AC_PATH_PROG(MKTEMP, mktemp)
     ])
-if test -z "$MKTEMP" ; then
-    AC_MSG_ERROR([Please specify the location of mktemp with the option '--with-mktemp'])
-fi
-
-AC_MSG_CHECKING(whether $MKTEMP -d works)
-if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
-   rmdir "$tempdir" ; then
-    AC_MSG_RESULT(yes)
+if test -z "$MKTEMP" -o "$MKTEMP" = "none" ; then
+    MKTEMP=internal_mktemp
 else
-    AC_MSG_RESULT(no)
-    AC_MSG_ERROR([$MKTEMP does not create temporary directories with -d])
+    AC_MSG_CHECKING(whether $MKTEMP -d works)
+    if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
+       rmdir "$tempdir" ; then
+	AC_MSG_RESULT(yes)
+    else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+'$MKTEMP -d' does not create temporary directories.
+If you don't have a version of mktemp that can create directories, you
+can specify '--with-mktemp=none' and $PACKAGE_NAME will use its own
+internal tempfile generation mechanism.
+])
+    fi
 fi
 
 # Check for diff
