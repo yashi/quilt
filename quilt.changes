@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Oct 28 14:51:07 CET 2003 - agruen@suse.de
+
+- Remove .pc/*/.pc files, and adjust various scripts accordingly.
+- Run test/one.test inside sub-directory.
+- Bump version number to 0.27 (cvs tag VER_0_27).
+
+-------------------------------------------------------------------
 Tue Oct 28 14:32:13 CET 2003 - agruen@suse.de
 
 - Change name and semantics of PATCHSCRIPTS variable: Before, if
