@@ -960,7 +960,7 @@ msgstr "Patch %s läßt sich nicht anwenden (erzwingen mit -f)\\n"
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
-#: ../scripts/patchfns.in:700
+#: ../scripts/patchfns.in:702
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -973,7 +973,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: ../scripts/patchfns.in:767
+#: ../scripts/patchfns.in:769
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

@@ -148,7 +148,9 @@ msgstr "Impossible de retirer le patch %s\\n"
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
 "patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
-msgstr "Usage : quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utilitaire] [--color] [fichier ...]\\n"
+msgstr ""
+"Usage : quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
+"P patch] [--snapshot] [--diff=utilitaire] [--color] [fichier ...]\\n"
 
 #: ../quilt/diff.in:26
 msgid ""
@@ -239,11 +241,14 @@ msgstr ""
 
 #: ../quilt/diff.in:213
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
-msgstr "Les options «-c patch», «--snapshot» et «-z» ne peuvent pas être combinées."
+msgstr ""
+"Les options «-c patch», «--snapshot» et «-z» ne peuvent pas être combinées."
 
 #: ../quilt/diff.in:240
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
-msgstr "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à la place\\n"
+msgstr ""
+"Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
+"la place\\n"
 
 #: ../quilt/diff.in:275
 msgid "Patch %s not applied before patch %s\\n"
@@ -410,7 +415,8 @@ msgstr ""
 
 #: ../quilt/import.in:74
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
-msgstr "L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
+msgstr ""
+"L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
 
 #: ../quilt/import.in:92
 msgid "Patch %s is applied\\n"
@@ -611,10 +617,12 @@ msgid ""
 msgstr ""
 "\n"
 "Applique un ou plusieurs patches de la série.  Si aucun argument n'est\n"
-"spécifié, le prochain patch est appliqué. Si un nombre est passé en argument,\n"
+"spécifié, le prochain patch est appliqué. Si un nombre est passé en "
+"argument,\n"
 "cela indique la quantité de patchs à appliquer. Si un nom de patch est\n"
 "spécifié, il est appliqué ainsi que tous ceux placés avant lui dans la\n"
-"série. Le nom des patchs peut contenir le préfix patches/ de façon à pouvoir\n"
+"série. Le nom des patchs peut contenir le préfix patches/ de façon à "
+"pouvoir\n"
 "profiter de la complétion sur le nom de fichier.\n"
 "\n"
 "-a\tApplique tous les patches de la série.\n"
@@ -661,7 +669,9 @@ msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
 "[patch]\\n"
-msgstr "Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] [patch]\\n"
+msgstr ""
+"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
+"[patch]\\n"
 
 #: ../quilt/refresh.in:26
 msgid ""
@@ -698,7 +708,8 @@ msgid ""
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
 "\n"
-"Rafraîchit un patch appliqué, ou celui au sommet à défaut. La documentation \n"
+"Rafraîchit un patch appliqué, ou celui au sommet à défaut. La "
+"documentation \n"
 "placée avant le début du patch dans le fichier est conservée.\n"
 "\n"
 "Il est possible de rafraîchir un patch ne se trouvant pas au sommet. Dans\n"
@@ -732,7 +743,9 @@ msgstr ""
 
 #: ../quilt/refresh.in:154
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
-msgstr "Impossible de rafraîchir des patchs avec -p%s. Veuillez spécifier -p0 ou -p1 à la place.\\n"
+msgstr ""
+"Impossible de rafraîchir des patchs avec -p%s. Veuillez spécifier -p0 ou -p1 "
+"à la place.\\n"
 
 #: ../quilt/refresh.in:181
 msgid ""
@@ -804,7 +817,9 @@ msgstr ""
 
 #: ../quilt/setup.in:27
 msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
-msgstr "Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}\\n"
+msgstr ""
+"Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
+"\\n"
 
 #: ../quilt/setup.in:30
 msgid ""
@@ -850,9 +865,11 @@ msgid ""
 "-d\tOnly remove current snapshot.\n"
 msgstr ""
 "\n"
-"Prend un instantané de l'état courant du répertoire de travail. Après cela, \n"
+"Prend un instantané de l'état courant du répertoire de travail. Après "
+"cela, \n"
 "il reste possible de travailler normalement avec quilt en poussant et en \n"
-"retirant des patches. Un différentiel entre l'arbre au moment de l'instantané \n"
+"retirant des patches. Un différentiel entre l'arbre au moment de "
+"l'instantané \n"
 "et son état courant peut être généré avec «quilt diff --snapshot».\n"
 "\n"
 "-d\tSupprime l'instantané actuel et termine.\n"
@@ -911,7 +928,8 @@ msgstr ""
 msgid ""
 "The quilt meta-data in %s already are have format version %s; nothing to do"
 "\\n"
-msgstr "Les méta-données de quilt dans %s sont déjà au format %s ; rien à faire\\n"
+msgstr ""
+"Les méta-données de quilt dans %s sont déjà au format %s ; rien à faire\\n"
 
 #: ../quilt/upgrade.in:71
 msgid "Converting meta-data to version %s\\n"
@@ -959,7 +977,8 @@ msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
 #: ../scripts/apatch.in:126
 msgid "Patch %s does not apply (enforce with -f)\\n"
-msgstr "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
+msgstr ""
+"Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
 #: ../scripts/apatch.in:184
 msgid "The topmost patch %s needs to be refreshed first.\\n"

@@ -701,7 +701,7 @@ msgstr ""
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:700
+#: ../scripts/patchfns.in:702
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -709,7 +709,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:767
+#: ../scripts/patchfns.in:769
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

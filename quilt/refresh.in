@@ -213,7 +213,7 @@ then
 	awk '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
-	      for (i in arr)
+	      for (i=1; i in arr; i++)
 		print prefix arr[i]
 	    }
 	    BEGIN	{ split(diffstat, ds_arr, /\n/) }
@@ -235,7 +235,7 @@ then
 			    print prefix
 			  }
 			}
-	    ' diffstat="$diffstat"$ \
+	    ' diffstat="$diffstat" \
 	    $tmp_header > $tmp_result
 else
 	cat $tmp_header > $tmp_result

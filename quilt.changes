@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul 13 00:31:38 CEST 2004 - agruen@suse.de
+
+- refresh command: Fix --diffstat option; it did swap lines. Also
+  remove stray dollar sign.
+
+-------------------------------------------------------------------
 Sun Jul 11 21:33:13 PDT 2004 - mquinson@tuxfamily.org
 
 - Sync french translation after the recent butchery ;)
