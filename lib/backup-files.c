@@ -137,6 +137,7 @@ link_or_copy(const char *from, struct stat *st, const char *to)
 		close(from_fd);
 		return 1;
 	}
+	(void) fchmod(to_fd, st->st_mode);
 	if (copy(from_fd, to_fd)) {
 		fprintf(stderr, "%s -> %s: %s\n", from, to, strerror(errno));
 		unlink(to);
@@ -187,6 +188,7 @@ ensure_nolinks(const char *filename)
 			goto fail;
 		if (copy(from_fd, to_fd))
 			goto fail;
+		(void) fchmod(to_fd, st.st_mode);
 		if (rename(tmpname, filename))
 			goto fail;
 

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun  1 22:59:41 CEST 2004 - agruen@suse.de
+
+- Fix from Dean Roehrich <roehrich@sgi.com>: Preserve file mode
+  of original file when creating backup files.
+
+-------------------------------------------------------------------
 Tue Jun  1 10:23:01 PDT 2004 - mquinson@tuxfamily.org
 
 - document common options to all scripts (--trace and --quiltrc)
