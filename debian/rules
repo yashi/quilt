@@ -44,7 +44,7 @@ clean:
 	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-test -f Makefile && $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt clean
+	-test -f Makefile && touch Makefile && $(MAKE) prefix=/usr BUILD_ROOT=$(CURDIR)/debian/quilt distclean
 
 	dh_clean
 
