@@ -603,9 +603,8 @@ patch_description()
 	then
 		@AWK@ '
 		$1 == "---"	{ exit }
-		$1 == "Index:"	{ eat = eat $0
-				  next }
-		$1 == "diff"	{ eat = eat $0
+               /^Index:[ \t]|^diff[ \t]|^=*$/ \
+                               { eat = eat $0
 				  next }
 		eat		{ print eat
 				  eat="" }

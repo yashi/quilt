@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Mar 24 12:29:58 CET 2003 - agruen@suse.de
+
+- Update patch_description function used in `quilt refresh' to
+  recognize `====' lines. Without that, quilt thinks these
+  lines are part of the comments before the actual patch starts,
+  so those lines will accumulate.
+
+-------------------------------------------------------------------
 Sun Mar 23 21:37:20 CET 2003 - agruen@suse.de
 
 - Update test script to reflect recent patch format changes.
