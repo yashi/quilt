@@ -3,7 +3,7 @@
 Source: quilt
 Section: devel
 Priority: optional
-Maintainer: Martin Quinson <martin.quinson@ens-lyon.fr>
+Maintainer: Martin Quinson <martin.quinson@tuxfamily.org>
 Build-Depends: debhelper (>= 4.1.0), cdbs, gettext
 Standards-Version: 3.6.1.0
 
