@@ -73,12 +73,13 @@ do_diff()
 	
 	if [ -n "$opt_diff" ]
 	then
-		if ! @DIFF@ -q $old_file $new_file >/dev/null
+		if ! @DIFF@ -qN $old_file $new_file >/dev/null
 		then
 			$opt_diff $old_file $new_file
 			true
 		fi
 	else
+		echo diff_file $file $suffix $old_file $new_file
 		diff_file $file $suffix $old_file $new_file
 	fi
 }
