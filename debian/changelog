@@ -2,7 +2,8 @@ quilt (0.35-2) unstable; urgency=low
 
   * NOT YET RELEASED
   * Acknoledge NMU. Thanks Matt! (Closes: #264053)
-  * Use my Debian address as maintainer
+  * Use my Debian address as maintainer.
+  * Fix two typos in description. Thanks Matt (Kraii) ! (Closes: #266195)
 
  -- Martin Quinson <mquinson@debian.org>  Sat,  7 Aug 2004 14:58:21 -0700
 
