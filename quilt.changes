@@ -1,5 +1,12 @@
 -------------------------------------------------------------------
-Thu Jul 15 15:23:33 PDT 2004 = mquinson@tuxfamily.org
+Wed Jul 21 19:38:14 PDT 2004 - mquinson@tuxfamily.org
+
+- repharse the output of rpatch when patch does not remove properly:
+  refreshing the patch is another way to fix it
+- sync french translation.
+
+-------------------------------------------------------------------
+Thu Jul 15 15:23:33 PDT 2004 - mquinson@tuxfamily.org
 
 - patch from Joe Green to "Complete options for a partial command as long as
   it's unique. quilt will accept such a partial command as valid."
