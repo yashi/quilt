@@ -48,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/quilt/
 /usr/lib/quilt/
 
-/usr/share/locale/
+/usr/share/locale/*/LC_MESSAGES/quilt.mo
 
 %doc /usr/share/man/man1/guards.1.gz
 %doc doc/README

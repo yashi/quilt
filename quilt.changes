@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May 18 15:23:03 CEST 2003 - agruen@suse.de
+
+- Do not add the whole /usr/share/locale directory to the RPM
+  file list, but only the quilt message catalogs: Otherwise RPM
+  complains when uninstalling.
+
+-------------------------------------------------------------------
 Fri May 16 20:44:50 CEST 2003 - agruen@suse.de
 
 - Rename DIFF_OPTS environment variable to QUILT_DIFF_OPTS
