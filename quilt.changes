@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jul 26 13:10:19 CEST 2003 - agruen@suse.de
+
+- Pushing is only possible if the topmost file is found in the
+  series file. Fix from Tom Wang <wangdi@clusterfs.com>.
+
+-------------------------------------------------------------------
 Sat Jul 26 13:06:07 CEST 2003 - agruen@suse.de
 
 - When popping files, go through the list of applied patches
