@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jul 11 21:33:13 PDT 2004 - mquinson@tuxfamily.org
+
+- Sync french translation after the recent butchery ;)
+- Commit patch from Joe Green to make the completion file usable on
+  non-debian systems.
+
+-------------------------------------------------------------------
 Mon Jul 12 03:02:19 CEST 2004 - agruen@suse.de
 
 - Some more QUILT_PATCHES_PREFIX fixes.
