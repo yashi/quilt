@@ -22,6 +22,13 @@ BASH :=		@BASH@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
+MSGFMT :=	@MSGFMT@
+
+ifeq "$(MSGFMT)" ""
+MAKE_NLS :=	@true
+else
+MAKE_NLS :=	$(MAKE)
+endif
 
 CFLAGS :=	@CFLAGS@ -Wall
 
@@ -79,6 +86,7 @@ SRC +=		$(PO:%=po/%)
 #-----------------------------------------------------------------------
 
 all : scripts
+	$(MAKE_NLS) -C po all BUILD_ROOT=$(BUILD_ROOT)
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
@@ -162,8 +170,8 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	@chmod --reference=$< $@
 
 Makefile : Makefile.in
-	echo "Please run ./configure by hand"
-	false
+	@echo "Please run ./configure by hand"
+	@false
 
 install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
@@ -187,9 +195,8 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
 	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 	
-	$(MAKE) -C po install BUILD_ROOT=$(BUILD_ROOT) \
+	$(MAKE_NLS) -C po install BUILD_ROOT=$(BUILD_ROOT) \
 		LINGUAS="$(LINGUAS)" localedir=$(localedir)
-
 
 clean :
 	rm -f $(DIRT)
