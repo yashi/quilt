@@ -3,10 +3,6 @@ QUILT_IN :=   add applied delete diff files import new next patches \
 SCRIPTS_IN := apatch rpatch patchfns spec2series patchfns
 # scripts/parse-patch is perl based
 
-TO_PARSE= $(foreach f,$(QUILT_IN),../quilt/$(f).in)      \
-          $(foreach f,$(SCRIPTS_IN),../scripts/$(f).in)  \
-	  ../bin/quilt.in
-
 # LINGUAS = ...
 # localedir = ...
 
@@ -18,11 +14,11 @@ all: $(LINGUAS:%=%.mo)
 %.po : quilt.pot
 	msgmerge -o $@ $@ $^
 
-quilt.pot: $(TO_PARSE)
+quilt.pot: $(QUILT_IN:%=../quilt/%.in) $(SCRIPTS_IN:%=../scripts/%.in) ../bin/quilt.in
 	rm -f quilt.pot; touch quilt.pot
-	for file in $(TO_PARSE) ; do \
+	for file in $+ ; do \
 	  bash --dump-po-strings $$file \
-	    |msguniq\
+	    |msguniq \
 	    |msgcat --force-po -F - quilt.pot -o quilt.pot; \
 	done
 
