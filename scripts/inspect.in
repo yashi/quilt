@@ -37,7 +37,7 @@ then
 fi
 sourcedir=${specfile%/*}
 
-tmpdir="$(gen_tempfile -d ${TMPDIR-/tmp}/${0##*/})"
+tmpdir="$(gen_tempfile -d ${TMPDIR-/var/tmp}/${0##*/})"
 mkdir -p $tmpdir || exit 1
 trap "rm -rf $tmpdir" EXIT
 mkdir -p $tmpdir/build
