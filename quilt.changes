@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan  8 03:48:22 CET 2004 - agruen@suse.de
+
+- Also accept `quilt diff -z ./file' (ignore the ./ prefix that
+  is often produced by find etc.)
+
+-------------------------------------------------------------------
 Thu Nov 27 17:16:48 CET 2003 - agruen@suse.de
 
 - `quilt fold' did not create directories for additional files,
