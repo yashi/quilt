@@ -83,6 +83,10 @@ do
 		patch=$opt_patch
 	else
 		patch=$patch_file
+		while [ "${patch#/}" != "$patch" ]
+		do
+			patch=${patch#/}
+		done
 	fi
 
 	if is_applied $patch
@@ -102,14 +106,16 @@ do
 	else
 		echo $"Importing patch $patch_file (stored as $patch)"
 	fi
-	if ! cp "$patch_file" "$QUILT_PATCHES/$patch"
+	dest=$QUILT_PATCHES/$patch
+	mkdir -p "${dest%/*}"
+	if ! cp "$patch_file" "$dest"
 	then
 		echo $"Failed to import patch $patch"
 		exit 1
 	fi
 
 	if ! patch_in_series $patch &&
-	   ! insert_in_series $opt_patch "$patch_args"
+	   ! insert_in_series $patch "$patch_args"
 	then
 		echo $"Failed to insert $patch in file series."
 	fi

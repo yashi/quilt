@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jun  6 03:35:32 CEST 2004 - agruen@suse.de
+
+- import: Create patches/ and parent directories to patch to be
+  imported. Insert the correct patch name in the series file.
+
+-------------------------------------------------------------------
 Sun Jun  6 02:02:32 CEST 2004 - agruen@suse.de
 
 - backup-file.c: Add code to recursively search .pc directories.

@@ -409,27 +409,27 @@ msgid "Option \\`-n' can only be used when importing a single patch"
 msgstr ""
 "L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch."
 
-#: ../quilt/import.in:90
+#: ../quilt/import.in:94
 msgid "Patch $patch is applied."
 msgstr "Le patch $patch est appliqué."
 
-#: ../quilt/import.in:98
+#: ../quilt/import.in:102
 msgid "Patch $patch exists. Replace with -f."
 msgstr "Le patch $patch existe. Utilisez -f pour le remplacer."
 
-#: ../quilt/import.in:101
+#: ../quilt/import.in:105
 msgid "Replacing patch $patch with new version"
 msgstr "Remplacement du patch $patch avec la nouvelle version"
 
-#: ../quilt/import.in:103
+#: ../quilt/import.in:107
 msgid "Importing patch $patch_file (stored as $patch)"
 msgstr "Import du patch $patch_file (enregistré dans $patch)"
 
-#: ../quilt/import.in:107
+#: ../quilt/import.in:113
 msgid "Failed to import patch $patch"
 msgstr "Impossible d'importer le patch $patch"
 
-#: ../quilt/import.in:114
+#: ../quilt/import.in:120
 msgid "Failed to insert $patch in file series."
 msgstr "Impossible d'inserer $patch dans le fichier de série."
 
