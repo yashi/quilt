@@ -61,7 +61,6 @@ DEB_QUILT_CMD = $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHES=$(DEB_QUILT_PATCHD
 post-patches:: apply-patches
 
 clean:: reverse-patches
-	rm -f debian/stamp-patch*
 
 # The patch subsystem
 apply-patches: pre-build debian/stamp-patched
@@ -83,5 +82,6 @@ reverse-patches:
 	  fi ; \
 	fi
 	rm -rf .pc
+	rm -f debian/stamp-patch*
 
 endif
