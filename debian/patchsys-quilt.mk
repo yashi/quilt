@@ -63,6 +63,23 @@ DEB_QUILT_CMD = cd $(DEB_SRCDIR) && $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHE
 # Declare Build-Dep of packages using this file onto quilt
 CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), quilt
 
+# Build-Dep on patchutils to check for fool souls patching config.* files
+# This is a Bad Thing since cdbs updates those files automatically.
+#  (code stolen from cdbs itself, in dpatch.mk)
+
+CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), patchutils
+
+evil_patches_that_do_nasty_things := $(shell\
+if lsdiff=which lsdiff ; then \
+  $$lsdiff -H $(DEB_PATCHES) \
+  | egrep "/config\.(guess|sub|rpath)$" | tr "\n" " " ; \
+fi)
+
+ifneq (, $(evil_patches_that_do_nasty_things))
+$(warning WARNING:  The following patches are modifying auto-updated files. This can result in serious trouble:  $(evil_patches_that_do_nasty_things))
+endif
+
+
 post-patches:: apply-patches
 
 clean:: reverse-patches
@@ -70,6 +87,7 @@ clean:: reverse-patches
 # The patch subsystem
 apply-patches: pre-build debian/stamp-patched
 debian/stamp-patched: 
+	$(MAKE) -f debian/rules reverse-config 
 	if [ -n "$(DEB_QUILT_PATCHDIR_LINK)" ] ; then \
 	  if [ -L $(DEB_SRCDIR)/$(DEB_QUILT_PATCHDIR_LINK) ] ; then : ; else \
 	    (cd $(DEB_SRCDIR); ln -s $(DEB_PATCHDIRS) $(DEB_QUILT_PATCHDIR_LINK)) ; \
@@ -79,8 +97,10 @@ debian/stamp-patched:
 	# That's not an error here (but it's usefull to break loops in crude scripts)
 	$(DEB_QUILT_CMD) push -a || test $$? = 2
 	touch debian/stamp-patched
+	$(MAKE) -f debian/rules reverse-config
 
 reverse-patches:
+	$(MAKE) -f debian/rules reverse-config
 	if [ -d "$(DEB_SRCDIR)" ] ; then \
 	  $(DEB_QUILT_CMD) pop -a -R || test $$? = 2 ; \
 	fi 
@@ -91,5 +111,6 @@ reverse-patches:
 	fi
 	rm -rf $(DEB_SRCDIR)/.pc
 	rm -f debian/stamp-patch*
+	$(MAKE) -f debian/rules reverse-config
 
 endif
