@@ -507,21 +507,13 @@ name. (An entry for \textsf{a.diff} with strip level zero might read
 ``{\small \verb|a.diff -p0|}''.)
 
 Another common operation is to incorporate a fix or similar that comes
-as a patch into the topmost patch. While there is no specific command
-for this, the desired result can be achieved by first adding all the
-files that the fix modifies into the patch, and then apply the patch to
-the working tree. The following commands achieve this for a patch with
-a strip level of one:\footnote{
-	\prog{lsdiff} is part of the \textit{patchutils} package, and
-	generates a list of files a patch modifies.
-}
-
-\begin{small}
-\begin{Verbatim}
-\sh{$ quilt add `lsdiff --strip 1 patch.diff`}
-\sh{$ patch -p1 < patch.diff}
-\end{Verbatim}
-\end{small}
+as a patch into the topmost patch. This can be done by hand by first
+adding all the files contained in the additional patch to the topmost
+patch with \quilt{add},\footnote{
+	The \prog{lsdiff}, which is part of the \textit{patchutils}
+	package, generates a list of files affected by a patch.
+} and then applying the patch to the working tree.  The \quilt{fold}
+command combines these steps.
 
 \subsection{Forking}
 \label{sec:forking}
