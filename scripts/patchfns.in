@@ -272,6 +272,25 @@ is_applied()
 	grep -q -E "^$(quote_re $patch)\$" $DB
 }
 
+applied_patches()
+{
+	[ -e $DB ] || return 1
+	cat $DB
+}
+
+applied_before()
+{
+	local patch=$1
+
+	if [ -n "$patch" ]
+	then
+		@AWK@ '
+		$0 == "'"$patch"'"	{ exit }
+					{ print }
+		' $DB
+	fi
+}
+		
 patches_before()
 {
 	local patch=$1

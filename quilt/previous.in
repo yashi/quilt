@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt previous [patch]"
+	echo $"Usage: quilt previous [-n] [patch]"
 	if [ x$1 = x-h ]
 	then
 		echo $"
@@ -69,12 +69,13 @@ else
 	patch=$(top_patch)
 fi
 
-if [ -n "$patch" ]
+previous=$(applied_before "$patch" | tail -n 1)
+if [ -n "$previous" ]
 then
-	previous=$(patches_before $patch | tail -n 1)
 	[ -n "$opt_filenames" ] && previous=$(patch_file_name $previous)
 	echo "$previous"
 fi
+
 ### Local Variables:
 ### mode: shell-script
 ### End:

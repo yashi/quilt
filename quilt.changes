@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Jul 26 13:06:07 CEST 2003 - agruen@suse.de
+
+- When popping files, go through the list of applied patches
+  instead of looking at the series file: The series file may
+  have changed.
+
+-------------------------------------------------------------------
 Sat Jul 26 12:49:36 CEST 2003 - agruen@suse.de
 
 - Install package documentation into $RPM_DOC_DIR if this

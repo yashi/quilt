@@ -50,13 +50,8 @@ patch name is specified, remove the next patch from the series file.
 
 list_patches()
 {
-	local top=$(top_patch) n=0 patch
-	if [ -z "$top" ]
-	then
-		return 0
-	fi
-	( patches_before $top
-	  echo $top ) \
+	local n=0 patch
+	applied_patches \
 	| tac \
 	| if [ -n "$opt_all" ]
 	then
@@ -78,11 +73,6 @@ list_patches()
 			fi
 			echo $patch
 		done
-		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
-		then
-			echo $"Patch $stop_at_patch not found in file series" >&2
-			return 1
-		fi
 	fi
 }
 

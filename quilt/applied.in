@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt applied [patch]"
+	echo $"Usage: quilt applied [-n] [patch]"
 	if [ x$1 = x-h ]
 	then
 		echo $"
@@ -27,7 +27,9 @@ usage()
 Print a list of applied patches, or all patches up to and including the
 specified patch in the file series.
 
--n	Print patch file names instead of patch names."
+-n	Print patch file names instead of patch names.
+
+"
 
 		exit 0
 	else
@@ -64,21 +66,21 @@ then
 elif [ $# -eq 1 ]
 then
 	patch=$(stripit $1)
+	if ! is_applied "$patch"
+	then
+		echo $"Patch $patch is not applied" >&2
+		exit 1
+	fi
 else
 	patch=$(top_patch)
 fi
 
-if [ -n "$patch" ]
-then
-	for patch in $(
-		patches_before $patch
-		echo $patch
-	)
-	do
-		[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
-		echo $patch
-	done
-fi
+for patch in $(applied_before "$patch") $patch
+do
+	[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
+	echo $patch
+done
+
 ### Local Variables:
 ### mode: shell-script
 ### End:

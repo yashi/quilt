@@ -42,7 +42,8 @@ included.
 
 -c patch
 	Create a combined diff for all patches between this patch and
-	the patch specified with -P.
+	the patch specified with -P. A patch name of \"-\" is equivalent
+	to specifying the first applied patch.
 
 -R	Create a reverse diff.
 
