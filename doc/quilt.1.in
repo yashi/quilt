@@ -1,0 +1,139 @@
+.\"Created by Martin Quinson from the tex documentation
+.\"
+.TH quilt 1 "February 21, 2004" "quilt"
+ 
+.SH NAME
+quilt \- tool to manage series of patches
+
+.SH SYNOPSIS
+.B quilt
+[-h] command [options]
+
+.SH DESCRIPTION
+Quilt is a tool to manage large sets of patches by keeping track of the 
+changes each patch makes. Patches can be applied, un-applied, refreshed,
+etc. The key philosophical concept is that your primary output is patches.
+
+With quilt, all work occurs within a single directory tree. Commands can be
+be invoqued from anywhere within the source tree. They are of the form
+.B quilt cmd
+similar to CVS commands. They can be abbreviated as long as the specified
+part of the command is unique. All commands print  some help text with
+.B quilt cmd -h.
+
+Quilt manages a stack of patches. Patches are applied incrementally on top
+of the base tree plus all preceding patches. They can be pushed on top of
+the stack 
+.RB ( "quilt push" ),
+and popped off the stack
+.RB ( "quilt pop" ).  
+Commands are available for querying the contents of the series file 
+.RB ( "quilt series" ,
+see below), the contents of the stack 
+.RB ( "quilt applied" , " quilt previous" , " quilt top" ),
+and the patches that are not applied at a particular moment 
+.RB ( "quilt next" , " quilt unapplied" ).
+By default, most commands apply to the topmost patch on the stack.
+
+Patch files are located in the 
+.I patches
+sub-directory of the source tree (see EXAMPLE OF WORKING TREE below). The 
+.I QUILT_PATCHES
+environment variable can be used to override this location. The
+.I patches
+directory may contain sub-directories. It may also be a symbolic link
+instead of a directory. 
+
+A file called
+.I series
+contains a list of patch file names that defines the order in which patches
+are applied. Unless there are means by which series files can be generated
+automatically, it is usually provided along with a set of patches. In this
+file, each patch file name is on a separate line. Patch files are identified
+by pathnames that are relative to the
+.I patches
+directory; patches may be in sub-directories below the this directory. Lines
+in the series file that start with a hash character (#) are ignored. When
+quilt adds, removes, or renames patches, it automatically updates the series
+file. Users of quilt can modify series files while some patches are
+applied, as long as the applied patches remain in their original order.
+                                                             
+Different series files can be used to assemble patches in different ways,
+corresponding for example to different development branches.
+
+Before a patch is applied (or ``pushed on the stack''), copies of all files
+the patch modifies are saved to the 
+.RI .pc/ patch
+directory. The patch is added to the list of currently applied patches
+(.pc/applied-patches). Later when a patch is regenerated 
+.RB ( "quilt refresh" ),
+the backup copies in 
+.RI .pc/ patch
+are compared with the current versions of the files in the source tree using
+GNU diff. 
+                                                             
+Documentation related to a patch can be put at the beginning of a patch
+file.  Quilt is careful to preserve all text that precedes the actual patch
+when doing a refresh. (This is limited to patches in unified format; see
+.B diff
+documentation).
+
+The series file is looked up in the root of the source tree, in the patches
+directory, and in the .pc directory.  The first series file that is found is
+used. This may also be a symbolic link, or a file with multiple hard links.
+Usually, only one series file is used for a set of patches, so the
+patches sub-directory is a convenient location.
+                                                             
+The .pc directory and its sub-directories cannot be relocated, but it can be
+a symbolic link. While patches are applied to the source tree, this
+directory is essential for many operations, including taking patches off the
+stack 
+.RB ( "quilt pop" ),
+and refreshing patches 
+.RB ( "quilt refresh" ).
+Files in the \textsf{.pc} directory are automatically removed when they are
+no longer needed, so there is no need to clean up manually.
+
+.SH QUILT COMMANDS REFERENCE
+
+@REFERENCE@
+
+.SH EXAMPLE OF WORKING TREE
+
+.nf
+   +- work/ -+- ...
+   |         |- patches/ -+- series
+   |         |            |- patch2.diff
+   |         |            |- patch1.diff
+   |         |            +- ...
+   |         +- .pc/ -+- applied-patches
+   |                  |- patch1/ -+- ...
+   |                  |- patch2/ -+- ...
+   |                  +- ...
+.fi
+
+.SH EXAMPLE
+
+Please refere to the pdf documentation for an example.
+
+.SH FILES
+
+.IP ~/.quiltrc 4
+Configuration (see pdf documentation for more details).
+
+.SH AUTHORS
+
+Quilt started as a series of scripts written by Andrew Morton
+(patch-scripts). Based on Andrew's ideas, Andreas Gruenbacher completely
+rewrote the scripts, with the help of several other contributors (see
+AUTHORS file in the distribution).
+
+This man page was written by Martin Quinson, based on information found in
+the pdf documentation, and in the help messages of each commands.
+
+.SH SEE ALSO
+
+The pdf documentation, which should be under /usr/share/doc/quilt/quilt.pdf.
+
+.BR diff ( 1 ),
+.BR patch ( 1 )
