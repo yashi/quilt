@@ -115,7 +115,7 @@ doc/README : doc/README.in
 	@while read line; do \
 		case "$$line" in \
 		'@REFERENCE''@') \
-			$(MAKE) -s reference \
+			$(MAKE) -s reference |egrep -v '^make'\
 			;; \
 		*) \
 			echo $$line \
@@ -129,7 +129,7 @@ reference : $(QUILT:%=quilt/%)
 	do \
 		echo "$$i >> README" >&2; \
 		echo; \
-		(bash -c ". scripts/patchfns ; . $$i -h"); \
+		(bash -c ". scripts/patchfns ;LC_ALL=C . $$i -h"); \
 	done | \
 	sed -e '/^Usage: \?/ {s/^Usage: \?// ; p ; d}' \
 	    -e 's/^/  /'
