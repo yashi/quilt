@@ -49,7 +49,11 @@ included.
 
 --diff=utility
 	Use the specified utility for generating the diff. The utility
-	is invoked with the original and new file name as arguments."
+	is invoked with the original and new file name as arguments.
+	
+--no-timestamps
+	Do not include file timestamps in patch headers (as if
+        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
 		exit 0
 	else
 		exit 1
@@ -91,7 +95,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:Rzh --long diff:,snapshot -- "$@"`
+options=`getopt -o p:P:c:Rzh --long diff:,snapshot,no-timestamps -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -139,6 +143,8 @@ do
 	--diff)
 		opt_diff="$2"
 		shift 2 ;;
+	--no-timestamps)
+		QUILT_DIFF_NO_TIMESTAMPS=yes ;;
 	--)
 		shift
 		break ;;

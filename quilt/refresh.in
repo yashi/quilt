@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt refresh [-p n] [-f] [patch]"
+	echo $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [patch]"
 	
 	if [ x$1 = x-h ]
 	then
@@ -39,7 +39,11 @@ patch.
 -p n	Create a -p n style patch (-p0 or -p1 supported).
 	
 -f	Force refresh, even if more recent patches modify
-	some of the same files."
+	some of the same files.
+	
+--no-timestamps
+	Do not include file timestamps in patch headers (as if
+        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
 		exit 0
 	else
 		exit 1
@@ -54,7 +58,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:fh -- "$@"`
+options=`getopt -o p:fh --long no-timestamps -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -74,6 +78,8 @@ do
 		shift ;;
 	-h)
 		usage -h ;;
+	--no-timestamps)
+		QUILT_DIFF_NO_TIMESTAMPS=yes ;;
 	--)
 		shift
 		break ;;
