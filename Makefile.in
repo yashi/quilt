@@ -86,6 +86,8 @@ LINGUAS :=	fr de
 PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 
+SRC +=		test/one.test test/run
+
 #-----------------------------------------------------------------------
 
 all : scripts
