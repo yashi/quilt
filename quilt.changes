@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Feb  2 01:16:57 CET 2005 - agruen@suse.de
+
+- Use color defaults so that QUILT_COLORS can be used to only
+  override some colors.
+- When checking for remaining changes (refresh forgotten), use
+  $QUILT_PATCH_OPTS as in the push command to get identical
+  results. Don't generate the actually diff; it doesn't get
+  printed anyway. This should speed up things.
+
+-------------------------------------------------------------------
 Thu Jan 27 08:14:34 CET 2005 - agruen@suse.de
 
 - lib/backup-files.c: Remove unused command line option and

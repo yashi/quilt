@@ -104,7 +104,6 @@ check_for_pending_changes()
 {
 	local patch=$1
 	local patch_file=$(patch_file_name $patch)
-	local patch_args=$(patch_args $patch)
 	local workdir=$(gen_tempfile -d quilt) status=0
 
 	if [ -d $QUILT_PC/$patch ]
@@ -129,7 +128,8 @@ check_for_pending_changes()
 	if [ -s $patch_file ]
 	then
 		if ! cat_file $patch_file \
-		     | @PATCH@ -d $workdir $patch_args \
+		     | @PATCH@ -d $workdir $QUILT_PATCH_OPTS \
+			       $(patch_args $patch) \
 			       --no-backup-if-mismatch -E \
 			       >/dev/null 2>/dev/null
 		then
@@ -142,19 +142,21 @@ check_for_pending_changes()
 		fi
 	fi
 	
-	local remains=$(gen_tempfile)
-	for file in $(files_in_patch $patch)
+	local file failed
+	for file2 in $(files_in_patch $patch)
 	do
-		diff_file $file $workdir/$file $file >> $remains
+		file=$workdir/$file2
+		[ -e $file  ] || file=/dev/null
+		[ -e $file2 ] || file2=/dev/null
+		@DIFF@ -q $file $file2 > /dev/null || failed=1
 	done
 	
-	if [ -s $remains ]
+	if [ -n "$failed" ]
 	then
 		printf $"Patch %s does not remove cleanly (refresh it or enforce with -f)\n" \
 		       "$(print_patch $patch)" >&2
 		status=1
 	fi
-	rm -f $remains
 	rm -rf $workdir
 
 	return $status
