@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jan 20 12:36:25 CET 2005 - mquinson@debian.org
+
+- fix the bash completion file: 
+  - does not complete on dir anymore, just files.
+  - use string comparison when dealing with BASH_VERSION, it may contain
+    letters.
+
+-------------------------------------------------------------------
 Tue Jan 11 03:53:19 CET 2005 - agruen@suse.de
 
 - Add a default /etc/quilt.quiltrc file that is sourced if no
