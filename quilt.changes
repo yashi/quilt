@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun May 16 12:15:13 CEST 2004 - agruen@suse.de
+
+- Clarify help text of `quilt add' (thanks to  Tom Rini
+  <trini@mvista.com>). Update translations.
+
+-------------------------------------------------------------------
 Sun May 16 01:35:10 CEST 2004 - agruen@suse.de
 
 - Add `quilt grep': Grep over all files, recursively, skipping

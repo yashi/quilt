@@ -100,7 +100,7 @@ do
 		fi
 		echo $"Replacing patch $patch with new version"
 	else
-		echo $"Importing patch $patch (stored as $patch)"
+		echo $"Importing patch $patch_file (stored as $patch)"
 	fi
 	if ! cp "$patch_file" "$QUILT_PATCHES/$patch"
 	then
