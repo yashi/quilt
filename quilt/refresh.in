@@ -246,7 +246,7 @@ cat $tmp_patch >> $tmp_result
 if [ -e $patch_file ] && \
     @DIFF@ -q $patch_file $tmp_result > /dev/null
 then
-	printf $"Patch %s is unchanged\n" "$patch"
+	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
 	exit 0
 fi
 

@@ -597,7 +597,7 @@ patch_description()
 	then
 		@AWK@ '
 		$1 == "***" || $1 == "---"	{ exit }
-		/^Index:[ \t]|^diff[ \t]|^==*$/ \
+		/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
 			{ eat = eat $0 "\n"
 			  next }
 			{ print eat $0
