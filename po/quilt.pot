@@ -27,7 +27,8 @@ msgstr ""
 msgid "No patch applied"
 msgstr ""
 
-#: ../quilt/add.in:80 ../quilt/refresh.in:113 ../quilt/remove.in:80
+#: ../quilt/add.in:80 ../quilt/applied.in:71 ../quilt/refresh.in:113
+#: ../quilt/remove.in:80
 msgid "Patch $patch is not applied"
 msgstr ""
 
@@ -48,7 +49,7 @@ msgid "File $file added to patch $patch"
 msgstr ""
 
 #: ../quilt/applied.in:22
-msgid "Usage: quilt applied [patch]"
+msgid "Usage: quilt applied [-n] [patch]"
 msgstr ""
 
 #: ../quilt/applied.in:25
@@ -58,7 +59,8 @@ msgid ""
 "Print a list of applied patches, or all patches up to and including the\n"
 "specified patch in the file series.\n"
 "\n"
-"-n\tPrint patch file names instead of patch names."
+"-n\tPrint patch file names instead of patch names.\n"
+"\n"
 msgstr ""
 
 #: ../quilt/delete.in:22
@@ -106,7 +108,8 @@ msgid ""
 "\n"
 "-c patch\n"
 "\tCreate a combined diff for all patches between this patch and\n"
-"\tthe patch specified with -P.\n"
+"\tthe patch specified with -P. A patch name of \\\"-\\\" is equivalent\n"
+"\tto specifying the first applied patch.\n"
 "\n"
 "-R\tCreate a reverse diff.\n"
 "\n"
@@ -115,61 +118,61 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../quilt/diff.in:131
+#: ../quilt/diff.in:132
 msgid "Options \\`-c patch' and \\`-z' cannot be combined."
 msgstr ""
 
-#: ../quilt/diff.in:140 ../quilt/refresh.in:106
+#: ../quilt/diff.in:141 ../quilt/refresh.in:106
 msgid "No patch seem to be applied"
 msgstr ""
 
-#: ../quilt/diff.in:147
+#: ../quilt/diff.in:148
 msgid "Patch $last_patch is not applied"
 msgstr ""
 
-#: ../quilt/diff.in:157
+#: ../quilt/diff.in:158
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
 msgstr ""
 
-#: ../quilt/diff.in:165
+#: ../quilt/diff.in:166
 msgid "refresh_patches_per_file failed."
 msgstr ""
 
-#: ../quilt/diff.in:178
+#: ../quilt/diff.in:179
 msgid "Patch $opt_combine not applied before $last_patch."
 msgstr ""
 
-#: ../quilt/diff.in:212
+#: ../quilt/diff.in:213
 msgid "File $file is not being modified."
 msgstr ""
 
-#: ../quilt/diff.in:229
+#: ../quilt/diff.in:230
 msgid "Cannot change into .pc/$last_patch"
 msgstr ""
 
-#: ../quilt/diff.in:234
+#: ../quilt/diff.in:235
 msgid "Failed to copy files to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:239
+#: ../quilt/diff.in:240
 msgid "Cannot change to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:256
+#: ../quilt/diff.in:257
 msgid "Failed to patch temporary files"
 msgstr ""
 
-#: ../quilt/diff.in:263
+#: ../quilt/diff.in:264
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:292 ../quilt/refresh.in:144
+#: ../quilt/diff.in:293 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr ""
 
-#: ../quilt/diff.in:299
+#: ../quilt/diff.in:300
 msgid "More recent patches modify files in $last_patch."
 msgstr ""
 
@@ -356,32 +359,28 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../quilt/pop.in:83 ../quilt/push.in:87
-msgid "Patch $stop_at_patch not found in file series"
-msgstr ""
-
-#: ../quilt/pop.in:156
+#: ../quilt/pop.in:146
 msgid "Patch $stop_at_patch is not applied."
 msgstr ""
 
-#: ../quilt/pop.in:166
+#: ../quilt/pop.in:156
 msgid "No patch removed"
 msgstr ""
 
-#: ../quilt/pop.in:180 ../quilt/push.in:193
+#: ../quilt/pop.in:170 ../quilt/push.in:201
 msgid "Interrupted by user"
 msgstr ""
 
-#: ../quilt/pop.in:189 ../quilt/push.in:202
+#: ../quilt/pop.in:179 ../quilt/push.in:210
 msgid "No patches applied"
 msgstr ""
 
-#: ../quilt/pop.in:191 ../quilt/push.in:204
+#: ../quilt/pop.in:181 ../quilt/push.in:212
 msgid "Now at patch $patch"
 msgstr ""
 
 #: ../quilt/previous.in:22
-msgid "Usage: quilt previous [patch]"
+msgid "Usage: quilt previous [-n] [patch]"
 msgstr ""
 
 #: ../quilt/previous.in:25
@@ -427,11 +426,22 @@ msgid ""
 "\n"
 msgstr ""
 
+#: ../quilt/push.in:87
+msgid "Patch $stop_at_patch not found in file series"
+msgstr ""
+
 #: ../quilt/push.in:163
 msgid "Patch $stop_at_patch is already applied."
 msgstr ""
 
-#: ../quilt/push.in:178
+#: ../quilt/push.in:180
+msgid ""
+"The topmost patch $top is not in the series file anymore;\n"
+"cannot determine the next patch from the series file.\n"
+"Please pop -f the top patch and check your series file."
+msgstr ""
+
+#: ../quilt/push.in:186
 msgid "File series fully applied, ends at patch $top"
 msgstr ""
 
