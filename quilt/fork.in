@@ -26,8 +26,7 @@ usage()
 Fork the topmost patch. If new_name is missing, the name of the
 forked patch will be the current patch name, followed by \"-2\".  If the
 If the patch name already ends in a dash-and-number, the number is
-further incremented (e.g., patch.diff, patch-2.diff). The actual patch
-is only created when \"quilt refresh\" is run.
+further incremented (e.g., patch.diff, patch-2.diff).
 "
 		exit 0
 	else
@@ -99,7 +98,8 @@ fi
 
 if ! rename_in_db "$top" "$patch" || \
    ! rename_in_series "$top" "$patch_file" || \
-   ! mv ".pc/$top" $pc_dir
+   ! mv ".pc/$top" $pc_dir || \
+   ! cp -p "$top_file_name" "$(patch_file_name $patch)"
 then
 	echo $"Fork of $top_file_name to $patch_file failed" >&2
 	exit 1
