@@ -155,7 +155,7 @@ then
 elif [ -z "$patches" ]
 then
         echo $"No patch removed"
-	exit 0
+	exit 1
 fi
 
 trap "interrupted=1" SIGINT

@@ -281,8 +281,8 @@ cat_series()
 {
 	if [ -e $SERIES ]
 	then
-		@SED@ -e '/^#/d' -e 's/^[ '$'\t'']*//' -e 's/[ '$'\t''].*//' \
-		      $SERIES
+		@SED@ -e '/^$/d' -e '/^#/d' -e 's/^[ '$'\t'']*//' \
+		      -e 's/[ '$'\t''].*//' $SERIES
 	else
 		return 1
 	fi

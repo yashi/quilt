@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 10 10:46:56 CET 2004 - agruen@suse.de
+
+- Quilt push/pop: exit with a non-zero status when beyond series.
+- Ignore empty lines in series file.
+
+-------------------------------------------------------------------
 Tue Mar  9 02:00:14 CET 2004 - agruen@suse.de
 
 - Make files writeable in `quilt add' (and `quilt edit') for

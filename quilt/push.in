@@ -186,7 +186,7 @@ Please pop -f the top patch and check your series file."
 	else
 		echo $"File series fully applied, ends at patch $top"
 	fi
-	exit 0
+	exit 1
 fi
 
 trap "interrupted=1" SIGINT
