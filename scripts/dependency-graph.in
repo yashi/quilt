@@ -147,7 +147,7 @@ sub backup_file_name($$) {
     my ($patch, $file) = @_;
 
     if ($use_patcher) {
-	return $patch . "~" . $file;
+	return $file . "~" . $patch;
     } else {
 	return $ENV{QUILT_PC} . "/" . $patch . "/" . $file;
     }
