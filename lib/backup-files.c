@@ -98,6 +98,51 @@ remove_parents(char *filename)
 		*g = '/';
 }
 
+static int
+link_or_copy(const char *from, const char *to)
+{
+	char buffer[4096];
+	int from_fd, to_fd, error = 1;
+	size_t len;
+
+	if (link(from, to) == 0)
+		return 0;
+	if (errno != EXDEV && errno != EPERM && errno != EMLINK) {
+		fprintf(stderr, "Could not link file `%s' to `%s': %s\n",
+		       from, to, strerror(errno));
+		return 1;
+	}
+
+	if ((from_fd = open(from, O_RDONLY)) == -1) {
+		perror(from);
+		return 1;
+	}
+	if ((to_fd = open(to, O_WRONLY|O_TRUNC))) {
+		perror(to);
+		close(from_fd);
+		return 1;
+	}
+	while ((len = read(from_fd, buffer, sizeof(buffer))) > 0) {
+		if ((write(to_fd, buffer, len)) == -1) {
+			perror(to);
+			unlink(to);
+			goto out;
+		}
+	}
+	if (len != 0) {
+		perror(from);
+		unlink(to);
+		goto out;
+	}
+
+	error = 0;
+out:
+	close(from_fd);
+	close(to_fd);
+
+	return error;
+}
+
 int
 process_file(char *file)
 {
@@ -113,26 +158,32 @@ process_file(char *file)
 		 opt_prefix, file, opt_suffix);
 
 	if (opt_what == what_backup) {
-		int fd;
-		create_parents(backup);
+		struct stat st;
+		int new_file = (stat(file, &st) == -1 && errno == ENOENT);
 
 		unlink(backup);
-		if (link(file, backup) == 0) {
-			if (!opt_silent)
-				printf("Copying %s\n", file);
-		} else if ((fd = creat(backup, 0666)) != -1) {
-			close(fd);
+		create_parents(backup);
+		if (new_file) {
+			int fd;
+
 			if (!opt_silent)
 				printf("New file %s\n", file);
+			if ((fd = creat(backup, 0666)) == -1) {
+				perror(backup);
+				return 1;
+			}
+			close(fd);
 		} else {
-			perror(backup);
-			return 1;
+			if (!opt_silent)
+				printf("Copying %s\n", file);
+			if (link_or_copy(file, backup) != 0)
+				return 1;
 		}
 		return 0;
 	} else if (opt_what == what_restore) {
 		struct stat st;
-		create_parents(file);
 
+		create_parents(file);
 		if (stat(backup, &st) != 0) {
 			perror(backup);
 			return 1;
@@ -148,17 +199,14 @@ process_file(char *file)
 				return 1;
 			}
 		} else {
+			if (!opt_silent)
+				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link(backup, file) == 0) {
-				if (!opt_silent)
-					printf("Restoring %s\n", file);
+			if (link(backup, file) == -1) {
+				if (link_or_copy(backup, file) != 0)
+					return 1;
 				unlink(backup);
 				remove_parents(backup);
-			} else {
-				fprintf(stderr, "Could not restore "
-					      "file `%s' to `%s': %s\n",
-					backup, file, strerror(errno));
-				return 1;
 			}
 		}
 		return 0;
