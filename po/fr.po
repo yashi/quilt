@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.29\n"
-"PO-Revision-Date: 2004-02-02 16:19-0800\n"
+"PO-Revision-Date: 2004-02-02 16:20-0800\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr ""
 "Affiche la liste des patches appliqués, ou la liste de tous les patches\n"
 "jusqu'à celui passé en paramètre (inclus).\n"
 "\n"
-"-n\tAffiche les noms des fichiers de patch au lieu des noms de patch.\n"
+"-n\tAffiche les noms des fichiers de patch au lieu des noms de patch."
 
 #: ../quilt/applied.in:67 ../quilt/files.in:68 ../quilt/next.in:66
 #: ../quilt/pop.in:126 ../quilt/previous.in:66 ../quilt/push.in:141
@@ -253,7 +253,7 @@ msgid ""
 msgstr ""
 "\n"
 "Édite le(s) fichier(s) spécifiés au sein de $EDITOR après addition au patch\n"
-"du sommet.\n"
+"du sommet."
 
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]"
@@ -305,7 +305,7 @@ msgstr ""
 "\n"
 "-p strip-level\n"
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
-"\tpatch (1 par défaut).\n"
+"\tpatch (1 par défaut)."
 
 #: ../quilt/fold.in:114
 msgid "File $file may be corrupted"
