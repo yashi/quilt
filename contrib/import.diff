@@ -1,0 +1,251 @@
+diff -Nur quilt-2003-02-01/quilt/import.in quilt-2003-02-02/quilt/import.in
+--- quilt-2003-02-01/quilt/import.in	2003-01-31 17:25:06.000000000 +0100
++++ quilt-2003-02-02/quilt/import.in	2003-02-02 01:47:59.000000000 +0100
+@@ -35,6 +35,10 @@
+ -n patch
+ 	File name relative to patches/ to use.
+ 
++-d {o|a|n}
++	Keep the old (o), all (a), or new (n) description. This option
++	must be specified if both patches include a description.
++
+ -f	Overwite/update existing patches.
+ 
+ EOF
+@@ -44,7 +48,7 @@
+ 	fi
+ }
+ 
+-options=`getopt -o fn:p:h -- "$@"`
++options=`getopt -o d:fn:p:h -- "$@"`
+ 
+ if [ $? -ne 0 ]
+ then
+@@ -58,8 +62,7 @@
+         case "$1" in
+         -n)
+ 		opt_patch=$(echo "$2" |
+-			    sed -e 's/^'"$(quote_bre $P)"'patches\///' \
+-			        -e 's/^\.pc\///')
++			    sed -e 's/^'"$(quote_bre $P)"'patches\///')
+ 		shift 2 ;;
+ 	-p)
+ 		opt_strip=$2
+@@ -67,6 +70,9 @@
+ 	-f)
+ 		opt_force=1
+ 		shift ;;
++	-d)
++		opt_desc=$2
++		shift 2 ;;
+ 	-h)
+ 		usage -h ;;
+         --)
+@@ -83,122 +89,119 @@
+         usage
+ fi
+ 
+-[ -n "$opt_strip" ] && patch_args="-p$opt_strip"
++[ -n "$opt_strip" -a "$opt_strip" -ne 1 ] && patch_args="-p$opt_strip"
++
++case "$opt_desc" in
++o)
++	keep_old_desc=1
++	keep_new_desc=0 ;;
++a)
++	keep_old_desc=1
++	keep_new_desc=1 ;;
++n)
++	keep_old_desc=0
++	keep_new_desc=1 ;;
++'')
++	true ;;
++*)
++	echo "Invalid option -d$opt_desc"
++	exit 1
++esac
+ 
+-if [ -n "$opt_patch" ]
++if ! [ -r "$input_file" ]
+ then
+-	patch=$(stripit "$opt_patch")
+-	patch_file="${P}patches/$opt_patch"
+-else
+-	patch="$(stripit "$input_file")"
+-	if [ -n "$patch" ]
+-	then
+-		opt_patch="$patch.patch"
+-	else
+-		echo "Please use -n to specify a patch file name."
+-		exit 1
+-	fi
+-	patch_file="${P}patches/$opt_patch"
++	echo "Cannot read from file $input_file"
++	exit 1
+ fi
+ 
+-if echo "$patch_file" | grep -q -e $'[ \t]'
++if [ -z "$opt_patch" ]
+ then
+-	echo "Patch file name \"$patch_file\" contains whitespace."
++	opt_patch="$(stripit "$input_file")"
++fi
++
++patch=$(stripit "$opt_patch")
++if [ -z "$patch" ]
++then
++	echo "Please use -n to specify a patch file name."
+ 	exit 1
+ fi
+ 
++patch_file="${P}patches/$opt_patch"
++case "$patch_file" in
++*' '*)
++	echo "Patch file name \"$patch_file\" contains whitespace."
++	exit 1 ;;
++esac
++
++# If the specified is topmost, pop?
+ if is_applied $patch
+ then
+ 	echo "Patch $patch is applied."
+ 	exit 1
+ fi
+ 
+-case "$input_file" in
+-'')
+-	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+-	if ! cat > $tmpfile
+-	then
+-		echo "Cannot read from standard input."
+-		rm -f $tmpfile
+-		exit 1
+-	fi
+-	input_file=$tmpfile ;;
+-*.gz)
+-	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+-	if ! gzip -cd "$input_file" > $tmpfile
+-	then
+-		echo "Cannot decompress file $input_file"
+-		rm -f $tmpfile
+-		exit 1
+-	fi
+-	input_file=$tmpfile ;;
+-*.bz2)
+-	tmpfile=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
+-	if ! bzip2 -cd "$input_file" > $tmpfile
+-	then
+-		echo "Cannot decompress file $input_file"
+-		rm -f $tmpfile
+-		exit
+-	fi
+-	input_file=$tmpfile ;;
+-*)
+-	if ! [ -r "$input_file" ]
+-	then
+-		echo "Cannot read from file $input_file"
+-		exit 1
+-	fi
+-esac
++if [ -n "$patch_file" -a -z "$opt_force" ]
++then
++	echo "Patch $patch exists. Replace with -f."
++	exit 1
++fi
+ 
+-if [ -e "$patch_file" ]
++if [ -e "$patch_file" -a "$keep_old_desc" != 0 ]
+ then
+-	if [ -z "$opt_force" ]
+-	then
+-		echo "Patch $patch exists. Replace with -f."
+-		exit 1
+-	fi
++	old_desc=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
++	cat_file "$patch_file" \
++	| patch_description > $old_doc
++fi
++
++if [ "$keep_new_desc" != 0 ]
++then
++	new_desc=$(@MKTEMP@ /tmp/patch-scripts.XXXXXX)
++	cat_file "$input_file" \
++	| patch_description > $new_desc
++fi
+ 
+-	if grep -q '^%patch$' "$patch_file" &&
+-	   ! grep -q '^%patch$' "$input_file"
++if [ -s $old_doc -a -s $new_desc -a -z "$opt_desc" ] && \
++   ! diff -q $old_doc $new_desc >/dev/null
++then
++	echo "Documentation difference:"
++	diff -u $old_doc $new_desc
++	echo "Please use -d {o|a|n} to specify which documentation to keep."
++	exit 1
++elif [ -z "$opt_desc" ]
++then
++	[ -s $old_doc ] ; keep_old_files=$?
++	[ -s $new_doc ] ; keep_new_files=$?
++fi
++
++if [ $keep_old_desc = 1 ]
++then
++	mkdir -p $(dirname "$patch_file")
++	temp_patch=$(@MKTEMP@ "$patch_file.XXXXXX")
++	cat $old_doc >> $temp_patch
++	if [ $keep_new_desc = 1 ]
+ 	then
+-		echo "Updating %patch section of patch $patch"
+-		if ! @SCRIPTS@/parse-patch -u patch $patch_file < "$input_file"
+-		then
+-			echo "Failed to update %patch section of patch $patch"
+-			exit 1
+-		fi
++		echo "---" >> $temp_patch
++		cat_file "$input_file" >> $temp_patch
+ 	else
+-		echo "Replacing patch $patch with new version"
+-		if ! cat "$input_file" > "$patch_file"
+-		then
+-			echo "Failed to replace patch $patch"
+-			exit 1
+-		fi
++		# FIX: cat only the non-description part!
++		cat "$input_file" >> $temp_patch
+ 	fi
++	cat_to_file "$patch_file" < $temp_patch
++	rm -f $temp_patch
+ else
+-	echo "Importing patch $patch (stored as $patch_file)"
+-	if ! grep -q '^%patch$' "$input_file"
+-	then
+-		echo "%patch" >> "$patch_file"
+-	fi
+-	if ! cat "$input_file" >> "$patch_file"
+-	then
+-		echo "Failed to import patch $patch"
+-		exit 1
+-	fi
++	# FIX: Make sure the file extensions (.gz|.bz2|) match, and use cp
++	# if possible...
++	cat_file "$input_file" \
++	| cat_to_file "$patch_file"
+ fi
+ 
+ rm -rf .pc/$patch
+ 
+-if ! patch_in_series $patch &&
+-   ! insert_in_series $opt_patch "$patch_args"
++remove_from_series $patch
++if ! insert_in_series $opt_patch "$patch_args"
+ then
+ 	echo "Failed to insert $patch in file series."
+ fi
+-
+-if [ -n "$tmpfile" ]
+-then
+-	rm -f $tmpfile
+-fi
+ ### Local Variables:
+ ### mode: shell-script
+ ### End:
