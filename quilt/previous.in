@@ -75,3 +75,7 @@ then
 	[ -n "$opt_filenames" ] && previous=$(patch_file_name $previous)
 	echo "$previous"
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

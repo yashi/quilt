@@ -80,3 +80,7 @@ then
 		echo $patch
 	done
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

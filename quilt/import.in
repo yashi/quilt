@@ -198,3 +198,7 @@ if [ -n "$tmpfile" ]
 then
 	rm -f $tmpfile
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

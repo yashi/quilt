@@ -98,3 +98,7 @@ then
 else
 	scan_patches "" $opt_file
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

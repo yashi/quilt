@@ -202,3 +202,7 @@ then
 	die 1
 fi
 die 0
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

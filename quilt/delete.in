@@ -90,3 +90,7 @@ if ! remove_from_series $patch
 then
 	echo "Failed to remove patch $patch"
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

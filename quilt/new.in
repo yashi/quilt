@@ -79,3 +79,7 @@ then
 else
 	echo "Patch $patch is now on top"
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

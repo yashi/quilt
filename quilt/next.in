@@ -77,3 +77,7 @@ else
 fi
 [ -n "$opt_filenames" ] && next=$(patch_file_name $next)
 echo "$next"
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

@@ -126,3 +126,7 @@ do
 	echo "File $file added to patch $patch"
 done
 exit $status
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

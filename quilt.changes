@@ -1,23 +1,30 @@
 -------------------------------------------------------------------
+Fri Jan 31 13:05:18 CET 2003 - agruen@suse.de
+
+- Add syntax highlighting tags for emacs and vim.
+
+-------------------------------------------------------------------
 Fri Jan 31 09:15:01 +0100 2003 - Martin.Quinson@ens-lyon.fr
 
-- Change '#!@BASH@' to '#! @BASH@'. It can look a bit stupid, but it's needed
-  for maximal portability.
+- Change '#!@BASH@' to '#! @BASH@'. It can look a bit stupid, but
+  it's needed for maximal portability.
 
 -------------------------------------------------------------------
 Fri Jan 31 08:52:20 +0100 2003 - Martin.Quinson@ens-lyon.fr
 
-- Fight lintian warnings (lintian is a tool to check debian packages):
-- Remove the dependencies on essential packages diff, gzip, debianutils
+- Fight lintian warnings (lintian is a tool to check debian
+  packages):
+- Remove the dependencies on essential packages diff, gzip,
+  debianutils
 - Format the copyright file properly
-- Remove the #! /bin/bash header from patchfns, since it's not an executable
-  script, but a stuff to be sourced by others.
+- Remove the #! /bin/bash header from patchfns, since it's not an
+  executable script, but a stuff to be sourced by others.
 
 -------------------------------------------------------------------
 Thu Jan 30 23:56:21 +0100 2003 - agruen@suse.de
 
 - Also substitute @MKTEMP@.
-- For improved scripting support, -n option to scripts that
+- For improved scripting support, add -n option to scripts that
   print patch names prints the patch file name instead. This
   is useful for selecting which patches to grep, etc.
 

@@ -80,3 +80,7 @@ do
 	[ -n "$opt_filenames" ] && patch=$(patch_file_name $patch)
 	echo "$patch"
 done
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

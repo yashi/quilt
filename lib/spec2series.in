@@ -221,3 +221,7 @@ echo " done" >&2
 		cat
 	fi
 )
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

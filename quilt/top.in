@@ -65,3 +65,7 @@ fi
 top=$(top_patch)
 [ -n "$opt_filenames" ] && top=$(patch_file_name $top)
 echo "$top"
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

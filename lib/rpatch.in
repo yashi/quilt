@@ -248,3 +248,7 @@ then
 fi
 
 rpatch "$patch" || exit 1
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

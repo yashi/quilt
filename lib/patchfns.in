@@ -608,3 +608,7 @@ in_array()
 	done
 	return 1
 }
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

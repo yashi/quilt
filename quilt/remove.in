@@ -117,3 +117,7 @@ do
 	echo "File $file removed from patch $patch"
 done
 exit $status
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh
