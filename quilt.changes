@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jul 26 12:49:36 CEST 2003 - agruen@suse.de
+
+- Install package documentation into $RPM_DOC_DIR if this
+  environment variable is set.  On RedHat 9 $RPM_DOC_DIR points to
+  /usr/share/doc/packages, but documentation lives in
+  /usr/share/doc.  This is a bug in RedHat's RPM configuration;
+  working around it would break other distributions.
+
+-------------------------------------------------------------------
 Wed Jul 23 11:44:24 CEST 2003 - agruen@suse.de
 
 - Add Autoconf test for rpmbuild vs. rpm (needed for `make rpm').

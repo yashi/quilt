@@ -47,11 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 
 /usr/share/quilt/
 /usr/lib/quilt/
+/etc/bash_completion.d/quilt
 
 /usr/share/locale/*/LC_MESSAGES/quilt.mo
 
-%doc /usr/share/man/man1/guards.1.gz
-%doc doc/README
+%doc %{_mandir}/man1/guards.1.gz
+%doc %{_docdir}/%{name}-%{version}/README
 
 %changelog
 # The changelog is filled in by "make spec".
