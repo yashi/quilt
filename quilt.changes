@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri May 16 20:44:50 CEST 2003 - agruen@suse.de
+
+- Rename DIFF_OPTS environment variable to QUILT_DIFF_OPTS
+- Add ~/.quiltrc resource file (this file is sourced from
+  the patchfsn file, which is used by all commands).
+
+-------------------------------------------------------------------
 Fri Apr 11 17:17:35 CEST 2003 - agruen@suse.de
 
 - Apply patches with `patch -f' by default. Add --interactive

@@ -10,6 +10,11 @@
 export TEXTDOMAIN=quilt
 		
 
+if [ -e $HOME/.quiltrc ]
+then
+	. $HOME/.quiltrc
+fi
+
 if [ -n "$PATCHSCRIPTS" ]
 then
 	P=$PATCHSCRIPTS/
@@ -551,7 +556,7 @@ diff_file()
 		new_hdr=$dir/$file
 	fi
 
-	@DIFF@ -Nu $DIFF_OPTS $old_file $new_file |
+	@DIFF@ -Nu $QUILT_DIFF_OPTS $old_file $new_file |
 	if read line
 	then
 		echo "Index: $new_hdr"
