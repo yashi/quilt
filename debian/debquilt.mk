@@ -1,6 +1,5 @@
-#!/usr/bin/make -f
-
 # Common rules to handle a debian package using the quilt patch utility
+
 patch:
 	[ -L patches ] || ln -s debian/patches patches
 	quilt push -a
