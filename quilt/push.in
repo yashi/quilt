@@ -155,20 +155,22 @@ cleanup_patch_output() {
 add_patch()
 {
 	local patch=$1
-	local file status
+	local file status tmp
 
 	printf $"Applying patch %s\n" "$(print_patch $patch)"
 	trap "interrupt $patch" SIGINT
 
 	no_reject_files=
 	if [ -z "$opt_leave_rejects" ]; then
-		local tmp="$(gen_tempfile)"
+		tmp="$(gen_tempfile)"
 		no_reject_files="-r $tmp"
 	fi
 
 	apply_patch $patch
-	status=${PIPESTATUS[0]]}
+	status=${PIPESTATUS[0]}
 	trap "" SIGINT
+
+	[ -n "$tmp" ] && rm -f $tmp
 
 	if [ $status -eq 0 -o -n "$opt_force" ]
 	then

@@ -16,7 +16,7 @@ Andreas Gruenbacher <agruen@suse.de>
     Package up as RPM.
 
 Gerd Knorr <kraxel@suse.de>
-    Contributed spec2series (= inspect now).
+    Contributed spec2series (which is inspect now).
 
 Martin Quinson <Martin.Quinson@tuxfamily.org>
     Several little patches and improvements.
@@ -26,7 +26,6 @@ Martin Quinson <Martin.Quinson@tuxfamily.org>
 Peter Braam <braam@clusterfs.com>
 Tom Wang <wangdi@clusterfs.com>
     Fix pop logic if series file changes.
-    More to come.
 
 
 Pre-quilt (patch-scripts)
@@ -41,4 +40,3 @@ Stephen Cameron <steve.cameron@hp.com>
 Matt Reppert <arashi@arashi.yi.org>
 Jeremy Fitzhardinge <jeremy@digeo.com>
     Contributions to Andrew's scripts.
-

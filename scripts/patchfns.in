@@ -685,29 +685,11 @@ gen_tempfile()
 	local name
 	if [ "$1" = -d ]
 	then
-		@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/quilt}.XXXXXX
+		@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
 	else
-		@MKTEMP@ ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX
+		@MKTEMP@ ${1:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
 	fi
-#	if [ "$1" = -d ]
-#	then
-#		name=$(@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/quilt}.XXXXXX)
-#		add_exit_handler "rm -rf $name"
-#	else
-#		name=$(@MKTEMP@ ${1:-${TMPDIR:-/tmp}/quilt}.XXXXXX)
-#		add_exit_handler "rm -f $name"
-#	fi
-#	echo "$name"
 }
-
-#keep_tempfile()
-#{
-#	if [ "$1" = -d ]; then
-#		remove_exit_handler "rm -rf $2"
-#	else
-#		remove_exit_handler "rm -f $1"
-#	fi
-#}
 
 first_modified_by()
 {

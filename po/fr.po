@@ -69,20 +69,20 @@ msgstr ""
 "\tPatch auquel les fichiers doivent être ajoutés.\n"
 
 #: ../quilt/add.in:54 ../quilt/applied.in:62 ../quilt/delete.in:76
-#: ../quilt/diff.in:148 ../quilt/diff.in:159 ../quilt/next.in:62
-#: ../quilt/pop.in:237 ../quilt/previous.in:62 ../quilt/push.in:272
+#: ../quilt/diff.in:153 ../quilt/diff.in:164 ../quilt/next.in:62
+#: ../quilt/pop.in:239 ../quilt/previous.in:62 ../quilt/push.in:311
 #: ../quilt/refresh.in:129 ../quilt/remove.in:53 ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: ../quilt/add.in:75 ../quilt/diff.in:221 ../quilt/pop.in:252
+#: ../quilt/add.in:75 ../quilt/diff.in:226 ../quilt/pop.in:254
 #: ../quilt/refresh.in:135 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:229
+#: ../quilt/add.in:82 ../quilt/delete.in:68 ../quilt/diff.in:234
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
-#: ../quilt/pop.in:286 ../quilt/push.in:310 ../quilt/refresh.in:143
+#: ../quilt/pop.in:288 ../quilt/push.in:349 ../quilt/refresh.in:143
 #: ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
@@ -145,7 +145,7 @@ msgstr "Le patch %s est actuellement appliqué\\n"
 msgid "Failed to remove patch %s\\n"
 msgstr "Impossible de retirer le patch %s\\n"
 
-#: ../quilt/diff.in:22
+#: ../quilt/diff.in:24
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
 "patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
@@ -153,7 +153,7 @@ msgstr ""
 "Usage : quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
 "P patch] [--snapshot] [--diff=utilitaire] [--color] [fichier ...]\\n"
 
-#: ../quilt/diff.in:26
+#: ../quilt/diff.in:28
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -240,50 +240,50 @@ msgstr ""
 "\tColorise la syntaxe toujours («always»), de manière automatique («auto»)\n"
 "\tou jamais («never»).\n"
 
-#: ../quilt/diff.in:213
+#: ../quilt/diff.in:218
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Les options «-c patch», «--snapshot» et «-z» ne peuvent pas être combinées."
 
-#: ../quilt/diff.in:240
+#: ../quilt/diff.in:245
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: ../quilt/diff.in:275 ../quilt/files.in:122
+#: ../quilt/diff.in:280 ../quilt/files.in:122
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: ../quilt/diff.in:311
+#: ../quilt/diff.in:316
 msgid "Cannot change into directory %s\\n"
 msgstr "Impossible d'entrer dans le répertoire %s\\n"
 
-#: ../quilt/diff.in:318 ../quilt/pop.in:115
+#: ../quilt/diff.in:323 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: ../quilt/diff.in:329
+#: ../quilt/diff.in:334
 msgid "Cannot change to temporary directory\\n"
 msgstr "Impossible d'entrer dans le répertoire temporaire\\n"
 
-#: ../quilt/diff.in:348 ../quilt/pop.in:138
+#: ../quilt/diff.in:353 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
-#: ../quilt/diff.in:354
+#: ../quilt/diff.in:359
 msgid "Cannot change to source directory\\n"
 msgstr "Impossible d'entrer dans le répertoire source\\n"
 
-#: ../quilt/diff.in:372
+#: ../quilt/diff.in:377
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: ../quilt/diff.in:392 ../quilt/refresh.in:175
+#: ../quilt/diff.in:397 ../quilt/refresh.in:175
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: ../quilt/diff.in:399
+#: ../quilt/diff.in:404
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "Un patch plus recent modifie des fichiers communs à %s.\\n"
 
@@ -573,25 +573,25 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 
-#: ../quilt/pop.in:153
+#: ../quilt/pop.in:156
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne se retire pas proprement (rafraichissez le, ou forcez avec -f)"
 "\\n"
 
-#: ../quilt/pop.in:176
+#: ../quilt/pop.in:178
 msgid "Removing patch %s\\n"
 msgstr "Retrait de %s\\n"
 
-#: ../quilt/pop.in:260
+#: ../quilt/pop.in:262
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 
-#: ../quilt/pop.in:270
+#: ../quilt/pop.in:272
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: ../quilt/pop.in:293 ../quilt/push.in:328
+#: ../quilt/pop.in:295 ../quilt/push.in:371
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -611,11 +611,12 @@ msgstr ""
 "\n"
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
-#: ../quilt/push.in:22
+#: ../quilt/push.in:24
 msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 
-#: ../quilt/push.in:25
+#: ../quilt/push.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -641,6 +642,9 @@ msgid ""
 "\tAllow the patch utility to ask how to deal with conflicts. If\n"
 "\tthis option is not given, the option -f will be passed to the \n"
 "\tpatch program.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"        Use syntax coloring.\n"
 msgstr ""
 "\n"
 "Applique un ou plusieurs patches de la série.  Si aucun argument n'est\n"
@@ -669,44 +673,44 @@ msgstr ""
 "\tSi cette option n'est pas donnée, l'option -f sera passée au \n"
 "\tprogramme patch.\n"
 
-#: ../quilt/push.in:59
+#: ../quilt/push.in:64
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Interrompu par l'utilisateur ; le patch %s n'a pas été appliqué.\\n"
 
-#: ../quilt/push.in:71
+#: ../quilt/push.in:96
 msgid "Patch %s appears to be empty\\n"
 msgstr "Le patch %s semble vide.\\n"
 
-#: ../quilt/push.in:135
+#: ../quilt/push.in:160
 msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
-#: ../quilt/push.in:166
+#: ../quilt/push.in:192
 msgid "Patch %s appears to be empty, applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
-#: ../quilt/push.in:170
+#: ../quilt/push.in:196
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
-#: ../quilt/push.in:175
+#: ../quilt/push.in:201
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
-#: ../quilt/push.in:214
+#: ../quilt/push.in:240
 msgid "Patch %s not found in file series\\n"
 msgstr "Le patch %s est introuvable dans le fichier de série\\n"
 
-#: ../quilt/push.in:289
+#: ../quilt/push.in:328
 msgid "Patch %s is already applied\\n"
 msgstr "Le patch %s est déjà appliqué.\\n"
 
-#: ../quilt/push.in:298
+#: ../quilt/push.in:337
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
-#: ../quilt/push.in:312
+#: ../quilt/push.in:351
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
@@ -1005,7 +1009,7 @@ msgstr ""
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
 
-#: ../scripts/patchfns.in:750
+#: ../scripts/patchfns.in:732
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1017,7 +1021,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: ../scripts/patchfns.in:817
+#: ../scripts/patchfns.in:809
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

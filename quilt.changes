@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Sat Feb  5 18:55:14 CET 2005 - agruen@suse.de
+Sun Feb  6 01:15:03 CET 2005 - agruen@suse.de
 
 - Update of the Japanese translation from Yasushi SHOJI
   <yashi@atmark-techno.com> -- thank you.
+- Don't leak so many temporary files in the push command.
+- Include command names in tempfile names to find leaks more easily.
 
 -------------------------------------------------------------------
 Wed Feb  2 17:35:19 CET 2005 - agruen@suse.de
@@ -17,7 +19,7 @@ Wed Feb  2 01:16:57 CET 2005 - agruen@suse.de
 - When checking for remaining changes (refresh forgotten), use
   $QUILT_PATCH_OPTS as in the push command to get identical
   results. Don't generate the actually diff; it doesn't get
-  printed anyway. This should speed up things.
+  printed anyway. This should speed things up.
 
 -------------------------------------------------------------------
 Thu Jan 27 08:14:34 CET 2005 - agruen@suse.de
