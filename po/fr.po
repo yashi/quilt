@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.21\n"
-"PO-Revision-Date: 2003-02-14 16:52+0100\n"
+"Project-Id-Version: quilt 0.22\n"
+"PO-Revision-Date: 2003-02-17 10:10+0100\n"
 "Last-Translator: Martin Quinson <Martin.Quinson@tuxfamily.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +20,6 @@ msgstr "Usage : quilt commande [-h] ..."
 msgid "Commands are:"
 msgstr "Les commandes sont :"
 
-#: ../bin/quilt.in:83
-msgid "$command:"
-msgstr "$command :"
-
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ..."
 msgstr "Usage : quilt add [-p patch] {fichier} ..."
@@ -32,17 +28,16 @@ msgstr "Usage : quilt add [-p patch] {fichier} ..."
 msgid ""
 "\n"
 "\n"
-"Add one or more files to the topmost or named patch.\n"
-"Files must be added to the patch before being modified.\n"
-"Files that are modified by patches on top of the specified\n"
-"patch cannot be added.\n"
+"Add one or more files to the topmost or named patch.  Files must be\n"
+"added to the patch before being modified.  Files that are modified by\n"
+"patches on top of the specified patch cannot be added.\n"
 "\n"
 "-p patch\n"
 "\tPatch to add files to."
 msgstr ""
 "\n"
 "\n"
-"Ajoute un ou plusieurs fichiers au patch indiqué ou au dernier indiqué.\n"
+"Ajoute un ou plusieurs fichiers au patch indiqué ou à celui au sommet.\n"
 "Les fichiers doivent être ajoutés au patch avant toute modification.\n"
 "Les fichiers modifiés par d'autres patches plus haut dans la pile ne\n"
 "peuvent pas être ajoutés.\n"
@@ -50,28 +45,28 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:76 ../quilt/delete.in:69 ../quilt/files.in:75
-#: ../quilt/push.in:167 ../quilt/remove.in:76
+#: ../quilt/add.in:75 ../quilt/delete.in:69 ../quilt/files.in:74
+#: ../quilt/push.in:166 ../quilt/remove.in:75
 msgid "No patch applied"
 msgstr "Aucun patch n'est appliqué"
 
-#: ../quilt/add.in:81 ../quilt/refresh.in:115 ../quilt/remove.in:81
+#: ../quilt/add.in:80 ../quilt/refresh.in:113 ../quilt/remove.in:80
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
 
-#: ../quilt/add.in:90
+#: ../quilt/add.in:89
 msgid "File $file is already in patch $patch"
 msgstr "Le fichier $file est déjà dans le patch $patch"
 
-#: ../quilt/add.in:97 ../quilt/remove.in:98
+#: ../quilt/add.in:96 ../quilt/remove.in:97
 msgid "File $file modified by patch $next_patch"
 msgstr "Le fichier $file est modifié par le patch $next_patch"
 
-#: ../quilt/add.in:105
+#: ../quilt/add.in:104
 msgid "Failed to back up file $file"
 msgstr "Impossible de faire une copie de sécurité de $file"
 
-#: ../quilt/add.in:125
+#: ../quilt/add.in:124
 msgid "File $file added to patch $patch"
 msgstr "Le fichier $file a été ajouté au patch $patch"
 
@@ -103,8 +98,8 @@ msgstr "Usage : quilt delete [patch]"
 msgid ""
 "\n"
 "\n"
-"Remove the specified or topmost patch from the series file. If the \n"
-"patch is applied, quilt will attempt to remove it first. (Only the \n"
+"Remove the specified or topmost patch from the series file.  If the\n"
+"patch is applied, quilt will attempt to remove it first. (Only the\n"
 "topmost patch can be removed right now.)"
 msgstr ""
 "\n"
@@ -133,24 +128,24 @@ msgstr "Usage : quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [fichier ...]"
 msgid ""
 "\n"
 "\n"
-"Produces a diff of the specified file(s) in the topmost or\n"
-"specified patch. If no files are specified, all files that\n"
-"are modified are included.\n"
+"Produces a diff of the specified file(s) in the topmost or specified\n"
+"patch.  If no files are specified, all files that are modified are\n"
+"included.\n"
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 are supported).\n"
 "\n"
 "-P patch\n"
-"\tCreate a diff for the specified patch. (Defaults to\n"
-"\tthe topmost patch.)\n"
+"\tCreate a diff for the specified patch.  (Defaults to the topmost\n"
+"\tpatch.)\n"
 "\n"
 "-c patch\n"
-"\tCreate a combined diff for all patches between this\n"
-"\tpatch and the patch specified with -P.\n"
+"\tCreate a combined diff for all patches between this patch and\n"
+"\tthe patch specified with -P.\n"
 "\n"
 "-R\tCreate a reverse diff.\n"
 "\n"
-"-z\tWrite to standard output the changes that have been\n"
-"\tmade relative to the topmost or specified patch.\n"
+"-z\tWrite to standard output the changes that have been made\n"
+"\trelative to the topmost or specified patch.\n"
 "\n"
 msgstr ""
 "\n"
@@ -170,7 +165,7 @@ msgstr ""
 "\n"
 "-R\tCrée un patch inversé.\n"
 "\n"
-"-z      Écrit sur la sortie standard les changements fait par rapport\n"
+"-z\tÉcrit sur la sortie standard les changements fait par rapport\n"
 "\tau patch spécifié.\n"
 "\n"
 
@@ -178,7 +173,7 @@ msgstr ""
 msgid "Options \\`-c patch' and \\`-z' cannot be combined."
 msgstr "Les options \\`-c patch' et \\`-z' ne peuvent pas être combinées."
 
-#: ../quilt/diff.in:140 ../quilt/refresh.in:108
+#: ../quilt/diff.in:140 ../quilt/refresh.in:106
 msgid "No patch seem to be applied"
 msgstr "Aucun patch ne semble appliqué"
 
@@ -226,13 +221,13 @@ msgstr "Impossible de patcher les fichiers temporaires"
 msgid "Cannot change to source directory"
 msgstr "Impossible d'entrer dans le répertoire source"
 
-#: ../quilt/diff.in:298 ../quilt/refresh.in:146
+#: ../quilt/diff.in:298 ../quilt/refresh.in:144
 msgid "Diff failed, aborting."
 msgstr "Le diff a échoué. Abandon."
 
 #: ../quilt/diff.in:305
-msgid "More recent patches modify the same files."
-msgstr "Un patch plus recent modifie le même fichier."
+msgid "More recent patches modify files in $last_patch."
+msgstr "Un patch plus recent modifie des fichiers communs à $last_patch."
 
 #: ../quilt/files.in:22
 msgid "Usage: quilt files [-v] [patch]"
@@ -242,8 +237,7 @@ msgstr "Usage : quilt files [-v] [patch]"
 msgid ""
 "\n"
 "\n"
-"Print the list of files that the topmost or specified patch\n"
-"changes.\n"
+"Print the list of files that the topmost or specified patch changes.\n"
 "\n"
 "-v\tVerbose, more user friendly output.\n"
 "\n"
@@ -256,11 +250,11 @@ msgstr ""
 "-v\tAffichage verbeux, plus simple à lire.\n"
 "\n"
 
-#: ../quilt/files.in:84
+#: ../quilt/files.in:83
 msgid "Patch is not applied (no verbose output)"
 msgstr "Le patch n'est pas appliqué (affichage non verbeux)"
 
-#: ../quilt/files.in:87
+#: ../quilt/files.in:86
 msgid "Patch is not applied"
 msgstr "Le patch n'est pas appliqué"
 
@@ -272,10 +266,9 @@ msgstr "Usage : quilt import [-f] [-p num] [-n patch] [fichier_de_patch]"
 msgid ""
 "\n"
 "\n"
-"Import an external patch. If a patch file name is specified,\n"
-"the patch will be stored in this relative path in the patches/\n"
-"directory. Else, if an input file name is given this name is\n"
-"used as the patch name.\n"
+"Import an external patch.  If a patch file name is specified, the patch\n"
+"will be stored in this relative path in the patches/ directory.  Else,\n"
+"if an input file name is given this name is used as the patch name.\n"
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when aplying (default=1)\n"
@@ -302,59 +295,59 @@ msgstr ""
 "-f\tÉcrase/met à jour les patchs existants.\n"
 "\n"
 
-#: ../quilt/import.in:98
+#: ../quilt/import.in:97
 msgid "Please use -n to specify a patch file name."
 msgstr "Veuillez utiliser -n pour spécifier un nom de fichier de patch."
 
-#: ../quilt/import.in:106
+#: ../quilt/import.in:105
 msgid "Patch file name \\\"$patch_file\\\" contains whitespace."
 msgstr "Le nom de fichier de patch \"$patch_file\" contient des espaces."
 
-#: ../quilt/import.in:112
+#: ../quilt/import.in:111
 msgid "Patch $patch is applied."
 msgstr "Le patch $patch est appliqué."
 
-#: ../quilt/import.in:121
+#: ../quilt/import.in:120
 msgid "Cannot read from standard input."
 msgstr "Impossible de lire depuis l'entrée standard."
 
-#: ../quilt/import.in:130 ../quilt/import.in:139
+#: ../quilt/import.in:129 ../quilt/import.in:138
 msgid "Cannot decompress file $input_file"
 msgstr "Impossible de décompresser le fichier $input_file"
 
-#: ../quilt/import.in:147
+#: ../quilt/import.in:146
 msgid "Cannot read from file $input_file"
 msgstr "Impossible de lire depuis le fichier $input_file"
 
-#: ../quilt/import.in:156
+#: ../quilt/import.in:155
 msgid "Patch $patch exists. Replace with -f."
 msgstr "Le patch $patch existe. Utilisez -f pour le remplacer."
 
-#: ../quilt/import.in:163
+#: ../quilt/import.in:162
 msgid "Updating %patch section of patch $patch"
 msgstr "Mise à jour de la section %patch dans $patch"
 
-#: ../quilt/import.in:166
+#: ../quilt/import.in:165
 msgid "Failed to update %patch section of patch $patch"
 msgstr "Impossible de mettre à jour la section %patch du patch $patch"
 
-#: ../quilt/import.in:170
+#: ../quilt/import.in:169
 msgid "Replacing patch $patch with new version"
 msgstr "Remplacement du patch $patch avec la nouvelle version"
 
-#: ../quilt/import.in:173
+#: ../quilt/import.in:172
 msgid "Failed to replace patch $patch"
 msgstr "Impossible de remplacer le patch $patch"
 
-#: ../quilt/import.in:178
+#: ../quilt/import.in:177
 msgid "Importing patch $patch (stored as $patch_file)"
 msgstr "Import du patch $patch (enregistré dans $patch_file)"
 
-#: ../quilt/import.in:185
+#: ../quilt/import.in:184
 msgid "Failed to import patch $patch"
 msgstr "Impossible d'importer le patch $patch"
 
-#: ../quilt/import.in:195
+#: ../quilt/import.in:194
 msgid "Failed to insert $patch in file series."
 msgstr "Impossible d'inserer $patch dans le fichier de série."
 
@@ -366,8 +359,8 @@ msgstr "Usage : quilt new {nom_de_patch}"
 msgid ""
 "\n"
 "\n"
-"Create a new patch with the specified file name, and insert\n"
-"it after the topmost patch in the patch series file.\n"
+"Create a new patch with the specified file name, and insert it after the\n"
+"topmost patch in the patch series file.\n"
 "\n"
 msgstr ""
 "\n"
@@ -442,19 +435,18 @@ msgstr "Usage : quilt pop [-afRqv] [num|patch]"
 msgid ""
 "\n"
 "\n"
-"Remove patch(es) from the current stack. A number of\n"
-"patches to remove, or a patch name can be specified. If a\n"
-"patch name is given, remove all patches up to and\n"
-"including the named patch. If neither a number nor a patch\n"
-"name is specified, remove the next patch from the series file.\n"
+"Remove patch(es) from the current stack. A number of patches to remove,\n"
+"or a patch name can be specified. If a patch name is given, remove all\n"
+"patches applied on top of the named patch. If neither a number nor a\n"
+"patch name is specified, remove the next patch from the series file.\n"
 "\n"
-"-a\tRemove all patches in the series file.\n"
+"-a\tRemove all applied patches.\n"
 "\n"
-"-f\tForce remove. The state before the patch(es) were\n"
-"\tapplied will be restored from backup files.\n"
+"-f\tForce remove. The state before the patch(es) were applied will\n"
+"\tbe restored from backup files.\n"
 "\n"
-"-R\tRemove the patch with \\`patch -R' and check if the\n"
-"\tpatch reverts all changes properly.\n"
+"-R\tRemove the patch with \\`patch -R' and check if the patch reverts\n"
+"\tall changes properly.\n"
 "\n"
 "-q\tQuiet operation.\n"
 "\n"
@@ -464,7 +456,7 @@ msgstr ""
 "\n"
 "\n"
 "Retire un ou plusieurs patches de la pile. Il est possible de donner en\n"
-"arguement un nombre de patch à retirer ou un nom de patch. Dans ce dernier\n"
+"argument un nombre de patch à retirer ou un nom de patch. Dans ce dernier\n"
 "cas, tous les patches placés au dessus du patch à retirer seront retirés\n"
 "eux aussi. Si aucun argument n'est spécifié, le patch au sommet est retiré.\n"
 "\n"
@@ -481,27 +473,27 @@ msgstr ""
 "-v\tOpère verbeusement.\n"
 "\n"
 
-#: ../quilt/pop.in:84 ../quilt/push.in:83
+#: ../quilt/pop.in:83 ../quilt/push.in:82
 msgid "Patch $stop_at_patch not found in file series"
 msgstr "Le patch $stop_at_patch est introuvable dans le fichier de série"
 
-#: ../quilt/pop.in:157
+#: ../quilt/pop.in:156
 msgid "Patch $stop_at_patch is not applied."
 msgstr "Le patch $stop_at_patch n'est pas appliqué."
 
-#: ../quilt/pop.in:167
+#: ../quilt/pop.in:166
 msgid "No patch removed"
 msgstr "Aucun patch retiré"
 
-#: ../quilt/pop.in:181 ../quilt/push.in:184
+#: ../quilt/pop.in:180 ../quilt/push.in:183
 msgid "Interrupted by user"
 msgstr "Interrompu par l'utilisateur"
 
-#: ../quilt/pop.in:190 ../quilt/push.in:193
+#: ../quilt/pop.in:189 ../quilt/push.in:192
 msgid "No patches applied"
 msgstr "Aucun patch n'est appliqué"
 
-#: ../quilt/pop.in:192 ../quilt/push.in:195
+#: ../quilt/pop.in:191 ../quilt/push.in:194
 msgid "Now at patch $patch"
 msgstr "Le patch $patch est maintenant au sommet"
 
@@ -535,11 +527,10 @@ msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]"
 msgid ""
 "\n"
 "\n"
-"Apply patch(es) from the series file. A number of patches\n"
-"to apply, or a patch name can be specified. If a patch\n"
-"name is given, apply all patches up to and including the\n"
-"named patch. If neither a number nor a patch name is\n"
-"specified, apply the next patch from the series file.\n"
+"Apply patch(es) from the series file.  A number of patches to apply, or\n"
+"a patch name can be specified.  If a patch name is given, apply all\n"
+"patches up to and including the named patch.  If neither a number nor a\n"
+"patch name is specified, apply the next patch from the series file.\n"
 "\n"
 "-a\tApply all patches in the series file.\n"
 "\n"
@@ -550,8 +541,8 @@ msgid ""
 "-v\tVerbose operation.\n"
 "\n"
 "--leave-rejects\n"
-"\tLeave around the reject files patch produced, even if\n"
-"\tthe patch is not actually applied.\n"
+"\tLeave around the reject files patch produced, even if the patch\n"
+"\tis not actually applied.\n"
 "\t\n"
 msgstr ""
 "\n"
@@ -566,9 +557,6 @@ msgstr ""
 "\n"
 "-f\tForce l'application, même si cela doit produire des rejets.\n"
 "\n"
-"-R\tRetire le patche avec \\`patch -R' et vérifie que cela retire \n"
-"\tproprement tous les changements.\n"
-"\n"
 "-q\tOpère silencieusement.\n"
 "\n"
 "-v\tOpère verbeusement.\n"
@@ -578,11 +566,11 @@ msgstr ""
 "\tpatch a échoué et qu'il n'est finalement pas appliqué.\n"
 "\n"
 
-#: ../quilt/push.in:154
+#: ../quilt/push.in:153
 msgid "Patch $stop_at_patch is already applied."
 msgstr "Le patch $stop_at_patch est déjà appliqué."
 
-#: ../quilt/push.in:169
+#: ../quilt/push.in:168
 msgid "File series fully applied, ends at patch $top"
 msgstr "La série est complètement appliqué. Le dernier patch est $top."
 
@@ -594,19 +582,17 @@ msgstr "Usage : quilt refresh [-p n] [-f] [patch]"
 msgid ""
 "\n"
 "\n"
-"Refresh an applied patch. Refreshes the specified patch, or\n"
-"the topmost patch by default. Documentation on top of the\n"
-"actual patch is retained.\n"
+"Refreshes the specified patch, or the topmost patch by default.\n"
+"Documentation that comes before the actual patch in the patch file is\n"
+"retained.\n"
 "\n"
-"It is possible to refresh patches that are not on top.  If\n"
-"any patches on top of the patch to refresh modify the same\n"
-"files, this script prints out the file and patch names.  If\n"
-"there are any such conflicts, patches can still be refreshed\n"
-"with -f. In that case this script will print a warning for\n"
-"each shadowed file, changes by more recent patches will be\n"
-"ignored, and only changes in files that have not been\n"
-"modified by any more recent patches will end up in the\n"
-"specified patch.\n"
+"It is possible to refresh patches that are not on top.  If any patches\n"
+"on top of the patch to refresh modify the same files, the script aborts\n"
+"by default.  Patches can still be refreshed with -f.  In that case this\n"
+"script will print a warning for each shadowed file, changes by more\n"
+"recent patches will be ignored, and only changes in files that have not\n"
+"been modified by any more recent patches will end up in the specified\n"
+"patch.\n"
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
 "\t\n"
@@ -634,7 +620,7 @@ msgstr ""
 "-f\tForce le rafraîchissement, même si des patches plus haut changent \n"
 "\tles mêmes fichiers.\n"
 
-#: ../quilt/refresh.in:125
+#: ../quilt/refresh.in:123
 msgid ""
 "Cannot refresh patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -642,17 +628,17 @@ msgstr ""
 "Impossible de rafraîchir des patchs avec -p$opt_strip_level. Veuillez\n"
 "spécifier -p0 ou -p1 à la place."
 
-#: ../quilt/refresh.in:152
-msgid "More recent patches modify the same files. Enforce refresh with -f."
+#: ../quilt/refresh.in:150
+msgid "More recent patches modify files in $patch. Enforce refresh with -f."
 msgstr ""
-"Des fichiers plus récents modifient les mêmes fichiers. Forcez le\n"
-"rafraîchissement avec -f."
+"Des fichiers plus récents modifient les mêmes fichiers que $patch.\n"
+"Forcez le rafraîchissement avec -f."
 
-#: ../quilt/refresh.in:159
+#: ../quilt/refresh.in:157
 msgid "Nothing in patch $patch"
 msgstr "Le patch $patch ne contient rien"
 
-#: ../quilt/refresh.in:199
+#: ../quilt/refresh.in:197
 msgid "Refreshed patch $patch"
 msgstr "Le patch $patch a été rafraichi."
 
@@ -664,9 +650,8 @@ msgstr "Usage : quilt remove [-p patch] {fichier} ..."
 msgid ""
 "\n"
 "\n"
-"Remove one or more files from the topmost or named patch.\n"
-"Files that are modified by patches on top of the specified\n"
-"patch cannot be removed.\n"
+"Remove one or more files from the topmost or named patch.  Files that\n"
+"are modified by patches on top of the specified patch cannot be removed.\n"
 "\n"
 "-p patch\n"
 "\tPatch to remove files from.\n"
@@ -674,23 +659,23 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Retire un ou plusieurs fichiers du patch au sommet ou du patch\n"
-"spécifié. Des fichiers modifiés par des patches plus haut danzs la série ne\n"
-"peuvent pas être retirés.\n"
+"Retire un ou plusieurs fichiers du patch au sommet ou du patch spécifié.\n"
+"Des fichiers modifiés par des patches plus haut dans la série ne peuvent\n"
+"pas être retirés. \n"
 "\n"
 "-p patch\n"
 "\tPatch duquel les fichiers doivent être retirés.\n"
 "\n"
 
-#: ../quilt/remove.in:90
+#: ../quilt/remove.in:89
 msgid "File $file is not in patch $patch"
 msgstr "Le fichier $file n'est pas dans le patch $patch."
 
-#: ../quilt/remove.in:106
+#: ../quilt/remove.in:105
 msgid "Failed to remove file $file from patch $patch"
 msgstr "Impossible d'enlever le fichier $file du patch $patch."
 
-#: ../quilt/remove.in:117
+#: ../quilt/remove.in:116
 msgid "File $file removed from patch $patch"
 msgstr "Le fichier $file a été enlevé du patch $patch."
 
@@ -727,9 +712,9 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"Initializes a source tree from a patch series file. The\n"
-"patch series file must contain the name of the relevant\n"
-"tar archive, in addition to the list of patches.\n"
+"Initializes a source tree from a patch series file.  The patch series\n"
+"file must contain the name of the relevant tar archive, in addition to\n"
+"the list of patches.\n"
 "\n"
 msgstr ""
 "\n"
@@ -883,32 +868,3 @@ msgstr "Le patch $patch ne se retire pas proprement (forcez avec -f)"
 #: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
 msgid " done"
 msgstr " fini"
-
-#~ msgid "Usage: quilt guidiff"
-#~ msgstr "Usage : quilt guidiff"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Display in $guidiffname the changes to files in the topmost patch.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Affiche dans $guidiffname les changements induit par le patch au sommet.\n"
-#~ "\n"
-
-#~ msgid "The file $file doesn't exist before this patch"
-#~ msgstr "Le fichier $file n'existe pas avant ce patch"
-
-#~ msgid "No file in patch $patch"
-#~ msgstr "Le patch $patch ne contient aucun fichier"
-
-#~ msgid "no patch applied"
-#~ msgstr "aucun patch n'est appliqué"
-
-#~ msgid "now at $top"
-#~ msgstr "maintenant à $top"
-
-#~ msgid "Removed $patch, $where"
-#~ msgstr "$patch a été retiré, $where"
