@@ -161,7 +161,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     $< > $@
 	@chmod --reference=$< $@
 
-Makefile.in : Makefile
+Makefile : Makefile.in
 	echo "Please run ./configure by hand"
 	false
 

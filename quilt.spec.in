@@ -27,7 +27,7 @@ Authors:
     Andreas Gruenbacher <agruen@suse.de>
 
 %prep
-if [ "${RPM_BUILD_ROOT%/}" != "" ]; then
+if [ -n "${RPM_BUILD_ROOT%/}" ]; then
 	rm -rf $RPM_BUILD_ROOT
 fi
 %setup
