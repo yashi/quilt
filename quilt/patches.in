@@ -45,9 +45,7 @@ scan_applied()
 	do
 		if [ -f "$QUILT_PC/$patch/$file" ]
 		then
-			[ -n "$opt_filenames" ] && \
-				patch=$(patch_file_name $patch)
-			echo "$prefix$patch"
+			echo "$prefix$(print_patch patch)"
 		fi
 	done
 }
@@ -63,9 +61,7 @@ scan_unapplied()
 		if touched_by_patch $(patch_strip_level $patch) $patch \
 		   | grep -q "^$file_bre\$"
 		then
-			[ -n "$opt_filenames" ] && \
-				patch=$(patch_file_name $patch)
-			echo "$prefix$patch"
+			echo "$prefix$(print_patch patch)"
 		fi
 	done
 }
@@ -82,9 +78,6 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-n)
-		opt_filenames=1
-		shift ;;
 	-v)
 		opt_verbose=1
 		shift ;;

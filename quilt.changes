@@ -8,6 +8,7 @@ Sun Oct 17 22:19:09 CEST 2004 - agruen@suse.de
   can't fic them up. Remove them, instead.
 - Pop command: Touch files after they are restored so that tools
   like make don't get confused.
+- Add a missing print_patch call (cosmetic).
 - Bump to version 0.37.
 
 -------------------------------------------------------------------
