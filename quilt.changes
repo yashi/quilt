@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr  9 12:08:47 CEST 2003 - agruen@suse.de
+
+- Remove awk hacks in Makefile.in with shell loop and sed hack:
+  The awk hack(s) didn't work for Martin Quinson.
+
+-------------------------------------------------------------------
 Wed Apr  9 04:00:52 CEST 2003 - agruen@suse.de
 
 - Never reorder files in patches. (Previously the file list

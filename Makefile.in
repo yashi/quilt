@@ -104,9 +104,17 @@ rpm : $(PACKAGE)-$(VERSION).tar.gz
 	rpm -tb $<
 
 doc/README : doc/README.in
-	@awk '/@REFERENCE''@/ { system("$(MAKE) -s reference") ; \
-				next }'$$'\n'' \
-			   { print }' 2>&1 $< > $@
+	@echo README.in -> README
+	@while read line; do \
+		case "$$line" in \
+		'@REFERENCE''@') \
+			$(MAKE) -s reference \
+			;; \
+		*) \
+			echo $$line \
+			;; \
+		esac ; \
+	done 2>&1 < $< > $@
 
 .PHONY :: reference
 reference : $(QUILT:%=quilt/%)
@@ -116,9 +124,9 @@ reference : $(QUILT:%=quilt/%)
 		echo; \
 		(bash -c ". scripts/patchfns ; . $$i -h"); \
 	done | \
-	awk '/Usage:/	{ sub(/Usage: ?/, "") ; print ; next } '$$'\n'' \
-	     		{ printf "  %s\n", $$0 }'
-		
+	sed -e '/^Usage: \?/ {s/^Usage: \?// ; p ; d}' \
+	    -e 's/^/  /'
+
 bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)
 	pod2man $< > $@
