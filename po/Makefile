@@ -7,8 +7,10 @@ TO_PARSE= $(foreach f,$(QUILT_IN),../quilt/$(f).in)      \
           $(foreach f,$(SCRIPTS_IN),../scripts/$(f).in)  \
 	  ../bin/quilt.in
 
+# LINGUAS = ...
+# localedir = ...
 
-all: fr.mo
+all: $(LINGUAS:%=%.mo)
 
 %.mo : %.po
 	msgfmt --statistics -o $@ $<
@@ -28,7 +30,10 @@ clean:
 	rm -f *.mo *~
 
 install: all
-	install -d $(BUILD_ROOT)/usr/share/locale/fr/LC_MESSAGES
-	install -m644 fr.mo $(BUILD_ROOT)/usr/share/locale/fr/LC_MESSAGES/quilt.mo
+	for lang in $(LINGUAS) ; do \
+		install -d $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES ; \
+		install -m 644 $$lang.mo \
+		    $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	done
 
 .PHONY: install clean all

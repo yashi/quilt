@@ -80,7 +80,7 @@ then
 		command="${commands[0]}"
 		unset commands
 	else
-		echo $"$command:" "${commands[@]}" >&2
+		echo "$command :" "${commands[@]}" >&2
 		exit 1
 	fi
 fi

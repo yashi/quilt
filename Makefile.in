@@ -10,6 +10,7 @@ libdir :=	@libdir@
 datadir :=	@datadir@
 mandir :=	$(datadir)/man
 docdir :=	$(datadir)/doc/packages
+localedir :=	$(datadir)/locale
 
 QUILT_DIR =	$(datadir)/$(PACKAGE)
 SCRIPTS_DIR =	$(QUILT_DIR)/scripts
@@ -71,7 +72,8 @@ DEBIAN :=	changelog control copyright docs prerm rules
 
 SRC +=		$(DEBIAN:%=debian/%)
 
-PO :=		Makefile fr.po quilt.pot
+LINGUAS :=	fr de
+PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 
 #-----------------------------------------------------------------------
@@ -185,7 +187,9 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
 	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 	
-	BUILD_ROOT=$(BUILD_ROOT) $(MAKE) -C po install
+	$(MAKE) -C po install BUILD_ROOT=$(BUILD_ROOT) \
+		LINGUAS="$(LINGUAS)" localedir=$(localedir)
+
 
 clean :
 	rm -f $(DIRT)
