@@ -400,7 +400,8 @@ files_in_patch()
 	local path=".pc/$patch"
 	if [ -d "$path" ]
 	then
-		for file in $(find "$path" -type f)
+		for file in $(find "$path" -type f \
+				   -a ! -path "$path/.timestamp")
 		do
 			echo "${file:${#path}+1}"
 		done

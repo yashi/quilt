@@ -193,7 +193,7 @@ then
 	die 1
 fi
 
-touch .pc/$patch
+touch .pc/$patch/.timestamp
 
 rm -f .pc/$patch~refresh
 echo $"Refreshed patch $patch"
