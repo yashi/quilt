@@ -4,6 +4,7 @@ Tue Nov  4 16:51:49 CET 2003 - agruen@suse.de
 - Add failpop.test that checks if modified patches are recognized.
 - Fix the check for modified patches: That broke with the .pc file
   removal.
+- `quilt setup' sometimes forgot to create the patches sub-dir.
 
 -------------------------------------------------------------------
 Fri Oct 31 16:59:06 CET 2003 - agruen@suse.de

@@ -204,6 +204,7 @@ do
 			fi
 		else
 			echo $"Copying series file"
+			mkdir -p $packagedir/patches
 			cp "$arg" "$packagedir/patches/series"
 		fi
 		;;
