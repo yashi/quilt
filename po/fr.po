@@ -850,7 +850,15 @@ msgstr "Le répertoire %s existe\\n"
 msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
-#: ../quilt/setup.in:151
+#: ../quilt/setup.in:118
+msgid "The %%prep section of %s failed; results may be incomplete\\n"
+msgstr ""
+
+#: ../quilt/setup.in:121
+msgid "The -v option will show rpm's output\\n"
+msgstr ""
+
+#: ../quilt/setup.in:155
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
 

@@ -311,6 +311,21 @@ msgid ""
 "\tto specifying the first applied patch.\n"
 "\n"
 msgstr ""
+"\n"
+"Gibt eine Liste der Dateien aus, die der oberste oder angegebene Patch\n"
+"beinhaltet.\n"
+"\n"
+"-a\tZeigt alle Dateien in allen angewandten Patches an.\n"
+"\n"
+"-l\tGibt auch die Patchnamen mit aus.\n"
+"\n"
+"-v\tAusführlichere, benutzerfreundliche Ausgabe.\n"
+"\n"
+"--combine patch\n"
+"\tErzeige eine Liste für alle Patches zwischen dem angegebenen Patch und\n"
+"\tdem obersten Patch am Stack. Der Patchname \\\"-\\\" entspricht dem\n"
+"\tersten angewandten Patch.\n"
+"\n"
 
 #: ../quilt/files.in:76 ../quilt/files.in:96
 msgid "Patch %s is not in series file\\n"
@@ -825,7 +840,17 @@ msgstr "Verzeichnis %s existiert\\n"
 msgid "File %s exists\\n"
 msgstr "Datei %s existiert\\n"
 
-#: ../quilt/setup.in:151
+#: ../quilt/setup.in:118
+msgid "The %%prep section of %s failed; results may be incomplete\\n"
+msgstr ""
+"Der %%prep-Abschnitt von %s ist fehlgeschlagen; die Ergebnisse sind "
+"möglicherweise unvollständig\\n"
+
+#: ../quilt/setup.in:121
+msgid "The -v option will show rpm's output\\n"
+msgstr "Die Option -v zeigt die Ausgaben von rpm an\\n"
+
+#: ../quilt/setup.in:155
 msgid "Unpacking archive %s\\n"
 msgstr "Entpacke Archiv %s\\n"
 

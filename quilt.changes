@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 13 19:49:59 CEST 2004 - agruen@suse.de
+
+- setup command: detect errors when running ``rpm -bp'' and
+  improve the messages of ``quilt setup''.
+
+-------------------------------------------------------------------
 Wed Aug 11 14:28:59 CEST 2004 - agruen@suse.de
 
 - Merge improvement to files command from Dean Roehrich: Allow to

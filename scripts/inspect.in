@@ -174,8 +174,10 @@ ln -s wrapper $tmpdir/bin/tar
 set -- @RPMBUILD@
 echo -n "### ${1##*/}: " >&4
 
-"${RPM[@]}" --nodeps -bp "$specfile" < /dev/null > /dev/null
+"${RPM[@]}" --nodeps -bp "$specfile" < /dev/null >&2
+status=$?
 echo >&4
+exit $status
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -113,9 +113,13 @@ case "$1" in
 *.spec)
 	spec_file="$1"
 
-	if ! @SCRIPTS@/inspect $verbose "$spec_file" > $tmpfile
+	if ! @SCRIPTS@/inspect $verbose "$spec_file" 2>&1 > $tmpfile
 	then
-		exit 1
+		printf $"The %%prep section of %s failed; results may be incomplete\n" "$spec_file"
+		if [ -z "$verbose" ]
+		then
+			printf $"The -v option will show rpm's output\n"
+		fi
 	fi
 	;;
 *)

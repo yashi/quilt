@@ -597,7 +597,15 @@ msgstr ""
 msgid "File %s exists\\n"
 msgstr ""
 
-#: ../quilt/setup.in:151
+#: ../quilt/setup.in:118
+msgid "The %%prep section of %s failed; results may be incomplete\\n"
+msgstr ""
+
+#: ../quilt/setup.in:121
+msgid "The -v option will show rpm's output\\n"
+msgstr ""
+
+#: ../quilt/setup.in:155
 msgid "Unpacking archive %s\\n"
 msgstr ""
 
