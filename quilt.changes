@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Oct 29 17:19:24 CET 2003 - agruen@suse.de
+
+- If a patch does not apply cleanly and `quilt push' removes
+  rejects files it GNU patch left behind, change the output from
+  ``saving rejects to file x.rej'' to ``rejects in file x''.
+
+-------------------------------------------------------------------
 Tue Oct 28 14:51:07 CET 2003 - agruen@suse.de
 
 - Remove .pc/*/.pc files, and adjust various scripts accordingly.
