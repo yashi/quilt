@@ -68,25 +68,25 @@ Fri Feb 14 15:53:52 CET 2003 - agruen@suse.de
 - Remove "quilt guidiff" (obsolete).
 
 -------------------------------------------------------------------
-Fri Feb 14 14:10:39 +0100 2003 - martin.quinson@tuxfamily.org
+Fri Feb 14 14:10:39 CET 2003 - martin.quinson@tuxfamily.org
 
 - Implement i18n, along with the french l10n.
 - It was long enough that we didn't release, so bump the version number.
 
 -------------------------------------------------------------------
-Sat Feb  8 15:43:26 +0100 2003 - agruen@suse.de
+Sat Feb  8 15:43:26 CET 2003 - agruen@suse.de
 
 - Merge James Rowe <Jay@jnrowe.uklinux.net>'s quilt-help.diff
   patch that fixes several help messages.
 
 -------------------------------------------------------------------
-Thu Feb  6 01:22:52 +0100 2003 - agruen@suse.de
+Thu Feb  6 01:22:52 CET 2003 - agruen@suse.de
 
 - Quilt refresh: Create sub-directories in patches directory
   so that new patches in sub-directories can be added easily.
 
 -------------------------------------------------------------------
-Wed Feb  5 12:37:34 +0100 2003 - agruen@suse.de
+Wed Feb  5 12:37:34 CET 2003 - agruen@suse.de
 
 - Quilt diff: If a patch has been force applied, quilt diff -z
   will also have failures when generating the temporary files.
@@ -96,7 +96,7 @@ Wed Feb  5 12:37:34 +0100 2003 - agruen@suse.de
   instead of a relative path).
 
 -------------------------------------------------------------------
-Sun Feb  2 15:23:20 +0100 2003 - agruen@suse.de
+Sun Feb  2 15:23:20 CET 2003 - agruen@suse.de
 
 - Make quilt setup recognize the "# Sourcedir:" directive.
 - Fix bug with spurious `Index:' lines in diff/refresh output.
@@ -107,7 +107,7 @@ Sun Feb  2 15:23:20 +0100 2003 - agruen@suse.de
   changed.)
 
 -------------------------------------------------------------------
-Sat Feb  1 18:52:15 +0100 2003 - agruen@suse.de
+Sat Feb  1 18:52:15 CET 2003 - agruen@suse.de
 
 - Integrate James Rowe's Autoconf setup (with a comple of
   additional changes/fixes).
@@ -118,7 +118,7 @@ Sat Feb  1 18:52:15 +0100 2003 - agruen@suse.de
 - Merge James Rowe's guidiff.
 
 -------------------------------------------------------------------
-Fri Jan 31 13:05:18 +0100 2003 - agruen@suse.de
+Fri Jan 31 13:05:18 CET 2003 - agruen@suse.de
 
 - Add syntax highlighting tags for emacs and vim.
 - Move all scripts from lib/ to scripts/. Install lib/backup-files
@@ -130,13 +130,13 @@ Fri Jan 31 13:05:18 +0100 2003 - agruen@suse.de
   so that Autoconf won't mess them up later.
 
 -------------------------------------------------------------------
-Fri Jan 31 09:15:01 +0100 2003 - Martin.Quinson@ens-lyon.fr
+Fri Jan 31 09:15:01 CET 2003 - Martin.Quinson@ens-lyon.fr
 
 - Change '#!@BASH@' to '#! @BASH@'. It can look a bit stupid, but
   it's needed for maximal portability.
 
 -------------------------------------------------------------------
-Fri Jan 31 08:52:20 +0100 2003 - Martin.Quinson@ens-lyon.fr
+Fri Jan 31 08:52:20 CET 2003 - Martin.Quinson@ens-lyon.fr
 
 - Fight lintian warnings (lintian is a tool to check debian
   packages):
@@ -147,7 +147,7 @@ Fri Jan 31 08:52:20 +0100 2003 - Martin.Quinson@ens-lyon.fr
   executable script, but a stuff to be sourced by others.
 
 -------------------------------------------------------------------
-Thu Jan 30 23:56:21 +0100 2003 - agruen@suse.de
+Thu Jan 30 23:56:21 CET 2003 - agruen@suse.de
 
 - Also substitute @MKTEMP@.
 - For improved scripting support, add -n option to scripts that
@@ -155,21 +155,21 @@ Thu Jan 30 23:56:21 +0100 2003 - agruen@suse.de
   is useful for selecting which patches to grep, etc.
 
 -------------------------------------------------------------------
-Thu Jan 30 19:02:14 +0100 2003 - agruen@suse.de
+Thu Jan 30 19:02:14 CET 2003 - agruen@suse.de
 
 - Allow a file list to be diffed to be passed to quilt diff. Add
   -P option for specifying a patch different from the topmost
   patch,
 
 -------------------------------------------------------------------
-Thu Jan 30 12:11:00 +0500 2003 -  Martin.Quinson@ens-lyon.fr
+Thu Jan 30 16:11:00 CET 2003 -  Martin.Quinson@ens-lyon.fr
 
 - Remove useless oldies. Missing functionnalities needs to be
   reimplemented almost from the scratch due to the bunch of
   changes to the core since those scripts were written.
 
 -------------------------------------------------------------------
-Thu Jan 30 13:25:51 +0100 2003 - agruen@suse.de
+Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
 - Fix some regex quoting; use grep -E because we quote for extended
   regexps. Filenames with "+^$" in it did not work in some places. 
 - Prepare for GNU Autoconf: substitute @PERL@, @BASH@, @DIFF@,
@@ -185,14 +185,14 @@ Thu Jan 30 13:25:51 +0100 2003 - agruen@suse.de
   patch_description function.
 
 -------------------------------------------------------------------
-Tue Jan 28 23:41:19 +0100 2003 - agruen@suse.de
+Tue Jan 28 23:41:19 CET 2003 - agruen@suse.de
 
 - Add --leave-rejects option to quilt push and apatch, to
   leave reject files around for inspection even if a patch
   does not apply.
 
 -------------------------------------------------------------------
-Tue Jan 28 23:38:59 +0100 2003 - agruen@suse.de
+Tue Jan 28 23:38:59 CET 2003 - agruen@suse.de
 
 - Restart change log at quilt-0.21. Let orderly development
   begin :)
