@@ -12,3 +12,5 @@
 
 * Blank and commented out lines in series file cause problems.
 
+* rpatch should only look at .pc/applied-patches, not at the series
+  file.
