@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep 13 22:28:21 CEST 2004 - agruen@suse.de
+
+- bin/quilt.in: Add optional verbose modifier to --trace option
+  by request of Dean Roehrich <roehrich@sgi.com>.
+
+-------------------------------------------------------------------
 Sun Sep 12 18:33:07 CEST 2004 - agruen@suse.de
 
 - scripts/inspect.in: Run the RPM %prep section in /var/tmp and

@@ -13,7 +13,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../bin/quilt.in:20
-msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+#, fuzzy
+msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr "使い方: quilt [--trace] [--quiltrc=XX] command [-h] ..."
 
 #: ../bin/quilt.in:22
@@ -371,15 +372,15 @@ msgstr ""
 "終っている場合、番号の値が1増える (例: patch.diff、patch-2.diff、\n"
 "patch-3.diff)。\n"
 
-#: ../quilt/fork.in:91
+#: ../quilt/fork.in:92
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "パッチ %sはすでに存在します。新しい名前を選んでください\\n"
 
-#: ../quilt/fork.in:103
+#: ../quilt/fork.in:104
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "パッチ %sからパッチ %sへの分岐に失敗しました\\n"
 
-#: ../quilt/fork.in:109
+#: ../quilt/fork.in:110
 msgid "Fork of patch %s created as %s\\n"
 msgstr "パッチ %sの分岐で %sが作成されました\\n"
 

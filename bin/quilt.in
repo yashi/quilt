@@ -17,7 +17,7 @@ fi
 usage()
 {
 
-	echo $"Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+	echo $"Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 
 	echo $"Commands are:"
 	quilt_commands \
@@ -68,8 +68,17 @@ do
 		[ "$QUILTRC" = - ] && unset QUILTRC
 		shift ;;
 	# Trace execution of commands
-	--trace)
-		BASH_OPTS=-x ;;
+	--trace*)
+		BASH_OPTS="${BASH_OPTS:+$BASH_OPTS }-x"
+		case "${1:7}" in
+			'')
+				;;
+			=verbose)
+				BASH_OPTS="${BASH_OPTS:+$BASH_OPTS }-v" ;;
+			*)
+				command=
+				break ;;
+		esac ;;
 	*)
 		args[${#args[@]}]=$1 ;;
 	esac

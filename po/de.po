@@ -12,7 +12,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../bin/quilt.in:20
-msgid "Usage: quilt [--trace] [--quiltrc=XX] command [-h] ..."
+#, fuzzy
+msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr "Verwendung: quilt [--trace] [--quiltrc=XX] befehl [-h] ..."
 
 #: ../bin/quilt.in:22
@@ -380,15 +381,15 @@ msgstr ""
 "Falls der Name bereits mit Bindestrich-Nummer endet, wird die Nummer\n"
 "erhöht (z.B. patch.diff, patch-2.diff, patch-3.diff).\n"
 
-#: ../quilt/fork.in:91
+#: ../quilt/fork.in:92
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Patch %s existiert bereits, bitte neuen Namen wählen\\n"
 
-#: ../quilt/fork.in:103
+#: ../quilt/fork.in:104
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Fehler beim Aufspalten von %s auf %s\\n"
 
-#: ../quilt/fork.in:109
+#: ../quilt/fork.in:110
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Neue Version von %s erstellt als %s\\n"
 
