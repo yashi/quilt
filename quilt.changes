@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jun  6 12:21:11 CEST 2004 - agruen@suse.de
+
+- dependency-graph: Fix for --lines option in patcher mode;
+  restrict to applied patches.
+
+-------------------------------------------------------------------
 Sun Jun  6 03:35:32 CEST 2004 - agruen@suse.de
 
 - import: Create patches/ and parent directories to patch to be

@@ -143,14 +143,24 @@ sub ranges($) {
     return [ [ @left ], [ @right ] ];
 }
 
+sub backup_file_name($$) {
+    my ($patch, $file) = @_;
+
+    if ($use_patcher) {
+	return $patch . "~" . $file;
+    } else {
+	return $ENV{QUILT_PC} . "/" . $patch . "/" . $file;
+    }
+}
+
 # Compute the lists of lines that a patch changes in a file.
 sub compute_ranges($$) {
     my ($n, $file) = @_;
-    my $file1 = $ENV{QUILT_PC} . "/" . $nodes[$n]{file} . "/" . $file;
+    my $file1 = backup_file_name($nodes[$n]{file}, $file);
     my $file2;
     my $n2 = next_patch_for_file($n, $file);
     if (defined $n2) {
-	$file2 = $ENV{QUILT_PC} . "/" . $nodes[$n2]{file} . "/" . $file;
+	$file2 = backup_file_name($nodes[$n2]{file}, $file);
     } else {
 	$file2 = $file;
     }
@@ -206,9 +216,7 @@ if (@ARGV) {
 		@patches = @ARGV;
 	}
 } elsif ($use_patcher) {
-	# Since patcher maintains a file called patchname.files,
-	# we can generate the graph for patches which are not applied!
-	my $fh = new FileHandle("< .patches/series")
+	my $fh = new FileHandle("< .patches/applied")
 		or die ".patches/applied: $!\n";
 	@patches = map { chomp; $_ } <$fh>;
 	$fh->close();
