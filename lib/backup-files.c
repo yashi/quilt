@@ -202,12 +202,10 @@ process_file(char *file)
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link(backup, file) == -1) {
-				if (link_or_copy(backup, file) != 0)
-					return 1;
-				unlink(backup);
-				remove_parents(backup);
-			}
+			if (link_or_copy(backup, file) != 0)
+				return 1;
+			unlink(backup);
+			remove_parents(backup);
 		}
 		return 0;
 	} else if (opt_what == what_remove) {
