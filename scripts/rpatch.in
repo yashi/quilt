@@ -80,14 +80,9 @@ check_for_pending_changes()
 			       --no-backup-if-mismatch -E \
 			       >/dev/null 2>/dev/null
 		then
-			# If a patch was force applied (and therefore needs
-			# refreshing), we know that patching the temporary
-			# files won't succeed, either. So, ignore the error
-			# in that particular case.
-			
 			if ! [ -e $QUILT_PC/$patch ]
 			then
-				echo $"Failed to patch temporary files"
+				echo $"Failed to patch temporary files" >&2
 				rm -rf $workdir
 				return 1
 			fi

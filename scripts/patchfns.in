@@ -251,7 +251,7 @@ rename_in_series()
 	local from=$1 to=$2
 
 	tmpfile=$(gen_tempfile) || return 1
-	/usr/bin/gawk '
+	@AWK@ '
 	/^'"$(quote_re $from)"'([ \t]|$)/ \
 		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
@@ -558,7 +558,7 @@ patch_description()
 		@AWK@ '
 		$1 == "---"	{ exit }
                /^Index:[ \t]|^diff[ \t]|^==*$/ \
-                               { eat = eat $0
+				{ eat = eat $0
 				  next }
 		eat		{ print eat
 				  eat="" }

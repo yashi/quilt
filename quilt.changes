@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb 15 15:53:42 CET 2004 - agruen@suse.de
+
+- Never fail when patching temporary files in `quilt diff -z',
+  only warn.
+
+-------------------------------------------------------------------
 Thu Feb  5 11:51:21 CET 2004 - agruen@suse.de
 
 - Add some fixes from Manuel Estrada Sainz <ranty@debian.org>.
