@@ -1,4 +1,5 @@
-#!@BASH@
+# This file contains the common functions used in all quilt script
+# It is meant to be sourced by bash scripts.
 
 #  This script is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2 as
