@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul  1 00:39:53 CEST 2004 - agruen@suse.de
+
+- Quilt diff: add --color option for optionally colorizing the
+  output.
+
+-------------------------------------------------------------------
 Sat Jun 26 23:24:42 CEST 2004 - agruen@suse.de
 
 - Quilt import: when importing patches with their original file

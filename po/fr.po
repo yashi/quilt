@@ -66,7 +66,7 @@ msgstr ""
 "-p patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés."
 
-#: ../quilt/add.in:54 ../quilt/diff.in:116 ../quilt/diff.in:127
+#: ../quilt/add.in:54 ../quilt/diff.in:140 ../quilt/diff.in:151
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr "Le patch $2 n'est pas dans la série"
@@ -76,7 +76,7 @@ msgstr "Le patch $2 n'est pas dans la série"
 msgid "Patch $patch is not applied"
 msgstr "Le patch $patch n'est pas appliqué"
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:174
+#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:211
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
 #: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
 #: ../quilt/refresh.in:113 ../quilt/remove.in:80
@@ -152,14 +152,16 @@ msgid "Failed to remove patch $patch"
 msgstr "Impossible de retirer le patch $patch"
 
 #: ../quilt/diff.in:22
+#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--"
-"diff=utility] [file ...]"
+"diff=utility] [--color] [file ...]"
 msgstr ""
 "Usage : quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--"
 "diff=programme] [fichier ...]"
 
 #: ../quilt/diff.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -191,7 +193,10 @@ msgid ""
 "\n"
 "--no-timestamps\n"
 "\tDo not include file timestamps in patch headers (as if\n"
-"        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
+"        QUILT_DIFF_NO_TIMESTAMPS were set to yes).\n"
+"\t\n"
+"--color[=always|auto|never]\n"
+"\tUse ANSI escape sequences to colorize the result."
 msgstr ""
 "\n"
 "Produit un diff du ou des fichiers spécifiés par le patch spécifié (ou à\n"
@@ -226,17 +231,17 @@ msgstr ""
 "\tSupprime les timestamps des entêtes du patch (comme si\n"
 "        QUILT_DIFF_NO_TIMESTAMPS valait \"yes\")."
 
-#: ../quilt/diff.in:159
+#: ../quilt/diff.in:196
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 "Les options \\`-c patch', \\`--snapshot' et \\`-z' ne peuvent pas être "
 "combinées."
 
-#: ../quilt/diff.in:167
+#: ../quilt/diff.in:204
 msgid "Patch $last_patch is not applied"
 msgstr "Le patch $last_patch ne semble pas appliqué"
 
-#: ../quilt/diff.in:185
+#: ../quilt/diff.in:222
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
@@ -244,39 +249,39 @@ msgstr ""
 "Impossible de créer des patches avec -p$opt_strip_level. Veuillez spécifier -"
 "p0 ou -p1 à la place"
 
-#: ../quilt/diff.in:219
+#: ../quilt/diff.in:256
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr "Le patch $first_patch n'est pas appliqué avant $last_patch."
 
-#: ../quilt/diff.in:253
+#: ../quilt/diff.in:290
 msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr "Impossible d'entrer dans $QUILT_PC/$last_patch"
 
-#: ../quilt/diff.in:259 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:296 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire"
 
-#: ../quilt/diff.in:270
+#: ../quilt/diff.in:307
 msgid "Cannot change to temporary directory"
 msgstr "Impossible d'entrer dans le répertoire temporaire"
 
-#: ../quilt/diff.in:289 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:326 ../scripts/rpatch.in:85
 msgid "Failed to patch temporary files"
 msgstr "Impossible de patcher les fichiers temporaires"
 
-#: ../quilt/diff.in:295
+#: ../quilt/diff.in:332
 msgid "Cannot change to source directory"
 msgstr "Impossible d'entrer dans le répertoire source"
 
-#: ../quilt/diff.in:313
+#: ../quilt/diff.in:350
 msgid "File $file is not being modified."
 msgstr "Le fichier $file n'est pas modifié."
 
-#: ../quilt/diff.in:332 ../quilt/refresh.in:145
+#: ../quilt/diff.in:370 ../quilt/refresh.in:145
 msgid "Diff failed, aborting."
 msgstr "Le diff a échoué. Abandon."
 
-#: ../quilt/diff.in:339
+#: ../quilt/diff.in:377
 msgid "More recent patches modify files in $last_patch."
 msgstr "Un patch plus recent modifie des fichiers communs à $last_patch."
 
@@ -417,27 +422,27 @@ msgid "Option \\`-n' can only be used when importing a single patch"
 msgstr ""
 "L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch."
 
-#: ../quilt/import.in:94
+#: ../quilt/import.in:90
 msgid "Patch $patch is applied."
 msgstr "Le patch $patch est appliqué."
 
-#: ../quilt/import.in:102
+#: ../quilt/import.in:98
 msgid "Patch $patch exists. Replace with -f."
 msgstr "Le patch $patch existe. Utilisez -f pour le remplacer."
 
-#: ../quilt/import.in:105
+#: ../quilt/import.in:101
 msgid "Replacing patch $patch with new version"
 msgstr "Remplacement du patch $patch avec la nouvelle version"
 
-#: ../quilt/import.in:107
+#: ../quilt/import.in:103
 msgid "Importing patch $patch_file (stored as $patch)"
 msgstr "Import du patch $patch_file (enregistré dans $patch)"
 
-#: ../quilt/import.in:113
+#: ../quilt/import.in:109
 msgid "Failed to import patch $patch"
 msgstr "Impossible d'importer le patch $patch"
 
-#: ../quilt/import.in:120
+#: ../quilt/import.in:116
 msgid "Failed to insert $patch in file series."
 msgstr "Impossible d'inserer $patch dans le fichier de série."
 

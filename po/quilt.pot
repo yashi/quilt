@@ -34,7 +34,7 @@ msgid ""
 "\tPatch to add files to."
 msgstr ""
 
-#: ../quilt/add.in:54 ../quilt/diff.in:116 ../quilt/diff.in:127
+#: ../quilt/add.in:54 ../quilt/diff.in:140 ../quilt/diff.in:151
 #: ../quilt/remove.in:52
 msgid "Patch $2 is not in series"
 msgstr ""
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Patch $patch is not applied"
 msgstr ""
 
-#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:174
+#: ../quilt/add.in:82 ../quilt/delete.in:67 ../quilt/diff.in:211
 #: ../quilt/files.in:75 ../quilt/fold.in:78 ../quilt/fork.in:64
 #: ../quilt/pop.in:181 ../quilt/push.in:179 ../quilt/push.in:215
 #: ../quilt/refresh.in:113 ../quilt/remove.in:80
@@ -113,7 +113,7 @@ msgstr ""
 #: ../quilt/diff.in:22
 msgid ""
 "Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--"
-"diff=utility] [file ...]"
+"diff=utility] [--color] [file ...]"
 msgstr ""
 
 #: ../quilt/diff.in:26
@@ -148,56 +148,59 @@ msgid ""
 "\n"
 "--no-timestamps\n"
 "\tDo not include file timestamps in patch headers (as if\n"
-"        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
+"        QUILT_DIFF_NO_TIMESTAMPS were set to yes).\n"
+"\t\n"
+"--color[=always|auto|never]\n"
+"\tUse ANSI escape sequences to colorize the result."
 msgstr ""
 
-#: ../quilt/diff.in:159
+#: ../quilt/diff.in:196
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined."
 msgstr ""
 
-#: ../quilt/diff.in:167
+#: ../quilt/diff.in:204
 msgid "Patch $last_patch is not applied"
 msgstr ""
 
-#: ../quilt/diff.in:185
+#: ../quilt/diff.in:222
 msgid ""
 "Cannot diff patches with -p$opt_strip_level, please specify -p0 or -p1 "
 "instead"
 msgstr ""
 
-#: ../quilt/diff.in:219
+#: ../quilt/diff.in:256
 msgid "Patch $first_patch not applied before $last_patch."
 msgstr ""
 
-#: ../quilt/diff.in:253
+#: ../quilt/diff.in:290
 msgid "Cannot change into $QUILT_PC/$last_patch"
 msgstr ""
 
-#: ../quilt/diff.in:259 ../scripts/rpatch.in:62
+#: ../quilt/diff.in:296 ../scripts/rpatch.in:62
 msgid "Failed to copy files to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:270
+#: ../quilt/diff.in:307
 msgid "Cannot change to temporary directory"
 msgstr ""
 
-#: ../quilt/diff.in:289 ../scripts/rpatch.in:85
+#: ../quilt/diff.in:326 ../scripts/rpatch.in:85
 msgid "Failed to patch temporary files"
 msgstr ""
 
-#: ../quilt/diff.in:295
+#: ../quilt/diff.in:332
 msgid "Cannot change to source directory"
 msgstr ""
 
-#: ../quilt/diff.in:313
+#: ../quilt/diff.in:350
 msgid "File $file is not being modified."
 msgstr ""
 
-#: ../quilt/diff.in:332 ../quilt/refresh.in:145
+#: ../quilt/diff.in:370 ../quilt/refresh.in:145
 msgid "Diff failed, aborting."
 msgstr ""
 
-#: ../quilt/diff.in:339
+#: ../quilt/diff.in:377
 msgid "More recent patches modify files in $last_patch."
 msgstr ""
 
@@ -301,27 +304,27 @@ msgstr ""
 msgid "Option \\`-n' can only be used when importing a single patch"
 msgstr ""
 
-#: ../quilt/import.in:94
+#: ../quilt/import.in:90
 msgid "Patch $patch is applied."
 msgstr ""
 
-#: ../quilt/import.in:102
+#: ../quilt/import.in:98
 msgid "Patch $patch exists. Replace with -f."
 msgstr ""
 
-#: ../quilt/import.in:105
+#: ../quilt/import.in:101
 msgid "Replacing patch $patch with new version"
 msgstr ""
 
-#: ../quilt/import.in:107
+#: ../quilt/import.in:103
 msgid "Importing patch $patch_file (stored as $patch)"
 msgstr ""
 
-#: ../quilt/import.in:113
+#: ../quilt/import.in:109
 msgid "Failed to import patch $patch"
 msgstr ""
 
-#: ../quilt/import.in:120
+#: ../quilt/import.in:116
 msgid "Failed to insert $patch in file series."
 msgstr ""
 

@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [file ...]"
+	echo $"Usage: quilt diff [-p n] [-c patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--color] [file ...]"
 	
 	if [ x$1 = x-h ]
 	then
@@ -53,10 +53,34 @@ included.
 
 --no-timestamps
 	Do not include file timestamps in patch headers (as if
-        QUILT_DIFF_NO_TIMESTAMPS were set to yes)."
+        QUILT_DIFF_NO_TIMESTAMPS were set to yes).
+	
+--color[=always|auto|never]
+	Use ANSI escape sequences to colorize the result."
 		exit 0
 	else
 		exit 1
+	fi
+}
+
+colorize() {
+	if [ -n "$opt_color" ]; then
+		awk '
+		function esc(x) { return "'$'\e''[" x "m" }
+		{ if (/^(Index:|\-\-\-|\+\+\+) /)
+		    print esc(32) $0 esc(0)
+		  else if (/^\+/)
+		    print esc(36) $0 esc(0)
+		  else if (/^\-/)
+		    print esc(35) $0 esc(0)
+		  else if (/^@@ \-[0-9]+(,[0-9]+)? \+[0-9]+(,[0-9]+)? @@/)
+		    print gensub(/^(@@[^@]*@@)([ \t]*)(.*)/,
+		         esc(33) "\\1" esc(0) "\\2" esc(35) "\\3" esc(0), "")
+		  else
+		    print
+		}'
+	else
+		cat
 	fi
 }
 
@@ -95,7 +119,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:c:Rzh --long diff:,snapshot,no-timestamps -- "$@"`
+options=`getopt -o p:P:c:Rzh --long diff:,snapshot,no-timestamps,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -145,6 +169,19 @@ do
 		shift 2 ;;
 	--no-timestamps)
 		QUILT_DIFF_NO_TIMESTAMPS=yes ;;
+	--color)
+		case "$2" in
+		"" | always)
+			opt_color=1 ;;
+		auto | tty)
+			opt_color=
+			[ -t 1 ] && opt_color=1 ;;
+		never)
+			opt_color= ;;
+		*)
+			usage ;;
+		esac
+		shift 2 ;;
 	--)
 		shift
 		break ;;
@@ -325,7 +362,8 @@ do
 		files_were_shadowed=1
 	fi
 
-	do_diff "$file" "$old_file" "$new_file"
+	do_diff "$file" "$old_file" "$new_file" \
+	| colorize
 
 	if [ $? -ne 0 ]
 	then
