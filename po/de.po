@@ -448,18 +448,14 @@ msgstr ""
 "ihn nach dem obersten Patch in die series-Datei ein.\n"
 
 #: ../quilt/new.in:64
-msgid "Warning: directory %s exists; ignoring\\n"
-msgstr "Warnung: Verzeichnis %s existiert; ignoriere\\n"
-
-#: ../quilt/new.in:72
 msgid "Patch %s exists already\\n"
 msgstr "Patch %s existiert bereits\\n"
 
-#: ../quilt/new.in:83
+#: ../quilt/new.in:75
 msgid "Failed to create patch %s\\n"
 msgstr "Konnte Patch %s nicht erzeugen\\n"
 
-#: ../quilt/new.in:86
+#: ../quilt/new.in:78
 msgid "Patch %s is now on top\\n"
 msgstr "Der oberste Patch ist jetzt %s\\n"
 
@@ -988,7 +984,9 @@ msgstr "Verwendung: %s [-fRq] patchname\\n"
 
 #: ../scripts/rpatch.in:100
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
-msgstr "Patch %s kann nicht entfernt werden (Patch auffrischen oder Entfernen erzwingen mit -f)\\n"
+msgstr ""
+"Patch %s kann nicht entfernt werden (Patch auffrischen oder Entfernen "
+"erzwingen mit -f)\\n"
 
 #: ../scripts/rpatch.in:123
 msgid "Removing patch %s\\n"

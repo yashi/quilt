@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Aug 11 09:18:56 CEST 2004 - agruen@suse.de
+
+- Working in sub-directories: `quilt new' so far did always
+  create patches in the current directory, even if the current
+  directory appeared to be a sub-directory of the working tree.
+  This was confusing for several people now. Make `quilt new'
+  behave like all other commands, and thus allow it to be used
+  from within sub-directories.
+
+-------------------------------------------------------------------
 Sat Aug  7 14:47:53 PDT 2004 - mquinson@fuxfamily.org
 
 - Small fix by Yasushi SHOJI: display the name of the patch which is not

@@ -457,18 +457,14 @@ msgstr ""
 "au sommet dans le fichier de série.\n"
 
 #: ../quilt/new.in:64
-msgid "Warning: directory %s exists; ignoring\\n"
-msgstr "Avertissement : le repertoire %s existe; ignoré\\n"
-
-#: ../quilt/new.in:72
 msgid "Patch %s exists already\\n"
 msgstr "Le patch %s existe déjà\\n"
 
-#: ../quilt/new.in:83
+#: ../quilt/new.in:75
 msgid "Failed to create patch %s\\n"
 msgstr "Impossible de crée le patch %s\\n"
 
-#: ../quilt/new.in:86
+#: ../quilt/new.in:78
 msgid "Patch %s is now on top\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 

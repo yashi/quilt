@@ -329,18 +329,14 @@ msgid ""
 msgstr ""
 
 #: ../quilt/new.in:64
-msgid "Warning: directory %s exists; ignoring\\n"
-msgstr ""
-
-#: ../quilt/new.in:72
 msgid "Patch %s exists already\\n"
 msgstr ""
 
-#: ../quilt/new.in:83
+#: ../quilt/new.in:75
 msgid "Failed to create patch %s\\n"
 msgstr ""
 
-#: ../quilt/new.in:86
+#: ../quilt/new.in:78
 msgid "Patch %s is now on top\\n"
 msgstr ""
 

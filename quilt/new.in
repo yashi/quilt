@@ -59,14 +59,6 @@ fi
 
 patch=${1#$QUILT_PATCHES/}
 
-if [ -n "$SUBDIR" ]
-then
-	printf $"Warning: directory %s exists; ignoring\n" \
-	       "$SUBDIR_DOWN$QUILT_PATCHES" >&2
-	cd $SUBDIR
-	unset SUBDIR
-fi
-
 if patch_in_series $patch
 then
 	printf $"Patch %s exists already\n" "$(print_patch $patch)" >&2
