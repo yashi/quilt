@@ -1,0 +1,87 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @SCRIPTS@/patchfns ]
+	then
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		exit 1
+	fi
+	. @SCRIPTS@/patchfns
+fi
+
+usage()
+{
+	echo "Usage: quilt guidiff"
+	if [ x$1 = x-h ]
+	then
+		cat <<EOF
+
+Display in @GUIDIFF@ the changes to files in the topmost patch.
+
+EOF
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+options=`getopt -o h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 0 ]
+then
+	usage
+fi
+
+patch=$(top_patch)
+if [ -z "$patch" ]
+then
+	echo "No patches applied" >&2
+	exit 1
+fi
+
+patchfiles=$( files_in_patch $patch )
+
+if [ -n "$patchfiles" ]
+then
+	for file in $patchfiles
+	do
+		if [ -s $(backup_file_name $patch $file) ]
+		then
+			@GUIDIFF@ $(backup_file_name $patch $file) $file
+		else
+			echo "The file $file doesn't exist before this patch"
+		fi
+	done
+else
+	echo "No files in patch $patch"
+fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh
