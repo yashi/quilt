@@ -72,6 +72,11 @@ rpatch:
 	  hidden by later patches. If so, refuse to remove patch! (Note
 	  that poppatch takes care of that currently.)
 
+	- Instead of reverse-applying a patch to make sure it contains all
+	  changes, forward-apply it to a copy of the .pc/$patch directory,
+	  and check if the resulting files are identical. This also works
+	  with patches that don't reverse-apply.
+
 apatch:
 	
 	- Allow to add a patch in the middle of the applied series, and
