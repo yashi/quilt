@@ -766,7 +766,7 @@ DB="$QUILT_PC/applied-patches"
 
 if [ -z "$skip_version_check" ] && ! version_check
 then
-	prinf $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'.\n" >&2
+	printf $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'.\n" >&2
 	exit 1
 fi
 ### Local Variables:
