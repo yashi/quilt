@@ -1,11 +1,19 @@
-quilt (0.35-2) unstable; urgency=low
+quilt (0.37-1) unstable; urgency=low
 
-  * NOT YET RELEASED
+  * New upstream release(s. I missed the 0.36, sorry):
+    - "quilt new" now work from a sub-dir (instead of creating a new
+      patches/ dir in the current one).
+    - allow to list all modified files (within patch ranges).
+    - japaneese translation.
+    - touch files after they are restored to not confuse make and friends.
+    - various bug fixes.
+  * Fix a bashism in patchsys-quilt.mk (Closes: #275253)
+  * Useless cleanup in debian/rules (Closes: #268967)
   * Acknoledge NMU. Thanks Matt! (Closes: #264053)
   * Use my Debian address as maintainer.
   * Fix two typos in description. Thanks Matt (Kraii) ! (Closes: #266195)
 
- -- Martin Quinson <mquinson@debian.org>  Sat,  7 Aug 2004 14:58:21 -0700
+ -- Martin Quinson <martin.quinson@tuxfamily.org>  Wed,  8 Dec 2004 16:12:21 +0100
 
 quilt (0.35-1.1) unstable; urgency=low
 
