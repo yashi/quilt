@@ -6,3 +6,4 @@ usr/share/locale/*
 usr/share/man/*
 usr/share/quilt/*
 ../patchsys-quilt.mk /usr/share/cdbs/1/rules/
+../quilt.1 usr/share/man/man1/
