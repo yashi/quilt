@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Thu Jan 30 19:02:14 CET 2003 - agruen@suse.de
+
+- Allow a file list to be diffed to be passed to quilt diff. Add
+  -P option for specifying a patch different from the topmost
+  patch,
+
+-------------------------------------------------------------------
+Thu Jan 20 12:11:00 EST 2003 -  Martin.Quinson@ens-lyon.fr
+
+- Remove useless oldies. Missing functionnalities needs to be
+  reimplemented almost from the scratch due to the bunch of
+  changes to the core since those scripts were written.
+
+-------------------------------------------------------------------
 Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
 - Fix some regex quoting; use grep -E because we quote for extended
   regexps. Filenames with "+^$" in it did not work in some places. 

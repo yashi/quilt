@@ -24,20 +24,29 @@ usage()
 	then
 		redirect='>&2'
 	fi
-	echo "Usage: quilt diff [-p n] [-c patch|-z] [patch]" $redirect
+	echo "Usage: quilt diff [-p n] [-c patch|-z] [-P patch] [file ...]" $redirect
 	
 	if [ x$1 = x-h ]
 	then
 		cat <<EOF
 
+Produces a diff of the specified file(s) in the topmost or
+specified patch. If no files are specified, all files that
+are modified are included.
+
+
 Produce a diff of the specified patch, or the topmost patch
 by default.
 
--p n	Create a -p n style patch (-p0 or -p1 supported).
+-p n	Create a -p n style patch (-p0 or -p1 are supported).
+
+-P patch
+	Create a diff for the specified patch. (Defaults to
+	the topmost patch.)
 
 -c patch
 	Create a combined diff for all patches between this
-	patch and the specified or topmost patch.
+	patch and the patch specified with -P.
 
 -z	Write to standard output the changes that have been
 	made relative to the topmost or specified patch.
@@ -56,7 +65,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o c:p:zh -- "$@"`
+options=`getopt -o p:P:c:zh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -70,6 +79,9 @@ do
 	case "$1" in
 	-p)
 		opt_strip_level=$2
+		shift 2 ;;
+	-P)
+		last_patch=$(stripit $2)
 		shift 2 ;;
 	-c)
 		opt_combine=$2
@@ -85,18 +97,12 @@ do
 	esac
 done
 
+opt_files=( "$@" )
+
 if [ -n "$opt_combine" -a -n "$opt_relative" ]
 then
 	echo "Options \`-c patch' and \`-z' cannot be combined."
 	die 1
-fi
-
-if [ $# -eq 1 ]
-then
-	last_patch=$(stripit $1)
-elif [ $# -gt 1 ]
-then
-	usage
 fi
 
 if [ -z "$last_patch" ]
@@ -151,12 +157,36 @@ then
 	
 	while read file first garbage
 	do
+		if [ ${#opt_files[@]} -gt 0 ] && \
+		   ! in_array "$file" "${opt_files[@]}"
+		then
+			continue
+		fi
 		patches[${#patches[@]}]="$first"
 		files[${#files[@]}]="$file"
 	done \
 	< <(modified_files -- "$@")
 else
-	files=( $(files_in_patch $last_patch)  )
+	for file in $(files_in_patch $last_patch)
+	do
+		if [ ${#opt_files[@]} -gt 0 ] && \
+		   ! in_array "$file" "${opt_files[@]}"
+		then
+			continue
+		fi
+		files[${#files[@]}]="$file"
+	done
+fi
+
+if [ ${#opt_files[@]} -gt 0 ]
+then
+	for file in "${opt_files[@]}"
+	do
+		if ! in_array "$file" "${files[@]}"
+		then
+			echo "File $file is not being modified."
+		fi
+	done
 fi
 
 trap "die 1" SIGTERM
