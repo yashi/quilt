@@ -164,7 +164,7 @@ trap "" SIGINT
 
 if [ -e $patch_file ] && grep -q '^%patch$' $patch_file
 then
-	if [ -x "$DIFFSTAT" ]
+	if [ -x "@DIFFSTAT@" ]
 	then
 		@DIFFSTAT@ $tmpfile 2>/dev/null \
 		| @SCRIPTS@/parse-patch -u diffstat $patch_file
