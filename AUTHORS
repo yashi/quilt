@@ -16,7 +16,7 @@ Andreas Gruenbacher <agruen@suse.de>
     Package up as RPM.
 
 Gerd Knorr <kraxel@suse.de>
-    Contributed spec2series.
+    Contributed spec2series (= inspect now).
 
 Martin Quinson <Martin.Quinson@tuxfamily.org>
     Several little patches and improvements.

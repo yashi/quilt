@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon May 31 05:03:30 CEST 2004 - agruen@suse.de
+
+- Rewrite spec2series to return what the new `quilt setup' needs,
+  and rename it to inspect.
+- `quilt setup': Rewrite so that it supports multiple archives
+  per spec file. Always make the patches directory a symlink to
+  the original patch files instead of copying the patches.
+- Update German translation.
+
+-------------------------------------------------------------------
 Sun May 16 12:15:13 CEST 2004 - agruen@suse.de
 
 - Clarify help text of `quilt add' (thanks to  Tom Rini

@@ -41,8 +41,9 @@ quilt import:
 	  or the right documentation, or to merge them both. (-d{ona}?)
 
 quilt setup:
-	
-	- spec2series also prints -p1; omit.
+
+	- Also recognize other uses of tar and patch (with options in the
+	  command line), etc.
 
 rpatch:
 

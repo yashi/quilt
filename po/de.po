@@ -763,76 +763,36 @@ msgstr ""
 "-v\tAusführlichere, benutzerfreundliche Ausgabe."
 
 #: ../quilt/setup.in:27
-msgid "Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
-msgstr "Verwendung: quilt setup [-d quellvz.] {seriesdatei|specdatei}"
+msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
+msgstr "Verwendung: quilt setup [-d pfad-prefix] [-v] {spec-datei|series-datei}"
 
 #: ../quilt/setup.in:30
 msgid ""
 "\n"
-"Initializes a source tree from a patch series file.  The patch series\n"
-"file must contain the name of the relevant tar archive, in addition to\n"
-"the list of patches.\n"
+"Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\tThe directory that contains the archives and patches. Defaults\n"
-"\tto the directory of the series/spec file.\n"
+"-d\toptional path prefix (sub-directory).\n"
 "\n"
-"-l\tMake the patches directory a symbolic link. If a series file is\n"
-"\tspecified, also create a symlink to the series file."
+"-v\tverbose debug output."
 msgstr ""
 "\n"
-"Initialisiere einen Quellbaum aus einer series-Datei. Die series-Datei\n"
-"muss den Namen der entsprechenden Tar-Archive und die Liste der Patches\n"
-"enthalten.\n"
+"Initialisiere einen Quellbaum aus einer rpm spec-Datei oder einer quilt series-Datei.\n"
 "\n"
-"-d\tVerzeichnis, das Archive und Patches enthält. Vorgabewert ist das\n"
-"Verzeichnis, das die series/spec-Datei enthält.\n"
+"-d\tOptionaler Pfad-Präfix (Unterverzeichnis).\n"
 "\n"
-"-l\tErzeuge eine Verknüpfung für das patches-Vezeichnis. Falls eine\n"
-"series-Datei angegeben wird, erzeuge eine Verknüpfung auf diese Datei."
+"-v\tAusführliche Ausgabe."
 
-#: ../quilt/setup.in:111
-msgid "Series file $series_file not found"
-msgstr "Seriendatei $series_file nicht gefunden"
+#: ../quilt/setup.in:95
+msgid "Directory $prefix$dir/$QUILT_PATCHES exists"
+msgstr "Verzeichnis $prefix$dir/$QUILT_PATCHES existiert"
 
-#: ../quilt/setup.in:137
-msgid "Reading sources from $arg"
-msgstr "Quellen werden von $arg gelesen"
+#: ../quilt/setup.in:100
+msgid "File $prefix$dir/series exists"
+msgstr "Datei $prefix$dir/series existiert"
 
-#: ../quilt/setup.in:141
-msgid "Unpacking archive $source/$arg"
-msgstr "Entpacke Archiv source/$arg"
-
-#: ../quilt/setup.in:151
-msgid "Directory $packagedir exists already."
-msgstr "Verzeichnis $packagedir existiert bereits."
-
-#: ../quilt/setup.in:156
-msgid "File $packagedir exists."
-msgstr "Datei $packagedir existiert."
-
-#: ../quilt/setup.in:171
-msgid "Creating link to patches directory $arg"
-msgstr "Erzeuge Verknüpfung auf Patch-Verzeichnis $arg"
-
-#: ../quilt/setup.in:175
-msgid "Copying patch $source/$arg"
-msgstr "Kopiere Patch $source/$arg"
-
-#: ../quilt/setup.in:188
-msgid "File $packagedir/series exists; will not override."
-msgstr "Datei $packagedir/series existiert und wird nicht überschrieben."
-
-#: ../quilt/setup.in:195 ../quilt/setup.in:209
-msgid "Copying series file"
-msgstr "Kopiere series-Datei"
-
-#: ../quilt/setup.in:205
-msgid "Creating link to series file $arg"
-msgstr "Erzeuge Verknüpfung zur series-Datei"
-
-#: ../quilt/setup.in:240
-msgid "Directory $packagedir set up."
-msgstr "Verzeichnis $packagedir aufgebaut."
+#: ../quilt/setup.in:149
+msgid "Unpacking archive $arg1"
+msgstr "Entpacke Archiv $arg1"
 
 #: ../quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]"
@@ -934,7 +894,3 @@ msgstr "Patch $patch scheint leer zu sein, entfernt"
 #: ../scripts/rpatch.in:131
 msgid "Removing $patch"
 msgstr "Entferne $patch"
-
-#: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
-msgid " done"
-msgstr " fertig"

@@ -1,0 +1,182 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+if ! [ -r @SCRIPTS@/patchfns ]
+then
+	echo "Cannot read library @SCRIPTS@/patchfns" >&2
+	exit 1
+fi
+. @SCRIPTS@/patchfns
+cd ${SUBDIR:-.}
+
+usage() {
+	echo "Usage: ${0##*/} specfile"
+	exit 1
+}
+
+if [ "$1" = -v ]
+then
+	verbose=1
+	shift
+fi
+
+specfile=$1
+if [ $# -ne 1 -o ! -f "$specfile" ]
+then
+	usage
+fi
+
+if [ "${specfile:0:1}"  != / ]
+then
+	specfile="$PWD/$specfile"
+fi
+sourcedir=${specfile%/*}
+
+tmpdir="$(gen_tempfile -d ${TMPDIR-/tmp}/${0##*/})"
+mkdir -p $tmpdir || exit 1
+trap "rm -rf $tmpdir" EXIT
+mkdir -p $tmpdir/build
+mkdir -p $tmpdir/bin
+
+# Redirect file descriptors
+if [ -n "$verbose" ]
+then
+	exec 3>&1 4>/dev/null
+else
+	exec 3>&1 4>&2 2>/dev/null
+fi
+
+# create md5 sums, also for uncompressed files
+echo -n "### md5sum: " >&4
+shopt -s nullglob
+for file in *
+do
+	file=${file##*/}
+	case "$file" in
+		ready|bigpack|MD5SUMS|MD5SUMS.meta|*.spec|*.changes)
+			continue
+			;;
+	esac
+	[ -f "$file" ] || continue
+	echo -n "." >&4
+	echo "md5sum < $file" >&2
+	set -- $(md5sum < $file)
+	echo "$1 $file"
+	case "$(file -b $file)" in
+		compress*|gzip*)
+			echo -n "g" >&4
+			echo "md5sum < <(gzip -cd $file)" >&2
+			set -- $(gzip -cd $file | md5sum)
+			echo "$1 $file"
+			;;
+		bzip2*)
+			echo -n "b" >&4
+			echo "md5sum < <(bzip2 -cd $file)" >&2
+			set -- $(bzip2 -cd $file | md5sum)
+			echo "$1 $file"
+			;;
+	esac
+done > $tmpdir/md5sum
+echo >&4
+shopt -u nullglob
+
+RPM=( @RPMBUILD@ --eval "%define _sourcedir $sourcedir" \
+		 --eval "%define _specdir   $sourcedir" \
+		 --eval "%define _builddir  $tmpdir/build" )
+PATH="$tmpdir/bin:$PATH"
+
+# wrapper script for patch and tar
+cat <<-'EOF' > $tmpdir/bin/wrapper
+	#! @BASH@
+
+	# search the path for command $1
+	path_search() {
+		local cmd=$1 dir
+		IFS=:
+		set -- $PATH
+		shift
+
+		for dir in "$@"; do
+			if [ -x $dir/$cmd ]
+			then
+				echo $dir/$cmd
+				return 0
+			fi
+		done
+		return 1
+	}
+
+	# find original data file by md5sum
+	original_file() {
+		local file=$1
+
+		set -- $(md5sum < $file)
+		while read md5sum file
+		do
+			if [ $1 = $md5sum ]
+			then
+				echo $file
+				return 0
+			fi
+		done < $tmpdir/md5sum
+		return 1
+	}
+
+	# Extract the -p option from the command line
+	strip_option() {
+		while [ $# -ne 0 -a "${1:0:2}" != -p ]
+		do
+			shift
+		done
+		if [ "${1:0:2}" = -p ]
+		then
+			[ "$1" = -p ] && set -- "$1$2"
+			[ "$1" != -p1 ] && echo $1
+		fi
+	}
+
+	# put data into tmpfile
+	tmpdir=${RPM_BUILD_DIR%/*}
+	cat > $tmpdir/data
+
+	unpackfile="$(original_file $tmpdir/data)"
+	if [ -n "$unpackfile" ]
+	then
+		dir=${PWD/$RPM_BUILD_DIR}
+		dir=${dir##/}
+
+		case "${0##*/}" in
+		patch)
+			echo -n p >&4
+			echo "${0##*/} ${dir:-.} $unpackfile" \
+			     $(strip_option "$@") >&3
+			;;
+		tar)
+			echo -n t >&4
+			echo "${0##*/} ${dir:-.} $unpackfile" >&3
+			;;
+		esac
+	fi
+
+	realcmd="$(path_search ${0##*/})" \
+	&& $realcmd "$@" < $tmpdir/data
+EOF
+chmod 755 $tmpdir/bin/wrapper
+ln -s wrapper $tmpdir/bin/patch
+ln -s wrapper $tmpdir/bin/tar
+
+# let rpm do all the dirty specfile stuff ...
+set -- @RPMBUILD@
+echo -n "### ${1##*/}: " >&4
+
+"${RPM[@]}" --nodeps -bp "$specfile" < /dev/null > /dev/null
+echo >&4
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

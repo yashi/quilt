@@ -564,65 +564,29 @@ msgid ""
 msgstr ""
 
 #: ../quilt/setup.in:27
-msgid "Usage: quilt setup [-d sourcedir] {seriesfile|specfile}"
+msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}"
 msgstr ""
 
 #: ../quilt/setup.in:30
 msgid ""
 "\n"
-"Initializes a source tree from a patch series file.  The patch series\n"
-"file must contain the name of the relevant tar archive, in addition to\n"
-"the list of patches.\n"
+"Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\tThe directory that contains the archives and patches. Defaults\n"
-"\tto the directory of the series/spec file.\n"
+"-d\toptional path prefix (sub-directory).\n"
 "\n"
-"-l\tMake the patches directory a symbolic link. If a series file is\n"
-"\tspecified, also create a symlink to the series file."
+"-v\tverbose debug output."
 msgstr ""
 
-#: ../quilt/setup.in:111
-msgid "Series file $series_file not found"
+#: ../quilt/setup.in:95
+msgid "Directory $prefix$dir/$QUILT_PATCHES exists"
 msgstr ""
 
-#: ../quilt/setup.in:137
-msgid "Reading sources from $arg"
+#: ../quilt/setup.in:100
+msgid "File $prefix$dir/series exists"
 msgstr ""
 
-#: ../quilt/setup.in:141
-msgid "Unpacking archive $source/$arg"
-msgstr ""
-
-#: ../quilt/setup.in:151
-msgid "Directory $packagedir exists already."
-msgstr ""
-
-#: ../quilt/setup.in:156
-msgid "File $packagedir exists."
-msgstr ""
-
-#: ../quilt/setup.in:171
-msgid "Creating link to patches directory $arg"
-msgstr ""
-
-#: ../quilt/setup.in:175
-msgid "Copying patch $source/$arg"
-msgstr ""
-
-#: ../quilt/setup.in:188
-msgid "File $packagedir/series exists; will not override."
-msgstr ""
-
-#: ../quilt/setup.in:195 ../quilt/setup.in:209
-msgid "Copying series file"
-msgstr ""
-
-#: ../quilt/setup.in:205
-msgid "Creating link to series file $arg"
-msgstr ""
-
-#: ../quilt/setup.in:240
-msgid "Directory $packagedir set up."
+#: ../quilt/setup.in:149
+msgid "Unpacking archive $arg1"
 msgstr ""
 
 #: ../quilt/snapshot.in:22
@@ -710,8 +674,4 @@ msgstr ""
 
 #: ../scripts/rpatch.in:131
 msgid "Removing $patch"
-msgstr ""
-
-#: ../scripts/spec2series.in:100 ../scripts/spec2series.in:192
-msgid " done"
 msgstr ""

@@ -385,7 +385,8 @@ msgstr ""
 
 #: ../quilt/import.in:73
 msgid "Option \\`-n' can only be used when importing a single patch"
-msgstr "L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch."
+msgstr ""
+"L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch."
 
 #: ../quilt/import.in:90
 msgid "Patch $patch is applied."
@@ -518,10 +519,12 @@ msgid ""
 msgstr ""
 "\n"
 "Retire un ou plusieurs patches de la pile. Si aucun argument n'est\n"
-"spécifié, le patch au sommet est retiré. Si un nombre est passé en argument,\n"
+"spécifié, le patch au sommet est retiré. Si un nombre est passé en "
+"argument,\n"
 "cela indique la quantité de patchs à retirer. Si un nom de patch est\n"
 "spécifié, il est retiré ainsi que tous ceux placés avant lui dans la\n"
-"série. Le nom des patchs peut contenir le préfix patches/ de façon à pouvoir\n"
+"série. Le nom des patchs peut contenir le préfix patches/ de façon à "
+"pouvoir\n"
 "profiter de la complétion sur le nom de fichier.\n"
 "\n"
 "-a\tRetire tous les patches de la série.\n"
@@ -604,10 +607,12 @@ msgid ""
 msgstr ""
 "\n"
 "Applique un ou plusieurs patches de la série.  Si aucun argument n'est\n"
-"spécifié, le prochain patch est appliqué. Si un nombre est passé en argument,\n"
+"spécifié, le prochain patch est appliqué. Si un nombre est passé en "
+"argument,\n"
 "cela indique la quantité de patchs à appliquer. Si un nom de patch est\n"
 "spécifié, il est appliqué ainsi que tous ceux placés avant lui dans la\n"
-"série. Le nom des patchs peut contenir le préfix patches/ de façon à pouvoir\n"
+"série. Le nom des patchs peut contenir le préfix patches/ de façon à "
+"pouvoir\n"
 "profiter de la complétion sur le nom de fichier.\n"
 "\n"
 "-a\tApplique tous les patches de la série.\n"
@@ -778,7 +783,7 @@ msgstr ""
 
 #: ../quilt/setup.in:27
 #, fuzzy
-msgid "Usage: quilt setup [-d sourcedir] [-v] specfile"
+msgid "Usage: quilt setup [-d path-prefix] [-v] specfile"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] {fichier_séries|fichier_spec}"
 
@@ -801,7 +806,7 @@ msgstr ""
 msgid "File $prefix$dir/series exists"
 msgstr "Le fichier $packagedir existe."
 
-#: ../quilt/setup.in:123
+#: ../quilt/setup.in:148
 #, fuzzy
 msgid "Unpacking archive $arg1"
 msgstr "Désarchivage depuis $source/$arg"
