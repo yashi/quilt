@@ -41,16 +41,20 @@ quote_re()
 	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
 
-#basename()
-#{
-#	local path=${1%/}
-#	echo "${path/*\/}"
-#}
+basename()
+{
+	local path="${1%%/}"
+	echo "${path##*/}"
+}
 
-#dirname()
-#{
-#	local path=${1%/}
-#}
+dirname()
+{
+	local path="${1%%/}"
+	local basename="${path##*/}"
+	path="${path:0:${#path}-${#basename}}"
+	[ x"$path" != x"/" ] && path="${path%/}"
+	echo "${path:-.}"
+}
 
 patch_file_name()
 {
