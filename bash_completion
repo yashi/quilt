@@ -73,6 +73,19 @@ if ! type _longopt &> /dev/null ; then
     }
 fi
 
+# Complete on files, not on directories
+#
+# Directories are shown in completion, but with their trailing / so that
+#  user can go in them. It ought to be a more standard way to achieve this.
+#
+_quilt_comfile()
+{
+	COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -f -- "$cur" ) )
+	echo $( compgen -d -- "$cur" ) | while read d ; do 
+ 	  COMPREPLY=( ${COMPREPLY[@]:-} "$d/" )
+        done
+}
+
 _quilt_completion()
 {
     local cur prev cmds command_matches
@@ -113,7 +126,7 @@ _quilt_completion()
  	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
-	        _filedir 
+	        _quilt_comfile
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
 	        ;;
 	   esac
@@ -142,7 +155,7 @@ _quilt_completion()
 	   esac
 	   ;;
 	edit)
-	   _filedir
+	   _quilt_comfile
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
 	   ;;
 	files)
@@ -176,7 +189,7 @@ _quilt_completion()
 	     -n)
 		;;
 	     *)
-	        _filedir 
+	        _quilt_comfile 
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -n -f -h" -- $cur ) )
 	        ;;
 	   esac
@@ -187,7 +200,7 @@ _quilt_completion()
 	   COMPREPLY=( $( compgen -W "-n $(quilt series)" -- $cur ) )
 	   ;;
 	patches)
-	   _filedir 
+	   _quilt_comfile 
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-v -n -h" -- $cur ) )
 	   ;;
 	pop)
@@ -212,7 +225,7 @@ _quilt_completion()
  	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
-	        _filedir 
+	        _quilt_comfile 
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
 		;;
 	   esac
@@ -226,7 +239,7 @@ _quilt_completion()
 	     	_filedir -d
 		;;
 	     *)
-	        _filedir 
+	        _quilt_comfile
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-d -v -h" -- $cur ) )
 		;;
 	   esac
@@ -245,8 +258,8 @@ _quilt_completion()
     return 0
 }
 
-[ ${BASH_VERSINFO[0]} -gt 2 -o \
-  ${BASH_VERSINFO[0]} = 2 -a ${BASH_VERSINFO[1]} -gt 04 ] \
+[ ${BASH_VERSINFO[0]} '>' 2 -o \
+  ${BASH_VERSINFO[0]}  =  2 -a ${BASH_VERSINFO[1]} '>' 04 ] \
 && _quilt_complete_opt="-o filenames"
 complete -F _quilt_completion $_quilt_complete_opt quilt
 unset -v _quilt_complete_opt
