@@ -1,0 +1,52 @@
+	$ mkdir d
+	$ cd d
+
+	$ quilt new sort.diff
+	> Patch patches/sort.diff is now on top
+
+	$ quilt add b c
+	> File b added to patch patches/sort.diff
+	> File c added to patch patches/sort.diff
+
+	$ echo b > b
+	$ echo c > c
+	$ quilt refresh
+	> Refreshed patch patches/sort.diff
+
+	$ quilt add a
+	> File a added to patch patches/sort.diff
+
+	$ echo a > a
+	$ quilt files
+	> b
+	> c
+	> a
+
+	$ quilt diff | grep ^Index
+	> Index: d/b
+	> Index: d/c
+	> Index: d/a
+
+	$ quilt refresh
+	> Refreshed patch patches/sort.diff
+
+	$ grep ^Index patches/sort.diff
+	> Index: d/b
+	> Index: d/c
+	> Index: d/a
+
+	$ quilt diff --sort | grep ^Index
+	> Index: d/a
+	> Index: d/b
+	> Index: d/c
+
+	$ quilt refresh --sort
+	> Refreshed patch patches/sort.diff
+
+	$ grep ^Index patches/sort.diff
+	> Index: d/a
+	> Index: d/b
+	> Index: d/c
+	
+	$ cd ..
+	$ rm -rf d

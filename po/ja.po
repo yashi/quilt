@@ -71,22 +71,22 @@ msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "ファイル \\`%s'は、\\`%s'以下にあります\\n"
 
 #: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
-#: ../quilt/diff.in:153 ../quilt/diff.in:164 ../quilt/graph.in:116
+#: ../quilt/diff.in:155 ../quilt/diff.in:166 ../quilt/graph.in:116
 #: ../quilt/next.in:62 ../quilt/pop.in:239 ../quilt/previous.in:62
-#: ../quilt/push.in:311 ../quilt/refresh.in:129 ../quilt/remove.in:53
+#: ../quilt/push.in:311 ../quilt/refresh.in:134 ../quilt/remove.in:53
 #: ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: ../quilt/add.in:99 ../quilt/diff.in:226 ../quilt/graph.in:121
-#: ../quilt/pop.in:254 ../quilt/refresh.in:135 ../quilt/remove.in:74
+#: ../quilt/add.in:99 ../quilt/diff.in:231 ../quilt/graph.in:121
+#: ../quilt/pop.in:254 ../quilt/refresh.in:140 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:234
+#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:239
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
 #: ../quilt/graph.in:131 ../quilt/pop.in:288 ../quilt/push.in:349
-#: ../quilt/refresh.in:143 ../quilt/remove.in:81
+#: ../quilt/refresh.in:148 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -153,14 +153,16 @@ msgid "Failed to remove patch %s\\n"
 msgstr "パッチ %sを削除することに失敗しました。\\n"
 
 #: ../quilt/diff.in:24
+#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
-"patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
+"patch] [--snapshot] [--diff=utility] [--sort] [--color] [file ...]\\n"
 msgstr ""
 "使い方: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
 "P パッチ] [--snapshot] [--diff=utility] [--color] [ファイル ...]\\n"
 
 #: ../quilt/diff.in:28
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -200,6 +202,8 @@ msgid ""
 "\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring.\n"
+"\n"
+"--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
 "\n"
 "最上位、または指定されたパッチに、指定されたファイルの差分を作成する。\n"
@@ -237,48 +241,48 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tシンタックスの色付け指定。\n"
 
-#: ../quilt/diff.in:218
+#: ../quilt/diff.in:223
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "オプション \\`-c patch'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
 
-#: ../quilt/diff.in:245
+#: ../quilt/diff.in:250
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: ../quilt/diff.in:280 ../quilt/files.in:122
+#: ../quilt/diff.in:285 ../quilt/files.in:122
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: ../quilt/diff.in:316
+#: ../quilt/diff.in:334
 msgid "Cannot change into directory %s\\n"
 msgstr "ディレクトリ %s に移動できません\\n"
 
-#: ../quilt/diff.in:323 ../quilt/pop.in:114
+#: ../quilt/diff.in:341 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: ../quilt/diff.in:334
+#: ../quilt/diff.in:352
 msgid "Cannot change to temporary directory\\n"
 msgstr "テンポラリディレクトリに移動できません\\n"
 
-#: ../quilt/diff.in:353 ../quilt/pop.in:138
+#: ../quilt/diff.in:371 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: ../quilt/diff.in:359
+#: ../quilt/diff.in:377
 msgid "Cannot change to source directory\\n"
 msgstr "ソースディレクトリに移動できません\\n"
 
-#: ../quilt/diff.in:377
+#: ../quilt/diff.in:395
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %sは変更されていません\\n"
 
-#: ../quilt/diff.in:397 ../quilt/refresh.in:175
+#: ../quilt/diff.in:415 ../quilt/refresh.in:187
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: ../quilt/diff.in:404
+#: ../quilt/diff.in:422
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "最近のパッチが、パッチ %s内のファイルを変更しています\\n"
 
@@ -836,14 +840,16 @@ msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
 #: ../quilt/refresh.in:22
+#, fuzzy
 msgid ""
-"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
-"[patch]\\n"
+"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--"
+"backup] [patch]\\n"
 msgstr ""
 "使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
 "[パッチ]\\n"
 
 #: ../quilt/refresh.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -876,6 +882,8 @@ msgid ""
 "\n"
 "--backup\n"
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
+"\n"
+"--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
 "\n"
 "指定されたパッチを作成し直す。これをリフレッシュすると呼ぶ。デフォルト\n"
@@ -909,27 +917,27 @@ msgstr ""
 "\tバックアップ用のコピーとして古いバージョンのパッチを patch~の\n"
 "\t形で作成する。\n"
 
-#: ../quilt/refresh.in:154
+#: ../quilt/refresh.in:159
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "-p%sではリフレッシュすることができません。-p0または -p1を指定してください\\n"
 
-#: ../quilt/refresh.in:181
+#: ../quilt/refresh.in:193
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "より最近のパッチがパッチ %sのファイルに変更を加えています。リフレッシュを実行"
 "する場合は -f オプションを使用してください。\\n"
 
-#: ../quilt/refresh.in:188
+#: ../quilt/refresh.in:200
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: ../quilt/refresh.in:249
+#: ../quilt/refresh.in:261
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ % に変更はありません\\n"
 
-#: ../quilt/refresh.in:263
+#: ../quilt/refresh.in:275
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
@@ -1124,7 +1132,7 @@ msgstr ""
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
 
-#: ../scripts/patchfns.in:732
+#: ../scripts/patchfns.in:738
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1136,7 +1144,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: ../scripts/patchfns.in:809
+#: ../scripts/patchfns.in:815
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

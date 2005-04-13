@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--color] [file ...]\n"
+	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--sort] [--color] [file ...]\n"
 	
 	if [ x$1 = x-h ]
 	then
@@ -63,6 +63,8 @@ included.
 
 --color[=always|auto|never]
 	Use syntax coloring.
+
+--sort	Sort files by their name instead of preserving the original order.
 "
 		exit 0
 	else
@@ -131,7 +133,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:RuU:cC:zh --long diff:,snapshot,no-timestamps,combine:,color:: -- "$@"`
+options=`getopt -o p:P:RuU:cC:zh --long diff:,snapshot,no-timestamps,combine:,color::,sort -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -189,6 +191,9 @@ do
 		shift 2 ;;
 	--no-timestamps)
 		QUILT_NO_DIFF_TIMESTAMPS=1
+		shift ;;
+	--sort)
+		opt_sort=1
 		shift ;;
 	--color)
 		case "$2" in
@@ -302,7 +307,20 @@ do
 done
 
 exec 4>&-  # close $tmp_files
-files=( $(sort -u $tmp_files) )
+
+if [ -z "$opt_sort" ]
+then
+	files=( $(
+	    awk '
+	    { if ($0 in seen)
+		next
+	      seen[$0]=1
+	      print
+	    }
+	    ' $tmp_files) )
+else
+	files=( $(sort -u $tmp_files) )
+fi
 
 if [ -n "$opt_relative" ]
 then

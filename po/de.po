@@ -71,22 +71,22 @@ msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 
 #: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
-#: ../quilt/diff.in:153 ../quilt/diff.in:164 ../quilt/graph.in:116
+#: ../quilt/diff.in:155 ../quilt/diff.in:166 ../quilt/graph.in:116
 #: ../quilt/next.in:62 ../quilt/pop.in:239 ../quilt/previous.in:62
-#: ../quilt/push.in:311 ../quilt/refresh.in:129 ../quilt/remove.in:53
+#: ../quilt/push.in:311 ../quilt/refresh.in:134 ../quilt/remove.in:53
 #: ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
 
-#: ../quilt/add.in:99 ../quilt/diff.in:226 ../quilt/graph.in:121
-#: ../quilt/pop.in:254 ../quilt/refresh.in:135 ../quilt/remove.in:74
+#: ../quilt/add.in:99 ../quilt/diff.in:231 ../quilt/graph.in:121
+#: ../quilt/pop.in:254 ../quilt/refresh.in:140 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:234
+#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:239
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
 #: ../quilt/graph.in:131 ../quilt/pop.in:288 ../quilt/push.in:349
-#: ../quilt/refresh.in:143 ../quilt/remove.in:81
+#: ../quilt/refresh.in:148 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -153,14 +153,16 @@ msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: ../quilt/diff.in:24
+#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
-"patch] [--snapshot] [--diff=utility] [--color] [file ...]\\n"
+"patch] [--snapshot] [--diff=utility] [--sort] [--color] [file ...]\\n"
 msgstr ""
 "Verwendung: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=programm] [--color] [datei ...]\\n"
 
 #: ../quilt/diff.in:28
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -200,6 +202,8 @@ msgid ""
 "\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring.\n"
+"\n"
+"--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
 "\n"
 "Erzeugt ein Diff der angegebenen Dateien im obersten oder angegebenen\n"
@@ -239,51 +243,51 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tSyntaxeinfärbung verwenden (immer, nur für Terminals, nie).\n"
 
-#: ../quilt/diff.in:218
+#: ../quilt/diff.in:223
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Die Optionen \\`-c patch', \\`--snapshot', und \\`-z' können nicht "
 "kombiniert werden.\\n"
 
-#: ../quilt/diff.in:245
+#: ../quilt/diff.in:250
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: ../quilt/diff.in:280 ../quilt/files.in:122
+#: ../quilt/diff.in:285 ../quilt/files.in:122
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
-#: ../quilt/diff.in:316
+#: ../quilt/diff.in:334
 msgid "Cannot change into directory %s\\n"
 msgstr "Kann nicht in Verzeichnis %s wechseln\\n"
 
-#: ../quilt/diff.in:323 ../quilt/pop.in:114
+#: ../quilt/diff.in:341 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: ../quilt/diff.in:334
+#: ../quilt/diff.in:352
 msgid "Cannot change to temporary directory\\n"
 msgstr "Kann nicht in temporäres Verzeichnis wechseln\\n"
 
-#: ../quilt/diff.in:353 ../quilt/pop.in:138
+#: ../quilt/diff.in:371 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
-#: ../quilt/diff.in:359
+#: ../quilt/diff.in:377
 msgid "Cannot change to source directory\\n"
 msgstr "Kann nicht in Quellverzeichnis wechseln\\n"
 
-#: ../quilt/diff.in:377
+#: ../quilt/diff.in:395
 msgid "File %s is not being modified\\n"
 msgstr "Datei %s wird nicht verändert.\\n"
 
-#: ../quilt/diff.in:397 ../quilt/refresh.in:175
+#: ../quilt/diff.in:415 ../quilt/refresh.in:187
 msgid "Diff failed, aborting\\n"
 msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 
-#: ../quilt/diff.in:404
+#: ../quilt/diff.in:422
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "Später angewandte Patches verändern Dateien von %s\\n"
 
@@ -842,14 +846,16 @@ msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
 #: ../quilt/refresh.in:22
+#, fuzzy
 msgid ""
-"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
-"[patch]\\n"
+"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--"
+"backup] [patch]\\n"
 msgstr ""
 "Verwendung: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--"
 "backup] [patch]\\n"
 
 #: ../quilt/refresh.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -882,6 +888,8 @@ msgid ""
 "\n"
 "--backup\n"
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
+"\n"
+"--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
 "\n"
 "Frischt den obersten oder angegebenen Patch auf. Dokumentation in der\n"
@@ -918,28 +926,28 @@ msgstr ""
 "--backup\n"
 "\tErzeuge ein Backup der alten Version von patch als patch~.\n"
 
-#: ../quilt/refresh.in:154
+#: ../quilt/refresh.in:159
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann Patches mit Level -p$opt_strip_level nicht auffrischen, bitte -p0 oder -"
 "p1 angeben\\n"
 
-#: ../quilt/refresh.in:181
+#: ../quilt/refresh.in:193
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Später angewandte Patches verändern Dateien von $patch. Auffrischen mit -f "
 "erzwingen.\\n"
 
-#: ../quilt/refresh.in:188
+#: ../quilt/refresh.in:200
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s is leer\\n"
 
-#: ../quilt/refresh.in:249
+#: ../quilt/refresh.in:261
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: ../quilt/refresh.in:263
+#: ../quilt/refresh.in:275
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 
@@ -1136,7 +1144,7 @@ msgstr ""
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
 
-#: ../scripts/patchfns.in:732
+#: ../scripts/patchfns.in:738
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1149,7 +1157,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: ../scripts/patchfns.in:809
+#: ../scripts/patchfns.in:815
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

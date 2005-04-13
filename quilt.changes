@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Apr 13 14:59:41 CEST 2005 - agruen@suse.de
+
+- Add --sort options to the diff and refresh commands which
+  sorts files by filename. The default is to keep files in their
+  original order whenever possible.
+- refresh command: add new files in sort order instead of the
+  filesystem order.
+- diff command: output files in the order in which they show up
+  in the patch instead of sorting them alphabetically.
+- Add sort testcase.
+
+-------------------------------------------------------------------
 Wed Apr 13 10:11:06 CEST 2005 - agruen@suse.de
 
 - Fix typos in introduction.

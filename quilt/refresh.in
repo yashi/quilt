@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] [patch]\n"
+	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--backup] [patch]\n"
 	
 	if [ x$1 = x-h ]
 	then
@@ -54,6 +54,8 @@ patch.
 
 --backup
 	Create a backup copy of the old version of a patch as patch~.
+
+--sort	Sort files by their name instead of preserving the original order.
 "
 		exit 0
 	else
@@ -70,7 +72,7 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup -- "$@"`
+options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup,sort -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -105,6 +107,9 @@ do
 		shift ;;
 	--backup)
 		QUILT_BACKUP=1
+		shift ;;
+	--sort)
+		opt_sort=1
 		shift ;;
 	--)
 		shift
@@ -159,7 +164,14 @@ trap "die 1" SIGTERM
 
 tmp_patch=$(gen_tempfile)
 
-for file in $(files_in_patch_ordered $patch)
+if [ -z "$opt_sort" ]
+then
+	files=( $(files_in_patch_ordered $patch) )
+else
+	files=( $(files_in_patch $patch | sort) )
+fi
+
+for file in "${files[@]}"
 do
 	old_file=$(backup_file_name $patch $file)
 	next_patch=$(next_patch_for_file $patch $file)

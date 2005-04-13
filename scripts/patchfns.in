@@ -506,10 +506,16 @@ files_in_patch_ordered()
 		  }
 		}
 	END	{
+		  i = 1
 		  for (file in files) {
-		    if (!(file in printed))
-		      print file
+		    if (!(file in printed)) {
+		      new_files[i]=file
+		      i++
+		    }
 		  }
+		  n = asort(new_files)
+		  for (i=1; i<=n; i++)
+		    print new_files[i]
 		}
 	'
 }
