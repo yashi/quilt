@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr 13 10:11:06 CEST 2005 - agruen@suse.de
+
+- Fix typos in introduction.
+
+-------------------------------------------------------------------
 Tue Apr  5 09:20:13 CEST 2005 - agruen@suse.de
 
 - doc/quilt.1.in: Remove an unnecessary 8-bit character.

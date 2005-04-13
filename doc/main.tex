@@ -65,7 +65,7 @@ applied.
 
 Over time, the patch file ended up containing several independent
 changes. Of those changes, some were integrated into later versions of
-the software, while otheradd-ons or adaptations remain external. Whenever
+the software, while other add-ons or adaptations remain external. Whenever
 a new official version was integrated, the patch needed to be revised:
 changes that were already integrated in the official version needed to
 be split from changes that were not.
@@ -127,7 +127,7 @@ Then, a copy of the resulting source tree is created.\footnote{
 	support this.
 } The next patch in the sequence of patches (which is the one to be
 updated) is applied to only one of these source trees. This source tree
-is the modified until it reflects the desired result. The new version of
+is then modified until it reflects the desired result. The new version of
 the patch is distilled by comparing the two source trees with
 \prog{diff}, and writing the result into a file.
 
@@ -511,7 +511,7 @@ Another common operation is to incorporate a fix or similar that comes
 as a patch into the topmost patch. This can be done by hand by first
 adding all the files contained in the additional patch to the topmost
 patch with \quilt{add},\footnote{
-	The \prog{lsdiff}, which is part of the \textit{patchutils}
+	The \prog{lsdiff} utility, which is part of the \textit{patchutils}
 	package, generates a list of files affected by a patch.
 } and then applying the patch to the working tree.  The \quilt{fold}
 command combines these steps.
