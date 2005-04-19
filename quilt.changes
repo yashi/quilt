@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr 20 00:02:39 CEST 2005 - agruen@suse.de
+
+- fork command help update (Jean Delvare <khali@linux-fr.org>).
+
+-------------------------------------------------------------------
 Wed Apr 13 14:59:41 CEST 2005 - agruen@suse.de
 
 - Add --sort options to the diff and refresh commands which

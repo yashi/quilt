@@ -23,10 +23,17 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Fork the topmost patch. If new_name is missing, the name of the
-forked patch will be the current patch name, followed by \"-2\".
-If the patch name already ends in a dash-and-number, the number is
-further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).
+Fork the topmost patch.  Forking a patch means creating a verbatim copy
+of it under a new name, and use that new name instead of the original
+one in the current series.  This is useful when a patch has to be
+modified, but the original version of it should be preserved, e.g.
+because it is used in another series, or for the history.  A typical
+sequence of commands would be: fork, edit, refresh.
+
+If new_name is missing, the name of the forked patch will be the current
+patch name, followed by \"-2\".  If the patch name already ends in a
+dash-and-number, the number is further incremented (e.g., patch.diff,
+patch-2.diff, patch-3.diff).
 "
 		exit 0
 	else
