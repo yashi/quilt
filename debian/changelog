@@ -1,3 +1,10 @@
+quilt (0.39-3) unstable; urgency=low
+
+  * Add a word in the man page about how to display compressed pdf files
+    since this non-bug got reported twice now (Closes: #304848).
+
+ -- Martin Quinson <mquinson@debian.org>  Tue, 26 Apr 2005 16:02:16 +0200
+
 quilt (0.39-2) unstable; urgency=low
 
   * Pass -p $opt_strip_level option to diffstat in refresh command.
