@@ -35,8 +35,8 @@ Common options to all commands:
 
 --quiltrc file
 	Use the specified configuration file instead of ~/.quiltrc (or
-	/etc/quilt.quiltrc if ~/.quiltrc is missing).  See the pdf
-	documentation for details about its possible content."
+	/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
+	documentation for details about its possible contents."
 	exit 1
 }
 
