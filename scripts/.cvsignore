@@ -1,4 +1,7 @@
+apatch
 dependency-graph
-parse-patch
-apatch patchfns rpatch inspect
 edmail
+inspect
+parse-patch
+patchfns
+rpatch
