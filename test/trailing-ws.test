@@ -1,0 +1,25 @@
+	$ mkdir d
+	$ cd d
+
+	$ echo a > a
+	$ quilt new test.diff
+	> Patch patches/test.diff is now on top
+
+	$ quilt add a
+	> File a added to patch patches/test.diff
+
+	$ echo "a " > a
+	$ quilt refresh
+	> Warning: patches/test.diff adds trailing whitespace
+	> Refreshed patch patches/test.diff
+
+	$ grep '[ \t]$' patches/test.diff
+	> +a 
+
+	$ quilt refresh --strip-trailing-whitespace
+	> Refreshed patch patches/test.diff
+
+	$ grep '[ \t]$' patches/test.diff
+
+	$ cd ..
+	$ rm -rf d

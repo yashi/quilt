@@ -31,8 +31,8 @@ msgid ""
 "\n"
 "--quiltrc file\n"
 "\tUse the specified configuration file instead of ~/.quiltrc (or\n"
-"\t/etc/quilt.quiltrc if ~/.quiltrc is missing).  See the pdf\n"
-"\tdocumentation for details about its possible content."
+"\t/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
+"\tdocumentation for details about its possible contents."
 msgstr ""
 "\n"
 "Options communes à toutes les commandes :\n"
@@ -76,20 +76,20 @@ msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
 #: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:155 ../quilt/diff.in:166 ../quilt/graph.in:116
 #: ../quilt/next.in:62 ../quilt/pop.in:239 ../quilt/previous.in:62
-#: ../quilt/push.in:311 ../quilt/refresh.in:134 ../quilt/remove.in:53
+#: ../quilt/push.in:311 ../quilt/refresh.in:141 ../quilt/remove.in:53
 #: ../quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
 #: ../quilt/add.in:99 ../quilt/diff.in:231 ../quilt/graph.in:121
-#: ../quilt/pop.in:254 ../quilt/refresh.in:140 ../quilt/remove.in:74
+#: ../quilt/pop.in:254 ../quilt/refresh.in:147 ../quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
 #: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:239
-#: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:65
+#: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:72
 #: ../quilt/graph.in:131 ../quilt/pop.in:288 ../quilt/push.in:349
-#: ../quilt/refresh.in:148 ../quilt/remove.in:81
+#: ../quilt/refresh.in:155 ../quilt/remove.in:81
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
@@ -293,7 +293,7 @@ msgstr "Impossible d'entrer dans le répertoire source\\n"
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: ../quilt/diff.in:415 ../quilt/refresh.in:187
+#: ../quilt/diff.in:415 ../quilt/refresh.in:194
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
@@ -392,27 +392,28 @@ msgstr "Usage : quilt fork [nouveau_nom]\\n"
 #: ../quilt/fork.in:25
 msgid ""
 "\n"
-"Fork the topmost patch. If new_name is missing, the name of the\n"
-"forked patch will be the current patch name, followed by \\\"-2\\\".\n"
-"If the patch name already ends in a dash-and-number, the number is\n"
-"further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
-msgstr ""
+"Fork the topmost patch.  Forking a patch means creating a verbatim copy\n"
+"of it under a new name, and use that new name instead of the original\n"
+"one in the current series.  This is useful when a patch has to be\n"
+"modified, but the original version of it should be preserved, e.g.\n"
+"because it is used in another series, or for the history.  A typical\n"
+"sequence of commands would be: fork, edit, refresh.\n"
 "\n"
-"Fork (c-à-d duplique) le patch au sommet.\n"
-"Si {nouveau_nom} n'est pas spécifié, il s'agira du nom actuel du patch \n"
-"dupliqué suivi de «-2». Si le nom du patch se termine déjà par\n"
-"un tiret et un nombre, ce nombre sera incrémenté. (ex: patch.diff,\n"
+"If new_name is missing, the name of the forked patch will be the current\n"
+"patch name, followed by \\\"-2\\\".  If the patch name already ends in a\n"
+"dash-and-number, the number is further incremented (e.g., patch.diff,\n"
 "patch-2.diff, patch-3.diff).\n"
+msgstr ""
 
-#: ../quilt/fork.in:92
+#: ../quilt/fork.in:99
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom.\\n"
 
-#: ../quilt/fork.in:104
+#: ../quilt/fork.in:111
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Le fork de %s en %s a échoué.\\n"
 
-#: ../quilt/fork.in:110
+#: ../quilt/fork.in:117
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 
@@ -815,7 +816,7 @@ msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 #, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--"
-"backup] [patch]\\n"
+"backup] [--strip-trailing-whitespace] [patch]\\n"
 msgstr ""
 "Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
 "[patch]\\n"
@@ -856,6 +857,9 @@ msgid ""
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 "\n"
 "--sort\tSort files by their name instead of preserving the original order.\n"
+"\n"
+"--strip-trailing-whitespace\n"
+"\tStrip trailing whitespace at the end of lines of the generated patch.\n"
 msgstr ""
 "\n"
 "Rafraîchit un patch appliqué, ou celui au sommet à défaut. La "
@@ -891,28 +895,32 @@ msgstr ""
 "\tCrée une copie de sauvegarde du patch en ajoutant ~ à la fin de \n"
 "\tson nom.\n"
 
-#: ../quilt/refresh.in:159
+#: ../quilt/refresh.in:166
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de rafraîchir des patchs avec -p%s. Veuillez spécifier -p0 ou -p1 "
 "à la place.\\n"
 
-#: ../quilt/refresh.in:193
+#: ../quilt/refresh.in:200
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que %s.\n"
 "Forcez le rafraîchissement avec -f.\\n"
 
-#: ../quilt/refresh.in:200
+#: ../quilt/refresh.in:207
 msgid "Nothing in patch %s\\n"
 msgstr "Le patch %s ne contient rien\\n"
 
-#: ../quilt/refresh.in:261
+#: ../quilt/refresh.in:221
+msgid "Warning: %s adds trailing whitespace\\n"
+msgstr ""
+
+#: ../quilt/refresh.in:283
 msgid "Patch %s is unchanged\\n"
 msgstr "Le patch %s n'a pas été modifié\\n"
 
-#: ../quilt/refresh.in:275
+#: ../quilt/refresh.in:297
 msgid "Refreshed patch %s\\n"
 msgstr "Le patch %s a été rafraichi.\\n"
 
@@ -1129,6 +1137,20 @@ msgid ""
 msgstr ""
 "Votre arbre a été créé par une vieille version de quilt. Veuillez \n"
 "utiliser « quilt upgrade ».\\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Fork the topmost patch. If new_name is missing, the name of the\n"
+#~ "forked patch will be the current patch name, followed by \\\"-2\\\".\n"
+#~ "If the patch name already ends in a dash-and-number, the number is\n"
+#~ "further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Fork (c-à-d duplique) le patch au sommet.\n"
+#~ "Si {nouveau_nom} n'est pas spécifié, il s'agira du nom actuel du patch \n"
+#~ "dupliqué suivi de «-2». Si le nom du patch se termine déjà par\n"
+#~ "un tiret et un nombre, ce nombre sera incrémenté. (ex: patch.diff,\n"
+#~ "patch-2.diff, patch-3.diff).\n"
 
 #~ msgid "Usage: $0 [-fqv] patchname\\n"
 #~ msgstr "Usage : $0 [-fqv] patchname\\n"
