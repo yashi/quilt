@@ -3,6 +3,7 @@ Fri Apr 29 09:25:14 CEST 2005 - agruen@suse.de
 
 - Add trailing-whitespace check an --strip-trailing-whitespace
   option to the refresh command.
+- Bump version to 0.40.
 
 -------------------------------------------------------------------
 Wed Apr 20 00:02:39 CEST 2005 - agruen@suse.de
