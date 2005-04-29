@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--backup] [patch]\n"
+	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
 	
 	if [ x$1 = x-h ]
 	then
@@ -56,6 +56,9 @@ patch.
 	Create a backup copy of the old version of a patch as patch~.
 
 --sort	Sort files by their name instead of preserving the original order.
+
+--strip-trailing-whitespace
+	Strip trailing whitespace at the end of lines of the generated patch.
 "
 		exit 0
 	else
@@ -72,7 +75,8 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup,sort -- "$@"`
+options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup,sort \
+			      --long strip-trailing-whitespace -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -110,6 +114,9 @@ do
 		shift ;;
 	--sort)
 		opt_sort=1
+		shift ;;
+	--strip-trailing-whitespace)
+		opt_strip_whitespace=1
 		shift ;;
 	--)
 		shift
@@ -199,6 +206,21 @@ if ! [ -s $tmp_patch ]
 then
 	printf $"Nothing in patch %s\n" "$(print_patch $patch)" >&2
 	die 1
+fi
+
+# Check for trailing whitespace
+if grep -q '^+.*[ '$'\t'']$' $tmp_patch
+then
+	if [ -n "$opt_strip_whitespace" ]
+	then
+		tmp=$(gen_tempfile)
+		sed -e '/^+/s/[ '$'\t'']*$//' $tmp_patch > $tmp
+		cat $tmp > $tmp_patch
+		rm -f $tmp
+	else
+		printf $"Warning: %s adds trailing whitespace\n" \
+		       "$(print_patch $patch)"
+	fi
 fi
 
 patch_file=$(patch_file_name $patch)
