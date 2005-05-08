@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun May  8 19:39:14 CEST 2005 - agruen@suse.de
+
+- doc/quilt.1.in: Fix some typos (mostly from Jean Delvare).
+
+-------------------------------------------------------------------
+Sun May  1 08:49:36 CEST 2005 - agruen@suse.de
+
+- Fix misspelling in documentation (Nicolas Kaiser <nikai@nikai.net>).
+
+-------------------------------------------------------------------
 Fri Apr 29 09:25:14 CEST 2005 - agruen@suse.de
 
 - Add trailing-whitespace check an --strip-trailing-whitespace

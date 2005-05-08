@@ -1,6 +1,6 @@
 .\\" Created by Martin Quinson from the tex documentation
 .\\"
-.TH quilt 1 "February 21, 2004" "quilt"
+.TH quilt 1 "May 8, 2005" "quilt"
  
 .SH NAME
 quilt \\- tool to manage series of patches
@@ -18,7 +18,7 @@ With quilt, all work occurs within a single directory tree. Commands can be
 be invoqued from anywhere within the source tree. They are of the form
 .B quilt cmd
 similar to CVS commands. They can be abbreviated as long as the specified
-part of the command is unique. All commands print  some help text with
+part of the command is unique. All commands print some help text with
 .B quilt cmd -h.
 
 Quilt manages a stack of patches. Patches are applied incrementally on top
@@ -52,7 +52,7 @@ automatically, it is usually provided along with a set of patches. In this
 file, each patch file name is on a separate line. Patch files are identified
 by pathnames that are relative to the
 .I patches
-directory; patches may be in sub-directories below the this directory. Lines
+directory; patches may be in sub-directories below this directory. Lines
 in the series file that start with a hash character (#) are ignored. When
 quilt adds, removes, or renames patches, it automatically updates the series
 file. Users of quilt can modify series files while some patches are
@@ -118,16 +118,16 @@ work/ -+- ...
 
 .SH EXAMPLE
 
-Please refere to the pdf documentation for an example.
+Please refer to the pdf documentation for an example.
 
 .SH CONFIGURATION FILE
 
-Upon startup, quilt evaluates the file .quiltrc in the user's
-home directory, or the file specified with the --quiltrc option.
-This file is a regular bash script. Default options can be passed to
-any command by defining a QUILT_COMMAND_ARGS variable
-(for example, QUILT_DIFF_ARGS="--color=auto" causes the output
-of quilt diff to be syntax colored when writing to a terminal).
+Upon startup, quilt evaluates the file .quiltrc in the user's home
+directory, or the file specified with the --quiltrc option.  This file
+is a regular bash script. Default options can be passed to any command
+by defining a QUILT_COMMAND_ARGS variable.  For example,
+QUILT_DIFF_ARGS="--color=auto" causes the output of quilt diff to be
+syntax colored when writing to a terminal.
 
 In addition to that, quilt recognizes the following variables:
 
@@ -139,10 +139,10 @@ to show in the resulting patch which function a change is in.
     
 .IP QUILT_PATCH_OPTS 4
 
-Additional options that quilt shall pass to GNU patch when applying patches.
-(For example, some versions of GNU patch support the
-"-unified-reject-files" option for generating reject files in unified diff
-style.
+Additional options that quilt shall pass to GNU patch when applying
+patches.  For example, some versions of GNU patch support the
+"--unified-reject-files" option for generating reject files in unified
+diff style.
     
 .IP QUILT_PATCHES 4
 
