@@ -65,19 +65,19 @@ do
 	[ -f "$file" ] || continue
 	echo -n "." >&4
 	echo "md5sum < $file" >&2
-	set -- $(md5sum < $file)
+	set -- $(md5sum < "$file")
 	echo "$1 $file"
-	case "$(file -b $file)" in
+	case "$(file -b "$file")" in
 		compress*|gzip*)
 			echo -n "g" >&4
 			echo "md5sum < <(gzip -cd $file)" >&2
-			set -- $(gzip -cd $file | md5sum)
+			set -- $(gzip -cd "$file" | md5sum)
 			echo "$1 $file"
 			;;
 		bzip2*)
 			echo -n "b" >&4
 			echo "md5sum < <(bzip2 -cd $file)" >&2
-			set -- $(bzip2 -cd $file | md5sum)
+			set -- $(bzip2 -cd "$file" | md5sum)
 			echo "$1 $file"
 			;;
 	esac

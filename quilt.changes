@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 12 15:02:57 CEST 2005 - agruen@suse.de
+
+- Quoting fix from Jean Delvare <khali@linux-fr.org>, and one more
+  from me.
+
+-------------------------------------------------------------------
 Sun May  8 19:39:14 CEST 2005 - agruen@suse.de
 
 - doc/quilt.1.in: Fix some typos (mostly from Jean Delvare).

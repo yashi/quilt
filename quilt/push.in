@@ -187,7 +187,7 @@ add_patch()
 			touch $QUILT_PC/$patch/.timestamp
 		fi
 
-		if [ "$(shopt -s nullglob ; echo $QUILT_PC/$patch/*)" = "" ]
+		if [ "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" = "" ]
 		then
 			printf $"Patch %s appears to be empty, applied\n" \
 			       "$(print_patch $patch)"
