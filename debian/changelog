@@ -299,7 +299,7 @@ quilt (0.21-1) unstable; urgency=low
 
 quilt (0.11-1) unstable; urgency=low
 
-  * New upstream release. New upstream author. Developpement moved to savannah.
+  * New upstream release. New upstream author. Development moved to savannah.
   * Some functionnalities were removed, but all the scripts are much more robust now. 
 
  -- Martin Quinson <martin.quinson@tuxfamily.org>  Sat, 18 Jan 2003 23:36:29 +0100

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed May 18 09:58:37 CEST 2005 - agruen@suse.de
+
+- debian/changelog: Fix typo.
+
+-------------------------------------------------------------------
 Thu May 12 15:02:57 CEST 2005 - agruen@suse.de
 
 - Quoting fix from Jean Delvare <khali@linux-fr.org>, and one more
