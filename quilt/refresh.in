@@ -281,7 +281,7 @@ if [ -e $patch_file ] && \
     @DIFF@ -q $patch_file $tmp_result > /dev/null
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
-	exit 0
+	die 0
 fi
 
 if ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \

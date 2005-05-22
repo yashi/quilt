@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun May 22 18:14:35 CEST 2005 - agruen@suse.de
+
+- refresh command: Fix temporary file leak (from Jean Delvare).
+
+-------------------------------------------------------------------
 Wed May 18 09:58:37 CEST 2005 - agruen@suse.de
 
 - debian/changelog: Fix typo.
