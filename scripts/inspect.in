@@ -81,7 +81,7 @@ do
 			echo "$1 $file"
 			;;
 	esac
-done > $tmpdir/md5sum
+done > $tmpdir/md5sums
 echo >&4
 shopt -u nullglob
 
@@ -113,17 +113,38 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 
 	# find original data file by md5sum
 	original_file() {
-		local file=$1
+		local file=$1 md5sum
 
 		set -- $(md5sum < $file)
-		while read md5sum file
+		md5sum=$1
+		while read md5sum_ file_
 		do
-			if [ $1 = $md5sum ]
+			if [ $md5sum = $md5sum_ ]
 			then
-				echo $file
+				echo $file_
 				return 0
 			fi
-		done < $tmpdir/md5sum
+		done < $tmpdir/md5sums
+
+		# Try harder
+		if ! [ -e $tmpdir/more-md5sums ]
+		then
+			( cd $RPM_BUILD_DIR
+			find -type f \
+			| sed -e 's:^.\/::' \
+			| xargs md5sum \
+			) > $tmpdir/more-md5sums
+		fi
+		
+		while read md5sum_ file_
+		do
+			if [ $md5sum = $md5sum_ ]
+			then
+				echo $file_
+				return 0
+			fi
+		done < $tmpdir/more-md5sums
+
 		return 1
 	}
 

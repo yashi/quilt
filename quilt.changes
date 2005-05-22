@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun May 22 18:15:52 CEST 2005 - agruen@suse.de
+
+- setup command: When a patch cannot be identified, scan all the
+  files in the build directory: the patch may have been created,
+  unpacked from an archive, etc.
+
+-------------------------------------------------------------------
 Sun May 22 18:14:35 CEST 2005 - agruen@suse.de
 
 - refresh command: Fix temporary file leak (from Jean Delvare).
