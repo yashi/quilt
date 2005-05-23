@@ -39,13 +39,13 @@ quilt_mail_patch_filter() {
 	| sed -n -e "/${LOGNAME:-$(whoami)}@$(hostname -d)/d" \
 	       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
 	       -e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip' \
-	       -e 's/^Subject:/Replace-Subject:/p' \
+	       -e 's/^Subject:/Replace-Subject:/ip' \
 	       -e '/^\*\*\*\|---/q'
 	echo
 	# Discard the patch header, and pass on the rest
 	echo "$x" | awk '
-	!in_body && (/^[-A-Za-z]+:/ || /^$/) { next }
-	{ in_body = 1 ; print }
+	in_body	{ print }
+	/^$/	{ in_body = 1 }
 	'
 }
 EOF

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 24 01:25:30 CEST 2005 - agruen@suse.de
+
+- quilt.quiltrc: A minor cleanup in quilt_mail_patch_filter().
+
+-------------------------------------------------------------------
 Sun May 22 18:15:52 CEST 2005 - agruen@suse.de
 
 - setup command: When a patch cannot be identified, scan all the
