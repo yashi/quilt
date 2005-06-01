@@ -1,0 +1,28 @@
+	$ mkdir d
+	$ cd d
+
+	$ quilt new remove.patch
+	> Patch patches/remove.patch is now on top
+
+	$ quilt add foo bar baz
+	> File foo added to patch patches/remove.patch
+	> File bar added to patch patches/remove.patch
+	> File baz added to patch patches/remove.patch
+
+	$ echo foo > foo
+	$ echo bar > bar
+	$ echo baz > baz
+	$ quilt remove baz
+	> File baz removed from patch patches/remove.patch
+
+	$ quilt refresh
+	> Refreshed patch patches/remove.patch
+
+	$ quilt remove bar
+	> File bar removed from patch patches/remove.patch
+
+	$ quilt refresh
+	> Refreshed patch patches/remove.patch
+
+	$ cd ..
+	$ rm -rf d
