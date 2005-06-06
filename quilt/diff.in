@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--sort] [--color] [file ...]\n"
+	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] [--color] [file ...]\n"
 	
 	if [ x$1 = x-h ]
 	then
@@ -39,6 +39,9 @@ included.
 
 --no-timestamps
 	Do not include file timestamps in patch headers.
+
+--no-index
+	Do not output Index: lines.
 
 -z	Write to standard output the changes that have been made
 	relative to the topmost or specified patch.
@@ -133,7 +136,9 @@ die ()
 	exit $status
 }
 
-options=`getopt -o p:P:RuU:cC:zh --long diff:,snapshot,no-timestamps,combine:,color::,sort -- "$@"`
+options=`getopt -o p:P:RuU:cC:zh --long diff:,snapshot,no-timestamps \
+				 --long no-index,combine:,color:: \
+				 --long sort -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -191,6 +196,9 @@ do
 		shift 2 ;;
 	--no-timestamps)
 		QUILT_NO_DIFF_TIMESTAMPS=1
+		shift ;;
+	--no-index)
+		QUILT_NO_DIFF_INDEX=1
 		shift ;;
 	--sort)
 		opt_sort=1

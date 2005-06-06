@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
+	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
 	
 	if [ x$1 = x-h ]
 	then
@@ -46,6 +46,9 @@ patch.
 --no-timestamps
 	Do not include file timestamps in patch headers.
 	
+--no-index
+	Do not output Index: lines.
+
 --diffstat
 	Add a diffstat section to the patch header, or replace the
 	existing diffstat section.
@@ -76,6 +79,7 @@ die ()
 }
 
 options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup,sort \
+			      --long no-index \
 			      --long strip-trailing-whitespace -- "$@"`
 
 if [ $? -ne 0 ]
@@ -105,6 +109,9 @@ do
 		usage -h ;;
 	--no-timestamps)
 		QUILT_NO_DIFF_TIMESTAMPS=1
+		shift ;;
+	--no-index)
+		QUILT_NO_DIFF_INDEX=1
 		shift ;;
 	--diffstat)
 		opt_diffstat=1

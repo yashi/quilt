@@ -579,8 +579,11 @@ diff_file()
 	       --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
 	| if read line
 	then
-		echo "Index: $index"
-		echo "==================================================================="
+		if [ -z "$QUILT_NO_DIFF_INDEX" ]
+		then
+			echo "Index: $index"
+			echo "==================================================================="
+		fi
 		echo "$line"
 		cat
 	fi

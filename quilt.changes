@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun  6 21:27:23 CEST 2005 - agruen@suse.de
+
+- Add --no-index option to diff and refresh commands: Suppress
+  Index: lines in the patch. From Jean Delvare <khali@linux-fr.org>.
+
+-------------------------------------------------------------------
 Wed Jun  1 13:19:13 CEST 2005 - agruen@suse.de
 
 - test/remove2.test: Test for remove + refresh interactions.
