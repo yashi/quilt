@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun  8 17:29:44 CEST 2005 - agruen@suse.de
+
+- Add testcase for diff --no-index.
+
+-------------------------------------------------------------------
 Mon Jun  6 21:27:23 CEST 2005 - agruen@suse.de
 
 - Add --no-index option to diff and refresh commands: Suppress
