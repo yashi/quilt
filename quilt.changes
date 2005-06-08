@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun  8 22:28:12 CEST 2005 - agruen@suse.de
+
+- Add rename command from Jean Delvare <khali@linux-fr.org>.
+
+-------------------------------------------------------------------
 Wed Jun  8 17:29:44 CEST 2005 - agruen@suse.de
 
 - Add testcase for diff --no-index.
