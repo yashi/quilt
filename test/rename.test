@@ -19,25 +19,11 @@
 	$ quilt series -v
 	> = %{P}original-name.diff
 
-	$ ls -1 .pc
-	> applied-patches
-	> original-name.diff
-
-	$ cat .pc/applied-patches
-	> original-name.diff
-
 	$ quilt rename _tmp_name.diff
 	> Patch %{P}original-name.diff renamed to %{P}_tmp_name.diff
 
 	$ quilt series -v
 	> = %{P}_tmp_name.diff
-
-	$ ls -1 .pc
-	> _tmp_name.diff
-	> applied-patches
-
-	$ cat .pc/applied-patches
-	> _tmp_name.diff
 
 	$ quilt pop
 	> Removing patch %{P}_tmp_name.diff
@@ -48,8 +34,6 @@
 	$ quilt series -v
 	>   %{P}_tmp_name.diff
 
-	$ ls -1 .pc
-
 	$ quilt rename -p random_name.diff final.name.diff
 	> Patch random_name.diff is not in series
 
@@ -59,11 +43,19 @@
 	$ quilt rename -p _tmp_name.diff _tmp_name.diff
 	> Patch %{P}_tmp_name.diff exists already, please choose a different name
 
-	$ quilt rename -p _tmp_name.diff final.name.diff
-	> Patch %{P}_tmp_name.diff renamed to %{P}final.name.diff
+	$ quilt rename -p _tmp_name.diff newsubdir/final.name.diff
+	> Patch %{P}_tmp_name.diff renamed to %{P}newsubdir/final.name.diff
 
 	$ quilt series -v
-	>   %{P}final.name.diff
+	>   %{P}newsubdir/final.name.diff
+
+	$ quilt push -q
+	> Applying patch %{P}newsubdir/final.name.diff
+	> Now at patch %{P}newsubdir/final.name.diff
+
+	$ quilt pop -q
+	> Removing patch %{P}newsubdir/final.name.diff
+	> No patches applied
 
 	$ cd ..
 	$ rm -rf d

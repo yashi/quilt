@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun  9 14:47:13 CEST 2005 - agruen@suse.de
+
+- Additional fixes to the rename command.
+
+-------------------------------------------------------------------
 Wed Jun  8 22:28:12 CEST 2005 - agruen@suse.de
 
 - Add rename command from Jean Delvare <khali@linux-fr.org>.

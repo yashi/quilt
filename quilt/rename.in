@@ -34,6 +34,17 @@ Rename the topmost or named patch.
 	fi
 }
 
+move_file()
+{
+	local old=$1 new=$2 newdir=$(dirname "$2")
+
+	[ -d "$newdir" ] || mkdir -p "$newdir" || return 1
+	mv "$old" "$new" || return 1
+	rmdir -p "$(dirname "$old")" 2> /dev/null
+
+	return 0
+}
+
 options=`getopt -o p:h -- "$@"`
 
 if [ $? -ne 0 ]
@@ -89,11 +100,12 @@ fi
 
 if ( is_applied $patch && \
      ( ! rename_in_db "$patch" "$new_patch" || \
-       ! mv "$QUILT_PC/$patch" "$QUILT_PC/$new_patch" ) ) || \
+       ! move_file "$QUILT_PC/$patch" \
+		   "$QUILT_PC/$new_patch" ) ) || \
    ! rename_in_series "$patch" "$new_patch" || \
    ( [ -e "$(patch_file_name $patch)" ] && \
-     ! mv "$(patch_file_name $patch)" \
-	  "$(patch_file_name $new_patch)" )
+     ! move_file "$(patch_file_name $patch)" \
+		 "$(patch_file_name $new_patch)" )
 then
 	printf $"Renaming of patch %s to %s failed\n" \
 	       "$(print_patch $patch)" \
