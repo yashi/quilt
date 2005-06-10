@@ -54,8 +54,6 @@ fi
 
 eval set -- "$options"
 
-opt_what=here
-
 while true
 do
 	case "$1" in
