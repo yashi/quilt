@@ -132,7 +132,7 @@ _quilt_completion()
 	   esac
 	   ;;
 	applied) 
-	   COMPREPLY=( $( compgen -W "-n -h $(quilt applied)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-h $(quilt applied)" -- $cur ) )
 	   ;;
 	delete) 
 	   COMPREPLY=( $( compgen -W "-h $(quilt series)" -- $cur ) )
@@ -197,11 +197,11 @@ _quilt_completion()
 	new)
 	   ;;
 	next|previous)
-	   COMPREPLY=( $( compgen -W "-n $(quilt series)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "$(quilt series)" -- $cur ) )
 	   ;;
 	patches)
 	   _quilt_comfile 
-	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-v -n -h" -- $cur ) )
+	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-v -h" -- $cur ) )
 	   ;;
 	pop)
 	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt applied)" -- $cur ) )
@@ -241,7 +241,7 @@ _quilt_completion()
 	   esac
 	   ;;
 	 series)
-	   COMPREPLY=( $( compgen -W "-n -v -h" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-v -h" -- $cur ) )
 	   ;;
 	 setup)
 	   case $prev in
@@ -260,7 +260,7 @@ _quilt_completion()
 	 top)
 	   ;;
 	 unapplied)
-	   COMPREPLY=( $( compgen -W "-n -h $(quilt series)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-h $(quilt series)" -- $cur ) )
 	   ;;
 	 upgrade)
 	   ;;

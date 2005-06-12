@@ -32,7 +32,7 @@ patch in the series file.
 	fi
 }
 
-options=`getopt -o nh -- "$@"`
+options=`getopt -o h -- "$@"`
 
 if [ $? -ne 0 ]
 then
