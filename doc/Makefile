@@ -4,8 +4,7 @@ quilt.ps : quilt.dvi
 	dvips -t letter -o $@ $<
 
 quilt.pdf: main.tex
-	pdflatex -t letter $< && \
-	mv main.pdf $@
+	pdflatex --jobname=quilt -t letter $<
 
 quilt.dvi : main.tex
 	latex $< && \

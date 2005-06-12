@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jun 12 17:53:10 CEST 2005 - agruen@suse.de
+
+- Documentation uodate from Jerome Lacoste
+  <jerome.lacoste@gmail.com> and me.
+
+-------------------------------------------------------------------
 Sun Jun 12 13:54:30 CEST 2005 - agruen@suse.de
 
 - Remove obsolete remnants of removed -n flag (Jean Delvare).

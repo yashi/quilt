@@ -189,6 +189,13 @@ series file (\quilt{series}, see below), the contents of the stack
 are not applied at a particular moment (\quilt{next}, \quilt{unapplied}).
 By default, most commands apply to the topmost patch on the stack.
 
+When files in the working directory are changed, those changes become
+part of the working state of the topmost patch, provided that those
+files are part of the patch. Files that are not part of a patch must be
+added before modifying them so that quilt is aware of the original
+versions of the files. The \quilt{refresh} command regenerates a patch.
+After the refresh, the patch and the working state are the same.
+
 Patch files are located in the \textsf{patches} sub-directory of the
 source tree (see Figure~\ref{fig:dir-layout}). The \textsf{QUILT\_PATCHES}
 environment variable can be used to override this location. The
@@ -248,8 +255,7 @@ using \prog{GNU diff}.
 
 Documentation related to a patch can be put at the beginning of a patch
 file.  Quilt is careful to preserve all text that precedes the actual
-patch when doing a refresh. (This is limited to patches in unified
-format; see~\cite{info-diff}).
+patch when doing a refresh.
 
 The series file is looked up in the root of the source tree, in the
 patches directory, and in the \textsf{.pc} directory.  The first series
@@ -258,13 +264,13 @@ with multiple hard links.  Usually, only one series file is used for a
 set of patches, so the \textsf{patches} sub-directory is a convenient
 location.
 
-The \textsf{.pc} directory and its sub-directories cannot be relocated,
-but \textsf{.pc} may be a symbolic link. While patches are applied to
-the source tree, the \textsf{.pc} directory is essential for many
-operations, including taking patches off the stack (\quilt{pop}), and
-refreshing patches (\quilt{refresh}). Files in the \textsf{.pc}
-directory are automatically removed when they are no longer needed, so
-usually there is no need to clean up manually.
+While patches are applied to the source tree, the \textsf{.pc} directory
+is essential for many operations, including taking patches off the stack
+(\quilt{pop}), and refreshing patches (\quilt{refresh}). Files in the
+\textsf{.pc} directory are automatically removed when they are no longer
+needed, so usually there is no need to clean up manually.  The
+\textsf{QUILT\_PC} environment variable can be used to override the
+location of the \textsf{.pc} directory.
 
 \section{An Example}
 
@@ -281,7 +287,7 @@ And girls call it love-in-idleness.
 \end{small}
 
 New patches are created with \quilt{new}. A new patch automatically
-becomes the topmost patch on the stack. Files must be added to a patch
+becomes the topmost patch on the stack. Files must be added
 with \quilt{add} before they are modified. Note that this is slightly
 different from the CVS style of interaction: with CVS, files are in the
 repository, and adding them before committing (but after modifying them)
@@ -515,6 +521,26 @@ patch with \quilt{add},\footnote{
 	package, generates a list of files affected by a patch.
 } and then applying the patch to the working tree.  The \quilt{fold}
 command combines these steps.
+
+\subsection{Sharing patches with others}
+
+For sharing a set of patches with someone else, the series file which
+contains the list of patches and how they are applied, and the patches
+themselves are all that's needed. The \textsl{.pc} directory only
+contains quilt's working state, and should not be distributed. Make sure
+that all the patches are up-to-date, and refresh patches when
+necessary. The \textsf{--combine} option of \quilt{diff} can be used for
+generating a single patch out of all the patches in the series file.
+
+\subsection{Merging with upstream}
+
+The concept of merging your patches with upstream is identical to applying
+your patches on a more recent version of the software. 
+
+Before merging, make sure to pop all your patches using \quilt{pop -a}.
+Then, update your codebase. Finally, remove obsoleted patches
+from the series file and \quilt{push} the remaining ones, resolve
+conflicts and refresh patches as needed.
 
 \subsection{Forking}
 \label{sec:forking}
