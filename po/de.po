@@ -963,7 +963,7 @@ msgstr ""
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: ../quilt/refresh.in:304
+#: ../quilt/refresh.in:301
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 14 12:07:43 CEST 2005 - agruen@suse.de
+
+- refresh command: also touch .pc/$patch/.timestamp when a patch
+  is found to be up-to-date (Peter Williams,
+  <pwil3058@bigpond.net.au>).
+
+-------------------------------------------------------------------
 Sun Jun 12 17:53:10 CEST 2005 - agruen@suse.de
 
 - Documentation uodate from Jerome Lacoste

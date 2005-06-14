@@ -285,14 +285,11 @@ fi
 cat $tmp_patch >> $tmp_result
 
 if [ -e $patch_file ] && \
-    @DIFF@ -q $patch_file $tmp_result > /dev/null
+   @DIFF@ -q $patch_file $tmp_result > /dev/null
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
-	die 0
-fi
-
-if ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \
-     ! cp $patch_file $patch_file~ ) || \
+elif ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \
+       ! cp $patch_file $patch_file~ ) || \
    ! cat_to_file $patch_file < $tmp_result
 then
 	die 1
