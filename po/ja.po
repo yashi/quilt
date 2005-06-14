@@ -954,7 +954,7 @@ msgstr ""
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ % に変更はありません\\n"
 
-#: ../quilt/refresh.in:301
+#: ../quilt/refresh.in:295
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 

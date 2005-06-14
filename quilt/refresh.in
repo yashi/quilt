@@ -288,17 +288,18 @@ if [ -e $patch_file ] && \
    @DIFF@ -q $patch_file $tmp_result > /dev/null
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
-elif ( [ -n "$QUILT_BACKUP" -a -e $patch_file ] && \
-       ! cp $patch_file $patch_file~ ) || \
-   ! cat_to_file $patch_file < $tmp_result
+elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
+       cp $patch_file $patch_file~ ) && \
+     cat_to_file $patch_file < $tmp_result
 then
+	printf $"Refreshed patch %s\n" "$(print_patch $patch)"
+else
 	die 1
 fi
 
 touch $QUILT_PC/$patch/.timestamp
 
 rm -f $QUILT_PC/$patch~refresh
-printf $"Refreshed patch %s\n" "$(print_patch $patch)"
 if ! change_db_strip_level -p$opt_strip_level $patch
 then
 	die 1
