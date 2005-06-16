@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jun 16 13:18:33 CEST 2005 - agruen@suse.de
+
+- rpm build: add missing files to file list; remove percent-prep
+  string from changes file so that RPM doesn't choke on it.
+
+-------------------------------------------------------------------
 Tue Jun 14 12:07:43 CEST 2005 - agruen@suse.de
 
 - refresh command: also touch .pc/$patch/.timestamp when a patch
@@ -297,7 +303,7 @@ Tue Sep 14 01:00:43 CEST 2004 - agruen@suse.de
 -------------------------------------------------------------------
 Sun Sep 12 18:33:07 CEST 2004 - agruen@suse.de
 
-- scripts/inspect.in: Run the RPM %prep section in /var/tmp and
+- scripts/inspect.in: Run the RPM prep section in /var/tmp and
   not in /tmp: the sources can become large.
 - The fork command at some point broke and did not insert the
   "serial number" in the right place in patch names anymore.
