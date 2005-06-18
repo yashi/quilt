@@ -1,0 +1,145 @@
+#! @BASH@
+
+#  This script is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 2 as
+#  published by the Free Software Foundation.
+#
+#  See the COPYING and AUTHORS files for more details.
+
+# Read in library functions
+if [ "$(type -t patch_file_name)" != function ]
+then
+	if ! [ -r @SCRIPTS@/patchfns ]
+	then
+		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		exit 1
+	fi
+	. @SCRIPTS@/patchfns
+fi
+
+usage()
+{
+	printf $"Usage: quilt annotate {file}\n"
+	if [ x$1 = x-h ]
+	then
+		printf $"
+Print an annotated listing of the specified file showing which
+patches modify which lines.
+"
+		exit 0
+	else
+		exit 1
+	fi
+}
+
+empty_file()
+{
+	local patch=$1 file=$2
+	sed -e 's:.*::' $(backup_file_name $patch $file)
+}
+
+annotation_for()
+{
+	local patch=$1 next_patch=$2 file=$3 annotation=$4 new_file
+        if [ -z "$next_patch" ]
+        then
+                new_file="$file"
+        else
+                new_file="$(backup_file_name $next_patch $file)"
+        fi
+	@DIFF@ -e "$(backup_file_name $patch "$file")" "$new_file" \
+	| @PERL@ -e '
+	while (<>) {
+	    if (/^\d+(?:,\d+)?[ac]$/) {
+		print;
+		while (<>) {
+		    last if /^\.$/;
+		    print "'"$annotation"'\n";
+		}
+		print;
+		next;
+	    }
+	    print;
+	}
+	'
+}
+
+merge_files()
+{
+	local a b saved_IFS="$IFS"
+
+	exec 3< "$1"
+	exec 4< "$2"
+	IFS=
+	while read -r a <&3
+	do
+		read -r b <&4
+		echo "$a"$'\t'"$b"
+	done
+	IFS="$saved_IFS"
+	exec 3<&-
+	exec 4<&-
+}
+
+options=`getopt -o h -- "$@"`
+
+if [ $? -ne 0 ]
+then
+	usage
+fi
+
+eval set -- "$options"
+
+while true
+do
+	case "$1" in
+	-h)
+		usage -h ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+if [ $# -ne 1 ]
+then
+	usage
+fi
+opt_file="$SUBDIR$1"
+
+for patch in $(cat_series); do
+	if [ -f "$(backup_file_name $patch "$opt_file")" ]
+	then
+		patches[${#patches[@]}]="$patch"
+	fi
+done
+
+if [ ${#patches[@]} = 0 ]
+then
+	sed -e 's:^:'$'\t'':' "$opt_file"
+	exit 0
+fi
+
+template=$(gen_tempfile)
+apatch=$(gen_tempfile)
+
+trap "rm -f $template $apatch" EXIT
+
+empty_file ${patches[0]} "$opt_file" > $template
+for ((n = 0; n < ${#patches[@]}; n++))
+do
+	annotation_for "${patches[$n]}" "${patches[$((n+1))]}" "$opt_file" $((n+1))
+done \
+| @PATCH@ $template
+merge_files $template "$opt_file"
+
+echo
+for ((n = 0; n < ${#patches[@]}; n++))
+do
+	echo "$((n+1))"$'\t'"$(print_patch ${patches[$n]})"
+done
+
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

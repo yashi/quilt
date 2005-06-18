@@ -37,13 +37,13 @@ Note that this heuristic is much slower than scanning applied patches.)
 
 scan_applied()
 {
-	local prefix=$1 file=$SUBDIR$2
+	local prefix=$1 file=$2
 	shift 2
 	local patch
 
 	for patch in "$@"
 	do
-		if [ -f "$QUILT_PC/$patch/$file" ]
+		if [ -f "$(backup_file_name $patch "$file")" ]
 		then
 			echo "$prefix$(print_patch $patch)"
 		fi
@@ -52,7 +52,7 @@ scan_applied()
 
 scan_unapplied()
 {
-	local prefix=$1 file=$SUBDIR$2
+	local prefix=$1 file=$2
 	shift 2
 	local file_bre="$(quote_bre $file)" patch
 
@@ -93,7 +93,7 @@ if [ $# -ne 1 ]
 then
 	usage
 fi
-opt_file=$1
+opt_file="$SUBDIR$1"
 
 top=$(top_patch)
 
@@ -108,10 +108,10 @@ else
 	unapplied=""
 fi
 
-scan_applied "$applied" $opt_file $(patches_before $top)
+scan_applied "$applied" "$opt_file" $(patches_before $top)
 [ -n "$top" ] && \
-	scan_applied "$current" $opt_file $top
-scan_unapplied "$unapplied" $opt_file $(patches_after $top)
+	scan_applied "$current" "$opt_file" $top
+scan_unapplied "$unapplied" "$opt_file" $(patches_after $top)
 ### Local Variables:
 ### mode: shell-script
 ### End:

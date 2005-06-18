@@ -72,6 +72,8 @@ quilt refresh:
 
 	- Remove existing diffstat if --diffstat is not specified?
 
+	- Improve whitespace stripping
+
 quilt import:
 
 	- Add option to replace the currently applied patch with a new

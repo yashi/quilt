@@ -56,9 +56,9 @@ BIN :=		$(BIN_IN)
 SRC +=		$(BIN_SRC:%=bin/%)
 DIRT +=		$(BIN_IN:%=bin/%)
 
-QUILT_IN :=	add applied delete diff edit files fold fork graph grep \
-		import mail new next patches pop previous push refresh remove \
-		rename series setup snapshot top unapplied upgrade
+QUILT_IN :=	add annotate applied delete diff edit files fold fork graph \
+		grep import mail new next patches pop previous push refresh \
+		remove rename series setup snapshot top unapplied upgrade
 
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
 QUILT :=	$(QUILT_IN)

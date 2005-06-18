@@ -1,0 +1,63 @@
+	$ mkdir d
+	$ cd d
+	
+	$ cat > foo
+	< foo
+	< bar
+	< baz
+
+	$ quilt new patch
+	> Patch patches/patch is now on top
+
+	$ quilt add foo
+	> File foo added to patch patches/patch
+
+	$ sed -ie 's:b:B:' foo
+	$ quilt refresh
+	> Refreshed patch patches/patch
+
+	$ quilt annotate foo
+	>	foo
+	> 1	Bar
+	> 1	Baz
+	>
+	> 1	patches/patch
+
+	$ quilt new patch2
+	> Patch patches/patch2 is now on top
+	
+	$ quilt add foo
+	> File foo added to patch patches/patch2
+	
+	$ sed -ie 's:Baz:baz:' foo
+	$ quilt refresh
+	> Refreshed patch patches/patch2
+
+	$ quilt annotate foo
+	>	foo
+	> 1	Bar
+	> 2	baz
+	>
+	> 1	patches/patch
+	> 2	patches/patch2
+
+	$ quilt new patch3
+	> Patch patches/patch3 is now on top
+
+	$ quilt add foo
+	> File foo added to patch patches/patch3
+
+	$ sed -ie '/Bar/d' foo
+	$ quilt refresh
+	> Refreshed patch patches/patch3
+
+	$ quilt annotate foo
+	>	foo
+	> 2	baz
+	>
+	> 1	patches/patch
+	> 2	patches/patch2
+	> 3	patches/patch3
+
+	$ cd ..
+	$ rm -rf d

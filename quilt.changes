@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun 18 15:03:13 CEST 2005 - agruen@suse.de
+
+- Add new annotate command.
+
+-------------------------------------------------------------------
 Thu Jun 16 13:18:33 CEST 2005 - agruen@suse.de
 
 - rpm build: add missing files to file list; remove percent-prep
