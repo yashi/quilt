@@ -942,19 +942,20 @@ msgstr ""
 "より最近のパッチがパッチ %sのファイルに変更を加えています。リフレッシュを実行"
 "する場合は -f オプションを使用してください。\\n"
 
-#: ../quilt/refresh.in:214
+#: ../quilt/refresh.in:213
+msgid ""
+"Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
+msgstr ""
+
+#: ../quilt/refresh.in:219
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: ../quilt/refresh.in:228
-msgid "Warning: %s adds trailing whitespace\\n"
-msgstr ""
-
-#: ../quilt/refresh.in:290
+#: ../quilt/refresh.in:296
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ % に変更はありません\\n"
 
-#: ../quilt/refresh.in:295
+#: ../quilt/refresh.in:301
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 

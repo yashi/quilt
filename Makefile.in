@@ -65,7 +65,8 @@ QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail
+SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail \
+		remove-trailing-ws
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
 SRC +=		$(SCRIPTS_SRC:%=scripts/%)

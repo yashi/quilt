@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 18 19:51:36 CEST 2005 - agruen@suse.de
+
+- Add fix for refresh --strip-trailing-whitespace option: now
+  refresh always checks for trailing whitespace and reports it
+  per file and line number. With --strip-trailing-whitespace it
+  strips the whitespace from the patch and from the affected files
+  in the working tree.
+
+-------------------------------------------------------------------
 Sat Jun 18 15:03:13 CEST 2005 - agruen@suse.de
 
 - Add new annotate command.

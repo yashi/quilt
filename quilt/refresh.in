@@ -207,6 +207,11 @@ do
 		printf $"More recent patches modify files in patch %s. Enforce refresh with -f.\n" "$(print_patch $patch)" >&2
 		die 1
 	fi
+
+	if [ -n "$files_were_shadowed" -a -n "$opt_strip_whitespace" ]
+	then
+		printf $"Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\n" >&2
+	fi
 done
 
 if ! [ -s $tmp_patch ]
@@ -216,19 +221,20 @@ then
 fi
 
 # Check for trailing whitespace
-if grep -q '^+.*[ '$'\t'']$' $tmp_patch
+if [ -z "$opt_strip_whitespace" ]
 then
-	if [ -n "$opt_strip_whitespace" ]
+	@SCRIPTS@/remove-trailing-ws -n -p$opt_strip_level \
+	< $tmp_patch
+else
+	tmp_patch2=$(gen_tempfile)
+	if @SCRIPTS@/remove-trailing-ws -p$opt_strip_level \
+					< $tmp_patch > $tmp_patch2
 	then
-		tmp=$(gen_tempfile)
-		sed -e '/^+/s/[ '$'\t'']*$//' $tmp_patch > $tmp
-		cat $tmp > $tmp_patch
-		rm -f $tmp
-	else
-		printf $"Warning: %s adds trailing whitespace\n" \
-		       "$(print_patch $patch)"
+		rm -f $tmp_patch
+		tmp_patch=$tmp_patch2
 	fi
 fi
+# FIXME: no stripping of non-topmost patch !!!
 
 patch_file=$(patch_file_name $patch)
 

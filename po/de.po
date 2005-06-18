@@ -951,19 +951,20 @@ msgstr ""
 "Später angewandte Patches verändern Dateien von $patch. Auffrischen mit -f "
 "erzwingen.\\n"
 
-#: ../quilt/refresh.in:214
+#: ../quilt/refresh.in:213
+msgid ""
+"Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
+msgstr ""
+
+#: ../quilt/refresh.in:219
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s is leer\\n"
 
-#: ../quilt/refresh.in:228
-msgid "Warning: %s adds trailing whitespace\\n"
-msgstr ""
-
-#: ../quilt/refresh.in:290
+#: ../quilt/refresh.in:296
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: ../quilt/refresh.in:295
+#: ../quilt/refresh.in:301
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 

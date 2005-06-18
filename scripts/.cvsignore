@@ -5,3 +5,4 @@ inspect
 parse-patch
 patchfns
 rpatch
+remove-trailing-ws
