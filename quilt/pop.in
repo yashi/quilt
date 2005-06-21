@@ -175,10 +175,17 @@ remove_patch()
 
 	if [ $status -eq 0 ]
 	then
-		printf $"Removing patch %s\n" "$(print_patch $patch)"
 		rm -f "$QUILT_PC/$patch/.timestamp"
-		@LIB@/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
-		status=$?
+		if [ -z "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" ]
+		then
+			printf $"Patch %s appears to be empty, removing\n" \
+			       "$(print_patch $patch)"
+			status=0
+		else
+			printf $"Removing patch %s\n" "$(print_patch $patch)"
+			@LIB@/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
+			status=$?
+		fi
 		remove_from_db $patch
 		rm -f $QUILT_PC/$patch~refresh
 	fi

@@ -88,15 +88,11 @@ colorize()
 
 apply_patch()
 {
-	local patch=$1
-	local patch_file=$(patch_file_name $patch) output
+	local patch=$1 patch_file=$2
+	local output
 
-	if ! [ -s $patch_file ]
-	then
-		printf $"Patch %s appears to be empty\n" "$patch_file"
-		return 0
-	fi
-	
+	[ -s $patch_file ] || return 0
+
 	if [ "${patch_file:(-3)}" = ".gz" ]
 	then
 		gzip -cd $patch_file \
@@ -155,6 +151,7 @@ cleanup_patch_output() {
 add_patch()
 {
 	local patch=$1
+	local patch_file=$(patch_file_name $patch)
 	local file status tmp
 
 	printf $"Applying patch %s\n" "$(print_patch $patch)"
@@ -166,7 +163,7 @@ add_patch()
 		no_reject_files="-r $tmp"
 	fi
 
-	apply_patch $patch
+	apply_patch $patch "$patch_file"
 	status=${PIPESTATUS[0]}
 	trap "" SIGINT
 
@@ -187,7 +184,11 @@ add_patch()
 			touch $QUILT_PC/$patch/.timestamp
 		fi
 
-		if [ "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" = "" ]
+		if ! [ -e $patch_file ]
+		then
+			printf $"Patch %s does not exist, applied\n" \
+			       "$(print_patch $patch)"
+		elif [ -z "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" ]
 		then
 			printf $"Patch %s appears to be empty, applied\n" \
 			       "$(print_patch $patch)"

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jun 21 23:54:51 CEST 2005 - agruen@suse.de
+
+- add command: "File %s added to patch %s" message goes to stdout
+  and not to stderr (Jean Delvare).
+- Don't fail when popping missing patches (Jerome Lacoste, Jean
+  Delvare, I).
+
+-------------------------------------------------------------------
 Sat Jun 18 19:51:36 CEST 2005 - agruen@suse.de
 
 - Add fix for refresh --strip-trailing-whitespace option: now
