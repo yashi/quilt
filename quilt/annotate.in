@@ -121,14 +121,24 @@ then
 fi
 
 template=$(gen_tempfile)
-apatch=$(gen_tempfile)
 
-trap "rm -f $template $apatch" EXIT
+# The annotated listing is generated as follows: A file of annotations
+# is created based on a file that contains the same number of lines as
+# the source file, but all lines are empty.
+#
+# Then, for each patch that modifies the source file, a diff without
+# context is generated (-U0 or -C0 would do, but I've picked -e).  In
+# that diff, all line additions are replaced with the identifier of the
+# patch (1, 2, ...). These patches are then applied to the empty file. 
+#
+# Finally, the annotations listing is merged with the source file line
+# by line.
 
 empty_file ${patches[0]} "$opt_file" > $template
 for ((n = 0; n < ${#patches[@]}; n++))
 do
-	annotation_for "${patches[$n]}" "${patches[$((n+1))]}" "$opt_file" $((n+1))
+	annotation_for "${patches[$n]}" "${patches[$((n+1))]}" "$opt_file" \
+		       $((n+1))
 done \
 | @PATCH@ $template
 merge_files $template "$opt_file"
