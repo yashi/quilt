@@ -95,8 +95,8 @@ _quilt_completion()
     prev=${COMP_WORDS[COMP_CWORD-1]}
 
     # quilt sub commands 
-    cmds='add applied delete diff edit files fold fork graph grep  \
-          import new next patches pop previous push refresh remove \
+    cmds='add annotate applied delete diff edit files fold fork graph \
+          grep import new next patches pop previous push refresh remove \
 	  rename series setup snapshot top unapplied'
 
     # if no command were given, complete on commands
@@ -130,6 +130,10 @@ _quilt_completion()
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
 	        ;;
 	   esac
+	   ;;
+	annotate)
+	   _quilt_comfile 
+	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
 	   ;;
 	applied) 
 	   COMPREPLY=( $( compgen -W "-h $(quilt applied)" -- $cur ) )

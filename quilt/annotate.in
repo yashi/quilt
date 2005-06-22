@@ -122,6 +122,8 @@ fi
 
 template=$(gen_tempfile)
 
+trap "rm -f $template" EXIT
+
 # The annotated listing is generated as follows: A file of annotations
 # is created based on a file that contains the same number of lines as
 # the source file, but all lines are empty.
