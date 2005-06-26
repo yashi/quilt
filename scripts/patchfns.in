@@ -107,6 +107,7 @@ patch_args()
 	if [ -e $SERIES ]
 	then
 		@AWK@ '
+			{sub(/(^|[ \t]+)#.*/, "") }
 		$1 == "'"$patch"'" \
 			{ if (NF >= 2)
 				for (i=2; i <= NF; i++)

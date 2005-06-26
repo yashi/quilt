@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jun 26 23:37:23 CEST 2005 - agruen@suse.de
+
+- Jean Delvare:
+  + Add a --version option that prints the program version.
+  + patch_args: Fix comments parsing in series files.
+
+-------------------------------------------------------------------
 Wed Jun 22 23:35:23 CEST 2005 - agruen@suse.de
 
 - annotate: temp file leak; add bash completions (Jean Delvare).

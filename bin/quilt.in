@@ -21,6 +21,7 @@ usage()
 {
 
 	echo $"Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
+	echo $"       quilt --version"
 
 	echo $"Commands are:"
 	quilt_commands \
@@ -36,7 +37,12 @@ Common options to all commands:
 --quiltrc file
 	Use the specified configuration file instead of ~/.quiltrc (or
 	/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
-	documentation for details about its possible contents."
+	documentation for details about its possible contents.
+
+Special options:
+
+--version
+	Print the version number and exit immediately."
 	exit 1
 }
 
@@ -51,6 +57,12 @@ quilt_commands()
 		fi
 	done
 }
+
+if [ $# -eq 1 -a "$1" == "--version" ]
+then
+	echo '@VERSION@'
+	exit
+fi
 
 BASH_OPTS=
 while [ $# -ne 0 ]

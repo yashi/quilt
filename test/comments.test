@@ -19,7 +19,7 @@ accidentally removed.
 	< +two
 
 	$ cat > patches/series
-	< test.diff -p0
+	< test.diff -p0 # What a wonderful patch
 
 	$ quilt push
 	> Applying patch %{P}test.diff
