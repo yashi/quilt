@@ -335,16 +335,10 @@ then
 	patch_file=$(patch_file_name $last_patch)
 	patch_args=$(patch_args $last_patch)
 	workdir=$(gen_tempfile -d $PWD/quilt)
-	pwd=$PWD
 
-	if ! cd $QUILT_PC/$last_patch
-	then
-		printf $"Cannot change into directory %s\n" \
-		       "$QUILT_PC/$last_patch" >&2
-		die 1
-	fi
 	if [ ${#files[@]} -gt 0 ] \
-	   && ! cp -l --parents "${files[@]}" $workdir/
+	   && ! ( cd $QUILT_PC/$last_patch &&
+		  cp -l --parents "${files[@]}" $workdir/ )
 	then
 		printf $"Failed to copy files to temporary directory\n" >&2
 		die 1
@@ -355,16 +349,10 @@ then
 	# them: We must remove them here.
 	find $workdir -type f -size 0 -exec rm -f '{}' ';'
 
-	if ! cd $workdir
+	if [ -s $patch_file ]
 	then
-		printf $"Cannot change to temporary directory\n" >&2
-		die 1
-	fi
-	
-	if [ -s $pwd/$patch_file ]
-	then
-		if ! cat_file $pwd/$patch_file \
-		     | @PATCH@ $QUILT_PATCH_OPTS $patch_args \
+		if ! cat_file $patch_file \
+		     | @PATCH@ -d $workdir $QUILT_PATCH_OPTS $patch_args \
 		     	       --no-backup-if-mismatch -Ef \
 			       >/dev/null 2>/dev/null
 		then
@@ -373,17 +361,12 @@ then
 			# applied, we know that it won't apply cleanly. In
 			# all other cases, print a warning.
 			
-			if [ ! -e $pwd/$QUILT_PC/$last_patch~refresh -a \
+			if [ ! -e $QUILT_PC/$last_patch~refresh -a \
 			       ${#opt_files[@]} -eq 0 ]
 			then
 				printf $"Failed to patch temporary files\n" >&2
 			fi
 		fi
-	fi
-	if ! cd $pwd
-	then
-		printf $"Cannot change to source directory\n" >&2
-		die 1
 	fi
 fi
 

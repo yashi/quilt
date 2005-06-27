@@ -268,35 +268,23 @@ msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定して�
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: ../quilt/diff.in:342
-msgid "Cannot change into directory %s\\n"
-msgstr "ディレクトリ %s に移動できません\\n"
-
-#: ../quilt/diff.in:349 ../quilt/pop.in:114
+#: ../quilt/diff.in:343 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: ../quilt/diff.in:360
-msgid "Cannot change to temporary directory\\n"
-msgstr "テンポラリディレクトリに移動できません\\n"
-
-#: ../quilt/diff.in:379 ../quilt/pop.in:138
+#: ../quilt/diff.in:367 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: ../quilt/diff.in:385
-msgid "Cannot change to source directory\\n"
-msgstr "ソースディレクトリに移動できません\\n"
-
-#: ../quilt/diff.in:403
+#: ../quilt/diff.in:386
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %sは変更されていません\\n"
 
-#: ../quilt/diff.in:423 ../quilt/refresh.in:201
+#: ../quilt/diff.in:406 ../quilt/refresh.in:201
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: ../quilt/diff.in:430
+#: ../quilt/diff.in:413
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "最近のパッチが、パッチ %s内のファイルを変更しています\\n"
 
@@ -1184,6 +1172,15 @@ msgid ""
 msgstr ""
 "現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
 "す。'quilt upgrade'を実行してください。\\n"
+
+#~ msgid "Cannot change into directory %s\\n"
+#~ msgstr "ディレクトリ %s に移動できません\\n"
+
+#~ msgid "Cannot change to temporary directory\\n"
+#~ msgstr "テンポラリディレクトリに移動できません\\n"
+
+#~ msgid "Cannot change to source directory\\n"
+#~ msgstr "ソースディレクトリに移動できません\\n"
 
 #~ msgid ""
 #~ "\n"

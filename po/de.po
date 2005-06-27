@@ -273,35 +273,23 @@ msgstr ""
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
-#: ../quilt/diff.in:342
-msgid "Cannot change into directory %s\\n"
-msgstr "Kann nicht in Verzeichnis %s wechseln\\n"
-
-#: ../quilt/diff.in:349 ../quilt/pop.in:114
+#: ../quilt/diff.in:343 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: ../quilt/diff.in:360
-msgid "Cannot change to temporary directory\\n"
-msgstr "Kann nicht in temporäres Verzeichnis wechseln\\n"
-
-#: ../quilt/diff.in:379 ../quilt/pop.in:138
+#: ../quilt/diff.in:367 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
-#: ../quilt/diff.in:385
-msgid "Cannot change to source directory\\n"
-msgstr "Kann nicht in Quellverzeichnis wechseln\\n"
-
-#: ../quilt/diff.in:403
+#: ../quilt/diff.in:386
 msgid "File %s is not being modified\\n"
 msgstr "Datei %s wird nicht verändert.\\n"
 
-#: ../quilt/diff.in:423 ../quilt/refresh.in:201
+#: ../quilt/diff.in:406 ../quilt/refresh.in:201
 msgid "Diff failed, aborting\\n"
 msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 
-#: ../quilt/diff.in:430
+#: ../quilt/diff.in:413
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "Später angewandte Patches verändern Dateien von %s\\n"
 
@@ -1196,6 +1184,15 @@ msgid ""
 msgstr ""
 "Das Arbeitsverzeichnis wurde von einer älteren Version von quilt erstellt. "
 "Bitte führen Sie \\`quilt upgrade' aus.\\n"
+
+#~ msgid "Cannot change into directory %s\\n"
+#~ msgstr "Kann nicht in Verzeichnis %s wechseln\\n"
+
+#~ msgid "Cannot change to temporary directory\\n"
+#~ msgstr "Kann nicht in temporäres Verzeichnis wechseln\\n"
+
+#~ msgid "Cannot change to source directory\\n"
+#~ msgstr "Kann nicht in Quellverzeichnis wechseln\\n"
 
 #~ msgid ""
 #~ "\n"

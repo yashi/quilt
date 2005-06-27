@@ -189,35 +189,23 @@ msgstr ""
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
-#: ../quilt/diff.in:342
-msgid "Cannot change into directory %s\\n"
-msgstr ""
-
-#: ../quilt/diff.in:349 ../quilt/pop.in:114
+#: ../quilt/diff.in:343 ../quilt/pop.in:114
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: ../quilt/diff.in:360
-msgid "Cannot change to temporary directory\\n"
-msgstr ""
-
-#: ../quilt/diff.in:379 ../quilt/pop.in:138
+#: ../quilt/diff.in:367 ../quilt/pop.in:138
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
-#: ../quilt/diff.in:385
-msgid "Cannot change to source directory\\n"
-msgstr ""
-
-#: ../quilt/diff.in:403
+#: ../quilt/diff.in:386
 msgid "File %s is not being modified\\n"
 msgstr ""
 
-#: ../quilt/diff.in:423 ../quilt/refresh.in:201
+#: ../quilt/diff.in:406 ../quilt/refresh.in:201
 msgid "Diff failed, aborting\\n"
 msgstr ""
 
-#: ../quilt/diff.in:430
+#: ../quilt/diff.in:413
 msgid "More recent patches modify files in patch %s\\n"
 msgstr ""
 
