@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jun 27 20:22:33 CEST 2005 - khali@linux-fr.org
+
+- Fix a typo in quilt.changes.
+
+-------------------------------------------------------------------
 Mon Jun 27 09:54:53 CEST 2005 - agruen@suse.de
 
 - quilt diff: Fix -z option if QUILT_PATCHES is an absolute path.
@@ -1224,7 +1229,7 @@ Thu Jan 30 13:25:51 CET 2003 - agruen@suse.de
   This is required by POSIX, and is also used by diffstat.
 - Adjust patch_description documentation extraction function to
   check for Index: lines.
-- Quilt refresh looses text before actual patch due to but in
+- Quilt refresh looses text before actual patch due to bug in
   patch_description function.
 
 -------------------------------------------------------------------
