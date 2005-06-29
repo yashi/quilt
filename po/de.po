@@ -49,7 +49,7 @@ msgstr ""
 "\tFührt die Kommandos im bash Trace-Modus (-x) aus. Für Debugging.\n"
 "\n"
 "--quiltrc datei\n"
-"\tVerwende die angegebene Konfigrationsdatei statt ~/.quiltrc (oder\n"
+"\tVerwende die angegebene Konfigurationsdatei statt ~/.quiltrc (oder\n"
 "\t/etc/quilt.quiltrc, wenn ~/.quiltrc fehlt). Siehe die pdf-Dokumentation\n"
 "\tfür mögliche Einstellungen."
 
@@ -832,11 +832,11 @@ msgstr "Patch %s scheint leer zu sein, angewandt\\n"
 
 #: ../quilt/push.in:197
 msgid "Applied patch %s (forced; needs refresh)\\n"
-msgstr "Patch %s angewandt (erzwungen, muß aufgefrischt werden (Refresh))\\n"
+msgstr "Patch %s angewandt (erzwungen, muss aufgefrischt werden (Refresh))\\n"
 
 #: ../quilt/push.in:202
 msgid "Patch %s does not apply (enforce with -f)\\n"
-msgstr "Patch %s läßt sich nicht anwenden (erzwingen mit -f)\\n"
+msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
 #: ../quilt/push.in:241
 msgid "Patch %s not found in file series\\n"
@@ -961,7 +961,7 @@ msgstr ""
 
 #: ../quilt/refresh.in:219
 msgid "Nothing in patch %s\\n"
-msgstr "Patch %s is leer\\n"
+msgstr "Patch %s ist leer\\n"
 
 #: ../quilt/refresh.in:296
 msgid "Patch %s is unchanged\\n"
@@ -1023,7 +1023,7 @@ msgstr ""
 #: ../quilt/setup.in:27
 msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
 msgstr ""
-"Verwendung: quilt setup [-d pfad-prefix] [-v] {spec-datei|series-datei}\\n"
+"Verwendung: quilt setup [-d pfad-präfix] [-v] {spec-datei|series-datei}\\n"
 
 #: ../quilt/setup.in:30
 msgid ""

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 29 19:42:12 CEST 2005 - agruen@suse.de
+
+- po/de.po: Small update from Debian Bug #313827.
+
+-------------------------------------------------------------------
 Wed Jun 29 17:50:47 CEST 2005 - khali@linux-fr.org
 
 - Fix a typo in diff.in's help.
