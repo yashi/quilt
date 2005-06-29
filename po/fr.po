@@ -25,7 +25,6 @@ msgid "Commands are:"
 msgstr "Les commandes sont :"
 
 #: ../bin/quilt.in:31
-#, fuzzy
 msgid ""
 "\n"
 "Common options to all commands:\n"
@@ -50,9 +49,14 @@ msgstr ""
 "\tLance la commande en mode trace de bash (-x). Pour le debug interne.\n"
 "\n"
 "--quiltrc fichier\n"
-"\tUtilise le fichier de configuration spécifié au lieu de ~/.quiltrc.\n"
-"\tVoir la documentation pdf pour plus de détail sur son contenu \n"
-"\tpotentiel."
+"\tUtilise le fichier de configuration spécifié au lieu de ~/.quiltrc\n"
+"\t(ou /etc/quilt.quiltrc si ~/.quiltrc n'existe pas). Voir la\n"
+"\tdocumentation pdf pour plus de détails sur son contenu potentiel.\n"
+"\n"
+"Options spéciales :\n"
+"\n"
+"--version\n"
+"\tAffiche le numéro de version et sort immédiatement."
 
 #: ../quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ...\\n"
@@ -78,9 +82,8 @@ msgstr ""
 "\tPatch auquel les fichiers doivent être ajoutés.\n"
 
 #: ../quilt/add.in:48 ../quilt/add.in:54
-#, fuzzy
 msgid "File \\`%s' is located below \\`%s'\\n"
-msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
+msgstr "Le fichier %s est situé en dessous de %s\\n"
 
 #: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
 #: ../quilt/diff.in:160 ../quilt/diff.in:171 ../quilt/graph.in:116
@@ -165,17 +168,16 @@ msgid "Failed to remove patch %s\\n"
 msgstr "Impossible de retirer le patch %s\\n"
 
 #: ../quilt/diff.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
 "patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] "
 "[--color] [file ...]\\n"
 msgstr ""
 "Usage : quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
-"P patch] [--snapshot] [--diff=utilitaire] [--color] [fichier ...]\\n"
+"P patch] [--snapshot] [--diff=utilitaire] [--no-timestamps] [--no-index] "
+"[--sort] [--color] [fichier ...]\\n"
 
 #: ../quilt/diff.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -236,6 +238,9 @@ msgstr ""
 "--no-timestamps\n"
 "\tOmet les tampons («timestamps») dans les entêtes de patch.\n"
 "\n"
+"--no-index\n"
+"\tOmet les lignes Index:.\n"
+"\n"
 "-z\tAffiche sur la sortie standard les changements effectués par rapport\n"
 "\tau patch spécifié (ou celui au sommet à défaut).\n"
 "\n"
@@ -244,28 +249,25 @@ msgstr ""
 "-P patch\n"
 "\tCrée un diff pour ce patch (par défaut, le patch au sommet)\n"
 "\n"
-"-c patch\n"
-"\tCrée un diff combiné pour tous les patches se trouvant entre\n"
-"\tce patch et celui indiqué avec l'option -P.\n"
-"\tDonner \"-\" comme nom de patch signifie d'utiliser le premier \n"
-"\tpatch appliqué.\n"
-"\n"
 "--combine patch\n"
-"\tCrée un patch combiné pour tous les patches entre celui spécifié \n"
-"        ici et celui spécifié avec l'argument -P. Utiliser «-» comme nom \n"
-"        de patch est équivalent à spécifier le premier patch appliqué.\n"
+"\tCrée un patch combiné pour tous les patches entre celui spécifié\n"
+"\tici et celui spécifié avec l'argument -P. Utiliser «-» comme nom\n"
+"\tde patch est équivalent à spécifier le premier patch appliqué.\n"
 "\n"
 "--snapshot\n"
 "\tCrée un diff à partir de l'instantané (voir «quilt snapshot -h»).\n"
 "\n"
 "--diff=utilitaire\n"
-"\tUtilise le programme spécifié pour générer les diff. Ce programme\n"
+"\tUtilise le programme spécifié pour générer le diff. Ce programme\n"
 "\test invoqué avec le nom du fichier originel et celui du nouveau \n"
 "\tfichier comme arguments.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tColorise la syntaxe toujours («always»), de manière automatique («auto»)\n"
-"\tou jamais («never»).\n"
+"\tColorise la syntaxe toujours («always»), de manière automatique\n"
+"\t(«auto») ou jamais («never»).\n"
+"\n"
+"--sort\tTrie les fichiers par leur nom au lieu de préserver leur ordre\n"
+"\td'origine.\n"
 
 #: ../quilt/diff.in:231
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
@@ -419,11 +421,12 @@ msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 
 #: ../quilt/graph.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
 "[patch]\\n"
-msgstr "Usage : quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
+msgstr ""
+"Usage : quilt graph [--all] [--reduce] [--lines[=num]] "
+"[--edge-labels=files] [patch]\\n"
 
 #: ../quilt/graph.in:26
 msgid ""
@@ -457,9 +460,8 @@ msgid ""
 msgstr ""
 
 #: ../quilt/grep.in:22
-#, fuzzy
 msgid "Usage: quilt grep [-h|options] {pattern}\\n"
-msgstr "Usage : quilt previous [-n] [patch]\\n"
+msgstr "Usage : quilt grep [-h|options] {motif}\\n"
 
 #: ../quilt/grep.in:25
 msgid ""
@@ -679,9 +681,8 @@ msgstr ""
 "\\n"
 
 #: ../quilt/pop.in:181
-#, fuzzy
 msgid "Patch %s appears to be empty, removing\\n"
-msgstr "Le patch %s semble vide.\\n"
+msgstr "Le patch %s semble vide, enlevé\\n"
 
 #: ../quilt/pop.in:185
 msgid "Removing patch %s\\n"
@@ -720,7 +721,6 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 
 #: ../quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -776,6 +776,10 @@ msgstr ""
 "\tLaisse l'utilitaire patch demander comment résoudre les conflits.\n"
 "\tSi cette option n'est pas donnée, l'option -f sera passée au \n"
 "\tprogramme patch.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tApplique une coloration syntaxique, toujours («always»), de manière\n"
+"\tautomatique («auto») ou jamais («never»).\n"
 
 #: ../quilt/push.in:64
 msgid "Interrupted by user; patch %s was not applied.\\n"
@@ -786,9 +790,8 @@ msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
 #: ../quilt/push.in:189
-#, fuzzy
 msgid "Patch %s does not exist, applied\\n"
-msgstr "Le patch %s n'est pas appliqué\\n"
+msgstr "Le patch %s n'existe pas, appliqué\\n"
 
 #: ../quilt/push.in:193
 msgid "Patch %s appears to be empty, applied\\n"
@@ -820,16 +823,15 @@ msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
 #: ../quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] "
 "[--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 msgstr ""
-"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
+"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] "
+"[--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
 "[patch]\\n"
 
 #: ../quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -894,6 +896,9 @@ msgstr ""
 "--no-timestamps\n"
 "\tOmet les tampons («timestamps») dans les entêtes de patch.\n"
 "\n"
+"--no-index\n"
+"\tOmet les lignes Index:.\n"
+"\n"
 "--diffstat\n"
 "\tAjoute une section diffstat aux entêtes du patch, ou remet celle\n"
 "\texistante à jour.\n"
@@ -904,6 +909,12 @@ msgstr ""
 "--backup\n"
 "\tCrée une copie de sauvegarde du patch en ajoutant ~ à la fin de \n"
 "\tson nom.\n"
+"\n"
+"--sort\tTrie les fichiers par leur nom au lieu de conserver leur ordre\n"
+"\td'origine.\n"
+"\n"
+"--strip-trailing-whitespace\n"
+"\tSupprime les espaces à la fin des lignes dans le patch généré.\n"
 
 #: ../quilt/refresh.in:173
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"

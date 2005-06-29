@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 29 12:48:34 CEST 2005 - khali@linux-fr.org
+
+- French translation unfuzzying.
+
+-------------------------------------------------------------------
 Mon Jun 27 20:22:33 CEST 2005 - khali@linux-fr.org
 
 - Fix a typo in quilt.changes.
