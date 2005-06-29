@@ -174,8 +174,8 @@ msgid ""
 "[--color] [file ...]\\n"
 msgstr ""
 "Usage : quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
-"P patch] [--snapshot] [--diff=utilitaire] [--no-timestamps] [--no-index] "
-"[--sort] [--color] [fichier ...]\\n"
+"P patch] [--snapshot] [--diff=utilitaire] [--no-timestamps] [--no-index] [--"
+"sort] [--color] [fichier ...]\\n"
 
 #: ../quilt/diff.in:28
 msgid ""
@@ -425,8 +425,8 @@ msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
 "[patch]\\n"
 msgstr ""
-"Usage : quilt graph [--all] [--reduce] [--lines[=num]] "
-"[--edge-labels=files] [patch]\\n"
+"Usage : quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
+"[patch]\\n"
 
 #: ../quilt/graph.in:26
 msgid ""
@@ -827,9 +827,8 @@ msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] "
 "[--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 msgstr ""
-"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] "
-"[--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
-"[patch]\\n"
+"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
+"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 
 #: ../quilt/refresh.in:26
 msgid ""
