@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 29 17:50:47 CEST 2005 - khali@linux-fr.org
+
+- Fix a typo in diff.in's help.
+
+-------------------------------------------------------------------
 Wed Jun 29 12:48:34 CEST 2005 - khali@linux-fr.org
 
 - French translation unfuzzying.

@@ -58,7 +58,7 @@ included.
 	to specifying the first applied patch.
 
 --snapshot
-	Diff agains snapshot (see \`quilt snapshot -h').
+	Diff against snapshot (see \`quilt snapshot -h').
 
 --diff=utility
 	Use the specified utility for generating the diff. The utility
