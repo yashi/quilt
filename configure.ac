@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.40],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.35 $)
+AC_REVISION ($Revision: 1.36 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -200,6 +200,31 @@ in a directory that is not in the search path you can specify its location
 using the '--with-diffstat' option.
 ])
     DIFFSTAT="diffstat"
+else
+    # We need diffstat version 1.32 or better, else quilt refresh --diffstat
+    # will show progress data we don't want to see.  This is only a warning
+    # and we continue even if version is older, as this is only a minor annoyance.
+    AC_MSG_CHECKING([for diffstat version])
+    diffstat_major_version=`$DIFFSTAT -V 2>/dev/null | \
+	sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\)/\1/'`
+    diffstat_minor_version=`$DIFFSTAT -V 2>/dev/null | \
+	sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\)/\2/'`
+    if test -z "$diffstat_major_version" -o -z "$diffstat_minor_version"; then
+	AC_MSG_RESULT(unknown)
+	AC_MSG_WARN([
+diffstat utility version couldn't be checked; chances are good that the
+--diffstat option of the refresh and diff commands will not work properly.
+])
+    else
+	AC_MSG_RESULT($diffstat_major_version.$diffstat_minor_version)
+	if test "$diffstat_major_version" -lt 1 \
+	   -o \( "$diffstat_major_version" -eq 1 -a "$diffstat_minor_version" -lt 32 \); then
+	    AC_MSG_WARN([
+diffstat utility is too old; the --diffstat option of the refresh command
+will not work correctly until a newer version (>= 1.32) is installed.
+])
+	fi
+    fi
 fi
 
 dnl Check for sendmail

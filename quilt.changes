@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jul  1 16:48:38 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Add a test on diffstat version. Versions prior
+  to 0.32 are known to behave in a confusing manner, so we warn
+  the user if such an old version is found.
+
+-------------------------------------------------------------------
 Wed Jun 29 19:42:12 CEST 2005 - agruen@suse.de
 
 - po/de.po: Small update from Debian Bug #313827.
