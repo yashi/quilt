@@ -295,8 +295,8 @@ if [ -e $patch_file ] && \
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
 elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
-       cp $patch_file $patch_file~ ) && \
-     cat_to_file $patch_file < $tmp_result
+       mv $patch_file $patch_file~ ) && \
+     cat_to_new_file $patch_file < $tmp_result
 then
 	printf $"Refreshed patch %s\n" "$(print_patch $patch)"
 else

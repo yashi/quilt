@@ -31,5 +31,5 @@ touched-by-patch filename
 
 backup-files
 	A simple utility that creates / restores / removes
-	backup files; this works around a patch bug (see BUGS).
+	backup files.
 

@@ -610,23 +610,21 @@ cat_file()
 	done
 }
 
-cat_to_file()
+cat_to_new_file()
 {
 	local filename="$1"
 
-	if [ -z "$filename" ]
-	then
-		cat
-	else
-		case "$filename" in
-		*.gz|*.tgz)
-			gzip -c > "$filename" ;;
-		*.bz2)
-			bzip2 -c > "$filename" ;;
-		*)
-			cat > "$filename" ;;
-		esac
-	fi
+	[ -e "$filename" ] && rm -f "$filename"
+
+	case "$filename" in
+	*.gz)
+		gzip -c ;;
+	*.bz2)
+		bzip2 -c ;;
+	*)
+		cat ;;
+	esac \
+	> "$filename"
 }
 
 patch_description()

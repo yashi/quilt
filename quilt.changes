@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Jul  2 13:51:50 CEST 2005 - agruen@suse.de
+
+- Remove outdated BUGS file and references.
+- refresh command: don't write into existing patches but create
+  new files instead to avoid overwriting hardlinked copies.
+
+-------------------------------------------------------------------
 Fri Jul  1 16:48:38 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Add a test on diffstat version. Versions prior

@@ -833,7 +833,7 @@ msgid ""
 "patches from scratch.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:742
+#: ../scripts/patchfns.in:740
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -841,7 +841,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: ../scripts/patchfns.in:819
+#: ../scripts/patchfns.in:817
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

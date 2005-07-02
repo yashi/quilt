@@ -1,6 +1,0 @@
-* Patch destroys the backup files it generates if a file appears more
-  than once in a patch. This is the reason why we use the backup-files
-  utility instead.
-
-* rpatch should only look at .pc/applied-patches, not at the series
-  file.
