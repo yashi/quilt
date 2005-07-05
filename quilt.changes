@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul  5 12:19:40 CEST 2005 - khali@linux-fr.org
+
+- quilt delete: Display the name of the deleted patch on success.
+
+-------------------------------------------------------------------
 Sat Jul  2 13:51:50 CEST 2005 - agruen@suse.de
 
 - Remove outdated BUGS file and references.

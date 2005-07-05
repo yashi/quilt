@@ -164,6 +164,10 @@ msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
 #: ../quilt/delete.in:92
+msgid "Removed patch %s\\n"
+msgstr "Patch %s retiré\\n"
+
+#: ../quilt/delete.in:94
 msgid "Failed to remove patch %s\\n"
 msgstr "Impossible de retirer le patch %s\\n"
 

@@ -87,9 +87,11 @@ then
 		exit 1
 	fi
 fi
-if ! remove_from_series $patch
+if remove_from_series "$patch"
 then
-	printf $"Failed to remove patch %s\n" "$patch" >&2
+	printf $"Removed patch %s\n" "$(print_patch "$patch")"
+else
+	printf $"Failed to remove patch %s\n" "$(print_patch "$patch")" >&2
 fi
 ### Local Variables:
 ### mode: shell-script
