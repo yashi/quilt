@@ -17,7 +17,7 @@ msgstr "Verwendung: quilt [--trace[=verbose]] [--quiltrc=XX] befehl [-h] ..."
 
 #: ../bin/quilt.in:24
 msgid "       quilt --version"
-msgstr ""
+msgstr "            quilt --version"
 
 #: ../bin/quilt.in:26
 msgid "Commands are:"

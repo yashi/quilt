@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul  5 18:33:15 CEST 2005 - khali@linux-fr.org
+
+- fr.po: Add all missing translations.
+- de.po: Add one easy translation.
+
+-------------------------------------------------------------------
 Tue Jul  5 12:19:40 CEST 2005 - khali@linux-fr.org
 
 - quilt delete: Display the name of the deleted patch on success.
