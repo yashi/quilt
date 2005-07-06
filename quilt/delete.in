@@ -19,13 +19,16 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt delete [patch]\n"
+	printf $"Usage: quilt delete [patch | -n]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Remove the specified or topmost patch from the series file.  If the
 patch is applied, quilt will attempt to remove it first. (Only the
 topmost patch can be removed right now.)
+
+-n	Delete the next patch after topmost, rather than the specified
+	or topmost patch.
 "
 
 		exit 0
@@ -34,7 +37,7 @@ topmost patch can be removed right now.)
 	fi
 }
 
-options=`getopt -o h -- "$@"`
+options=`getopt -o nh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -46,6 +49,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-n)
+		opt_next=1
+		shift ;;
 	-h)
 		usage -h ;;
 	--)
@@ -54,7 +60,7 @@ do
 	esac
 done
 
-if [ $# -gt 1 ]
+if [ $# -gt 1 -o \( -n "$opt_next" -a $# -gt 0 \) ]
 then
 	usage
 fi
@@ -63,10 +69,25 @@ patch="$1"
 if [ -z "$patch" ]
 then
 	patch="$(top_patch)"
-	if [ -z "$patch" ]
+	if [ -z "$opt_next" ]
 	then
-		printf $"No patches applied\n" >&2
-		exit 1
+		if [ -z "$patch" ]
+		then
+			printf $"No patches applied\n" >&2
+			exit 1
+		fi
+	else
+		if [ -z "$patch" ]
+		then
+			patch="$(cat_series | head -n 1)"
+		else
+			patch="$(patches_after "$patch" | head -n 1)"
+		fi
+		if [ -z "$patch" ]
+		then
+			printf $"No next patch\n" >&2
+			exit 1
+		fi
 	fi
 else
 	save_patch=$patch

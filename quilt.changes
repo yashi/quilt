@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jul  6 23:13:01 CEST 2005 - khali@linux-fr.org
+
+- quilt delete: Add option -n, which deletes the next patch
+  after topmost (rather than the specified or topmost patch).
+
+-------------------------------------------------------------------
 Tue Jul  5 18:33:15 CEST 2005 - khali@linux-fr.org
 
 - fr.po: Add all missing translations.

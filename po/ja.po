@@ -80,7 +80,7 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "ファイル \\`%s'は、\\`%s'以下にあります\\n"
 
-#: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
+#: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:97
 #: ../quilt/diff.in:160 ../quilt/diff.in:171 ../quilt/graph.in:116
 #: ../quilt/next.in:62 ../quilt/pop.in:246 ../quilt/previous.in:62
 #: ../quilt/push.in:312 ../quilt/refresh.in:148 ../quilt/remove.in:53
@@ -93,7 +93,7 @@ msgstr "パッチ %s は seriesの中にありません\\n"
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:247
+#: ../quilt/add.in:106 ../quilt/delete.in:76 ../quilt/diff.in:247
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:72
 #: ../quilt/graph.in:131 ../quilt/pop.in:295 ../quilt/push.in:350
 #: ../quilt/refresh.in:162 ../quilt/remove.in:81
@@ -139,31 +139,39 @@ msgid "Patch is not applied\\n"
 msgstr "パッチは適用されていません\\n"
 
 #: ../quilt/delete.in:22
-msgid "Usage: quilt delete [patch]\\n"
-msgstr "使い方: quilt delete [パッチ]\\n"
+msgid "Usage: quilt delete [patch | -n]\\n"
+msgstr "使い方: quilt delete [パッチ | -n]\\n"
 
 #: ../quilt/delete.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
 "patch is applied, quilt will attempt to remove it first. (Only the\n"
 "topmost patch can be removed right now.)\n"
+"\n"
+"-n\tDelete the next patch after topmost, rather than the specified\n"
+"\tor topmost patch.\n"
 msgstr ""
 "\n"
 "指定されたパッチ、または最上位のパッチをシリーズファイルから削除します。\n"
 "パッチがすでに適用されている場合は、最初にパッチを外します。( 現状、最\n"
 "上位のパッチしか削除することはできません。) \n"
 
-#: ../quilt/delete.in:85
+#: ../quilt/delete.in:88
+msgid "No next patch\\n"
+msgstr ""
+
+#: ../quilt/delete.in:106
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています。\\n"
 
-#: ../quilt/delete.in:92
+#: ../quilt/delete.in:113
 #, fuzzy
 msgid "Removed patch %s\\n"
 msgstr "パッチ %s を削除します\\n"
 
-#: ../quilt/delete.in:94
+#: ../quilt/delete.in:115
 msgid "Failed to remove patch %s\\n"
 msgstr "パッチ %sを削除することに失敗しました。\\n"
 

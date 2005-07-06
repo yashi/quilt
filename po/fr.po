@@ -86,7 +86,7 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Le fichier %s est situé en dessous de %s\\n"
 
-#: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:76
+#: ../quilt/add.in:78 ../quilt/applied.in:62 ../quilt/delete.in:97
 #: ../quilt/diff.in:160 ../quilt/diff.in:171 ../quilt/graph.in:116
 #: ../quilt/next.in:62 ../quilt/pop.in:246 ../quilt/previous.in:62
 #: ../quilt/push.in:312 ../quilt/refresh.in:148 ../quilt/remove.in:53
@@ -99,7 +99,7 @@ msgstr "Le patch %s n'est pas dans la série\\n"
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: ../quilt/add.in:106 ../quilt/delete.in:68 ../quilt/diff.in:247
+#: ../quilt/add.in:106 ../quilt/delete.in:76 ../quilt/diff.in:247
 #: ../quilt/files.in:103 ../quilt/fold.in:79 ../quilt/fork.in:72
 #: ../quilt/graph.in:131 ../quilt/pop.in:295 ../quilt/push.in:350
 #: ../quilt/refresh.in:162 ../quilt/remove.in:81
@@ -145,8 +145,8 @@ msgid "Patch is not applied\\n"
 msgstr "Le patch n'est pas appliqué\\n"
 
 #: ../quilt/delete.in:22
-msgid "Usage: quilt delete [patch]\\n"
-msgstr "Usage : quilt delete [patch]\\n"
+msgid "Usage: quilt delete [patch | -n]\\n"
+msgstr "Usage : quilt delete [patch | -n]\\n"
 
 #: ../quilt/delete.in:25
 msgid ""
@@ -154,21 +154,31 @@ msgid ""
 "Remove the specified or topmost patch from the series file.  If the\n"
 "patch is applied, quilt will attempt to remove it first. (Only the\n"
 "topmost patch can be removed right now.)\n"
+"\n"
+"-n\tDelete the next patch after topmost, rather than the specified\n"
+"\tor topmost patch.\n"
 msgstr ""
 "\n"
 "Efface le patch spécifié (ou celui au sommet de la pile) de la série \n"
 "actuelle. Si le patch est appliqué, quilt tentera de le retirer avant.\n"
 "(Seul le patch au sommet peut être retiré pour l'instant).\n"
+"\n"
+"-n\tEfface le patch qui suit celui qui est au sommet, au lieu du\n"
+"\tpatch spécifié ou de celui qui est au sommet.\n"
 
-#: ../quilt/delete.in:85
+#: ../quilt/delete.in:88
+msgid "No next patch\\n"
+msgstr "Pas de patch suivant\\n"
+
+#: ../quilt/delete.in:106
 msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
-#: ../quilt/delete.in:92
+#: ../quilt/delete.in:113
 msgid "Removed patch %s\\n"
 msgstr "Patch %s retiré\\n"
 
-#: ../quilt/delete.in:94
+#: ../quilt/delete.in:115
 msgid "Failed to remove patch %s\\n"
 msgstr "Impossible de retirer le patch %s\\n"
 
