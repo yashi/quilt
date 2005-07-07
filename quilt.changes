@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jul  7 22:13:47 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Properly set LINGUAS before running "make all" in
+  subdirectory po. This ensures that all .mo files will actually
+  be built.
+- Makefile.in: Delete po/*.mo only once on "make clean".
+
+-------------------------------------------------------------------
 Wed Jul  6 23:13:01 CEST 2005 - khali@linux-fr.org
 
 - quilt delete: Add option -n, which deletes the next patch

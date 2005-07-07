@@ -104,7 +104,8 @@ SRC +=		changes2changelog
 #-----------------------------------------------------------------------
 
 all : scripts
-	$(MAKE_NLS) -C po all BUILD_ROOT=$(BUILD_ROOT)
+	$(MAKE_NLS) -C po all BUILD_ROOT=$(BUILD_ROOT) \
+		LINGUAS="$(LINGUAS)" localedir=$(localedir)
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
@@ -261,7 +262,6 @@ install : scripts
 
 clean :
 	rm -f $(DIRT)
-	rm -f po/*.mo
 	
 distclean : clean
 	rm -f config.log config.status Makefile
