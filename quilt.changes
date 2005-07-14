@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 14 13:05:39 CEST 2005 - agruen@suse.de
+
+- Use wildcard to generate the list of all commands in Makefile
+  instead of explicitly listing them.
+- Helptext improvements.
+
+-------------------------------------------------------------------
 Thu Jul  7 22:13:47 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Properly set LINGUAS before running "make all" in

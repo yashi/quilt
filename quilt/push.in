@@ -46,7 +46,7 @@ be used.
 
 --interactive
 	Allow the patch utility to ask how to deal with conflicts. If
-	this option is not given, the option -f will be passed to the 
+	this option is not given, the -f option will be passed to the 
 	patch program.
 
 --color[=always|auto|never]

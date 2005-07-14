@@ -35,8 +35,8 @@ completion can be used.
 -f	Force remove. The state before the patch(es) were applied will
 	be restored from backup files.
 
--R	Remove the patch with \`patch -R' and check if the patch reverts
-	all changes properly.
+-R	Always verify if the patch removes cleanly; don't rely on
+	timestamp checks.
 
 -q	Quiet operation.
 
@@ -210,7 +210,7 @@ do
 		unset opt_remove
 		shift ;;
 	-R)
-		opt_remove=1	# remove with patch -R; no tricks
+		opt_remove=1
 		unset opt_force
 		shift ;;
         -q)
