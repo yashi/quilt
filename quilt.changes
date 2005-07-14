@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jul 14 22:10:21 CEST 2005 - khali@linux-fr.org
+
+- Update the French translation.
+
+-------------------------------------------------------------------
 Thu Jul 14 13:05:39 CEST 2005 - agruen@suse.de
 
 - Use wildcard to generate the list of all commands in Makefile
