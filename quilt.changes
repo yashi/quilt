@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jul 17 10:05:10 CEST 2005 - agruen@suse.de
+
+- bin/quilt.in: clean up helptext.
+
+-------------------------------------------------------------------
 Thu Jul 14 22:10:21 CEST 2005 - khali@linux-fr.org
 
 - Update the French translation.

@@ -29,7 +29,7 @@ usage()
 	| column | column -t \
 	| @SED@ -e $'s/^/\t/'
 	echo $"
-Common options to all commands:
+Global options:
 
 --trace
 	Runs the command in bash trace mode (-x). For internal debugging.
@@ -38,8 +38,6 @@ Common options to all commands:
 	Use the specified configuration file instead of ~/.quiltrc (or
 	/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
 	documentation for details about its possible contents.
-
-Special options:
 
 --version
 	Print the version number and exit immediately."
