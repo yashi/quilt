@@ -35,19 +35,24 @@ patches modify which lines.
 empty_file()
 {
 	local patch=$1 file=$2
-	sed -e 's:.*::' $(backup_file_name $patch $file)
+	local backup_file=$(backup_file_name $patch $file)
+	[ -s "$backup_file" ] \
+	&& sed -e 's:.*::' "$backup_file"
 }
 
 annotation_for()
 {
-	local patch=$1 next_patch=$2 file=$3 annotation=$4 new_file
+	local patch=$1 next_patch=$2 file=$3 annotation=$4
+	local old_file=$(backup_file_name $patch "$file") new_file
+	[ -s "$old_file" ] || old_file=/dev/null
         if [ -z "$next_patch" ]
         then
                 new_file="$file"
         else
                 new_file="$(backup_file_name $next_patch $file)"
+		[ -s "$new_file" ] || new_file=/dev/null
         fi
-	@DIFF@ -e "$(backup_file_name $patch "$file")" "$new_file" \
+	@DIFF@ -Ne "$old_file" "$new_file" \
 	| @PERL@ -e '
 	while (<>) {
 	    if (/^\d+(?:,\d+)?[ac]$/) {
@@ -67,9 +72,12 @@ annotation_for()
 merge_files()
 {
 	local a b saved_IFS="$IFS"
+	local template=$1 file=$2
 
-	exec 3< "$1"
-	exec 4< "$2"
+	[ -e "$file" ] || file=/dev/null
+
+	exec 3< "$template"
+	exec 4< "$file"
 	IFS=
 	while read -r a <&3
 	do

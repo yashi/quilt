@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 18 12:15:35 CEST 2005 - agruen@suse.de
+
+- quilt/annotate.in: Fix case where the file is created/deleted
+  by a patch.
+- Makefile.in: add uninstall target.
+
+-------------------------------------------------------------------
 Sun Jul 17 10:05:10 CEST 2005 - agruen@suse.de
 
 - bin/quilt.in: clean up helptext.

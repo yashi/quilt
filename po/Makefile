@@ -34,4 +34,9 @@ install: all
 		    $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
 	done
 
+uninstall:
+	for lang in $(LINGUAS) ; do \
+		rm -f $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	done
+
 .PHONY: install clean all

@@ -59,5 +59,34 @@
 	> 2	patches/patch2
 	> 3	patches/patch3
 
+	$ quilt new patch4
+	> Patch patches/patch4 is now on top
+
+	$ cat > jkl
+	< abc
+	< def
+
+	$ quilt add jkl wrz
+	> File jkl added to patch patches/patch4
+	> File wrz added to patch patches/patch4
+
+	$ rm jkl
+	$ cat > wrz
+	< one
+	< two
+
+	$ quilt refresh
+	> Refreshed patch patches/patch4
+
+	$ quilt annotate jkl
+	>
+	> 1	patches/patch4
+
+	$ quilt annotate wrz
+	> 1	one
+	> 1	two
+	>
+	> 1	patches/patch4
+
 	$ cd ..
 	$ rm -rf d

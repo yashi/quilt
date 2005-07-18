@@ -232,8 +232,8 @@ install : scripts
 	@INSTALL@ -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
 	
 	@INSTALL@ -d $(BUILD_ROOT)$(SCRIPTS_DIR)
-	@INSTALL@ -m 755 $(filter-out scripts/patchfns, \
-				      $(SCRIPTS:%=scripts/%)) \
+	@INSTALL@ -m 755 $(patsubst %,scripts/%, \
+			     $(filter-out patchfns,$(SCRIPTS))) \
 		  $(BUILD_ROOT)$(SCRIPTS_DIR)
 	@INSTALL@ -m 644 scripts/patchfns $(BUILD_ROOT)$(SCRIPTS_DIR)
 
@@ -256,6 +256,17 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
 	@INSTALL@ -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 	@INSTALL@ -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
+
+uninstall:
+	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
+	       $(BUILD_ROOT)$(QUILT_DIR) \
+	       $(patsubst %,$(BUILD_ROOT)$(mandir)/man1/%, \
+		   $(notdir $(MAN1))) \
+	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt \
+	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc \
+	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	$(MAKE_NLS) -C po uninstall BUILD_ROOT=$(BUILD_ROOT) \
+		LINGUAS="$(LINGUAS)" localedir=$(localedir)
 
 clean :
 	rm -f $(DIRT)
