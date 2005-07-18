@@ -8,12 +8,22 @@
 use strict;
 use FileHandle;
 use File::Temp qw( :mktemp );
+use POSIX qw(setlocale);
+use Locale::gettext;
 use Getopt::Std;
 use vars qw($opt_p $opt_n);
 
+setlocale(LC_MESSAGES, "");
+bindtextdomain("quilt", "@LOCALEDIR@");
+textdomain("quilt");
+
+sub _($) {
+    return gettext(shift);
+}
+
 $opt_p = 0;
 getopts('np:')
-    or die "SYNOPSIS: $0 [-p num] [-n] [patch]\n";
+    or die sprintf(_("SYNOPSIS: %s [-p num] [-n] [patch]\n"), $0);
 
 my %files;
 my $file;
@@ -35,7 +45,7 @@ while (<>) {
 		while ($removed || $added) {
 		    $_ = <>;
 		    defined $_
-			or die "$0: I'm confused.\n";
+			or die sprintf(_("%s: I'm confused.\n"), $0);
 		    if (/^\+/) {
 			push @{$files{$file}}, $line_number
 			    if s/(^\+.*?)[ \t]+$/$1/;
@@ -62,7 +72,7 @@ while (<>) {
 		while ($line_number <= $last_line) {
 		    $_ = <>;
 		    defined $_
-			or die "$0: I'm confused.\n";
+			or die sprintf(_("%s: I'm confused.\n"), $0);
 		    if (s/(^[+!] .*?)[ \t]+$/$1/) {
 			push @{$files{$file}}, $line_number;
 		    }
@@ -82,18 +92,26 @@ while (<>) {
 foreach my $file (keys %files) {
     my @lines = @{$files{$file}};
     if ($opt_n) {
-	print STDERR "Warning: trailing whitespace in line";
+	print STDERR sprintf(
+_("Warning: trailing whitespace in line %s of %s\n"), $lines[0], $file)
+	    if @lines == 1;
+	print STDERR sprintf(
+_("Warning: trailing whitespace in lines %s of %s\n"), join(',', @lines), $file)
+	    if @lines > 1;
     } else {
-	print STDERR "Removing trailing whitespace from line";
+	print STDERR sprintf(
+_("Removing trailing whitespace from line %s of %s\n"), $lines[0], $file)
+	    if @lines == 1;
+	print STDERR sprintf(
+_("Removing trailing whitespace from lines %s of %s\n"), join(',', @lines), $file)
+	    if @lines > 1;
     }
-    print STDERR "s" if @lines > 1;
-    print STDERR " " . join(',', @lines) . " of $file\n";
 
     unless ($opt_n) {
 	my $fh = new FileHandle("< $file")
 	    or die "$file: $!\n";
 	my ($tmp, $tmpname) = mkstemp("$file.XXXXXX")
-	    or die "$file.XXXXXX: $!\n";
+	    or die "$file.*: $!\n";
 	while (<$fh>) {
 	    if (@lines && $lines[0] == $.) {
 		    s/[ \t]+$//;
@@ -105,8 +123,6 @@ foreach my $file (keys %files) {
 	$tmp->close
 	    or die "$tmpname: $!\n";
 	rename $tmpname, $file
-	    or die "Renaming $tmpname to $file: $!\n";
+	    or die sprintf(_("Renaming %s to %s: %s\n"), $tmpname, $file, $!);
     }
 }
-
-#exit (%files ? 1 : 0);

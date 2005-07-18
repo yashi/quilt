@@ -1,7 +1,17 @@
 #! @PERL@ -w
 
 use Getopt::Long;
+use POSIX qw(setlocale);
+use Locale::gettext;
 use strict;
+
+setlocale(LC_MESSAGES, "");
+bindtextdomain("quilt", "@LOCALEDIR@");
+textdomain("quilt");
+
+sub _($) {
+    return gettext(shift);
+}
 
 my (%append_name, %append_value, $remove_empty_headers, %remove_header,
     %extract_recipients, %replace_name, %replace_value, $charset);
@@ -50,19 +60,22 @@ sub check_recipient($) {
 	} else {
 	    # The value is not (properly) quoted. Check for invalid characters.
 	    while (/\(/ or /\)/) {
-		die "Display name '$display' contains unpaired parentheses\n"
+		die sprintf(
+_("Display name '%s' contains unpaired parentheses\n"), $display)
 		    unless s/\(([^()]*)\)/$1/;
 	    }
-	    die "Display name '$display' contains invalid characters\n"
+	    die sprintf(
+_("Display name '%s' contains invalid characters\n"), $display)
 		if /[$spldot]/;
 	}
-	die "Display name '$display' contains non-printable or " .
-	    "8-bit characters\n" if (/[^ \t\40-\176]/);
+	die sprintf(
+_("Display name '%s' contains non-printable or 8-bit characters\n"), $display)
+	    if (/[^ \t\40-\176]/);
     } else {
 	$deliver = $_;
     }
     # Check for a valid delivery address
-    die "Delivery address '$deliver' is invalid\n"
+    die sprintf(_("Delivery address '%s' is invalid\n"), $display)
 	if $deliver =~ /[ \t]/ or $deliver =~ /[^ \t\40-\176]/ or
 	   $deliver !~ /^[^$spl]+@(\[?)[^$spldot]+(?:\.[^$spldot]+)*(\]?)$/ or
 	   (!$1) != (!$2);

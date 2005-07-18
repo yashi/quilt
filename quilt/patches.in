@@ -50,6 +50,21 @@ scan_applied()
 	done
 }
 
+touched_by_patch()
+{
+	local strip=$1 patch=$2
+	cat_file $(patch_file_name $patch) \
+	|  @AWK@ '
+	/^\+\+\+[ \t]/ {
+		sub(/^\+\+\+[ \t]/, "")
+		sub(/[ \t].*/, "")
+		sub(/^\/dev\/null/, "")
+		for (i=0; i<'$strip'; i++)
+			sub(/^[^\/]*\//, "")
+		print
+	}'
+}
+
 scan_unapplied()
 {
 	local prefix=$1 file=$2

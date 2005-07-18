@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul 19 00:15:16 CEST 2005 - agruen@suse.de
+
+- Add internationalization support to Perl scripts as well.
+
+-------------------------------------------------------------------
 Mon Jul 18 19:28:18 CEST 2005 - khali@linux-fr.org
 
 - French translation unfuzzying.

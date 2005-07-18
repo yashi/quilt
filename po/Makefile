@@ -1,7 +1,3 @@
-QUILT_IN :=   add applied delete diff edit files fold fork graph grep \
-	      import mail new next patches pop previous push refresh \
-	      remove series setup snapshot top unapplied upgrade
-SCRIPTS_IN := patchfns inspect patchfns
 # scripts/parse-patch is perl based
 
 # LINGUAS = ...
@@ -16,13 +12,24 @@ all: $(LINGUAS:%=%.mo)
 	msgmerge -o $@ $@ $^
 	msgfmt --statistics -o /dev/null $@
 	
-quilt.pot: $(QUILT_IN:%=../quilt/%.in) $(SCRIPTS_IN:%=../scripts/%.in) ../bin/quilt.in
+quilt.pot: $(filter-out ../debian/control ../doc/quilt.1 ../doc/README, \
+			$(patsubst %.in,%,$(wildcard ../*/*.in)))
 	rm -f quilt.pot; touch quilt.pot
+	( cd .. ; \
 	for file in $+ ; do \
-	  bash --dump-po-strings $$file \
-	    |msguniq \
-	    |msgcat --force-po -F - quilt.pot -o quilt.pot; \
-	done
+	  file=$${file#../} ; \
+	  if head $$file | grep -q bash; then \
+	    bash --dump-po-strings $$file ; \
+	  elif head $$file | grep -q perl; then \
+	    xgettext --from-code=UTF-8 --omit-header --language=Perl \
+	    	     --keyword=_ -o - $$file; \
+	  else \
+	    echo "Don't know how to handle $$file" >&2 ; \
+	    exit 1 ; \
+	  fi \
+	done ) \
+	|msguniq \
+	|msgcat --force-po -F - quilt.pot -o quilt.pot
 
 clean:
 	rm -f *.mo *~

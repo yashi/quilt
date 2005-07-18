@@ -1,3 +1,5 @@
+#! @BASH@
+
 # This file contains the common functions used in all quilt script
 # It is meant to be sourced by bash scripts.
 
@@ -313,12 +315,6 @@ is_numeric()
 	echo $1 | grep -q '^[0-9]*$'
 }
 
-is_applied_last()
-{
-	local patch=$1
-	[ "$(top_patch)" == $patch ]
-}
-
 is_applied()
 {
 	local patch=$1
@@ -519,21 +515,6 @@ files_in_patch_ordered()
 		    print new_files[i]
 		}
 	'
-}
-
-touched_by_patch()
-{
-	local strip=$1 patch=$2
-	cat_file $(patch_file_name $patch) \
-	|  @AWK@ '
-	/^\+\+\+[ \t]/ {
-		sub(/^\+\+\+[ \t]/, "")
-		sub(/[ \t].*/, "")
-		sub(/^\/dev\/null/, "")
-		for (i=0; i<'$strip'; i++)
-			sub(/^[^\/]*\//, "")
-		print
-	}'
 }
 
 diff_file()

@@ -12,7 +12,17 @@
 use FileHandle;
 use Getopt::Long;
 use File::Temp qw(tempfile);
+use POSIX qw(setlocale);
+use Locale::gettext;
 use strict;
+
+setlocale(LC_MESSAGES, "");
+bindtextdomain("quilt", "@LOCALEDIR@");
+textdomain("quilt");
+
+sub _($) {
+    return gettext(shift);
+}
 
 my $select;
 my $update;
@@ -20,7 +30,7 @@ my $update;
 if (!GetOptions("s|select=s" => \$select,
 		"u|update=s" => \$update) ||
     (!defined $select && !defined $update)) {
-	print STDERR "USAGE: $0 {-s|-u} section file [< replacement]\n";
+	print STDERR sprintf(_("USAGE: %s {-s|-u} section file [< replacement]\n"), $0);
 	exit 1;
 }
 
@@ -66,13 +76,15 @@ foreach my $arg (@ARGV) {
 		if ($arg =~ /\.gz$/) {
 			$fh2->close();
 			if (! -e $tempname) {
-				die "File $tempname disappeared!\n";
+				die sprintf(
+_("File %s disappeared!\n"), $tempname);
 			}
 			$fh2 = new FileHandle("| gzip -c > $tempname");
 		} elsif ($arg =~ /\.bz2$/) {
 			$fh2->close();
 			if (! -e $tempname) {
-				die "File $tempname disappeared!\n";
+				die sprintf(
+_("File %s disappeared!\n"), $tempname);
 			}
 			$fh2 = new FileHandle("| bzip2 -c > $tempname");
 		}
@@ -117,12 +129,14 @@ foreach my $arg (@ARGV) {
 		if (-e $arg) {
 			unlink "$arg~";
 			unless (rename $arg, "$arg~") {
-				die "Failed to rename $arg to $arg~: $!\n";
+				die sprintf(
+_("Failed to rename %s to %s: %s\n"), $arg, "$arg~", $!);
 			}
 		}
 		unless (rename $tempname, $arg) {
 			rename("$arg~", $arg);
-			die "Failed to rename $arg.parse to $arg: $!\n";
+			die sprintf(
+_("Failed to rename %s to %s: %s\n"), $tempname, $arg, $!);
 		}
 	}
 	close $fh;
