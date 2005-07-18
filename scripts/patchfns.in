@@ -627,21 +627,32 @@ cat_to_new_file()
 	> "$filename"
 }
 
-patch_description()
+patch_header()
 {
-	local patch_file=$1
+	@AWK@ '
+	$1 == "***" || $1 == "---" \
+		{ exit }
+	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
+		{ eat = eat $0 "\n"
+		  next }
+		{ print eat $0
+		  eat = "" }
+	'
+}
 
-	if [ -e "$patch_file" -o -z "$patch_file" ]
-	then
-		@AWK@ '
-		$1 == "***" || $1 == "---"	{ exit }
-		/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
-			{ eat = eat $0 "\n"
-			  next }
-			{ print eat $0
-			  eat = "" }
-		' $patch_file
-	fi
+patch_body()
+{
+	@AWK@ '
+	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
+		{ eat = eat $0 "\n"
+		  next }
+	$1 == "***" || $1 == "---" \
+		{ body=1 }
+	body	{ print eat $0
+		  eat = ""
+		  next }
+		{ eat = "" }
+	'
 }
 
 in_array()

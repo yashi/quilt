@@ -247,7 +247,7 @@ fi
 
 mkdir -p $(dirname $patch_file)
 
-if ! cat_file $patch_file | patch_description > $tmp_header
+if ! cat_file $patch_file | patch_header > $tmp_header
 then
 	die 1
 fi
@@ -268,9 +268,9 @@ then
 			  if (index($0, "#") == 1)
 			    prefix="#"
 			}
-	    /.*\|.*/	{ eat = eat $0 "\n"
+	    /^#? .* \| /	{ eat = eat $0 "\n"
 			  next }
-	    /.* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
+	    /^#? .* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
 			{ print_diffstat()
 			  diffstat = "" ; eat = ""
 			  next }

@@ -28,7 +28,7 @@ msgstr "コマンド一覧:"
 #, fuzzy
 msgid ""
 "\n"
-"Common options to all commands:\n"
+"Global options:\n"
 "\n"
 "--trace\n"
 "\tRuns the command in bash trace mode (-x). For internal debugging.\n"
@@ -37,8 +37,6 @@ msgid ""
 "\tUse the specified configuration file instead of ~/.quiltrc (or\n"
 "\t/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
 "\tdocumentation for details about its possible contents.\n"
-"\n"
-"Special options:\n"
 "\n"
 "--version\n"
 "\tPrint the version number and exit immediately."
@@ -1168,7 +1166,7 @@ msgstr ""
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
 
-#: ../scripts/patchfns.in:740
+#: ../scripts/patchfns.in:751
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1180,7 +1178,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: ../scripts/patchfns.in:817
+#: ../scripts/patchfns.in:828
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

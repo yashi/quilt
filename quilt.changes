@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 18 16:54:16 CEST 2005 - agruen@suse.de
+
+- Based on work done by several contributers, add a header
+  command.
+- Bump version to 0.41.
+
+-------------------------------------------------------------------
 Mon Jul 18 12:15:35 CEST 2005 - agruen@suse.de
 
 - quilt/annotate.in: Fix case where the file is created/deleted

@@ -27,7 +27,7 @@ msgstr "Vorhandene Befehle:"
 #, fuzzy
 msgid ""
 "\n"
-"Common options to all commands:\n"
+"Global options:\n"
 "\n"
 "--trace\n"
 "\tRuns the command in bash trace mode (-x). For internal debugging.\n"
@@ -36,8 +36,6 @@ msgid ""
 "\tUse the specified configuration file instead of ~/.quiltrc (or\n"
 "\t/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
 "\tdocumentation for details about its possible contents.\n"
-"\n"
-"Special options:\n"
 "\n"
 "--version\n"
 "\tPrint the version number and exit immediately."
@@ -1179,7 +1177,7 @@ msgstr ""
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
 
-#: ../scripts/patchfns.in:740
+#: ../scripts/patchfns.in:751
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1192,7 +1190,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: ../scripts/patchfns.in:817
+#: ../scripts/patchfns.in:828
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
