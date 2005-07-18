@@ -6,24 +6,24 @@ file creates and deletions.
 
 	$ echo delete > delete
 	$ quilt new test.diff
-	> Patch test.diff is now on top
+	> Patch %{P}test.diff is now on top
 
 	$ quilt add create
-	> File create added to patch test.diff
+	> File create added to patch %{P}test.diff
 
 	$ echo create > create
 	$ quilt refresh
-	> Refreshed patch test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ quilt add delete
-	> File delete added to patch test.diff
+	> File delete added to patch %{P}test.diff
 
 	$ rm -f delete
 	$ quilt refresh
-	> Refreshed patch test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ quilt pop -q
-	> Removing test.diff
+	> Removing patch %{P}test.diff
 	> No patches applied
 
 	$ echo create > create

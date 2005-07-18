@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
-Tue Jul 19 00:15:16 CEST 2005 - agruen@suse.de
+Tue Jul 19 00:22:11 CEST 2005 - agruen@suse.de
 
 - Add internationalization support to Perl scripts as well.
+- Rename test/create-delete.diff to *.test and fix the test.
 
 -------------------------------------------------------------------
 Mon Jul 18 19:28:18 CEST 2005 - khali@linux-fr.org
