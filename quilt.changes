@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jul 18 19:28:18 CEST 2005 - khali@linux-fr.org
+
+- French translation unfuzzying.
+
+-------------------------------------------------------------------
 Mon Jul 18 18:22:00 CEST 2005 - agruen@suse.de
 
 - uninstall target: remove $(LIB_DIR) as well.
