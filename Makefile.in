@@ -259,6 +259,7 @@ install : scripts
 
 uninstall:
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
+	       $(BUILD_ROOT)$(LIB_DIR) \
 	       $(BUILD_ROOT)$(QUILT_DIR) \
 	       $(patsubst %,$(BUILD_ROOT)$(mandir)/man1/%, \
 		   $(notdir $(MAN1))) \
