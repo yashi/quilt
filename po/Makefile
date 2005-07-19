@@ -10,8 +10,7 @@ all: $(LINGUAS:%=%.mo)
 
 %.po : quilt.pot
 	msgmerge -o $@ $@ $^
-	msgfmt --statistics -o /dev/null $@
-	
+
 quilt.pot: $(filter-out ../debian/control.in ../doc/quilt.1.in ../doc/README.in, \
 			$(wildcard ../*/*.in))
 	rm -f quilt.pot; touch quilt.pot
