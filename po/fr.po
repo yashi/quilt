@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.40\n"
-"PO-Revision-Date: 2005-07-05 12:26+0200\n"
+"Project-Id-Version: quilt 0.42\n"
+"PO-Revision-Date: 2005-07-19 16:05+0200\n"
 "Last-Translator: Jean Delvare <khali@linux-fr.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -123,9 +123,8 @@ msgid "File %s added to patch %s\\n"
 msgstr "Le fichier %s a été ajouté au patch %s\\n"
 
 #: quilt/annotate.in:22
-#, fuzzy
 msgid "Usage: quilt annotate {file}\\n"
-msgstr "Usage : quilt patches {fichier}\\n"
+msgstr "Usage : quilt annotate {fichier}\\n"
 
 #: quilt/annotate.in:25
 msgid ""
@@ -133,6 +132,9 @@ msgid ""
 "Print an annotated listing of the specified file showing which\n"
 "patches modify which lines.\n"
 msgstr ""
+"\n"
+"Affiche une version annotée du fichier spécifié, montrant quel\n"
+"patch modifie chaque ligne.\n"
 
 #: quilt/applied.in:22
 msgid "Usage: quilt applied [patch]\\n"
@@ -448,11 +450,11 @@ msgstr ""
 
 #: quilt/fork.in:99
 msgid "Patch %s exists already, please choose a new name\\n"
-msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom.\\n"
+msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom\\n"
 
 #: quilt/fork.in:111
 msgid "Fork of patch %s to patch %s failed\\n"
-msgstr "Le fork de %s en %s a échoué.\\n"
+msgstr "Le fork de %s en %s a échoué\\n"
 
 #: quilt/fork.in:117
 msgid "Fork of patch %s created as %s\\n"
@@ -550,13 +552,12 @@ msgstr ""
 "\t(-- --).\n"
 
 #: quilt/header.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
-"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
+"Usage : quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
+"trailing-whitespace] [patch]\\n"
 
 #: quilt/header.in:28
 msgid ""
@@ -577,16 +578,31 @@ msgid ""
 "--backup\n"
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
+"\n"
+"Affiche ou modifie l'en-tête du patch au sommet ou spécifié.\n"
+"\n"
+"-a, -r, -e\n"
+"\tAjoute à la fin de (-a) ou remplace (-r) l'en-tête existant, ou\n"
+"\tédite (-e) l'en-tête en utilisant \\$EDITOR (%s). Si aucune de\n"
+"\tces options n'est utilisée, affiche l'en-tête actuel du patch.\n"
+"\n"
+"--strip-diffstat\n"
+"\tOmet la partie diffstat de l'en-tête.\n"
+"\n"
+"--strip-trailing-whitespace\n"
+"\tSupprime les espaces de fin de ligne de l'en-tête.\n"
+"\n"
+"--backup\n"
+"\tCrée une sauvegarde de la version originale du patch en tant\n"
+"\tque patch~.\n"
 
 #: quilt/header.in:192
-#, fuzzy
 msgid "Replaced header of patch %s\\n"
-msgstr "Le patch %s a été rafraichi.\\n"
+msgstr "En-tête du patch %s remplacé\\n"
 
 #: quilt/header.in:195
-#, fuzzy
 msgid "Appended text to header of patch %s\\n"
-msgstr "Impossible de crée le patch %s\\n"
+msgstr "Texte ajouté à la fin de l'en-tête du patch %s\\n"
 
 #: quilt/import.in:22
 msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
@@ -657,7 +673,6 @@ msgstr ""
 "cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -682,7 +697,7 @@ msgstr ""
 "Crée des messages de courrier à partir de tous les patches de la série.\n"
 "Ces fichiers sont ensuite stockés dans un fichier mbox ou expédiés\n"
 "immédiatement. Un éditeur est ouvert avec un patron pour saisir un message\n"
-"d'introduction. Voir le fichier @DOCSUBDIR@/README.MAIL pour plus de\n"
+"d'introduction. Voir le fichier %s pour plus de\n"
 "détails.\n"
 "\n"
 "--mbox fichier\n"
@@ -691,7 +706,7 @@ msgstr ""
 "\tformail.\n"
 "\n"
 "--send\n"
-"\tExpédie les messages directement en utilisant @MTA@.\n"
+"\tExpédie les messages directement en utilisant %s.\n"
 "\n"
 "--from, --subject\n"
 "\tLes valeurs pour les champs d'en-tête De (From) et Objet (Subject),\n"
@@ -721,7 +736,7 @@ msgstr "Le patch %s existe déjà\\n"
 
 #: quilt/new.in:75
 msgid "Failed to create patch %s\\n"
-msgstr "Impossible de crée le patch %s\\n"
+msgstr "Impossible de créer le patch %s\\n"
 
 #: quilt/new.in:78
 msgid "Patch %s is now on top\\n"
@@ -859,7 +874,6 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -970,7 +984,6 @@ msgstr ""
 "diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1053,7 +1066,7 @@ msgstr ""
 "\td'origine.\n"
 "\n"
 "--strip-trailing-whitespace\n"
-"\tSupprime les espaces à la fin des lignes dans le patch généré.\n"
+"\tSupprime les espaces à la fin des lignes.\n"
 
 #: quilt/refresh.in:173
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -1081,11 +1094,11 @@ msgstr "Le patch %s ne contient rien\\n"
 
 #: quilt/refresh.in:296
 msgid "Patch %s is unchanged\\n"
-msgstr "Le patch %s n'a pas été modifié\\n"
+msgstr "Patch %s inchangé\\n"
 
 #: quilt/refresh.in:301
 msgid "Refreshed patch %s\\n"
-msgstr "Le patch %s a été rafraichi.\\n"
+msgstr "Patch %s rafraîchi\\n"
 
 #: quilt/remove.in:22
 msgid "Usage: quilt remove [-p patch] {file} ...\\n"
@@ -1121,9 +1134,8 @@ msgid "File %s removed from patch %s\\n"
 msgstr "Le fichier %s a été enlevé du patch %s.\\n"
 
 #: quilt/rename.in:22
-#, fuzzy
 msgid "Usage: quilt rename [-p patch] new_name\\n"
-msgstr "Usage : quilt remove [-p patch] {fichier} ...\\n"
+msgstr "Usage : quilt rename [-p patch] nouveau_nom\\n"
 
 #: quilt/rename.in:25
 msgid ""
@@ -1133,21 +1145,23 @@ msgid ""
 "-p patch\n"
 "\tPatch to rename.\n"
 msgstr ""
+"\n"
+"Renomme le patch au sommet ou spécifié.\n"
+"\n"
+"-p patch\n"
+"\tPatch à renommer.\n"
 
 #: quilt/rename.in:96
-#, fuzzy
 msgid "Patch %s exists already, please choose a different name\\n"
-msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom.\\n"
+msgstr "Le patch %s existe déjà, veuillez choisir un nom différent\\n"
 
 #: quilt/rename.in:110
-#, fuzzy
 msgid "Renaming of patch %s to %s failed\\n"
-msgstr "Le fork de %s en %s a échoué.\\n"
+msgstr "Le renommage de %s en %s a échoué\\n"
 
 #: quilt/rename.in:116
-#, fuzzy
 msgid "Patch %s renamed to %s\\n"
-msgstr "Le fork de %s a été créé en tant que %s\\n"
+msgstr "Patch %s renommé en %s\\n"
 
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"
@@ -1313,37 +1327,37 @@ msgstr ""
 #: scripts/edmail.in:64
 #, perl-format
 msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr ""
+msgstr "Le nom '%s' est mal parenthésé\n"
 
 #: scripts/edmail.in:68
 #, perl-format
 msgid "Display name '%s' contains invalid characters\n"
-msgstr ""
+msgstr "Le nom '%s' comprend des caractères invalides\n"
 
 #: scripts/edmail.in:72
 #, perl-format
 msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr ""
+msgstr "Le nom '%s' comprend des caractères non-affichables ou 8 bits\n"
 
 #: scripts/edmail.in:78
 #, perl-format
 msgid "Delivery address '%s' is invalid\n"
-msgstr ""
+msgstr "L'adresse de destination '%s' est invalide\n"
 
 #: scripts/parse-patch.in:33
 #, perl-format
 msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
+msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
 
 #: scripts/parse-patch.in:80 scripts/parse-patch.in:87
 #, perl-format
 msgid "File %s disappeared!\n"
-msgstr ""
+msgstr "Le fichier %s a disparu !\n"
 
 #: scripts/parse-patch.in:133 scripts/parse-patch.in:139
-#, fuzzy, perl-format
+#, perl-format
 msgid "Failed to rename %s to %s: %s\n"
-msgstr "Impossible de crée le patch %s\\n"
+msgstr "Impossible de renommer %s en %s : %s\n"
 
 #: scripts/patchfns.in:732
 msgid ""
@@ -1368,37 +1382,37 @@ msgstr ""
 #: scripts/remove-trailing-ws.in:26
 #, perl-format
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
-msgstr ""
+msgstr "SYNOPSIS : %s [-p num] [-n] [patch]\n"
 
 #: scripts/remove-trailing-ws.in:48 scripts/remove-trailing-ws.in:75
 #, perl-format
 msgid "%s: I'm confused.\n"
-msgstr ""
+msgstr "%s : Je suis confus.\n"
 
 #: scripts/remove-trailing-ws.in:96
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
-msgstr ""
+msgstr "Attention : espaces à la fin de la ligne %s de %s\n"
 
 #: scripts/remove-trailing-ws.in:99
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
-msgstr ""
+msgstr "Attention : espaces à la fin des lignes %s de %s\n"
 
 #: scripts/remove-trailing-ws.in:103
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
-msgstr ""
+msgstr "Suppression des espaces à la fin de la ligne %s de %s\n"
 
 #: scripts/remove-trailing-ws.in:106
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
-msgstr ""
+msgstr "Suppression des espaces à la fin des lignes %s de %s\n"
 
 #: scripts/remove-trailing-ws.in:126
-#, fuzzy, perl-format
+#, perl-format
 msgid "Renaming %s to %s: %s\n"
-msgstr "Le fork de %s en %s a échoué.\\n"
+msgstr "En renommant %s en %s : %s\n"
 
 #~ msgid "Cannot change into directory %s\\n"
 #~ msgstr "Impossible d'entrer dans le répertoire %s\\n"
