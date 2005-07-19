@@ -50,7 +50,7 @@ be used.
 	patch program.
 
 --color[=always|auto|never]
-        Use syntax coloring.
+	Use syntax coloring.
 "
 		exit 0
 	else

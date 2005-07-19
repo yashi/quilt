@@ -29,7 +29,7 @@ usage()
 Create mail messages from all patches in the series file, and either store
 them in a mailbox file, or send them immediately. The editor is opened
 with a template for the introductory message. Please see the file
-@DOCSUBDIR@/README.MAIL for details.
+%s for details.
 
 --mbox file
 	Store all messages in the specified file in mbox format. The mbox
@@ -43,7 +43,7 @@ with a template for the introductory message. Please see the file
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
-"
+" "@DOCSUBDIR@/README.MAIL"
 		exit 0
 	else
 		exit 1

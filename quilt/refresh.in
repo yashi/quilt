@@ -61,7 +61,7 @@ patch.
 --sort	Sort files by their name instead of preserving the original order.
 
 --strip-trailing-whitespace
-	Strip trailing whitespace at the end of lines of the generated patch.
+	Strip trailing whitespace at the end of lines.
 "
 		exit 0
 	else

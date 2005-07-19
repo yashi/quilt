@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul 19 11:44:51 CEST 2005 - agruen@suse.de
+
+- Fix a few translation bugs; update german translation.
+
+-------------------------------------------------------------------
 Tue Jul 19 00:22:11 CEST 2005 - agruen@suse.de
 
 - Add internationalization support to Perl scripts as well.

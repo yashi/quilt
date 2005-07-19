@@ -12,20 +12,19 @@ all: $(LINGUAS:%=%.mo)
 	msgmerge -o $@ $@ $^
 	msgfmt --statistics -o /dev/null $@
 	
-quilt.pot: $(filter-out ../debian/control ../doc/quilt.1 ../doc/README, \
-			$(patsubst %.in,%,$(wildcard ../*/*.in)))
+quilt.pot: $(filter-out ../debian/control.in ../doc/quilt.1.in ../doc/README.in, \
+			$(wildcard ../*/*.in))
 	rm -f quilt.pot; touch quilt.pot
 	( cd .. ; \
 	for file in $+ ; do \
 	  file=$${file#../} ; \
-	  if head $$file | grep -q bash; then \
+	  if head $$file | grep -q '@BASH@'; then \
 	    bash --dump-po-strings $$file ; \
-	  elif head $$file | grep -q perl; then \
+	  elif head $$file | grep -q '@PERL@'; then \
 	    xgettext --from-code=UTF-8 --omit-header --language=Perl \
 	    	     --keyword=_ -o - $$file; \
 	  else \
 	    echo "Don't know how to handle $$file" >&2 ; \
-	    exit 1 ; \
 	  fi \
 	done ) \
 	|msguniq \

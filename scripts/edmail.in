@@ -75,7 +75,7 @@ _("Display name '%s' contains non-printable or 8-bit characters\n"), $display)
 	$deliver = $_;
     }
     # Check for a valid delivery address
-    die sprintf(_("Delivery address '%s' is invalid\n"), $display)
+    die sprintf(_("Delivery address '%s' is invalid\n"), $deliver)
 	if $deliver =~ /[ \t]/ or $deliver =~ /[^ \t\40-\176]/ or
 	   $deliver !~ /^[^$spl]+@(\[?)[^$spldot]+(?:\.[^$spldot]+)*(\]?)$/ or
 	   (!$1) != (!$2);
