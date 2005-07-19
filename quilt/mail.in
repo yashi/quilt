@@ -36,14 +36,14 @@ with a template for the introductory message. Please see the file
 	can later be sent using formail, for example.
 
 --send
-	Send the messages directly using @MTA@.
+	Send the messages directly using %s.
 
 --from, --subject
 	The values for the From and Subject headers to use.
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
-" "@DOCSUBDIR@/README.MAIL"
+" "@DOCSUBDIR@/README.MAIL" "@MTA@"
 		exit 0
 	else
 		exit 1
