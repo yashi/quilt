@@ -107,8 +107,6 @@ all : scripts
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
 
-$(QUILT:%=quilt/%) : $(SCRIPTS:%=scripts/%)
-
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
 snapshot : $(PACKAGE)-$(ISODATE).tar.bz2

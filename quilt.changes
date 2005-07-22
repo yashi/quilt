@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul 22 19:05:13 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Drop pointless dependency between quilt command
+  files and scripts.
+
+-------------------------------------------------------------------
 Tue Jul 19 19:15:45 CEST 2005 - khali@linux-fr.org
 
 - Update French translation.
