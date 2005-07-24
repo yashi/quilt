@@ -1324,37 +1324,37 @@ msgstr ""
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
 
-#: scripts/edmail.in:64
+#: scripts/edmail.in:81
 #, perl-format
 msgid "Display name '%s' contains unpaired parentheses\n"
 msgstr "Le nom '%s' est mal parenthésé\n"
 
-#: scripts/edmail.in:68
+#: scripts/edmail.in:85
 #, perl-format
 msgid "Display name '%s' contains invalid characters\n"
 msgstr "Le nom '%s' comprend des caractères invalides\n"
 
-#: scripts/edmail.in:72
+#: scripts/edmail.in:89
 #, perl-format
 msgid "Display name '%s' contains non-printable or 8-bit characters\n"
 msgstr "Le nom '%s' comprend des caractères non-affichables ou 8 bits\n"
 
-#: scripts/edmail.in:78
+#: scripts/edmail.in:95
 #, perl-format
 msgid "Delivery address '%s' is invalid\n"
 msgstr "L'adresse de destination '%s' est invalide\n"
 
-#: scripts/parse-patch.in:33
+#: scripts/parse-patch.in:50
 #, perl-format
 msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
 msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
 
-#: scripts/parse-patch.in:80 scripts/parse-patch.in:87
+#: scripts/parse-patch.in:97 scripts/parse-patch.in:104
 #, perl-format
 msgid "File %s disappeared!\n"
 msgstr "Le fichier %s a disparu !\n"
 
-#: scripts/parse-patch.in:133 scripts/parse-patch.in:139
+#: scripts/parse-patch.in:150 scripts/parse-patch.in:156
 #, perl-format
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Impossible de renommer %s en %s : %s\n"
@@ -1379,37 +1379,37 @@ msgstr ""
 "Votre arbre a été créé par une vieille version de quilt. Veuillez \n"
 "utiliser « quilt upgrade ».\\n"
 
-#: scripts/remove-trailing-ws.in:26
+#: scripts/remove-trailing-ws.in:43
 #, perl-format
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "SYNOPSIS : %s [-p num] [-n] [patch]\n"
 
-#: scripts/remove-trailing-ws.in:48 scripts/remove-trailing-ws.in:75
+#: scripts/remove-trailing-ws.in:65 scripts/remove-trailing-ws.in:92
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s : Je suis confus.\n"
 
-#: scripts/remove-trailing-ws.in:96
+#: scripts/remove-trailing-ws.in:113
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "Attention : espaces à la fin de la ligne %s de %s\n"
 
-#: scripts/remove-trailing-ws.in:99
+#: scripts/remove-trailing-ws.in:116
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "Attention : espaces à la fin des lignes %s de %s\n"
 
-#: scripts/remove-trailing-ws.in:103
+#: scripts/remove-trailing-ws.in:120
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "Suppression des espaces à la fin de la ligne %s de %s\n"
 
-#: scripts/remove-trailing-ws.in:106
+#: scripts/remove-trailing-ws.in:123
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "Suppression des espaces à la fin des lignes %s de %s\n"
 
-#: scripts/remove-trailing-ws.in:126
+#: scripts/remove-trailing-ws.in:143
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "En renommant %s en %s : %s\n"

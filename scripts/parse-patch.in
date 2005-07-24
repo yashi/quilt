@@ -12,9 +12,26 @@
 use FileHandle;
 use Getopt::Long;
 use File::Temp qw(tempfile);
-use POSIX qw(setlocale);
-use Locale::gettext;
 use strict;
+
+# This ugly trick lets the script work even if gettext support is missing.
+# We did so because Locale::gettext doesn't ship with the standard perl
+# distribution.
+BEGIN {
+    if (eval { require Locale::gettext }) {
+	import Locale::gettext;
+	require POSIX;
+	import POSIX, qw(setlocale);
+    } else {
+	eval '
+	    use constant LC_MESSAGES => 0;
+	    sub setlocale($$) { }
+	    sub bindtextdomain($$) { }
+	    sub textdomain($) { }
+	    sub gettext($) { shift }
+	'
+    }
+}
 
 setlocale(LC_MESSAGES, "");
 bindtextdomain("quilt", "@LOCALEDIR@");

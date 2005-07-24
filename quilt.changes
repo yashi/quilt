@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jul 24 16:46:54 CEST 2005 - khali@linux-fr.org
+
+- Let the perl scripts (edmail, parse-patch and
+  remove-trailing-ws) work without Locale::gettext.
+
+-------------------------------------------------------------------
 Fri Jul 22 19:05:13 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Drop pointless dependency between quilt command
