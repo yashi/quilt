@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2005-03-07 07:09+0900\n"
+"PO-Revision-Date: 2005-07-25 14:57+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,13 @@ msgstr "使い方: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 
 #: bin/quilt.in:24
 msgid "       quilt --version"
-msgstr ""
+msgstr "       quilt --version"
 
 #: bin/quilt.in:26
 msgid "Commands are:"
 msgstr "コマンド一覧:"
 
 #: bin/quilt.in:31
-#, fuzzy
 msgid ""
 "\n"
 "Global options:\n"
@@ -50,7 +49,10 @@ msgstr ""
 "--quiltrc file\n"
 "\t~/.quiltrc (存在しない場合は代わりに /etc/quiltrc) 以外のコン\n"
 "\tフィギュレーションファイルを指定。内容の詳細については PDFのド\n"
-"\tキュメントを参照。"
+"\tキュメントを参照。\n"
+"\n"
+"--version\n"
+"\tバージョン情報を出力して終了。"
 
 #: quilt/add.in:22
 msgid "Usage: quilt add [-p patch] {file} ...\\n"
@@ -108,7 +110,7 @@ msgstr "ファイル %s は、パッチ %s によってすでに変更されて�
 
 #: quilt/add.in:137
 msgid "Cannot add symbolic link %s\\n"
-msgstr "シンボリックファイル %sは追加できません"
+msgstr "シンボリックファイル %s は追加できません"
 
 #: quilt/add.in:144
 msgid "Failed to back up file %s\\n"
@@ -119,9 +121,8 @@ msgid "File %s added to patch %s\\n"
 msgstr "ファイル %s をパッチ %s に追加しました\\n"
 
 #: quilt/annotate.in:22
-#, fuzzy
 msgid "Usage: quilt annotate {file}\\n"
-msgstr "使い方: quilt patches {ファイル}\\n"
+msgstr "使い方: quilt annotate {ファイル}\\n"
 
 #: quilt/annotate.in:25
 msgid ""
@@ -129,6 +130,9 @@ msgid ""
 "Print an annotated listing of the specified file showing which\n"
 "patches modify which lines.\n"
 msgstr ""
+"\n"
+"指定されたファイルを、どのパッチがどの行を変更したかという註釈付きで出力しま"
+"す\n"
 
 #: quilt/applied.in:22
 msgid "Usage: quilt applied [patch]\\n"
@@ -153,7 +157,6 @@ msgid "Usage: quilt delete [patch | -n]\\n"
 msgstr "使い方: quilt delete [パッチ | -n]\\n"
 
 #: quilt/delete.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -167,37 +170,37 @@ msgstr ""
 "指定されたパッチ、または最上位のパッチをシリーズファイルから削除します。\n"
 "パッチがすでに適用されている場合は、最初にパッチを外します。( 現状、最\n"
 "上位のパッチしか削除することはできません。) \n"
+"\n"
+"-n\t最上位パッチや指定されたパッチではなく、最上位パッチの次のパッチを\n"
+"\t削除します。\n"
 
 #: quilt/delete.in:88
-#, fuzzy
 msgid "No next patch\\n"
-msgstr "現在位置はパッチ %s です"
+msgstr "次のパッチはありません"
 
 #: quilt/delete.in:106
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています。\\n"
 
 #: quilt/delete.in:113
-#, fuzzy
 msgid "Removed patch %s\\n"
-msgstr "パッチ %s を削除します\\n"
+msgstr "パッチ %s が削除されました\\n"
 
 #: quilt/delete.in:115
 msgid "Failed to remove patch %s\\n"
-msgstr "パッチ %sを削除することに失敗しました。\\n"
+msgstr "パッチ %s を削除することに失敗しました。\\n"
 
 #: quilt/diff.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
 "patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] "
 "[--color] [file ...]\\n"
 msgstr ""
 "使い方: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-"
-"P パッチ] [--snapshot] [--diff=utility] [--color] [ファイル ...]\\n"
+"P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--"
+"sort] [--color] [file ...]\\n"
 
 #: quilt/diff.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -244,7 +247,7 @@ msgid ""
 "--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
 "\n"
-"最上位、または指定されたパッチに、指定されたファイルの差分を作成する。\n"
+"最上位または指定されたパッチに、指定されたファイルの差分を作成する。\n"
 "ファイルが指定されなかった場合は、変更されたファイルすべてが含まれる。\n"
 "\n"
 "-p n\t-p n スタイルのパッチを作成 (-p0 または -p1がサポートされている)\n"
@@ -256,6 +259,9 @@ msgstr ""
 "\n"
 "--no-timestamps\n"
 "\tパッチヘッダにタイムスタンプを含めない。\n"
+"\n"
+"--no-index\n"
+"\tIndex: の行を出力しない。\n"
 "\n"
 "-z\t最上位、または指定されたパッチに関連した変更を、標準出力に表示。\n"
 "\n"
@@ -278,6 +284,8 @@ msgstr ""
 "\n"
 "--color[=always|auto|never]\n"
 "\tシンタックスの色付け指定。\n"
+"\n"
+"--sort\t順番を保持せず、名前順にファイルを並び換える。\n"
 
 #: quilt/diff.in:231
 msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
@@ -302,7 +310,7 @@ msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n
 
 #: quilt/diff.in:386
 msgid "File %s is not being modified\\n"
-msgstr "ファイル %sは変更されていません\\n"
+msgstr "ファイル %s は変更されていません\\n"
 
 #: quilt/diff.in:406 quilt/refresh.in:201
 msgid "Diff failed, aborting\\n"
@@ -310,7 +318,7 @@ msgstr "差分に失敗しました。異常終了します\\n"
 
 #: quilt/diff.in:413
 msgid "More recent patches modify files in patch %s\\n"
-msgstr "最近のパッチが、パッチ %s内のファイルを変更しています\\n"
+msgstr "最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 
 #: quilt/edit.in:13
 msgid "Usage: quilt edit file ...\\n"
@@ -413,18 +421,28 @@ msgid ""
 "dash-and-number, the number is further incremented (e.g., patch.diff,\n"
 "patch-2.diff, patch-3.diff).\n"
 msgstr ""
+"\n"
+"最上位パッチをフォークする。パッチをフォークするとは同じ内容のコピーを別の名"
+"前で作成することで、新しい名前を元の方にかわって使用する。これはパッチを変更"
+"しなければならないが、元のバージョンも残さなければならない場合に便利である"
+"(例: 別シリーズでの使用や過程の保存) 。典型的なコマンドの順番としては、fork、"
+"edit、refreshとなる。\n"
+"\n"
+"new_nameが指定されなかった場合、フォークしたパッチ名は現在のパッチ名の後に \\"
+"\"-2\\\"が付く。すでにパッチ名が -番号で終っている場合、番号の値が1増える "
+"(例: patch.diff、patch-2.diff、patch-3.diff)。\n"
 
 #: quilt/fork.in:99
 msgid "Patch %s exists already, please choose a new name\\n"
-msgstr "パッチ %sはすでに存在します。新しい名前を選んでください\\n"
+msgstr "パッチ %s はすでに存在します。新しい名前を選んでください\\n"
 
 #: quilt/fork.in:111
 msgid "Fork of patch %s to patch %s failed\\n"
-msgstr "パッチ %sからパッチ %sへの分岐に失敗しました\\n"
+msgstr "パッチ %s からパッチ %s への分岐に失敗しました\\n"
 
 #: quilt/fork.in:117
 msgid "Fork of patch %s created as %s\\n"
-msgstr "パッチ %sの分岐で %sが作成されました\\n"
+msgstr "パッチ %s の分岐で %s が作成されました\\n"
 
 #: quilt/graph.in:22
 msgid ""
@@ -515,13 +533,12 @@ msgstr ""
 "シュ記号の後に渡すことができる。\n"
 
 #: quilt/header.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
-"[パッチ]\\n"
+"使い方: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
+"trailing-whitespace] [patch]\\n"
 
 #: quilt/header.in:28
 msgid ""
@@ -542,16 +559,30 @@ msgid ""
 "--backup\n"
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
+"\n"
+"最上位または指定されたパッチのヘッダを出力または変更する。\n"
+"\n"
+"-a, -r, -e\n"
+"\tパッチのヘッダに追加 (-a) またはヘッダを変更 (-r)、$EDITOR (%s)を\n"
+"\t使って編集 (-e)する。オプションが指定されなかった場合はパッチの\n"
+"\tヘッダを出力する。\n"
+"\n"
+"--strip-diffstat\n"
+"\tdiffstatの出力をヘッダから削除する。\n"
+"\n"
+"--strip-trailing-whitespace\n"
+"\t末尾の空白文字をヘッダから削除する。\n"
+"\n"
+"--backup\n"
+"\t古いバージョンのパッチのバックアップコピーを patch~として作成する。\n"
 
 #: quilt/header.in:192
-#, fuzzy
 msgid "Replaced header of patch %s\\n"
-msgstr "パッチ %s をリフレッシュしました\\n"
+msgstr "パッチ %s のヘッダを変更しました\\n"
 
 #: quilt/header.in:195
-#, fuzzy
 msgid "Appended text to header of patch %s\\n"
-msgstr "パッチ %s の作成に失敗しました\\n"
+msgstr "パッチ %s のヘッダに追加しました\\n"
 
 #: quilt/import.in:22
 msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
@@ -597,11 +628,11 @@ msgstr "パッチ %s は、すでに存在します。-fで置き換えること
 
 #: quilt/import.in:104
 msgid "Replacing patch %s with new version\\n"
-msgstr "パッチ % を新しいバージョンに置き換えます\\n"
+msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
 #: quilt/import.in:107
 msgid "Importing patch %s (stored as %s)\\n"
-msgstr "パッチ %s を取り込んでいます (%sとして保存されます)\\n"
+msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
 #: quilt/import.in:115
 msgid "Failed to import patch %s\\n"
@@ -620,7 +651,6 @@ msgstr ""
 "[--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -642,17 +672,17 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 msgstr ""
 "\n"
-"シリーズファイル内にあるすべてのパッチからメールを作成する。mailboxファ\n"
-"イルとして保存またはすぐに送り出すことができる。説明文のテンプレート作\n"
-"成のためにエディタが実行される。詳細については @DOCSUBDIR@/README.MAIL\n"
-"を参照。\n"
+"シリーズファイル内にあるすべてのパッチからメールを作成する。\n"
+"mailboxファイルとして保存またはすぐに送り出すことができる。\n"
+"説明文のテンプレート作成のためにエディタが実行される。\n"
+"詳細については %sを参照。\n"
 "\n"
 "--mbox ファイル\n"
 "\t全メッセージを指定されたファイルに mbox形式で保存。後に例えば\n"
 "\tformailなどを使って送信することができる。\n"
 "\n"
 "--send\n"
-"\t@MTA@を使って、直接メッセージを送信する。\n"
+"\t%s を使って、直接メッセージを送信する。\n"
 "\n"
 "--from, --subject\n"
 "\t使用する FromとSubjectヘッダの値。\n"
@@ -726,7 +756,6 @@ msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
 msgstr "使い方: quilt pop [-afRqv] [数字|パッチ]\\n"
 
 #: quilt/pop.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the stack of applied patches.  Without options,\n"
@@ -761,8 +790,8 @@ msgstr ""
 "-f\t問題があるパッチでも、処理を進める。バックアップファイルを使って、\n"
 "\tパッチが適用される前の状態に復旧する。\n"
 "\n"
-"-R\t\\`patch -R'をつかってパッチをはずし、変更点が正常に元に戻ることを\n"
-"\t確認。\n"
+"-R\t必ずパッチが正常にはずせるか検証する (タイムスタンプのチェックに\n"
+"\t依存しない)\n"
 "\n"
 "-q\t表示を抑制。\n"
 "\n"
@@ -775,13 +804,12 @@ msgstr ""
 "けてはずしてください)\\n"
 
 #: quilt/pop.in:181
-#, fuzzy
 msgid "Patch %s appears to be empty, removing\\n"
-msgstr "パッチ %sは、空のようです\\n"
+msgstr "パッチ %s は、空のようです。はずします\\n"
 
 #: quilt/pop.in:185
 msgid "Removing patch %s\\n"
-msgstr "パッチ %s を削除します\\n"
+msgstr "パッチ %s をはずします\\n"
 
 #: quilt/pop.in:269
 msgid "Patch %s needs to be refreshed first.\\n"
@@ -814,7 +842,6 @@ msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
 msgstr "使い方: quilt push [-afqv] [--leave-rejects] [数字|パッチ]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -882,11 +909,12 @@ msgstr "パッチ %s を適用しています\\n"
 
 #: quilt/push.in:189
 #, fuzzy
-msgid "Patch %s does not exist, applied\\n"
-msgstr "パッチ %s は適用されていません\\n"
+msgid "Patch %s does not exist; applied empty patch\\n"
+msgstr "パッチ %s は存在しません。状態だけ変更します\\n"
 
 #: quilt/push.in:193
-msgid "Patch %s appears to be empty, applied\\n"
+#, fuzzy
+msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
 #: quilt/push.in:197
@@ -916,16 +944,14 @@ msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
 #: quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] "
 "[--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 msgstr ""
-"使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--diffstat] [--backup] "
-"[パッチ]\\n"
+"使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
+"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -989,15 +1015,23 @@ msgstr ""
 "--no-timestamps\n"
 "\tパッチヘッダにタイムスタンプを含めない。\n"
 "\n"
+"--no-index\n"
+"\tIndex: の行を出力しない。\n"
+"\n"
 "--diffstat\n"
 "\tdiffstatのセクションをパッチの先頭部分に追加、または既存の \n"
 "\tdiffstatセクションを上書きする。\n"
 "\n"
-"-f\tスタックの一番上にないパッチのリフレッシュを強要する\n"
+"-f\tスタックの一番上にないパッチのリフレッシュを強要する。\n"
 "\n"
 "--backup\n"
 "\tバックアップ用のコピーとして古いバージョンのパッチを patch~の\n"
 "\t形で作成する。\n"
+"\n"
+"--sort\t順番を保持せず、名前順にファイルを並び換える。\n"
+"\n"
+"--strip-trailing-whitespace\n"
+"\t末尾の空白文字を削除する。\n"
 
 #: quilt/refresh.in:173
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -1015,6 +1049,7 @@ msgstr ""
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
+"--strip-trailing-whitespace は影になっているファイルがある場合は使えません"
 
 #: quilt/refresh.in:219
 msgid "Nothing in patch %s\\n"
@@ -1061,9 +1096,8 @@ msgid "File %s removed from patch %s\\n"
 msgstr "ファイル %s を、パッチ %s から削除しました\\n"
 
 #: quilt/rename.in:22
-#, fuzzy
 msgid "Usage: quilt rename [-p patch] new_name\\n"
-msgstr "使い方: quilt remove [-p パッチ] {ファイル} ...\\n"
+msgstr "使い方: quilt rename [-p patch] new_name\\n"
 
 #: quilt/rename.in:25
 msgid ""
@@ -1073,21 +1107,23 @@ msgid ""
 "-p patch\n"
 "\tPatch to rename.\n"
 msgstr ""
+"\n"
+"最上位または指定されたパッチの名前を変更する\n"
+"\n"
+"-p patch\n"
+"\t名前を変更する patch\n"
 
 #: quilt/rename.in:96
-#, fuzzy
 msgid "Patch %s exists already, please choose a different name\\n"
-msgstr "パッチ %sはすでに存在します。新しい名前を選んでください\\n"
+msgstr "パッチ %s はすでに存在します。新しい名前を選んでください\\n"
 
 #: quilt/rename.in:110
-#, fuzzy
 msgid "Renaming of patch %s to %s failed\\n"
-msgstr "パッチ %sからパッチ %sへの分岐に失敗しました\\n"
+msgstr "パッチ %s から %sへの名前の変更に失敗しました\\n"
 
 #: quilt/rename.in:116
-#, fuzzy
 msgid "Patch %s renamed to %s\\n"
-msgstr "パッチ %sの分岐で %sが作成されました\\n"
+msgstr "パッチ %s から %s へ名前を変更しました\\n"
 
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"
@@ -1251,37 +1287,37 @@ msgstr ""
 #: scripts/edmail.in:81
 #, perl-format
 msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr ""
+msgstr "表示用の名前 '%s' が対にならない括弧を含んでいます\n"
 
 #: scripts/edmail.in:85
 #, perl-format
 msgid "Display name '%s' contains invalid characters\n"
-msgstr ""
+msgstr "表示用の名前 '%s' が不正な文字を含んでいます\n"
 
 #: scripts/edmail.in:89
 #, perl-format
 msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr ""
+msgstr "表示用の名前 '%s' が非印刷文字または 8 bitの文字を含んでいます\n"
 
 #: scripts/edmail.in:95
 #, perl-format
 msgid "Delivery address '%s' is invalid\n"
-msgstr ""
+msgstr "配送先のアドレス '%s' が不正です\n"
 
 #: scripts/parse-patch.in:50
 #, perl-format
 msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
+msgstr "使いかた: %s {-s|-u} section file [< replacement]\n"
 
 #: scripts/parse-patch.in:97 scripts/parse-patch.in:104
 #, perl-format
 msgid "File %s disappeared!\n"
-msgstr ""
+msgstr "ファイル %s が消えました!\n"
 
 #: scripts/parse-patch.in:150 scripts/parse-patch.in:156
-#, fuzzy, perl-format
+#, perl-format
 msgid "Failed to rename %s to %s: %s\n"
-msgstr "パッチ %s の作成に失敗しました\\n"
+msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
 #: scripts/patchfns.in:732
 msgid ""
@@ -1306,57 +1342,34 @@ msgstr ""
 #: scripts/remove-trailing-ws.in:43
 #, perl-format
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
-msgstr ""
+msgstr "書式: %s [p num] [-n] [patch]\n"
 
 #: scripts/remove-trailing-ws.in:65 scripts/remove-trailing-ws.in:92
 #, perl-format
 msgid "%s: I'm confused.\n"
-msgstr ""
+msgstr "%s: 混乱しました\n"
 
 #: scripts/remove-trailing-ws.in:113
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
-msgstr ""
+msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
 
 #: scripts/remove-trailing-ws.in:116
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
-msgstr ""
+msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
 
 #: scripts/remove-trailing-ws.in:120
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
-msgstr ""
+msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
 
 #: scripts/remove-trailing-ws.in:123
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
-msgstr ""
+msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
 
 #: scripts/remove-trailing-ws.in:143
-#, fuzzy, perl-format
+#, perl-format
 msgid "Renaming %s to %s: %s\n"
-msgstr "パッチ %sからパッチ %sへの分岐に失敗しました\\n"
-
-#~ msgid "Cannot change into directory %s\\n"
-#~ msgstr "ディレクトリ %s に移動できません\\n"
-
-#~ msgid "Cannot change to temporary directory\\n"
-#~ msgstr "テンポラリディレクトリに移動できません\\n"
-
-#~ msgid "Cannot change to source directory\\n"
-#~ msgstr "ソースディレクトリに移動できません\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Fork the topmost patch. If new_name is missing, the name of the\n"
-#~ "forked patch will be the current patch name, followed by \\\"-2\\\".\n"
-#~ "If the patch name already ends in a dash-and-number, the number is\n"
-#~ "further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
-#~ msgstr ""
-#~ "\n"
-#~ "最上位のパッチを分岐。new_nameが指定されなかった場合、分岐したパッチ名\n"
-#~ "は現在のパッチ名の後に \\\"-2\\\"が付く。すでにパッチ名がハイフンと番号"
-#~ "で\n"
-#~ "終っている場合、番号の値が1増える (例: patch.diff、patch-2.diff、\n"
-#~ "patch-3.diff)。\n"
+msgstr "%s から %s へ名前を変更しました: %s\n"

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jul 25 09:41:19 CEST 2005 - agruen@suse.de
+
+- Japanese translation update from Yasushi SHOJI
+  <yashi@atmark-techno.com>.
+
+-------------------------------------------------------------------
 Sun Jul 24 16:46:54 CEST 2005 - khali@linux-fr.org
 
 - Let the perl scripts (edmail, parse-patch and
@@ -315,8 +321,8 @@ Sun Mar  6 22:56:12 CET 2005 - agruen@suse.de
 -------------------------------------------------------------------
 Fri Feb 24 13:12:57 CET 2005 - mquinson@debian.org
 
-- quilt add: Add check to ensure that no symlink will be added since we fail
-  to backup them properly (see #295913 in Debian).
+- quilt add: Add check to ensure that no symlink will be added
+  since we fail to backup them properly (see #295913 in Debian).
 
 -------------------------------------------------------------------
 Fri Feb 18 11:01:57 CET 2005 - agruen@suse.de
@@ -339,7 +345,8 @@ Sun Feb  6 01:15:03 CET 2005 - agruen@suse.de
 - Update of the Japanese translation from Yasushi SHOJI
   <yashi@atmark-techno.com> -- thank you.
 - Don't leak so many temporary files in the push command.
-- Include command names in tempfile names to find leaks more easily.
+- Include command names in tempfile names to find leaks more
+  easily.
 
 -------------------------------------------------------------------
 Wed Feb  2 17:35:19 CET 2005 - agruen@suse.de
@@ -396,8 +403,8 @@ Thu Jan 20 12:36:25 CET 2005 - mquinson@debian.org
 
 - fix the bash completion file: 
   - does not complete on dir anymore, just files.
-  - use string comparison when dealing with BASH_VERSION, it may contain
-    letters.
+  - use string comparison when dealing with BASH_VERSION, it may
+    contain letters.
 
 -------------------------------------------------------------------
 Tue Jan 11 03:53:19 CET 2005 - agruen@suse.de
@@ -670,9 +677,10 @@ Fri Jun 11 00:43:07 PDT 2004 - mquinson@tuxfamily.org
   feature I was about reimplementing ;)
 - Document all options from the pdf into the man page.
 - update the bash completion stuff so that :
-  - it does not kill the shell when completing in a tree not matching the
-    meta data version.
-  - it does not move the current directory around, seeking for patches/
+  - it does not kill the shell when completing in a tree not
+    matching the meta data version.
+  - it does not move the current directory around, seeking for
+    patches/
   - it completes on the new commands (grep graph upgrade)
 - Various output messages polishing (and translation fuzzying)
 - French translation unfuzzying
@@ -1242,7 +1250,8 @@ Fri Feb 14 15:53:52 CET 2003 - agruen@suse.de
 Fri Feb 14 14:10:39 CET 2003 - martin.quinson@tuxfamily.org
 
 - Implement i18n, along with the french l10n.
-- It was long enough that we didn't release, so bump the version number.
+- It was long enough that we didn't release, so bump the version
+  number.
 
 -------------------------------------------------------------------
 Sat Feb  8 15:43:26 CET 2003 - agruen@suse.de

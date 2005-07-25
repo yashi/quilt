@@ -186,11 +186,11 @@ add_patch()
 
 		if ! [ -e $patch_file ]
 		then
-			printf $"Patch %s does not exist, applied\n" \
+			printf $"Patch %s does not exist; applied empty patch\n" \
 			       "$(print_patch $patch)"
 		elif [ -z "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" ]
 		then
-			printf $"Patch %s appears to be empty, applied\n" \
+			printf $"Patch %s appears to be empty; applied\n" \
 			       "$(print_patch $patch)"
 		elif [ $status -ne 0 ]
 		then

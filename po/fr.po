@@ -943,11 +943,12 @@ msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
 #: quilt/push.in:189
-msgid "Patch %s does not exist, applied\\n"
+#, fuzzy
+msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Le patch %s n'existe pas, appliqué\\n"
 
 #: quilt/push.in:193
-msgid "Patch %s appears to be empty, applied\\n"
+msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
 #: quilt/push.in:197

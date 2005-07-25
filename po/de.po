@@ -924,12 +924,12 @@ msgid "Applying patch %s\\n"
 msgstr "Wende Patch %s an\\n"
 
 #: quilt/push.in:189
-msgid "Patch %s does not exist, applied\\n"
-msgstr "Patch %s existiert nicht; wird angewandt\\n"
+msgid "Patch %s does not exist; applied empty patch\\n"
+msgstr "Patch %s existiert nicht; wende leeren patch an\\n"
 
 #: quilt/push.in:193
-msgid "Patch %s appears to be empty, applied\\n"
-msgstr "Patch %s scheint leer zu sein, angewandt\\n"
+msgid "Patch %s appears to be empty; applied\\n"
+msgstr "Patch %s scheint leer zu sein; angewandt\\n"
 
 #: quilt/push.in:197
 msgid "Applied patch %s (forced; needs refresh)\\n"
