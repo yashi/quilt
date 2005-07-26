@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2005-07-25 14:57+0900\n"
+"PO-Revision-Date: 2005-07-26 12:24+0200\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -908,12 +908,10 @@ msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
 #: quilt/push.in:189
-#, fuzzy
 msgid "Patch %s does not exist; applied empty patch\\n"
-msgstr "パッチ %s は存在しません。状態だけ変更します\\n"
+msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
 #: quilt/push.in:193
-#, fuzzy
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
