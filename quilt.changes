@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jul 27 18:18:38 CEST 2005 - agruen@suse.de
+
+- test/missing.test: Fix test case.
+
+-------------------------------------------------------------------
 Tue Jul 26 20:02:21 CEST 2005 - khali@linux-fr.org
 
 - Bump version to 0.42.

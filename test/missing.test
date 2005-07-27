@@ -8,9 +8,9 @@
 	
 	$ quilt push -qa
 	> Applying patch patches/missing1.diff
-	> Patch patches/missing1.diff does not exist, applied
+	> Patch patches/missing1.diff does not exist; applied empty patch
 	> Applying patch patches/missing2.diff
-	> Patch patches/missing2.diff does not exist, applied
+	> Patch patches/missing2.diff does not exist; applied empty patch
 	> Now at patch patches/missing2.diff
 
 	$ quilt pop -qa
