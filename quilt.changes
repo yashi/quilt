@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jul 29 18:56:58 CEST 2005 - khali@linux-fr.org
+
+- test/delete.test: New test case for the delete command.
+
+-------------------------------------------------------------------
 Fri Jul 29 18:49:41 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: add test/Makefile and test/test.quiltrc to SRC,

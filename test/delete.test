@@ -1,0 +1,61 @@
+Test the delete command.
+
+	$ mkdir d
+	$ cd d
+
+	$ cat > test.txt
+	< Calling pci_match_id() would be more feasible.
+
+	$ quilt new test1
+	> Patch %{P}test1 is now on top
+
+	$ quilt add test.txt
+	> File test.txt added to patch %{P}test1
+
+	$ cat > test.txt
+	< Try the following patch instead.
+
+	$ quilt refresh
+	> Refreshed patch %{P}test1
+
+	$ quilt new test2
+	> Patch %{P}test2 is now on top
+
+	$ quilt add test.txt
+	> File test.txt added to patch %{P}test2
+
+	$ cat > test.txt
+	< Ok, that's fine with me if you want to do that instead.
+
+	$ quilt refresh
+	> Refreshed patch %{P}test2
+
+	$ quilt pop
+	> Removing patch %{P}test2
+	> Restoring test.txt
+	> 
+	> Now at patch %{P}test1
+
+	$ quilt series
+	> %{P}test1
+	> %{P}test2
+
+	$ quilt delete -n
+	> Removed patch %{P}test2
+
+	$ quilt series
+	> %{P}test1
+
+	$ quilt pop
+	> Removing patch %{P}test1
+	> Restoring test.txt
+	> 
+	> No patches applied
+
+	$ quilt delete test1
+	> Removed patch %{P}test1
+
+	$ quilt series
+
+	$ cd ..
+	$ rm -rf d
