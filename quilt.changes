@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul 29 18:49:41 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: add test/Makefile and test/test.quiltrc to SRC,
+  so that they get included into the tarball by make dist.
+
+-------------------------------------------------------------------
 Wed Jul 27 18:18:38 CEST 2005 - agruen@suse.de
 
 - test/missing.test: Fix test case.

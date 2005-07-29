@@ -95,7 +95,8 @@ PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo
 
-SRC +=		$(wildcard test/*.test) test/run
+SRC +=		$(wildcard test/*.test) test/run test/Makefile \
+		test/test.quiltrc
 SRC +=		changes2changelog
 
 #-----------------------------------------------------------------------
