@@ -18,7 +18,7 @@ Andreas Gruenbacher <agruen@suse.de>
 Gerd Knorr <kraxel@suse.de>
     Contributed spec2series (which is inspect now).
 
-Martin Quinson <Martin.Quinson@tuxfamily.org>
+Martin Quinson (martin.quinson#debian.org)
     Several little patches and improvements.
     Internationalization.
     Debian packaging.

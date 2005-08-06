@@ -1,5 +1,5 @@
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2003 Martin Quinson <martin.quinson@tuxfamily.org>
+# Copyright © 2003 Martin Quinson (martin quinson#debian org)
 # Description: An advanced patch system based on the quilt facilities.
 #  please refere to the documentation of the quilt package for more information.
 #

@@ -1,7 +1,7 @@
 #-*- mode: shell-script;-*-
 
 # Programmed completion for bash to use quilt
-# Copyright 2003-2004 Martin Quinson <martin.quinson@tuxfamily.org>
+# Copyright 2003-2004 Martin Quinson (martin quinson#debian org)
 
 # This file is part of the distribution of quilt, and is distributed under
 # the same licence than quilt itself
