@@ -96,8 +96,8 @@ _quilt_completion()
 
     # quilt sub commands 
     cmds='add annotate applied delete diff edit files fold fork graph \
-          grep import new next patches pop previous push refresh remove \
-	  rename series setup snapshot top unapplied'
+          grep header import new next patches pop previous push refresh \
+	  remove rename series setup snapshot top unapplied'
 
     # if no command were given, complete on commands
     if [[ $COMP_CWORD -eq 1 ]] ; then
@@ -184,6 +184,9 @@ _quilt_completion()
 	grep)
 	   _longopt grep
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
+	   ;;
+	header)
+	   COMPREPLY=( $( compgen -W "-a -e -h -r --backup --strip-diffstat --strip-trailing-whitespace $(quilt series)" -- $cur ) )
 	   ;;
 	import)
 	   case $prev in

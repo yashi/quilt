@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug 11 18:43:38 CEST 2005 - mquinson@debian.org
+
+- bash_completion: add completion of the header command.
+  Patch from Joe Green.
+
+-------------------------------------------------------------------
 Fri Jul 29 18:56:58 CEST 2005 - khali@linux-fr.org
 
 - test/delete.test: New test case for the delete command.
