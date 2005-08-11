@@ -1,8 +1,9 @@
 -------------------------------------------------------------------
 Thu Aug 11 18:43:38 CEST 2005 - mquinson@debian.org
 
+[Joe Green]
 - bash_completion: add completion of the header command.
-  Patch from Joe Green.
+- improve description of the import command.
 
 -------------------------------------------------------------------
 Fri Jul 29 18:56:58 CEST 2005 - khali@linux-fr.org

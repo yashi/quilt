@@ -23,7 +23,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Import external patches.
+Import external patches.  The patches will be inserted following the
+current top patch, and must be pushed after import to apply them.
 
 -p num
 	Number of directory levels to strip when applying (default=1)
