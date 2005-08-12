@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.38 $)
+AC_REVISION ($Revision: 1.39 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -200,10 +200,11 @@ in a directory that is not in the search path you can specify its location
 using the '--with-diffstat' option.
 ])
     DIFFSTAT="diffstat"
-else
+elif test "$DIFFSTAT" != no; then
     # We need diffstat version 1.32 or better, else quilt refresh --diffstat
     # will show progress data we don't want to see.  This is only a warning
-    # and we continue even if version is older, as this is only a minor annoyance.
+    # and we continue even if version is older, as this is only a minor
+    # annoyance.
     AC_MSG_CHECKING([for diffstat version])
     diffstat_major_version=`$DIFFSTAT -V 2>/dev/null | \
 	sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\)/\1/'`

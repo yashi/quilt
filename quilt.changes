@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 12 20:28:59 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Do not check for diffstat version if
+  --without-diffstat is used.
+
+-------------------------------------------------------------------
 Thu Aug 11 18:43:38 CEST 2005 - mquinson@debian.org
 
 [Joe Green]
