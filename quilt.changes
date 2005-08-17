@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Aug 17 12:19:25 CEST 2005 - agruen@suse.de
+
+- quilt/edit.in: Check exit status after adding files.
+
+-------------------------------------------------------------------
 Fri Aug 12 20:28:59 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Do not check for diffstat version if

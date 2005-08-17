@@ -48,7 +48,7 @@ then
 	usage
 fi
 
-bash -c ". @QUILT@/add" "quilt add" "$@"
+bash -c ". @QUILT@/add" "quilt add" "$@" || exit $?
 $EDITOR "$@"
 status=$?
 for file in "$@"
