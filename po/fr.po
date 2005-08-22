@@ -409,7 +409,7 @@ msgstr ""
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
 "\tpatch.\n"
 
-#: quilt/fold.in:116
+#: quilt/fold.in:117
 msgid "File %s may be corrupted\\n"
 msgstr "Le fichier %s est peut-être corrompu\\n"
 
@@ -609,9 +609,11 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Usage : quilt import [-f] [-p num] [-n patch] fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
-"Import external patches.\n"
+"Import external patches.  The patches will be inserted following the\n"
+"current top patch, and must be pushed after import to apply them.\n"
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
@@ -635,32 +637,32 @@ msgstr ""
 "\n"
 "-f\tÉcrase/met à jour les patchs existants.\n"
 
-#: quilt/import.in:74
+#: quilt/import.in:75
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 "L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
 
-#: quilt/import.in:92
+#: quilt/import.in:93
 msgid "Patch %s is applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/import.in:100
+#: quilt/import.in:101
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Le patch %s existe. Utilisez -f pour le remplacer.\\n"
 
-#: quilt/import.in:104
+#: quilt/import.in:105
 msgid "Replacing patch %s with new version\\n"
 msgstr "Remplacement du patch %s avec la nouvelle version\\n"
 
-#: quilt/import.in:107
+#: quilt/import.in:108
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Import du patch %s (enregistré dans %s)\\n"
 
-#: quilt/import.in:115
+#: quilt/import.in:116
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:122
+#: quilt/import.in:123
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 

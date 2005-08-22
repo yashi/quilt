@@ -409,7 +409,7 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
 
-#: quilt/fold.in:116
+#: quilt/fold.in:117
 msgid "File %s may be corrupted\\n"
 msgstr "Datei %s ist möglicherweise defekt\\n"
 
@@ -608,7 +608,8 @@ msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
 #: quilt/import.in:25
 msgid ""
 "\n"
-"Import external patches.\n"
+"Import external patches.  The patches will be inserted following the\n"
+"current top patch, and must be pushed after import to apply them.\n"
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
@@ -620,7 +621,8 @@ msgid ""
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
 "\n"
-"Importiere externe Patches.\n"
+"Importiere externe Patches. Die Patches werden nach dem momentan obersten\n"
+"Patch eingefügt, und können dann mit dem push-Befehl angewandt werden.\n"
 "\n"
 "-p num\n"
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
@@ -631,33 +633,33 @@ msgstr ""
 "\n"
 "-f\tÜberschreibe/aktualisiere existierende Patches.\n"
 
-#: quilt/import.in:74
+#: quilt/import.in:75
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 "Die Option \\`-n' kann nur beim Importieren eines einzelnen Patches "
 "verwendet werden\\n"
 
-#: quilt/import.in:92
+#: quilt/import.in:93
 msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
-#: quilt/import.in:100
+#: quilt/import.in:101
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Patch %s existiert bereits. Ersetzen mit -f.\\n"
 
-#: quilt/import.in:104
+#: quilt/import.in:105
 msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
-#: quilt/import.in:107
+#: quilt/import.in:108
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:115
+#: quilt/import.in:116
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:122
+#: quilt/import.in:123
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 

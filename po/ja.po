@@ -398,7 +398,7 @@ msgstr ""
 "-p strip-level\n"
 "\tパッチを適用するときに、ファイル名から省くパス名要素の数\n"
 
-#: quilt/fold.in:116
+#: quilt/fold.in:117
 msgid "File %s may be corrupted\\n"
 msgstr "ファイル %s は壊れている可能性があります\\n"
 
@@ -589,9 +589,11 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "使い方: quilt import [-f] [-p num] [-n パッチ] パッチファイル ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
-"Import external patches.\n"
+"Import external patches.  The patches will be inserted following the\n"
+"current top patch, and must be pushed after import to apply them.\n"
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
@@ -614,31 +616,31 @@ msgstr ""
 "\n"
 "-f\t存在するパッチの上書き、またはアップデート。\n"
 
-#: quilt/import.in:74
+#: quilt/import.in:75
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です。\\n"
 
-#: quilt/import.in:92
+#: quilt/import.in:93
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:100
+#: quilt/import.in:101
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます。\\n"
 
-#: quilt/import.in:104
+#: quilt/import.in:105
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:107
+#: quilt/import.in:108
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:115
+#: quilt/import.in:116
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:122
+#: quilt/import.in:123
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 

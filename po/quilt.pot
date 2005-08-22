@@ -283,7 +283,7 @@ msgid ""
 "\twhen applying patchfile.\n"
 msgstr ""
 
-#: quilt/fold.in:116
+#: quilt/fold.in:117
 msgid "File %s may be corrupted\\n"
 msgstr ""
 
@@ -413,7 +413,8 @@ msgstr ""
 #: quilt/import.in:25
 msgid ""
 "\n"
-"Import external patches.\n"
+"Import external patches.  The patches will be inserted following the\n"
+"current top patch, and must be pushed after import to apply them.\n"
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
@@ -425,31 +426,31 @@ msgid ""
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
 
-#: quilt/import.in:74
+#: quilt/import.in:75
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 
-#: quilt/import.in:92
+#: quilt/import.in:93
 msgid "Patch %s is applied\\n"
 msgstr ""
 
-#: quilt/import.in:100
+#: quilt/import.in:101
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr ""
 
-#: quilt/import.in:104
+#: quilt/import.in:105
 msgid "Replacing patch %s with new version\\n"
 msgstr ""
 
-#: quilt/import.in:107
+#: quilt/import.in:108
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr ""
 
-#: quilt/import.in:115
+#: quilt/import.in:116
 msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:122
+#: quilt/import.in:123
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
