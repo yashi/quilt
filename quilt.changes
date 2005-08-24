@@ -1,13 +1,14 @@
 -------------------------------------------------------------------
+Wed Aug 24 16:53:44 CEST 2005 - agruen@suse.de
+
+- quilt/edit.in: Check exit status after adding files, and fail
+  except when files have already been added.
+
+-------------------------------------------------------------------
 Mon Aug 22 23:15:18 CEST 2005 - agruen@suse.de
 
 - quilt/fold.in: fold did not work when invoked from a
   subdirectory; update test case.
-
--------------------------------------------------------------------
-Wed Aug 17 12:19:25 CEST 2005 - agruen@suse.de
-
-- quilt/edit.in: Check exit status after adding files.
 
 -------------------------------------------------------------------
 Fri Aug 12 20:28:59 CEST 2005 - khali@linux-fr.org

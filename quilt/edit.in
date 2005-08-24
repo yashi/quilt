@@ -48,7 +48,12 @@ then
 	usage
 fi
 
-bash -c ". @QUILT@/add" "quilt add" "$@" || exit $?
+bash -c ". @QUILT@/add" "quilt add" "$@"
+status=$?
+if [ $status -ne 0 -a $status -ne 2 ]
+then
+	exit $status
+fi
 $EDITOR "$@"
 status=$?
 for file in "$@"

@@ -606,6 +606,7 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"

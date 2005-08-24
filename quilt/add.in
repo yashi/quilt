@@ -120,7 +120,7 @@ do
 	then
 		printf $"File %s is already in patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2
-		status=2
+		[ $status -ne 1 ] && status=2
 		continue
 	fi
 	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
