@@ -82,7 +82,7 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 
-#: quilt/add.in:78 quilt/applied.in:62 quilt/delete.in:97 quilt/diff.in:160
+#: quilt/add.in:78 quilt/applied.in:62 quilt/delete.in:109 quilt/diff.in:160
 #: quilt/diff.in:171 quilt/graph.in:116 quilt/header.in:135 quilt/next.in:62
 #: quilt/pop.in:246 quilt/previous.in:62 quilt/push.in:312
 #: quilt/refresh.in:148 quilt/remove.in:53 quilt/rename.in:63
@@ -95,7 +95,7 @@ msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/add.in:106 quilt/delete.in:76 quilt/diff.in:247 quilt/files.in:103
+#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:247 quilt/files.in:103
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
 #: quilt/pop.in:295 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
@@ -155,10 +155,11 @@ msgid "Patch is not applied\\n"
 msgstr "Patch ist nicht angewandt\\n"
 
 #: quilt/delete.in:22
-msgid "Usage: quilt delete [patch | -n]\\n"
-msgstr "Verwendung: quilt delete [patch | -n]\\n"
+msgid "Usage: quilt delete [-r] [--backup] [patch | -n]\\n"
+msgstr "Verwendung: quilt delete [-r] [--backup] [patch | -n]\\n"
 
 #: quilt/delete.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -167,6 +168,12 @@ msgid ""
 "\n"
 "-n\tDelete the next patch after topmost, rather than the specified\n"
 "\tor topmost patch.\n"
+"\n"
+"-r\tRemove the deleted patch file from the patches directory as well.\n"
+"\n"
+"--backup\n"
+"\tRename the patch file to patch~ rather than deleting it.\n"
+"\tIgnored if not used with \\\"-r\\\".\n"
 msgstr ""
 "\n"
 "Löscht den obersten oder angegebenen Patch aus der series-Datei. Falls\n"
@@ -176,20 +183,30 @@ msgstr ""
 "-n\tLösche den nächsten (dem obersten folgenden) Patch statt des obersten\n"
 "\toder angegebenen.\n"
 
-#: quilt/delete.in:88
+#: quilt/delete.in:100
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:106
+#: quilt/delete.in:118
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:113
+#: quilt/delete.in:125
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
 
-#: quilt/delete.in:115
+#: quilt/delete.in:127
 msgid "Failed to remove patch %s\\n"
+msgstr "Konnte Patch %s nicht entfernen\\n"
+
+#: quilt/delete.in:138
+#, fuzzy
+msgid "Failed to backup patch file \\\"%s\\\"\\n"
+msgstr "Konnte Datei %s nicht sichern\\n"
+
+#: quilt/delete.in:145
+#, fuzzy
+msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/diff.in:24

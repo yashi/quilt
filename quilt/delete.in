@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt delete [patch | -n]\n"
+	printf $"Usage: quilt delete [-r] [--backup] [patch | -n]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -29,6 +29,12 @@ topmost patch can be removed right now.)
 
 -n	Delete the next patch after topmost, rather than the specified
 	or topmost patch.
+
+-r	Remove the deleted patch file from the patches directory as well.
+
+--backup
+	Rename the patch file to patch~ rather than deleting it.
+	Ignored if not used with \"-r\".
 "
 
 		exit 0
@@ -37,7 +43,7 @@ topmost patch can be removed right now.)
 	fi
 }
 
-options=`getopt -o nh -- "$@"`
+options=`getopt -o nrh --long backup -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -52,8 +58,14 @@ do
 	-n)
 		opt_next=1
 		shift ;;
+	-r)
+		opt_remove=1
+		shift ;;
 	-h)
 		usage -h ;;
+	--backup)
+		QUILT_BACKUP=1
+		shift ;;
 	--)
 		shift
 		break ;;
@@ -113,6 +125,28 @@ then
 	printf $"Removed patch %s\n" "$(print_patch "$patch")"
 else
 	printf $"Failed to remove patch %s\n" "$(print_patch "$patch")" >&2
+	exit 1
+fi
+
+patch_file=$(patch_file_name "$patch")
+if [ "$opt_remove" -a -e "$patch_file" ]
+then
+	if [ "$QUILT_BACKUP" ]
+	then
+		if ! mv -f "$patch_file" "$patch_file~"
+		then
+			printf $"Failed to backup patch file \"%s\"\n" \
+				"$patch_file" >&2
+			exit 1
+		fi
+	else
+		if ! rm -f "$patch_file"
+		then
+			printf $"Failed to remove patch file \"%s\"\n" \
+				"$patch_file" >&2
+			exit 1
+		fi
+	fi
 fi
 ### Local Variables:
 ### mode: shell-script

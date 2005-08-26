@@ -139,7 +139,7 @@ _quilt_completion()
 	   COMPREPLY=( $( compgen -W "-h $(quilt applied)" -- $cur ) )
 	   ;;
 	delete) 
-	   COMPREPLY=( $( compgen -W "-n -h $(quilt series)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-n -r -h --backup $(quilt series)" -- $cur ) )
 	   ;;
 	diff) 
 	   case $prev in

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 26 12:17:54 CEST 2005 - khali@linux-fr.org
+
+- quilt/delete.in: Add options -r (remove patch file) and
+  --backup (backup rather than remove.) Patch from Joe Green.
+
+-------------------------------------------------------------------
 Fri Aug 26 11:52:45 CEST 2005 - agruen@suse.de
 
 - scripts/patchfns.in: insert_in_series(): Insert new patches
