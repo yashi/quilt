@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [patch]\n"
+	printf $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [-T ps] [patch]\n"
 
 	if [ x$1 = x-h ]
 	then

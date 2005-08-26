@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\n"
+	printf $"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|auto|never]] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"

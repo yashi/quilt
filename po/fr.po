@@ -155,8 +155,8 @@ msgid "Patch is not applied\\n"
 msgstr "Le patch n'est pas appliqué\\n"
 
 #: quilt/delete.in:22
-msgid "Usage: quilt delete [-r] [--backup] [patch | -n]\\n"
-msgstr "Usage : quilt delete [-r] [--backup] [patch | -n]\\n"
+msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
+msgstr "Usage : quilt delete [-r] [--backup] [patch|-n]\\n"
 
 #: quilt/delete.in:25
 #, fuzzy
@@ -480,10 +480,10 @@ msgstr "Le fork de %s a été créé en tant que %s\\n"
 #: quilt/graph.in:22
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[patch]\\n"
+"[-T ps] [patch]\\n"
 msgstr ""
 "Usage : quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[patch]\\n"
+"[-T ps] [patch]\\n"
 
 #: quilt/graph.in:26
 msgid ""
@@ -889,8 +889,12 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/push.in:24
-msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
-msgstr "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
+msgid ""
+"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
+"auto|never]] [num|patch]\\n"
+msgstr ""
+"Usage : quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
+"[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
 msgid ""

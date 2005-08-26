@@ -155,8 +155,8 @@ msgid "Patch is not applied\\n"
 msgstr "Patch ist nicht angewandt\\n"
 
 #: quilt/delete.in:22
-msgid "Usage: quilt delete [-r] [--backup] [patch | -n]\\n"
-msgstr "Verwendung: quilt delete [-r] [--backup] [patch | -n]\\n"
+msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
+msgstr "Verwendung: quilt delete [-r] [--backup] [patch|-n]\\n"
 
 #: quilt/delete.in:25
 #, fuzzy
@@ -478,10 +478,10 @@ msgstr "Neue Version von %s erstellt als %s\\n"
 #: quilt/graph.in:22
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[patch]\\n"
+"[-T ps] [patch]\\n"
 msgstr ""
 "Verwendung: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-"
-"labels=files]\\n"
+"labels=files] [-T ps] [patch]\\n"
 
 #: quilt/graph.in:26
 msgid ""
@@ -876,8 +876,12 @@ msgstr ""
 "Patch in der series-Datei aus.\n"
 
 #: quilt/push.in:24
-msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
-msgstr "Verwendung: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
+msgid ""
+"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
+"auto|never]] [num|patch]\\n"
+msgstr ""
+"Verwendung: quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
+"[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
 msgid ""

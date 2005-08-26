@@ -113,7 +113,7 @@ msgid "Patch is not applied\\n"
 msgstr ""
 
 #: quilt/delete.in:22
-msgid "Usage: quilt delete [-r] [--backup] [patch | -n]\\n"
+msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
 msgstr ""
 
 #: quilt/delete.in:25
@@ -336,7 +336,7 @@ msgstr ""
 #: quilt/graph.in:22
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[patch]\\n"
+"[-T ps] [patch]\\n"
 msgstr ""
 
 #: quilt/graph.in:26
@@ -607,7 +607,9 @@ msgid ""
 msgstr ""
 
 #: quilt/push.in:24
-msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
+msgid ""
+"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
+"auto|never]] [num|patch]\\n"
 msgstr ""
 
 #: quilt/push.in:27

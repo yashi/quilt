@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Aug 26 13:03:19 CEST 2005 - khali@linux-fr.org
+
+- quilt/delete.in: Drop extra spaces in usage line.
+- quilt/graph.in: Add missing -T option to usage line.
+- quilt/push.in: Add missing --interactive and --color options to
+  usage line.
+
+-------------------------------------------------------------------
 Fri Aug 26 12:17:54 CEST 2005 - khali@linux-fr.org
 
 - quilt/delete.in: Add options -r (remove patch file) and

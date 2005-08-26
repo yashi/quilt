@@ -153,8 +153,8 @@ msgid "Patch is not applied\\n"
 msgstr "パッチは適用されていません\\n"
 
 #: quilt/delete.in:22
-msgid "Usage: quilt delete [-r] [--backup] [patch | -n]\\n"
-msgstr "使い方: quilt delete [-r] [--backup] [パッチ | -n]\\n"
+msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
+msgstr "使い方: quilt delete [-r] [--backup] [パッチ|-n]\\n"
 
 #: quilt/delete.in:25
 #, fuzzy
@@ -464,10 +464,10 @@ msgstr "パッチ %s の分岐で %s が作成されました\\n"
 #: quilt/graph.in:22
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[patch]\\n"
+"[-T ps] [patch]\\n"
 msgstr ""
 "使い方: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
-"[パッチ]\\n\""
+"[-T ps] [パッチ]\\n\""
 
 #: quilt/graph.in:26
 msgid ""
@@ -857,8 +857,12 @@ msgstr ""
 "されたパッチの前のパッチ名を表示。\n"
 
 #: quilt/push.in:24
-msgid "Usage: quilt push [-afqv] [--leave-rejects] [num|patch]\\n"
-msgstr "使い方: quilt push [-afqv] [--leave-rejects] [数字|パッチ]\\n"
+msgid ""
+"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
+"auto|never]] [num|patch]\\n"
+msgstr ""
+"使い方: quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
+"[=always|auto|never]] [数字|パッチ]\\n"
 
 #: quilt/push.in:27
 msgid ""

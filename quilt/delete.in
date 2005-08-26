@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt delete [-r] [--backup] [patch | -n]\n"
+	printf $"Usage: quilt delete [-r] [--backup] [patch|-n]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
