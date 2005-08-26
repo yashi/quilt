@@ -78,7 +78,6 @@ fi
 
 [ -n "$opt_strip" ] && patch_args="-p$opt_strip"
 
-status=
 for patch_file in "$@"
 do
 	if [ -n "$opt_patch" ]
@@ -114,7 +113,7 @@ do
 	if ! cp "$patch_file" "$dest"
 	then
 		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
-		status=1
+		exit 1
 	fi
 
 	if ! patch_in_series $patch &&
@@ -128,7 +127,6 @@ do
 	rm -rf $QUILT_PC/$patch
 done
 
-exit $status
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 26 10:29:55 CEST 2005 - khali@linux-fr.org
+
+- quilt/import.in: Fix error path when imported patch doesn't
+  exist.
+
+-------------------------------------------------------------------
 Wed Aug 24 16:53:44 CEST 2005 - agruen@suse.de
 
 - quilt/edit.in: Check exit status after adding files, and fail
