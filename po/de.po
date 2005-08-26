@@ -640,27 +640,27 @@ msgstr ""
 "Die Option \\`-n' kann nur beim Importieren eines einzelnen Patches "
 "verwendet werden\\n"
 
-#: quilt/import.in:93
+#: quilt/import.in:92
 msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
-#: quilt/import.in:101
+#: quilt/import.in:100
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Patch %s existiert bereits. Ersetzen mit -f.\\n"
 
-#: quilt/import.in:105
+#: quilt/import.in:104
 msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
-#: quilt/import.in:108
+#: quilt/import.in:107
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:116
+#: quilt/import.in:115
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:123
+#: quilt/import.in:122
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 

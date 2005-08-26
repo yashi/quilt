@@ -191,7 +191,7 @@ patch_in_series()
 insert_in_series()
 {
 	local patch=$1 patch_args=$2
-	local top=$(top_patch) tmpfile
+	local next=$(patches_after "$(top_patch)" | head -n 1) tmpfile
 
 	if [ -n "$patch_args" ]
 	then
@@ -200,12 +200,12 @@ insert_in_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	mkdir -p $(dirname $SERIES)
-	if [ -n "$top" ]
+	if [ -n "$next" ]
 	then
 		@AWK@ '
-				{ print }
-		/^'"$(quote_re $top)"'([ \t]|$)/ \
+		/^'"$(quote_re $next)"'([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
+				{ print }
 		' $SERIES > $tmpfile
 		status=$?
 		if [ $status -ne 0 ]
@@ -214,11 +214,11 @@ insert_in_series()
 			return 1
 		fi
 	else
-		echo "$patch$patch_args" > $tmpfile
 		if [ -e $SERIES ]
 		then
-			cat $SERIES >> $tmpfile
+			cat $SERIES > $tmpfile
 		fi
+		echo "$patch$patch_args" >> $tmpfile
 	fi
 	cat $tmpfile > $SERIES
 	rm -f $tmpfile

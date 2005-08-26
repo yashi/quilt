@@ -620,27 +620,27 @@ msgstr ""
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です。\\n"
 
-#: quilt/import.in:93
+#: quilt/import.in:92
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:101
+#: quilt/import.in:100
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます。\\n"
 
-#: quilt/import.in:105
+#: quilt/import.in:104
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:108
+#: quilt/import.in:107
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:116
+#: quilt/import.in:115
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:123
+#: quilt/import.in:122
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 

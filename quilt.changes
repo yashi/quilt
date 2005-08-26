@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Aug 26 11:52:45 CEST 2005 - agruen@suse.de
+
+- scripts/patchfns.in: insert_in_series(): Insert new patches
+  before the following patch instead of after the top patch. When
+  no patch is in the series file, insert the new patch at the end
+  (i.e., after comments from setup, etc.) instead of at the top.
+
+-------------------------------------------------------------------
 Fri Aug 26 10:29:55 CEST 2005 - khali@linux-fr.org
 
 - quilt/import.in: Fix error path when imported patch doesn't

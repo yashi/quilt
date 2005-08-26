@@ -430,27 +430,27 @@ msgstr ""
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 
-#: quilt/import.in:93
+#: quilt/import.in:92
 msgid "Patch %s is applied\\n"
 msgstr ""
 
-#: quilt/import.in:101
+#: quilt/import.in:100
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr ""
 
-#: quilt/import.in:105
+#: quilt/import.in:104
 msgid "Replacing patch %s with new version\\n"
 msgstr ""
 
-#: quilt/import.in:108
+#: quilt/import.in:107
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr ""
 
-#: quilt/import.in:116
+#: quilt/import.in:115
 msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:123
+#: quilt/import.in:122
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
