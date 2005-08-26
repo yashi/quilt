@@ -45,7 +45,7 @@ patch.
 
 --no-timestamps
 	Do not include file timestamps in patch headers.
-	
+
 --no-index
 	Do not output Index: lines.
 

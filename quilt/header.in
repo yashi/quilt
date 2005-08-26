@@ -32,7 +32,7 @@ Print or change the header of the topmost or specified patch.
 	Append to (-a) or replace (-r) the exiting patch header, or
 	edit (-e) the header in \$EDITOR (%s). If none of these options is
 	given, print the patch header.
-	
+
 --strip-diffstat
 	Strip diffstat output from the header.
 
