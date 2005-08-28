@@ -1,3 +1,9 @@
+Sun Aug 28 20:48:12 CEST 2005 - khali@linux-fr.org
+
+- configure.ac, Makefile.in: Support GCC and other compilers.
+  Allow executable extensions (non-Unix.) Original patch from
+  John Vandenberg.
+
 -------------------------------------------------------------------
 Fri Aug 26 13:03:19 CEST 2005 - khali@linux-fr.org
 

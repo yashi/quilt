@@ -36,7 +36,12 @@ else
 MAKE_NLS :=	$(MAKE)
 endif
 
-CFLAGS :=	@CFLAGS@ -Wall
+CC :=		@CC@
+CPPFLAGS +=	@CPPFLAGS@
+CFLAGS +=	@CFLAGS@
+LDFLAGS +=	@LDFLAGS@
+LIBS :=		@LIBS@
+EXEEXT :=	@EXEEXT@
 
 ISODATE :=	$(shell date +%Y-%m-%d)
 
@@ -70,9 +75,9 @@ SRC +=		$(SCRIPTS_SRC:%=scripts/%)
 DIRT +=		$(SCRIPTS_IN:%=scripts/%)
 
 LIB_SRC :=	backup-files.c
-LIB :=		backup-files
+LIB :=		backup-files$(EXEEXT)
 SRC +=		$(LIB_SRC:%=lib/%)
-DIRT +=		lib/backup-files lib/backup-files.o
+DIRT +=		lib/backup-files$(EXEEXT) $(LIB_SRC:%.c=lib/%.o)
 
 DOC_IN :=	README 
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
@@ -104,6 +109,9 @@ SRC +=		changes2changelog
 all : scripts
 	$(MAKE_NLS) -C po all BUILD_ROOT=$(BUILD_ROOT) \
 		LINGUAS="$(LINGUAS)" localedir=$(localedir)
+
+$(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
+	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)

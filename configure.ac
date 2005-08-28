@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.39 $)
+AC_REVISION ($Revision: 1.40 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -16,6 +16,12 @@ AC_CHECK_FUNCS([strerror])
 AC_CHECK_FUNCS([strrchr])
 AC_C_CONST
 AC_FUNC_STAT
+
+if test "$ac_compiler_gnu" = "yes"; then
+  CFLAGS="$CFLAGS -Wall"
+fi
+EXEEXT="$ac_cv_exeext"
+AC_SUBST(EXEEXT)
 
 AC_PROG_INSTALL
 
