@@ -1,10 +1,16 @@
 -------------------------------------------------------------------
+Fri Sep  2 19:31:51 CEST 2005 - khali@linux-fr.org
+
+- scripts/patchfns.in: Fix permissions of .pc/applied-patches
+  being lost in remove_from_db() and rename_in_db().
+
+-------------------------------------------------------------------
 Fri Sep  2 18:57:54 CEST 2005 - khali@linux-fr.org
 
-- refresh.in: Drop a useless line in the awk script replacing the
-  diffstat section in patch headers. Improve the regular
-  expression matching diffstat lines. Original patch from John
-  Vandenberg.
+- quilt/refresh.in: Drop a useless line in the awk script
+  replacing the diffstat section in patch headers. Improve the
+  regular expression matching diffstat lines. Original patch from
+  John Vandenberg.
 
 -------------------------------------------------------------------
 Sun Aug 28 20:48:12 CEST 2005 - khali@linux-fr.org
