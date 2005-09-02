@@ -1076,11 +1076,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: quilt/refresh.in:296
+#: quilt/refresh.in:295
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ % に変更はありません\\n"
 
-#: quilt/refresh.in:301
+#: quilt/refresh.in:300
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
@@ -1340,7 +1340,7 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: scripts/patchfns.in:732
+#: scripts/patchfns.in:733
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1352,7 +1352,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: scripts/patchfns.in:809
+#: scripts/patchfns.in:810
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

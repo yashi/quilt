@@ -750,11 +750,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr ""
 
-#: quilt/refresh.in:296
+#: quilt/refresh.in:295
 msgid "Patch %s is unchanged\\n"
 msgstr ""
 
-#: quilt/refresh.in:301
+#: quilt/refresh.in:300
 msgid "Refreshed patch %s\\n"
 msgstr ""
 
@@ -964,7 +964,7 @@ msgstr ""
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: scripts/patchfns.in:732
+#: scripts/patchfns.in:733
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -972,7 +972,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: scripts/patchfns.in:809
+#: scripts/patchfns.in:810
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
