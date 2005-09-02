@@ -263,12 +263,11 @@ then
 	      for (i=1; i in arr; i++)
 		print prefix arr[i]
 	    }
-	    BEGIN	{ split(diffstat, ds_arr, /\n/) }
 			{ prefix=""
 			  if (index($0, "#") == 1)
 			    prefix="#"
 			}
-	    /^#? .* \| /	{ eat = eat $0 "\n"
+	    /^#? .* \|  *[1-9][0-9]* /	{ eat = eat $0 "\n"
 			  next }
 	    /^#? .* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
 			{ print_diffstat()
