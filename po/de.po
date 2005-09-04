@@ -310,9 +310,10 @@ msgstr ""
 "\tReihenfolge zu erhalten.\n"
 
 #: quilt/diff.in:231
-msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
+msgid ""
+"Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
-"Die Optionen \\`-c patch', \\`--snapshot', und \\`-z' können nicht "
+"Die Optionen \\`--combine', \\`--snapshot', und \\`-z' können nicht "
 "kombiniert werden.\\n"
 
 #: quilt/diff.in:258

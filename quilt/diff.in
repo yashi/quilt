@@ -228,7 +228,7 @@ opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
 
 if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
-	printf $"Options \`-c patch', \`--snapshot', and \`-z' cannot be combined.\n" >&2
+	printf $"Options \`--combine', \`--snapshot', and \`-z' cannot be combined.\n" >&2
 	die 1
 fi
 
@@ -319,7 +319,7 @@ exec 4>&-  # close $tmp_files
 if [ -z "$opt_sort" ]
 then
 	files=( $(
-	    awk '
+	    @AWK@ '
 	    { if ($0 in seen)
 		next
 	      seen[$0]=1

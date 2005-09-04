@@ -212,7 +212,8 @@ msgid ""
 msgstr ""
 
 #: quilt/diff.in:231
-msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
+msgid ""
+"Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 
 #: quilt/diff.in:258

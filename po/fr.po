@@ -312,9 +312,11 @@ msgstr ""
 "\td'origine.\n"
 
 #: quilt/diff.in:231
-msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
+msgid ""
+"Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
-"Les options «-c patch», «--snapshot» et «-z» ne peuvent pas être combinées."
+"Les options «--combine», «--snapshot» et «-z» ne peuvent pas être combinées."
+"\\n"
 
 #: quilt/diff.in:258
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"

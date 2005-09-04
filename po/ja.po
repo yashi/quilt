@@ -305,9 +305,10 @@ msgstr ""
 "--sort\t順番を保持せず、名前順にファイルを並び換える。\n"
 
 #: quilt/diff.in:231
-msgid "Options \\`-c patch', \\`--snapshot', and \\`-z' cannot be combined.\\n"
+msgid ""
+"Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
-"オプション \\`-c patch'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
+"オプション \\`--combine'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
 
 #: quilt/diff.in:258
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"

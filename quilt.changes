@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Sep  4 14:09:10 CEST 2005 - khali@linux-fr.org
+
+- quilt/diff.in: Fix incorrect error message when incompatible
+  options are used. Fix direct call to awk.
+
+-------------------------------------------------------------------
 Fri Sep  2 19:31:51 CEST 2005 - khali@linux-fr.org
 
 - scripts/patchfns.in: Fix permissions of .pc/applied-patches
