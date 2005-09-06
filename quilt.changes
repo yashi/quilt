@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep  6 11:17:10 CEST 2005 - agruen@suse.de
+
+- Fix test/perms.test for LANG=POSIX (from John Vandenberg
+  <jayvdb@gmail.com>), and always run the test cases with LANG set
+  to POSIX.
+
+-------------------------------------------------------------------
 Sun Sep  4 14:09:10 CEST 2005 - khali@linux-fr.org
 
 - quilt/diff.in: Fix incorrect error message when incompatible

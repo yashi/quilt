@@ -13,4 +13,4 @@ all: $(TESTS)
 
 $(TESTS):
 	@echo "[$@]"
-	@./run $@
+	@LANG=POSIX ./run $@

@@ -3,7 +3,7 @@
 	$ cd d
 	$ echo foo > foo
 	$ chmod 704 foo
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo
 
 	$ quilt new test.diff
@@ -12,7 +12,7 @@
 	$ quilt add foo
 	> File foo added to patch %{P}test.diff
 
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo
 
 	$ echo foobar > foo
@@ -26,7 +26,7 @@
 	> File foo added to patch %{P}test2.diff
 
 	$ chmod 702 foo
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx----w- foo
 
 	$ echo foobaz > foo
@@ -41,14 +41,14 @@ the backup file.
 	> Removing patch %{P}test2.diff
 	> Now at patch %{P}test.diff
 
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo
 
 	$ quilt push -q
 	> Applying patch %{P}test2.diff
 	> Now at patch %{P}test2.diff
 
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo
 
 	$ quilt pop -q
@@ -58,7 +58,7 @@ the backup file.
 	$ quilt remove foo
 	> File foo removed from patch %{P}test.diff
 
-	$ ls -l foo | awk '{ print $1,$8 }'
+	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo
 
 	$ cd ..
