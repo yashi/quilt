@@ -16,6 +16,10 @@ QUILT_REFRESH_ARGS="--no-timestamps --backup"
 # Prefix all patch names with the relative path to the patch?
 QUILT_PATCHES_PREFIX=yes
 
+# Use a specific editor for quilt (defaults to the value of $EDITOR before
+# sourcing this configuration file, or vi if $EDITOR wasn't set).
+#EDITOR=nedit
+
 # The following ``mail'' command filter recognizes the format we use for
 # kernel patches inside SUSE. The format is as follows (slightly
 # simplified; Signed-off-by and Acked-by lines optional):

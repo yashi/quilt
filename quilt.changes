@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep  6 20:15:54 CEST 2005 - khali@linux-fr.org
+
+- It is now possible to set EDITOR in ~/.quiltrc in order to use
+  a different editor for quilt and for the other tasks.
+
+-------------------------------------------------------------------
 Tue Sep  6 19:57:38 CEST 2005 - khali@linux-fr.org
 
 - doc/README needs the same $EDITOR filtering quirk we just added

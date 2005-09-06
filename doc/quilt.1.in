@@ -148,6 +148,11 @@ diff style.
 
 The location of patch files, defaulting to "patches".
 
+.IP EDITOR 4
+
+The program to run to edit files.  If it isn't redefined in the
+configuration file, $EDITOR as defined in the environment will be used.
+
 .SH AUTHORS
 
 Quilt started as a series of scripts written by Andrew Morton
