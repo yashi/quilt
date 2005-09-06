@@ -84,8 +84,7 @@ DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
-		doc/sample.quiltrc doc/quilt.1.in \
-		doc/README.MAIL
+		doc/quilt.1.in doc/README.MAIL
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
