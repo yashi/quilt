@@ -172,7 +172,9 @@ reference : $(QUILT:%=quilt/%) scripts/patchfns
 		(bash -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
 		echo; \
 	done | \
-	sed -e '/^Usage:/{s/^Usage: \?//;b}' -e '/^$$/!s/^/  /'
+	sed -e '/^Usage:/{s/^Usage: \?//;b}' \
+	    -e 's/\$$EDITOR ([^)]*)/$$EDITOR/' \
+	    -e '/^$$/!s/^/  /'
 
 bin/guards.1 : bin/guards
 	mkdir -p $$(dirname $@)

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep  6 19:57:38 CEST 2005 - khali@linux-fr.org
+
+- doc/README needs the same $EDITOR filtering quirk we just added
+  for doc/quilt.1.
+
+-------------------------------------------------------------------
 Tue Sep  6 19:34:03 CEST 2005 - khali@linux-fr.org
 
 - scripts/patchfns.in: Rewrite files_in_patch_ordered() so as to
