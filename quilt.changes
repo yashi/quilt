@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep  6 20:22:04 CEST 2005 - khali@linux-fr.org
+
+- Japanese translation update contributed by Satoru Takeuchi and
+  Yasushi Shoji.
+
+-------------------------------------------------------------------
 Tue Sep  6 20:15:54 CEST 2005 - khali@linux-fr.org
 
 - It is now possible to set EDITOR in ~/.quiltrc in order to use

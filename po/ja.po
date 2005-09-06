@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2005-07-26 12:24+0200\n"
+"PO-Revision-Date: 2005-09-06 09:43+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,6 @@ msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
 msgstr "使い方: quilt delete [-r] [--backup] [パッチ|-n]\\n"
 
 #: quilt/delete.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -174,20 +173,27 @@ msgid ""
 "\tIgnored if not used with \\\"-r\\\".\n"
 msgstr ""
 "\n"
-"指定されたパッチ、または最上位のパッチをシリーズファイルから削除します。\n"
-"パッチがすでに適用されている場合は、最初にパッチを外します。( 現状、最\n"
-"上位のパッチしか削除することはできません。) \n"
+"指定されたパッチ、または最上位のパッチをシリーズファイルから削除する。\n"
+"パッチがすでに適用されている場合は、最初にパッチを外す。( 現状、最上位\n"
+"のパッチしか削除することはできない。)\n"
 "\n"
 "-n\t最上位パッチや指定されたパッチではなく、最上位パッチの次のパッチを\n"
-"\t削除します。\n"
+"\t削除する。\n"
+"\n"
+"-r\tシリーズファイルからパッチを消すときに、patchesディレクトリからも\n"
+"\t削除する。\n"
+"\n"
+"--backup\n"
+"\tパッチを削除せず、パッチ~に名前を変更します。オプション\\\"-r\\\"が\n"
+"\t有効ではないときは無視される。\n"
 
 #: quilt/delete.in:100
 msgid "No next patch\\n"
-msgstr "次のパッチはありません"
+msgstr "次のパッチはありません\\n"
 
 #: quilt/delete.in:118
 msgid "Patch %s is currently applied\\n"
-msgstr "パッチ %s は現在適用されています。\\n"
+msgstr "パッチ %s は現在適用されています\\n"
 
 #: quilt/delete.in:125
 msgid "Removed patch %s\\n"
@@ -195,17 +201,15 @@ msgstr "パッチ %s が削除されました\\n"
 
 #: quilt/delete.in:127
 msgid "Failed to remove patch %s\\n"
-msgstr "パッチ %s を削除することに失敗しました。\\n"
+msgstr "パッチ %s を削除することに失敗しました\\n"
 
 #: quilt/delete.in:138
-#, fuzzy
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
-msgstr "ファイル %s のバックアップに失敗しました\\n"
+msgstr "ファイル \\\"%s\\\" のバックアップに失敗しました\\n"
 
 #: quilt/delete.in:145
-#, fuzzy
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
-msgstr "パッチ %s を削除することに失敗しました。\\n"
+msgstr "パッチ \\\"%s\\\" を削除することに失敗しました\\n"
 
 #: quilt/diff.in:24
 msgid ""
@@ -607,7 +611,6 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "使い方: quilt import [-f] [-p num] [-n パッチ] パッチファイル ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -623,7 +626,8 @@ msgid ""
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
 "\n"
-"外部パッチを取り込む。\n"
+"外部パッチファイルを取り込む。パッチは最上位パッチの後に取り込まれるが、\n"
+"適用するためには取り込んだ後に pushしなればならない。\n"
 "\n"
 "-p num\n"
 "\tパッチを適用するときに省く、ディレクトリレベルの数 (デフォルトは 1)\n"
@@ -841,7 +845,7 @@ msgstr "適用されているパッチはありません\\n"
 
 #: quilt/pop.in:302 quilt/push.in:372
 msgid "Now at patch %s\\n"
-msgstr "現在位置はパッチ %s です"
+msgstr "現在位置はパッチ %s です\\n"
 
 #: quilt/previous.in:22
 msgid "Usage: quilt previous [patch]\\n"
