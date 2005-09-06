@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Tue Sep  6 19:34:03 CEST 2005 - khali@linux-fr.org
+
+- scripts/patchfns.in: Rewrite files_in_patch_ordered() so as to
+  not require the awk asort function, which is not available on
+  all versions of awk.
+- test/sort.test: Add more files to better test the ordering and
+  sorting issues. Original patch by John Vandenberg.
+
+-------------------------------------------------------------------
+Tue Sep  6 18:57:16 CEST 2005 - khali@linux-fr.org
+
+- Merge doc/sample.quiltrc into quilt.quiltrc, and delete it.
+  It will be easier to maintain a single configuration file.
+
+-------------------------------------------------------------------
 Tue Sep  6 18:35:18 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Filter out expanded $EDITOR in quilt.1. This value

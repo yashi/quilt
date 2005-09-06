@@ -492,28 +492,22 @@ files_in_patch_ordered()
 {
 	local patch=$1
 
-	(   files_in_patch $patch
+	(   files_in_patch $patch | sort
 	    echo "-"
 	    filenames_in_patch $patch
 	) | @AWK@ '
 	$1 == "-" { out=1 ; next }
-	!out	{ files[$0]=1 }
+	!out	{ files[$0]=1
+		  new_files[++n]=$0 }
 	out	{ if ($0 in files && !($0 in printed)) {
 		    print $0
 		    printed[$0]=1
 		  }
 		}
 	END	{
-		  i = 1
-		  for (file in files) {
-		    if (!(file in printed)) {
-		      new_files[i]=file
-		      i++
-		    }
-		  }
-		  n = asort(new_files)
 		  for (i=1; i<=n; i++)
-		    print new_files[i]
+		    if (!(new_files[i] in printed))
+		      print new_files[i]
 		}
 	'
 }
