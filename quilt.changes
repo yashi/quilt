@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep  6 18:35:18 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Filter out expanded $EDITOR in quilt.1. This value
+  being set at installation time may be irrelevant at execution
+  time.
+
+-------------------------------------------------------------------
 Tue Sep  6 11:17:10 CEST 2005 - agruen@suse.de
 
 - Fix test/perms.test for LANG=POSIX (from John Vandenberg

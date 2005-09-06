@@ -153,7 +153,8 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	         grep -v 'Usage: quilt' |                \
 	           sed -e $$'s/^\t//'                    \
 	               -e $$'s/\t/\\\n/' |               \
-	 	   sed -e 's/^\(-.*\)$$/.IP "    \1" 8/';\
+	           sed -e 's/^\(-.*\)$$/.IP "    \1" 8/' \
+	               -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'; \
 	         echo;                                   \
 	       done                                      \
 	     ;;                                          \
