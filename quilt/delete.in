@@ -113,7 +113,7 @@ fi
 if is_applied $patch
 then
 	if [ "$patch" != "$(top_patch)" ] || \
-	   ! QUILT_COMMAND= @BASH@ $BASH_OPTS -c ". @QUILT@/pop" "quilt pop" -fq
+	   ! quilt_command pop -fq
 	then
 		printf $"Patch %s is currently applied\n" \
 		       "$(print_patch $patch)" >&2

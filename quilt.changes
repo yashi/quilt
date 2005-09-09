@@ -1,3 +1,12 @@
+-------------------------------------------------------------------
+Fri Sep  9 18:09:42 CEST 2005 - khali@linux-fr.org
+
+- scripts/patchfns.in: New quilt_command function for running
+  another quilt command. Patch from Joe Green.
+- quilt/delete.in, quilt/edit.in: Use the new quilt_command
+  function. Patch from Joe Green.
+
+-------------------------------------------------------------------
 Wed Sep  7 18:22:29 CEST 2005 - khali@linux-fr.org
 
 - quilt/delete.in: Fix the quilt pop invocation when attempting

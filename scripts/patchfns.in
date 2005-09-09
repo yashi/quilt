@@ -748,6 +748,14 @@ setup_colors()
 	eval $C
 }
 
+quilt_command ()
+{
+	local command=$1
+	shift
+
+	QUILT_COMMAND="" @BASH@ $BASH_OPTS -c ". @QUILT@/$command" "quilt $command" "$@"
+}
+
 #
 # If the working directory does not contain a $QUILT_PATCHES directory,
 # quilt searches for its base directory up the directory tree. If no
