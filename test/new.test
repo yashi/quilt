@@ -34,7 +34,7 @@
 	$ echo new > f
 	$ quilt refresh
 	> Refreshed patch %{P}p.diff
-	$ cat patches/p.diff | sed -e "s/\\t.*//"
+	$ cat patches/p.diff
 	> Index: d/f
 	> ===================================================================
 	> --- d.orig/f

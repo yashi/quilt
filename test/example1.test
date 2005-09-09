@@ -25,7 +25,7 @@ Or ``quilt edit Oberon.txt''
 	$ quilt refresh
 	> Refreshed patch %{P}flower.diff
 
-	$ cat patches/flower.diff | sed -e "s/\\t.*//"
+	$ cat patches/flower.diff
 	> Index: example1/Oberon.txt
 	> ===================================================================
 	> --- example1.orig/Oberon.txt
@@ -38,9 +38,11 @@ Or ``quilt edit Oberon.txt''
 	> +Will make a man or woman madly dote
 	> +Upon the next live creature that it sees.
 
-	$ sed -e "4aFetch me that flower; the herb I shew'd thee once:" Oberon.txt > Oberon.new
+	$ sed -ne '1,4p' Oberon.txt > Oberon.new
+	$ echo "Fetch me that flower; the herb I shew'd thee once:" >> Oberon.new
+	$ sed -e '1,4d' Oberon.txt >> Oberon.new
 	$ mv Oberon.new Oberon.txt
-	$ quilt diff -z | sed -e "s/\\t.*//"
+	$ quilt diff -z
 	> Index: example1/Oberon.txt
 	> ===================================================================
 	> --- example1.orig/Oberon.txt
@@ -54,7 +56,7 @@ Or ``quilt edit Oberon.txt''
 	>  Will make a man or woman madly dote
 	>  Upon the next live creature that it sees.
 
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: example1/Oberon.txt
 	> ===================================================================
 	> --- example1.orig/Oberon.txt

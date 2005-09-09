@@ -33,7 +33,7 @@
 	< @@ -0,0 +1 @@
 	< +This is file3.txt.
 
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: d/file1.txt
 	> ===================================================================
 	> --- /dev/null
@@ -56,7 +56,7 @@
 	< +This is file3.txt, now modified.
 
 	$ cd ..
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: d/file1.txt
 	> ===================================================================
 	> --- /dev/null

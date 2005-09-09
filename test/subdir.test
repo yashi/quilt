@@ -38,7 +38,7 @@
 	> subdir/file2
 	> subdir/file3
 
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: d/subdir/file
 	> ===================================================================
 	> --- d.orig/subdir/file

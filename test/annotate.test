@@ -12,7 +12,8 @@
 	$ quilt add foo
 	> File foo added to patch patches/patch
 
-	$ sed -ie 's:b:B:' foo
+	$ sed -e 's:b:B:' foo > foo.new
+	$ mv foo.new foo
 	$ quilt refresh
 	> Refreshed patch patches/patch
 
@@ -29,7 +30,8 @@
 	$ quilt add foo
 	> File foo added to patch patches/patch2
 	
-	$ sed -ie 's:Baz:baz:' foo
+	$ sed -e 's:Baz:baz:' foo > foo.new
+	$ mv foo.new foo
 	$ quilt refresh
 	> Refreshed patch patches/patch2
 
@@ -47,7 +49,8 @@
 	$ quilt add foo
 	> File foo added to patch patches/patch3
 
-	$ sed -ie '/Bar/d' foo
+	$ sed -e '/Bar/d' foo > foo.new
+	$ mv foo.new foo
 	$ quilt refresh
 	> Refreshed patch patches/patch3
 

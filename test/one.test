@@ -24,7 +24,7 @@ of the installed quilt with `make check'.
 	> Nothing in patch %{P}patch1.diff
 
 	$ echo "This is file two." > file2
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: d/file2
 	> ===================================================================
 	> --- /dev/null
@@ -32,7 +32,7 @@ of the installed quilt with `make check'.
 	> @@ -0,0 +1 @@
 	> +This is file two.
 
-	$ quilt diff -z | sed -e "s/\\t.*//"
+	$ quilt diff -z
 	> Index: d/file2
 	> ===================================================================
 	> --- /dev/null
@@ -45,7 +45,7 @@ of the installed quilt with `make check'.
 
 	$ quilt diff -z
 	$ echo "Another line has been added." >> dir/file1
-	$ quilt diff -z | sed -e "s/\\t.*//"
+	$ quilt diff -z
 	> Index: d/dir/file1
 	> ===================================================================
 	> --- d.orig/dir/file1
@@ -54,7 +54,7 @@ of the installed quilt with `make check'.
 	>  This is file one.
 	> +Another line has been added.
 
-	$ quilt diff -z dir/file1 | sed -e "s/\\t.*//"
+	$ quilt diff -z dir/file1
 	> Index: d/dir/file1
 	> ===================================================================
 	> --- d.orig/dir/file1
@@ -105,7 +105,7 @@ of the installed quilt with `make check'.
 	> File file4 added to patch %{P}subdir/patch3.diff
 
 	$ rm file4
-	$ quilt diff | sed -e "s/\\t.*//"
+	$ quilt diff
 	> Index: d/file4
 	> ===================================================================
 	> --- d.orig/file4
@@ -124,8 +124,7 @@ of the installed quilt with `make check'.
 	> Refreshed patch %{P}patch2.diff
 
 	$ echo "Another line added." >> file2
-	$ quilt diff -z -P patch1 | sed -e "s/\\t.*//"
-	> More recent patches modify files in patch %{P}patch1.diff
+	$ quilt diff -z -P patch1
 	> Index: d/file2
 	> ===================================================================
 	> --- d.orig/file2
@@ -133,6 +132,7 @@ of the installed quilt with `make check'.
 	> @@ -1 +1,2 @@
 	>  This is file two.
 	> +Another line added.
+	> More recent patches modify files in patch %{P}patch1.diff
 	
 	$ quilt refresh patch1
 	> More recent patches modify files in patch %{P}patch1.diff. Enforce refresh with -f.
