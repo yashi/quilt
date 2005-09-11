@@ -24,7 +24,7 @@ usage()
 	then
 		printf $"
 Print an annotated listing of the specified file showing which
-patches modify which lines.
+patches modify which lines. Only applied patches are included.
 "
 		exit 0
 	else
@@ -115,7 +115,7 @@ then
 fi
 opt_file="$SUBDIR$1"
 
-for patch in $(cat_series); do
+for patch in $(applied_patches); do
 	if [ -f "$(backup_file_name $patch "$opt_file")" ]
 	then
 		patches[${#patches[@]}]="$patch"

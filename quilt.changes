@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Sep 11 10:32:28 CEST 2005 - khali@linux-fr.org
+
+- quilt/annotate.in: Update help text to mention that only applied
+  patches will show (Andreas Gruenbacher). Optimize by using
+  applied_patches() instead of cat_series().
+
+-------------------------------------------------------------------
 Fri Sep  9 20:19:39 CEST 2005 - khali@linux-fr.org
 
 - test/*.test: Fix sed compatibility issues: do not use inplace
