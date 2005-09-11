@@ -206,7 +206,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	@./changes2changelog $(PACKAGE).changes \
 	| scripts/parse-patch -u changelog $@
 
-% : %.in
+% : %.in Makefile
 	@echo "$< -> $@" >&2
 	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
 	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
