@@ -19,12 +19,16 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt annotate {file}\n"
+	printf $"Usage: quilt [-p patch] annotate {file}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Print an annotated listing of the specified file showing which
 patches modify which lines. Only applied patches are included.
+
+-p patch
+	Stop checking for changes at the specified rather than the
+	topmost patch.
 "
 		exit 0
 	else
@@ -81,7 +85,7 @@ merge_files()
 	exec 4<&-
 }
 
-options=`getopt -o h -- "$@"`
+options=`getopt -o p:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -93,6 +97,13 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-p)
+		if ! opt_patch=$(find_patch "$2")
+		then
+			printf $"Patch %s is not in series\n" "$2" >&2
+			exit 1
+		fi
+		shift 2 ;;
 	-h)
 		usage -h ;;
 	--)
@@ -107,6 +118,13 @@ then
 fi
 opt_file="$SUBDIR$1"
 
+if [ -n "$opt_patch" ] && ! is_applied "$opt_patch"
+then
+	printf $"Patch %s is not applied\n" \
+	       "$(print_patch "$opt_patch")" >&2
+	exit 1
+fi
+
 for patch in $(applied_patches); do
 	old_file="$(backup_file_name "$patch" "$opt_file")"
 	if [ -f "$old_file" ]
@@ -114,9 +132,20 @@ for patch in $(applied_patches); do
 		patches[${#patches[@]}]="$patch"
 		files[${#files[@]}]="$old_file"
 	fi
+	if [ "$opt_patch" = "$patch" ]
+	then
+		# We also need to know the next patch, if any
+		next_patch="$(next_patch_for_file "$opt_patch" "$opt_file")"
+		break
+	fi
 done
 
-files[${#files[@]}]="$opt_file"
+if [ -z "$next_patch" ]
+then
+	files[${#files[@]}]="$opt_file"
+else
+	files[${#files[@]}]="$(backup_file_name "$next_patch" "$opt_file")"
+fi
 
 if [ ${#patches[@]} = 0 ]
 then

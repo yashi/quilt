@@ -132,8 +132,15 @@ _quilt_completion()
 	   esac
 	   ;;
 	annotate)
-	   _quilt_comfile 
-	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
+	   case $prev in
+	     -p)
+ 	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
+		;;
+	     *)
+	        _quilt_comfile
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
+	        ;;
+	   esac
 	   ;;
 	applied) 
 	   COMPREPLY=( $( compgen -W "-h $(quilt applied)" -- $cur ) )

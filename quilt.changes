@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Sep 13 23:01:04 CEST 2005 - khali@linux-fr.org
+
+- quilt/annotate.in: Rework the annotation algorithm (Andreas
+  Gruenbacher). The new code is shorter and faster.
+- quilt/annotate.in: New option "-p patch" to stop checking for
+  changes at the specified rather than the topmost patch.
+- bash_completion: Support the new -p option.
+- test/annotation.test: Test the new -p option.
+
+-------------------------------------------------------------------
 Sun Sep 11 10:32:28 CEST 2005 - khali@linux-fr.org
 
 - quilt/annotate.in: Update help text to mention that only applied
