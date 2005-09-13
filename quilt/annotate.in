@@ -34,24 +34,16 @@ patches modify which lines. Only applied patches are included.
 
 empty_file()
 {
-	local patch=$1 file=$2
-	local backup_file=$(backup_file_name $patch $file)
-	[ -s "$backup_file" ] \
-	&& sed -e 's:.*::' "$backup_file"
+	local file=$1
+	[ -s "$file" ] \
+	&& sed -e 's:.*::' "$file"
 }
 
 annotation_for()
 {
-	local patch=$1 next_patch=$2 file=$3 annotation=$4
-	local old_file=$(backup_file_name $patch "$file") new_file
+	local old_file=$1 new_file=$2 annotation=$3
 	[ -s "$old_file" ] || old_file=/dev/null
-        if [ -z "$next_patch" ]
-        then
-                new_file="$file"
-        else
-                new_file="$(backup_file_name $next_patch $file)"
-		[ -s "$new_file" ] || new_file=/dev/null
-        fi
+	[ -s "$new_file" ] || new_file=/dev/null
 	@DIFF@ -Ne "$old_file" "$new_file" \
 	| @PERL@ -e '
 	while (<>) {
@@ -116,15 +108,19 @@ fi
 opt_file="$SUBDIR$1"
 
 for patch in $(applied_patches); do
-	if [ -f "$(backup_file_name $patch "$opt_file")" ]
+	old_file="$(backup_file_name "$patch" "$opt_file")"
+	if [ -f "$old_file" ]
 	then
 		patches[${#patches[@]}]="$patch"
+		files[${#files[@]}]="$old_file"
 	fi
 done
 
+files[${#files[@]}]="$opt_file"
+
 if [ ${#patches[@]} = 0 ]
 then
-	sed -e 's:^:'$'\t'':' "$opt_file"
+	sed -e 's:^:'$'\t'':' "${files[${#files[@]}-1]}"
 	exit 0
 fi
 
@@ -145,19 +141,18 @@ trap "rm -f $template" EXIT
 # Finally, the annotations listing is merged with the source file line
 # by line.
 
-empty_file ${patches[0]} "$opt_file" > $template
+empty_file ${files[0]} > $template
 for ((n = 0; n < ${#patches[@]}; n++))
 do
-	annotation_for "${patches[$n]}" "${patches[$((n+1))]}" "$opt_file" \
-		       $((n+1))
+	annotation_for "${files[n]}" "${files[n+1]}" $((n+1))
 done \
 | @PATCH@ $template
-merge_files $template "$opt_file"
+merge_files $template "${files[${#files[@]}-1]}"
 
 echo
 for ((n = 0; n < ${#patches[@]}; n++))
 do
-	echo "$((n+1))"$'\t'"$(print_patch ${patches[$n]})"
+	echo "$((n+1))"$'\t'"$(print_patch ${patches[n]})"
 done
 
 ### Local Variables:
