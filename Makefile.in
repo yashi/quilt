@@ -142,13 +142,13 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
 	       for cmd in $(sort $(QUILT:%=quilt/%)) ; do \
-		(bash -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
+		(@BASH@ -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
 		   sed -e 's/Usage: quilt //'            \
 	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
 		       -e 's/^/.IP "/' -e 's/$$/ " 4/' | \
 	           head -n 1;                            \
 	         echo ;                                  \
-		(bash -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
+		(@BASH@ -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
 	         grep -v 'Usage: quilt' |                \
 	           sed -e $$'s/^\t//'                    \
 	               -e $$'s/\t/\\\n/' |               \
@@ -169,7 +169,7 @@ reference : $(QUILT:%=quilt/%) scripts/patchfns
 	for i in $(filter-out scripts/patchfns,$+); \
 	do \
 		echo; \
-		(bash -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
+		(@BASH@ -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
 		echo; \
 	done | \
 	sed -e '/^Usage:/{s/^Usage: \?//;b}' \
@@ -177,7 +177,7 @@ reference : $(QUILT:%=quilt/%) scripts/patchfns
 	    -e '/^$$/!s/^/  /'
 
 bin/guards.1 : bin/guards
-	mkdir -p $$(dirname $@)
+	mkdir -p `dirname $@`
 	pod2man $< > $@
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
@@ -227,7 +227,6 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
 	     -e 's:@LOCALEDIR''@:$(localedir):g' \
 	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
 	     $< > $@
-	@chmod --reference=$< $@
 
 Makefile : Makefile.in
 	@echo "Please run ./configure by hand"
