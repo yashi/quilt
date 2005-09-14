@@ -19,7 +19,6 @@ then
 	. @SCRIPTS@/patchfns
 fi
 
-options=`getopt -o o:h --long from:,to:,cc:,bcc:,subject:,send,mbox -- "$@"`
 usage()
 {
 	printf $"Usage: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\n"
@@ -160,7 +159,7 @@ introduction=$(gen_tempfile)
 	Cc: $(IFS=,; echo "${opt_cc[*]}")
 	Bcc: $(IFS=,; echo "${opt_bcc[*]}")
 	Subject-Prefix: [patch @num@/@total@]
-	Subject: 
+	Subject: $opt_subject
 
 	--
 	EOF

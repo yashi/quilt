@@ -82,16 +82,16 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 
-#: quilt/add.in:78 quilt/applied.in:62 quilt/delete.in:109 quilt/diff.in:160
-#: quilt/diff.in:171 quilt/graph.in:116 quilt/header.in:135 quilt/next.in:62
-#: quilt/pop.in:246 quilt/previous.in:62 quilt/push.in:312
-#: quilt/refresh.in:148 quilt/remove.in:53 quilt/rename.in:63
-#: quilt/unapplied.in:62
+#: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
+#: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
+#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:246 quilt/previous.in:62
+#: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
+#: quilt/rename.in:63 quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
 
-#: quilt/add.in:99 quilt/diff.in:239 quilt/graph.in:121 quilt/pop.in:261
-#: quilt/refresh.in:154 quilt/remove.in:74
+#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
+#: quilt/pop.in:261 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
@@ -123,14 +123,20 @@ msgid "File %s added to patch %s\\n"
 msgstr "Datei %s zu Patch %s hinzugefügt\\n"
 
 #: quilt/annotate.in:22
-msgid "Usage: quilt annotate {file}\\n"
+#, fuzzy
+msgid "Usage: quilt [-p patch] annotate {file}\\n"
 msgstr "Verwendung: quilt annotate {datei}\\n"
 
 #: quilt/annotate.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print an annotated listing of the specified file showing which\n"
-"patches modify which lines.\n"
+"patches modify which lines. Only applied patches are included.\n"
+"\n"
+"-p patch\n"
+"\tStop checking for changes at the specified rather than the\n"
+"\ttopmost patch.\n"
 msgstr ""
 "\n"
 "Erzeuge ein Listing der angegebenen Datei das anzeigt, welche\n"
@@ -346,11 +352,11 @@ msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "Später angewandte Patches verändern Dateien von %s\\n"
 
-#: quilt/edit.in:13
+#: quilt/edit.in:24
 msgid "Usage: quilt edit file ...\\n"
 msgstr "Verwendung: quilt edit datei ...\\n"
 
-#: quilt/edit.in:16
+#: quilt/edit.in:27
 msgid ""
 "\n"
 "Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
@@ -1368,7 +1374,7 @@ msgstr "Datei %s ist verschwunden\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 
-#: scripts/patchfns.in:733
+#: scripts/patchfns.in:727
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1381,7 +1387,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: scripts/patchfns.in:810
+#: scripts/patchfns.in:812
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

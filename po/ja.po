@@ -80,16 +80,16 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "ファイル \\`%s'は、\\`%s'以下にあります\\n"
 
-#: quilt/add.in:78 quilt/applied.in:62 quilt/delete.in:109 quilt/diff.in:160
-#: quilt/diff.in:171 quilt/graph.in:116 quilt/header.in:135 quilt/next.in:62
-#: quilt/pop.in:246 quilt/previous.in:62 quilt/push.in:312
-#: quilt/refresh.in:148 quilt/remove.in:53 quilt/rename.in:63
-#: quilt/unapplied.in:62
+#: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
+#: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
+#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:246 quilt/previous.in:62
+#: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
+#: quilt/rename.in:63 quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/add.in:99 quilt/diff.in:239 quilt/graph.in:121 quilt/pop.in:261
-#: quilt/refresh.in:154 quilt/remove.in:74
+#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
+#: quilt/pop.in:261 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
@@ -121,14 +121,20 @@ msgid "File %s added to patch %s\\n"
 msgstr "ファイル %s をパッチ %s に追加しました\\n"
 
 #: quilt/annotate.in:22
-msgid "Usage: quilt annotate {file}\\n"
+#, fuzzy
+msgid "Usage: quilt [-p patch] annotate {file}\\n"
 msgstr "使い方: quilt annotate {ファイル}\\n"
 
 #: quilt/annotate.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print an annotated listing of the specified file showing which\n"
-"patches modify which lines.\n"
+"patches modify which lines. Only applied patches are included.\n"
+"\n"
+"-p patch\n"
+"\tStop checking for changes at the specified rather than the\n"
+"\ttopmost patch.\n"
 msgstr ""
 "\n"
 "指定されたファイルを、どのパッチがどの行を変更したかという註釈付きで出力しま"
@@ -342,11 +348,11 @@ msgstr "差分に失敗しました。異常終了します\\n"
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 
-#: quilt/edit.in:13
+#: quilt/edit.in:24
 msgid "Usage: quilt edit file ...\\n"
 msgstr "使い方: quilt edit ファイル ...\\n"
 
-#: quilt/edit.in:16
+#: quilt/edit.in:27
 msgid ""
 "\n"
 "Edit the specified file(s) in \\$EDITOR (%s) after adding it (them) to\n"
@@ -1345,7 +1351,7 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: scripts/patchfns.in:733
+#: scripts/patchfns.in:727
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1357,7 +1363,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: scripts/patchfns.in:810
+#: scripts/patchfns.in:812
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

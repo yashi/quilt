@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep 15 01:51:20 CEST 2005 - agruen@suse.de
+
+- quilt/mail.in: Remove stray getopt line. If --subject is given,
+  actually fill in the subject in the message template.
+
+-------------------------------------------------------------------
 Wed Sep 14 22:52:23 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Use @BASH@ instead of bash (John Vandenberg).
