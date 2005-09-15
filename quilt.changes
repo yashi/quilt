@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep 15 19:51:06 CEST 2005 - khali@linux-fr.org
+
+- Omitting the search directory in "find" is not portable; add
+  an explicit "." (Gary V. Vaughan, John Vandenberg).
+
+-------------------------------------------------------------------
 Thu Sep 15 15:20:27 CEST 2005 - agruen@suse.de
 
 - Fix quilt.spec generation after the Sep 14 change.

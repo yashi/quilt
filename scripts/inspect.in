@@ -130,7 +130,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		if ! [ -e $tmpdir/more-md5sums ]
 		then
 			( cd $RPM_BUILD_DIR
-			find -type f \
+			find . -type f \
 			| sed -e 's:^.\/::' \
 			| xargs md5sum \
 			) > $tmpdir/more-md5sums

@@ -241,7 +241,7 @@ foreach my $patch (@patches) {
 			print STDERR "$ENV{QUILT_PC}/$patch does not exist; skipping\n";
 			next;
 		}
-		@files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find -type f ! -name .timestamp`);
+		@files = split(/\n/, `cd $ENV{QUILT_PC}/$patch ; find . -type f ! -name .timestamp`);
 		@files = map { s:\./::; $_ } @files;
 	}
 	push @nodes, {number=>$n++, name=>$patch, file=>$patch,
