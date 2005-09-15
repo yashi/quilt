@@ -200,7 +200,7 @@ configure : configure.ac
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	@echo "Generating spec file" ; \
 	set -e ; \
-	changelog="$$(./changes2changelog $(PACKAGE).changes)" ; \
+	changelog="`./changes2changelog $(PACKAGE).changes`" ; \
 	awk '{ gsub(/@VERSION''@/, "$(VERSION)") ; \
 	       gsub(/@RELEASE''@/, "$(RELEASE)") ; \
 	       gsub(/@CHANGELOG''@/, changelog) ; \
