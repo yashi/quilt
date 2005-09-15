@@ -48,20 +48,20 @@ msgstr ""
 
 #: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
 #: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
-#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:246 quilt/previous.in:62
+#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:257 quilt/previous.in:62
 #: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
 #: quilt/rename.in:63 quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
 #: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
-#: quilt/pop.in:261 quilt/refresh.in:154 quilt/remove.in:74
+#: quilt/pop.in:272 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
 #: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:247 quilt/files.in:103
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
-#: quilt/pop.in:295 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
+#: quilt/pop.in:306 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
 msgid "No patches applied\\n"
 msgstr ""
@@ -228,11 +228,11 @@ msgstr ""
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
-#: quilt/diff.in:343 quilt/pop.in:114
+#: quilt/diff.in:343 quilt/pop.in:125
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: quilt/diff.in:367 quilt/pop.in:138
+#: quilt/diff.in:367 quilt/pop.in:149
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
@@ -473,13 +473,13 @@ msgstr ""
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
-#: quilt/mail.in:25
+#: quilt/mail.in:24
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--cc ...] [--"
 "bcc ...] [--subject ...]\\n"
 msgstr ""
 
-#: quilt/mail.in:28
+#: quilt/mail.in:27
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -576,27 +576,27 @@ msgid ""
 "-v\tVerbose operation.\n"
 msgstr ""
 
-#: quilt/pop.in:156
+#: quilt/pop.in:167
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 
-#: quilt/pop.in:181
+#: quilt/pop.in:192
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr ""
 
-#: quilt/pop.in:185
+#: quilt/pop.in:196
 msgid "Removing patch %s\\n"
 msgstr ""
 
-#: quilt/pop.in:269
+#: quilt/pop.in:280
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: quilt/pop.in:279
+#: quilt/pop.in:290
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:302 quilt/push.in:372
+#: quilt/pop.in:313 quilt/push.in:372
 msgid "Now at patch %s\\n"
 msgstr ""
 

@@ -50,30 +50,17 @@ completion can be used.
 
 list_patches()
 {
-	local n=0 patch
-	applied_patches \
-	| tac \
-	| if [ -n "$opt_all" ]
-	then
-		cat
-	else
-		while read patch
-		do
-			if [ -n "$number" ]
-			then
-				if [ $n -eq $number ]
-				then
-					break
-				fi
-				n=$[$n+1]
-			fi
-			if [ $patch = "$stop_at_patch" ]
-			then
-				break
-			fi
-			echo $patch
-		done
-	fi
+	local n patches
+	patches=( $(applied_patches) )
+	for ((n=${#patches[@]}-1; n>0; n--))
+	do
+		if [ -n "$number" ]
+		then
+			(( number-- > 0 )) || break
+		fi
+		[ ${patches[n]} = "$stop_at_patch" ] && break
+		echo ${patches[n]}
+	done
 }
 
 files_may_have_changed()
