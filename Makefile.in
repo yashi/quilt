@@ -197,14 +197,14 @@ $(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
 configure : configure.ac
 	autoconf
 
-$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile \
-		  scripts/parse-patch
-	@echo "Generating spec file"
-	@sed -e 's/^\(Version:[ \t]*\).*/\1$(VERSION)/' \
-	    -e 's/^\(Release:[ \t]\).*/\1$(RELEASE)/' \
-	    < $< > $@
-	@./changes2changelog $(PACKAGE).changes \
-	| scripts/parse-patch -u changelog $@
+$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
+	@echo "Generating spec file" ; \
+	set -e ; \
+	changelog="$$(./changes2changelog $(PACKAGE).changes)" ; \
+	awk '{ gsub(/@VERSION''@/, "$(VERSION)") ; \
+	       gsub(/@RELEASE''@/, "$(RELEASE)") ; \
+	       gsub(/@CHANGELOG''@/, changelog) ; \
+	       print }' changelog="$$changelog" $< > $@
 
 % : %.in Makefile
 	@echo "$< -> $@" >&2

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Sep 15 15:20:27 CEST 2005 - agruen@suse.de
+
+- Fix quilt.spec generation after the Sep 14 change.
+
+-------------------------------------------------------------------
 Thu Sep 15 12:33:32 CEST 2005 - agruen@suse.de
 
 - quilt/pop.in: get rid of tac.
@@ -178,9 +183,10 @@ Fri Aug 12 20:28:59 CEST 2005 - khali@linux-fr.org
 -------------------------------------------------------------------
 Thu Aug 11 18:43:38 CEST 2005 - mquinson@debian.org
 
-[Joe Green]
-- bash_completion: add completion of the header command.
-- improve description of the import command.
+- bash_completion: add completion of the header command
+  [Joe Green].
+- improve description of the import command
+  [Joe Green].
 
 -------------------------------------------------------------------
 Fri Jul 29 18:56:58 CEST 2005 - khali@linux-fr.org

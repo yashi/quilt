@@ -6,8 +6,8 @@ Name:		quilt
 Summary:	Scripts for working with series of patches
 License:	GPL
 Group:		Productivity/Text/Utilities
-Version:	0
-Release:	0
+Version:	@VERSION@
+Release:	@RELEASE@
 Requires:	coreutils diffutils patch gzip bzip2 perl mktemp gettext
 Autoreqprov:	off
 Source:		quilt-%{version}.tar.gz
@@ -56,5 +56,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
-# The changelog is filled in by "make quilt.spec".
-
+@CHANGELOG@
