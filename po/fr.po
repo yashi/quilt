@@ -84,20 +84,20 @@ msgstr "Le fichier %s est situé en dessous de %s\\n"
 
 #: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
 #: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
-#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:257 quilt/previous.in:62
+#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:233 quilt/previous.in:62
 #: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
 #: quilt/rename.in:63 quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
 #: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
-#: quilt/pop.in:272 quilt/refresh.in:154 quilt/remove.in:74
+#: quilt/pop.in:248 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
 #: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:247 quilt/files.in:103
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
-#: quilt/pop.in:306 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
+#: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
@@ -334,11 +334,11 @@ msgstr ""
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: quilt/diff.in:343 quilt/pop.in:125
+#: quilt/diff.in:343 quilt/pop.in:101
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/diff.in:367 quilt/pop.in:149
+#: quilt/diff.in:367 quilt/pop.in:125
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
@@ -854,29 +854,29 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 
-#: quilt/pop.in:167
+#: quilt/pop.in:143
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne se retire pas proprement (rafraichissez le, ou forcez avec -f)"
 "\\n"
 
-#: quilt/pop.in:192
+#: quilt/pop.in:168
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "Le patch %s semble vide, enlevé\\n"
 
-#: quilt/pop.in:196
+#: quilt/pop.in:172
 msgid "Removing patch %s\\n"
 msgstr "Retrait de %s\\n"
 
-#: quilt/pop.in:280
+#: quilt/pop.in:256
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 
-#: quilt/pop.in:290
+#: quilt/pop.in:266
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: quilt/pop.in:313 quilt/push.in:372
+#: quilt/pop.in:289 quilt/push.in:372
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 

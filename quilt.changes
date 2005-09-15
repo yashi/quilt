@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep 15 23:35:44 CEST 2005 - agruen@suse.de
+
+- Fix off-by-one error: it's not a good idea to edit $x instead
+  of $x.in.
+
+-------------------------------------------------------------------
 Thu Sep 15 22:19:55 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Add missing dependency of doc/README on quilt/*.

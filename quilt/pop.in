@@ -52,7 +52,7 @@ list_patches()
 {
 	local n patches
 	patches=( $(applied_patches) )
-	for ((n=${#patches[@]}-1; n>0; n--))
+	for ((n=${#patches[@]}-1; n>=0; n--))
 	do
 		if [ -n "$number" ]
 		then
