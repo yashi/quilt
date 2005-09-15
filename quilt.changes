@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep 15 22:19:55 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Add missing dependency of doc/README on quilt/*.
+- Makefile.in: Rewrite non-portable sed command in "reference"
+  rule.
+
+-------------------------------------------------------------------
 Thu Sep 15 19:51:06 CEST 2005 - khali@linux-fr.org
 
 - Omitting the search directory in "find" is not portable; add
