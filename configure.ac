@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.40 $)
+AC_REVISION ($Revision: 1.41 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -102,8 +102,8 @@ AC_ARG_WITH(awk, AC_HELP_STRING(
 
 dnl Test for awk features that may be mising?
 
-if test -z "$PERL" ; then
-    AC_MSG_ERROR([Please specify the location of Perl with the option '--with-perl'])
+if test -z "$AWK" ; then
+    AC_MSG_ERROR([Please specify the location of awk with the option '--with-awk'])
 fi
 
 dnl Checks for mktemp (for creating temporary files and directories)

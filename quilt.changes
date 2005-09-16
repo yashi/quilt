@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 16 20:57:32 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Fix a copy-n-paste bug which was causing perl to
+  be checked twice and awk not to be checked properly.
+
+-------------------------------------------------------------------
 Fri Sep 16 18:49:05 CEST 2005 - khali@linux-fr.org
 
 - Make it possible to pass arbitrary options to diffstat, by
