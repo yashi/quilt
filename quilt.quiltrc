@@ -4,6 +4,8 @@
 QUILT_DIFF_OPTS="--show-c-function"
 # Options passed to GNU patch when applying patches
 #QUILT_PATCH_OPTS="--ignore-whitespace"
+# Options passed to diffstat when generating patch statistics
+#QUILT_DIFFSTAT_OPTS="-f0"
 
 # Options to pass to commands (QUILT_${COMMAND}_ARGS)
 QUILT_PUSH_ARGS="--color=auto"

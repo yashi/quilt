@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Sep 16 18:49:05 CEST 2005 - khali@linux-fr.org
+
+- Make it possible to pass arbitrary options to diffstat, by
+  defining a QUILT_DIFFSTAT_OPTS variable in ~/.quiltrc.
+- Update documentation and sample configuration file accordingly.
+
+-------------------------------------------------------------------
 Thu Sep 15 23:35:44 CEST 2005 - agruen@suse.de
 
 - Fix off-by-one error: it's not a good idea to edit $x instead

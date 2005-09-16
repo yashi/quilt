@@ -256,7 +256,7 @@ tmp_result=$(gen_tempfile) || die 1
 
 if [ -n "$opt_diffstat" ]
 then
-	diffstat="$(@DIFFSTAT@ -p$opt_strip_level $tmp_patch)" || die 1
+	diffstat="$(@DIFFSTAT@ $QUILT_DIFFSTAT_OPTS -p$opt_strip_level $tmp_patch)" || die 1
 	@AWK@ '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
