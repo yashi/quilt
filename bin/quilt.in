@@ -17,6 +17,15 @@ then
 	export QUILTRC
 fi
 
+# Support compatibility layer
+if [ -r @QUILT@/compat/compatfns ]
+then
+	source @QUILT@/compat/compatfns
+fi
+
+
+export PATH="@QUILT@/compat:$PATH"
+
 usage()
 {
 

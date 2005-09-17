@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.41 $)
+AC_REVISION ($Revision: 1.42 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -36,18 +36,8 @@ fi
 
 dnl Check for Bourne-Again Shell
 unset BASH  # bash sets this itself!
-AC_ARG_WITH(bash, AC_HELP_STRING(
-    [--with-bash], [name of the bash executable to use]),
-    [
-	BASH="$withval"
-	AC_SUBST(BASH)
-	AC_MSG_NOTICE([Using bash executable $BASH])
-    ],[
-	AC_PATH_PROG(BASH, bash)
-    ])
-if test -z "$BASH" ; then
-    AC_MSG_ERROR([Please specify the location of bash with the option '--with-bash'])
-fi
+
+QUILT_COMPAT_PROG_PATH(BASH, bash)
 
 # It would be nice not to have to use backticks, but too many retarded sh
 # implementations still don't support $( )
@@ -64,62 +54,38 @@ version of bash from ftp.gnu.org
 fi
 
 dnl Check for Perl
-AC_ARG_WITH(perl, AC_HELP_STRING(
-    [--with-perl], [name of the Perl executable to use]),
-    [
-	PERL="$withval"
-	AC_SUBST(PERL)
-	AC_MSG_NOTICE([Using Perl executable $PERL])
-    ],[
-	AC_PATH_PROGS(PERL, [perl perl5])
-    ])
-if test -z "$PERL" ; then
-    AC_MSG_ERROR([Please specify the location of Perl with the option '--with-perl'])
-fi
-
+QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
+QUILT_COMPAT_PROG_PATH(GREP, grep)
 dnl Check for sed
-AC_ARG_WITH(sed, AC_HELP_STRING(
-    [--with-sed], [name of the sed executable to use]),
-    [
-	SED="$withval"
-	AC_SUBST(SED)
-	AC_MSG_NOTICE([Using sed executable $SED])
-    ],[
-	SED="sed"
-	AC_SUBST(SED)
-    ])
-
+QUILT_COMPAT_PROG_PATH(SED, sed)
 dnl Check for awk
-AC_ARG_WITH(awk, AC_HELP_STRING(
-    [--with-awk], [name of the awk executable to use]),
-    [
-	AWK="$withval"
-	AC_SUBST(AWK)
-	AC_MSG_NOTICE([Using awk executable $AWK])
-    ],[
-	AC_PATH_PROGS(AWK, [gawk awk])
-    ])
+QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
 
-dnl Test for awk features that may be mising?
+QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
+QUILT_COMPAT_PROG_PATH(COLUMN, column)
+QUILT_COMPAT_PROG_PATH(GETOPT, getopt)
 
-if test -z "$AWK" ; then
-    AC_MSG_ERROR([Please specify the location of awk with the option '--with-awk'])
+if test -n "$GETOPT"; then
+  AC_MSG_CHECKING(for getopt --long syntax)
+  dnl check GNU syntax
+  $GETOPT -o t --long test -- --test | grep -q 'illegal option'
+  getopt_long_errors=$?
+  $GETOPT -o t --long test -- --test | grep -qe '^ *--test *--'
+  getopt_long_works=$?
+  if test $getopt_long_errors -eq 1 -a $getopt_long_works -eq 0; then
+    getopt_long_syntax=yes
+    AC_MSG_RESULT(yes)
+  else
+    getopt_long_syntax=no
+    AC_MSG_WARN(no)
+    GETOPT=''
+  fi
 fi
 
 dnl Checks for mktemp (for creating temporary files and directories)
-AC_ARG_WITH(mktemp, AC_HELP_STRING(
-    [--with-mktemp], [name of the mktemp executable to use (or 'none'
-		      to use a quilt internal mechanism)]),
-    [
-	MKTEMP="$withval"
-	AC_SUBST(MKTEMP)
-	AC_MSG_NOTICE([Using mktemp executable $MKTEMP])
-    ],[
-	AC_PATH_PROG(MKTEMP, mktemp)
-    ])
-if test -z "$MKTEMP" -o "$MKTEMP" = "none" ; then
-    MKTEMP=internal_mktemp
-else
+QUILT_COMPAT_PROG_PATH(MKTEMP, mktemp)
+
+if test -n "$MKTEMP" ; then
     AC_MSG_CHECKING(whether $MKTEMP -d works)
     if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
        rmdir "$tempdir" ; then
@@ -136,32 +102,9 @@ internal tempfile generation mechanism.
 fi
 
 dnl Check for diff
-AC_ARG_WITH(diff, AC_HELP_STRING(
-    [--with-diff], [name of the diff executable to use]),
-    [
-	DIFF="$withval"
-	AC_SUBST(DIFF)
-	AC_MSG_NOTICE([Using diff executable $DIFF])
-    ],[
-	AC_PATH_PROG(DIFF, diff)
-    ])
-if test -z "$DIFF"; then
-    AC_MSG_ERROR([Please specify the location of diff with the option '--with-diff'])
-fi
-
+QUILT_COMPAT_PROG_PATH(DIFF, diff)
 dnl Check for patch
-AC_ARG_WITH(patch, AC_HELP_STRING(
-    [--with-patch], [name of the patch executable to use]),
-    [
-	PATCH="$withval"
-	AC_SUBST(PATCH)
-	AC_MSG_NOTICE([Using patch executable $PATCH])
-    ],[
-	AC_PATH_PROG(PATCH, patch)
-    ])
-if test -z "$PATCH"; then
-    AC_MSG_ERROR([Please specify the location of patch with the option '--with-patch'])
-fi
+QUILT_COMPAT_PROG_PATH(PATCH, patch)
 
 # Sun's patch is a mess, issue a warning.  But we are going to continue with
 # the build because you might just be lucky.
@@ -282,6 +225,10 @@ AC_SUBST(docdir)
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
 AC_SUBST(RPMBUILD)
+
+AC_SUBST(COMPAT_SYMLINKS)
+AC_SUBST(COMPAT_PROGRAMS)
+AC_SUBST(COMPAT_FUNCTIONS)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT

@@ -23,6 +23,13 @@ DB_VERSION=2
 : ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
 
+# Support compatibility layer
+if [ -r @QUILT@/compat/compatfns ]
+then
+	source @QUILT@/compat/compatfns
+fi
+
+export PATH="@QUILT@/compat:$PATH"
 unset CDPATH
 shopt -s dotglob
 
@@ -644,39 +651,6 @@ in_array()
 
 gen_tempfile()
 {
-	# This is a substitute for the mktemp executable.
-	internal_mktemp()
-	{
-		local try n
-		if [ x"$1" = x"-d" ]
-		then
-			for ((n=0 ; $n<100 ; n++))
-			do
-				try=${2%XXXXXX}$RANDOM
-				mkdir -m 700 $try 2>/dev/null \
-				&& break
-			done
-		else
-			local user_mask=$(umask)
-			umask 077
-			set -o noclobber
-			for ((n=0 ; $n<100 ; n++))
-			do
-				try=${1%XXXXXX}$RANDOM
-				echo -n "" 2> /dev/null > $try \
-				&& break
-			done
-			set +o noclobber
-			umask $user_mask
-		fi
-		if [ $n -lt 100 ]
-		then
-			echo $try
-		else
-			return 1
-		fi
-	}
-
 	local name
 	if [ "$1" = -d ]
 	then

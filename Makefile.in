@@ -15,11 +15,16 @@ etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
 
 QUILT_DIR =	$(datadir)/$(PACKAGE)
 SCRIPTS_DIR =	$(QUILT_DIR)/scripts
+COMPAT_DIR =	$(QUILT_DIR)/compat
 LIB_DIR =	$(libdir)/$(PACKAGE)
 
 INSTALL :=	@INSTALL@
+POD2MAN :=	@POD2MAN@
+COLUMN :=	@COLUMN@
+GETOPT :=	@GETOPT@
 PERL :=		@PERL@
 BASH :=		@BASH@
+GREP :=		@GREP@
 SED :=		@SED@
 AWK :=		@AWK@
 DIFF :=		@DIFF@
@@ -29,6 +34,27 @@ MSGFMT :=	@MSGFMT@
 DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
 MTA :=		@MTA@
+
+COMPAT_SYMLINKS  := @COMPAT_SYMLINKS@
+COMPAT_FUNCTIONS := @COMPAT_FUNCTIONS@
+COMPAT_PROGRAMS  := @COMPAT_PROGRAMS@
+
+default: all
+
+define COMPAT_SYMLINK_install
+install-compat-symlink-$(strip $(1)):
+	ln -sf $($(shell echo $(1)| $(AWK) '{print toupper($$1)}')) $(COMPAT_DIR)/$(strip $(1))
+endef
+
+$(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(symlink))))
+
+install-compat-symlinks: $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
+
+define COMPAT_SYMLINK_redefine
+$(shell echo $(1) | $(AWK) '{print toupper($$0)}') := $(1)
+endef
+
+$(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_redefine, $(symlink))))
 
 ifeq "$(MSGFMT)" ""
 MAKE_NLS :=	@true
@@ -69,10 +95,12 @@ DIRT +=		$(QUILT_IN:%=quilt/%)
 
 SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail \
 		remove-trailing-ws
+
+COMPAT :=       $(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_FUNCTIONS:%=compat/%)
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
-SRC +=		$(SCRIPTS_SRC:%=scripts/%)
-DIRT +=		$(SCRIPTS_IN:%=scripts/%)
+SRC +=		$(SCRIPTS_SRC:%=scripts/%) $(COMPAT_PROGRAMS:%=compat/%.in)
+DIRT +=		$(SCRIPTS_IN:%=scripts/%) $(COMPAT) compat/compatfns
 
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files$(EXEEXT)
@@ -112,7 +140,12 @@ all : scripts
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) \
+compat : $(COMPAT)
+ifneq ($(COMPAT_FUNCTIONS),)
+	cat $(COMPAT_FUNCTIONS:%=compat/%) > compat/compatfns
+endif
+
+scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) compat \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
@@ -135,7 +168,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 		esac ; \
 	done 2>&1 < $< > $@
 	
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	@echo "quilt.1.in -> quilt.1"
 	@here=`pwd`;                                     \
 	 while read line; do                             \
@@ -178,7 +211,7 @@ reference : $(QUILT:%=quilt/%) scripts/patchfns
 
 bin/guards.1 : bin/guards
 	mkdir -p `dirname $@`
-	pod2man $< > $@
+	$(POD2MAN) $< > $@
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(VERSION) $@
@@ -232,7 +265,7 @@ Makefile : Makefile.in
 	@echo "Please run ./configure by hand"
 	@false
 
-install : scripts
+install-main: scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
 	@INSTALL@ -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
@@ -264,6 +297,20 @@ install : scripts
 	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
 	@INSTALL@ -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 	@INSTALL@ -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
+
+install-compat:
+ifneq ($(COMPAT_PROGRAMS)$(COMPAT_FUNCTIONS)$(COMPAT_SYMLINKS),)
+	@INSTALL@ -d $(BUILD_ROOT)$(COMPAT_DIR)
+	@rm -f $(BUILD_ROOT)$(COMPAT_DIR)/*
+ifneq ($(COMPAT_PROGRAMS),)
+	@INSTALL@ -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(COMPAT_DIR)
+endif
+ifneq ($(COMPAT_FUNCTIONS),)
+	@INSTALL@ -m 644 compat/compatfns $(BUILD_ROOT)$(COMPAT_DIR)
+endif
+endif
+
+install: scripts install-main install-compat $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
 uninstall:
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
