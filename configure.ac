@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.42 $)
+AC_REVISION ($Revision: 1.43 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -73,12 +73,15 @@ if test -n "$GETOPT"; then
   $GETOPT -o t --long test -- --test | grep -qe '^ *--test *--'
   getopt_long_works=$?
   if test $getopt_long_errors -eq 1 -a $getopt_long_works -eq 0; then
-    getopt_long_syntax=yes
     AC_MSG_RESULT(yes)
   else
-    getopt_long_syntax=no
-    AC_MSG_WARN(no)
-    GETOPT=''
+    AC_MSG_RESULT(no)
+    AC_MSG_ERROR([
+$GETOPT does not support the --long option.
+If you don't have a version of getopt that supports long options, you
+can specify '--with-getopt=none' and $PACKAGE_NAME will use its own
+internal getopt.
+])
   fi
 fi
 
