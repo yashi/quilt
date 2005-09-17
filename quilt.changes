@@ -1,7 +1,9 @@
 -------------------------------------------------------------------
-Sun Sep 18 01:56:03 CEST 2005 - agruen@suse.de
+Sun Sep 18 01:57:36 CEST 2005 - agruen@suse.de
 
 - Merge compatibility layer from  John Vandenberg <jayvdb@gmail.com>.
+- Only add compat/ directory to PATH if it exists. Only create it
+  when necessary.
 
 -------------------------------------------------------------------
 Fri Sep 16 20:57:32 CEST 2005 - khali@linux-fr.org

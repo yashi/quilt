@@ -50,12 +50,6 @@ $(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(s
 
 install-compat-symlinks: $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
-define COMPAT_SYMLINK_redefine
-$(shell echo $(1) | $(AWK) '{print toupper($$0)}') := $(1)
-endef
-
-$(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_redefine, $(symlink))))
-
 ifeq "$(MSGFMT)" ""
 MAKE_NLS :=	@true
 else
@@ -299,9 +293,9 @@ install-main: scripts
 	@INSTALL@ -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
 install-compat:
+	@rm -rf $(BUILD_ROOT)$(COMPAT_DIR)
 ifneq ($(COMPAT_PROGRAMS)$(COMPAT_FUNCTIONS)$(COMPAT_SYMLINKS),)
 	@INSTALL@ -d $(BUILD_ROOT)$(COMPAT_DIR)
-	@rm -f $(BUILD_ROOT)$(COMPAT_DIR)/*
 ifneq ($(COMPAT_PROGRAMS),)
 	@INSTALL@ -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(COMPAT_DIR)
 endif
