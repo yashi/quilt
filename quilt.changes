@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 18 18:28:56 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Test for tail -n.
+
+-------------------------------------------------------------------
 Sun Sep 18 17:59:03 CEST 2005 - agruen@suse.de
 
 - Makefile.in: Add a dependency of all to COMPAT_PROGRAMS which

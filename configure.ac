@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.51 $)
+AC_REVISION ($Revision: 1.52 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -56,6 +56,21 @@ fi
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
 QUILT_COMPAT_PROG_PATH(TAIL, tail)
+
+# Solaris' /usr/bin/tail doesn't understand -n.
+AC_MSG_CHECKING([whether $TAIL -n works])
+if test "`(echo first; echo second) | $TAIL -n 1 2>/dev/null`" == "second"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of tail which doesn't understand -n.
+$PACKAGE_NAME needs it.  If you have access to a version of tail which does
+understand -n, you can supply its path with the '--with-tail=' option.
+Solaris users can use /usr/xpg4/bin/tail.
+])
+fi
+
 QUILT_COMPAT_PROG_PATH(SED, sed)
 QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
 QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
