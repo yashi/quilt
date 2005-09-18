@@ -27,6 +27,7 @@
 
 #define _GNU_SOURCE
 
+#include "config.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <utime.h>
@@ -37,6 +38,10 @@
 #include <errno.h>
 #include <string.h>
 #include <ftw.h>
+
+#if !defined(HAVE_MKSTEMP) && defined(HAVE_MKTEMP)
+# define mkstemp(x) creat(mktemp(x), 0600)
+#endif
 
 const char *progname;
 

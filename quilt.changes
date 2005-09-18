@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Sep 18 12:32:41 CEST 2005 - agruen@suse.de
+
+- lib/backup-files.c: use mktemp if mkstemp is not available
+  (Gary V. Vaughan <gary@gnu.org>). Add a config.h.
+
+-------------------------------------------------------------------
 Sun Sep 18 12:12:47 CEST 2005 - agruen@suse.de
 
 - lib/backup-files.c: switch from alloca to malloc for portability.

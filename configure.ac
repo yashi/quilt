@@ -2,13 +2,14 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.45 $)
+AC_REVISION ($Revision: 1.46 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
 
 dnl Setup for backup-files compilation
 AC_HEADER_STDC
+AC_CHECK_FUNCS([mkstemp mktemp], break)
 AC_CHECK_FUNCS([mkdir])
 AC_CHECK_FUNCS([rmdir])
 AC_CHECK_FUNCS([strchr])
@@ -223,6 +224,7 @@ AC_SUBST(RPMBUILD)
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)
 
+AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
 
