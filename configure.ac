@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.44 $)
+AC_REVISION ($Revision: 1.45 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -55,6 +55,7 @@ fi
 
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
+QUILT_COMPAT_PROG_PATH(TAIL, tail)
 QUILT_COMPAT_PROG_PATH(SED, sed)
 QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
 QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
