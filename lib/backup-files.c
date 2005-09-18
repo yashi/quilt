@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include <alloca.h>
 #include <ftw.h>
 
 const char *progname;
@@ -72,28 +71,40 @@ usage(void)
 	       progname);
 }
 
+static void *
+malloc_nofail(size_t size)
+{
+	void *p = malloc(size);
+	if (!p) {
+		fprintf(stderr, "%s\n", strerror(ENOMEM));
+		exit(1);
+	}
+	return p;
+}
+
 void
 create_parents(const char *filename)
 {
 	struct stat st;
-	char *fn = alloca(strlen(filename) + 1), *f;
+	char *fn = malloc_nofail(strlen(filename) + 1), *f;
 
 	strcpy(fn, filename);
 	f = strchr(fn, '/');
 
-	if (f == NULL)
-		return;
-	*f = '\0';
-	if (stat(f, &st) != 0) {
-		while (f != NULL) {
-			*f = '\0';
-			mkdir(fn, 0777);
+	if (f != NULL) {
+		*f = '\0';
+		if (stat(f, &st) != 0) {
+			while (f != NULL) {
+				*f = '\0';
+				mkdir(fn, 0777);
+				*f = '/';
+				f = strchr(f+1, '/');
+			}
+		} else {
 			*f = '/';
-			f = strchr(f+1, '/');
 		}
-	} else {
-		*f = '/';
 	}
+	free(fn);
 }
 
 void
@@ -220,8 +231,8 @@ ensure_nolinks(const char *filename)
 int
 process_file(const char *file)
 {
-	char *backup = alloca(strlen(opt_prefix) + strlen(file) +
-			      strlen(opt_suffix) + 1);
+	char *backup = malloc_nofail(
+		strlen(opt_prefix) + strlen(file) + strlen(opt_suffix) + 1);
 
 	sprintf(backup, "%s%s%s", opt_prefix, file, opt_suffix);
 
@@ -239,29 +250,28 @@ process_file(const char *file)
 			/* GNU patch creates new files with mode==0. */
 			if ((fd = creat(backup, 0)) == -1) {
 				perror(backup);
-				return 1;
+				goto fail;
 			}
 			close(fd);
 		} else {
 			if (!opt_silent)
 				printf("Copying %s\n", file);
 			if (link_or_copy(file, &st, backup))
-				return 1;
+				goto fail;
 			if (opt_touch)
 				utime(backup, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
-					return 1;
+					goto fail;
 			}
 		}
-		return 0;
 	} else if (opt_what == what_restore) {
 		struct stat st;
 
 		create_parents(file);
 		if (stat(backup, &st) != 0) {
 			perror(backup);
-			return 1;
+			goto fail;
 		}
 		if (st.st_size == 0) {
 			if (unlink(file) == 0 || errno == ENOENT) {
@@ -269,19 +279,19 @@ process_file(const char *file)
 					printf("Removing %s\n", file);
 			} else {
 				perror(file);
-				return 1;
+				goto fail;
 			}
 		} else {
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
 			if (link_or_copy(backup, &st, file))
-				return 1;
+				goto fail;
 			if (opt_touch)
 				utime(file, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
-					return 1;
+					goto fail;
 			}
 		}
 		if (!(st.st_mode & S_IWUSR)) {
@@ -291,24 +301,28 @@ process_file(const char *file)
 		}
 		unlink(backup);
 		remove_parents(backup);
-		return 0;
 	} else if (opt_what == what_remove) {
 		/* Change mode of backup file so that we can remove it. */
 		chmod(backup, S_IWUSR);
 		unlink(backup);
 		remove_parents(backup);
-		return 0;
 	} else if (opt_what == what_noop) {
 		struct stat st;
 		int missing_file = (stat(file, &st) == -1 && errno == ENOENT);
 
 		if (!missing_file && opt_nolinks) {
 			if (ensure_nolinks(file))
-				return 1;
+				goto fail;
 		}
-		return 0;
 	} else
-		return 1;
+		goto fail;
+
+	free(backup);
+	return 0;
+
+fail:
+	free(backup);
+	return 1;
 }
 
 int
@@ -317,6 +331,7 @@ walk(const char *path, const struct stat *stat, int flag, struct FTW *ftw)
 	size_t prefix_len=strlen(opt_prefix), suffix_len=strlen(opt_suffix);
 	size_t len = strlen(path);
 	char *p;
+	int ret;
 
 	if (flag == FTW_DNR) {
 		perror(path);
@@ -329,10 +344,12 @@ walk(const char *path, const struct stat *stat, int flag, struct FTW *ftw)
 	if (len < suffix_len || strcmp(opt_suffix, path + len - suffix_len))
 		return 0;  /* suffix does not match */
 
-	p = alloca(len - prefix_len - suffix_len + 1);
+	p = malloc_nofail(len - prefix_len - suffix_len + 1);
 	memcpy(p, path + prefix_len, len - prefix_len - suffix_len);
 	p[len - prefix_len - suffix_len] = '\0';
-	return process_file(p);
+	ret = process_file(p);
+	free(p);
+	return ret;
 }
 
 int

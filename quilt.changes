@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 18 12:12:47 CEST 2005 - agruen@suse.de
+
+- lib/backup-files.c: switch from alloca to malloc for portability.
+
+-------------------------------------------------------------------
 Sun Sep 18 11:21:08 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Make the tail executable user-selectable.
