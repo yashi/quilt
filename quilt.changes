@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 18 15:17:54 CEST 2005 - agruen@suse.de
+
+- Get rid of `grep -e''.
+
+-------------------------------------------------------------------
 Sun Sep 18 15:05:43 CEST 2005 - agruen@suse.de
 
 - Remove config.h, and use @DEFS@ in Makefile.in instead
