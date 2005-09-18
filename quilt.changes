@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 18 18:39:56 CEST 2005 - agruen@suse.de
+
+- Add a missing $(BUILD_ROOT) and fix compat-symlink dependencies.
+
+-------------------------------------------------------------------
 Sun Sep 18 18:28:56 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Test for tail -n.

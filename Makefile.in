@@ -41,13 +41,12 @@ COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
 default: all
 
 define COMPAT_SYMLINK_install
-install-compat-symlink-$(strip $(1)):
-	ln -sf $($(shell echo $(1)| $(AWK) '{print toupper($$1)}')) $(COMPAT_DIR)/$(strip $(1))
+install-compat-symlink-$(strip $(1)): install-compat
+	ln -sf $($(shell echo $(1) | $(AWK) '{print toupper($$1)}')) \
+	       $(BUILD_ROOT)$(COMPAT_DIR)/$(strip $(1))
 endef
 
 $(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(symlink))))
-
-install-compat-symlinks: $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ @DEFS@
@@ -301,7 +300,8 @@ ifneq ($(COMPAT_PROGRAMS),)
 endif
 endif
 
-install: scripts install-main install-compat $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
+install: scripts install-main install-compat \
+	 $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
 uninstall ::
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
