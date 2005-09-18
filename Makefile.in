@@ -49,12 +49,6 @@ $(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(s
 
 install-compat-symlinks: $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
-ifeq "$(MSGFMT)" ""
-MAKE_NLS :=	@true
-else
-MAKE_NLS :=	$(MAKE)
-endif
-
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ -I.
 CFLAGS +=	@CFLAGS@
@@ -118,9 +112,9 @@ DIRT +=		$(MAN1)
 #SRC +=		$(DEBIAN:%=debian/%)
 
 LINGUAS :=	fr de ja
-PO :=		Makefile quilt.pot $(LINGUAS:%=%.po)
+PO :=		quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
-DIRT +=         po/*.mo
+DIRT +=         po/*.mo po/*~
 
 SRC +=		$(wildcard test/*.test) test/run test/Makefile \
 		test/test.quiltrc
@@ -128,12 +122,16 @@ SRC +=		changes2changelog
 
 #-----------------------------------------------------------------------
 
-all : scripts
-	$(MAKE_NLS) -C po all BUILD_ROOT=$(BUILD_ROOT) \
-		LINGUAS="$(LINGUAS)" localedir=$(localedir)
+all : scripts $(LINGUAS:%=po/%.mo)
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+
+%.mo : %.po
+	msgfmt --statistics -o $@ $<
+
+%.po : po/quilt.pot
+	msgmerge -o $@ $@ $^
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) compat \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
@@ -144,6 +142,22 @@ snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
+
+po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in doc/README.in, \
+			   $(wildcard */*.in))
+	rm -f quilt.pot; touch quilt.pot
+	for file in $+ ; do \
+	  if head $$file | grep -q '@BASH@'; then \
+	    bash --dump-po-strings $$file ; \
+	  elif head $$file | grep -q '@PERL@'; then \
+	    xgettext --from-code=UTF-8 --omit-header --language=Perl \
+	    	     --keyword=_ -o - $$file; \
+	  else \
+	    echo "Don't know how to handle $$file" >&2 ; \
+	  fi \
+	done \
+	|msguniq \
+	|msgcat --force-po -F - $@ -o $@
 
 doc/README : doc/README.in $(QUILT:%=quilt/%)
 	@echo "README.in -> README"
@@ -253,8 +267,9 @@ lib/backup-files.o :: config.h
 
 Makefile : Makefile.in
 	@echo "Please run ./configure"
+	@false
 
-install-main: scripts
+install-main ::
 	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
 	$(INSTALL) -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
@@ -279,9 +294,6 @@ install-main: scripts
 	$(INSTALL) -d $(BUILD_ROOT)$(mandir)/man1
 	$(INSTALL) -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 	
-	$(MAKE_NLS) -C po install BUILD_ROOT=$(BUILD_ROOT) \
-		LINGUAS="$(LINGUAS)" localedir=$(localedir)
-
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
 	$(INSTALL) -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
@@ -298,7 +310,7 @@ endif
 
 install: scripts install-main install-compat $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
-uninstall:
+uninstall ::
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
 	       $(BUILD_ROOT)$(LIB_DIR) \
 	       $(BUILD_ROOT)$(QUILT_DIR) \
@@ -307,12 +319,26 @@ uninstall:
 	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt \
 	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc \
 	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	$(MAKE_NLS) -C po uninstall BUILD_ROOT=$(BUILD_ROOT) \
-		LINGUAS="$(LINGUAS)" localedir=$(localedir)
 
 clean :
 	rm -f $(DIRT)
 	
 distclean : clean
-	rm -f config.log config.status Makefile
+	rm -f config.log config.status config.h Makefile
 	rm -rf autom4te.cache/
+
+ifneq ($(MSGFMT),)
+install-main ::
+	for lang in $(LINGUAS) ; do \
+		install -d $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES ; \
+		install -m 644 po/$$lang.mo \
+		    $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	done
+
+uninstall ::
+	for lang in $(LINGUAS) ; do \
+		rm -f $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	done
+endif
+
+.PHONY :: all install uninstall clean distclean

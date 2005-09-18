@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Sep 18 14:15:13 CEST 2005 - agruen@suse.de
+
+- Merge po/Makefile into Makefile.in. Add a lost @false to
+  Makefile.in.
+
+-------------------------------------------------------------------
 Sun Sep 18 12:55:17 CEST 2005 - agruen@suse.de
 
 - lib/backup-files.c: add missing dependency on config.h. Check
