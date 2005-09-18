@@ -173,13 +173,13 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
 	       for cmd in $(sort $(QUILT:%=quilt/%)) ; do \
-		(@BASH@ -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
+		($(BASH) -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
 		   sed -e 's/Usage: quilt //'            \
 	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
 		       -e 's/^/.IP "/' -e 's/$$/ " 4/' | \
 	           head -n 1;                            \
 	         echo ;                                  \
-		(@BASH@ -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
+		($(BASH) -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
 	         grep -v 'Usage: quilt' |                \
 	           sed -e $$'s/^\t//'                    \
 	               -e $$'s/\t/\\\n/' |               \
@@ -200,7 +200,7 @@ reference : $(QUILT:%=quilt/%) scripts/patchfns
 	for i in $(filter-out scripts/patchfns,$+); \
 	do \
 		echo; \
-		(@BASH@ -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
+		($(BASH) -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
 		echo; \
 	done | \
 	sed -e 's/\$$EDITOR ([^)]*)/$$EDITOR/' \
@@ -264,47 +264,47 @@ Makefile : Makefile.in
 	@false
 
 install-main: scripts
-	@INSTALL@ -d $(BUILD_ROOT)$(bindir)
-	@INSTALL@ -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
+	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
+	$(INSTALL) -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
-	@INSTALL@ -d $(BUILD_ROOT)$(QUILT_DIR)
-	@INSTALL@ -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
+	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_DIR)
+	$(INSTALL) -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
 	
-	@INSTALL@ -d $(BUILD_ROOT)$(SCRIPTS_DIR)
-	@INSTALL@ -m 755 $(patsubst %,scripts/%, \
+	$(INSTALL) -d $(BUILD_ROOT)$(SCRIPTS_DIR)
+	$(INSTALL) -m 755 $(patsubst %,scripts/%, \
 			     $(filter-out patchfns,$(SCRIPTS))) \
 		  $(BUILD_ROOT)$(SCRIPTS_DIR)
-	@INSTALL@ -m 644 scripts/patchfns $(BUILD_ROOT)$(SCRIPTS_DIR)
+	$(INSTALL) -m 644 scripts/patchfns $(BUILD_ROOT)$(SCRIPTS_DIR)
 
-	@INSTALL@ -d $(BUILD_ROOT)$(LIB_DIR)
-	@INSTALL@ -m 755 -s $(LIB:%=lib/%) $(BUILD_ROOT)$(LIB_DIR)/
+	$(INSTALL) -d $(BUILD_ROOT)$(LIB_DIR)
+	$(INSTALL) -m 755 -s $(LIB:%=lib/%) $(BUILD_ROOT)$(LIB_DIR)/
 
-	@INSTALL@ -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	@INSTALL@ -m 644 doc/README \
+	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	$(INSTALL) -m 644 doc/README \
 		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	@INSTALL@ -m 644 doc/quilt.pdf doc/README.MAIL \
+	$(INSTALL) -m 644 doc/quilt.pdf doc/README.MAIL \
 		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 
-	@INSTALL@ -d $(BUILD_ROOT)$(mandir)/man1
-	@INSTALL@ -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
+	$(INSTALL) -d $(BUILD_ROOT)$(mandir)/man1
+	$(INSTALL) -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 	
 	$(MAKE_NLS) -C po install BUILD_ROOT=$(BUILD_ROOT) \
 		LINGUAS="$(LINGUAS)" localedir=$(localedir)
 
-	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)
-	@INSTALL@ -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
-	@INSTALL@ -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
-	@INSTALL@ -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
+	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)
+	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
+	$(INSTALL) -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
+	$(INSTALL) -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
 install-compat:
 	@rm -rf $(BUILD_ROOT)$(COMPAT_DIR)
 ifneq ($(COMPAT_PROGRAMS)$(COMPAT_FUNCTIONS)$(COMPAT_SYMLINKS),)
-	@INSTALL@ -d $(BUILD_ROOT)$(COMPAT_DIR)
+	$(INSTALL) -d $(BUILD_ROOT)$(COMPAT_DIR)
 ifneq ($(COMPAT_PROGRAMS),)
-	@INSTALL@ -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(COMPAT_DIR)
+	$(INSTALL) -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(COMPAT_DIR)
 endif
 ifneq ($(COMPAT_FUNCTIONS),)
-	@INSTALL@ -m 644 compat/compatfns $(BUILD_ROOT)$(COMPAT_DIR)
+	$(INSTALL) -m 644 compat/compatfns $(BUILD_ROOT)$(COMPAT_DIR)
 endif
 endif
 

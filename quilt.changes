@@ -1,5 +1,5 @@
 -------------------------------------------------------------------
-Sun Sep 18 02:00:50 CEST 2005 - agruen@suse.de
+Sun Sep 18 02:03:10 CEST 2005 - agruen@suse.de
 
 - Merge compatibility layer from  John Vandenberg <jayvdb@gmail.com>.
 - Only add compat/ directory to PATH if it exists. Only create it
@@ -7,6 +7,8 @@ Sun Sep 18 02:00:50 CEST 2005 - agruen@suse.de
 - configure.ac: fail if getopt does not support --long.
 - Remove compat/compatfns when no compatibility functions are 
   included. Clean up some Makefile dependencies.
+- Replace @INSTALL@ with $(INSTALL) and @BASH@ with $(BASH) in
+  Makefile.in.
 
 -------------------------------------------------------------------
 Fri Sep 16 20:57:32 CEST 2005 - khali@linux-fr.org
