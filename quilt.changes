@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Sep 18 12:55:17 CEST 2005 - agruen@suse.de
+
+- lib/backup-files.c: add missing dependency on config.h. Check
+  for chmod and fchmod support. Remove two unnecessary chmod calls.
+- Makefile.in: fix cyclic dependency on Makefile.
+
+-------------------------------------------------------------------
 Sun Sep 18 12:32:41 CEST 2005 - agruen@suse.de
 
 - lib/backup-files.c: use mktemp if mkstemp is not available

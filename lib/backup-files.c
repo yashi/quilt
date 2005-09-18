@@ -166,7 +166,11 @@ link_or_copy(const char *from, struct stat *st, const char *to)
 		close(from_fd);
 		return 1;
 	}
+#if defined(HAVE_FCHMOD)
 	(void) fchmod(to_fd, st->st_mode);
+#elif defined(HAVE_CHMOD)
+	(void) chmod(to, st->st_mode);
+#endif
 	if (copy(from_fd, to_fd)) {
 		fprintf(stderr, "%s -> %s: %s\n", from, to, strerror(errno));
 		unlink(to);
@@ -217,7 +221,11 @@ ensure_nolinks(const char *filename)
 			goto fail;
 		if (copy(from_fd, to_fd))
 			goto fail;
-		(void) fchmod(to_fd, st.st_mode);
+#if defined(HAVE_FCHMOD)
+	(void) fchmod(to_fd, st.st_mode);
+#elif defined(HAVE_CHMOD)
+	(void) chmod(tmpname, st.st_mode);
+#endif
 		if (rename(tmpname, filename))
 			goto fail;
 
@@ -299,16 +307,9 @@ process_file(const char *file)
 					goto fail;
 			}
 		}
-		if (!(st.st_mode & S_IWUSR)) {
-			/* Change mode of backup file so that we
-			   can later remove it. */
-			chmod(backup, st.st_mode | S_IWUSR);
-		}
 		unlink(backup);
 		remove_parents(backup);
 	} else if (opt_what == what_remove) {
-		/* Change mode of backup file so that we can remove it. */
-		chmod(backup, S_IWUSR);
 		unlink(backup);
 		remove_parents(backup);
 	} else if (opt_what == what_noop) {

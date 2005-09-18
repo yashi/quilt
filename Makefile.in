@@ -217,9 +217,6 @@ $(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(ISODATE)
 	@echo "File $@ created."
 
-configure : configure.ac
-	autoconf
-
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	@echo "Generating spec file" ; \
 	set -e ; \
@@ -229,7 +226,8 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	       gsub(/@CHANGELOG''@/, changelog) ; \
 	       print }' changelog="$$changelog" $< > $@
 
-% : %.in Makefile
+$(patsubst %.in,%,$(wildcard quilt/*.in scripts/*.in)) :: Makefile
+% :: %.in
 	@echo "$< -> $@" >&2
 	@sed -e 's:@LIB''@:$(LIB_DIR):g' \
 	     -e 's:@QUILT''@:$(QUILT_DIR):g' \
@@ -251,9 +249,10 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
 	     $< > $@
 
+lib/backup-files.o :: config.h
+
 Makefile : Makefile.in
-	@echo "Please run ./configure by hand"
-	@false
+	@echo "Please run ./configure"
 
 install-main: scripts
 	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
