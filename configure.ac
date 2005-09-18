@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.50 $)
+AC_REVISION ($Revision: 1.51 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -179,7 +179,7 @@ QUILT_COMPAT_PROG_PATH(MTA, mta, [sendmail])
 PATH=$old_PATH
 
 if ! echo $COMPAT_PROGRAMS $COMPAT_SYMLINKS | grep -q mta; then
-    COMPAT_SYMLINKS="$COMPAT_SYMLINKS mta"
+    COMPAT_PROGRAMS="$COMPAT_PROGRAMS mta"
 fi
 
 AC_ARG_ENABLE(nls, AC_HELP_STRING(

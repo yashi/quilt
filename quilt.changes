@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Sep 18 17:59:03 CEST 2005 - agruen@suse.de
+
+- Makefile.in: Add a dependency of all to COMPAT_PROGRAMS which
+  was lost somewhere. Fix internal "mta" program.
+- Get rid of ``grep -E''.
+
+-------------------------------------------------------------------
 Sun Sep 18 17:41:56 CEST 2005 - agruen@suse.de
 
 - Fix a few things in po/quilt.pot generation.

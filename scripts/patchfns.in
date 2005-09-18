@@ -189,7 +189,7 @@ patch_in_series()
 	then
 		return 1
 	else
-		grep -q -E "^$(quote_re $patch)([ \t]|$)" $SERIES
+		grep -q "^$(quote_bre $patch)\([ \t]\|$\)" $SERIES
 	fi
 }
 
@@ -326,7 +326,7 @@ is_applied()
 {
 	local patch=$1
 	[ -e $DB ] || return 1
-	grep -q -E "^$(quote_re $patch)\$" $DB
+	grep -q "^$(quote_bre $patch)\$" $DB
 }
 
 applied_patches()
@@ -419,7 +419,7 @@ remove_from_db()
 	local tmpfile
 	if tmpfile=$(gen_tempfile)
 	then
-		grep -v -E "^$(quote_re $patch)\$" $DB > $tmpfile
+		grep -v "^$(quote_bre $patch)\$" $DB > $tmpfile
 		cat $tmpfile > $DB
 		rm -f $tmpfile
 		[ -s $DB ] || rm -f $DB

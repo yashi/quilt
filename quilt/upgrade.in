@@ -76,7 +76,7 @@ printf $"Converting meta-data to version %s\n" "$DB_VERSION"
 
 for patch in $(applied_patches)
 do
-	proper_name="$(grep -E '^'"$(quote_re $patch)"'(|\.patch|\.diff?)(|\.gz|\.bz2)([ \t]|$)' $SERIES)"
+	proper_name="$(grep "^$(quote_bre $patch)"'\(\|\.patch\|\.diff?\)\(\|\.gz\|\.bz2\)\([ \t]\|$\)' $SERIES)"
 	proper_name=${proper_name#$QUILT_PATCHES/}
 	proper_name=${proper_name%% *}
 	if [ -z "$proper_name" ]
