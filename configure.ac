@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.48 $)
+AC_REVISION ($Revision: 1.49 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -223,7 +223,6 @@ AC_SUBST(RPMBUILD)
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)
 
-AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
 

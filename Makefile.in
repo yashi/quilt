@@ -50,7 +50,7 @@ $(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(s
 install-compat-symlinks: $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
 CC :=		@CC@
-CPPFLAGS +=	@CPPFLAGS@ -I.
+CPPFLAGS +=	@CPPFLAGS@ @DEFS@
 CFLAGS +=	@CFLAGS@
 LDFLAGS +=	@LDFLAGS@
 LIBS :=		@LIBS@
@@ -96,7 +96,7 @@ LIB :=		backup-files$(EXEEXT)
 SRC +=		$(LIB_SRC:%=lib/%)
 DIRT +=		lib/backup-files$(EXEEXT) $(LIB_SRC:%.c=lib/%.o)
 
-DOC_IN :=	README 
+DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
@@ -107,7 +107,7 @@ DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 MAN1 :=		bin/guards.1 doc/quilt.1
 DIRT +=		$(MAN1)
 
-#DEBIAN :=	changelog control copyright rules 
+#DEBIAN :=	changelog control copyright rules
 #
 #SRC +=		$(DEBIAN:%=debian/%)
 
@@ -171,7 +171,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 			;; \
 		esac ; \
 	done 2>&1 < $< > $@
-	
+
 doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	@echo "quilt.1.in -> quilt.1"
 	@here=`pwd`;                                     \
@@ -263,7 +263,7 @@ $(patsubst %.in,%,$(wildcard quilt/*.in scripts/*.in)) :: Makefile
 	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
 	     $< > $@
 
-lib/backup-files.o :: config.h
+lib/backup-files.o :: Makefile
 
 Makefile : Makefile.in
 	@echo "Please run ./configure"
@@ -275,7 +275,7 @@ install-main ::
 
 	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_DIR)
 	$(INSTALL) -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
-	
+
 	$(INSTALL) -d $(BUILD_ROOT)$(SCRIPTS_DIR)
 	$(INSTALL) -m 755 $(patsubst %,scripts/%, \
 			     $(filter-out patchfns,$(SCRIPTS))) \
@@ -293,7 +293,7 @@ install-main ::
 
 	$(INSTALL) -d $(BUILD_ROOT)$(mandir)/man1
 	$(INSTALL) -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
-	
+
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
 	$(INSTALL) -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
@@ -322,9 +322,9 @@ uninstall ::
 
 clean :
 	rm -f $(DIRT)
-	
+
 distclean : clean
-	rm -f config.log config.status config.h Makefile
+	rm -f config.log config.status Makefile
 	rm -rf autom4te.cache/
 
 ifneq ($(MSGFMT),)

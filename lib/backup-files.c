@@ -27,7 +27,10 @@
 
 #define _GNU_SOURCE
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <utime.h>
@@ -123,7 +126,7 @@ remove_parents(char *filename)
 			*g = '/';
 		g = f;
 		*f= '\0';
-		
+
 		rmdir(filename);
 	}
 	if (g != NULL)
@@ -204,7 +207,7 @@ ensure_nolinks(const char *filename)
 		from_fd = open(filename, O_RDONLY);
 		if (from_fd == -1)
 			goto fail;
-		
+
 		/* Temp file name is "path/to/.file.XXXXXX" */
 		strcpy(tmpname, filename);
 		strcat(tmpname, ".XXXXXX");
@@ -215,7 +218,7 @@ ensure_nolinks(const char *filename)
 			c++;
 		memmove(c + 1, c, strlen(c) + 1);
 		*c = '.';
-		
+
 		to_fd = mkstemp(tmpname);
 		if (to_fd == -1)
 			goto fail;
@@ -362,7 +365,7 @@ int
 main(int argc, char *argv[])
 {
 	int opt, status=0;
-	
+
 	progname = argv[0];
 
 	while ((opt = getopt(argc, argv, "brxB:z:f:shLt")) != -1) {
@@ -382,7 +385,7 @@ main(int argc, char *argv[])
 			case 'B':
 				opt_prefix = optarg;
 				break;
-				
+
 			case 'f':
 				opt_file = optarg;
 				break;
@@ -436,7 +439,7 @@ main(int argc, char *argv[])
 				*(l-1) = '\0';
 			if (*line == '\0')
 				continue;
-				
+
 			if ((status = process_file(line)) != 0)
 				return status;
 		}
