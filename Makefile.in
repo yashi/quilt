@@ -90,11 +90,13 @@ DIRT +=		$(QUILT_IN:%=quilt/%)
 SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail \
 		remove-trailing-ws
 
-COMPAT :=       $(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_FUNCTIONS:%=compat/%)
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
-SRC +=		$(SCRIPTS_SRC:%=scripts/%) $(COMPAT_PROGRAMS:%=compat/%.in)
-DIRT +=		$(SCRIPTS_IN:%=scripts/%) $(COMPAT) compat/compatfns
+SRC +=		$(SCRIPTS_SRC:%=scripts/%)
+DIRT +=		$(SCRIPTS_IN:%=scripts/%)
+
+SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
+DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in)) compat/compatfns
 
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files$(EXEEXT)
@@ -134,9 +136,11 @@ all : scripts
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-compat : $(COMPAT)
+.PHONY :: compat
+compat :
+	@rm -f compat/compatfns
 ifneq ($(COMPAT_FUNCTIONS),)
-	cat $(COMPAT_FUNCTIONS:%=compat/%) > compat/compatfns
+	cat $(COMPAT_FUNCTIONS:%=compat/%.sh) > compat/compatfns
 endif
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) compat \
@@ -162,7 +166,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 		esac ; \
 	done 2>&1 < $< > $@
 	
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	@echo "quilt.1.in -> quilt.1"
 	@here=`pwd`;                                     \
 	 while read line; do                             \
