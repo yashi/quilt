@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.43 $)
+AC_REVISION ($Revision: 1.44 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -53,14 +53,10 @@ version of bash from ftp.gnu.org
 ])
 fi
 
-dnl Check for Perl
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
-dnl Check for sed
 QUILT_COMPAT_PROG_PATH(SED, sed)
-dnl Check for awk
 QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
-
 QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
 QUILT_COMPAT_PROG_PATH(COLUMN, column)
 QUILT_COMPAT_PROG_PATH(GETOPT, getopt)
@@ -85,9 +81,7 @@ internal getopt.
   fi
 fi
 
-dnl Checks for mktemp (for creating temporary files and directories)
 QUILT_COMPAT_PROG_PATH(MKTEMP, mktemp)
-
 if test -n "$MKTEMP" ; then
     AC_MSG_CHECKING(whether $MKTEMP -d works)
     if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
@@ -104,9 +98,7 @@ internal tempfile generation mechanism.
     fi
 fi
 
-dnl Check for diff
 QUILT_COMPAT_PROG_PATH(DIFF, diff)
-dnl Check for patch
 QUILT_COMPAT_PROG_PATH(PATCH, patch)
 
 # Sun's patch is a mess, issue a warning.  But we are going to continue with
@@ -134,7 +126,6 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-dnl Check for diffstat
 AC_ARG_WITH(diffstat, AC_HELP_STRING(
     [--with-diffstat], [name of the diffstat executable to use]),
     [
@@ -200,7 +191,6 @@ that is not in the search path you can specify its location using the
     MTA="sendmail"
 fi
 
-dnl Check for NLS
 AC_ARG_ENABLE(nls, AC_HELP_STRING(
     [--enable-nls], [include natural language support]))
 if test "$enableval" != "no"; then
@@ -231,7 +221,6 @@ AC_SUBST(RPMBUILD)
 
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)
-AC_SUBST(COMPAT_FUNCTIONS)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT

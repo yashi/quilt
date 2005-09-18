@@ -1,15 +1,15 @@
 -------------------------------------------------------------------
-Sun Sep 18 02:04:19 CEST 2005 - agruen@suse.de
+Sun Sep 18 02:49:43 CEST 2005 - agruen@suse.de
 
 - Merge compatibility layer from  John Vandenberg <jayvdb@gmail.com>.
 - Only add compat/ directory to PATH if it exists. Only create it
   when necessary.
 - configure.ac: fail if getopt does not support --long.
-- Remove compat/compatfns when no compatibility functions are 
-  included. Clean up some Makefile dependencies.
 - Replace @INSTALL@ with $(INSTALL) and @BASH@ with $(BASH) in
   Makefile.in.
 - Replace @FOO@ macros in scripts with foo command where possible.
+- Remove compatibility shell functions and convert them to
+  standalone scripts.
 
 -------------------------------------------------------------------
 Fri Sep 16 20:57:32 CEST 2005 - khali@linux-fr.org

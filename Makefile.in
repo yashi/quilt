@@ -36,7 +36,6 @@ RPMBUILD :=	@RPMBUILD@
 MTA :=		@MTA@
 
 COMPAT_SYMLINKS  := @COMPAT_SYMLINKS@
-COMPAT_FUNCTIONS := @COMPAT_FUNCTIONS@
 COMPAT_PROGRAMS  := @COMPAT_PROGRAMS@
 
 default: all
@@ -135,13 +134,6 @@ all : scripts
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
-
-.PHONY :: compat
-compat :
-	@rm -f compat/compatfns
-ifneq ($(COMPAT_FUNCTIONS),)
-	cat $(COMPAT_FUNCTIONS:%=compat/%.sh) > compat/compatfns
-endif
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) compat \
 	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
@@ -298,13 +290,10 @@ install-main: scripts
 
 install-compat:
 	@rm -rf $(BUILD_ROOT)$(COMPAT_DIR)
-ifneq ($(COMPAT_PROGRAMS)$(COMPAT_FUNCTIONS)$(COMPAT_SYMLINKS),)
+ifneq ($(COMPAT_PROGRAMS)$(COMPAT_SYMLINKS),)
 	$(INSTALL) -d $(BUILD_ROOT)$(COMPAT_DIR)
 ifneq ($(COMPAT_PROGRAMS),)
 	$(INSTALL) -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(COMPAT_DIR)
-endif
-ifneq ($(COMPAT_FUNCTIONS),)
-	$(INSTALL) -m 644 compat/compatfns $(BUILD_ROOT)$(COMPAT_DIR)
 endif
 endif
 
