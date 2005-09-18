@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 18 14:30:53 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Drop useless -e to grep.
+
+-------------------------------------------------------------------
 Sun Sep 18 14:15:13 CEST 2005 - agruen@suse.de
 
 - Merge po/Makefile into Makefile.in. Add a lost @false to

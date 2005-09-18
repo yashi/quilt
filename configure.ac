@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.47 $)
+AC_REVISION ($Revision: 1.48 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -67,7 +67,7 @@ if test -n "$GETOPT"; then
   dnl check GNU syntax
   $GETOPT -o t --long test -- --test | grep -q 'illegal option'
   getopt_long_errors=$?
-  $GETOPT -o t --long test -- --test | grep -qe '^ *--test *--'
+  $GETOPT -o t --long test -- --test | grep -q '^ *--test *--'
   getopt_long_works=$?
   if test $getopt_long_errors -eq 1 -a $getopt_long_works -eq 0; then
     AC_MSG_RESULT(yes)
