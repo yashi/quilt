@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Sep 18 17:41:56 CEST 2005 - agruen@suse.de
+
+- Fix a few things in po/quilt.pot generation.
+- Always create the mta symlink in compat/. Replace "@MTA@" with
+  "mta" in scripts. Replace mta check in configure.ac with
+  QUILT_COMPAT_PROG_PATH.
+- quilt/main.in: Add a User-Agent header.
+- Update the German translation.
+
+-------------------------------------------------------------------
 Sun Sep 18 16:28:14 CEST 2005 - agruen@suse.de
 
 - Makefile.in: remove obsolete substitutions.

@@ -35,14 +35,14 @@ with a template for the introductory message. Please see the file
 	can later be sent using formail, for example.
 
 --send
-	Send the messages directly using %s.
+	Send the messages directly.
 
 --from, --subject
 	The values for the From and Subject headers to use.
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
-" "@DOCSUBDIR@/README.MAIL" "@MTA@"
+" "@DOCSUBDIR@/README.MAIL"
 		exit 0
 	else
 		exit 1
@@ -66,10 +66,10 @@ process_mail()
 				  --extract-recipients Bcc \
 				  < $tmpfile)
 	if [ -n "$opt_send" ]; then
-		echo @MTA@ "$@"
+		echo mta "$@"
 		@SCRIPTS@/edmail --charset $opt_charset \
 				 --remove-header Bcc "$@" < $tmpfile \
-		| @MTA@ "$@"
+		| mta "$@"
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
 		echo "From ${LOGNAME:-$(whoami)}@$(hostname -f) $from_date"
@@ -153,6 +153,7 @@ introduction=$(gen_tempfile)
 (
 	cat <<-EOF
 	Message-Id: <$(msgid)>
+	User-Agent: quilt/@VERSION@-@RELEASE@
 	Date: $(date --rfc-822)
 	From: $opt_from
 	To: $(IFS=,; echo "${opt_to[*]}")

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.49 $)
+AC_REVISION ($Revision: 1.50 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -173,23 +173,13 @@ will not work correctly until a newer version (>= 1.32) is installed.
 fi
 
 dnl Check for sendmail
-AC_ARG_WITH(mta, AC_HELP_STRING(
-    [--with-mta], [mail transfer agent to use]),
-    [
-	MTA="$withval"
-	AC_SUBST(MTA)
-	AC_MSG_NOTICE([Using mail transfer executable $MTA])
-    ],[
-	AC_PATH_PROG(MTA, sendmail, [], [$PATH:/usr/sbin])
-    ])
-if test -z "$MTA"; then
-    AC_MSG_WARN([
-Mail transfer executable not found; the --send option of the mail command
-will not work correctly. If you have a mail transfer agent in a directory
-that is not in the search path you can specify its location using the
-'--with-mta' option.
-])
-    MTA="sendmail"
+old_PATH=$PATH
+PATH="$PATH:/usr/sbin"
+QUILT_COMPAT_PROG_PATH(MTA, mta, [sendmail])
+PATH=$old_PATH
+
+if ! echo $COMPAT_PROGRAMS $COMPAT_SYMLINKS | grep -q mta; then
+    COMPAT_SYMLINKS="$COMPAT_SYMLINKS mta"
 fi
 
 AC_ARG_ENABLE(nls, AC_HELP_STRING(

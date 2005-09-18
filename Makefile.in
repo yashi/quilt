@@ -35,8 +35,8 @@ DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
 MTA :=		@MTA@
 
-COMPAT_SYMLINKS  := @COMPAT_SYMLINKS@
-COMPAT_PROGRAMS  := @COMPAT_PROGRAMS@
+COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
+COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
 
 default: all
 
@@ -145,15 +145,16 @@ rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 
 po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in doc/README.in, \
 			   $(wildcard */*.in))
-	rm -f quilt.pot; touch quilt.pot
+	rm -f po/quilt.pot; touch po/quilt.pot
 	for file in $+ ; do \
-	  if head $$file | grep -q '@BASH@'; then \
+	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then \
 	    bash --dump-po-strings $$file ; \
-	  elif head $$file | grep -q '@PERL@'; then \
+	  elif test -n "`$(SED) -ne '1{ /@PERL''@/p }' $$file`"; then \
 	    xgettext --from-code=UTF-8 --omit-header --language=Perl \
 	    	     --keyword=_ -o - $$file; \
 	  else \
 	    echo "Don't know how to handle $$file" >&2 ; \
+	    exit 1; \
 	  fi \
 	done \
 	|msguniq \

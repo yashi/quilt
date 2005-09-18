@@ -123,12 +123,10 @@ msgid "File %s added to patch %s\\n"
 msgstr "Datei %s zu Patch %s hinzugefügt\\n"
 
 #: quilt/annotate.in:22
-#, fuzzy
-msgid "Usage: quilt [-p patch] annotate {file}\\n"
-msgstr "Verwendung: quilt annotate {datei}\\n"
+msgid "Usage: quilt annotate [-p patch] {file}\\n"
+msgstr "Verwendung: quilt annotate [-p patch] {datei}\\n"
 
 #: quilt/annotate.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print an annotated listing of the specified file showing which\n"
@@ -140,7 +138,12 @@ msgid ""
 msgstr ""
 "\n"
 "Erzeuge ein Listing der angegebenen Datei das anzeigt, welche\n"
-"Patches welche Zeilen verändern.\n"
+"Patches welche Zeilen verändern. Nur angewandte Patches werden\n"
+"angezeigt."
+"\n"
+"-p patch\n"
+"\tNur bis zum angegebenen Patch anstatt bis zum obersten Patch\n"
+"\tnach Änderungen suchen.\n"
 
 #: quilt/applied.in:22
 msgid "Usage: quilt applied [patch]\\n"
@@ -165,7 +168,6 @@ msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
 msgstr "Verwendung: quilt delete [-r] [--backup] [patch|-n]\\n"
 
 #: quilt/delete.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -188,6 +190,12 @@ msgstr ""
 "\n"
 "-n\tLösche den nächsten (dem obersten folgenden) Patch statt des obersten\n"
 "\toder angegebenen.\n"
+"\n"
+"-r\tEntferne den Patch auch aus dem patches-Verzeichnis.\n"
+"\n"
+"--backup\n"
+"\tBenenne den Patch auf patch~, anstatt ihn zu löschen.\n"
+"\tHat nur in Kompination mit -r eine Wirkung.\n"
 
 #: quilt/delete.in:100
 msgid "No next patch\\n"
@@ -206,12 +214,10 @@ msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/delete.in:138
-#, fuzzy
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
 #: quilt/delete.in:145
-#, fuzzy
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
@@ -630,7 +636,6 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -709,7 +714,7 @@ msgid ""
 "\tcan later be sent using formail, for example.\n"
 "\n"
 "--send\n"
-"\tSend the messages directly using %s.\n"
+"\tSend the messages directly.\n"
 "\n"
 "--from, --subject\n"
 "\tThe values for the From and Subject headers to use.\n"
@@ -729,7 +734,7 @@ msgstr ""
 "\tMailbox kann dann später mit formail o.ä. verschickt werden.\n"
 "\n"
 "--send\n"
-"\tVerschicke die Nachrichten direkt über %s.\n"
+"\tVerschicke die Nachrichten direkt.\n"
 "\n"
 "--from, --subject\n"
 "\tDie Werte für die From- und Subject-Kopfzeilen.\n"
