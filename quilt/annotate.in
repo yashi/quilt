@@ -48,8 +48,8 @@ annotation_for()
 	local old_file=$1 new_file=$2 annotation=$3
 	[ -s "$old_file" ] || old_file=/dev/null
 	[ -s "$new_file" ] || new_file=/dev/null
-	@DIFF@ -Ne "$old_file" "$new_file" \
-	| @PERL@ -e '
+	diff -Ne "$old_file" "$new_file" \
+	| perl -e '
 	while (<>) {
 	    if (/^\d+(?:,\d+)?[ac]$/) {
 		print;
@@ -175,7 +175,7 @@ for ((n = 0; n < ${#patches[@]}; n++))
 do
 	annotation_for "${files[n]}" "${files[n+1]}" $((n+1))
 done \
-| @PATCH@ $template
+| patch $template
 merge_files $template "${files[${#files[@]}-1]}"
 
 echo

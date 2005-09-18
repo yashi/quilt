@@ -77,7 +77,7 @@ included.
 
 colorize() {
 	if [ -n "$opt_color" ]; then
-		@AWK@ '
+		awk '
 		{ if (/^(Index:|\-\-\-|\+\+\+|\*\*\*) /)
 		    print "'$color_diff_hdr'" $0 "'$color_clear'"
 		  else if (/^\+/)
@@ -116,7 +116,7 @@ do_diff()
 	then
 		[ -s "$old_file" ] || old_file=/dev/null
 		[ -s "$new_file" ] || new_file=/dev/null
-		if ! @DIFF@ -qN $old_file $new_file >/dev/null
+		if ! diff -qN $old_file $new_file >/dev/null
 		then
 			export LANG=$ORIGINAL_LANG
 			$opt_diff $old_file $new_file
@@ -319,7 +319,7 @@ exec 4>&-  # close $tmp_files
 if [ -z "$opt_sort" ]
 then
 	files=( $(
-	    @AWK@ '
+	    awk '
 	    { if ($0 in seen)
 		next
 	      seen[$0]=1
@@ -352,9 +352,9 @@ then
 	if [ -s $patch_file ]
 	then
 		if ! cat_file $patch_file \
-		     | @PATCH@ -d $workdir $QUILT_PATCH_OPTS $patch_args \
-		     	       --no-backup-if-mismatch -Ef \
-			       >/dev/null 2>/dev/null
+		     | patch -d $workdir $QUILT_PATCH_OPTS $patch_args \
+		     	     --no-backup-if-mismatch -Ef \
+			     >/dev/null 2>/dev/null
 		then
 			# Generating a relative diff for a subset of files in
 			# the patch will fail. Also, if a patch was force

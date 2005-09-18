@@ -256,8 +256,8 @@ tmp_result=$(gen_tempfile) || die 1
 
 if [ -n "$opt_diffstat" ]
 then
-	diffstat="$(@DIFFSTAT@ $QUILT_DIFFSTAT_OPTS -p$opt_strip_level $tmp_patch)" || die 1
-	@AWK@ '
+	diffstat="$(diffstat $QUILT_DIFFSTAT_OPTS -p$opt_strip_level $tmp_patch)" || die 1
+	awk '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
 	      for (i=1; i in arr; i++)
@@ -290,7 +290,7 @@ fi
 cat $tmp_patch >> $tmp_result
 
 if [ -e $patch_file ] && \
-   @DIFF@ -q $patch_file $tmp_result > /dev/null
+   diff -q $patch_file $tmp_result > /dev/null
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
 elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \

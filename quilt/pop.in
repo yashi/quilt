@@ -115,10 +115,10 @@ check_for_pending_changes()
 	if [ -s $patch_file ]
 	then
 		if ! cat_file $patch_file \
-		     | @PATCH@ -d $workdir $QUILT_PATCH_OPTS \
-			       $(patch_args $patch) \
-			       --no-backup-if-mismatch -E \
-			       >/dev/null 2>/dev/null
+		     | patch -d $workdir $QUILT_PATCH_OPTS \
+			     $(patch_args $patch) \
+			     --no-backup-if-mismatch -E \
+			     >/dev/null 2>/dev/null
 		then
 			if ! [ -e $QUILT_PC/$patch ]
 			then
@@ -135,7 +135,7 @@ check_for_pending_changes()
 		file=$workdir/$file2
 		[ -e $file  ] || file=/dev/null
 		[ -e $file2 ] || file2=/dev/null
-		@DIFF@ -q $file $file2 > /dev/null || failed=1
+		diff -q $file $file2 > /dev/null || failed=1
 	done
 	
 	if [ -n "$failed" ]

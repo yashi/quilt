@@ -52,7 +52,7 @@ maybe_strip_trailing_whitespace()
 {
 	if [ -n "$opt_strip_trailing_whitespace" ]
 	then
-		@SED@ -e 's:[ '$'\t'']*$::'
+		sed -e 's:[ '$'\t'']*$::'
 	else
 		cat
 	fi
@@ -62,7 +62,7 @@ maybe_strip_diffstat()
 {
 	if [ -n "$opt_strip_diffstat" ]
 	then
-		@AWK@ '
+		awk '
 		/#? .* \| / \
 			{ eat = eat $0 "\n"
 			  next }

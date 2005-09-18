@@ -80,13 +80,13 @@ fi
 # Quote a string for use in a basic regular expression.
 quote_bre()
 {
-	echo "$1" | @SED@ -e 's:\([][^$/.*\\]\):\\\1:g'
+	echo "$1" | sed -e 's:\([][^$/.*\\]\):\\\1:g'
 }
 
 # Quote a string for use in an extended regular expression.
 quote_re()
 {
-	echo "$1" | @SED@ -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
+	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
 
 basename()
@@ -118,7 +118,7 @@ patch_args()
 
 	if [ -e $SERIES ]
 	then
-		@AWK@ '
+		awk '
 			{sub(/(^|[ \t]+)#.*/, "") }
 		$1 == "'"$patch"'" \
 			{ if (NF >= 2)
@@ -163,7 +163,7 @@ change_db_strip_level()
 	if [ -e $SERIES ]
 	then
 		local tmpfile=$(gen_tempfile)
-		@AWK@ '
+		awk '
 		/^'"$(quote_re $patch)"'([ \t]|$)/ \
 			{ for(i=2; i<=NF; i++)
 				if ($i ~ /^-p/) {
@@ -212,7 +212,7 @@ insert_in_series()
 	mkdir -p $(dirname $SERIES)
 	if [ -n "$next" ]
 	then
-		@AWK@ '
+		awk '
 		/^'"$(quote_re $next)"'([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
 				{ print }
@@ -239,7 +239,7 @@ remove_from_series()
 	local patch=$1
 
 	tmpfile=$(gen_tempfile) || return 1
-	@AWK@ '
+	awk '
 	! /^'"$(quote_re $patch)"'([ \t]|$)/ \
 				{ print }
 	' $SERIES > $tmpfile
@@ -257,7 +257,7 @@ rename_in_series()
 	local from=$1 to=$2
 
 	tmpfile=$(gen_tempfile) || return 1
-	@AWK@ '
+	awk '
 	/^'"$(quote_re $from)"'([ \t]|$)/ \
 		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
@@ -278,7 +278,7 @@ rename_in_db()
 	local from=$1 to=$2
 	local tmpfile
 	tmpfile=$(gen_tempfile) || return 1
-	@AWK@ '
+	awk '
 	/^'"$(quote_re $from)"'$/ \
 		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
@@ -309,8 +309,8 @@ cat_series()
 {
 	if [ -e $SERIES ]
 	then
-		@SED@ -e '/^$/d' -e '/^#/d' -e 's/^[ '$'\t'']*//' \
-		      -e 's/[ '$'\t''].*//' $SERIES
+		sed -e '/^$/d' -e '/^#/d' -e 's/^[ '$'\t'']*//' \
+		    -e 's/[ '$'\t''].*//' $SERIES
 	else
 		return 1
 	fi
@@ -345,7 +345,7 @@ applied_before()
 
 	if [ -n "$patch" ]
 	then
-		@AWK@ '
+		awk '
 		$0 == "'"$patch"'"	{ exit }
 					{ print }
 		' $DB
@@ -359,7 +359,7 @@ patches_before()
 	if [ -n "$patch" ]
 	then
 		cat_series \
-		| @AWK@ '
+		| awk '
 		$0 == "'"$patch"'"	{ exit }
 					{ print }
 		'
@@ -372,7 +372,7 @@ patches_after()
 	if [ -n "$patch" ]
 	then
 		cat_series \
-		| @AWK@ '
+		| awk '
 		seen			{ print }
 		$0 == "'"$patch"'"	{ seen=1 }
 		'
@@ -386,7 +386,7 @@ patches_on_top_of()
 {
 	local patch=$1
 	[ -e $DB ] || return
-	@AWK@ '
+	awk '
 	$0 == "'"$patch"'"	{ seen=1 ; next }
 	seen			{ print }
 	' $DB
@@ -437,7 +437,7 @@ find_patch()
 	then
 		local patch="${1#$SUBDIR_DOWN$QUILT_PATCHES/}"
 		local bre=$(quote_bre "$patch")
-		set -- $(@SED@ -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ "$'\t'"]\|$\)/!d" \
+		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' $SERIES)
 		if [ $# -eq 1 ]
 		then
@@ -487,7 +487,7 @@ filenames_in_patch()
 	if [ -e "$patch_file" ]
 	then
 		local strip=$(patch_strip_level $patch)
-		@AWK@ '
+		awk '
 		($1 == "+++" || $1 == "---" || $1 == "***") && \
 		$3 != "----" && $3 != "****" \
 			{ sub(/\t.*/, "")
@@ -505,7 +505,7 @@ files_in_patch_ordered()
 	(   files_in_patch $patch | sort
 	    echo "-"
 	    filenames_in_patch $patch
-	) | @AWK@ '
+	) | awk '
 	$1 == "-" { out=1 ; next }
 	!out	{ files[$0]=1
 		  new_files[++n]=$0 }
@@ -562,8 +562,8 @@ diff_file()
 					-r "$new_file")
 	fi
 
-	@DIFF@ -N $QUILT_DIFF_OPTS $old_file $new_file \
-	       --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
+	diff -N $QUILT_DIFF_OPTS $old_file $new_file \
+	     --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
 	| if read line
 	then
 		if [ -z "$QUILT_NO_DIFF_INDEX" ]
@@ -615,7 +615,7 @@ cat_to_new_file()
 
 patch_header()
 {
-	@AWK@ '
+	awk '
 	$1 == "***" || $1 == "---" \
 		{ exit }
 	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
@@ -628,7 +628,7 @@ patch_header()
 
 patch_body()
 {
-	@AWK@ '
+	awk '
 	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
 		{ eat = eat $0 "\n"
 		  next }
@@ -657,9 +657,9 @@ gen_tempfile()
 	local name
 	if [ "$1" = -d ]
 	then
-		@MKTEMP@ -d ${2:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
+		mktemp -d ${2:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
 	else
-		@MKTEMP@ ${1:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
+		mktemp ${1:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
 	fi
 }
 
@@ -730,7 +730,7 @@ quilt_command ()
 	local command=$1
 	shift
 
-	QUILT_COMMAND="" @BASH@ $BASH_OPTS -c ". @QUILT@/$command" "quilt $command" "$@"
+	QUILT_COMMAND="" bash $BASH_OPTS -c ". @QUILT@/$command" "quilt $command" "$@"
 }
 
 #

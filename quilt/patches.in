@@ -54,7 +54,7 @@ touched_by_patch()
 {
 	local strip=$1 patch=$2
 	cat_file $(patch_file_name $patch) \
-	|  @AWK@ '
+	|  awk '
 	/^\+\+\+[ \t]/ {
 		sub(/^\+\+\+[ \t]/, "")
 		sub(/[ \t].*/, "")

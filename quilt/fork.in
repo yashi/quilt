@@ -78,9 +78,9 @@ then
 	new_patch="$1"
 else
 	base=$(echo "$top_patch" \
-	       | @SED@ -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
+	       | sed -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
 	num=$(echo "$base" \
-	      | @SED@ -ne 's:.*\(-[0-9]\+\)$:\1:'p)
+	      | sed -ne 's:.*\(-[0-9]\+\)$:\1:'p)
 	if [ -n "$num" ]
 	then
 		new_patch="${base:0:${#base}-${#num}}-$((${num:1}+1))"

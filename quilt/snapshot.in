@@ -78,7 +78,7 @@ mkdir -p $QUILT_PC/$snap_subdir
 for patch in $(applied_patches); do
 	files_in_patch $patch
 done \
-| @AWK@ ' # filter out duplicates
+| awk ' # filter out duplicates
 	{ if (seen[$0])
 	      next
 	  seen[$0] = 1

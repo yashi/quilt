@@ -37,7 +37,7 @@ usage()
 	quilt_commands \
 	| sort \
 	| column | column -t \
-	| @SED@ -e $'s/^/\t/'
+	| sed -e $'s/^/\t/'
 	echo $"
 Global options:
 
@@ -140,6 +140,5 @@ fi
 set -- "${args[@]}"
 unset args
 
-#source @QUILT@/$command
 export QUILT_COMMAND="${command##*/}"
-@BASH@ $BASH_OPTS -c ". @QUILT@/$command" "quilt ${command##*/}" "$@"
+bash $BASH_OPTS -c ". @QUILT@/$command" "quilt ${command##*/}" "$@"

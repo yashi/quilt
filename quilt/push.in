@@ -69,7 +69,7 @@ interrupt()
 colorize()
 {
 	if [ -n "$opt_color" ]; then
-		@AWK@ '
+		awk '
 		{ if (/FAILED|hunks? ignored|can'\''t find file|file .* already exists/)
 		    print "'$color_patch_fail'" $0 "'$color_clear'"
 		  else if (/^Hunk/) {
@@ -96,22 +96,22 @@ apply_patch()
 	if [ "${patch_file:(-3)}" = ".gz" ]
 	then
 		gzip -cd $patch_file \
-		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+		| patch $QUILT_PATCH_OPTS $(patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
 			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	elif [ "${patch_file:(-4)}" = ".bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| @PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
+		| patch $QUILT_PATCH_OPTS $(patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
 			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	else
-		@PATCH@ $QUILT_PATCH_OPTS $(patch_args $patch) \
-			--backup --prefix="$QUILT_PC/$patch/" \
-			$no_reject_files \
-			-E $silent $force_apply -i $patch_file 2>&1
+		patch $QUILT_PATCH_OPTS $(patch_args $patch) \
+		      --backup --prefix="$QUILT_PC/$patch/" \
+		      $no_reject_files \
+		      -E $silent $force_apply -i $patch_file 2>&1
 	fi
 }
 
@@ -131,12 +131,12 @@ cleanup_patch_output() {
 			# which reject file is used. We use a single temporary
 			# reject file, so this does not help us.
 
-			@AWK@ '
+			awk '
 			{ gsub(/ -- saving rejects to file .*/, "") }
 			{ print }
 			'
 		else
-			@AWK@ '
+			awk '
 			/^patching file / { filename = substr($0, 15) }
 			{ gsub(/ -- saving rejects to file .*/,
 			       " -- rejects in file " filename) }

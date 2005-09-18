@@ -85,11 +85,6 @@ done > $tmpdir/md5sums
 echo >&4
 shopt -u nullglob
 
-RPM=( @RPMBUILD@ --eval "%define _sourcedir $sourcedir" \
-		 --eval "%define _specdir   $sourcedir" \
-		 --eval "%define _builddir  $tmpdir/build" )
-PATH="$tmpdir/bin:$PATH"
-
 # wrapper script for patch and tar
 cat <<-'EOF' > $tmpdir/bin/wrapper
 	#! @BASH@
@@ -192,10 +187,14 @@ ln -s wrapper $tmpdir/bin/patch
 ln -s wrapper $tmpdir/bin/tar
 
 # let rpm do all the dirty specfile stuff ...
-set -- @RPMBUILD@
-echo -n "### ${1##*/}: " >&4
+echo -n "### rpmbuild: " >&4
 
-"${RPM[@]}" --nodeps -bp "$specfile" < /dev/null >&2
+export PATH="$tmpdir/bin:$PATH"
+rpmbuild --eval "%define _sourcedir $sourcedir" \
+	 --eval "%define _specdir   $sourcedir" \
+	 --eval "%define _builddir  $tmpdir/build" \
+	 --nodeps \
+	 -bp "$specfile" < /dev/null >&2
 status=$?
 echo >&4
 exit $status

@@ -73,7 +73,7 @@ process_mail()
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
 		echo "From ${LOGNAME:-$(whoami)}@$(hostname -f) $from_date"
-		@SED@ -e 's/^From />From /' $tmpfile
+		sed -e 's/^From />From /' $tmpfile
 		echo
 	fi
 	rm -f $tmpfile
@@ -145,7 +145,7 @@ if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 		cat
 		# We could quote everything that looks like a mail
 		# header instead:
-		#@SED@ -e $'s/^[\41-\176]\\+:/>&/'
+		#sed -e $'s/^[\41-\176]\\+:/>&/'
 	}
 fi
 
@@ -175,15 +175,15 @@ if [ -n "$opt_mbox" ]; then
 	exec 1> $opt_mbox
 fi
 
-subject_prefix=$(@SED@ -ne $'s/^Subject-Prefix:[ \t]*//p' $introduction)
+subject_prefix=$(sed -ne $'s/^Subject-Prefix:[ \t]*//p' $introduction)
 [ -n "$subject_prefix" ] && subject_prefix="$subject_prefix "
 
 subject_prefix=${subject_prefix//\'/\'\'}
 subject_prefix=${subject_prefix//\//\\\/}
 p=${subject_prefix//@num@/$(printf %0*d ${#total} 0)}
 p=${p//@total@/$total}
-@SED@ -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
-      -e '/^Subject-Prefix:/d' \
+sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
+    -e '/^Subject-Prefix:/d' \
 $introduction \
 | @SCRIPTS@/edmail --charset $opt_charset \
 		  --remove-empty-headers To Cc Bcc \
@@ -197,7 +197,7 @@ fi
 # increment the timestamp by one second and wait with sending until
 # that time has arrived. This allows MUAs to show the messages in the
 # correct order.
-last_ts=$(date '+%s' -d "$(@SED@ -ne $'s/^Date:[ \t]*//p' $introduction)")
+last_ts=$(date '+%s' -d "$(sed -ne $'s/^Date:[ \t]*//p' $introduction)")
 
 num=1
 body=$(gen_tempfile)
@@ -212,7 +212,7 @@ for patch in "$@"; do
 
 	cat_file $(patch_file_name $patch) \
 	| quilt_mail_patch_filter $patch > $body
-	modify="$(@AWK@ '
+	modify="$(awk '
 	sub(/^Recipient-/, "")	{ r = gensub(/:.*/, "", "g")
 				  s = gensub(/^[^:]*:[ \t]*/, "", "g")
 				  gsub(/'\''/, "'\'\''", s)
@@ -227,14 +227,15 @@ for patch in "$@"; do
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
 	p=${p//@total@/$total}
 	(	echo "Message-Id: <$(msgid)>"
-		@SED@ -e 's/^Message-Id:/References:/' \
-		      -e '/^$/Q' \
-		      $introduction
+		sed -e 's/^Message-Id:/References:/' \
+		    -e '/^$/Q' \
+		    $introduction
 		echo "Content-Disposition: inline; filename=$patch"
-		@SED@ -e '/^Recipient-.*:/d' \
-		      -e '/^Replace-.*:/d' \
-		      -e '/^$/Q' $body
-		@AWK@ '
+		sed -e '/^Recipient-.*:/d' \
+		    -e '/^Replace-.*:/d' \
+		    -e '/^$/Q' \
+		    $body
+		awk '
 		/^$/	{ in_body = 1 }
 		in_body	{ print }
 		' $body
@@ -244,8 +245,8 @@ for patch in "$@"; do
 		--replace-header Date="\"$new_date\"" \
 		To Cc Bcc \
 		$modify \
-	| @SED@ -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
-		  -e '/^Subject-Prefix:/d' \
+	| sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
+	      -e '/^Subject-Prefix:/d' \
 	| @SCRIPTS@/edmail --remove-empty-headers \
 	| process_mail
 
