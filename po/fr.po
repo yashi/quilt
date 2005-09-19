@@ -82,7 +82,7 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Le fichier %s est situé en dessous de %s\\n"
 
-#: quilt/add.in:78 quilt/annotate.in:106 quilt/applied.in:62
+#: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
 #: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
 #: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:233 quilt/previous.in:62
 #: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
@@ -90,7 +90,7 @@ msgstr "Le fichier %s est situé en dessous de %s\\n"
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/add.in:99 quilt/annotate.in:126 quilt/diff.in:239 quilt/graph.in:121
+#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
 #: quilt/pop.in:248 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
