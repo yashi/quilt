@@ -1,8 +1,10 @@
 -------------------------------------------------------------------
-Mon Sep 19 11:48:00 CEST 2005 - agruen@suse.de
+Mon Sep 19 12:25:15 CEST 2005 - agruen@suse.de
 
 - Fix mta check when sendmail is found.
 - Fix --disable-nls.
+- configure.ac: Don't run tests when using internal compatibility
+  programs.
 
 -------------------------------------------------------------------
 Sun Sep 18 18:39:56 CEST 2005 - agruen@suse.de

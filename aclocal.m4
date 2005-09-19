@@ -25,6 +25,7 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
       AC_MSG_WARN([Using internal $2 mechanism.  Use option '--with-$2' to override])
       COMPAT_PROGRAMS="$COMPAT_PROGRAMS $2"
       $1=$2
+      INTERNAL_$1=1
     ])
   fi
   AC_SUBST($1)

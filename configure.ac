@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.53 $)
+AC_REVISION ($Revision: 1.54 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -77,7 +77,7 @@ QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
 QUILT_COMPAT_PROG_PATH(COLUMN, column)
 QUILT_COMPAT_PROG_PATH(GETOPT, getopt)
 
-if test -n "$GETOPT"; then
+if test -z "$INTERNAL_GETOPT"; then
   AC_MSG_CHECKING(for getopt --long syntax)
   dnl check GNU syntax
   $GETOPT -o t --long test -- --test | grep -q 'illegal option'
@@ -98,7 +98,7 @@ internal getopt.
 fi
 
 QUILT_COMPAT_PROG_PATH(MKTEMP, mktemp)
-if test -n "$MKTEMP" ; then
+if test -z "$INTERNAL_MKTEMP" ; then
     AC_MSG_CHECKING(whether $MKTEMP -d works)
     if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
        rmdir "$tempdir" ; then
