@@ -125,7 +125,7 @@ all : scripts compat-programs $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
 
 .PHONY :: compat-programs
 compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
-	chmod +x $+
+	$(if $+,chmod +x $+)
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)

@@ -82,7 +82,7 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Le fichier %s est situé en dessous de %s\\n"
 
-#: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
+#: quilt/add.in:78 quilt/annotate.in:106 quilt/applied.in:62
 #: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
 #: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:233 quilt/previous.in:62
 #: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
@@ -90,7 +90,7 @@ msgstr "Le fichier %s est situé en dessous de %s\\n"
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
+#: quilt/add.in:99 quilt/annotate.in:126 quilt/diff.in:239 quilt/graph.in:121
 #: quilt/pop.in:248 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
@@ -692,9 +692,10 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
 #: quilt/mail.in:24
+#, fuzzy
 msgid ""
-"Usage: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--cc ...] [--"
-"bcc ...] [--subject ...]\\n"
+"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
+"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
 "Usage : quilt mail {--mbox fichier|--send} [--from ...] [--to ...] [--"
 "cc ...] [--bcc ...] [--subject ...]\\n"
@@ -715,8 +716,13 @@ msgid ""
 "--send\n"
 "\tSend the messages directly.\n"
 "\n"
+"--sender\n"
+"\tThe envelope sender address to use. The address must be of the form\n"
+"\t\\`\\`user@domain.name''. No display name is allowed.\n"
+"\n"
 "--from, --subject\n"
-"\tThe values for the From and Subject headers to use.\n"
+"\tThe values for the From and Subject headers to use. If no --from\n"
+"\toption is given, the value of the --sender option is used.\n"
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
@@ -743,6 +749,10 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
+
+#: quilt/mail.in:145
+msgid "Could not determine the envelope sender address. Please use --sender."
+msgstr ""
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
@@ -1447,9 +1457,6 @@ msgid "Renaming %s to %s: %s\n"
 msgstr "En renommant %s en %s : %s\n"
 
 #, fuzzy
-#~ msgid "Usage: quilt [-p patch] annotate {file}\\n"
-#~ msgstr "Usage : quilt annotate {fichier}\\n"
-
 #~ msgid ""
 #~ "\n"
 #~ "Create mail messages from all patches in the series file, and either "
@@ -1463,7 +1470,7 @@ msgstr "En renommant %s en %s : %s\n"
 #~ "\tcan later be sent using formail, for example.\n"
 #~ "\n"
 #~ "--send\n"
-#~ "\tSend the messages directly using %s.\n"
+#~ "\tSend the messages directly.\n"
 #~ "\n"
 #~ "--from, --subject\n"
 #~ "\tThe values for the From and Subject headers to use.\n"
@@ -1494,6 +1501,10 @@ msgstr "En renommant %s en %s : %s\n"
 #~ "--to, --cc, --bcc\n"
 #~ "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 #~ "\tcachée, respectivement.\n"
+
+#, fuzzy
+#~ msgid "Usage: quilt [-p patch] annotate {file}\\n"
+#~ msgstr "Usage : quilt annotate {fichier}\\n"
 
 #~ msgid "Cannot change into directory %s\\n"
 #~ msgstr "Impossible d'entrer dans le répertoire %s\\n"

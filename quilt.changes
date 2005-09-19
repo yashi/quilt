@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 19 20:48:02 CEST 2005 - agruen@suse.de
+
+- Makefile.in: Fix when COMPAT_PROGRAMS is empty.
+
+-------------------------------------------------------------------
 Mon Sep 19 20:26:47 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Fix harmless error message in reference rule.
