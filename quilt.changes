@@ -1,7 +1,8 @@
 -------------------------------------------------------------------
-Mon Sep 19 11:23:39 CEST 2005 - agruen@suse.de
+Mon Sep 19 11:48:00 CEST 2005 - agruen@suse.de
 
 - Fix mta check when sendmail is found.
+- Fix --disable-nls.
 
 -------------------------------------------------------------------
 Sun Sep 18 18:39:56 CEST 2005 - agruen@suse.de

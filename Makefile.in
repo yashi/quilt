@@ -121,7 +121,7 @@ SRC +=		changes2changelog
 
 #-----------------------------------------------------------------------
 
-all : scripts $(COMPAT_PROGRAMS:%=compat/%) $(LINGUAS:%=po/%.mo)
+all : scripts $(COMPAT_PROGRAMS:%=compat/%) $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
