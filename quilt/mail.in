@@ -21,7 +21,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\n"
+	printf $"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -37,8 +37,13 @@ with a template for the introductory message. Please see the file
 --send
 	Send the messages directly.
 
+--sender
+	The envelope sender address to use. The address must be of the form
+	\`\`user@domain.name''. No display name is allowed.
+
 --from, --subject
-	The values for the From and Subject headers to use.
+	The values for the From and Subject headers to use. If no --from
+	option is given, the value of the --sender option is used.
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
@@ -52,7 +57,7 @@ with a template for the introductory message. Please see the file
 msgid()
 {
 	local timestamp=$(date --utc "+%Y%m%d%H%M%S.%N")
-	echo "$timestamp@$(hostname -f)"
+	echo "$timestamp@${opt_sender#*@}"
 }
 
 process_mail()
@@ -66,13 +71,13 @@ process_mail()
 				  --extract-recipients Bcc \
 				  < $tmpfile)
 	if [ -n "$opt_send" ]; then
-		echo sendmail "$@"
+		echo sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 		@SCRIPTS@/edmail --charset $opt_charset \
 				 --remove-header Bcc "$@" < $tmpfile \
-		| sendmail "$@"
+		| sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
-		echo "From ${LOGNAME:-$(whoami)}@$(hostname -f) $from_date"
+		echo "From $opt_sender $from_date"
 		sed -e 's/^From />From /' $tmpfile
 		echo
 	fi
@@ -80,7 +85,7 @@ process_mail()
 }
 
 options=`getopt -o h --long from:,to:,cc:,bcc:,subject: \
-		     --long send,mbox:,charset: -- "$@"`
+		     --long send,mbox:,charset:,sender: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -92,6 +97,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	--sender)
+		opt_sender=$2
+		shift 2 ;;
 	--from)
 		opt_from=$2
 		shift 2 ;;
@@ -128,6 +136,19 @@ if [ $# -gt 0 -o \( -z "$opt_send" -a -z "$opt_mbox" \) ]
 then
 	usage
 fi
+
+if [ -z "$opt_sender" ]; then
+	opt_sender="${LOGNAME:-$(whoami)}@$(hostname -f 2>/dev/null)"
+	case "$opt_sender" in
+	*@*.*)	;;
+	*)
+		echo $"\
+Could not determine the envelope sender address. Please use --sender." >&2
+		exit 1
+		;;
+	esac
+fi
+
 if [ -z "$opt_charset" ]; then
 	case "${LC_ALL:-$LANG}" in
 	*.UTF-8)
@@ -155,7 +176,7 @@ introduction=$(gen_tempfile)
 	Message-Id: <$(msgid)>
 	User-Agent: quilt/@VERSION@-@RELEASE@
 	Date: $(date --rfc-822)
-	From: $opt_from
+	From: ${opt_from:-$opt_sender}
 	To: $(IFS=,; echo "${opt_to[*]}")
 	Cc: $(IFS=,; echo "${opt_cc[*]}")
 	Bcc: $(IFS=,; echo "${opt_bcc[*]}")
