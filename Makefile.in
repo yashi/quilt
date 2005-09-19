@@ -33,7 +33,7 @@ MKTEMP :=	@MKTEMP@
 MSGFMT :=	@MSGFMT@
 DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
-MTA :=		@MTA@
+SENDMAIL :=	@SENDMAIL@
 
 COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
 COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
@@ -121,7 +121,11 @@ SRC +=		changes2changelog
 
 #-----------------------------------------------------------------------
 
-all : scripts $(COMPAT_PROGRAMS:%=compat/%) $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
+all : scripts compat-programs $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
+
+.PHONY :: compat-programs
+compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
+	chmod +x $+
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
@@ -172,9 +176,10 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 		esac ; \
 	done 2>&1 < $< > $@
 
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
 	@echo "quilt.1.in -> quilt.1"
-	@here=`pwd`;                                     \
+	@export PATH="`pwd`/compat:$$PATH";		\
+	here=`pwd`;                                     \
 	 while read line; do                             \
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
@@ -201,8 +206,9 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	done 2>&1 < $< > $@
 
 .PHONY :: reference
-reference : $(QUILT:%=quilt/%) scripts/patchfns
-	@dir=$(CURDIR); \
+reference : $(QUILT:%=quilt/%) compat-programs scripts/patchfns
+	@export PATH="`pwd`/compat:$$PATH"; \
+	dir=$(CURDIR); \
 	for i in $(filter-out scripts/patchfns,$+); \
 	do \
 		echo; \

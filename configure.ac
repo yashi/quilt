@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.54 $)
+AC_REVISION ($Revision: 1.55 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -187,19 +187,7 @@ will not work correctly until a newer version (>= 1.32) is installed.
     fi
 fi
 
-dnl Check for sendmail
-old_PATH=$PATH
-PATH="$PATH:/usr/sbin"
-QUILT_COMPAT_PROG_PATH(MTA, mta, [sendmail])
-PATH=$old_PATH
-
-if test -n "$MTA" ; then
-    COMPAT_SYMLINKS="$COMPAT_SYMLINKS mta"
-else
-    if ! echo $COMPAT_PROGRAMS $COMPAT_SYMLINKS | grep -q mta; then
-	COMPAT_PROGRAMS="$COMPAT_PROGRAMS mta"
-    fi
-fi
+QUILT_COMPAT_PROG_PATH(SENDMAIL, [sendmail], [], [/usr/sbin])
 
 AC_ARG_ENABLE(nls, AC_HELP_STRING(
     [--enable-nls], [include natural language support]))

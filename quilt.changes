@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Sep 19 15:23:54 CEST 2005 - agruen@suse.de
+
+- Rename MTA program to SENDMAIL, and improve configure.ac
+  (from John Vandenberg again, as several other recent things --
+   thanks!)
+- Must build the compatibility programs before creating the
+  command reference (which extracts the help texts).
+
+-------------------------------------------------------------------
 Mon Sep 19 12:25:15 CEST 2005 - agruen@suse.de
 
 - Fix mta check when sendmail is found.

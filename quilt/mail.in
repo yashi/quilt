@@ -66,10 +66,10 @@ process_mail()
 				  --extract-recipients Bcc \
 				  < $tmpfile)
 	if [ -n "$opt_send" ]; then
-		echo mta "$@"
+		echo sendmail "$@"
 		@SCRIPTS@/edmail --charset $opt_charset \
 				 --remove-header Bcc "$@" < $tmpfile \
-		| mta "$@"
+		| sendmail "$@"
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
 		echo "From ${LOGNAME:-$(whoami)}@$(hostname -f) $from_date"

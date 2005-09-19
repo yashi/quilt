@@ -16,7 +16,23 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
       COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
     fi
   ],[
-    AC_PATH_PROG($1, m4_if([$3],[],[$2],[$3]))
+    m4_if([$3],[],[
+      AC_PATH_PROGS($1,$2,,$PATH:$4)
+    ],[
+      AC_PATH_PROG($1,$3,,$PATH:$4)
+    ])
+    m4_if([$4],[],[],[
+      if test -n "$$1"; then
+	as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+        for dir in "$4"; do
+          if test "`dirname $$1`" = "$dir"; then
+            COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
+	    break
+	  fi
+        done
+	IFS="$as_save_IFS"
+      fi
+    ])
   ])
   if test -z "$$1"; then
     m4_if(internal_$2_cmd,[],[
