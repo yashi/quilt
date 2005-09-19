@@ -12,7 +12,7 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
   [
     if test ! x"$withval" = xnone; then
       $1="$withval"
-      AC_MSG_NOTICE([Using $2 executable $$2])
+      AC_MSG_NOTICE([Using $2 executable $$1])
       COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
     fi
   ],[
