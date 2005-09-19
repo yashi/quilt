@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.55 $)
+AC_REVISION ($Revision: 1.56 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -142,38 +142,24 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-AC_ARG_WITH(diffstat, AC_HELP_STRING(
-    [--with-diffstat], [name of the diffstat executable to use]),
-    [
-       DIFFSTAT="$withval"
-       AC_SUBST(DIFFSTAT)
-       AC_MSG_NOTICE([Using diffstat executable $DIFFSTAT])
-    ],[
-       AC_PATH_PROG(DIFFSTAT, diffstat)
-    ])
-if test -z "$DIFFSTAT"; then
-    AC_MSG_WARN([
-diffstat utility not found; the --diffstat option of the refresh command
-will not work correctly until diffstat is installed. If you have diffstat
-in a directory that is not in the search path you can specify its location
-using the '--with-diffstat' option.
-])
-    DIFFSTAT="diffstat"
-elif test "$DIFFSTAT" != no; then
+QUILT_COMPAT_PROG_PATH(DIFFSTAT, [diffstat])
+
+if test -z "$INTERNAL_DIFFSTAT"; then
     # We need diffstat version 1.32 or better, else quilt refresh --diffstat
     # will show progress data we don't want to see.  This is only a warning
     # and we continue even if version is older, as this is only a minor
     # annoyance.
     AC_MSG_CHECKING([for diffstat version])
-    diffstat_major_version=`$DIFFSTAT -V 2>/dev/null | \
-	sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\)/\1/'`
-    diffstat_minor_version=`$DIFFSTAT -V 2>/dev/null | \
-	sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\)/\2/'`
+    diffstat_version=`$DIFFSTAT -V 2>/dev/null | \
+        sed 's/^[[^0-9]]*\([[0-9]]*\)\.\([[0-9]]*\).*/\1 \2/'`
+    eval set -- "$diffstat_version"
+    diffstat_major_version="$1"
+    diffstat_minor_version="$2"
     if test -z "$diffstat_major_version" -o -z "$diffstat_minor_version"; then
 	AC_MSG_RESULT(unknown)
 	AC_MSG_WARN([
 diffstat utility version couldn't be checked; chances are good that the
---diffstat option of the refresh and diff commands will not work properly.
+--diffstat option of the refresh command will not work properly.
 ])
     else
 	AC_MSG_RESULT($diffstat_major_version.$diffstat_minor_version)

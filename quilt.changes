@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Sep 19 16:05:14 CEST 2005 - agruen@suse.de
+
+- Use compatibility m4 for diffstat. Correctly diagnose older
+  diffstat on OS X 10.3, which outputs '1.2 (patch 5)'. Update
+  configure warning message to reflect reality that quilt diff
+  does not accept --diffstat (John Vandenberg <jayvdb@gmail.com>).
+
+-------------------------------------------------------------------
 Mon Sep 19 15:54:01 CEST 2005 - agruen@suse.de
 
 - quilt/mail.in: add a --sender option for specifying the envelope

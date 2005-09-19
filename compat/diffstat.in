@@ -1,0 +1,4 @@
+#! @BASH@
+
+echo "diffstat support has not been built into \`quilt'" >&2
+exit 1
