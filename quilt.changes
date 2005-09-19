@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 19 20:26:47 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Fix harmless error message in reference rule.
+
+-------------------------------------------------------------------
 Mon Sep 19 19:48:50 CEST 2005 - khali@linux-fr.org
 
 - aclocal.m4: Fix a bug causing user-selected binary names not

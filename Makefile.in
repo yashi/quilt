@@ -209,7 +209,7 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
 reference : $(QUILT:%=quilt/%) compat-programs scripts/patchfns
 	@export PATH="`pwd`/compat:$$PATH"; \
 	dir=$(CURDIR); \
-	for i in $(filter-out scripts/patchfns,$+); \
+	for i in $(QUILT:%=quilt/%); \
 	do \
 		echo; \
 		($(BASH) -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
