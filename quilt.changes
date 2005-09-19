@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 19 11:23:39 CEST 2005 - agruen@suse.de
+
+- Fix mta check when sendmail is found.
+
+-------------------------------------------------------------------
 Sun Sep 18 18:39:56 CEST 2005 - agruen@suse.de
 
 - Add a missing $(BUILD_ROOT) and fix compat-symlink dependencies.
