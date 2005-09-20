@@ -25,6 +25,7 @@ GETOPT :=	@GETOPT@
 PERL :=		@PERL@
 BASH :=		@BASH@
 GREP :=		@GREP@
+TAIL :=		@TAIL@
 SED :=		@SED@
 AWK :=		@AWK@
 DIFF :=		@DIFF@
@@ -180,8 +181,9 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 
 doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
 	@echo "quilt.1.in -> quilt.1"
-	@export PATH="`pwd`/compat:$$PATH";		\
-	here=`pwd`;                                     \
+	@here=`pwd`;                                     \
+	PATH="$$here/compat:$$PATH";		         \
+	export PATH;                                     \
 	 while read line; do                             \
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
@@ -209,7 +211,8 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
 
 .PHONY :: reference
 reference : $(QUILT:%=quilt/%) compat-programs scripts/patchfns
-	@export PATH="`pwd`/compat:$$PATH"; \
+	@PATH="`pwd`/compat:$$PATH"; \
+	export PATH; \
 	dir=$(CURDIR); \
 	for i in $(QUILT:%=quilt/%); \
 	do \

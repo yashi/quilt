@@ -1,9 +1,11 @@
 TESTS=$(shell ls -tr *.test)
 
-export QUILTRC=$(CURDIR)/test.quiltrc
-ifneq ($(shell source $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
-export P=patches/
-export _P=../patches/
+QUILTRC=$(CURDIR)/test.quiltrc
+export QUILTRC
+ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
+P=patches/
+_P=../patches/
+export P _P
 endif
 $(warning P=$(P))
 

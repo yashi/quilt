@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.56 $)
+AC_REVISION ($Revision: 1.57 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -55,6 +55,20 @@ fi
 
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
+
+AC_MSG_CHECKING([whether $GREP -q works])
+if echo first | $GREP -q first 2>/dev/null; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of grep which doesn't understand -q.
+$PACKAGE_NAME needs it.  If you have access to a version of grep which does
+understand -q, you can supply its path with the '--with-grep=' option.
+Solaris users can use /usr/xpg4/bin/grep.
+])
+fi
+
 QUILT_COMPAT_PROG_PATH(TAIL, tail)
 
 # Solaris' /usr/bin/tail doesn't understand -n.
@@ -80,9 +94,9 @@ QUILT_COMPAT_PROG_PATH(GETOPT, getopt)
 if test -z "$INTERNAL_GETOPT"; then
   AC_MSG_CHECKING(for getopt --long syntax)
   dnl check GNU syntax
-  $GETOPT -o t --long test -- --test | grep -q 'illegal option'
+  $GETOPT -o t --long test -- --test | grep 'illegal option' >/dev/null
   getopt_long_errors=$?
-  $GETOPT -o t --long test -- --test | grep -q '^ *--test *--'
+  $GETOPT -o t --long test -- --test | grep '^ *--test *--' >/dev/null
   getopt_long_works=$?
   if test $getopt_long_errors -eq 1 -a $getopt_long_works -eq 0; then
     AC_MSG_RESULT(yes)
@@ -120,7 +134,7 @@ QUILT_COMPAT_PROG_PATH(PATCH, patch)
 # Sun's patch is a mess, issue a warning.  But we are going to continue with
 # the build because you might just be lucky.
 AC_MSG_CHECKING([whether $PATCH will work])
-if $PATCH -v 2>&1 | grep -q "Sun" >/dev/null 2>&1; then
+if $PATCH -v 2>&1 | grep "Sun" >/dev/null; then
 	AC_MSG_RESULT(no)
 	AC_MSG_WARN([
 Sorry, you have a Sun version of patch which is notoriously buggy.  $PACKAGE_NAME
@@ -128,7 +142,7 @@ may function correctly, or minor errors may occur due to Sun's patch tool.
 Please consider upgrading to GNU patch, if you already have GNU patch then you
 can supply its path with the '--with-patch=' option.
 ])
-elif $PATCH --version 2>&1 | grep -q "patch 2.0" >/dev/null 2>&1; then
+elif $PATCH --version 2>&1 | grep "patch 2.0" >/dev/null; then
 	AC_MSG_RESULT(no)
 	AC_MSG_WARN([
 Sorry, the version of patch you are using can cause severe problems when a patch
