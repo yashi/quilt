@@ -33,10 +33,10 @@
 	> File subdir/file3 added to patch %{_P}test.patch
 
 	$ rm file3
-	$ quilt files
-	> subdir/file
-	> subdir/file2
-	> subdir/file3
+	$ quilt files -v
+	>   subdir/file
+	> + subdir/file2
+	> - subdir/file3
 
 	$ quilt diff
 	> Index: d/subdir/file

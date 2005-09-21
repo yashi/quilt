@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Sep 21 21:13:19 CEST 2005 - khali@linux-fr.org
+
+- test/subdir.test: Test quilt files -v.
+
+-------------------------------------------------------------------
+Wed Sep 21 20:20:47 CEST 2005 - khali@linux-fr.org
+
+- test/sort.test: Quote grep arguments, as some grep
+  implementations seem to otherwise choke on them. Original patch
+  from John Vandenberg.
+
+-------------------------------------------------------------------
 Wed Sep 21 20:11:06 CEST 2005 - khali@linux-fr.org
 
 - quilt/diff.in: Add missing call to print_patch.
