@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 21 21:33:39 CEST 2005 - khali@linux-fr.org
+
+- quilt/files.in: Compute file status only when needed (that is,
+  when -v is used and -l isn't). This divides the execution time
+  by 5 in all other cases.
+
+-------------------------------------------------------------------
 Wed Sep 21 21:13:19 CEST 2005 - khali@linux-fr.org
 
 - test/subdir.test: Test quilt files -v.

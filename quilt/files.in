@@ -145,19 +145,6 @@ list_files_in_patch()
 	# Note: If opt_labels is set, then use_status is not set.
 	for file in $(files_in_patch_ordered $patch)
 	do
-		status=" "
-		if [ -s $(backup_file_name $patch $file) ]
-		then
-			if ! [ -s $file ]
-			then
-				status="-"
-			fi
-		else
-			if [ -s $file ]
-			then
-				status="+"
-			fi
-		fi
 		if [ -n "$opt_labels" ]
 		then
 			if [ -n "$opt_verbose" ]
@@ -171,6 +158,19 @@ list_files_in_patch()
 		then
 			echo "$file"
 		else
+			status=" "
+			if [ -s $(backup_file_name $patch $file) ]
+			then
+				if ! [ -s $file ]
+				then
+					status="-"
+				fi
+			else
+				if [ -s $file ]
+				then
+					status="+"
+				fi
+			fi
 			echo "$status $file"
 		fi
 	done
