@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep 21 22:41:08 CEST 2005 - khali@linux-fr.org
+
+- aclocal.m4: Fix typo causing binaries with alternative names not
+  to be properly handled.
+
+-------------------------------------------------------------------
 Wed Sep 21 21:33:39 CEST 2005 - khali@linux-fr.org
 
 - quilt/files.in: Compute file status only when needed (that is,

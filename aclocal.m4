@@ -17,9 +17,9 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
     fi
   ],[
     m4_if([$3],[],[
-      AC_PATH_PROGS($1,$2,,$PATH:$4)
+      AC_PATH_PROG($1,$2,,$PATH:$4)
     ],[
-      AC_PATH_PROG($1,$3,,$PATH:$4)
+      AC_PATH_PROGS($1,$3,,$PATH:$4)
     ])
     m4_if([$4],[],[],[
       if test -n "$$1"; then
