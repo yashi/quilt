@@ -50,7 +50,7 @@
 	> x
 	> z
 
-	$ quilt diff | grep ^Index
+	$ quilt diff | grep '^Index'
 	> Index: d/b
 	> Index: d/f
 	> Index: d/c
@@ -61,7 +61,7 @@
 	$ quilt refresh
 	> Refreshed patch patches/sort.diff
 
-	$ grep ^Index patches/sort.diff
+	$ grep '^Index' patches/sort.diff
 	> Index: d/b
 	> Index: d/f
 	> Index: d/c
@@ -69,7 +69,7 @@
 	> Index: d/x
 	> Index: d/z
 
-	$ quilt diff --sort | grep ^Index
+	$ quilt diff --sort | grep '^Index'
 	> Index: d/a
 	> Index: d/b
 	> Index: d/c
@@ -80,7 +80,7 @@
 	$ quilt refresh --sort
 	> Refreshed patch patches/sort.diff
 
-	$ grep ^Index patches/sort.diff
+	$ grep '^Index' patches/sort.diff
 	> Index: d/a
 	> Index: d/b
 	> Index: d/c
