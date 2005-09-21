@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Sep 21 20:11:06 CEST 2005 - khali@linux-fr.org
+
+- quilt/diff.in: Add missing call to print_patch.
+
+-------------------------------------------------------------------
 Tue Sep 20 19:57:43 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Fix compat/tail symlink creation. Fix variable 
