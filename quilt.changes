@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 21 22:44:26 CEST 2005 - khali@linux-fr.org
+
+- configure.ac, Makefile.in: Make the cp, date and tr binaries
+  user-selectable.
+- configure.ac: Test grep and tr features.
+
+-------------------------------------------------------------------
 Wed Sep 21 22:41:08 CEST 2005 - khali@linux-fr.org
 
 - aclocal.m4: Fix typo causing binaries with alternative names not

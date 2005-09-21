@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.57 $)
+AC_REVISION ($Revision: 1.58 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -53,6 +53,8 @@ version of bash from ftp.gnu.org
 ])
 fi
 
+QUILT_COMPAT_PROG_PATH(CP, cp, [gcp cp])
+QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
 
@@ -65,7 +67,19 @@ else
 Sorry, you have a version of grep which doesn't understand -q.
 $PACKAGE_NAME needs it.  If you have access to a version of grep which does
 understand -q, you can supply its path with the '--with-grep=' option.
-Solaris users can use /usr/xpg4/bin/grep.
+])
+fi
+
+AC_MSG_CHECKING([whether $GREP understands (foo|bar)])
+if echo first | $GREP '^\(fir\|las\)' >/dev/null 2>&1; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of grep which doesn't understand constructs
+of the form (foo|bar).  $PACKAGE_NAME needs it.  If you have access to
+a version of grep which does understand such constructs, you can supply
+its path with the '--with-grep=' option.
 ])
 fi
 
@@ -82,6 +96,22 @@ Sorry, you have a version of tail which doesn't understand -n.
 $PACKAGE_NAME needs it.  If you have access to a version of tail which does
 understand -n, you can supply its path with the '--with-tail=' option.
 Solaris users can use /usr/xpg4/bin/tail.
+])
+fi
+
+QUILT_COMPAT_PROG_PATH(TR, tr)
+
+AC_MSG_CHECKING([whether $TR understands a-z ])
+if test "`echo first | $TR a-z A-Z 2>/dev/null`" = "FIRST"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of tr which doesn't understand constructs
+of the form a-z.  $PACKAGE_NAME needs it.  If you have access to
+a version of tr which does understand such constructs, you can supply
+its path with the '--with-tr=' option.
+Solaris users can use /usr/xpg4/bin/tr.
 ])
 fi
 
