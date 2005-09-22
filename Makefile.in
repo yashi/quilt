@@ -50,7 +50,7 @@ install-compat-symlink-$(strip $(1)): install-compat
 	       $(BUILD_ROOT)$(COMPAT_DIR)/$(strip $(1))
 endef
 
-$(foreach symlink, $(COMPAT_SYMLINKS), $(eval $(call COMPAT_SYMLINK_install, $(symlink))))
+$(foreach symlink,$(COMPAT_SYMLINKS),$(eval $(call COMPAT_SYMLINK_install, $(symlink))))
 
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ @DEFS@

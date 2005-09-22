@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep 22 20:38:56 CEST 2005 - khali@linux-fr.org
+
+- Makefile.in: Fix extra spaces in foreach command which were
+  causing "missing separator" errors. Patch from Gary V. Vaughan.
+
+-------------------------------------------------------------------
 Thu Sep 22 20:26:09 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Test sed support for (foo|bar) constructs.
