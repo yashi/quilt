@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Sep 22 20:26:09 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Test sed support for (foo|bar) constructs.
+
+-------------------------------------------------------------------
 Wed Sep 21 22:44:26 CEST 2005 - khali@linux-fr.org
 
 - configure.ac, Makefile.in: Make the cp, date and tr binaries

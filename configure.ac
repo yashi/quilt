@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.58 $)
+AC_REVISION ($Revision: 1.59 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -116,6 +116,20 @@ Solaris users can use /usr/xpg4/bin/tr.
 fi
 
 QUILT_COMPAT_PROG_PATH(SED, sed)
+
+AC_MSG_CHECKING([whether $SED understands (foo|bar)])
+if test "`echo first | $SED -e 's/\(fir\|lo\)/la/' 2>/dev/null`" = "last"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of sed which doesn't understand constructs
+of the form (foo|bar).  $PACKAGE_NAME needs it.  If you have access to
+a version of sed which does understand such constructs, you can supply
+its path with the '--with-sed=' option.
+])
+fi
+
 QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
 QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
 QUILT_COMPAT_PROG_PATH(COLUMN, column)
