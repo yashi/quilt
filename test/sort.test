@@ -23,8 +23,13 @@
 
 	$ quilt files
 	> b
-	> f
 	> c
+	> f
+
+	$ quilt diff | grep '^Index'
+	> Index: d/b
+	> Index: d/f
+	> Index: d/c
 
 	$ quilt add z x
 	> File z added to patch patches/sort.diff
@@ -34,20 +39,27 @@
 	$ echo x > x
 	$ quilt files
 	> b
-	> f
 	> c
+	> f
 	> x
 	> z
+
+	$ quilt diff | grep '^Index'
+	> Index: d/b
+	> Index: d/f
+	> Index: d/c
+	> Index: d/x
+	> Index: d/z
 
 	$ quilt add a
 	> File a added to patch patches/sort.diff
 
 	$ echo a > a
 	$ quilt files
-	> b
-	> f
-	> c
 	> a
+	> b
+	> c
+	> f
 	> x
 	> z
 
