@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Sep 23 22:19:30 CEST 2005 - khali@linux-fr.org
+
+- quilt/files.in: Sort the file names rather than respecting the
+  original order of the files in patches. This is slightly faster,
+  and we don't much care about the original order.
+
+-------------------------------------------------------------------
 Fri Sep 23 20:32:38 CEST 2005 - khali@linux-fr.org
 
 - Fix the test suite so that directories leftover from a previously
