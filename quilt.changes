@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Sep 23 14:47:05 CEST 2005 - agruen@suse.de
+
+- Fix the test suite so that it doesn't fail if any higher-level
+  directory contains a patches/ sub-directory (iow, if quilt
+  itself is patched with quilt).
+
+-------------------------------------------------------------------
 Thu Sep 22 20:38:56 CEST 2005 - khali@linux-fr.org
 
 - Makefile.in: Fix extra spaces in foreach command which were

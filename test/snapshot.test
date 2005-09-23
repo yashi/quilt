@@ -1,4 +1,4 @@
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 
 	$ quilt new snapshot

@@ -5,7 +5,7 @@ of the installed quilt with `make check'.
 
 (To run, type `./run one.test' in this directory.)
 
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 	$ mkdir dir
 	$ echo "This is file one." > dir/file1

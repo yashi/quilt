@@ -1,7 +1,6 @@
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 
-	$ mkdir patches
 	$ cat > patches/series
 	< missing1.diff
 	< missing2.diff

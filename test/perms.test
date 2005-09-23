@@ -1,5 +1,5 @@
 	$ umask 022
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 	$ echo foo > foo
 	$ chmod 704 foo

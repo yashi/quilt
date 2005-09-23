@@ -1,7 +1,7 @@
 The text used here was taken from:
 http://the-tech.mit.edu/Shakespeare/midsummer/full.html
 
-	$ mkdir example1
+	$ mkdir -p example1/patches
 	$ cd example1
 	$ cat > Oberon.txt
 	< Yet mark'd I where the bolt of Cupid fell:

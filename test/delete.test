@@ -1,6 +1,6 @@
 Test the delete command.
 
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 
 	$ cat > test.txt

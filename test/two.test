@@ -1,6 +1,6 @@
 (To run, type `./run two.test' in this directory.)
 
-	$ mkdir -p d/d
+	$ mkdir -p d/patches d/d
 	$ cd d
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top

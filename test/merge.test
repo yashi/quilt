@@ -1,6 +1,6 @@
 Test the patch merging functionality of `quilt diff'.
 
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 
 	$ cat > abc.txt
@@ -8,7 +8,6 @@ Test the patch merging functionality of `quilt diff'.
 	< b
 	< c
 
-	$ mkdir patches
 	$ cat > patches/series
 	< a.diff
 	< b.diff

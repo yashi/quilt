@@ -1,10 +1,9 @@
 Regression test: Quilt did reorder files in patches.
 
-	$ mkdir d
+	$ mkdir -p d/patches
 	$ cd d
 	$ echo one > f
 	$ echo one > g
-	$ mkdir patches
 	$ cat > patches/test.diff
 	< --- g.orig
 	< +++ g
