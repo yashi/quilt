@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 23 20:32:38 CEST 2005 - khali@linux-fr.org
+
+- Fix the test suite so that directories leftover from a previously
+  interrupted test won't cause a test to fail.
+
+-------------------------------------------------------------------
 Fri Sep 23 20:27:08 CEST 2005 - khali@linux-fr.org
 
 - Drop test/reorder.test, it duplicates test/sort.test but is

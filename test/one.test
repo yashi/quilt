@@ -5,6 +5,7 @@ of the installed quilt with `make check'.
 
 (To run, type `./run one.test' in this directory.)
 
+	$ rm -rf d
 	$ mkdir -p d/patches
 	$ cd d
 	$ mkdir dir

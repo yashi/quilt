@@ -1,5 +1,6 @@
 Test the delete command.
 
+	$ rm -rf d
 	$ mkdir -p d/patches
 	$ cd d
 

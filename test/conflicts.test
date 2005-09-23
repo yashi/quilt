@@ -2,6 +2,7 @@ This test case creates a patch and then applies that patch to a modified
 source file. The source file is modified until the patch doesn't apply
 anymore, then the patch is fixed.
 
+	$ rm -rf d
 	$ mkdir -p d/patches
 	$ cd d
 

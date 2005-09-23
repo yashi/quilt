@@ -1,5 +1,6 @@
 (To run, type `./run two.test' in this directory.)
 
+	$ rm -rf d
 	$ mkdir -p d/patches d/d
 	$ cd d
 	$ quilt new patch1.diff

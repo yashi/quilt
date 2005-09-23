@@ -1,6 +1,7 @@
 Regresion test case: Empty lines in patch descriptions were
 accidentally removed.
 
+	$ rm -rf d
 	$ mkdir -p d/patches
 	$ cd d
 	$ echo one > f

@@ -1,5 +1,6 @@
 Test the patch merging functionality of `quilt diff'.
 
+	$ rm -rf d
 	$ mkdir -p d/patches
 	$ cd d
 
