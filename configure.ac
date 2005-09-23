@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.59 $)
+AC_REVISION ($Revision: 1.60 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -198,6 +198,21 @@ have a more recent version of patch then you can supply its path with the
 ])
 else
 	AC_MSG_RESULT(yes)
+fi
+
+QUILT_COMPAT_PROG_PATH(FIND, find)
+
+AC_MSG_CHECKING([whether $FIND -path works])
+if $FIND . -path '*' >/dev/null 2>&1; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of find which doesn't understand -path.
+$PACKAGE_NAME needs it.  If you have access to a version of find which
+does understand -path, you can supply its path with the
+'--with-find=' option.
+])
 fi
 
 QUILT_COMPAT_PROG_PATH(DIFFSTAT, [diffstat])

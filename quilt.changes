@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 23 22:24:29 CEST 2005 - khali@linux-fr.org
+
+- configure.ac: Let the user select the find binary. Test that find
+  supports -path.
+
+-------------------------------------------------------------------
 Fri Sep 23 22:19:30 CEST 2005 - khali@linux-fr.org
 
 - quilt/files.in: Sort the file names rather than respecting the
