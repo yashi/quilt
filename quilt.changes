@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 23 20:27:08 CEST 2005 - khali@linux-fr.org
+
+- Drop test/reorder.test, it duplicates test/sort.test but is
+  less complete.
+
+-------------------------------------------------------------------
 Fri Sep 23 20:06:50 CEST 2005 - khali@linux-fr.org
 
 - test/run: Do not depend on Term::ReadKey.
