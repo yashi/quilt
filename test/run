@@ -13,7 +13,6 @@ use strict;
 use FileHandle;
 use Getopt::Std;
 use POSIX qw(isatty setuid);
-use Term::ReadKey;
 use vars qw($opt_l $opt_v);
 
 no warnings qw(taint);
@@ -33,7 +32,7 @@ my ($prog, $in, $out) = ([], [], []);
 my $prog_line;
 my ($tests, $failed) = (0,0);
 my $lineno;
-my $width=((GetTerminalSize)[0] >> 1);
+my $width = ($ENV{COLUMNS} || 80) >> 1;
 
 for (;;) {
   my $line = <>; $lineno++;

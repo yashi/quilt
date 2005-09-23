@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Sep 23 20:06:50 CEST 2005 - khali@linux-fr.org
+
+- test/run: Do not depend on Term::ReadKey.
+
+-------------------------------------------------------------------
 Fri Sep 23 14:47:05 CEST 2005 - agruen@suse.de
 
 - Fix the test suite so that it doesn't fail if any higher-level
