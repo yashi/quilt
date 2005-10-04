@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Oct  4 18:43:42 CEST 2005 - khali@linux-fr.org
+
+- scripts/patchfns.in: Prevent patch_header and patch_body from
+  mistakenly considering "---" alone on its header line as the
+  beginning of the patch body.
+
+-------------------------------------------------------------------
 Fri Sep 23 22:24:29 CEST 2005 - khali@linux-fr.org
 
 - configure.ac: Let the user select the find binary. Test that find
