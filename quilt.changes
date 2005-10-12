@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Oct 12 15:33:53 CEST 2005 - agruen@suse.de
+
+- scripts/inspect.in: remove unnecessary path_search() function
+  and let the shell search the path internally.
+
+-------------------------------------------------------------------
 Tue Oct  4 18:43:42 CEST 2005 - khali@linux-fr.org
 
 - scripts/patchfns.in: Prevent patch_header and patch_body from

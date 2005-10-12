@@ -81,19 +81,19 @@ msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "ファイル \\`%s'は、\\`%s'以下にあります\\n"
 
 #: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
-#: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:171 quilt/graph.in:116
+#: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:172 quilt/graph.in:116
 #: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:233 quilt/previous.in:62
 #: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
 #: quilt/rename.in:63 quilt/unapplied.in:62
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:239 quilt/graph.in:121
+#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:240 quilt/graph.in:121
 #: quilt/pop.in:248 quilt/refresh.in:154 quilt/remove.in:74
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:247 quilt/files.in:103
+#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:103
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
 #: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
@@ -314,37 +314,37 @@ msgstr ""
 "\n"
 "--sort\t順番を保持せず、名前順にファイルを並び換える。\n"
 
-#: quilt/diff.in:231
+#: quilt/diff.in:232
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "オプション \\`--combine'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
 
-#: quilt/diff.in:258
+#: quilt/diff.in:259
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:293 quilt/files.in:122
+#: quilt/diff.in:294 quilt/files.in:122
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: quilt/diff.in:343 quilt/pop.in:101
+#: quilt/diff.in:344 quilt/pop.in:101
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/diff.in:367 quilt/pop.in:125
+#: quilt/diff.in:368 quilt/pop.in:125
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: quilt/diff.in:386
+#: quilt/diff.in:387
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:406 quilt/refresh.in:201
+#: quilt/diff.in:407 quilt/refresh.in:201
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: quilt/diff.in:413
+#: quilt/diff.in:414
 msgid "More recent patches modify files in patch %s\\n"
 msgstr "最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 

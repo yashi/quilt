@@ -89,23 +89,6 @@ shopt -u nullglob
 cat <<-'EOF' > $tmpdir/bin/wrapper
 	#! @BASH@
 
-	# search the path for command $1
-	path_search() {
-		local cmd=$1 dir
-		IFS=:
-		set -- $PATH
-		shift
-
-		for dir in "$@"; do
-			if [ -x $dir/$cmd ]
-			then
-				echo $dir/$cmd
-				return 0
-			fi
-		done
-		return 1
-	}
-
 	# find original data file by md5sum
 	original_file() {
 		local file=$1 md5sum
@@ -179,8 +162,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	fi
 
-	realcmd="$(path_search ${0##*/})" \
-	&& $realcmd "$@" < $tmpdir/data
+	PATH=${PATH#*:}
+	${0##*/} "$@" < $tmpdir/data
 EOF
 chmod 755 $tmpdir/bin/wrapper
 ln -s wrapper $tmpdir/bin/patch
