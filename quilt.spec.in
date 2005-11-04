@@ -30,8 +30,8 @@ Authors:
 %setup
 
 %build
-./configure
-make prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT
+CFLAGS="$RPM_OPT_FLAGS" ./configure
+make prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT RELEASE=%release
 
 %install
 rm -rf $RPM_BUILD_ROOT

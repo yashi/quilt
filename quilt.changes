@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Nov  4 16:21:58 CET 2005 - agruen@suse.de
+
+- Makefile.in: don't strip the backup-files binary in the install
+  target.
+- quilt.spec.in: set the CFLAGS to $RPM_OPT_FLAGS, and pass on
+  the RPM release number when building quilt.
+
+-------------------------------------------------------------------
 Wed Oct 12 15:33:53 CEST 2005 - agruen@suse.de
 
 - scripts/inspect.in: remove unnecessary path_search() function
