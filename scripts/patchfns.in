@@ -314,7 +314,8 @@ cat_series()
 
 top_patch()
 {
-	[ -e $DB ] && tail -n 1 $DB
+	local patch=$(tail -n 1 $DB 2>/dev/null)
+	[ -n "$patch" ] && echo "$patch"
 }
 
 is_numeric()
@@ -538,7 +539,6 @@ diff_file()
 	if ! [ -s "$old_file" ]
 	then
 		old_file=/dev/null
-		old_hdr=/dev/null
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
 		|| old_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
 	else
@@ -549,7 +549,6 @@ diff_file()
 	if ! [ -s "$new_file" ]
 	then
 		new_file=/dev/null
-		new_hdr=/dev/null
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
 		|| new_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
 	else

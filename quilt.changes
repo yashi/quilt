@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Nov 28 01:34:05 CET 2005 - agruen@suse.de
+
+- quilt/diff.in, quilt/refresh.in: stop using /dev/null for added
+  or removed files: GNU diff does not do that either, and for
+  removed files this leads to headers that only reference
+  $file.orig and /dev/null, so the actual file is not found. (This
+  is only truly fixes -p0 style patches as -p1 style patches use
+  dir.orig/file instead of dir/file.orig so the filename is not
+  lost, but stopping to use /dev/null makes sense for -p style
+  patches just the same.
+- files command: remove a redundant find_patch().
+- Make top_patch() fail if there is no top patch.
+
+-------------------------------------------------------------------
 Fri Nov  4 16:21:58 CET 2005 - agruen@suse.de
 
 - Makefile.in: don't strip the backup-files binary in the install

@@ -1,0 +1,24 @@
+	$ mkdir d
+	$ cd d
+
+	$ echo file > file
+	$ quilt new remove.diff
+	> Patch patches/remove.diff is now on top
+
+	$ quilt add file
+	> File file added to patch patches/remove.diff
+
+	$ rm file
+	$ quilt ref -p0
+	> Refreshed patch patches/remove.diff
+
+	$ quilt pop -q
+	> Removing patch patches/remove.diff
+	> No patches applied
+
+	$ quilt push -q
+	> Applying patch patches/remove.diff
+	> Now at patch patches/remove.diff
+	
+	$ cd ..
+	$ rm -r d

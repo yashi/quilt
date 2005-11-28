@@ -87,13 +87,12 @@ if [ $# -gt 1 ]
 then
 	usage
 fi
-last_patch=$(find_patch $1)
 
-if [ -n "$last_patch" ]
+if [ -n "$1" ]
 then
-	if ! patch=$(find_patch $last_patch)
+	if ! last_patch=$(find_patch $1)
 	then
-		printf $"Patch %s is not in series file\n" "$last_patch" >&2
+		printf $"Patch %s is not in series file\n" "$1" >&2
 		exit 1
 	fi
 else
