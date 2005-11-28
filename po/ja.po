@@ -93,7 +93,7 @@ msgstr "パッチ %s は seriesの中にありません\\n"
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:103
+#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:102
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
 #: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
@@ -324,7 +324,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:294 quilt/files.in:122
+#: quilt/diff.in:294 quilt/files.in:121
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -398,7 +398,7 @@ msgstr ""
 "\tことになる。\n"
 "\n"
 
-#: quilt/files.in:76 quilt/files.in:96
+#: quilt/files.in:76 quilt/files.in:95
 msgid "Patch %s is not in series file\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
@@ -1362,7 +1362,7 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: scripts/patchfns.in:700
+#: scripts/patchfns.in:703
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1374,7 +1374,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: scripts/patchfns.in:785
+#: scripts/patchfns.in:788
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

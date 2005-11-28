@@ -59,7 +59,7 @@ msgstr ""
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:103
+#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:102
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
 #: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:294 quilt/files.in:122
+#: quilt/diff.in:294 quilt/files.in:121
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -281,7 +281,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: quilt/files.in:76 quilt/files.in:96
+#: quilt/files.in:76 quilt/files.in:95
 msgid "Patch %s is not in series file\\n"
 msgstr ""
 
@@ -978,7 +978,7 @@ msgstr ""
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: scripts/patchfns.in:700
+#: scripts/patchfns.in:703
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -986,7 +986,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: scripts/patchfns.in:785
+#: scripts/patchfns.in:788
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

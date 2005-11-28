@@ -1,14 +1,11 @@
 -------------------------------------------------------------------
 Mon Nov 28 01:34:05 CET 2005 - agruen@suse.de
 
-- quilt/diff.in, quilt/refresh.in: stop using /dev/null for added
-  or removed files: GNU diff does not do that either, and for
-  removed files this leads to headers that only reference
-  $file.orig and /dev/null, so the actual file is not found. (This
-  is only truly fixes -p0 style patches as -p1 style patches use
-  dir.orig/file instead of dir/file.orig so the filename is not
-  lost, but stopping to use /dev/null makes sense for -p style
-  patches just the same.
+- quilt/diff.in, quilt/refresh.in: for -p0 style patches, when a
+  file is being deleted, use the real filename in the +++ line
+  instead of filename.orig: if we don't, the patch does not
+  contain the real filename anymore, and patch will fail. See
+  test/null-bug.test.
 - files command: remove a redundant find_patch().
 - Make top_patch() fail if there is no top patch.
 

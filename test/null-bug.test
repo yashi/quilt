@@ -8,7 +8,18 @@
 	$ quilt add file
 	> File file added to patch patches/remove.diff
 
+In this case, the original file in the --- line must not have .orig appended
+or else patch won't know the real original filename anymore.
+
 	$ rm file
+	$ quilt diff -p0
+	> Index: file
+	> ===================================================================
+	> --- file
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -file
+
 	$ quilt ref -p0
 	> Refreshed patch patches/remove.diff
 

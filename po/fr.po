@@ -95,7 +95,7 @@ msgstr "Le patch %s n'est pas dans la série\\n"
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:103
+#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:102
 #: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
 #: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
 #: quilt/rename.in:85
@@ -330,7 +330,7 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:294 quilt/files.in:122
+#: quilt/diff.in:294 quilt/files.in:121
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -404,7 +404,7 @@ msgstr ""
 "\tcelui appliqué en dernier. Le nom de fichier « - » correspond au \n"
 "\tpremier patch appliqué.\n"
 
-#: quilt/files.in:76 quilt/files.in:96
+#: quilt/files.in:76 quilt/files.in:95
 msgid "Patch %s is not in series file\\n"
 msgstr "Le patch %s n'est pas dans le fichier series\\n"
 
@@ -1401,7 +1401,7 @@ msgstr "Le fichier %s a disparu !\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Impossible de renommer %s en %s : %s\n"
 
-#: scripts/patchfns.in:700
+#: scripts/patchfns.in:703
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1413,7 +1413,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: scripts/patchfns.in:785
+#: scripts/patchfns.in:788
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
