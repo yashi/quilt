@@ -191,14 +191,14 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
 	  case "$$line" in                               \
 	    '@REFERENCE''@')                             \
 	       for cmd in $(sort $(QUILT:%=quilt/%)) ; do \
-		($(BASH) -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
-		   sed -e 's/Usage: quilt //'            \
+		(LANG=C LC_MESSAGES=C LC_ALL=C $(BASH) -c ". scripts/patchfns ; . $$here/$$cmd -h")| \
+		   sed -e 's/Usage: *quilt *//i'         \
 	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
 		       -e 's/^/.IP "/' -e 's/$$/ " 4/' | \
 	           head -n 1;                            \
 	         echo ;                                  \
-		($(BASH) -c ". scripts/patchfns ; LC_ALL=C . $$here/$$cmd -h")| \
-	         grep -v 'Usage: quilt' |                \
+		(LANG=C LC_MESSAGES=C LC_ALL=C $(BASH) -c ". scripts/patchfns ; . $$here/$$cmd -h")| \
+	         grep -v 'Usage: *quilt' |               \
 	           sed -e $$'s/^\t//'                    \
 	               -e $$'s/\t/\\\n/' |               \
 	           sed -e 's/^\(-.*\)$$/.IP "    \1" 8/' \
