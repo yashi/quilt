@@ -1,11 +1,7 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-# $Id: rules,v 1.15 2005/01/06 19:32:53 mquinson Exp $
-
-# Let cdbs track the build-dep for me
-debian/control:: debian/control.in debian/rules
-DEB_AUTO_UPDATE_DEBIAN_CONTROL = yes
+# $Id: rules,v 1.16 2005/12/01 13:45:35 mquinson Exp $
 
 # Import Common Debian Build System (CDBS).
 include /usr/share/cdbs/1/rules/debhelper.mk
@@ -21,4 +17,16 @@ DEB_MAKE_ENVVARS := BUILD_ROOT=$(CURDIR)/debian/tmp LC_ALL=C
 DEB_DH_INSTALL_SOURCEDIR := debian/tmp
 
 # force awk to be gawk, since mawk causes trouble
-DEB_CONFIGURE_EXTRA_FLAGS := --with-awk=/usr/bin/gawk
+# also specify the full path to sendmail, as requested by policy
+DEB_CONFIGURE_EXTRA_FLAGS := --with-awk=/usr/bin/gawk --with-mta=/usr/sbin/sendmail
+
+# distribute a text version of the doc for fool souls
+common-build-arch::
+	mkdir doc/tmp || true
+	cd doc/tmp; LC_ALL=C hevea ../main.tex ; LC_ALL=C hevea ../main.tex; LC_ALL=C hevea ../main.tex
+	cp doc/tmp/main.html doc/quilt.html 
+	LC_ALL=C perl -e '$$/ = undef; $$f=<>; $$f =~ s|<A[^>]*?HREF="[^"]*#[^"]*">(.*?)</A>|$$1|msg; print $$f;' < doc/tmp/main.html > doc/tmp/tmp.html
+	LC_ALL=C lynx doc/tmp/tmp.html -dump > doc/quilt.txt
+
+clean::
+	rm -rf doc/quilt.txt doc/quilt.html doc/tmp 

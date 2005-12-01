@@ -5,4 +5,9 @@ usr/share/doc/quilt-*/* usr/share/doc/quilt/
 usr/share/locale/*
 usr/share/man/*
 usr/share/quilt/*
+../quilt.debbuild.mk usr/share/quilt
+../quilt.make        usr/share/quilt
 ../patchsys-quilt.mk /usr/share/cdbs/1/rules/
+
+../../doc/quilt.html usr/share/doc/quilt
+../../doc/quilt.txt usr/share/doc/quilt

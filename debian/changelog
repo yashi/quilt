@@ -1,3 +1,81 @@
+quilt (0.43-1) unstable; urgency=low
+
+  * New upstream release
+    - bin/guards.in: s/ocnfiguration/configuration/
+      (Closes: #341518)
+    - doc/quilt.1.in: Document common options to all commands
+      (Closes: #334408)
+
+ -- Martin Quinson <mquinson@debian.org>  Thu,  1 Dec 2005 14:38:10 +0100
+
+quilt (0.42-1) unstable; urgency=low
+
+  * New upstream release.	
+    - New commands:
+      annotate: to see which patch modify which line of a file
+      header: to print or change the patch header
+      rename: to rename patches
+    - New options:
+      {diff,refresh} --no-index: suppress Index: lines in patch
+      delete -n: delete the next patch after topmost
+      --version: print the program version
+    - Rework the german translation (Closes: #313827).
+  * [Makefile.in]: in Debian, the docdir is /usr/share/doc/quilt, without
+    the version number. (Closes: #321155)
+  * Use the full path to /usr/sbin/sendmail (Closes: #318924)
+  * Add text and html versions of the pdf documentation (Closes: #320294)
+    Build-dep on hevea and lynx to get it working. Damn, that's huge deps
+	
+ -- Martin Quinson <mquinson@debian.org>  Wed, 29 Jun 2005 18:52:42 +0200
+
+quilt (0.40-6) unstable; urgency=low
+
+  [patchsys-quilt.mk]
+  * Don't call update-config after reverting patches.  (Closes: #299010)
+
+ -- Martin Quinson <mquinson@debian.org>  Wed, 29 Jun 2005 18:52:42 +0200
+
+quilt (0.40-5) unstable; urgency=low
+
+  [Packaging]
+  * Do not automatically generate debian/control.in since it is now
+    forbidden by policy.
+  [quilt.debbuild.mk]
+  * also cleanup arch cruft from debian dirs (patch stolen from cdbs)
+  * Pass the -nd flag to wget when fetching upstream source to avoid
+    by all means creating a dirctory structure.
+
+ -- Martin Quinson <mquinson@debian.org>  Wed, 29 Jun 2005 10:36:57 +0200
+
+quilt (0.40-4) unstable; urgency=low
+
+  * Do depend on patchutils only when using cdbs
+    (dependency moved from control.in to patchsys-quilt.mk)
+  * quilt.debuild.mk: Also cleanup svn stuff from debian dirs
+
+ -- Martin Quinson <mquinson@debian.org>  Sun, 22 May 2005 11:23:27 +0200
+
+quilt (0.40-3) unstable; urgency=low
+
+  * Depend on patchutils (>= 0.2.25) since we use lsdiff -H to fix #295913
+
+ -- Martin Quinson <mquinson@debian.org>  Fri, 13 May 2005 18:43:23 +0200
+
+quilt (0.40-2) unstable; urgency=low
+
+  * Add /usr/share/quilt/quilt.debbuild.mk to ease the build from the cvs 
+    of debian packages using quilt. Read its header for documentation.
+    
+ -- Martin Quinson <mquinson@debian.org>  Thu, 12 May 2005 23:02:13 +0200
+
+quilt (0.40-1) unstable; urgency=low
+
+  * New upstream version
+  * Add /usr/share/quilt/quilt.make for the ones not using CDBS.
+    The "patch" and "unpatch" targets are implemented.
+
+ -- Martin Quinson <mquinson@debian.org>  Wed, 11 May 2005 15:51:51 +0200
+
 quilt (0.39-3) unstable; urgency=low
 
   * Add a word in the man page about how to display compressed pdf files
@@ -299,7 +377,7 @@ quilt (0.21-1) unstable; urgency=low
 
 quilt (0.11-1) unstable; urgency=low
 
-  * New upstream release. New upstream author. Development moved to savannah.
+  * New upstream release. New upstream author. Developement moved to savannah.
   * Some functionnalities were removed, but all the scripts are much more robust now. 
 
  -- Martin Quinson <martin.quinson@tuxfamily.org>  Sat, 18 Jan 2003 23:36:29 +0100

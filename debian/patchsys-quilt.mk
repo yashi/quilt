@@ -1,5 +1,5 @@
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2003 Martin Quinson (martin quinson#debian org)
+# Copyright © 2003 Martin Quinson <martin.quinson@tuxfamily.org>
 # Description: An advanced patch system based on the quilt facilities.
 #  please refere to the documentation of the quilt package for more information.
 #
@@ -54,9 +54,6 @@ DEB_PATCHDIRS = $(shell pwd)/debian/patches
 #   $HOME/.quiltrc (so that quilt knows where to search for this)
 DEB_QUILT_PATCHDIR_LINK = patches
 
-# DEB_QUILT_SERIES: series file to use
-DEB_QUILT_SERIES = $(DEB_PATCHDIRS)/series
-
 # Internal variables, do not change it unless you know what you're doing
 DEB_QUILT_CMD = cd $(DEB_SRCDIR) && $(if $(DEB_QUILT_PATCHDIR_LINK),QUILT_PATCHES=$(DEB_QUILT_PATCHDIR_LINK)) quilt
 
@@ -67,7 +64,7 @@ CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), quilt
 # This is a Bad Thing since cdbs updates those files automatically.
 #  (code stolen from cdbs itself, in dpatch.mk)
 
-CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), patchutils
+CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), patchutils (>= 0.2.25)
 
 # target reverse-config, which we use, don't exist in old cdbs 
 CDBS_BUILD_DEPENDS      := $(CDBS_BUILD_DEPENDS), cdbs (>= 0.4.27-1)
@@ -108,7 +105,7 @@ debian/stamp-patched:
 	touch debian/stamp-patched
 	
 	$(MAKE) -f debian/rules update-config
-	# update-config must be first
+	# update-config must be last
 
 reverse-patches:
 	# reverse-config must be first
@@ -124,8 +121,5 @@ reverse-patches:
 	fi
 	rm -rf $(DEB_SRCDIR)/.pc
 	rm -f debian/stamp-patch*
-	
-	$(MAKE) -f debian/rules update-config
-	# update-config must be first
 
 endif
