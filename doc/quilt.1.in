@@ -98,6 +98,23 @@ no longer needed, so there is no need to clean up manually.
 
 @REFERENCE@
 
+.SH COMMON OPTIONS TO ALL COMMANDS
+
+.IP \"\\fB--trace\\fP\" 8
+
+Runs the command in bash trace mode (-x). For internal debugging.
+
+.IP \"\\fB--quiltrc\\fP file\" 8
+
+Use the specified configuration file instead of ~/.quiltrc (or
+/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
+documentation for details about its possible contents.
+
+.IP \"\\fB--version\\fP\" 8
+
+Print the version number and exit immediately.
+
+
 .SH EXAMPLE OF WORKING TREE
 
 .fam C
