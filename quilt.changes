@@ -1,3 +1,10 @@
+Thu Dec  1 11:56:33 CET 2005 - mquinson@debian.org
+
+- bin/guards.in: s/ocnfiguration/configuration/ 
+  (fixes Bug#341518 in Debian)
+- doc/quilt.1.in: Document common options to all commands
+  (fixes Bug#334408 in Debian)
+
 -------------------------------------------------------------------
 Mon Nov 28 01:34:05 CET 2005 - agruen@suse.de
 
