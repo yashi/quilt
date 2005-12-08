@@ -411,9 +411,8 @@ done
 
 if [ -n "$files_were_shadowed" ]
 then
-	printf $"More recent patches modify files in patch %s\n" \
+	printf $"Warning: more recent patches modify files in patch %s\n" \
 	       "$(print_patch $last_patch)" >&2
-	die 1
 fi
 die 0
 ### Local Variables:
