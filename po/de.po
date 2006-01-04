@@ -355,8 +355,8 @@ msgid "Diff failed, aborting\\n"
 msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 
 #: quilt/diff.in:414
-msgid "More recent patches modify files in patch %s\\n"
-msgstr "Später angewandte Patches verändern Dateien von %s\\n"
+msgid "Warning: more recent patches modify files in patch %s\\n"
+msgstr "Warnung: später angewandte Patches verändern Dateien von %s\\n"
 
 #: quilt/edit.in:24
 msgid "Usage: quilt edit file ...\\n"

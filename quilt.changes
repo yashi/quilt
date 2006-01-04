@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jan  4 17:32:47 CET 2006 - khali@linux-fr.org
+
+- po/quilt.pot, po/de.po: Resync with code.
+- po/ja.po: Update from Yasushi Shoji.
+- po/fr.po: Update from me.
+
+-------------------------------------------------------------------
 Thu Dec  8 17:45:41 CET 2005 - agruen@suse.de
 
 - scripts/inspect.in (setup command): add heuristic to check for

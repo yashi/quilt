@@ -245,7 +245,7 @@ msgid "Diff failed, aborting\\n"
 msgstr ""
 
 #: quilt/diff.in:414
-msgid "More recent patches modify files in patch %s\\n"
+msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr ""
 
 #: quilt/edit.in:24

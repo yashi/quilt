@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.42\n"
-"PO-Revision-Date: 2005-07-19 16:05+0200\n"
+"Project-Id-Version: quilt 0.43\n"
+"PO-Revision-Date: 2006-01-04 17:30+0100\n"
 "Last-Translator: Jean Delvare <khali@linux-fr.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -123,12 +123,10 @@ msgid "File %s added to patch %s\\n"
 msgstr "Le fichier %s a été ajouté au patch %s\\n"
 
 #: quilt/annotate.in:22
-#, fuzzy
 msgid "Usage: quilt annotate [-p patch] {file}\\n"
-msgstr "Usage : quilt add [-p patch] {fichier} ...\\n"
+msgstr "Usage : quilt annotate [-p patch] {fichier}\\n"
 
 #: quilt/annotate.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print an annotated listing of the specified file showing which\n"
@@ -140,7 +138,12 @@ msgid ""
 msgstr ""
 "\n"
 "Affiche une version annotée du fichier spécifié, montrant quel\n"
-"patch modifie chaque ligne.\n"
+"patch modifie chaque ligne. Seuls les patches appliqués sont\n"
+"pris en compte.\n"
+"\n"
+"-p patch\n"
+"\tAnnote le fichier tel qu'il se trouve après application du patch\n"
+"\tspécifié plutôt que d'aller jusqu'au patch au sommet.\n"
 
 #: quilt/applied.in:22
 msgid "Usage: quilt applied [patch]\\n"
@@ -165,7 +168,6 @@ msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
 msgstr "Usage : quilt delete [-r] [--backup] [patch|-n]\\n"
 
 #: quilt/delete.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -188,6 +190,12 @@ msgstr ""
 "\n"
 "-n\tEfface le patch qui suit celui qui est au sommet, au lieu du\n"
 "\tpatch spécifié ou de celui qui est au sommet.\n"
+"\n"
+"-r\tSupprime également le patch enlevé du répertoire patches.\n"
+"\n"
+"--backup\n"
+"\tRenomme le fichier en patch~ au lieu de le supprimer.\n"
+"\tIgnoré si \\\"-r\\\" n'est pas également utilisé.\n"
 
 #: quilt/delete.in:100
 msgid "No next patch\\n"
@@ -206,14 +214,12 @@ msgid "Failed to remove patch %s\\n"
 msgstr "Impossible de retirer le patch %s\\n"
 
 #: quilt/delete.in:138
-#, fuzzy
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
-msgstr "Impossible de faire une copie de sécurité de %s\\n"
+msgstr "Impossible de faire une copie de sécurité du fichier \\\"%s\\\"\\n"
 
 #: quilt/delete.in:145
-#, fuzzy
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
-msgstr "Impossible de retirer le patch %s\\n"
+msgstr "Impossible de retirer le patch \\\"%s\\\"\\n"
 
 #: quilt/diff.in:24
 msgid ""
@@ -351,8 +357,8 @@ msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
 #: quilt/diff.in:414
-msgid "More recent patches modify files in patch %s\\n"
-msgstr "Un patch plus recent modifie des fichiers communs à %s.\\n"
+msgid "Warning: more recent patches modify files in patch %s\\n"
+msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 
 #: quilt/edit.in:24
 msgid "Usage: quilt edit file ...\\n"
@@ -634,7 +640,6 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Usage : quilt import [-f] [-p num] [-n patch] fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -650,7 +655,9 @@ msgid ""
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
 "\n"
-"Importe des patchs externes.\n"
+"Importe des patchs externes.  Ces patches sont insérés juste après\n"
+"le patch au sommet, et doivent ensuite être appliqués (utiliser\n"
+"« quilt push »).\n"
 "\n"
 "-p num\n"
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
@@ -692,16 +699,14 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
 #: quilt/mail.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
 "to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
-"Usage : quilt mail {--mbox fichier|--send} [--from ...] [--to ...] [--"
-"cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage : quilt mail {--mbox fichier|--send} [--sender ...] [--from ...] [--"
+"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -752,7 +757,7 @@ msgstr ""
 
 #: quilt/mail.in:145
 msgid "Could not determine the envelope sender address. Please use --sender."
-msgstr ""
+msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
