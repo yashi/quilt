@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Jan 10 19:29:57 CET 2006 - khali@linux-fr.org
+
+- test/null-bug.test: Fix the original directory creation so that
+  the test doesn't fail if any higher-level directory contains a
+  patches/ sub-directory.
+- test/*.test: Fix the test suite after the December 8th, 2005
+  change to quilt diff. Contributed by Markus Oberhumer.
+
+-------------------------------------------------------------------
 Wed Jan  4 17:32:47 CET 2006 - khali@linux-fr.org
 
 - po/quilt.pot, po/de.po: Resync with code.

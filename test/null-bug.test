@@ -1,4 +1,5 @@
-	$ mkdir d
+	$ rm -rf d
+	$ mkdir -p d/patches
 	$ cd d
 
 	$ echo file > file

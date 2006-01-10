@@ -136,7 +136,7 @@
 	> @@ -1 +1,2 @@
 	>  This is file two.
 	> +Another line added.
-	> More recent patches modify files in patch %{_P}patch1.diff
+	> Warning: more recent patches modify files in patch %{_P}patch1.diff
 	
 	$ quilt refresh patch1
 	> More recent patches modify files in patch %{_P}patch1.diff. Enforce refresh with -f.
