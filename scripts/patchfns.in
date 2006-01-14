@@ -24,9 +24,9 @@ DB_VERSION=2
 : ${QUILT_PC:=.pc}
 
 # Support compatibility layer
-if [ -d $QUILT/compat ]
+if [ -d $QUILT_DIR/compat ]
 then
-	export PATH="$QUILT/compat:$PATH"
+	export PATH="$QUILT_DIR/compat:$PATH"
 fi
 
 unset CDPATH
@@ -729,7 +729,7 @@ quilt_command ()
 	local command=$1
 	shift
 
-	QUILT_COMMAND="" bash $BASH_OPTS -c ". $QUILT/$command" "quilt $command" "$@"
+	QUILT_COMMAND="" bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
 #

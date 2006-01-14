@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r $QUILT/scripts/patchfns ]
+	if ! [ -r $QUILT_DIR/scripts/patchfns ]
 	then
-		echo "Cannot read library $QUILT/scripts/patchfns" >&2
+		echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
 		exit 1
 	fi
-	. $QUILT/scripts/patchfns
+	. $QUILT_DIR/scripts/patchfns
 	if [ -n "$SUBDIR" ]
 	then
 		cd $SUBDIR
@@ -113,7 +113,7 @@ case "$1" in
 *.spec)
 	spec_file="$1"
 
-	if ! $QUILT/scripts/inspect $verbose "$spec_file" 2>&1 > $tmpfile
+	if ! $QUILT_DIR/scripts/inspect $verbose "$spec_file" 2>&1 > $tmpfile
 	then
 		printf $"The %%prep section of %s failed; results may be incomplete\n" "$spec_file"
 		if [ -z "$verbose" ]

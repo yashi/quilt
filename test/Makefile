@@ -1,9 +1,9 @@
 TESTS=$(shell ls -tr *.test)
 
 QUILTRC=$(CURDIR)/test.quiltrc
-QUILT=$(CURDIR)/../quilt
-LIB=$(CURDIR)/../lib
-export QUILTRC QUILT LIB
+QUILT_DIR=$(CURDIR)/../quilt
+QUILT_LIB=$(CURDIR)/../lib
+export QUILTRC QUILT_DIR QUILT_LIB
 PATH:=$(CURDIR)/../bin:$(PATH)
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 P=patches/

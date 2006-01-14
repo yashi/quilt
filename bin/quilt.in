@@ -9,8 +9,8 @@
 export TEXTDOMAIN=quilt
 export TEXTDOMAINDIR=@LOCALEDIR@
 
-: ${QUILT=@QUILT@} ${LIB=@LIB@}
-export QUILT LIB
+: ${QUILT_DIR=@QUILT_DIR@} ${QUILT_LIB=@QUILT_LIB@}
+export QUILT_DIR QUILT_LIB
 
 if [ -z "$QUILTRC" ]
 then
@@ -21,9 +21,9 @@ then
 fi
 
 # Support compatibility layer
-if [ -d $QUILT/compat ]
+if [ -d $QUILT_DIR/compat ]
 then
-	export PATH="$QUILT/compat:$PATH"
+	export PATH="$QUILT_DIR/compat:$PATH"
 fi
 
 usage()
@@ -56,11 +56,11 @@ Global options:
 quilt_commands()
 {
 	local command
-	for command in $QUILT/*
+	for command in $QUILT_DIR/*
 	do
 		if [ -f "$command" -a -x "$command" ]
 		then
-			echo ${command##$QUILT/}
+			echo ${command##$QUILT_DIR/}
 		fi
 	done
 }
@@ -108,7 +108,7 @@ do
 	shift
 done
 
-if ! [ -f "$QUILT/$command" -a -x "$QUILT/$command" ]
+if ! [ -f "$QUILT_DIR/$command" -a -x "$QUILT_DIR/$command" ]
 then
 	if [ -n "$command" ]
 	then
@@ -140,4 +140,4 @@ set -- "${args[@]}"
 unset args
 
 export QUILT_COMMAND="${command##*/}"
-bash $BASH_OPTS -c ". $QUILT/$command" "quilt ${command##*/}" "$@"
+bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt ${command##*/}" "$@"

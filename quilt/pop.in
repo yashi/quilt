@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r $QUILT/scripts/patchfns ]
+	if ! [ -r $QUILT_DIR/scripts/patchfns ]
 	then
-		echo "Cannot read library $QUILT/scripts/patchfns" >&2
+		echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
 		exit 1
 	fi
-	. $QUILT/scripts/patchfns
+	. $QUILT_DIR/scripts/patchfns
 fi
 
 usage()
@@ -170,7 +170,7 @@ remove_patch()
 			status=0
 		else
 			printf $"Removing patch %s\n" "$(print_patch $patch)"
-			$LIB/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
+			$QUILT_LIB/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
 			status=$?
 		fi
 		remove_from_db $patch
@@ -285,7 +285,7 @@ else
 	# of one: This will automatically be the case in the usual
 	# situations, but we don't want to risk file corruption in weird
 	# corner cases such as files added to a patch but not modified.
-	$LIB/backup-files -L -s -B $QUILT_PC/$patch/ -
+	$QUILT_LIB/backup-files -L -s -B $QUILT_PC/$patch/ -
 	printf $"Now at patch %s\n" "$(print_patch $patch)"
 fi
 ### Local Variables:

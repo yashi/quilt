@@ -8,12 +8,12 @@
 
 : ${LIB=@LIB@} ${QUILT=@QUILT@}
 
-if ! [ -r $QUILT/scripts/patchfns ]
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
 then
-	echo "Cannot read library $QUILT/scripts/patchfns" >&2
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
 	exit 1
 fi
-. $QUILT/scripts/patchfns
+. $QUILT_DIR/scripts/patchfns
 cd ${SUBDIR:-.}
 
 usage() {

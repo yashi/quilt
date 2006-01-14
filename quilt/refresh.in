@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r $QUILT/scripts/patchfns ]
+	if ! [ -r $QUILT_DIR/scripts/patchfns ]
 	then
-		echo "Cannot read library $QUILT/scripts/patchfns" >&2
+		echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
 		exit 1
 	fi
-	. $QUILT/scripts/patchfns
+	. $QUILT_DIR/scripts/patchfns
 fi
 
 usage()
@@ -223,11 +223,11 @@ fi
 # Check for trailing whitespace
 if [ -z "$opt_strip_whitespace" ]
 then
-	$QUILT/scripts/remove-trailing-ws -n -p$opt_strip_level \
+	$QUILT_DIR/scripts/remove-trailing-ws -n -p$opt_strip_level \
 	< $tmp_patch
 else
 	tmp_patch2=$(gen_tempfile)
-	if $QUILT/scripts/remove-trailing-ws -p$opt_strip_level \
+	if $QUILT_DIR/scripts/remove-trailing-ws -p$opt_strip_level \
 				       < $tmp_patch > $tmp_patch2
 	then
 		rm -f $tmp_patch
