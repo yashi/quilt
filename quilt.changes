@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jan 14 05:10:01 CET 2006 - agruen@suse.de
+
+- Use the quilt version in the source tree instead of the
+  installed version for running the test suite.
+
+-------------------------------------------------------------------
 Tue Jan 10 19:29:57 CET 2006 - khali@linux-fr.org
 
 - test/null-bug.test: Fix the original directory creation so that

@@ -6,12 +6,14 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-if ! [ -r @SCRIPTS@/patchfns ]
+: ${LIB=@LIB@} ${QUILT=@QUILT@}
+
+if ! [ -r $QUILT/scripts/patchfns ]
 then
-	echo "Cannot read library @SCRIPTS@/patchfns" >&2
+	echo "Cannot read library $QUILT/scripts/patchfns" >&2
 	exit 1
 fi
-. @SCRIPTS@/patchfns
+. $QUILT/scripts/patchfns
 cd ${SUBDIR:-.}
 
 usage() {

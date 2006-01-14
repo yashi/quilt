@@ -9,12 +9,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r @SCRIPTS@/patchfns ]
+	if ! [ -r $QUILT/scripts/patchfns ]
 	then
-		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		echo "Cannot read library $QUILT/scripts/patchfns" >&2
 		exit 1
 	fi
-	. @SCRIPTS@/patchfns
+	. $QUILT/scripts/patchfns
 fi
 
 setup_colors

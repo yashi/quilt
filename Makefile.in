@@ -123,6 +123,8 @@ SRC +=		$(wildcard test/*.test) test/run test/Makefile \
 		test/test.quiltrc
 SRC +=		changes2changelog
 
+NON_EXEC_IN :=	doc/quilt.1 doc/README scripts/patchfns
+
 #-----------------------------------------------------------------------
 
 all : scripts compat-programs $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
@@ -268,6 +270,7 @@ $(patsubst %.in,%,$(wildcard quilt/*.in scripts/*.in)) :: Makefile
 	     -e 's:@LOCALEDIR''@:$(localedir):g' \
 	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
 	     $< > $@
+	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
 
 lib/backup-files.o :: Makefile
 

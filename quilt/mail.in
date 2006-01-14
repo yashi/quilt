@@ -11,12 +11,12 @@
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
-	if ! [ -r @SCRIPTS@/patchfns ]
+	if ! [ -r $QUILT/scripts/patchfns ]
 	then
-		echo "Cannot read library @SCRIPTS@/patchfns" >&2
+		echo "Cannot read library $QUILT/scripts/patchfns" >&2
 		exit 1
 	fi
-	. @SCRIPTS@/patchfns
+	. $QUILT/scripts/patchfns
 fi
 
 usage()
@@ -65,14 +65,14 @@ process_mail()
 	local tmpfile=$(gen_tempfile)
 
 	cat > $tmpfile
-	set -- $(@SCRIPTS@/edmail --charset $opt_charset \
+	set -- $($QUILT/scripts/edmail --charset $opt_charset \
 				  --extract-recipients To \
 				  --extract-recipients Cc \
 				  --extract-recipients Bcc \
 				  < $tmpfile)
 	if [ -n "$opt_send" ]; then
 		echo sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
-		@SCRIPTS@/edmail --charset $opt_charset \
+		$QUILT/scripts/edmail --charset $opt_charset \
 				 --remove-header Bcc "$@" < $tmpfile \
 		| sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
@@ -186,7 +186,7 @@ introduction=$(gen_tempfile)
 	--
 	EOF
 	[ -r $HOME/.signature ] && cat $HOME/.signature
-) | @SCRIPTS@/edmail --charset $opt_charset > $introduction
+) | $QUILT/scripts/edmail --charset $opt_charset > $introduction
 
 $EDITOR $introduction || exit 1
 
@@ -207,7 +207,7 @@ p=${p//@total@/$total}
 sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
     -e '/^Subject-Prefix:/d' \
 $introduction \
-| @SCRIPTS@/edmail --charset $opt_charset \
+| $QUILT/scripts/edmail --charset $opt_charset \
 		  --remove-empty-headers To Cc Bcc \
 | process_mail
 
@@ -263,13 +263,13 @@ for patch in "$@"; do
 		' $body
 		echo -e '\n--'
 		[ -r $HOME/.signature ] && cat $HOME/.signature
-	) | eval @SCRIPTS@/edmail --charset $opt_charset \
+	) | eval $QUILT/scripts/edmail --charset $opt_charset \
 		--replace-header Date="\"$new_date\"" \
 		To Cc Bcc \
 		$modify \
 	| sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
 	      -e '/^Subject-Prefix:/d' \
-	| @SCRIPTS@/edmail --remove-empty-headers \
+	| $QUILT/scripts/edmail --remove-empty-headers \
 	| process_mail
 
 	if [ ${PIPESTATUS[1]} -ne 0 ]; then

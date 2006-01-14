@@ -1,16 +1,16 @@
-#: bin/quilt.in:29
+#: bin/quilt.in:32
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr ""
 
-#: bin/quilt.in:30
+#: bin/quilt.in:33
 msgid "       quilt --version"
 msgstr ""
 
-#: bin/quilt.in:32
+#: bin/quilt.in:35
 msgid "Commands are:"
 msgstr ""
 
-#: bin/quilt.in:37
+#: bin/quilt.in:40
 msgid ""
 "\n"
 "Global options:\n"
