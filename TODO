@@ -17,8 +17,6 @@ General:
 
 	- Add command that generates a summary (patch names + descriptions).
 
-	- Add command to extract a header.
-
 	- Add more long-form options, and add some nagative options so that
 	  defaults from .quiltrc can easily be overruled.
 
