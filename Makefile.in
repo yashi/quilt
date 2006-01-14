@@ -13,9 +13,6 @@ mandir :=	$(datadir)/man
 localedir :=	$(datadir)/locale
 etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
 
-QUILT_DIR =	$(datadir)/$(PACKAGE)
-QUILT_LIB =	$(libdir)/$(PACKAGE)
-
 INSTALL :=	@INSTALL@
 POD2MAN :=	@POD2MAN@
 COLUMN :=	@COLUMN@
@@ -37,19 +34,6 @@ DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
 SENDMAIL :=	@SENDMAIL@
 
-COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
-COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
-
-default: all
-
-define COMPAT_SYMLINK_install
-install-compat-symlink-$(strip $(1)): install-compat
-	ln -sf $($(shell echo $(1) | $(AWK) '{print toupper($$1)}')) \
-	       $(BUILD_ROOT)$(QUILT_DIR)/compat/$(strip $(1))
-endef
-
-$(foreach symlink,$(COMPAT_SYMLINKS),$(eval $(call COMPAT_SYMLINK_install, $(symlink))))
-
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ @DEFS@
 CFLAGS +=	@CFLAGS@
@@ -57,15 +41,17 @@ LDFLAGS +=	@LDFLAGS@
 LIBS :=		@LIBS@
 EXEEXT :=	@EXEEXT@
 
-ISODATE :=	$(shell date +%Y-%m-%d)
+COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
+COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
+
+default: all
 
 #-----------------------------------------------------------------------
 DIRT +=		$(shell find . -name '*~')
 DIRT +=		$(shell find . -name '.\#*')
 
-SRC +=		COPYING AUTHORS TODO Makefile.in \
-		configure.ac config/install-sh \
-		quilt.spec.in quilt.changes \
+SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
+		config/install-sh quilt.spec.in quilt.changes		\
 		bash_completion quilt.quiltrc
 DIRT +=		quilt.spec
 
@@ -81,16 +67,16 @@ QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail \
+SCRIPTS_IN :=	patchfns parse-patch inspect dependency-graph edmail	\
 		remove-trailing-ws
 
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
-SRC +=		$(SCRIPTS_SRC:%=scripts/%)
-DIRT +=		$(SCRIPTS_IN:%=scripts/%)
+SRC +=		$(SCRIPTS_SRC:%=quilt/scripts/%)
+DIRT +=		$(SCRIPTS_IN:%=quilt/scripts/%)
 
 SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
-DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in)) compat/compatfns
+DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in))
 
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files$(EXEEXT)
@@ -101,37 +87,37 @@ DOC_IN :=	README
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
-SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile \
-		doc/quilt.1.in doc/README.MAIL
+SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile doc/quilt.1.in	\
+		doc/README.MAIL
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
 DIRT +=		$(MAN1)
-
-#DEBIAN :=	changelog control copyright rules
-#
-#SRC +=		$(DEBIAN:%=debian/%)
 
 LINGUAS :=	fr de ja
 PO :=		quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo po/*~
 
-SRC +=		$(wildcard test/*.test) test/run test/Makefile \
-		test/test.quiltrc
+SRC +=		$(wildcard test/*.test) test/run test/test.quiltrc
 SRC +=		changes2changelog
 
-NON_EXEC_IN :=	doc/quilt.1 doc/README scripts/patchfns
+NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
+
+ISODATE :=	$(shell date +%Y-%m-%d)
+
+TESTS :=	$(wildcard test/*.test)
+
+# Settings for running the uninstalled version of quilt in the source tree:
+PATH :=		$(CURDIR)/bin:$(CURDIR)/compat:$(PATH)
+QUILT_DIR :=	$(CURDIR)/quilt
+QUILT_LIB :=	$(CURDIR)/lib
+QUILTRC :=	$(CURDIR)/test/test.quiltrc
+export QUILT_DIR QUILT_LIB QUILTRC
 
 #-----------------------------------------------------------------------
 
 all : scripts compat-programs $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
-
-.PHONY :: compat-programs
-compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
-	@for program in $+; do \
-	    test -x $$program || chmod +x $$program; \
-	done
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
@@ -142,8 +128,9 @@ $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 %.po : po/quilt.pot
 	msgmerge -o $@ $@ $^
 
-scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) $(SCRIPTS:%=scripts/%) compat \
-	  $(LIB:%=lib/%) $(DOC:%=doc/%) $(MAN1)
+scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
+	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%) $(DOC:%=doc/%) 	\
+	  $(MAN1)
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
@@ -152,83 +139,66 @@ snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
 
-po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in doc/README.in, \
-			   $(wildcard */*.in))
+po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
+			   doc/README.in, $(wildcard */*.in))
 	rm -f po/quilt.pot; touch po/quilt.pot
-	for file in $+ ; do \
-	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then \
-	    bash --dump-po-strings $$file ; \
-	  elif test -n "`$(SED) -ne '1{ /@PERL''@/p }' $$file`"; then \
-	    xgettext --from-code=UTF-8 --omit-header --language=Perl \
-	    	     --keyword=_ -o - $$file; \
-	  else \
-	    echo "Don't know how to handle $$file" >&2 ; \
-	    exit 1; \
-	  fi \
-	done \
-	|msguniq \
+	for file in $+ ; do						\
+	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then	\
+	    bash --dump-po-strings $$file ;				\
+	  elif test -n "`$(SED) -ne '1{ /@PERL''@/p }' $$file`"; then	\
+	    xgettext --from-code=UTF-8 --omit-header --language=Perl	\
+	    	     --keyword=_ -o - $$file;				\
+	  else								\
+	    echo "Don't know how to handle $$file" >&2 ;		\
+	    exit 1;							\
+	  fi								\
+	done								\
+	|msguniq							\
 	|msgcat --force-po -F - $@ -o $@
 
 doc/README : doc/README.in $(QUILT:%=quilt/%)
 	@echo "README.in -> README"
-	@while read line; do \
-		case "$$line" in \
-		'@REFERENCE''@') \
-			$(MAKE) -s reference |egrep -v '^make'\
-			;; \
-		*) \
-			echo $$line \
-			;; \
-		esac ; \
+	@while read line; do						\
+		case "$$line" in					\
+		'@REFERENCE''@')					\
+			$(MAKE) -s reference				\
+			;;						\
+		*)							\
+			echo $$line					\
+			;;						\
+		esac ;							\
 	done 2>&1 < $< > $@
 
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) compat-programs
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	@echo "quilt.1.in -> quilt.1"
-	@here=`pwd`;                                     \
-	PATH="$$here/compat:$$PATH";		         \
-	export PATH;                                     \
-	 while read line; do                             \
-	  case "$$line" in                               \
-	    '@REFERENCE''@')                             \
-	       for cmd in $(sort $(QUILT:%=quilt/%)) ; do \
-		(LANG=C LC_MESSAGES=C LC_ALL=C $(BASH) -c ". scripts/patchfns ; . $$here/$$cmd -h")| \
-		   sed -e 's/Usage: *quilt *//i'         \
-	               -e 's/^\([^ ]*\)/\\fB\1\\fP/'     \
-		       -e 's/^/.IP "/' -e 's/$$/ " 4/' | \
-	           head -n 1;                            \
-	         echo ;                                  \
-		(LANG=C LC_MESSAGES=C LC_ALL=C $(BASH) -c ". scripts/patchfns ; . $$here/$$cmd -h")| \
-	         grep -v 'Usage: *quilt' |               \
-	           sed -e $$'s/^\t//'                    \
-	               -e $$'s/\t/\\\n/' |               \
-	           sed -e 's/^\(-.*\)$$/.IP "    \1" 8/' \
-	               -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'; \
-	         echo;                                   \
-	       done                                      \
-	     ;;                                          \
-	     *)                                          \
-	       echo "$$line"                             \
-	     ;;                                          \
-	   esac ;                                        \
-	done 2>&1 < $< > $@
+	while read line; do						\
+	  case "$$line" in						\
+	  '@REFERENCE''@')						\
+	    $(MAKE) -s reference |					\
+	    sed -e 's/^quilt \([^ ]*\)\(.*\)/.IP "\\fB\1\\fP\2 " 4/'	\
+		-e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
+		-e $$'s/^  \t\\?//'					\
+	    ;;								\
+	  *)								\
+	    echo "$$line"						\
+	    ;;								\
+	  esac;								\
+	done < $< 2>&1 > $@
 
 .PHONY :: reference
-reference : $(QUILT:%=quilt/%) compat-programs scripts/patchfns
-	@PATH="`pwd`/compat:$$PATH"; \
-	export PATH; \
-	dir=$(CURDIR); \
-	for i in $(QUILT:%=quilt/%); \
-	do \
-		echo; \
-		($(BASH) -c ". scripts/patchfns ; cd $$dir ;LC_ALL=C . $$i -h"); \
-		echo; \
-	done | \
-	sed -e 's/\$$EDITOR ([^)]*)/$$EDITOR/' \
-	    -e '/^$$/!s/^/  /' \
+reference : $(QUILT:%=quilt/%) compat-programs quilt/scripts/patchfns
+	@unset LANG LC_MESSAGES LC_CTYPE LC_ALL;			\
+	for i in $(QUILT);						\
+	do								\
+		echo;							\
+		quilt $$i -h;						\
+		echo;							\
+	done |								\
+	sed -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'				\
+	    -e '/^$$/!s/^/  /'						\
 	    -e 's/^  Usage: *//'
 
 bin/guards.1 : bin/guards
-	mkdir -p `dirname $@`
 	$(POD2MAN) $< > $@
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
@@ -238,7 +208,7 @@ $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
-$(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
+$(PACKAGE)-$(ISODATE).tar.bz2 : configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(ISODATE) $@
 	ln -s . $(PACKAGE)-$(ISODATE)
 	tar chf - $(+:%=$(PACKAGE)-$(ISODATE)/%) | bzip2 -9 > $@
@@ -246,26 +216,26 @@ $(PACKAGE)-$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
 	@echo "File $@ created."
 
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
-	@echo "Generating spec file" ; \
-	set -e ; \
-	changelog="`./changes2changelog $(PACKAGE).changes`" ; \
-	awk '{ gsub(/@VERSION''@/, "$(VERSION)") ; \
-	       gsub(/@RELEASE''@/, "$(RELEASE)") ; \
-	       gsub(/@CHANGELOG''@/, changelog) ; \
+	@echo "Generating spec file" ;					\
+	set -e ;							\
+	changelog="`./changes2changelog $(PACKAGE).changes`" ;		\
+	awk '{ gsub(/@VERSION''@/, "$(VERSION)") ;			\
+	       gsub(/@RELEASE''@/, "$(RELEASE)") ;			\
+	       gsub(/@CHANGELOG''@/, changelog) ;			\
 	       print }' changelog="$$changelog" $< > $@
 
-$(patsubst %.in,%,$(wildcard quilt/*.in scripts/*.in)) :: Makefile
+$(patsubst %.in,%,$(wildcard quilt/*.in quilt/scripts/*.in)) :: Makefile
 % :: %.in
 	@echo "$< -> $@" >&2
-	@sed -e 's:@QUILT_LIB''@:$(QUILT_LIB):g' \
-	     -e 's:@QUILT_DIR''@:$(QUILT_DIR):g' \
-	     -e 's:@PERL''@:$(PERL):g' \
-	     -e 's:@BASH''@:$(BASH):g' \
-	     -e 's:@VERSION''@:$(VERSION):g' \
-	     -e 's:@RELEASE''@:$(RELEASE):g' \
-	     -e 's:@MTA''@:$(MTA):g' \
-	     -e 's:@LOCALEDIR''@:$(localedir):g' \
-	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
+	@sed -e 's:@QUILT_LIB''@:$(libdir)/$(PACKAGE):g'		\
+	     -e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
+	     -e 's:@PERL''@:$(PERL):g'					\
+	     -e 's:@BASH''@:$(BASH):g'					\
+	     -e 's:@VERSION''@:$(VERSION):g'				\
+	     -e 's:@RELEASE''@:$(RELEASE):g'				\
+	     -e 's:@MTA''@:$(MTA):g'					\
+	     -e 's:@LOCALEDIR''@:$(localedir):g'			\
+	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g'	\
 	     $< > $@
 	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
 
@@ -275,57 +245,84 @@ Makefile : Makefile.in
 	@echo "Please run ./configure"
 	@false
 
-install-main ::
+install-main :: scripts
 	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
 	$(INSTALL) -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
 
-	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_DIR)
-	$(INSTALL) -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(QUILT_DIR)/
+	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)
+	$(INSTALL) -m 755 $(QUILT:%=quilt/%) $(BUILD_ROOT)$(datadir)/$(PACKAGE)/
 
-	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_DIR)/scripts
-	$(INSTALL) -m 755 $(patsubst %,scripts/%, \
-			     $(filter-out patchfns,$(SCRIPTS))) \
-		  $(BUILD_ROOT)$(QUILT_DIR)/scripts
-	$(INSTALL) -m 644 scripts/patchfns $(BUILD_ROOT)$(QUILT_DIR)/scripts
+	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
+	$(INSTALL) -m 755 $(patsubst %,quilt/scripts/%,			\
+			  $(filter-out patchfns,$(SCRIPTS)))		\
+		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
+	$(INSTALL) -m 644 quilt/scripts/patchfns			\
+		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
 
-	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_LIB)
-	$(INSTALL) -m 755 $(LIB:%=lib/%) $(BUILD_ROOT)$(QUILT_LIB)/
+	$(INSTALL) -d $(BUILD_ROOT)$(libdir)/$(PACKAGE)
+	$(INSTALL) -m 755 $(LIB:%=lib/%) $(BUILD_ROOT)$(libdir)/$(PACKAGE)/
 
 	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	$(INSTALL) -m 644 doc/README \
-		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
-	$(INSTALL) -m 644 doc/quilt.pdf doc/README.MAIL \
-		$(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	$(INSTALL) -m 644 doc/README					\
+		   $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	$(INSTALL) -m 644 doc/quilt.pdf doc/README.MAIL			\
+		   $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 
 	$(INSTALL) -d $(BUILD_ROOT)$(mandir)/man1
 	$(INSTALL) -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
 
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)
 	$(INSTALL) -d $(BUILD_ROOT)$(etcdir)/bash_completion.d
-	$(INSTALL) -m 644 bash_completion $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
+	$(INSTALL) -m 644 bash_completion				\
+		   $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 	$(INSTALL) -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
 install-compat:
-	@rm -rf $(BUILD_ROOT)$(QUILT_DIR)/compat
+	@rm -rf $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 ifneq ($(COMPAT_PROGRAMS)$(COMPAT_SYMLINKS),)
-	$(INSTALL) -d $(BUILD_ROOT)$(QUILT_DIR)/compat
+	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 ifneq ($(COMPAT_PROGRAMS),)
-	$(INSTALL) -m 755 $(COMPAT_PROGRAMS:%=compat/%) $(BUILD_ROOT)$(QUILT_DIR)/compat
+	$(INSTALL) -m 755 $(COMPAT_PROGRAMS:%=compat/%)			\
+		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 endif
 endif
 
-install: scripts install-main install-compat \
-	 $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
+define COMPAT_SYMLINK_install
+install-compat-symlink-$(strip $(1)): install-compat
+	ln -sf $($(shell echo $(1) | $(AWK) '{print toupper($$1)}'))	\
+	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat/$(strip $(1))
+endef
+
+$(foreach symlink,$(COMPAT_SYMLINKS),$(eval $(call COMPAT_SYMLINK_install, $(symlink))))
+
+compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
+
+install: install-main $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 
 uninstall ::
-	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%) \
-	       $(BUILD_ROOT)$(QUILT_LIB) \
-	       $(BUILD_ROOT)$(QUILT_DIR) \
-	       $(patsubst %,$(BUILD_ROOT)$(mandir)/man1/%, \
-		   $(notdir $(MAN1))) \
-	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt \
-	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc \
+	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%)			\
+	       $(BUILD_ROOT)$(libdir)/$(PACKAGE)			\
+	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)			\
+	       $(patsubst %,$(BUILD_ROOT)$(mandir)/man1/%,		\
+		   $(notdir $(MAN1)))					\
+	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt		\
+	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc			\
 	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+
+.PHONY :: $(TESTS:%=check-%)
+check: $(TESTS:%=check-%)
+
+ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
+CHECK_ENV := P=patches/; _P=../patches/; export P _P
+endif
+
+$(TESTS:%=check-%): scripts
+	@echo "[$(@F)]"
+	@LANG=C;							\
+	export LANG ;							\
+	$(CHECK_ENV);							\
+	cd $(patsubst check-%,%,$(@D));					\
+	./run $(@F)
 
 clean :
 	rm -f $(DIRT)
@@ -336,15 +333,17 @@ distclean : clean
 
 ifneq ($(MSGFMT),)
 install-main ::
-	for lang in $(LINGUAS) ; do \
-		install -d $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES ; \
-		install -m 644 po/$$lang.mo \
-		    $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	for lang in $(LINGUAS) ; do					\
+		dir=$(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES;	\
+		install -d $$dir;					\
+		install -m 644 po/$$lang.mo				\
+		    $$dir/quilt.mo ;					\
 	done
 
 uninstall ::
-	for lang in $(LINGUAS) ; do \
-		rm -f $(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES/quilt.mo ; \
+	for lang in $(LINGUAS) ; do					\
+		dir=$(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES;	\
+		rm -f $$dir/quilt.mo ;					\
 	done
 endif
 

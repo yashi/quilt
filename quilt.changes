@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Jan 14 19:42:21 CET 2006 - agruen@suse.de
+
+- Move scripts directory to quilt/scripts to simplify running quilt
+  directly from the source tree.
+- test/Makefile: merge into Makefile.in (target check).
+- Makefile.in: clean up.
+
+-------------------------------------------------------------------
 Sat Jan 14 05:10:01 CET 2006 - agruen@suse.de
 
 - Use the quilt version in the source tree instead of the
