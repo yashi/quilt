@@ -1174,6 +1174,97 @@ msgstr "パッチ %s から %sへの名前の変更に失敗しました\\n"
 msgid "Patch %s renamed to %s\\n"
 msgstr "パッチ %s から %s へ名前を変更しました\\n"
 
+#: quilt/scripts/edmail.in:81
+#, perl-format
+msgid "Display name '%s' contains unpaired parentheses\n"
+msgstr "表示用の名前 '%s' が対にならない括弧を含んでいます\n"
+
+#: quilt/scripts/edmail.in:85
+#, perl-format
+msgid "Display name '%s' contains invalid characters\n"
+msgstr "表示用の名前 '%s' が不正な文字を含んでいます\n"
+
+#: quilt/scripts/edmail.in:89
+#, perl-format
+msgid "Display name '%s' contains non-printable or 8-bit characters\n"
+msgstr "表示用の名前 '%s' が非印刷文字または 8 bitの文字を含んでいます\n"
+
+#: quilt/scripts/edmail.in:95
+#, perl-format
+msgid "Delivery address '%s' is invalid\n"
+msgstr "配送先のアドレス '%s' が不正です\n"
+
+#: quilt/scripts/parse-patch.in:50
+#, perl-format
+msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
+msgstr "使いかた: %s {-s|-u} section file [< replacement]\n"
+
+#: quilt/scripts/parse-patch.in:97 quilt/scripts/parse-patch.in:104
+#, perl-format
+msgid "File %s disappeared!\n"
+msgstr "ファイル %s が消えました!\n"
+
+#: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
+#, perl-format
+msgid "Failed to rename %s to %s: %s\n"
+msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
+
+#: quilt/scripts/patchfns.in:703
+msgid ""
+"The quilt meta-data in this tree has version %s, but this version of quilt "
+"can only handle meta-data formats up to and including version %s. Please pop "
+"all the patches using the version of quilt used to push them before "
+"downgrading.\\n"
+msgstr ""
+"このツリー内にはバージョン %sの quiltメタデータが存在します。しかしこ\n"
+"のバージョンの quiltでは、バージョン %s までのメタデータしかサポートし\n"
+"ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
+"すべてのパッチを pop してください。\\n"
+
+#: quilt/scripts/patchfns.in:788
+msgid ""
+"The working tree was created by an older version of quilt. Please run 'quilt "
+"upgrade'.\\n"
+msgstr ""
+"現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
+"す。'quilt upgrade'を実行してください。\\n"
+
+#: quilt/scripts/remove-trailing-ws.in:43
+#, perl-format
+msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
+msgstr "書式: %s [p num] [-n] [patch]\n"
+
+#: quilt/scripts/remove-trailing-ws.in:65
+#: quilt/scripts/remove-trailing-ws.in:92
+#, perl-format
+msgid "%s: I'm confused.\n"
+msgstr "%s: 混乱しました\n"
+
+#: quilt/scripts/remove-trailing-ws.in:113
+#, perl-format
+msgid "Warning: trailing whitespace in line %s of %s\n"
+msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
+
+#: quilt/scripts/remove-trailing-ws.in:116
+#, perl-format
+msgid "Warning: trailing whitespace in lines %s of %s\n"
+msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
+
+#: quilt/scripts/remove-trailing-ws.in:120
+#, perl-format
+msgid "Removing trailing whitespace from line %s of %s\n"
+msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
+
+#: quilt/scripts/remove-trailing-ws.in:123
+#, perl-format
+msgid "Removing trailing whitespace from lines %s of %s\n"
+msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
+
+#: quilt/scripts/remove-trailing-ws.in:143
+#, perl-format
+msgid "Renaming %s to %s: %s\n"
+msgstr "%s から %s へ名前を変更しました: %s\n"
+
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"
 msgstr "使い方: quilt series [-v]\\n"
@@ -1332,93 +1423,3 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
-
-#: scripts/edmail.in:81
-#, perl-format
-msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr "表示用の名前 '%s' が対にならない括弧を含んでいます\n"
-
-#: scripts/edmail.in:85
-#, perl-format
-msgid "Display name '%s' contains invalid characters\n"
-msgstr "表示用の名前 '%s' が不正な文字を含んでいます\n"
-
-#: scripts/edmail.in:89
-#, perl-format
-msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr "表示用の名前 '%s' が非印刷文字または 8 bitの文字を含んでいます\n"
-
-#: scripts/edmail.in:95
-#, perl-format
-msgid "Delivery address '%s' is invalid\n"
-msgstr "配送先のアドレス '%s' が不正です\n"
-
-#: scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr "使いかた: %s {-s|-u} section file [< replacement]\n"
-
-#: scripts/parse-patch.in:97 scripts/parse-patch.in:104
-#, perl-format
-msgid "File %s disappeared!\n"
-msgstr "ファイル %s が消えました!\n"
-
-#: scripts/parse-patch.in:150 scripts/parse-patch.in:156
-#, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
-
-#: scripts/patchfns.in:703
-msgid ""
-"The quilt meta-data in this tree has version %s, but this version of quilt "
-"can only handle meta-data formats up to and including version %s. Please pop "
-"all the patches using the version of quilt used to push them before "
-"downgrading.\\n"
-msgstr ""
-"このツリー内にはバージョン %sの quiltメタデータが存在します。しかしこ\n"
-"のバージョンの quiltでは、バージョン %s までのメタデータしかサポートし\n"
-"ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
-"すべてのパッチを pop してください。\\n"
-
-#: scripts/patchfns.in:788
-msgid ""
-"The working tree was created by an older version of quilt. Please run 'quilt "
-"upgrade'.\\n"
-msgstr ""
-"現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
-"す。'quilt upgrade'を実行してください。\\n"
-
-#: scripts/remove-trailing-ws.in:43
-#, perl-format
-msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
-msgstr "書式: %s [p num] [-n] [patch]\n"
-
-#: scripts/remove-trailing-ws.in:65 scripts/remove-trailing-ws.in:92
-#, perl-format
-msgid "%s: I'm confused.\n"
-msgstr "%s: 混乱しました\n"
-
-#: scripts/remove-trailing-ws.in:113
-#, perl-format
-msgid "Warning: trailing whitespace in line %s of %s\n"
-msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
-
-#: scripts/remove-trailing-ws.in:116
-#, perl-format
-msgid "Warning: trailing whitespace in lines %s of %s\n"
-msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
-
-#: scripts/remove-trailing-ws.in:120
-#, perl-format
-msgid "Removing trailing whitespace from line %s of %s\n"
-msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
-
-#: scripts/remove-trailing-ws.in:123
-#, perl-format
-msgid "Removing trailing whitespace from lines %s of %s\n"
-msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
-
-#: scripts/remove-trailing-ws.in:143
-#, perl-format
-msgid "Renaming %s to %s: %s\n"
-msgstr "%s から %s へ名前を変更しました: %s\n"

@@ -7,10 +7,10 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
 
   AC_ARG_WITH($2, AC_HELP_STRING(
     [--with-$2], [name of the $2 executable to use]
-                 m4_if(internal_$2_cmd,[],[],[ (or 'none'
+                 m4_if(internal_$2_cmd,[],[],[ (use --without-$2
                           to use an internal mechanism)])),
   [
-    if test ! x"$withval" = xnone; then
+    if test ! x"$withval" = xno; then
       $1="$withval"
       AC_MSG_NOTICE([Using $2 executable $$1])
       COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"

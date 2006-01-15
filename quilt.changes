@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Jan 15 16:00:17 CET 2006 - agruen@suse.de
+
+- John Vandenberg <jayvdb@gmail.com>: Make check depends on
+  programs that have been configured with --with-<name>=<prog>.
+  Make dependencies would get confused by symlinks, so create
+  wrappers in compat/ for make check.
+- Remove binaries in compat/ that are not listed in COMPAT_PROGRAMS
+  or COMPAT_SYMLINKS.
+- configure.ac: use --without-$foo instead of --with-foo=none.
+- Fix processing of translations again, and update de.po.
+
+-------------------------------------------------------------------
 Sat Jan 14 19:42:21 CET 2006 - agruen@suse.de
 
 - Move scripts directory to quilt/scripts to simplify running quilt

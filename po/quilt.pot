@@ -823,6 +823,91 @@ msgstr ""
 msgid "Patch %s renamed to %s\\n"
 msgstr ""
 
+#: quilt/scripts/edmail.in:81
+#, perl-format
+msgid "Display name '%s' contains unpaired parentheses\n"
+msgstr ""
+
+#: quilt/scripts/edmail.in:85
+#, perl-format
+msgid "Display name '%s' contains invalid characters\n"
+msgstr ""
+
+#: quilt/scripts/edmail.in:89
+#, perl-format
+msgid "Display name '%s' contains non-printable or 8-bit characters\n"
+msgstr ""
+
+#: quilt/scripts/edmail.in:95
+#, perl-format
+msgid "Delivery address '%s' is invalid\n"
+msgstr ""
+
+#: quilt/scripts/parse-patch.in:50
+#, perl-format
+msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
+msgstr ""
+
+#: quilt/scripts/parse-patch.in:97 quilt/scripts/parse-patch.in:104
+#, perl-format
+msgid "File %s disappeared!\n"
+msgstr ""
+
+#: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
+#, perl-format
+msgid "Failed to rename %s to %s: %s\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:703
+msgid ""
+"The quilt meta-data in this tree has version %s, but this version of quilt "
+"can only handle meta-data formats up to and including version %s. Please pop "
+"all the patches using the version of quilt used to push them before "
+"downgrading.\\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:788
+msgid ""
+"The working tree was created by an older version of quilt. Please run 'quilt "
+"upgrade'.\\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:43
+#, perl-format
+msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:65
+#: quilt/scripts/remove-trailing-ws.in:92
+#, perl-format
+msgid "%s: I'm confused.\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:113
+#, perl-format
+msgid "Warning: trailing whitespace in line %s of %s\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:116
+#, perl-format
+msgid "Warning: trailing whitespace in lines %s of %s\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:120
+#, perl-format
+msgid "Removing trailing whitespace from line %s of %s\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:123
+#, perl-format
+msgid "Removing trailing whitespace from lines %s of %s\n"
+msgstr ""
+
+#: quilt/scripts/remove-trailing-ws.in:143
+#, perl-format
+msgid "Renaming %s to %s: %s\n"
+msgstr ""
+
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"
 msgstr ""
@@ -941,88 +1026,4 @@ msgid ""
 "Please remove all patches using \\`quilt pop -a' from the quilt version used "
 "to create this working tree, or remove the %s directory and apply the "
 "patches from scratch.\\n"
-msgstr ""
-
-#: scripts/edmail.in:81
-#, perl-format
-msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr ""
-
-#: scripts/edmail.in:85
-#, perl-format
-msgid "Display name '%s' contains invalid characters\n"
-msgstr ""
-
-#: scripts/edmail.in:89
-#, perl-format
-msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr ""
-
-#: scripts/edmail.in:95
-#, perl-format
-msgid "Delivery address '%s' is invalid\n"
-msgstr ""
-
-#: scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
-
-#: scripts/parse-patch.in:97 scripts/parse-patch.in:104
-#, perl-format
-msgid "File %s disappeared!\n"
-msgstr ""
-
-#: scripts/parse-patch.in:150 scripts/parse-patch.in:156
-#, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr ""
-
-#: scripts/patchfns.in:703
-msgid ""
-"The quilt meta-data in this tree has version %s, but this version of quilt "
-"can only handle meta-data formats up to and including version %s. Please pop "
-"all the patches using the version of quilt used to push them before "
-"downgrading.\\n"
-msgstr ""
-
-#: scripts/patchfns.in:788
-msgid ""
-"The working tree was created by an older version of quilt. Please run 'quilt "
-"upgrade'.\\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:43
-#, perl-format
-msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:65 scripts/remove-trailing-ws.in:92
-#, perl-format
-msgid "%s: I'm confused.\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:113
-#, perl-format
-msgid "Warning: trailing whitespace in line %s of %s\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:116
-#, perl-format
-msgid "Warning: trailing whitespace in lines %s of %s\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:120
-#, perl-format
-msgid "Removing trailing whitespace from line %s of %s\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:123
-#, perl-format
-msgid "Removing trailing whitespace from lines %s of %s\n"
-msgstr ""
-
-#: scripts/remove-trailing-ws.in:143
-#, perl-format
-msgid "Renaming %s to %s: %s\n"
 msgstr ""

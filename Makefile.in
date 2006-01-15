@@ -117,10 +117,12 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 #-----------------------------------------------------------------------
 
-all : scripts compat-programs $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
+all : scripts compat mofiles
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+
+mofiles : $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
 
 %.mo : %.po
 	msgfmt --statistics -o $@ $<
@@ -140,7 +142,8 @@ rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
 
 po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
-			   doc/README.in, $(wildcard */*.in))
+			   doc/README.in, $(wildcard */*.in)		\
+			   		  $(wildcard */*/*.in))
 	rm -f po/quilt.pot; touch po/quilt.pot
 	for file in $+ ; do						\
 	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then	\
@@ -186,7 +189,7 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
 	done < $< 2>&1 > $@
 
 .PHONY :: reference
-reference : $(QUILT:%=quilt/%) compat-programs quilt/scripts/patchfns
+reference : $(QUILT:%=quilt/%) quilt/scripts/patchfns compat
 	@unset LANG LC_MESSAGES LC_CTYPE LC_ALL;			\
 	for i in $(QUILT);						\
 	do								\
@@ -245,6 +248,36 @@ Makefile : Makefile.in
 	@echo "Please run ./configure"
 	@false
 
+compat_leftover := $(filter-out $(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%),$(shell find compat/ -maxdepth 1 -type f -perm +111))
+
+.PHONY :: compat
+compat : compat-programs compat-symlinks
+	$(if $(compat_leftover),rm -f $(compat_leftover))
+
+compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
+compat-symlinks : $(COMPAT_SYMLINKS:%=compat/%)
+
+# VIRTUAL_SYMLINKS creates a shell script that operates similar to
+# a symbolic link.  It is used to workaround the way make treats
+# symlinks as targets.
+#   Usage: $(call VIRTUAL_SYMLINK, source, target)
+define VIRTUAL_SYMLINK
+	@echo "Generating $(strip $(1)) wrapper" >&2
+	@printf "#!%s\n%s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2)
+endef
+
+# Generate rules to create compat/<binary> for each binary in $(COMPAT_SYMLINKS)
+define COMPAT_SYMLINK_local_install
+compat/$(strip $(1)) : Makefile
+	$(call VIRTUAL_SYMLINK, \
+		'$($(shell echo $(1) | $(AWK) '{print toupper($$1)}'))', \
+		compat/$(strip $(1)))
+	@chmod +x compat/$(strip $(1))
+
+endef
+
+$(eval $(foreach symlink,$(COMPAT_SYMLINKS),$(call COMPAT_SYMLINK_local_install, $(symlink))))
+
 install-main :: scripts
 	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
 	$(INSTALL) -m 755 $(BIN:%=bin/%) $(BUILD_ROOT)$(bindir)/
@@ -277,8 +310,11 @@ install-main :: scripts
 		   $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 	$(INSTALL) -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
-install-compat:
-	@rm -rf $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
+install-compat: install-compat1 $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
+$(COMPAT_SYMLINKS:%=install-compat-symlink-%) :: install-compat1
+
+install-compat1:
+	rm -rf $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 ifneq ($(COMPAT_PROGRAMS)$(COMPAT_SYMLINKS),)
 	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 ifneq ($(COMPAT_PROGRAMS),)
@@ -287,17 +323,16 @@ ifneq ($(COMPAT_PROGRAMS),)
 endif
 endif
 
+# Generate rules to install symlinks for each binary in $(COMPAT_SYMLINKS)
 define COMPAT_SYMLINK_install
-install-compat-symlink-$(strip $(1)): install-compat
+install-compat-symlink-$(strip $(1)) ::
 	ln -sf $($(shell echo $(1) | $(AWK) '{print toupper($$1)}'))	\
 	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat/$(strip $(1))
 endef
 
 $(foreach symlink,$(COMPAT_SYMLINKS),$(eval $(call COMPAT_SYMLINK_install, $(symlink))))
 
-compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
-
-install: install-main $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
+install: install-main install-compat
 
 uninstall ::
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%)			\
