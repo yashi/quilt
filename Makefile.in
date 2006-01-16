@@ -78,6 +78,7 @@ DIRT +=		$(SCRIPTS_IN:%=quilt/scripts/%)
 SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
 DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in))
 
+COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files$(EXEEXT)
 SRC +=		$(LIB_SRC:%=lib/%)
@@ -117,7 +118,7 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 #-----------------------------------------------------------------------
 
-all : scripts compat mofiles
+all : scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
@@ -131,8 +132,7 @@ mofiles : $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
 	msgmerge -o $@ $@ $^
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
-	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%) $(DOC:%=doc/%) 	\
-	  $(MAN1)
+	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%)
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
@@ -159,7 +159,7 @@ po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
 	|msguniq							\
 	|msgcat --force-po -F - $@ -o $@
 
-doc/README : doc/README.in $(QUILT:%=quilt/%)
+doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
 	@echo "README.in -> README"
 	@while read line; do						\
 		case "$$line" in					\
@@ -172,7 +172,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%)
 		esac ;							\
 	done 2>&1 < $< > $@
 
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%)
+doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	@echo "quilt.1.in -> quilt.1"
 	while read line; do						\
 	  case "$$line" in						\
@@ -227,7 +227,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	       gsub(/@CHANGELOG''@/, changelog) ;			\
 	       print }' changelog="$$changelog" $< > $@
 
-$(patsubst %.in,%,$(wildcard quilt/*.in quilt/scripts/*.in)) :: Makefile
+$(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefile
 % :: %.in
 	@echo "$< -> $@" >&2
 	@sed -e 's:@QUILT_LIB''@:$(libdir)/$(PACKAGE):g'		\
@@ -248,14 +248,11 @@ Makefile : Makefile.in
 	@echo "Please run ./configure"
 	@false
 
-compat_leftover := $(filter-out $(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%),$(shell find compat/ -maxdepth 1 -type f -perm +111))
+compat_leftover := $(filter-out $(COMPAT),$(shell find compat/ -maxdepth 1 -type f -perm +111))
 
 .PHONY :: compat
-compat : compat-programs compat-symlinks
+compat :: $(COMPAT)
 	$(if $(compat_leftover),rm -f $(compat_leftover))
-
-compat-programs : $(COMPAT_PROGRAMS:%=compat/%)
-compat-symlinks : $(COMPAT_SYMLINKS:%=compat/%)
 
 # VIRTUAL_SYMLINKS creates a shell script that operates similar to
 # a symbolic link.  It is used to workaround the way make treats

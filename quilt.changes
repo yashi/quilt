@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jan 16 21:51:40 CET 2006 - jayvdb@gmail.com
+
+- doc/README and doc/quilt.1 depend on compat/getopt being built
+  prior to their generation.  As the phony target 'compat' cant
+  be used as a prereq, except to other phony targets, $(COMPAT)
+  has been added to refer to all necessary compat/ objects.
+- bin/*.in should be regenerated after a change to Makefile.
+
+-------------------------------------------------------------------
 Mon Jan 16 21:45:53 CET 2006 - agruen@suse.de
 
 - Change the rules for splitting a patch into header and body so
