@@ -1,0 +1,153 @@
+
+	$ rm -rf d
+	$ mkdir -p d/patches
+	$ cd d
+
+	$ touch e
+	$ quilt annotate e
+	$ quilt top
+	$ quilt next
+	$ quilt previous
+	$ quilt unapplied
+	$ quilt applied
+
+	$ quilt next patch1
+	> Patch patch1 is not in series
+
+	$ quilt push patch1
+	> Patch patch1 is not in series
+
+	$ quilt push
+	> No patches applied
+
+	$ quilt pop
+	> No patch removed
+
+	$ quilt new patch1.diff
+	> Patch %{P}patch1.diff is now on top
+
+	$ quilt top
+	> patches/patch1.diff
+
+	$ quilt add f
+	> File f added to patch %{P}patch1.diff
+
+	$ echo f > f
+
+	$ ls %{P}
+	> series
+
+	$ quilt new patch2.diff
+	> Patch %{P}patch2.diff is now on top
+
+	$ quilt previous
+	> patches/patch1.diff
+
+	$ quilt add g
+	> File g added to patch %{P}patch2.diff
+
+	$ echo g > g
+
+	$ quilt refresh
+	> Refreshed patch %{P}patch2.diff
+
+	$ quilt pop
+	> Removing patch patches/patch2.diff
+	> Removing g
+	>
+	> Now at patch patches/patch1.diff
+
+	$ ls %{P}
+	> patch2.diff
+	> series
+
+	$ quilt next
+	> patches/patch2.diff
+
+	$ quilt previous
+	$ quilt previous patch2
+	> patches/patch1.diff
+
+	$ quilt pop
+	> Patch %{P}patch1.diff does not remove cleanly (refresh it or enforce with -f)
+
+	$ quilt refresh
+	> Refreshed patch %{P}patch1.diff
+
+	$ quilt refresh patch2
+	> Patch patches/patch2.diff is not applied
+
+	$ quilt pop
+	> Removing patch patches/patch1.diff
+	> Removing f
+	>
+	> No patches applied
+
+	$ quilt top
+	$ quilt pop
+	> No patch removed
+
+	$ quilt applied
+	$ quilt unapplied
+	> patches/patch1.diff
+	> patches/patch2.diff
+
+	$ quilt previous
+	$ quilt next
+	> patches/patch1.diff
+
+	$ quilt applied patch1
+	> Patch is not applied
+
+	$ quilt unapplied patch2
+	$ quilt unapplied patch1
+	> patches/patch2.diff
+
+	$ quilt remove f
+	> No patches applied
+
+	$ quilt delete patch3.diff
+	> Patch patch3.diff is not in series
+
+	$ quilt push -qa
+	> Applying patch patches/patch1.diff
+	> Applying patch patches/patch2.diff
+	> Now at patch patches/patch2.diff
+
+	$ quilt push patch2
+	> Patch patches/patch2.diff is already applied
+
+	$ quilt push
+	> File series fully applied, ends at patch patches/patch2.diff
+
+	$ quilt diff --combine patch1 -P patch2
+	> Index: d/f
+	> ===================================================================
+	> --- /dev/null
+	> +++ d/f
+	> @@ -0,0 +1 @@
+	> +f
+	> Index: d/g
+	> ===================================================================
+	> --- /dev/null
+	> +++ d/g
+	> @@ -0,0 +1 @@
+	> +g
+
+	$ quilt diff -P patch1 --combine patch2
+	> Patch patches/patch2.diff not applied before patch patches/patch1.diff
+
+	$ echo patch3.diff >> %{P}/series
+	$ quilt diff -P patch1 --combine patch3
+	> Patch patches/patch3.diff not applied before patch patches/patch1.diff
+
+	$ quilt pop -qaR
+	> Removing patch %{P}patch2.diff
+	> Removing patch %{P}patch1.diff
+	> No patches applied
+
+	$ quilt annotate f
+	> sed: can't read f: No such file or directory
+
+	$ cd ..
+	$ rm -rf d

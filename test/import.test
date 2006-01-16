@@ -1,0 +1,138 @@
+
+	$ rm -rf d
+	$ mkdir -p d/patches
+	$ cd d
+
+	$ quilt new patch1.diff
+	> Patch %{P}patch1.diff is now on top
+
+	$ quilt add f
+	> File f added to patch %{P}patch1.diff
+
+	$ echo f > f
+
+	$ quilt refresh
+	> Refreshed patch %{P}patch1.diff
+
+	$ quilt pop
+	> Removing patch patches/patch1.diff
+	> Removing f
+	>
+	> No patches applied
+
+	$ mkdir t
+	$ mv patches/patch1.diff t/patch1.diff
+
+	# test importing into an empty series
+	$ rm -rf patches/ .pc/
+	$ mkdir patches
+	$ quilt import t/patch1.diff
+	> Importing patch patches/t/patch1.diff (stored as patches/patch1.diff)
+
+	$ quilt push
+	> Applying patch patches/patch1.diff
+	> patching file f
+	>
+	> Now at patch patches/patch1.diff
+
+	$ quilt new patch2.diff
+	> Patch %{P}patch2.diff is now on top
+
+	$ quilt add g
+	> File g added to patch %{P}patch2.diff
+
+	$ echo g > g
+
+	$ quilt refresh
+	> Refreshed patch %{P}patch2.diff
+
+	$ quilt pop
+	> Removing patch patches/patch2.diff
+	> Removing g
+	>
+	> Now at patch patches/patch1.diff
+
+	$ quilt header -a
+	< original description
+	> Appended text to header of patch patches/patch1.diff
+
+	$ quilt pop
+	> Removing patch patches/patch1.diff
+	> Removing f
+	>
+	> No patches applied
+
+	$ quilt delete patch1
+	> Removed patch patches/patch1.diff
+
+	$ cat %{P}series
+	> patch2.diff
+
+	# test a few error cases
+
+        $ quilt import missing.diff
+	> Importing patch patches/missing.diff (stored as patches/missing.diff)
+	> cp: cannot stat `missing.diff': No such file or directory
+	> Failed to import patch patches/missing.diff
+
+	$ quilt import patches/patch1.diff
+	> Patch patches/patch1.diff exists. Replace with -f.
+
+	$ quilt import -f patches/patch1.diff
+	> Replacing patch patches/patch1.diff with new version
+	> cp: `patches/patch1.diff' and `patches/patch1.diff' are the same file
+	> Failed to import patch patches/patch1.diff
+
+	# no real damage has been done
+
+	$ cat patches/patch1.diff
+	> original description
+	> Index: d/f
+	> ===================================================================
+	> --- /dev/null
+	> +++ d/f
+	> @@ -0,0 +1 @@
+	> +f
+
+	# a simple use of import
+
+	$ sed -e 's/original/new/' patches/patch1.diff > t/patch1.diff
+	$ quilt import t/patch1.diff
+	> Patch patches/patch1.diff exists. Replace with -f.
+
+	$ quilt import -f t/patch1.diff
+	> Replacing patch patches/patch1.diff with new version
+
+	$ ls patches/
+	> patch1.diff
+	> patch2.diff
+	> series
+
+	$ quilt header patch1
+	> new description
+
+	$ quilt delete patch1
+	> Removed patch patches/patch1.diff
+
+	# make sure it accepts non-conflicting names
+	# a small presentation problem here
+
+        $ cp patches/patch1.diff t/patch1.patch
+	$ quilt import t/patch1.patch
+	> Importing patch patches/t/patch1.patch (stored as patches/patch1.patch)
+
+	$ ls patches/
+	> patch1.diff
+	> patch1.patch
+	> patch2.diff
+	> series
+
+	$ cat %{P}series
+	> patch1.patch
+	> patch2.diff
+
+	$ quilt delete patch1.diff
+	> Patch patch1.diff is not in series
+
+	$ cd ..
+	$ rm -rf d
