@@ -21,7 +21,7 @@ or else patch won't know the real original filename anymore.
 	> @@ -1 +0,0 @@
 	> -file
 
-	$ quilt ref -p0
+	$ quilt refresh -p0
 	> Refreshed patch patches/remove.diff
 
 	$ quilt pop -q

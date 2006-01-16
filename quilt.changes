@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 16 23:08:36 CET 2006 - jayvdb@gmail.com
+
+- Always use full command names in the test suite.
+
+-------------------------------------------------------------------
 Mon Jan 16 21:51:40 CET 2006 - jayvdb@gmail.com
 
 - doc/README and doc/quilt.1 depend on compat/getopt being built

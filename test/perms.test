@@ -17,7 +17,7 @@
 	> -rwx---r-- foo
 
 	$ echo foobar > foo
-	$ quilt ref
+	$ quilt refresh
 	> Refreshed patch %{P}test.diff
 
 	$ quilt new test2.diff
@@ -31,7 +31,7 @@
 	> -rwx----w- foo
 
 	$ echo foobaz > foo
-	$ quilt ref
+	$ quilt refresh
 	> Refreshed patch %{P}test2.diff
 
 The permissions of foo as they were in patch2 are lost here (there is no
