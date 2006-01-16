@@ -695,11 +695,11 @@ msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
 #: quilt/mail.in:24
 msgid ""
-"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] "
-"[--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
+"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
-"Verwendung: quilt mail {--mbox datei|--send} [--sender ...] [--from ...] "
-"[--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Verwendung: quilt mail {--mbox datei|--send} [--sender ...] [--from ...] [--"
+"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
 msgid ""
@@ -753,7 +753,8 @@ msgstr ""
 
 #: quilt/mail.in:145
 msgid "Could not determine the envelope sender address. Please use --sender."
-msgstr "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
+msgstr ""
+"Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
@@ -1232,7 +1233,7 @@ msgstr "Datei %s ist verschwunden\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 
-#: quilt/scripts/patchfns.in:703
+#: quilt/scripts/patchfns.in:693
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1245,7 +1246,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:788
+#: quilt/scripts/patchfns.in:778
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

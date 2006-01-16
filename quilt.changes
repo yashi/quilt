@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 16 21:45:53 CET 2006 - agruen@suse.de
+
+- Change the rules for splitting a patch into header and body so
+  that it will work for git extanded patches as well.
+
+-------------------------------------------------------------------
 Sun Jan 15 16:00:17 CET 2006 - agruen@suse.de
 
 - John Vandenberg <jayvdb@gmail.com>: Make check depends on

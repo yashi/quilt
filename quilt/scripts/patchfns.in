@@ -615,28 +615,18 @@ cat_to_new_file()
 patch_header()
 {
 	awk '
-	($1 == "***" || $1 == "---") && NF > 1 \
+	/^(---|\*\*\*|Index:)[ \t][^ \t]|^diff -/ \
 		{ exit }
-	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
-		{ eat = eat $0 "\n"
-		  next }
-		{ print eat $0
-		  eat = "" }
+		{ print }
 	'
 }
 
 patch_body()
 {
 	awk '
-	/^Index:[ \t]|^diff[ \t]|^==*$|^RCS file: |^retrieving revision [0-9]+(\.[0-9]+)*$/ \
-		{ eat = eat $0 "\n"
-		  next }
-	($1 == "***" || $1 == "---") && NF > 1 \
+	!body && /^(---|\*\*\*|Index:)[ \t][^ \t]|^diff -/ \
 		{ body=1 }
-	body	{ print eat $0
-		  eat = ""
-		  next }
-		{ eat = "" }
+	body	{ print }
 	'
 }
 
