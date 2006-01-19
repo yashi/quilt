@@ -5,20 +5,31 @@
 
 	$ touch e
 	$ quilt annotate e
+	> No patches in series
+
 	$ quilt top
+	> No patches in series
+
 	$ quilt next
+	> No patches in series
+
 	$ quilt previous
+	> No patches in series
+
 	$ quilt unapplied
+	> No patches in series
+
 	$ quilt applied
+	> No patches in series
 
 	$ quilt next patch1
-	> Patch patch1 is not in series
+	> No patches in series
 
 	$ quilt push patch1
-	> Patch patch1 is not in series
+	> No patches in series
 
 	$ quilt push
-	> No patches applied
+	> No patches in series
 
 	$ quilt pop
 	> No patch removed
@@ -84,20 +95,26 @@
 	> No patches applied
 
 	$ quilt top
+	> No patches applied
+
 	$ quilt pop
 	> No patch removed
 
 	$ quilt applied
+	> No patches applied
+
 	$ quilt unapplied
 	> patches/patch1.diff
 	> patches/patch2.diff
 
 	$ quilt previous
+	> No patches applied
+
 	$ quilt next
 	> patches/patch1.diff
 
 	$ quilt applied patch1
-	> Patch is not applied
+	> Patch patches/patch1.diff is not applied
 
 	$ quilt unapplied patch2
 	$ quilt unapplied patch1
@@ -139,7 +156,7 @@
 
 	$ echo patch3.diff >> %{P}/series
 	$ quilt diff -P patch1 --combine patch3
-	> Patch patches/patch3.diff not applied before patch patches/patch1.diff
+	> Patch patches/patch3.diff is not applied
 
 	$ quilt pop -qaR
 	> Removing patch %{P}patch2.diff
@@ -147,7 +164,7 @@
 	> No patches applied
 
 	$ quilt annotate f
-	> sed: can't read f: No such file or directory
+	> No patches applied
 
 	$ cd ..
 	$ rm -rf d

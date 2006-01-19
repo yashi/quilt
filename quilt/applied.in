@@ -55,21 +55,9 @@ done
 if [ $# -gt 1 ]
 then
 	usage
-elif [ $# -eq 1 ]
-then
-	if ! patch=$(find_patch $1)
-	then
-		printf $"Patch %s is not in series\n" "$1" >&2
-		exit 1
-	fi
-	if ! is_applied "$patch"
-	then
-		printf $"Patch is not applied\n" "$(print_patch $patch)" >&2
-		exit 1
-	fi
-else
-	patch=$(top_patch)
 fi
+
+patch=$(find_applied_patch "$1") || exit 1
 
 for patch in $(applied_before "$patch") $patch
 do

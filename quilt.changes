@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jan 19 18:52:30 AEDT 2006 - jayvdb@gmail.com
+
+- Move patch parameter checks into patchfns.in, adding quotes
+  around all patch parameters, and reporting 'No patches in series'
+- quilt/annonate.in: Fix case where no patches have been applied.
+
+-------------------------------------------------------------------
 Mon Jan 16 23:27:27 CET 2006 - jayvdb@gmail.com
 
 - test/three.test, test/import.test: Add various tests.

@@ -82,43 +82,23 @@ msgstr ""
 msgid "File \\`%s' is located below \\`%s'\\n"
 msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 
-#: quilt/add.in:78 quilt/annotate.in:103 quilt/applied.in:62
-#: quilt/delete.in:109 quilt/diff.in:160 quilt/diff.in:172 quilt/graph.in:116
-#: quilt/header.in:135 quilt/next.in:62 quilt/pop.in:233 quilt/previous.in:62
-#: quilt/push.in:312 quilt/refresh.in:148 quilt/remove.in:53
-#: quilt/rename.in:63 quilt/unapplied.in:62
-msgid "Patch %s is not in series\\n"
-msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
-
-#: quilt/add.in:99 quilt/annotate.in:123 quilt/diff.in:240 quilt/graph.in:121
-#: quilt/pop.in:248 quilt/refresh.in:154 quilt/remove.in:74
-msgid "Patch %s is not applied\\n"
-msgstr "Patch %s ist nicht angewandt\\n"
-
-#: quilt/add.in:106 quilt/delete.in:88 quilt/diff.in:248 quilt/files.in:102
-#: quilt/fold.in:79 quilt/fork.in:72 quilt/graph.in:131 quilt/header.in:142
-#: quilt/pop.in:282 quilt/push.in:350 quilt/refresh.in:162 quilt/remove.in:81
-#: quilt/rename.in:85
-msgid "No patches applied\\n"
-msgstr "Keine Patches angewandt\\n"
-
-#: quilt/add.in:121
+#: quilt/add.in:103
 msgid "File %s is already in patch %s\\n"
 msgstr "Datei %s ist bereits in Patch $patch enthalten\\n"
 
-#: quilt/add.in:129 quilt/remove.in:100
+#: quilt/add.in:111 quilt/remove.in:82
 msgid "File %s modified by patch %s\\n"
 msgstr "Datei %s wird von Patch %s verändert\\n"
 
-#: quilt/add.in:137
+#: quilt/add.in:119
 msgid "Cannot add symbolic link %s\\n"
 msgstr "Kann symbolische Verknüpfung %s nicht hinzufügen\\n"
 
-#: quilt/add.in:144
+#: quilt/add.in:126
 msgid "Failed to back up file %s\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: quilt/add.in:155
+#: quilt/add.in:137
 msgid "File %s added to patch %s\\n"
 msgstr "Datei %s zu Patch %s hinzugefügt\\n"
 
@@ -159,10 +139,6 @@ msgstr ""
 "Gibt eine Liste der angewandten Patches aus, oder eine Liste aller Patches\n"
 "vom Anfang der series-Datei bis zum angegebenen Patch.\n"
 
-#: quilt/applied.in:67
-msgid "Patch is not applied\\n"
-msgstr "Patch ist nicht angewandt\\n"
-
 #: quilt/delete.in:22
 msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
 msgstr "Verwendung: quilt delete [-r] [--backup] [patch|-n]\\n"
@@ -197,27 +173,27 @@ msgstr ""
 "\tBenenne den Patch auf patch~, anstatt ihn zu löschen.\n"
 "\tHat nur in Kompination mit -r eine Wirkung.\n"
 
-#: quilt/delete.in:100
+#: quilt/delete.in:86
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:118
+#: quilt/delete.in:94
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:125
+#: quilt/delete.in:102
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
 
-#: quilt/delete.in:127
+#: quilt/delete.in:104
 msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
-#: quilt/delete.in:138
+#: quilt/delete.in:115
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: quilt/delete.in:145
+#: quilt/delete.in:122
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
@@ -321,40 +297,40 @@ msgstr ""
 "--sort\tSortiere Dateien im Patch nach ihrem namen, statt die ursprüngliche\n"
 "\tReihenfolge zu erhalten.\n"
 
-#: quilt/diff.in:232
+#: quilt/diff.in:224
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Die Optionen \\`--combine', \\`--snapshot', und \\`-z' können nicht "
 "kombiniert werden.\\n"
 
-#: quilt/diff.in:259
+#: quilt/diff.in:236
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: quilt/diff.in:294 quilt/files.in:121
+#: quilt/diff.in:271 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
-#: quilt/diff.in:344 quilt/pop.in:101
+#: quilt/diff.in:321 quilt/pop.in:101
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/diff.in:368 quilt/pop.in:125
+#: quilt/diff.in:345 quilt/pop.in:125
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
-#: quilt/diff.in:387
+#: quilt/diff.in:364
 msgid "File %s is not being modified\\n"
 msgstr "Datei %s wird nicht verändert.\\n"
 
-#: quilt/diff.in:407 quilt/refresh.in:201
+#: quilt/diff.in:384 quilt/refresh.in:177
 msgid "Diff failed, aborting\\n"
 msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 
-#: quilt/diff.in:414
+#: quilt/diff.in:391
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Warnung: später angewandte Patches verändern Dateien von %s\\n"
 
@@ -409,10 +385,6 @@ msgstr ""
 "\tersten angewandten Patch.\n"
 "\n"
 
-#: quilt/files.in:76 quilt/files.in:95
-msgid "Patch %s is not in series file\\n"
-msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
-
 #: quilt/fold.in:22
 msgid "Usage: quilt fold [-p strip-level]\\n"
 msgstr "Verwendung: quilt fold [-p strip-ebenen]\\n"
@@ -439,7 +411,7 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
 
-#: quilt/fold.in:117
+#: quilt/fold.in:112
 msgid "File %s may be corrupted\\n"
 msgstr "Datei %s ist möglicherweise defekt\\n"
 
@@ -476,15 +448,15 @@ msgstr ""
 "die\n"
 "Nummer erhöht (z.B. patch.diff, patch-2.diff, patch-3.diff).\n"
 
-#: quilt/fork.in:99
+#: quilt/fork.in:94
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Patch %s existiert bereits, bitte neuen Namen wählen\\n"
 
-#: quilt/fork.in:111
+#: quilt/fork.in:106
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Fehler beim Aufspalten von %s auf %s\\n"
 
-#: quilt/fork.in:117
+#: quilt/fork.in:112
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Neue Version von %s erstellt als %s\\n"
 
@@ -623,11 +595,11 @@ msgstr ""
 "--backup\n"
 "\tErzeuge eine Sicherungskopie von patch als patch~.\n"
 
-#: quilt/header.in:192
+#: quilt/header.in:176
 msgid "Replaced header of patch %s\\n"
 msgstr "Header von Patch %s ersetzt\\n"
 
-#: quilt/header.in:195
+#: quilt/header.in:179
 msgid "Appended text to header of patch %s\\n"
 msgstr "Text an Header von Patch %s angefügt\\n"
 
@@ -875,15 +847,19 @@ msgstr "Patch %s scheint leer zu sein; wird entfernt\\n"
 msgid "Removing patch %s\\n"
 msgstr "Entferne patch %s\\n"
 
-#: quilt/pop.in:256
+#: quilt/pop.in:243
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
-#: quilt/pop.in:266
+#: quilt/pop.in:253
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:289 quilt/push.in:372
+#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+msgid "No patches applied\\n"
+msgstr "Keine Patches angewandt\\n"
+
+#: quilt/pop.in:276 quilt/push.in:340
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -989,21 +965,9 @@ msgstr "Patch %s angewandt (erzwungen, muss aufgefrischt werden (Refresh))\\n"
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
-#: quilt/push.in:241
-msgid "Patch %s not found in file series\\n"
-msgstr "Patch %s nicht in series-Datei gefunden\\n"
-
-#: quilt/push.in:329
-msgid "Patch %s is already applied\\n"
-msgstr "Patch %s ist bereits angewandt\\n"
-
-#: quilt/push.in:338
+#: quilt/push.in:320
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
-
-#: quilt/push.in:352
-msgid "File series fully applied, ends at patch %s\\n"
-msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
 #: quilt/refresh.in:22
 msgid ""
@@ -1102,35 +1066,35 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\tEntferne Whitespace an Zeilenenden.\n"
 
-#: quilt/refresh.in:173
+#: quilt/refresh.in:149
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann Patches mit Level -p$opt_strip_level nicht auffrischen, bitte -p0 oder -"
 "p1 angeben\\n"
 
-#: quilt/refresh.in:207
+#: quilt/refresh.in:183
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Später angewandte Patches verändern Dateien von %s. Auffrischen mit -f "
 "erzwingen.\\n"
 
-#: quilt/refresh.in:213
+#: quilt/refresh.in:189
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "Kann --strip-trailing-whitespace nicht für Patches verwenden, die Dateien "
 "enthalten, die danach von anderen Patches weiter verändert werden.\\n"
 
-#: quilt/refresh.in:219
+#: quilt/refresh.in:195
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s ist leer\\n"
 
-#: quilt/refresh.in:295
+#: quilt/refresh.in:271
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: quilt/refresh.in:300
+#: quilt/refresh.in:276
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 
@@ -1155,15 +1119,15 @@ msgstr ""
 "-p patch\n"
 "\tPatch, aus dem Dateien entfernt werden sollen.\n"
 
-#: quilt/remove.in:91
+#: quilt/remove.in:73
 msgid "File %s is not in patch %s\\n"
 msgstr "Datei %s ist nicht in Patch %s enthalten\\n"
 
-#: quilt/remove.in:109
+#: quilt/remove.in:91
 msgid "Failed to remove file %s from patch %s\\n"
 msgstr "Konnte Datei %s nicht aus Patch %s entfernen\\n"
 
-#: quilt/remove.in:123
+#: quilt/remove.in:105
 msgid "File %s removed from patch %s\\n"
 msgstr "Datei %s aus Patch %s entfernt\\n"
 
@@ -1186,15 +1150,15 @@ msgstr ""
 "\tPatch, der umbenannt werden soll.\n"
 "\n"
 
-#: quilt/rename.in:96
+#: quilt/rename.in:84
 msgid "Patch %s exists already, please choose a different name\\n"
 msgstr "Patch %s existiert bereits, bitte einen anderen Namen wählen\\n"
 
-#: quilt/rename.in:110
+#: quilt/rename.in:98
 msgid "Renaming of patch %s to %s failed\\n"
 msgstr "Fehler beim Umbenennen von Patch %s auf %s\\n"
 
-#: quilt/rename.in:116
+#: quilt/rename.in:104
 msgid "Patch %s renamed to %s\\n"
 msgstr "Patch %s auf %s umbenannt\\n"
 
@@ -1233,7 +1197,28 @@ msgstr "Datei %s ist verschwunden\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 
-#: quilt/scripts/patchfns.in:693
+#: quilt/scripts/patchfns.in:442
+#, fuzzy
+msgid "No patches in series\\n"
+msgstr "Keine Patches angewandt\\n"
+
+#: quilt/scripts/patchfns.in:491
+msgid "Patch %s is not in series\\n"
+msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
+
+#: quilt/scripts/patchfns.in:518
+msgid "Patch %s is not applied\\n"
+msgstr "Patch %s ist nicht angewandt\\n"
+
+#: quilt/scripts/patchfns.in:539
+msgid "Patch %s is already applied\\n"
+msgstr "Patch %s ist bereits angewandt\\n"
+
+#: quilt/scripts/patchfns.in:555
+msgid "File series fully applied, ends at patch %s\\n"
+msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
+
+#: quilt/scripts/patchfns.in:795
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1246,7 +1231,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:778
+#: quilt/scripts/patchfns.in:880
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1449,3 +1434,12 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
+
+#~ msgid "Patch is not applied\\n"
+#~ msgstr "Patch ist nicht angewandt\\n"
+
+#~ msgid "Patch %s is not in series file\\n"
+#~ msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
+
+#~ msgid "Patch %s not found in file series\\n"
+#~ msgstr "Patch %s nicht in series-Datei gefunden\\n"

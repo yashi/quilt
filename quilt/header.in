@@ -126,23 +126,7 @@ then
 	usage
 fi
 
-[ $# -eq 1 ] && opt_patch=$1
-
-if [ -n "$opt_patch" ]
-then
-	if ! patch=$(find_patch "$opt_patch")
-	then
-		printf $"Patch %s is not in series\n" "$opt_patch" >&2
-		exit 1
-	fi
-else
-	patch=$(top_patch)
-	if [ -z "$patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
-fi
+patch=$(find_patch_in_series "$1") || exit 1
 
 patch_file=$(patch_file_name $patch)
 

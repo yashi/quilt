@@ -98,11 +98,7 @@ while true
 do
 	case "$1" in
 	-p)
-		if ! opt_patch=$(find_patch "$2")
-		then
-			printf $"Patch %s is not in series\n" "$2" >&2
-			exit 1
-		fi
+		opt_patch="$2"
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -118,12 +114,7 @@ then
 fi
 opt_file="$SUBDIR$1"
 
-if [ -n "$opt_patch" ] && ! is_applied "$opt_patch"
-then
-	printf $"Patch %s is not applied\n" \
-	       "$(print_patch "$opt_patch")" >&2
-	exit 1
-fi
+opt_patch=$(find_applied_patch "$opt_patch") || exit 1
 
 for patch in $(applied_patches); do
 	old_file="$(backup_file_name "$patch" "$opt_file")"

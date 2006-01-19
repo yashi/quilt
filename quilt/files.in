@@ -71,10 +71,8 @@ do
 		if [ "$2" = - ]
 		then
 			:
-		elif ! first_patch=$(find_patch $2)
-		then
-			printf $"Patch %s is not in series file\n" "$2" >&2
-			exit 1
+		else
+			first_patch=$(find_patch_in_series "$2") || exit 1
 		fi
 		shift 2 ;;
 	--)
@@ -88,21 +86,7 @@ then
 	usage
 fi
 
-if [ -n "$1" ]
-then
-	if ! last_patch=$(find_patch $1)
-	then
-		printf $"Patch %s is not in series file\n" "$1" >&2
-		exit 1
-	fi
-else
-	last_patch=$(top_patch)
-	if [ -z "$last_patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
-fi
+last_patch=$(find_patch_in_series "$1") || exit 1
 
 if [ -n "$opt_all" -a -z "$first_patch" ]
 then

@@ -109,28 +109,9 @@ then
 	usage
 fi
 
-if [ $# -eq 1 ]
+if [ -z "$opt_all" ]
 then
-	if ! patch=$(find_patch $1)
-	then
-		printf $"Patch %s is not in series\n" "$1" >&2
-		exit 1
-	fi
-	if ! is_applied $patch
-	then
-		printf $"Patch %s is not applied\n" "$(print_patch $patch)" >&2
-		exit 1
-	fi
-fi
-
-if [ -z "$opt_all" -a -z "$patch" ]
-then
-	patch=$(top_patch)
-	if [ -z "$patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
+	patch=$(find_applied_patch "$1") || exit 1
 fi
 
 options=

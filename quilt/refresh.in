@@ -131,38 +131,14 @@ do
 	esac
 done
 
-if [ $# -eq 1 ]
-then
-	opt_patch=$1
-elif [ $# -gt 1 ]
+if [ $# -gt 1 ]
 then
 	usage
 fi
 
 QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
-if [ -n "$opt_patch" ]
-then
-	if ! patch=$(find_patch $opt_patch)
-	then
-		printf $"Patch %s is not in series\n" \
-		       "$(print_patch $opt_patch)" >&2
-		exit 1
-	fi
-	if ! is_applied "$patch"
-	then
-		printf $"Patch %s is not applied\n" \
-		       "$(print_patch $patch)" >&2
-		exit 1
-	fi
-else
-	patch=$(top_patch)
-	if [ -z "$patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
-fi
+patch=$(find_applied_patch "$1") || exit 1
 
 if [ -z "$opt_strip_level" ]
 then

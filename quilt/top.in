@@ -57,13 +57,9 @@ then
 	usage
 fi
 
-top=$(top_patch)
-if [ -n "$top" ]
-then
-	echo "$(print_patch $top)"
-else
-	exit 2
-fi
+top=$(find_top_patch) || exit 2
+echo "$(print_patch $top)"
+
 ### Local Variables:
 ### mode: shell-script
 ### End:

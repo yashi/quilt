@@ -66,12 +66,7 @@ then
 	usage
 fi
 
-top_patch=$(top_patch)
-if [ -z "$top_patch" ]
-then
-	printf $"No patches applied\n" >&2
-	exit 1
-fi
+top_patch=$(find_top_patch) || exit 1
 
 if [ $# -eq 1 ]
 then

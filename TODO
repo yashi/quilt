@@ -40,6 +40,10 @@ Documentation:
 
 	- Subdirectory support
 
+quilt new:
+
+	- Prevent spaces in patch names.
+
 quilt push:
 	
 	- Add option to print the reject to stdout

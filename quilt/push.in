@@ -230,18 +230,12 @@ list_patches()
 				fi
 				n=$[$n+1]
 			fi
-			echo $patch
-			if [ $patch = "$stop_at_patch" ]
+			echo "$patch"
+			if [ -z "$number" -a "$patch" = "$stop_at_patch" ]
 			then
 				break
 			fi
 		done
-		if [ -n "$stop_at_patch" -a "$patch" != "$stop_at_patch" ]
-		then
-			printf $"Patch %s not found in file series\n" \
-			       "$stop_at_patch" >&2
-			return 1
-		fi
 	fi
 }
 
@@ -307,30 +301,18 @@ then
 	then
 		number=$1
 	else
-		if ! stop_at_patch=$(find_patch $1)
-		then
-			printf $"Patch %s is not in series\n" "$1" >&2
-			exit 1
-		fi
+		stop_at_patch="$1"
 	fi
 else
 	[ -z "$opt_all" ] && number=1
 fi
 
+stop_at_patch=$(find_unapplied_patch "$stop_at_patch") || exit 1
+
 [ -n "$opt_quiet" ] && silent=-s
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
 [ -z "$opt_interactive" ] && force_apply=-f
 [ -n "$opt_force" ] && opt_leave_rejects=1
-
-if [ -n "$stop_at_patch" ]
-then
-	if is_applied $stop_at_patch
-	then
-		printf $"Patch %s is already applied\n" \
-		       "$(print_patch $stop_at_patch)" >&2
-		exit 1
-	fi
-fi
 
 top=$(top_patch)
 if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]
@@ -340,21 +322,7 @@ then
 	exit 1
 fi
 
-if ! patches=$(list_patches) 2>&1
-then
-	exit 1
-elif [ -z "$patches" ]
-then
-	if [ -z "$top" ]
-	then
-		printf $"No patches applied\n" >&2
-	else
-		printf $"File series fully applied, ends at patch %s\n" \
-		       "$(print_patch $top)" >&2
-	fi
-	exit 2
-fi
-
+patches=$(list_patches)
 create_db
 for patch in $patches
 do

@@ -73,12 +73,7 @@ fi
 : ${opt_strip_level:=1}
 [ -n "$opt_silent" ] && silent=-s
 
-top=$(top_patch)
-if [ -z "$top" ]
-then
-	printf $"No patches applied\n" >&2
-	exit 1
-fi
+top=$(find_top_patch) || exit 1
 
 trap "failed=1" SIGINT
 

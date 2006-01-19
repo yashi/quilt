@@ -197,7 +197,7 @@ patch_in_series()
 insert_in_series()
 {
 	local patch=$1 patch_args=$2
-	local next=$(patches_after "$(top_patch)" | head -n 1) tmpfile
+	local next=$(patch_after "$(top_patch)") tmpfile
 
 	if [ -n "$patch_args" ]
 	then
@@ -378,6 +378,13 @@ patches_after()
 	fi
 }
 
+patch_after()
+{
+	local patch="$1"
+	patch=$(patches_after "$patch" | head -n 1)
+	[ -n "$patch" ] && echo "$patch"
+}
+
 # List all patches that have been applied on top of patch $1
 patches_on_top_of()
 {
@@ -427,12 +434,36 @@ remove_from_db()
 	fi
 }
 
+find_first_patch()
+{
+	local patch=$(cat_series | head -n 1)
+	if [ -z "$patch" ]
+	then
+		printf $"No patches in series\n" >&2
+		return 1
+	fi
+
+	echo "$patch"
+}
+
+find_top_patch()
+{
+	if ! top_patch
+	then
+		if find_first_patch > /dev/null
+		then
+			printf $"No patches applied\n" >&2
+		fi
+		return 1
+	fi
+}
+
 find_patch()
 {
-	set -- $*
-	if [ $# -eq 1 -a -n "$1" -a -e "$SERIES" ]
+	local name="$1"
+	if [ -e "$SERIES" ]
 	then
-		local patch="${1#$SUBDIR_DOWN$QUILT_PATCHES/}"
+		local patch=${1#$SUBDIR_DOWN$QUILT_PATCHES/}
 		local bre=$(quote_bre "$patch")
 		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' $SERIES)
@@ -454,7 +485,78 @@ find_patch()
 			done
 		fi
 	fi
+	# Finding the first patch will error when the series is empty
+	if [ -n "$(find_first_patch)" ]
+	then
+		printf $"Patch %s is not in series\n" "$name" >&2
+	fi
 	return 1
+}
+
+find_patch_in_series()
+{
+	local name="$1"
+
+	if [ -n "$name" ]
+	then
+		find_patch "$name"
+	else
+		find_top_patch
+	fi
+}
+
+find_applied_patch()
+{
+	local name="$1"
+
+	if [ -n "$name" ]
+	then
+		local patch=$(find_patch "$name") || return 1
+
+	        if ! is_applied "$patch"
+	        then
+	                printf $"Patch %s is not applied\n" \
+			       "$(print_patch $patch)" >&2
+	                return 1
+	        fi
+		echo "$patch"
+	else
+		find_top_patch
+	fi
+}
+
+find_unapplied_patch()
+{
+	local name="$1"
+
+	if [ -n "$name" ]
+	then
+		local patch
+
+		patch=$(find_patch "$name") || return 1
+	        if is_applied "$patch"
+	        then
+			printf $"Patch %s is already applied\n" \
+				"$(print_patch $patch)" >&2
+               		return 1
+	        fi
+		echo "$patch"
+	else
+		local start
+
+		if start=$(top_patch)
+		then
+			patch_after "$start"
+		else
+			find_first_patch || return 1
+		fi
+		if [ $? -ne 0 ]
+		then
+			printf $"File series fully applied, ends at patch %s\n" \
+				"$(print_patch $start)" >&2
+			return 1
+		fi
+	fi
 }
 
 file_in_patch()
@@ -714,7 +816,7 @@ setup_colors()
 	eval $C
 }
 
-quilt_command ()
+quilt_command()
 {
 	local command=$1
 	shift

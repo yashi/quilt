@@ -58,11 +58,7 @@ while true
 do
 	case "$1" in
 	-p)
-		if ! patch=$(find_patch $2)
-		then
-			printf $"Patch %s is not in series\n" "$2" >&2
-			exit 1
-		fi
+		opt_patch="$2"
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -77,15 +73,7 @@ then
 	usage
 fi
 
-if [ ! -n "$patch" ]
-then
-	patch=$(top_patch)
-	if [ -z "$patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
-fi
+patch=$(find_patch_in_series "$opt_patch") || exit 1
 
 new_patch=${1#$QUILT_PATCHES/}
 

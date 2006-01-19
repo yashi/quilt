@@ -155,23 +155,15 @@ do
 		opt_strip_level=$2
 		shift 2 ;;
 	-P)
-		if ! last_patch=$(find_patch $2)
-		then
-			printf $"Patch %s is not in series\n" \
-			       "$(print_patch $2)" >&2
-			exit 1
-		fi
+		last_patch="$2"
 		shift 2 ;;
 	--combine)
 		opt_combine=1
 		if [ "$2" = - ]
 		then
 			first_patch=-
-		elif ! first_patch=$(find_patch $2)
-		then
-			printf $"Patch %s is not in series\n" \
-			       "$(print_patch $2)" >&2
-			exit 1
+		else
+			first_patch=$(find_applied_patch "$2") || exit 1
 		fi
 		shift 2 ;;
 	-R)
@@ -233,22 +225,7 @@ then
 	die 1
 fi
 
-if [ -n "$last_patch" ]
-then
-	if ! is_applied "$last_patch"
-	then
-		printf $"Patch %s is not applied\n" \
-		       "$(print_patch $last_patch)" >&2
-		die 1
-	fi
-else
-	last_patch=$(top_patch)
-	if [ -z "$last_patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		die 1
-	fi
-fi
+last_patch=$(find_applied_patch "$last_patch") || exit 1
 
 if [ -z "$opt_strip_level" ]
 then

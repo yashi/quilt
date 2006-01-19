@@ -73,11 +73,7 @@ while true
 do
 	case "$1" in
 	-p)
-		if ! patch=$(find_patch $2)
-		then
-			printf $"Patch %s is not in series\n" "$2" >&2
-			exit 1
-		fi
+		opt_patch="$2"
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -92,21 +88,7 @@ then
 	usage
 fi
 
-if [ -n "$patch" ]
-then
-	if ! is_applied $patch
-	then
-		printf $"Patch %s is not applied\n" "$(print_patch $patch)" >&2
-		exit 1
-	fi
-else
-	patch=$(top_patch)
-	if [ -z "$patch" ]
-	then
-		printf $"No patches applied\n" >&2
-		exit 1
-	fi
-fi
+patch=$(find_applied_patch "$opt_patch") || exit 1
 
 status=0
 for file in $*

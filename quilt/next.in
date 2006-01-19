@@ -55,23 +55,10 @@ done
 if [ $# -gt 1 ]
 then
 	usage
-elif [ $# -eq 1 ]
-then
-	if ! patch=$(find_patch $1)
-	then
-		printf $"Patch %s is not in series\n" "$1" >&2
-		exit 1
-	fi
-else
-	patch=$(top_patch)
 fi
 
-if [ -z "$patch" ]
-then
-	next=$(cat_series | head -n 1)
-else
-	next=$(patches_after $patch | head -n 1)
-fi
+next=$(find_unapplied_patch "$1") || exit
+
 if [ -n "$next" ]
 then
 	echo "$(print_patch $next)"
