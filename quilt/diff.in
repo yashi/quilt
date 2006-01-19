@@ -251,7 +251,7 @@ then
 	do
 		echo "${file#$QUILT_PC/$snap_subdir/}" >&4
 	done \
-	< <(find $QUILT_PC/$snap_subdir -type f)
+	< <(find $QUILT_PC/$snap_subdir -type f | sort)
 	# Also look at all patches that are currently applied.
 	opt_combine=1
 	first_patch="$(applied_patches | head -n 1)"
