@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan 20 01:30:52 CET 2006 - jayvdb@gmail.com
+
+- Clear up the internal make rules so make -d is not so verbose.
+
+-------------------------------------------------------------------
 Fri Jan 20 01:24:11 CET 2006 - agruen@suse.de
 
 - Check if arguments to --with-<prog> exist, warn if they do not,

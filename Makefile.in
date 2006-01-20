@@ -380,3 +380,13 @@ uninstall ::
 endif
 
 .PHONY :: all install uninstall clean distclean
+
+# Clear the suffix list
+.SUFFIXES:
+.SUFFIXES: .c .o .in
+# Bad gmake, never *ever* try to get a file out of source control by yourself.
+%: %,v
+%: RCS/%,v
+%: RCS/%
+%: s.%
+%: SCCS/s.%
