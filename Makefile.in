@@ -259,17 +259,17 @@ compat :: $(COMPAT)
 # symlinks as targets.
 #   Usage: $(call VIRTUAL_SYMLINK, source, target)
 define VIRTUAL_SYMLINK
-	@echo "Generating $(strip $(1)) wrapper" >&2
-	@printf "#!%s\n%s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2)
+	@echo "Generating $(strip $(1)) wrapper" >&2;
+	@printf "#!%s\n%s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2);
 endef
 
 # Generate rules to create compat/<binary> for each binary in $(COMPAT_SYMLINKS)
 define COMPAT_SYMLINK_local_install
 compat/$(strip $(1)) : Makefile
 	$(call VIRTUAL_SYMLINK, \
-		'$($(shell echo $(1) | $(AWK) '{print toupper($$1)}'))', \
+		$($(shell echo $(1) | $(AWK) '{print toupper($$1)}')), \
 		compat/$(strip $(1)))
-	@chmod +x compat/$(strip $(1))
+	@chmod +x compat/$(strip $(1));
 
 endef
 
