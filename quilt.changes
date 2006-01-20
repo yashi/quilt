@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 20 01:11:00 CET 2006 - jayvdb@gmail.com
+
+- configure.in: Document to use --without-foo instead of
+  --with-foo=none.
+
+-------------------------------------------------------------------
 Thu Jan 19 17:34:05 CET 2006 - agruen@suse.de
 
 - Make sure quilt diff --snapshot visits files in a defined order.

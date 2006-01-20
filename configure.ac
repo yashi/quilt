@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.60 $)
+AC_REVISION ($Revision: 1.61 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -149,7 +149,7 @@ if test -z "$INTERNAL_GETOPT"; then
     AC_MSG_ERROR([
 $GETOPT does not support the --long option.
 If you don't have a version of getopt that supports long options, you
-can specify '--with-getopt=none' and $PACKAGE_NAME will use its own
+can specify '--without-getopt' and $PACKAGE_NAME will use its own
 internal getopt.
 ])
   fi
@@ -166,7 +166,7 @@ if test -z "$INTERNAL_MKTEMP" ; then
 	AC_MSG_ERROR([
 '$MKTEMP -d' does not create temporary directories.
 If you don't have a version of mktemp that can create directories, you
-can specify '--with-mktemp=none' and $PACKAGE_NAME will use its own
+can specify '--without-mktemp' and $PACKAGE_NAME will use its own
 internal tempfile generation mechanism.
 ])
     fi

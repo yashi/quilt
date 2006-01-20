@@ -10,7 +10,10 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
                  m4_if(internal_$2_cmd,[],[],[ (use --without-$2
                           to use an internal mechanism)])),
   [
-    if test ! x"$withval" = xno; then
+    if test x"$withval" = xnone; then
+      AC_MSG_ERROR([Invalid configure argument.  use --without-$2])
+    fi
+    if test x"$withval" != xno; then
       $1="$withval"
       AC_MSG_NOTICE([Using $2 executable $$1])
       COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
