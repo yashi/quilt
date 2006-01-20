@@ -84,7 +84,7 @@ msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 
 #: quilt/add.in:103
 msgid "File %s is already in patch %s\\n"
-msgstr "Datei %s ist bereits in Patch $patch enthalten\\n"
+msgstr "Datei %s ist bereits in Patch $patch\\n"
 
 #: quilt/add.in:111 quilt/remove.in:82
 msgid "File %s modified by patch %s\\n"
@@ -1121,7 +1121,7 @@ msgstr ""
 
 #: quilt/remove.in:73
 msgid "File %s is not in patch %s\\n"
-msgstr "Datei %s ist nicht in Patch %s enthalten\\n"
+msgstr "Datei %s ist nicht in Patch %s\\n"
 
 #: quilt/remove.in:91
 msgid "Failed to remove file %s from patch %s\\n"
@@ -1200,11 +1200,11 @@ msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 #: quilt/scripts/patchfns.in:442
 #, fuzzy
 msgid "No patches in series\\n"
-msgstr "Keine Patches angewandt\\n"
+msgstr "Keine Patches in der series-Datei\\n"
 
 #: quilt/scripts/patchfns.in:491
 msgid "Patch %s is not in series\\n"
-msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
+msgstr "Patch %s ist nicht in der series-Datei\\n"
 
 #: quilt/scripts/patchfns.in:518
 msgid "Patch %s is not applied\\n"
@@ -1434,12 +1434,3 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
-
-#~ msgid "Patch is not applied\\n"
-#~ msgstr "Patch ist nicht angewandt\\n"
-
-#~ msgid "Patch %s is not in series file\\n"
-#~ msgstr "Patch %s ist nicht in der series-Datei enthalten\\n"
-
-#~ msgid "Patch %s not found in file series\\n"
-#~ msgstr "Patch %s nicht in series-Datei gefunden\\n"
