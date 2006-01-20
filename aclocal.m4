@@ -13,9 +13,18 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
     if test x"$withval" = xnone; then
       AC_MSG_ERROR([Invalid configure argument.  use --without-$2])
     fi
+    AC_MSG_CHECKING(for $2)
     if test x"$withval" != xno; then
       $1="$withval"
-      AC_MSG_NOTICE([Using $2 executable $$1])
+      if test -e "$$1"; then
+	if test ! -f "$$1" -a ! -h "$$1" || test ! -x "$$1"; then
+	  AC_MSG_ERROR([$$1 is not an executable file])
+	fi
+      fi
+      AC_MSG_RESULT([$$1])
+      if test ! -e "$$1"; then
+        AC_MSG_WARN([$$1 does not exist])
+      fi
       COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
     fi
   ],[

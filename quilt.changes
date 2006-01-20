@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 20 01:24:11 CET 2006 - agruen@suse.de
+
+- Check if arguments to --with-<prog> exist, warn if they do not,
+  and fail if they do but are no executables. (Based on a patch
+  from jayvdb@gmail.com).
+
+-------------------------------------------------------------------
 Fri Jan 20 01:11:00 CET 2006 - jayvdb@gmail.com
 
 - configure.in: Document to use --without-foo instead of
