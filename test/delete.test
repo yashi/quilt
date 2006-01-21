@@ -4,6 +4,9 @@ Test the delete command.
 	$ mkdir -p d/patches
 	$ cd d
 
+	$ quilt delete
+	> No patches in series
+
 	$ cat > test.txt
 	< Calling pci_match_id() would be more feasible.
 
@@ -31,6 +34,9 @@ Test the delete command.
 	$ quilt refresh
 	> Refreshed patch %{P}test2
 
+	$ quilt delete test1
+	> Patch %{P}test1 is currently applied
+
 	$ quilt pop
 	> Removing patch %{P}test2
 	> Restoring test.txt
@@ -57,6 +63,40 @@ Test the delete command.
 	> Removed patch %{P}test1
 
 	$ quilt series
+
+	$ echo "test1" > %{P}series
+	$ quilt delete -n
+	> Removed patch %{P}test1
+
+	$ quilt series
+
+	# Force the pop operaton to fail
+	$ echo "test3" > %{P}/series
+	$ echo "test3" > .pc/applied-patches
+	$ mkdir -p .pc/test3/dir
+	$ touch .pc/test3/dir/file
+	$ chmod a-rx .pc/test3/dir
+
+	$ quilt delete "test3"
+	> Removing patch %{P}test3
+	> .pc/test3/dir: Permission denied
+	> Removing patch %{P}test3 failed
+
+	$ chmod a+rx .pc/test3/dir
+
+	$ find .pc/test3
+	> .pc/test3
+	> .pc/test3/dir
+	> .pc/test3/dir/file
+
+	$ quilt applied
+	> No patches applied
+
+	$ quilt series
+	> %{P}test3
+
+	$ quilt delete test3
+	> Removed patch %{P}test3
 
 	$ cd ..
 	$ rm -rf d

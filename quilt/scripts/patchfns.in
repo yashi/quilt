@@ -536,7 +536,7 @@ find_unapplied_patch()
 		patch=$(find_patch "$name") || return 1
 	        if is_applied "$patch"
 	        then
-			printf $"Patch %s is already applied\n" \
+			printf $"Patch %s is currently applied\n" \
 				"$(print_patch $patch)" >&2
                		return 1
 	        fi

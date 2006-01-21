@@ -173,27 +173,37 @@ msgstr ""
 "\tBenenne den Patch auf patch~, anstatt ihn zu löschen.\n"
 "\tHat nur in Kompination mit -r eine Wirkung.\n"
 
-#: quilt/delete.in:86
+#: quilt/delete.in:89
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:94
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:448
+#, fuzzy
+msgid "No patches in series\\n"
+msgstr "Keine Patches in der series-Datei\\n"
+
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:545
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:102
+#: quilt/delete.in:107
+#, fuzzy
+msgid "Removing patch %s failed\\n"
+msgstr "Entferne patch %s\\n"
+
+#: quilt/delete.in:115
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
 
-#: quilt/delete.in:104
+#: quilt/delete.in:117
 msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
-#: quilt/delete.in:115
+#: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: quilt/delete.in:122
+#: quilt/delete.in:135
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
@@ -855,7 +865,7 @@ msgstr "Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:269 quilt/scripts/patchfns.in:461
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -1197,28 +1207,19 @@ msgstr "Datei %s ist verschwunden\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 
-#: quilt/scripts/patchfns.in:442
-#, fuzzy
-msgid "No patches in series\\n"
-msgstr "Keine Patches in der series-Datei\\n"
-
-#: quilt/scripts/patchfns.in:491
+#: quilt/scripts/patchfns.in:497
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:518
+#: quilt/scripts/patchfns.in:524
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:539
-msgid "Patch %s is already applied\\n"
-msgstr "Patch %s ist bereits angewandt\\n"
-
-#: quilt/scripts/patchfns.in:555
+#: quilt/scripts/patchfns.in:561
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:795
+#: quilt/scripts/patchfns.in:801
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1231,7 +1232,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:880
+#: quilt/scripts/patchfns.in:886
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1434,3 +1435,14 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
+
+#, fuzzy
+#~ msgid "Patch s is currently applied\\n"
+#~ msgstr "Patch %s ist momentan angewandt\\n"
+
+#, fuzzy
+#~ msgid "Patch %s is not on top\\n"
+#~ msgstr "Der oberste Patch ist jetzt %s\\n"
+
+#~ msgid "Patch %s is already applied\\n"
+#~ msgstr "Patch %s ist bereits angewandt\\n"

@@ -170,27 +170,37 @@ msgstr ""
 "\tパッチを削除せず、パッチ~に名前を変更します。オプション\\\"-r\\\"が\n"
 "\t有効ではないときは無視される。\n"
 
-#: quilt/delete.in:86
+#: quilt/delete.in:89
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:94
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:448
+#, fuzzy
+msgid "No patches in series\\n"
+msgstr "適用されているパッチはありません\\n"
+
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:545
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
-#: quilt/delete.in:102
+#: quilt/delete.in:107
+#, fuzzy
+msgid "Removing patch %s failed\\n"
+msgstr "パッチ %s をはずします\\n"
+
+#: quilt/delete.in:115
 msgid "Removed patch %s\\n"
 msgstr "パッチ %s が削除されました\\n"
 
-#: quilt/delete.in:104
+#: quilt/delete.in:117
 msgid "Failed to remove patch %s\\n"
 msgstr "パッチ %s を削除することに失敗しました\\n"
 
-#: quilt/delete.in:115
+#: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "ファイル \\\"%s\\\" のバックアップに失敗しました\\n"
 
-#: quilt/delete.in:122
+#: quilt/delete.in:135
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "パッチ \\\"%s\\\" を削除することに失敗しました\\n"
 
@@ -838,7 +848,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:269 quilt/scripts/patchfns.in:461
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -1172,29 +1182,20 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: quilt/scripts/patchfns.in:442
-#, fuzzy
-msgid "No patches in series\\n"
-msgstr "適用されているパッチはありません\\n"
-
-#: quilt/scripts/patchfns.in:491
+#: quilt/scripts/patchfns.in:497
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:518
+#: quilt/scripts/patchfns.in:524
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:539
-msgid "Patch %s is already applied\\n"
-msgstr "パッチ %s は、すでに適用済です\\n"
-
-#: quilt/scripts/patchfns.in:555
+#: quilt/scripts/patchfns.in:561
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:795
+#: quilt/scripts/patchfns.in:801
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1206,7 +1207,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:880
+#: quilt/scripts/patchfns.in:886
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1408,6 +1409,17 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
+
+#, fuzzy
+#~ msgid "Patch s is currently applied\\n"
+#~ msgstr "パッチ %s は現在適用されています\\n"
+
+#, fuzzy
+#~ msgid "Patch %s is not on top\\n"
+#~ msgstr "パッチ %s を最上位にしました\\n"
+
+#~ msgid "Patch %s is already applied\\n"
+#~ msgstr "パッチ %s は、すでに適用済です\\n"
 
 #~ msgid "Patch is not applied\\n"
 #~ msgstr "パッチは適用されていません\\n"

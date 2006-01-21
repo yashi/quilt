@@ -132,7 +132,7 @@
 	> Now at patch patches/patch2.diff
 
 	$ quilt push patch2
-	> Patch patches/patch2.diff is already applied
+	> Patch patches/patch2.diff is currently applied
 
 	$ quilt push
 	> File series fully applied, ends at patch patches/patch2.diff

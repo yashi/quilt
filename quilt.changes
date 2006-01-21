@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 21 19:23:19 CET 2006 - agruen@suse.de
+
+- Fix delete -n when no patches are applied.
+
+-------------------------------------------------------------------
 Fri Jan 20 02:47:35 CET 2006 - jayvdb@gmail.com
 
 - Tru64 /bin/sh complains when $(call ) is used without ; on each

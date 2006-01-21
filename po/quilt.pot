@@ -113,27 +113,35 @@ msgid ""
 "\tIgnored if not used with \\\"-r\\\".\n"
 msgstr ""
 
-#: quilt/delete.in:86
+#: quilt/delete.in:89
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:94
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:448
+msgid "No patches in series\\n"
+msgstr ""
+
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:545
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
-#: quilt/delete.in:102
-msgid "Removed patch %s\\n"
-msgstr ""
-
-#: quilt/delete.in:104
-msgid "Failed to remove patch %s\\n"
+#: quilt/delete.in:107
+msgid "Removing patch %s failed\\n"
 msgstr ""
 
 #: quilt/delete.in:115
+msgid "Removed patch %s\\n"
+msgstr ""
+
+#: quilt/delete.in:117
+msgid "Failed to remove patch %s\\n"
+msgstr ""
+
+#: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr ""
 
-#: quilt/delete.in:122
+#: quilt/delete.in:135
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr ""
 
@@ -577,7 +585,7 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:269 quilt/scripts/patchfns.in:461
 msgid "No patches applied\\n"
 msgstr ""
 
@@ -822,27 +830,19 @@ msgstr ""
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:442
-msgid "No patches in series\\n"
-msgstr ""
-
-#: quilt/scripts/patchfns.in:491
+#: quilt/scripts/patchfns.in:497
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:518
+#: quilt/scripts/patchfns.in:524
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:539
-msgid "Patch %s is already applied\\n"
-msgstr ""
-
-#: quilt/scripts/patchfns.in:555
+#: quilt/scripts/patchfns.in:561
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:795
+#: quilt/scripts/patchfns.in:801
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -850,7 +850,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:880
+#: quilt/scripts/patchfns.in:886
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

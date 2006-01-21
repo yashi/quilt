@@ -77,22 +77,35 @@ then
 	usage
 fi
 
-patch=$(find_patch_in_series "$1") || exit 1
-
+if [ -n "$1" ]; then
+	patch=$(find_patch "$1") || exit 1
+else
+	patch=$(top_patch)
+fi
 if [ -n "$opt_next" ]
 then
-	if ! patch="$(patch_after "$patch")"
+	if ! patch=$(patch_after "$patch")
 	then
 		printf $"No next patch\n" >&2
 		exit 1
 	fi
-elif is_applied "$patch"
+fi
+if [ -z "$patch" ]
 then
-	if [ "$patch" != "$(top_patch)" ] || \
-	   ! quilt_command pop -fq
+	printf $"No patches in series\n" >&2
+	exit 1
+fi
+if is_applied "$patch"; then
+	if [ "$patch" != "$(top_patch)" ]
 	then
 		printf $"Patch %s is currently applied\n" \
-		       "$(print_patch $patch)" >&2
+		       "$(print_patch "$patch")" >&2
+		exit 1
+	fi
+	if ! quilt_command pop -fq
+	then
+		printf $"Removing patch %s failed\n" \
+			"$(print_patch "$patch")" >&2
 		exit 1
 	fi
 fi
