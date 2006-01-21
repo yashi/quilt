@@ -1,5 +1,10 @@
 -------------------------------------------------------------------
-Sat Jan 21 22:37:29 CET 2006 - agruen@suse.de
+Sat Jan 21 22:46:23 CET 2006 - jayvdb@gmail.com
+
+- Don't use date -r for comparing file timestamps.
+
+-------------------------------------------------------------------
+Sat Jan 21 22:37:29 CET 2006 - jayvdb@gmail.com
 
 - GNU patch 2.5 messages differ slightly from the messages of more
   recent versions. Recognize the old version's output when fixing
@@ -7,7 +12,7 @@ Sat Jan 21 22:37:29 CET 2006 - agruen@suse.de
   version's output in the test suite.
 
 -------------------------------------------------------------------
-Sat Jan 21 21:32:59 CET 2006 - agruen@suse.de
+Sat Jan 21 21:32:59 CET 2006 - jayvdb@gmail.com
 
 - test/run: Support regex matching in test scripts.
 

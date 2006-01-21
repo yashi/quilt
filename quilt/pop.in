@@ -75,12 +75,9 @@ files_may_have_changed()
 		return 0
 	fi
 	
-	local apply_ts=$(date -r "$QUILT_PC/$patch/.timestamp" '+%s') ts
 	for file in $(files_in_patch $patch)
 	do
-		ts=$(date -r $file '+%s' 2> /dev/null)
-		[ -z "$ts" ] && return 0
-		[ "$ts" -gt $apply_ts ] && return 0
+		[ "$QUILT_PC/$patch/.timestamp" -ot $file ] && return 0
 	done
 	return 1
 }
