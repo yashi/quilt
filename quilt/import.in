@@ -87,14 +87,23 @@ do
 		patch=${patch_file##*/}
 	fi
 
+	patch_file=$(find_patch_file $patch_file) || exit 1
+
 	if is_applied $patch
 	then
 		printf $"Patch %s is applied\n" "$patch" >&2
 		exit 1
 	fi
 
-	if [ -e "$QUILT_PATCHES/$patch" ]
+	dest=$(patch_file_name $patch)
+	if patch_in_series "$patch"
 	then
+		if [ "$patch_file" = "$dest" ]
+		then
+			printf $"Patch %s already exists in series.\n" \
+			       "$(print_patch $patch)" >&2
+			exit 1
+		fi
 		if [ -z "$opt_force" ]
 		then
 			printf $"Patch %s exists. Replace with -f.\n" \
@@ -103,16 +112,21 @@ do
 		fi
 		printf $"Replacing patch %s with new version\n" \
 		       "$(print_patch $patch)" >&2
+	elif [ -e "$dest" ]
+	then
+		printf $"Importing patch %s\n" "$(print_patch $patch)"
 	else
 		printf $"Importing patch %s (stored as %s)\n" \
-		       "$(print_patch $patch_file)" \
+		       "$patch_file" \
 		       "$(print_patch $patch)"
+
+		mkdir -p "${dest%/*}"
 	fi
-	dest=$QUILT_PATCHES/$patch
-	mkdir -p "${dest%/*}"
-	if ! cp "$patch_file" "$dest"
+
+	if [ "$patch_file" != "$dest" ] && ! cp "$patch_file" "$dest"
 	then
-		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
+		printf $"Failed to import patch %s\n" \
+		       "$(print_patch $patch)" >&2
 		exit 1
 	fi
 

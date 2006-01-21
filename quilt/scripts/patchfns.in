@@ -559,6 +559,28 @@ find_unapplied_patch()
 	fi
 }
 
+find_patch_file()
+{
+	local name="$1"
+
+	if [ -r "$name" ]
+	then
+		echo "$name"
+		return
+	fi
+
+	local patch file
+
+	patch=$(find_patch_in_series "$name" 2>/dev/null)
+	if [ -z "$patch" ]
+	then
+		printf $"Patch %s does not exist\n" "$name" >&2
+		return 1
+	fi
+
+	echo $(patch_file_name "$patch")
+}
+
 file_in_patch()
 {
 	local file=$1 patch=$2

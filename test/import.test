@@ -27,7 +27,7 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import t/patch1.diff
-	> Importing patch patches/t/patch1.diff (stored as patches/patch1.diff)
+	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
 
 	$ quilt push
 	> Applying patch patches/patch1.diff
@@ -71,28 +71,13 @@
 	# test a few error cases
 
         $ quilt import missing.diff
-	> Importing patch patches/missing.diff (stored as patches/missing.diff)
-	> cp: cannot stat `missing.diff': No such file or directory
-	> Failed to import patch patches/missing.diff
+	> Patch missing.diff does not exist
 
 	$ quilt import patches/patch1.diff
-	> Patch patches/patch1.diff exists. Replace with -f.
+	> Importing patch patches/patch1.diff
 
-	$ quilt import -f patches/patch1.diff
-	> Replacing patch patches/patch1.diff with new version
-	> cp: `patches/patch1.diff' and `patches/patch1.diff' are the same file
-	> Failed to import patch patches/patch1.diff
-
-	# no real damage has been done
-
-	$ cat patches/patch1.diff
-	> original description
-	> Index: d/f
-	> ===================================================================
-	> --- /dev/null
-	> +++ d/f
-	> @@ -0,0 +1 @@
-	> +f
+	$ quilt import patches/patch2.diff
+	> Patch patches/patch2.diff already exists in series.
 
 	# a simple use of import
 
@@ -119,7 +104,7 @@
 
         $ cp patches/patch1.diff t/patch1.patch
 	$ quilt import t/patch1.patch
-	> Importing patch patches/t/patch1.patch (stored as patches/patch1.patch)
+	> Importing patch t/patch1.patch (stored as patches/patch1.patch)
 
 	$ ls patches/
 	> patch1.diff

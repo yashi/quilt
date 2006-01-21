@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jan 21 19:44:35 CET 2006 - jayvdb@gmail.com
+
+- import command: catch several error conditions. Patches in
+  QUILT_PATCHES can now e imported. A minor fix in the output.
+
+-------------------------------------------------------------------
 Sat Jan 21 19:23:19 CET 2006 - agruen@suse.de
 
 - Fix delete -n when no patches are applied.

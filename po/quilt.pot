@@ -117,11 +117,11 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:448
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:442
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:545
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:539
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -429,27 +429,35 @@ msgstr ""
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 
-#: quilt/import.in:92
+#: quilt/import.in:94
 msgid "Patch %s is applied\\n"
 msgstr ""
 
-#: quilt/import.in:100
+#: quilt/import.in:103
+msgid "Patch %s already exists in series.\\n"
+msgstr ""
+
+#: quilt/import.in:109
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr ""
 
-#: quilt/import.in:104
+#: quilt/import.in:113
 msgid "Replacing patch %s with new version\\n"
 msgstr ""
 
-#: quilt/import.in:107
+#: quilt/import.in:117
+msgid "Importing patch %s\\n"
+msgstr ""
+
+#: quilt/import.in:119
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr ""
 
-#: quilt/import.in:115
+#: quilt/import.in:128
 msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:122
+#: quilt/import.in:136
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
@@ -585,7 +593,7 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:461
+#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
 msgid "No patches applied\\n"
 msgstr ""
 
@@ -830,19 +838,23 @@ msgstr ""
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:497
+#: quilt/scripts/patchfns.in:491
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:524
+#: quilt/scripts/patchfns.in:518
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:561
+#: quilt/scripts/patchfns.in:555
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:801
+#: quilt/scripts/patchfns.in:577
+msgid "Patch %s does not exist\\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:817
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -850,7 +862,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:886
+#: quilt/scripts/patchfns.in:902
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
