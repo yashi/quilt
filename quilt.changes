@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 21 23:37:24 CET 2006 - agruen@suse.de
+
+- Use ftw instead of nftw (some platforms don't have nftw).
+
+-------------------------------------------------------------------
 Sat Jan 21 23:17:28 CET 2006 - jayvdb@gmail.com
 
 - lib/backup-files.c: Only create and remove parents that are

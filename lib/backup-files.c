@@ -341,7 +341,7 @@ fail:
 }
 
 int
-walk(const char *path, const struct stat *stat, int flag, struct FTW *ftw)
+walk(const char *path, const struct stat *stat, int flag)
 {
 	size_t prefix_len=strlen(opt_prefix), suffix_len=strlen(opt_suffix);
 	size_t len = strlen(path);
@@ -461,7 +461,7 @@ main(int argc, char *argv[])
 				*(d+1) = '\0';
 			else
 				d = ".";
-			status = nftw(dir, walk, 0, 0);
+			status = ftw(dir, walk, 0);
 			/* An error here indicates a problem somewhere
 			 *  during the walk */
 			if (status == -1)
