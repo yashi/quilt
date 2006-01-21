@@ -23,7 +23,7 @@ accidentally removed.
 
 	$ quilt push
 	> Applying patch %{P}test.diff
-	> patching file f
+	>~ patching file `?f'?
 	>
 	> Now at patch %{P}test.diff
 

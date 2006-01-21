@@ -18,18 +18,18 @@
 
 	$ quilt push
 	> Applying patch %{P}p.diff
-	> patching file f
+	>~ patching file `?f'?
 	> Hunk #1 FAILED at 1.
-	> 1 out of 1 hunk FAILED -- rejects in file f
-	> patching file g
+	>~ 1 out of 1 hunk FAILED -- rejects in file `?f'?
+	>~ patching file `?g'?
 	> Patch %{P}p.diff does not apply (enforce with -f)
 
 	$ quilt push -f
 	> Applying patch %{P}p.diff
-	> patching file f
+	>~ patching file `?f'?
 	> Hunk #1 FAILED at 1.
-	> 1 out of 1 hunk FAILED -- saving rejects to file f.rej
-	> patching file g
+	>~ 1 out of 1 hunk FAILED -- saving rejects to file `?f.rej'?
+	>~ patching file `?g'?
 	> Applied patch %{P}p.diff (forced; needs refresh)
 
 	$ echo new > f

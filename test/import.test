@@ -31,7 +31,7 @@
 
 	$ quilt push
 	> Applying patch patches/patch1.diff
-	> patching file f
+	>~ patching file `?f'?
 	>
 	> Now at patch patches/patch1.diff
 

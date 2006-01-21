@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Jan 21 22:37:29 CET 2006 - agruen@suse.de
+
+- GNU patch 2.5 messages differ slightly from the messages of more
+  recent versions. Recognize the old version's output when fixing
+  patch's output in the push command, and also accept the old
+  version's output in the test suite.
+
+-------------------------------------------------------------------
 Sat Jan 21 21:32:59 CET 2006 - agruen@suse.de
 
 - test/run: Support regex matching in test scripts.

@@ -96,7 +96,7 @@
 
 	$ quilt push
 	> Applying patch %{_P}patch2.diff
-	> patching file d/dir/file3
+	>~ patching file `?d/dir/file3'?
 	>
 	> Now at patch %{_P}patch2.diff
 

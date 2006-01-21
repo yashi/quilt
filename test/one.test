@@ -95,7 +95,7 @@ of the installed quilt with `make check'.
 
 	$ quilt push
 	> Applying patch %{P}patch2.diff
-	> patching file dir/file3
+	>~ patching file `?dir/file3'?
 	>
 	> Now at patch %{P}patch2.diff
 

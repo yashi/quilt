@@ -132,13 +132,13 @@ cleanup_patch_output() {
 			# reject file, so this does not help us.
 
 			awk '
-			{ gsub(/ -- saving rejects to file .*/, "") }
+			{ gsub(/ -- saving rejects to (file )?.*/, "") }
 			{ print }
 			'
 		else
 			awk '
 			/^patching file / { filename = substr($0, 15) }
-			{ gsub(/ -- saving rejects to file .*/,
+			{ gsub(/ -- saving rejects to (file )?.*/,
 			       " -- rejects in file " filename) }
 			{ print }
 			'
