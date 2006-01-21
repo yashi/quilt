@@ -87,18 +87,27 @@ sub process_test($$$$) {
        print "[$prog_line] \$ ", join(' ',
              map { s/\s/\\$&/g; $_ } @$p), " -- ";
        my $result = exec_test($prog, $in);
-       my $good = 1;
+       my @good = ();
+       my $good;
        my $nmax = (@$out > @$result) ? @$out : @$result;
        for (my $n=0; $n < $nmax; $n++) {
-	 if (!defined($out->[$n]) || !defined($result->[$n]) ||
-	     $out->[$n] ne $result->[$n]) {
-		 $good = 0;
-	 }
+           my $use_re = ($out->[$n] =~ /^~ /);
+           $out->[$n] =~ s/^~ //g;
+
+           if (!defined($out->[$n]) || !defined($result->[$n]) ||
+               (!$use_re && $result->[$n] ne $out->[$n]) ||
+               ( $use_re && $result->[$n] !~ /^$out->[$n]/)) {
+               push @good, ($use_re ? '!~' : '!=');
+	   }
+	   else {
+               push @good, ($use_re ? '=~' : '==');
+           }
        }
+       my $good = !(grep /!/, @good);
        $tests++;
        $failed++ unless $good;
        print $good ? $OK : $FAILED, "\n";
-       if (!$good) {
+       if (!$good || $opt_v) {
          for (my $n=0; $n < $nmax; $n++) {
 	   my $l = defined($out->[$n]) ? $out->[$n] : "~";
 	   chomp $l;
@@ -106,10 +115,8 @@ sub process_test($$$$) {
 	   chomp $r;
 	   print sprintf("%-" . ($width-3) .
 	   		 "s %s %-" . ($width-1) .
-			 "s\n", $l, $l eq $r ? '|' : '?', $r);
+			 "s\n", $r, $good[$n], $l);
          }
-       } elsif ($opt_v) {
-	 print join('', @$result);
        }
 }
 

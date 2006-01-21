@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 21 21:32:59 CET 2006 - agruen@suse.de
+
+- test/run: Support regex matching in test scripts.
+
+-------------------------------------------------------------------
 Sat Jan 21 21:31:16 CET 2006 - jayvdb@gmail.com
 
 - Check whether cp -l works.
