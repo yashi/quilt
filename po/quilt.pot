@@ -397,11 +397,11 @@ msgid ""
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
 
-#: quilt/header.in:176
+#: quilt/header.in:167
 msgid "Replaced header of patch %s\\n"
 msgstr ""
 
-#: quilt/header.in:179
+#: quilt/header.in:170
 msgid "Appended text to header of patch %s\\n"
 msgstr ""
 
@@ -422,42 +422,54 @@ msgid ""
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
+"-d {o|a|n}\n"
+"\tKeep the old (o), all (a), or new (n) description. This option\n"
+"\tmust be specified if both patches include a description.\n"
+"\n"
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
 
-#: quilt/import.in:75
+#: quilt/import.in:67
+msgid "Patch headers differ:\\n"
+msgstr ""
+
+#: quilt/import.in:70
+msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
+msgstr ""
+
+#: quilt/import.in:123
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 
-#: quilt/import.in:94
+#: quilt/import.in:143
 msgid "Patch %s is applied\\n"
 msgstr ""
 
-#: quilt/import.in:103
+#: quilt/import.in:152
 msgid "Patch %s already exists in series.\\n"
 msgstr ""
 
-#: quilt/import.in:109
+#: quilt/import.in:158
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr ""
 
-#: quilt/import.in:113
+#: quilt/import.in:169
 msgid "Replacing patch %s with new version\\n"
 msgstr ""
 
-#: quilt/import.in:117
+#: quilt/import.in:173
 msgid "Importing patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:119
+#: quilt/import.in:175
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr ""
 
-#: quilt/import.in:128
+#: quilt/import.in:185
 msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:136
+#: quilt/import.in:192
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
@@ -854,7 +866,7 @@ msgstr ""
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:817
+#: quilt/scripts/patchfns.in:831
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -862,7 +874,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:902
+#: quilt/scripts/patchfns.in:916
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

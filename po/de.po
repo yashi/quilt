@@ -605,11 +605,11 @@ msgstr ""
 "--backup\n"
 "\tErzeuge eine Sicherungskopie von patch als patch~.\n"
 
-#: quilt/header.in:176
+#: quilt/header.in:167
 msgid "Replaced header of patch %s\\n"
 msgstr "Header von Patch %s ersetzt\\n"
 
-#: quilt/header.in:179
+#: quilt/header.in:170
 msgid "Appended text to header of patch %s\\n"
 msgstr "Text an Header von Patch %s angefügt\\n"
 
@@ -618,6 +618,7 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -629,6 +630,10 @@ msgid ""
 "-n patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
+"\n"
+"-d {o|a|n}\n"
+"\tKeep the old (o), all (a), or new (n) description. This option\n"
+"\tmust be specified if both patches include a description.\n"
 "\n"
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
@@ -645,43 +650,51 @@ msgstr ""
 "\n"
 "-f\tÜberschreibe/aktualisiere existierende Patches.\n"
 
-#: quilt/import.in:75
+#: quilt/import.in:67
+msgid "Patch headers differ:\\n"
+msgstr ""
+
+#: quilt/import.in:70
+msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
+msgstr ""
+
+#: quilt/import.in:123
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 "Die Option \\`-n' kann nur beim Importieren eines einzelnen Patches "
 "verwendet werden\\n"
 
-#: quilt/import.in:94
+#: quilt/import.in:143
 msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
-#: quilt/import.in:103
+#: quilt/import.in:152
 #, fuzzy
 msgid "Patch %s already exists in series.\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/import.in:109
+#: quilt/import.in:158
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Patch %s existiert bereits. Ersetzen mit -f.\\n"
 
-#: quilt/import.in:113
+#: quilt/import.in:169
 msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
-#: quilt/import.in:117
+#: quilt/import.in:173
 #, fuzzy
 msgid "Importing patch %s\\n"
 msgstr "Entferne patch %s\\n"
 
-#: quilt/import.in:119
+#: quilt/import.in:175
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:128
+#: quilt/import.in:185
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:136
+#: quilt/import.in:192
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
@@ -1234,7 +1247,7 @@ msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:817
+#: quilt/scripts/patchfns.in:831
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1247,7 +1260,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:902
+#: quilt/scripts/patchfns.in:916
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

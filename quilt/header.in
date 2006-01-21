@@ -62,16 +62,7 @@ maybe_strip_diffstat()
 {
 	if [ -n "$opt_strip_diffstat" ]
 	then
-		awk '
-		/#? .* \| / \
-			{ eat = eat $0 "\n"
-			  next }
-		/^#? .* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
-			{ eat = ""
-			  next }
-			{ print eat $0
-			  eat = "" }
-		'
+		strip_diffstat
 	else
 		cat
 	fi

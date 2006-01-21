@@ -81,17 +81,35 @@
 
 	# a simple use of import
 
-	$ sed -e 's/original/new/' patches/patch1.diff > t/patch1.diff
 	$ quilt import t/patch1.diff
 	> Patch patches/patch1.diff exists. Replace with -f.
 
 	$ quilt import -f t/patch1.diff
 	> Replacing patch patches/patch1.diff with new version
 
-	$ ls patches/
-	> patch1.diff
-	> patch2.diff
-	> series
+	# an import requiring a description merge
+	$ sed -e 's/original/new/' patches/patch1.diff > t/patch1.diff
+	$ quilt import t/patch1.diff
+	> Patch patches/patch1.diff exists. Replace with -f.
+
+	$ quilt import -f t/patch1.diff
+	> Patch headers differ:
+	> @@ -1 +1 @@
+	> -original description
+	> +new description
+	> Please use -d {o|a|n} to specify which patch header(s) to keep.
+
+	$ quilt import -d a -f t/patch1.diff
+	> Replacing patch patches/patch1.diff with new version
+
+	# quilt header does not work in this case because it stops at '---'
+	$ head -n 3 patches/patch1.diff
+	> original description
+	> ---
+	> new description
+
+	$ quilt import -d n -f t/patch1.diff
+	> Replacing patch patches/patch1.diff with new version
 
 	$ quilt header patch1
 	> new description

@@ -81,10 +81,6 @@ quilt import:
 	- Add option to replace the currently applied patch with a new
 	  one, by backing out the topmost patch first.
 
-	- Diff -u the documentation of the old and new file, unless one
-	  of them is empty. Let the user decide whether to keep the left
-	  or the right documentation, or to merge them both. (-d{ona}?)
-
 quilt setup:
 
 	- Also recognize other uses of tar and patch (with options in the

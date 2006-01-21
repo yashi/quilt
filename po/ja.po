@@ -587,11 +587,11 @@ msgstr ""
 "--backup\n"
 "\t古いバージョンのパッチのバックアップコピーを patch~として作成する。\n"
 
-#: quilt/header.in:176
+#: quilt/header.in:167
 msgid "Replaced header of patch %s\\n"
 msgstr "パッチ %s のヘッダを変更しました\\n"
 
-#: quilt/header.in:179
+#: quilt/header.in:170
 msgid "Appended text to header of patch %s\\n"
 msgstr "パッチ %s のヘッダに追加しました\\n"
 
@@ -600,6 +600,7 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "使い方: quilt import [-f] [-p num] [-n パッチ] パッチファイル ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -611,6 +612,10 @@ msgid ""
 "-n patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
+"\n"
+"-d {o|a|n}\n"
+"\tKeep the old (o), all (a), or new (n) description. This option\n"
+"\tmust be specified if both patches include a description.\n"
 "\n"
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
@@ -627,41 +632,49 @@ msgstr ""
 "\n"
 "-f\t存在するパッチの上書き、またはアップデート。\n"
 
-#: quilt/import.in:75
+#: quilt/import.in:67
+msgid "Patch headers differ:\\n"
+msgstr ""
+
+#: quilt/import.in:70
+msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
+msgstr ""
+
+#: quilt/import.in:123
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です。\\n"
 
-#: quilt/import.in:94
+#: quilt/import.in:143
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:103
+#: quilt/import.in:152
 #, fuzzy
 msgid "Patch %s already exists in series.\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/import.in:109
+#: quilt/import.in:158
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます。\\n"
 
-#: quilt/import.in:113
+#: quilt/import.in:169
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:117
+#: quilt/import.in:173
 #, fuzzy
 msgid "Importing patch %s\\n"
 msgstr "パッチ %s をはずします\\n"
 
-#: quilt/import.in:119
+#: quilt/import.in:175
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:128
+#: quilt/import.in:185
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:136
+#: quilt/import.in:192
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 
@@ -1210,7 +1223,7 @@ msgstr ""
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:817
+#: quilt/scripts/patchfns.in:831
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1222,7 +1235,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:902
+#: quilt/scripts/patchfns.in:916
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

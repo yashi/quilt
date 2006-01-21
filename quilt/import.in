@@ -33,6 +33,10 @@ current top patch, and must be pushed after import to apply them.
 	Patch filename to use inside quilt. This option can only be
 	used when importing a single patch.
 
+-d {o|a|n}
+	Keep the old (o), all (a), or new (n) description. This option
+	must be specified if both patches include a description.
+
 -f	Overwite/update existing patches.
 "
 		exit 0
@@ -41,7 +45,45 @@ current top patch, and must be pushed after import to apply them.
 	fi
 }
 
-options=`getopt -o fn:p:h -- "$@"`
+merge_patches()
+{
+	local old="$1" new="$2" old_desc new_desc
+
+	old_desc=$(cat "$old" | patch_header | strip_diffstat)
+	new_desc=$(cat "$new" | patch_header | strip_diffstat)
+
+	if [ -z "$opt_desc" ]
+	then
+		[ -z "$old_desc" ] && opt_desc=n
+		[ -z "$opt_desc" -a -z "$new_desc" ] && opt_desc=o
+
+		if [ -z "$opt_desc" ]
+		then
+			local diff=$(diff -U-1 <(echo "$old_desc") \
+					       <(echo "$new_desc") \
+				     | sed -e '1,2d')
+			if [ -n "$diff" ]
+			then
+				printf $"Patch headers differ:\n" >&2
+				echo "$diff" >&2
+				printf \
+$"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
+				return 1
+			fi
+		fi
+	fi
+
+	[ $opt_desc = n ] || echo "$old_desc"
+	[ $opt_desc = a ] && echo '---'
+	if [ $opt_desc = o ]
+	then
+		cat "$new" | patch_body
+	else
+		cat "$new"
+	fi
+}
+
+options=`getopt -o d:fn:p:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -58,6 +100,12 @@ do
 		shift 2 ;;
 	-p)
 		opt_strip=$2
+		shift 2 ;;
+	-d)
+		case "$2" in
+			o|n|a) opt_desc=$2 ;;
+			*) usage ;;
+		esac
 		shift 2 ;;
 	-f)
 		opt_force=1
@@ -88,6 +136,7 @@ do
 	fi
 
 	patch_file=$(find_patch_file $patch_file) || exit 1
+	merged_patch_file=$patch_file
 
 	if is_applied $patch
 	then
@@ -110,6 +159,13 @@ do
 			       "$(print_patch $patch)" >&2
 			exit 1
 		fi
+		if [ "$opt_desc" != n ]
+		then
+			merged_patch_file=$(gen_tempfile)
+			merge_patches "$dest" "$patch_file" \
+				      > $merged_patch_file \
+				|| exit 1
+		fi
 		printf $"Replacing patch %s with new version\n" \
 		       "$(print_patch $patch)" >&2
 	elif [ -e "$dest" ]
@@ -123,10 +179,10 @@ do
 		mkdir -p "${dest%/*}"
 	fi
 
-	if [ "$patch_file" != "$dest" ] && ! cp "$patch_file" "$dest"
+	if [ "$merged_patch_file" != "$dest" ] && \
+	   ! cp "$merged_patch_file" "$dest"
 	then
-		printf $"Failed to import patch %s\n" \
-		       "$(print_patch $patch)" >&2
+		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
 
@@ -139,6 +195,7 @@ do
 	fi
 
 	rm -rf $QUILT_PC/$patch
+	[ "$merged_patch_file" != "$patch_file" ] && rm -f "$merged_patch_file"
 done
 
 ### Local Variables:

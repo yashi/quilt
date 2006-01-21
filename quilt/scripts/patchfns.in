@@ -754,6 +754,20 @@ patch_body()
 	'
 }
 
+strip_diffstat()
+{
+	awk '
+	/#? .* \| / \
+		{ eat = eat $0 "\n"
+		  next }
+	/^#? .* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
+		{ eat = ""
+		  next }
+		{ print eat $0
+		  eat = "" }
+	'
+}
+
 in_array()
 {
 	local a=$1
