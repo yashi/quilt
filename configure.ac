@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.61 $)
+AC_REVISION ($Revision: 1.62 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -248,21 +248,34 @@ fi
 
 QUILT_COMPAT_PROG_PATH(SENDMAIL, [sendmail], [], [/usr/sbin])
 
-AC_ARG_ENABLE(nls, AC_HELP_STRING(
-    [--enable-nls], [include natural language support]))
-if test "$enableval" != "no"; then
-    AC_PATH_PROG(MSGFMT, msgfmt)
+AC_PATH_PROG(MSGMERGE, [msgmerge])
+AC_PATH_PROG(MSGFMT, [msgfmt])
+AC_PATH_PROG(XGETTEXT, [xgettext])
+AC_PATH_PROG(MSGUNIQ, [msguniq])
+AC_PATH_PROG(MSGCAT, [msgcat])
+if test -n "$MSGFMT" -a -n "$MSGMERGE" -a -n "$XGETTEXT" -a -n "$MSGUNIQ" -a -n "$MSGCAT" ; then
+  HAVE_NLS=yes
+else
+  HAVE_NLS=no
 fi
-if test "$enableval" = "yes" -a -z "$MSGFMT" ; then
-    AC_MSG_ERROR([
+
+USE_NLS=no
+AC_ARG_ENABLE(nls, AC_HELP_STRING(
+    [--disable-nls], [exclude natural language support]),
+    [USE_NLS=$enableval],[USE_NLS=$HAVE_NLS])
+
+if test $USE_NLS = yes -a $HAVE_NLS = no ; then
+  AC_MSG_ERROR([
 You do not appear to have msgfmt, which is part of the GNU Gettext package.  It
 is a required package as you chose the '--enable-nls' option to configure.
 You can download GNU Gettext from ftp.gnu.org
 ])
 fi
-if test -z "$MSGFMT" ; then
+
+if test $USE_NLS = no ; then
     AC_MSG_NOTICE([Building without natural language support])
 fi
+AC_SUBST(USE_NLS)
 
 dnl Determine where package documentation is supposed to go
 if test -n "$RPM_DOC_DIR" ; then

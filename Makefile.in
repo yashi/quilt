@@ -34,6 +34,8 @@ DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
 SENDMAIL :=	@SENDMAIL@
 
+USE_NLS :=	@USE_NLS@
+
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ @DEFS@
 CFLAGS +=	@CFLAGS@
@@ -123,7 +125,11 @@ all : scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 $(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
 
-mofiles : $(if $(MSGFMT),$(LINGUAS:%=po/%.mo))
+ifeq ($(USE_NLS),yes)
+mofiles : $(LINGUAS:%=po/%.mo)
+else
+mofiles :
+endif
 
 %.mo : %.po
 	msgfmt --statistics -o $@ $<
@@ -363,7 +369,7 @@ distclean : clean
 	rm -f config.log config.status Makefile
 	rm -rf autom4te.cache/
 
-ifneq ($(MSGFMT),)
+ifeq ($(USE_NLS),1)
 install-main ::
 	for lang in $(LINGUAS) ; do					\
 		dir=$(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES;	\

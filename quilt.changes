@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jan 21 21:29:22 CET 2006 - jayvdb@gmail.com
+
+- Default to use NLS when NLS binaries are available (minor
+  changes by agruen@suse.de).
+
+-------------------------------------------------------------------
 Sat Jan 21 21:03:30 CET 2006 - agruen@suse.de
 
 - Split off strip_diffstat from header command.
