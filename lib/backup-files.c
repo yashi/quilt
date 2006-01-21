@@ -94,43 +94,49 @@ void
 create_parents(const char *filename)
 {
 	struct stat st;
+	int rv = -1;
 	char *fn = malloc_nofail(strlen(filename) + 1), *f;
 
 	strcpy(fn, filename);
-	f = strchr(fn, '/');
+	
+	f = strrchr(fn, '/');
+	if (f == NULL)
+		return;
+	*f = '\0';
+	if (stat(fn, &st) == 0)
+		return;
+	*f = '/';
 
-	if (f != NULL) {
+	f = strchr(fn, '/');
+	while (f != NULL) {
 		*f = '\0';
-		if (stat(f, &st) != 0) {
-			while (f != NULL) {
-				*f = '\0';
-				mkdir(fn, 0777);
-				*f = '/';
-				f = strchr(f+1, '/');
-			}
-		} else {
-			*f = '/';
+		if (!rv || (rv = stat(fn, &st)) != 0) {
+			mkdir(fn, 0777);
 		}
+		*f = '/';
+		f = strchr(f+1, '/');
 	}
 	free(fn);
 }
 
 void
-remove_parents(char *filename)
+remove_parents(const char *filename)
 {
-	char *f, *g = NULL;
+	char *fn = malloc_nofail(strlen(filename) + 1), *f;
 
-	f = strrchr(filename, '/');
-	while ((f = strrchr(filename, '/')) != NULL) {
-		if (g != NULL)
-			*g = '/';
-		g = f;
-		*f= '\0';
+	strcpy(fn, filename);
 
-		rmdir(filename);
-	}
-	if (g != NULL)
-		*g = '/';
+	f = strrchr(fn, '/');
+	if (f == NULL)
+		return;
+	do {
+		*f = '\0';
+		if (rmdir(fn) == -1)
+			goto out;
+	} while ((f = strrchr(fn, '/')) != NULL);
+	rmdir(fn);
+out:
+	free(fn);
 }
 
 static int
@@ -456,6 +462,11 @@ main(int argc, char *argv[])
 			else
 				d = ".";
 			status = nftw(dir, walk, 0, 0);
+			/* An error here indicates a problem somewhere
+			 *  during the walk */
+			if (status == -1)
+				perror("ftw");
+
 			free(dir);
 		} else
 			status = process_file(argv[optind]);

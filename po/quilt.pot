@@ -212,11 +212,11 @@ msgstr ""
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
-#: quilt/diff.in:321 quilt/pop.in:101
+#: quilt/diff.in:321 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: quilt/diff.in:345 quilt/pop.in:125
+#: quilt/diff.in:345 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
@@ -585,31 +585,31 @@ msgid ""
 "-v\tVerbose operation.\n"
 msgstr ""
 
-#: quilt/pop.in:143
+#: quilt/pop.in:140
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 
-#: quilt/pop.in:168
+#: quilt/pop.in:165
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr ""
 
-#: quilt/pop.in:172
+#: quilt/pop.in:169
 msgid "Removing patch %s\\n"
 msgstr ""
 
-#: quilt/pop.in:243
+#: quilt/pop.in:240
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: quilt/pop.in:253
+#: quilt/pop.in:250
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:266 quilt/scripts/patchfns.in:455
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:276 quilt/push.in:340
+#: quilt/pop.in:273 quilt/push.in:340
 msgid "Now at patch %s\\n"
 msgstr ""
 

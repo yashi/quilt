@@ -315,11 +315,11 @@ msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定して�
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: quilt/diff.in:321 quilt/pop.in:101
+#: quilt/diff.in:321 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/diff.in:345 quilt/pop.in:125
+#: quilt/diff.in:345 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
@@ -849,33 +849,33 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: quilt/pop.in:143
+#: quilt/pop.in:140
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "パッチ %s を、正常にはずすことができません (リフレッシュするか -fを付\n"
 "けてはずしてください)\\n"
 
-#: quilt/pop.in:168
+#: quilt/pop.in:165
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "パッチ %s は、空のようです。はずします\\n"
 
-#: quilt/pop.in:172
+#: quilt/pop.in:169
 msgid "Removing patch %s\\n"
 msgstr "パッチ %s をはずします\\n"
 
-#: quilt/pop.in:243
+#: quilt/pop.in:240
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 
-#: quilt/pop.in:253
+#: quilt/pop.in:250
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:269 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:266 quilt/scripts/patchfns.in:455
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:276 quilt/push.in:340
+#: quilt/pop.in:273 quilt/push.in:340
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
