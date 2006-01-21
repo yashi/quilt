@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.62 $)
+AC_REVISION ($Revision: 1.63 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -54,6 +54,18 @@ version of bash from ftp.gnu.org
 fi
 
 QUILT_COMPAT_PROG_PATH(CP, cp, [gcp cp])
+AC_MSG_CHECKING(whether $CP -l works)
+touch conftest.1
+if $CP -l conftest.1 conftest.2 2>/dev/null; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_ERROR([no
+
+You appear to have a `cp' that does not support hard links.
+You can download GNU fileutils from ftp.gnu.org
+])
+fi
+
 QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)

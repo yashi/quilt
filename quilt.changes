@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 21 21:31:16 CET 2006 - jayvdb@gmail.com
+
+- Check whether cp -l works.
+
+-------------------------------------------------------------------
 Sat Jan 21 21:29:22 CET 2006 - jayvdb@gmail.com
 
 - Default to use NLS when NLS binaries are available (minor
