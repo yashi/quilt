@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jan 22 00:44:27 CET 2006 - agruen@suse.de
+
+- Add fallback ftw implementation for systems that don't have it.
+
+-------------------------------------------------------------------
 Sat Jan 21 23:37:24 CET 2006 - agruen@suse.de
 
 - Use ftw instead of nftw (some platforms don't have nftw).

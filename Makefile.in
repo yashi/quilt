@@ -43,6 +43,11 @@ LDFLAGS +=	@LDFLAGS@
 LIBS :=		@LIBS@
 EXEEXT :=	@EXEEXT@
 
+LIBOBJS :=	$(patsubst %,lib/%,@LIBOBJS@)
+ifneq ($(LIBOBJS),)
+CFLAGS += -Ilib
+endif
+
 COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
 COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
 
@@ -81,9 +86,9 @@ SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
 DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in))
 
 COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
-LIB_SRC :=	backup-files.c
+LIB_SRC :=	backup-files.c ftw.c
 LIB :=		backup-files$(EXEEXT)
-SRC +=		$(LIB_SRC:%=lib/%)
+SRC +=		$(LIB_SRC:%=lib/%) lib/ftw.h
 DIRT +=		lib/backup-files$(EXEEXT) $(LIB_SRC:%.c=lib/%.o)
 
 DOC_IN :=	README
@@ -122,8 +127,7 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 all : scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 
-$(LIB:%=lib/%) : $(LIB_SRC:%.c=lib/%.o)
-	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+lib/backup-files :: $(LIBOBJS)
 
 ifeq ($(USE_NLS),yes)
 mofiles : $(LINGUAS:%=po/%.mo)
