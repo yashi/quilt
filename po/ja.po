@@ -875,7 +875,7 @@ msgstr "適用されているパッチはありません\\n"
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:273 quilt/push.in:340
+#: quilt/pop.in:273 quilt/push.in:368
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -963,28 +963,33 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ % は適用されていません。\\n"
 
-#: quilt/push.in:157
+#: quilt/push.in:177
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:189
+#: quilt/push.in:209
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:193
+#: quilt/push.in:213
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:197
+#: quilt/push.in:217
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:202
+#: quilt/push.in:226
+#, fuzzy
+msgid "Patch %s can be reverse-applied\\n"
+msgstr "パッチ %s は、すでに適用されています\\n"
+
+#: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %sが適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:320
+#: quilt/push.in:348
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
@@ -1100,11 +1105,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: quilt/refresh.in:271
+#: quilt/refresh.in:272
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ % に変更はありません\\n"
 
-#: quilt/refresh.in:276
+#: quilt/refresh.in:277
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 

@@ -901,7 +901,7 @@ msgstr "Aucun patch retiré\\n"
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
-#: quilt/pop.in:273 quilt/push.in:340
+#: quilt/pop.in:273 quilt/push.in:368
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -994,28 +994,33 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Interrompu par l'utilisateur ; le patch %s n'a pas été appliqué.\\n"
 
-#: quilt/push.in:157
+#: quilt/push.in:177
 msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
-#: quilt/push.in:189
+#: quilt/push.in:209
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Le patch %s n'existe pas ; patch vide appliqué\\n"
 
-#: quilt/push.in:193
+#: quilt/push.in:213
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
-#: quilt/push.in:197
+#: quilt/push.in:217
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
-#: quilt/push.in:202
+#: quilt/push.in:226
+#, fuzzy
+msgid "Patch %s can be reverse-applied\\n"
+msgstr "Le patch %s n'est pas appliqué\\n"
+
+#: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
-#: quilt/push.in:320
+#: quilt/push.in:348
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
@@ -1136,11 +1141,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr "Le patch %s ne contient rien\\n"
 
-#: quilt/refresh.in:271
+#: quilt/refresh.in:272
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s inchangé\\n"
 
-#: quilt/refresh.in:276
+#: quilt/refresh.in:277
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s rafraîchi\\n"
 

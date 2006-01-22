@@ -657,7 +657,9 @@ msgstr "Die Patch-Header unterscheiden sich:\\n"
 
 #: quilt/import.in:70
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
-msgstr "Bitte verwenden Sie die Option -d {o|a|n} um anzugeben, welche Patch-Header erhalten bleiben sollen.\\n"
+msgstr ""
+"Bitte verwenden Sie die Option -d {o|a|n} um anzugeben, welche Patch-Header "
+"erhalten bleiben sollen.\\n"
 
 #: quilt/import.in:123
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
@@ -891,7 +893,7 @@ msgstr "Kein Patch entfernt\\n"
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
-#: quilt/pop.in:273 quilt/push.in:340
+#: quilt/pop.in:273 quilt/push.in:368
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -977,27 +979,31 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Unterbrechung durch Benutzer; Patch %s wurde nicht angewandt.\\n"
 
-#: quilt/push.in:157
+#: quilt/push.in:177
 msgid "Applying patch %s\\n"
 msgstr "Wende Patch %s an\\n"
 
-#: quilt/push.in:189
+#: quilt/push.in:209
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Patch %s existiert nicht; wende leeren patch an\\n"
 
-#: quilt/push.in:193
+#: quilt/push.in:213
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Patch %s scheint leer zu sein; angewandt\\n"
 
-#: quilt/push.in:197
+#: quilt/push.in:217
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Patch %s angewandt (erzwungen, muss aufgefrischt werden (Refresh))\\n"
 
-#: quilt/push.in:202
+#: quilt/push.in:226
+msgid "Patch %s can be reverse-applied\\n"
+msgstr "Patch %s kann verkehrt angewandt werden\\n"
+
+#: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
-#: quilt/push.in:320
+#: quilt/push.in:348
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
@@ -1122,11 +1128,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s ist leer\\n"
 
-#: quilt/refresh.in:271
+#: quilt/refresh.in:272
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: quilt/refresh.in:276
+#: quilt/refresh.in:277
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 

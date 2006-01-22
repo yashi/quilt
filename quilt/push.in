@@ -223,7 +223,7 @@ add_patch()
 		if apply_patch $patch "$patch_file" > /dev/null 2> /dev/null
 		then
 			rollback_patch $patch
-			printf $"Patch %s is already applied\n" \
+			printf $"Patch %s can be reverse-applied\n" \
 			       "$(print_patch "$patch")"
 		else
 			printf $"Patch %s does not apply (enforce with -f)\n" \
