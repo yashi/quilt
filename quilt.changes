@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jan 22 05:08:12 CET 2006 - agruen@suse.de
+
+- push command: when a patch doesn't apply, check if it reverse
+  applies, and inform the user.
+
+-------------------------------------------------------------------
 Sun Jan 22 03:30:09 CET 2006 - agruen@suse.de
 
 - When inserting new diffstat, put a "---" line above it.

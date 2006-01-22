@@ -72,6 +72,8 @@ colorize()
 		awk '
 		{ if (/FAILED|hunks? ignored|can'\''t find file|file .* already exists/)
 		    print "'$color_patch_fail'" $0 "'$color_clear'"
+		  else if (/is already applied$/)
+		    print "'$color_patch_applied'" $0 "'$color_clear'"
 		  else if (/^Hunk/) {
 		    sub(/^Hunk .* with fuzz [0-9]*/,
 			"'$color_patch_fuzz'&'$color_clear'")
@@ -86,6 +88,24 @@ colorize()
 	fi
 }
 
+push_patch_args()
+{
+	local patch=$1
+
+	if [ -z "$opt_reverse" ] 
+	then
+		patch_args "$patch"
+	else
+		set -- $(patch_args "$patch")
+		if [ "${*/-R}" != "$*" ]
+		then
+			echo "${*/-R}"
+		else
+			echo "$*" -R
+		fi
+	fi
+}
+
 apply_patch()
 {
 	local patch=$1 patch_file=$2
@@ -96,19 +116,19 @@ apply_patch()
 	if [ "${patch_file:(-3)}" = ".gz" ]
 	then
 		gzip -cd $patch_file \
-		| patch $QUILT_PATCH_OPTS $(patch_args $patch) \
+		| patch $QUILT_PATCH_OPTS $(push_patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
 			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	elif [ "${patch_file:(-4)}" = ".bz2" ]
 	then
 		bzip2 -cd $patch_file \
-		| patch $QUILT_PATCH_OPTS $(patch_args $patch) \
+		| patch $QUILT_PATCH_OPTS $(push_patch_args $patch) \
 			--backup --prefix="$QUILT_PC/$patch/" \
 			$no_reject_files \
 			-E $silent $force_apply 2>&1
 	else
-		patch $QUILT_PATCH_OPTS $(patch_args $patch) \
+		patch $QUILT_PATCH_OPTS $(push_patch_args $patch) \
 		      --backup --prefix="$QUILT_PC/$patch/" \
 		      $no_reject_files \
 		      -E $silent $force_apply -i $patch_file 2>&1
@@ -164,7 +184,7 @@ add_patch()
 	fi
 
 	apply_patch $patch "$patch_file"
-	status=${PIPESTATUS[0]}
+	status=$?
 	trap "" SIGINT
 
 	[ -n "$tmp" ] && rm -f $tmp
@@ -199,8 +219,16 @@ add_patch()
 		fi
 	else
 		rollback_patch $patch
-		printf $"Patch %s does not apply (enforce with -f)\n" \
-		       "$(print_patch $patch)"
+		opt_reverse=1
+		if apply_patch $patch "$patch_file" > /dev/null 2> /dev/null
+		then
+			rollback_patch $patch
+			printf $"Patch %s is already applied\n" \
+			       "$(print_patch "$patch")"
+		else
+			printf $"Patch %s does not apply (enforce with -f)\n" \
+			       "$(print_patch $patch)"
+		fi
 		status=1
 	fi
 	trap - SIGINT
