@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jan 22 03:30:09 CET 2006 - agruen@suse.de
+
+- When inserting new diffstat, put a "---" line above it.
+
+-------------------------------------------------------------------
 Sun Jan 22 00:44:27 CET 2006 - agruen@suse.de
 
 - Add fallback ftw implementation for systems that don't have it.

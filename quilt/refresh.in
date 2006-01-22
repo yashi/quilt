@@ -253,6 +253,7 @@ then
 			  eat = "" }
 	    END		{ printf "%s", eat
 	    		  if (diffstat != "") {
+			    print "---"
 			    print_diffstat()
 			    print prefix
 			  }
