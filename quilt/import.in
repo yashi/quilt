@@ -34,8 +34,8 @@ current top patch, and must be pushed after import to apply them.
 	used when importing a single patch.
 
 -d {o|a|n}
-	Keep the old (o), all (a), or new (n) description. This option
-	must be specified if both patches include a description.
+	Keep the old (o), all (a), or new (n) patch header. If both patches
+	include headers, this option must be specified.
 
 -f	Overwite/update existing patches.
 "

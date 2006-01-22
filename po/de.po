@@ -178,7 +178,6 @@ msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
 #: quilt/delete.in:95 quilt/scripts/patchfns.in:442
-#, fuzzy
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
@@ -187,9 +186,8 @@ msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
 #: quilt/delete.in:107
-#, fuzzy
 msgid "Removing patch %s failed\\n"
-msgstr "Entferne patch %s\\n"
+msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/delete.in:115
 msgid "Removed patch %s\\n"
@@ -618,7 +616,6 @@ msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
 msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -632,8 +629,8 @@ msgid ""
 "\tused when importing a single patch.\n"
 "\n"
 "-d {o|a|n}\n"
-"\tKeep the old (o), all (a), or new (n) description. This option\n"
-"\tmust be specified if both patches include a description.\n"
+"\tKeep the old (o), all (a), or new (n) patch header. If both patches\n"
+"\tinclude headers, this option must be specified.\n"
 "\n"
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
@@ -648,15 +645,19 @@ msgstr ""
 "\tPatch-Dateiname, den Quilt verwenden soll. Diese Option kann nur beim\n"
 "\tImport eines einzelnen Patches angegeben werden.\n"
 "\n"
+"-d {o|a|n}\n"
+"\tErhalte den alten (o), alle (a), oder den neuen (n) Patch-Header. Wenn\n"
+"\tbeide Patches Header enthalten, muss diese Option angegeben werden.\n"
+"\n"
 "-f\tÜberschreibe/aktualisiere existierende Patches.\n"
 
 #: quilt/import.in:67
 msgid "Patch headers differ:\\n"
-msgstr ""
+msgstr "Die Patch-Header unterscheiden sich:\\n"
 
 #: quilt/import.in:70
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
-msgstr ""
+msgstr "Bitte verwenden Sie die Option -d {o|a|n} um anzugeben, welche Patch-Header erhalten bleiben sollen.\\n"
 
 #: quilt/import.in:123
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
@@ -669,9 +670,8 @@ msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
 #: quilt/import.in:152
-#, fuzzy
 msgid "Patch %s already exists in series.\\n"
-msgstr "Patch %s ist nicht in der series-Datei\\n"
+msgstr "Patch %s existiert bereits in der series-Datei\\n"
 
 #: quilt/import.in:158
 msgid "Patch %s exists. Replace with -f.\\n"
@@ -682,9 +682,8 @@ msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
 #: quilt/import.in:173
-#, fuzzy
 msgid "Importing patch %s\\n"
-msgstr "Entferne patch %s\\n"
+msgstr "Importiere patch %s\\n"
 
 #: quilt/import.in:175
 msgid "Importing patch %s (stored as %s)\\n"
@@ -1243,9 +1242,8 @@ msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
 #: quilt/scripts/patchfns.in:577
-#, fuzzy
 msgid "Patch %s does not exist\\n"
-msgstr "Patch %s ist nicht in der series-Datei\\n"
+msgstr "Patch %s existiert nicht\\n"
 
 #: quilt/scripts/patchfns.in:831
 msgid ""
@@ -1463,14 +1461,3 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
-
-#, fuzzy
-#~ msgid "Patch s is currently applied\\n"
-#~ msgstr "Patch %s ist momentan angewandt\\n"
-
-#, fuzzy
-#~ msgid "Patch %s is not on top\\n"
-#~ msgstr "Der oberste Patch ist jetzt %s\\n"
-
-#~ msgid "Patch %s is already applied\\n"
-#~ msgstr "Patch %s ist bereits angewandt\\n"
