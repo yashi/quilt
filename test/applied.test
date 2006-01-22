@@ -19,7 +19,7 @@
 	$ quilt push -q
 	> Applying patch patches/patch
 	> 1 out of 1 hunk FAILED
-	> Patch patches/patch is already applied
+	> Patch patches/patch can be reverse-applied
 
 	$ echo patch -p0 -R > patches/series
 	$ quilt push -q
@@ -34,7 +34,7 @@
 	$ quilt push -q
 	> Applying patch patches/patch
 	> 1 out of 1 hunk FAILED
-	> Patch patches/patch is already applied
+	> Patch patches/patch can be reverse-applied
 
 	$ cd ..
 	$ rm -rf d
