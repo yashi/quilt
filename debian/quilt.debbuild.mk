@@ -261,7 +261,7 @@ clean-dsc: FORCE
             list=`grep-dctrl -s Files -n . $$changes|\
 	          sed 's/^ *//'|\
 	          cut -d' ' -f5|\
-	          egrep -v '\.dsc$$'`;\
+	          grep -v '\.dsc$$'`;\
 	    rm -i $$list $$changes; \
 	  fi; \
 	  \
@@ -271,7 +271,7 @@ clean-dsc: FORCE
             list=`grep-dctrl -s Files -n . $$dsc|\
 	          sed 's/^ *//'|\
 	          cut -d' ' -f3|\
-	          egrep -v '\.orig.tar.gz$$'`; \
+	          grep -v '\.orig\.tar\.gz$$'`; \
 	    rm -i $$list $$dsc; \
 	  fi; \
 	done

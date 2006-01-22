@@ -92,7 +92,7 @@ Thu Jan 19 17:34:05 CET 2006 - agruen@suse.de
 - Make sure quilt diff --snapshot visits files in a defined order.
 
 -------------------------------------------------------------------
-Thu Jan 19 18:52:30 AEDT 2006 - jayvdb@gmail.com
+Thu Jan 19 18:52:30 +1100 2006 - jayvdb@gmail.com
 
 - Move patch parameter checks into patchfns.in, adding quotes
   around all patch parameters, and reporting 'No patches in series'

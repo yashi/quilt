@@ -408,7 +408,7 @@ distclean : clean
 	rm -f config.log config.status Makefile
 	rm -rf autom4te.cache/
 
-ifeq ($(USE_NLS),1)
+ifeq ($(USE_NLS),yes)
 install-main ::
 	for lang in $(LINGUAS) ; do					\
 		dir=$(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES;	\

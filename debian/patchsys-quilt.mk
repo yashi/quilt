@@ -76,7 +76,7 @@ if lsdiff=`which lsdiff` ; then \
                | tr "\n" " "`; \
   if [ "x$$patchlist" != x ] ; then \
     $$lsdiff -H $$patchlist \
-    | egrep "/config\.(guess|sub|rpath)$$" | tr "\n" " " ; \
+    | grep "/config\.\(guess\|sub\|rpath\)$$" | tr "\n" " " ; \
   fi;\
 fi)
 ifneq (, $(evil_patches_that_do_nasty_things))
