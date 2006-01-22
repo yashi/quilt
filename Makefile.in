@@ -26,10 +26,15 @@ TAIL :=		@TAIL@
 TR :=		@TR@
 SED :=		@SED@
 AWK :=		@AWK@
+FIND :=		@FIND@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
+MSGMERGE :=     @MSGMERGE@
 MSGFMT :=	@MSGFMT@
+XGETTEXT :=	@XGETTEXT@
+MSGUNIQ :=	@MSGUNIQ@
+MSGCAT :=	@MSGCAT@
 DIFFSTAT :=	@DIFFSTAT@
 RPMBUILD :=	@RPMBUILD@
 SENDMAIL :=	@SENDMAIL@
@@ -54,8 +59,8 @@ COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
 default: all
 
 #-----------------------------------------------------------------------
-DIRT +=		$(shell find . -name '*~')
-DIRT +=		$(shell find . -name '.\#*')
+DIRT +=		$(shell $(FIND) . -name '*~')
+DIRT +=		$(shell $(FIND) . -name '.\#*')
 
 SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
 		config/install-sh quilt.spec.in quilt.changes		\
@@ -137,10 +142,10 @@ mofiles :
 endif
 
 %.mo : %.po
-	msgfmt --statistics -o $@ $<
+	$(MSGFMT) --statistics -o $@ $<
 
 %.po : po/quilt.pot
-	msgmerge -o $@ $@ $^
+	$(MSGMERGE) -o $@ $@ $^
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
 	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%)
@@ -158,17 +163,17 @@ po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
 	rm -f po/quilt.pot; touch po/quilt.pot
 	for file in $+ ; do						\
 	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then	\
-	    bash --dump-po-strings $$file ;				\
+	    $(BASH) --dump-po-strings $$file ;				\
 	  elif test -n "`$(SED) -ne '1{ /@PERL''@/p }' $$file`"; then	\
-	    xgettext --from-code=UTF-8 --omit-header --language=Perl	\
-	    	     --keyword=_ -o - $$file;				\
+	    $(XGETTEXT) --from-code=UTF-8 --omit-header --language=Perl	\
+			--keyword=_ -o - $$file;			\
 	  else								\
 	    echo "Don't know how to handle $$file" >&2 ;		\
 	    exit 1;							\
 	  fi								\
 	done								\
-	|msguniq							\
-	|msgcat --force-po -F - $@ -o $@
+	|$(MSGUNIQ)							\
+	|$(MSGCAT) --force-po -F - $@ -o $@
 
 doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
 	@echo "README.in -> README"
@@ -189,9 +194,9 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	  case "$$line" in						\
 	  '@REFERENCE''@')						\
 	    $(MAKE) -s reference |					\
-	    sed -e 's/^quilt \([^ ]*\)\(.*\)/.IP "\\fB\1\\fP\2 " 4/'	\
-		-e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
-		-e $$'s/^  \t\\?//'					\
+	    $(SED) -e 's/^quilt \([^ ]*\)\(.*\)/.IP "\\fB\1\\fP\2 " 4/'	\
+		   -e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
+		   -e $$'s/^  \t\\?//'					\
 	    ;;								\
 	  *)								\
 	    echo "$$line"						\
@@ -208,9 +213,9 @@ reference : $(QUILT:%=quilt/%) quilt/scripts/patchfns compat
 		quilt $$i -h;						\
 		echo;							\
 	done |								\
-	sed -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'				\
-	    -e '/^$$/!s/^/  /'						\
-	    -e 's/^  Usage: *//'
+	$(SED) -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'			\
+	       -e '/^$$/!s/^/  /'					\
+	       -e 's/^  Usage: *//'
 
 bin/guards.1 : bin/guards
 	$(POD2MAN) $< > $@
@@ -233,24 +238,24 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 	@echo "Generating spec file" ;					\
 	set -e ;							\
 	changelog="`./changes2changelog $(PACKAGE).changes`" ;		\
-	awk '{ gsub(/@VERSION''@/, "$(VERSION)") ;			\
-	       gsub(/@RELEASE''@/, "$(RELEASE)") ;			\
-	       gsub(/@CHANGELOG''@/, changelog) ;			\
-	       print }' changelog="$$changelog" $< > $@
+	$(AWK) '{ gsub(/@VERSION''@/, "$(VERSION)") ;			\
+		  gsub(/@RELEASE''@/, "$(RELEASE)") ;			\
+		  gsub(/@CHANGELOG''@/, changelog) ;			\
+		  print }' changelog="$$changelog" $< > $@
 
 $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefile
 % :: %.in
 	@echo "$< -> $@" >&2
-	@sed -e 's:@QUILT_LIB''@:$(libdir)/$(PACKAGE):g'		\
-	     -e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
-	     -e 's:@PERL''@:$(PERL):g'					\
-	     -e 's:@BASH''@:$(BASH):g'					\
-	     -e 's:@VERSION''@:$(VERSION):g'				\
-	     -e 's:@RELEASE''@:$(RELEASE):g'				\
-	     -e 's:@MTA''@:$(MTA):g'					\
-	     -e 's:@LOCALEDIR''@:$(localedir):g'			\
-	     -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g'	\
-	     $< > $@
+	@$(SED) -e 's:@QUILT_LIB''@:$(libdir)/$(PACKAGE):g'		\
+		-e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
+		-e 's:@PERL''@:$(PERL):g'				\
+		-e 's:@BASH''@:$(BASH):g'				\
+		-e 's:@VERSION''@:$(VERSION):g'				\
+		-e 's:@RELEASE''@:$(RELEASE):g'				\
+		-e 's:@MTA''@:$(MTA):g'					\
+		-e 's:@LOCALEDIR''@:$(localedir):g'			\
+		-e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g'	\
+		$< > $@
 	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
 
 lib/backup-files.o :: Makefile
@@ -259,7 +264,7 @@ Makefile : Makefile.in
 	@echo "Please run ./configure"
 	@false
 
-compat_leftover := $(filter-out $(COMPAT),$(shell find compat/ -maxdepth 1 -type f -perm +111))
+compat_leftover := $(filter-out $(COMPAT),$(shell $(FIND) compat/ -maxdepth 1 -type f -perm +111))
 
 .PHONY :: compat
 compat :: $(COMPAT)
@@ -365,23 +370,31 @@ endif # (test|check)
 
 # Include a run-time generated list of dependencies for each test case
 test/.depend : Makefile $(TESTS)
-	@awk '{ if (FNR==1) { c=0; print "" } }				\
-		sub(/.*\$$ *quilt /, "") {				\
-		if (c==0) { c=1;					\
-			test=gensub(/.*\/(.*)\..*/, "\\1", "", FILENAME); \
-			deps[test,$$1]=1;				\
-			printf "test/."test".ok:: bin/quilt quilt/scripts/patchfns quilt/"$$1; \
-		} else if (c>0 && ! ((test,$$1) in deps)) {		\
-			printf " quilt/"$$1; deps[test,$$1]=1;		\
-		}							\
-	} END { print "" }' $(TESTS) > $@
-	@awk 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/) {	\
-		if (file==FILENAME) printf " quilt/"$$1;		\
-		else {							\
-			file=FILENAME;					\
-			printf "\n"FILENAME" :: quilt/"$$1;		\
-		}							\
-	} END { print "" }' quilt/*.in >> $@
+	@$(AWK) '							\
+	{ if (FNR==1) { c=0; print "" } }				\
+	  sub(/.*\$$ *quilt /, "") {					\
+	    if (c==0) {							\
+	      c=1;							\
+	      test=gensub(/.*\/(.*)\..*/, "\\1", "", FILENAME);		\
+	      deps[test,$$1]=1;						\
+	      printf "test/."test".ok:: bin/quilt quilt/scripts/patchfns quilt/"$$1; \
+	    } else if (c>0 && ! ((test,$$1) in deps)) {			\
+	      printf " quilt/"$$1; deps[test,$$1]=1;			\
+	    }								\
+	} ;								\
+	END { print "" }						\
+	' $(TESTS) > $@
+	@$(AWK) '							\
+	sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/) {		\
+	  if (file==FILENAME)						\
+	    printf " quilt/"$$1;					\
+	  else {							\
+	    file=FILENAME;						\
+	    printf "\n"FILENAME" :: quilt/"$$1;				\
+	  }								\
+	} ;								\
+	END { print "" }						\
+	' quilt/*.in >> $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 CHECK_ENV := P=patches/; _P=../patches/; export P _P

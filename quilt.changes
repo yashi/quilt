@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 23 00:45:30 CET 2006 - agruen@suse.de
+
+- Call $(CMD) instead of cmd in Makefile.in.
+
+-------------------------------------------------------------------
 Sun Jan 22 05:08:12 CET 2006 - agruen@suse.de
 
 - push command: when a patch doesn't apply, check if it reverse
