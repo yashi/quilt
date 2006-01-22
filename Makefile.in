@@ -115,6 +115,7 @@ NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
 ISODATE :=	$(shell date +%Y-%m-%d)
 
 TESTS :=	$(wildcard test/*.test)
+DIRT +=		test/.depend $(wildcard test/.*.ok)
 
 # Settings for running the uninstalled version of quilt in the source tree:
 PATH :=		$(CURDIR)/bin:$(CURDIR)/compat:$(PATH)
@@ -351,20 +352,54 @@ uninstall ::
 	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc			\
 	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
 
-.PHONY :: $(TESTS:%=check-%)
-check: $(TESTS:%=check-%)
+check: $(TESTS:test/%.test=test/.%.ok)
+check-all: $(TESTS:test/%.test=check-%)
+
+check-% : test/.%.ok
+	@/bin/true
+
+# Only include the test suite dependencies when required
+ifneq ($(findstring test,$(MAKECMDGOALS))$(findstring check,$(MAKECMDGOALS)),)
+-include test/.depend
+endif # (test|check)
+
+# Include a run-time generated list of dependencies for each test case
+test/.depend : Makefile $(TESTS)
+	@awk '{ if (FNR==1) { c=0; print "" } }				\
+		sub(/.*\$$ *quilt /, "") {				\
+		if (c==0) { c=1;					\
+			test=gensub(/.*\/(.*)\..*/, "\\1", "", FILENAME); \
+			deps[test,$$1]=1;				\
+			printf "test/."test".ok:: bin/quilt quilt/scripts/patchfns quilt/"$$1; \
+		} else if (c>0 && ! ((test,$$1) in deps)) {		\
+			printf " quilt/"$$1; deps[test,$$1]=1;		\
+		}							\
+	} END { print "" }' $(TESTS) > $@
+	@awk 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/) {	\
+		if (file==FILENAME) printf " quilt/"$$1;		\
+		else {							\
+			file=FILENAME;					\
+			printf "\n"FILENAME" :: quilt/"$$1;		\
+		}							\
+	} END { print "" }' quilt/*.in >> $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 CHECK_ENV := P=patches/; _P=../patches/; export P _P
 endif
 
-$(TESTS:%=check-%): scripts
-	@echo "[$(@F)]"
+# Each tests dependencies are stored in test/.depend
+ifneq ($(findstring check-,$(MAKECMDGOALS)),)
+test/.%.ok : test/%.test FORCE
+else
+test/.%.ok : test/%.test
+endif
+	@echo "[$(<F)]"
 	@LANG=C;							\
 	export LANG ;							\
 	$(CHECK_ENV);							\
-	cd $(patsubst check-%,%,$(@D));					\
-	./run $(@F)
+	cd $(@D);							\
+	./run $(<F)
+	@touch $@
 
 clean :
 	rm -f $(DIRT)
@@ -400,3 +435,5 @@ endif
 %: RCS/%
 %: s.%
 %: SCCS/s.%
+
+FORCE:
