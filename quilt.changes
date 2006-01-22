@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 23 00:59:10 CET 2006 - agruen@suse.de
+
+- Don't include any object files in LIBOBJS that we don't have.
+
+-------------------------------------------------------------------
 Mon Jan 23 00:45:30 CET 2006 - agruen@suse.de
 
 - Call $(CMD) instead of cmd in Makefile.in.

@@ -48,7 +48,7 @@ LDFLAGS +=	@LDFLAGS@
 LIBS :=		@LIBS@
 EXEEXT :=	@EXEEXT@
 
-LIBOBJS :=	$(patsubst %,lib/%,@LIBOBJS@)
+LIBOBJS :=	$(filter $(patsubst lib/%.c,lib/%.o,$(wildcard lib/*.c)), $(patsubst %,lib/%,@LIBOBJS@))
 ifneq ($(LIBOBJS),)
 CFLAGS += -Ilib
 endif
