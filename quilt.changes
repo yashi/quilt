@@ -1,8 +1,17 @@
 -------------------------------------------------------------------
+Mon Jan 23 13:51:29 CET 2006 - agruen@suse.de
+
+- configure.ac: Require GNU patch 2.4+.
+- quilt/import.in: Don't use diff -U-1.
+- Test suite: Recognize output of old versions of patch (from
+  jayvdb@gmail.com).
+
+-------------------------------------------------------------------
 Mon Jan 23 13:05:48 CET 2006 - jayvdb@gmail.com
 
-- Check if awk supports sub().
-- Syntax changes in patchfns for Solaris /usr/xpg4/bin/awk.
+- configure.ac: Check if awk supports sub().
+- quilt/scripts/patchfns.in: Syntax changes for Solaris
+  /usr/xpg4/bin/awk.
 
 -------------------------------------------------------------------
 Mon Jan 23 11:58:20 CET 2006 - agruen@suse.de

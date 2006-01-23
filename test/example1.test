@@ -101,7 +101,7 @@ Or ``quilt edit Oberon.txt''
 	> Applying patch %{P}flower.diff
 	>~ patching file `?Oberon.txt'?
 	> Hunk #1 FAILED at 2.
-	>~ 1 out of 1 hunk FAILED -- saving rejects to file `?Oberon.txt.rej'?
+	>~ 1 out of 1 hunk FAILED -- saving rejects to (file )?`?Oberon.txt.rej'?
 	> Applied patch %{P}flower.diff (forced; needs refresh)
 
 	$ cat >> Oberon.txt

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.65 $)
+AC_REVISION ($Revision: 1.66 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -205,29 +205,28 @@ fi
 QUILT_COMPAT_PROG_PATH(DIFF, diff)
 QUILT_COMPAT_PROG_PATH(PATCH, patch)
 
-# Sun's patch is a mess, issue a warning.  But we are going to continue with
-# the build because you might just be lucky.
-AC_MSG_CHECKING([whether $PATCH will work])
-if $PATCH -v 2>&1 | grep "Sun" >/dev/null; then
-	AC_MSG_RESULT(no)
-	AC_MSG_WARN([
-Sorry, you have a Sun version of patch which is notoriously buggy.  $PACKAGE_NAME
-may function correctly, or minor errors may occur due to Sun's patch tool.
-Please consider upgrading to GNU patch, if you already have GNU patch then you
-can supply its path with the '--with-patch=' option.
-])
-elif $PATCH --version 2>&1 | grep "patch 2.0" >/dev/null; then
-	AC_MSG_RESULT(no)
-	AC_MSG_WARN([
-Sorry, the version of patch you are using can cause severe problems when a patch
-creates a directory.  $PACKAGE_NAME may well function correctly with this version
-of patch or small problems could creep in.
-Please consider upgrading your patch to a more recent version, if you already 
-have a more recent version of patch then you can supply its path with the 
-'--with-patch=' option.
-])
+# Sun's patch, and others, do not work because GNU patch options are used.
+AC_MSG_CHECKING([the version of $PATCH])
+if $PATCH --version 2> /dev/null | grep -q GNU ; then
+  set -- `$PATCH --version 2> /dev/null`
+  patch_version=$2
+  AC_MSG_RESULT($patch_version)
+  saved_IFS=$IFS; IFS='.'
+  set -- $patch_version
+  IFS=$saved_IFS
+  set -- `echo $1 | tr -cd 0-9` `echo $2 | tr -cd 0-9`
+  if test 0$1 -lt 2 || test 0$1 -eq 2 -a 0$2 -lt 4 ; then
+    patch_version=
+  fi
 else
-	AC_MSG_RESULT(yes)
+  AC_MSG_RESULT(no GNU patch)
+fi
+if test -z "$patch_version" ; then
+  AC_MSG_ERROR([
+$PACKAGE_NAME requires at least version 2.4 of GNU patch. You can download a
+current version of patch from ftp.gnu.org, or if you already have GNU patch
+then you can supply its path with the '--with-patch=' option.
+])
 fi
 
 QUILT_COMPAT_PROG_PATH(FIND, find)

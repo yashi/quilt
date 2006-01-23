@@ -59,8 +59,8 @@ merge_patches()
 
 		if [ -z "$opt_desc" ]
 		then
-			local diff=$(diff -U-1 <(echo "$old_desc") \
-					       <(echo "$new_desc") \
+			local diff=$(diff -U 1024 <(echo "$old_desc") \
+						  <(echo "$new_desc") \
 				     | sed -e '1,2d')
 			if [ -n "$diff" ]
 			then
