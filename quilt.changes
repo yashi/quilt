@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 23 16:00:39 CET 2006 - jayvdb@gmail.com
+
+- Fix make check-all and make check-*.
+
+-------------------------------------------------------------------
 Mon Jan 23 13:51:29 CET 2006 - agruen@suse.de
 
 - configure.ac: Require GNU patch 2.4+.
