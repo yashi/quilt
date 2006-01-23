@@ -685,7 +685,7 @@ diff_file()
 					-r "$new_file")
 	fi
 
-	diff -N $QUILT_DIFF_OPTS $old_file $new_file \
+	diff $QUILT_DIFF_OPTS $old_file $new_file \
 	     --label "$old_hdr$old_date" --label "$new_hdr$new_date" \
 	| if read line
 	then

@@ -165,7 +165,7 @@ sub compute_ranges($$) {
 	$file2 = $file;
     }
 
-    #print STDERR "diff -NU$lines \"$file1\" \"$file2\"\n";
+    #print STDERR "diff -U$lines \"$file1\" \"$file2\"\n";
     if (-z $file1) {
 	$file1="/dev/null";
 	return [[], []]
@@ -174,7 +174,7 @@ sub compute_ranges($$) {
 	$file2="/dev/null"
 	    if (-z $file2);
     }
-    my $fd = new FileHandle("diff -NU$lines \"$file1\" \"$file2\" |");
+    my $fd = new FileHandle("diff -U$lines \"$file1\" \"$file2\" |");
     my $ranges = ranges($fd);
     $fd->close();
     return $ranges;
