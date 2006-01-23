@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.66 $)
+AC_REVISION ($Revision: 1.67 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -214,7 +214,7 @@ if $PATCH --version 2> /dev/null | grep -q GNU ; then
   saved_IFS=$IFS; IFS='.'
   set -- $patch_version
   IFS=$saved_IFS
-  set -- `echo $1 | tr -cd 0-9` `echo $2 | tr -cd 0-9`
+  set -- `echo $1 | $TR -cd 0-9` `echo $2 | $TR -cd 0-9`
   if test 0$1 -lt 2 || test 0$1 -eq 2 -a 0$2 -lt 4 ; then
     patch_version=
   fi

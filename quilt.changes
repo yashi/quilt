@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 23 21:40:26 CET 2006 - agruen@suse.de
+
+- configure.ac: Use $TR instead of tr.
+
+-------------------------------------------------------------------
 Mon Jan 23 16:00:39 CET 2006 - jayvdb@gmail.com
 
 - Fix make check-all and make check-*.
