@@ -301,37 +301,37 @@ msgstr ""
 "\n"
 "--sort\t順番を保持せず、名前順にファイルを並び換える。\n"
 
-#: quilt/diff.in:224
+#: quilt/diff.in:213
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "オプション \\`--combine'と \\`--snapshot'、 \\`-z'は同時に使えません。\\n"
 
-#: quilt/diff.in:236
+#: quilt/diff.in:225
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:271 quilt/files.in:105
+#: quilt/diff.in:260 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: quilt/diff.in:321 quilt/pop.in:98
+#: quilt/diff.in:310 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/diff.in:345 quilt/pop.in:122
+#: quilt/diff.in:334 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: quilt/diff.in:364
+#: quilt/diff.in:353
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:384 quilt/refresh.in:177
+#: quilt/diff.in:373 quilt/refresh.in:177
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: quilt/diff.in:391
+#: quilt/diff.in:380
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "警告: 最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 

@@ -235,13 +235,17 @@ for patch in "$@"; do
 	cat_file $(patch_file_name $patch) \
 	| quilt_mail_patch_filter $patch > $body
 	modify="$(awk '
-	sub(/^Recipient-/, "")	{ r = gensub(/:.*/, "", "g")
-				  s = gensub(/^[^:]*:[ \t]*/, "", "g")
+	sub(/^Recipient-/, "")	{ r = $0
+				  sub(/:.*/, "", r)
+				  s = $0
+				  sub(/^[^:]*:[ \t]*/, "", s)
 				  gsub(/'\''/, "'\'\''", s)
 				  print "--add-recipient " r "='\''" s "'\''"
 				}
-	sub(/^Replace-/, "")	{ r = gensub(/:.*/, "", "g")
-				  s = gensub(/^[^:]*:[ \t]*/, "", "g")
+	sub(/^Replace-/, "")	{ r = $0
+				  sub(/:.*/, "", r)
+				  s = $0
+				  sub(/^[^:]*:[ \t]*/, s)
 				  gsub(/'\''/, "'\'\''", s)
 				  print "--replace-header " r "='\''" s "'\''"
 				}

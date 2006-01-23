@@ -309,40 +309,40 @@ msgstr ""
 "--sort\tTrie les fichiers par leur nom au lieu de préserver leur ordre\n"
 "\td'origine.\n"
 
-#: quilt/diff.in:224
+#: quilt/diff.in:213
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Les options «--combine», «--snapshot» et «-z» ne peuvent pas être combinées."
 "\\n"
 
-#: quilt/diff.in:236
+#: quilt/diff.in:225
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:271 quilt/files.in:105
+#: quilt/diff.in:260 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: quilt/diff.in:321 quilt/pop.in:98
+#: quilt/diff.in:310 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/diff.in:345 quilt/pop.in:122
+#: quilt/diff.in:334 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
-#: quilt/diff.in:364
+#: quilt/diff.in:353
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: quilt/diff.in:384 quilt/refresh.in:177
+#: quilt/diff.in:373 quilt/refresh.in:177
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: quilt/diff.in:391
+#: quilt/diff.in:380
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 23 11:58:20 CET 2006 - agruen@suse.de
+
+- Stop using GNU awk's gensub.
+
+-------------------------------------------------------------------
 Mon Jan 23 10:52:25 CET 2006 - jayvdb@gmail.com
 
 - A better rule for test/.depend.
