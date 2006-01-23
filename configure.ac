@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.64 $)
+AC_REVISION ($Revision: 1.65 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -146,6 +146,21 @@ its path with the '--with-sed=' option.
 fi
 
 QUILT_COMPAT_PROG_PATH(AWK, awk, [gawk awk])
+
+AC_MSG_CHECKING([whether $AWK supports sub])
+if test "`echo first | $AWK 'sub(/first/, "last")' 2>/dev/null`" = "last"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+Sorry, you have a version of awk which doesn't understand sub( ).
+$PACKAGE_NAME needs it.  If you have access to a version of awk
+which does understand such constructs, you can supply its path
+with the '--with-awk=' option.
+Solaris users can use /usr/xpg4/bin/awk.
+])
+fi
+
 QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
 QUILT_COMPAT_PROG_PATH(COLUMN, column)
 QUILT_COMPAT_PROG_PATH(GETOPT, getopt)

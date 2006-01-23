@@ -370,7 +370,7 @@ patches_after()
 	then
 		cat_series \
 		| awk '
-		seen			{ print }
+		seen == 1		{ print }
 		$0 == "'"$patch"'"	{ seen=1 }
 		'
 	else
@@ -392,7 +392,7 @@ patches_on_top_of()
 	[ -e $DB ] || return
 	awk '
 	$0 == "'"$patch"'"	{ seen=1 ; next }
-	seen			{ print }
+	seen == 1		{ print }
 	' $DB
 }
 
@@ -614,7 +614,7 @@ filenames_in_patch()
 			{ sub(/\t.*/, "")
 			  sub(/^... /, "")
 			  for (n=0 ; n<'"$strip"'; n++)
-			      sub(/^([^/]+\/)/, "")
+			      sub(/^([^\/]+\/)/, "")
 			  print $0 }' $patch_file
 	fi
 }

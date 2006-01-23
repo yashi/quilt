@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 23 13:05:48 CET 2006 - jayvdb@gmail.com
+
+- Check if awk supports sub().
+- Syntax changes in patchfns for Solaris /usr/xpg4/bin/awk.
+
+-------------------------------------------------------------------
 Mon Jan 23 11:58:20 CET 2006 - agruen@suse.de
 
 - Stop using GNU awk's gensub.
