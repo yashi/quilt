@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jan 23 10:52:25 CET 2006 - jayvdb@gmail.com
+
+- A better rule for test/.depend.
+- In order to run make check immediately after configure, a few
+  minor dependencies need to be added.
+- The test suite depends on the compat layer and backup-files.
+- quilt/refresh depends on remove-trailing-ws.
+
+-------------------------------------------------------------------
 Mon Jan 23 01:08:16 CET 2006 - agruen@suse.de
 
 - Remove unnecessary uses of diff's -N option.

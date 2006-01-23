@@ -133,7 +133,7 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 all : scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 
-lib/backup-files :: $(LIBOBJS)
+$(LIB:%=lib/%) :: $(LIBOBJS)
 
 ifeq ($(USE_NLS),yes)
 mofiles : $(LINGUAS:%=po/%.mo)
@@ -369,31 +369,13 @@ endif # (test|check)
 
 # Include a run-time generated list of dependencies for each test case
 test/.depend : Makefile $(TESTS)
-	@$(AWK) '							\
-	{ if (FNR==1) { c=0; print "" } }				\
-	  sub(/.*\$$ *quilt /, "") {					\
-	    if (c==0) {							\
-	      c=1;							\
-	      test=gensub(/.*\/(.*)\..*/, "\\1", "", FILENAME);		\
-	      deps[test,$$1]=1;						\
-	      printf "test/."test".ok:: bin/quilt quilt/scripts/patchfns quilt/"$$1; \
-	    } else if (c>0 && ! ((test,$$1) in deps)) {			\
-	      printf " quilt/"$$1; deps[test,$$1]=1;			\
-	    }								\
-	} ;								\
-	END { print "" }						\
-	' $(TESTS) > $@
-	@$(AWK) '							\
-	sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/) {		\
-	  if (file==FILENAME)						\
-	    printf " quilt/"$$1;					\
-	  else {							\
-	    file=FILENAME;						\
-	    printf "\n"FILENAME" :: quilt/"$$1;				\
-	  }								\
-	} ;								\
-	END { print "" }						\
-	' quilt/*.in >> $@
+	@(  printf "%s :: bin/quilt quilt/scripts/patchfns $(LIB:%=lib/%) $(COMPAT)\n" $(TESTS); \
+	    $(AWK) 'sub(/.*\$$ *quilt /, "")				\
+			{ print FILENAME, "::", "quilt/"$$1}' $(TESTS); \
+	    $(AWK) 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/)	\
+			{ print FILENAME, "::", "quilt/"$$1 }' quilt/*.in; \
+	    echo "quilt/refresh :: quilt/scripts/remove-trailing-ws"	\
+	) | sort -u | $(SED) -re 's:^test/(.*)\.test:test/.\1.ok:' > $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 CHECK_ENV := P=patches/; _P=../patches/; export P _P
