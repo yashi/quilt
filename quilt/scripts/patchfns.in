@@ -591,13 +591,12 @@ files_in_patch()
 {
 	local patch="$1"
 	local path="$QUILT_PC/$patch"
+
 	if [ -d "$path" ]
 	then
-		for file in $(find "$path" -type f \
-				   -a ! -path "$path/.timestamp")
-		do
-			echo "${file:${#path}+1}"
-		done
+		find "$path" -type f \
+		     -a ! -path "$path/.timestamp" \
+		     -printf "%P\n"
 	fi
 }
 
