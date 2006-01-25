@@ -142,14 +142,30 @@ out:
 static int
 copy_fd(int from_fd, int to_fd)
 {
-	char buffer[4096];
-	size_t len;
+	char buffer[16384];
+	char *wbuf;
+	ssize_t len, l;
 
-	while ((len = read(from_fd, buffer, sizeof(buffer))) > 0) {
-		if ((write(to_fd, buffer, len)) == -1)
+	for ( ;; ) {
+		len = read(from_fd, buffer, sizeof(buffer));
+		if (len == 0)
+			return 0;
+		if (len < 0) {
+			if (errno == EINTR || errno == EAGAIN)
+				continue;
 			return 1;
+		}
+		for (wbuf = buffer; len != 0; ) {
+			l = write(to_fd, wbuf, len);
+			if (l < 0) {
+				if (errno == EINTR || errno == EAGAIN)
+					continue;
+				return 1;
+			}
+			wbuf += l;
+			len -= l;
+		}
 	}
-	return (len != 0);
 }
 
 static int
@@ -162,7 +178,7 @@ copy_file(const char *from, const struct stat *st, const char *to)
 		return 1;
 	}
 	unlink(to);  /* make sure we don't inherit this file's mode. */
-	if ((to_fd = creat(to, st->st_mode))) {
+	if ((to_fd = creat(to, st->st_mode)) < 0) {
 		perror(to);
 		close(from_fd);
 		return 1;
@@ -285,11 +301,16 @@ process_file(const char *file)
 				printf("Copying %s\n", file);
 			if (link_or_copy_file(file, &st, backup))
 				goto fail;
-			if (opt_touch)
-				utime(backup, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
 					goto fail;
+			}
+			if (opt_touch)
+				(void) utime(backup, NULL);
+			else {
+				struct utimbuf ut;
+				ut.actime = ut.modtime = st.st_mtime;
+				(void) utime(backup, &ut);
 			}
 		}
 	} else if (opt_what == what_restore) {
@@ -314,11 +335,16 @@ process_file(const char *file)
 			unlink(file);
 			if (link_or_copy_file(backup, &st, file))
 				goto fail;
-			if (opt_touch)
-				utime(file, NULL);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
 					goto fail;
+			}
+			if (opt_touch)
+				(void) utime(file, NULL);
+			else {
+				struct utimbuf ut;
+				ut.actime = ut.modtime = st.st_mtime;
+				(void) utime(file, &ut);
 			}
 		}
 		unlink(backup);
