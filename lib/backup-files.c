@@ -329,12 +329,16 @@ process_file(const char *file)
 				perror(file);
 				goto fail;
 			}
+			unlink(backup);
+			remove_parents(backup);
 		} else {
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
 			if (link_or_copy_file(backup, &st, file))
 				goto fail;
+			unlink(backup);
+			remove_parents(backup);
 			if (opt_nolinks) {
 				if (ensure_nolinks(file))
 					goto fail;
@@ -347,8 +351,6 @@ process_file(const char *file)
 				(void) utime(file, &ut);
 			}
 		}
-		unlink(backup);
-		remove_parents(backup);
 	} else if (opt_what == what_remove) {
 		unlink(backup);
 		remove_parents(backup);

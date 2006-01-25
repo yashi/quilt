@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 25 19:27:11 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Fix another missed optimization.
+
+-------------------------------------------------------------------
 Wed Jan 25 18:43:38 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Cleanups by Markus F.X.J. Oberhumer
