@@ -131,7 +131,7 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 #-----------------------------------------------------------------------
 
-all : scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
+all : configure scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 
 $(LIB:%=lib/%) :: $(LIBOBJS)
 
@@ -258,6 +258,11 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
 
 lib/backup-files.o :: Makefile
+
+configure : configure.ac
+	autoconf
+	@echo "Please run ./configure"
+	@false
 
 Makefile : Makefile.in
 	@echo "Please run ./configure"

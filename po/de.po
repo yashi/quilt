@@ -629,8 +629,9 @@ msgid ""
 "\tused when importing a single patch.\n"
 "\n"
 "-d {o|a|n}\n"
-"\tKeep the old (o), all (a), or new (n) patch header. If both patches\n"
-"\tinclude headers, this option must be specified.\n"
+"\tWhen overwriting in existing patch, keep the old (o), all (a), or\n"
+"\tnew (n) patch header. If both patches include headers, this option\n"
+"\tmust be specified. This option is only effective when -f is used.\n"
 "\n"
 "-f\tOverwite/update existing patches.\n"
 msgstr ""
@@ -645,57 +646,58 @@ msgstr ""
 "\tPatch-Dateiname, den Quilt verwenden soll. Diese Option kann nur beim\n"
 "\tImport eines einzelnen Patches angegeben werden.\n"
 "\n"
-"-d {o|a|n}\n"
-"\tErhalte den alten (o), alle (a), oder den neuen (n) Patch-Header. Wenn\n"
-"\tbeide Patches Header enthalten, muss diese Option angegeben werden.\n"
-"\n"
 "-f\tÜberschreibe/aktualisiere existierende Patches.\n"
+"\n"
+"-d {o|a|n}\n"
+"\tErhalte beim Überschreiben von Patches den alten (o), alle (a), oder den\n"
+"\tneuen (n) Patch-Header. Wenn beide Patches Header enthalten, muss diese\n"
+"\tOption angegeben werden. Diese Option ist nur in Kombination mit -f wirksam.\n"
 
-#: quilt/import.in:67
+#: quilt/import.in:68
 msgid "Patch headers differ:\\n"
 msgstr "Die Patch-Header unterscheiden sich:\\n"
 
-#: quilt/import.in:70
+#: quilt/import.in:71
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 "Bitte verwenden Sie die Option -d {o|a|n} um anzugeben, welche Patch-Header "
 "erhalten bleiben sollen.\\n"
 
-#: quilt/import.in:123
+#: quilt/import.in:124
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
 msgstr ""
 "Die Option \\`-n' kann nur beim Importieren eines einzelnen Patches "
 "verwendet werden\\n"
 
-#: quilt/import.in:143
+#: quilt/import.in:144
 msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
-#: quilt/import.in:152
+#: quilt/import.in:153
 msgid "Patch %s already exists in series.\\n"
 msgstr "Patch %s existiert bereits in der series-Datei\\n"
 
-#: quilt/import.in:158
+#: quilt/import.in:159
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Patch %s existiert bereits. Ersetzen mit -f.\\n"
 
-#: quilt/import.in:169
+#: quilt/import.in:170
 msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
-#: quilt/import.in:173
+#: quilt/import.in:174
 msgid "Importing patch %s\\n"
 msgstr "Importiere patch %s\\n"
 
-#: quilt/import.in:175
+#: quilt/import.in:176
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:185
+#: quilt/import.in:186
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:192
+#: quilt/import.in:193
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 

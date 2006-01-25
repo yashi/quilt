@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 25 21:41:08 CET 2006 - agruen@suse.de
+
+- quilt/import.in: Improve the help text.
+- Makefile.in: Make sure configure is up to date.
+
+-------------------------------------------------------------------
 Wed Jan 25 21:30:36 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Fix memory leaks (markus@oberhumer.com).
