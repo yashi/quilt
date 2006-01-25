@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 25 21:30:36 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Fix memory leaks (markus@oberhumer.com).
+
+-------------------------------------------------------------------
 Wed Jan 25 19:49:08 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Don't fail when link(1) returns ENOSYS, and

@@ -101,10 +101,10 @@ create_parents(const char *filename)
 
 	f = strrchr(fn, '/');
 	if (f == NULL)
-		return;
+		goto out;
 	*f = '\0';
 	if (stat(fn, &st) == 0)
-		return;
+		goto out;
 	*f = '/';
 
 	f = strchr(fn, '/');
@@ -116,6 +116,7 @@ create_parents(const char *filename)
 		*f = '/';
 		f = strchr(f+1, '/');
 	}
+out:
 	free(fn);
 }
 
@@ -128,7 +129,7 @@ remove_parents(const char *filename)
 
 	f = strrchr(fn, '/');
 	if (f == NULL)
-		return;
+		goto out;
 	do {
 		*f = '\0';
 		if (rmdir(fn) == -1)
