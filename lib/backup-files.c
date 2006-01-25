@@ -207,7 +207,8 @@ link_or_copy_file(const char *from, const struct stat *st, const char *to)
 {
 	if (link(from, to) == 0)
 		return 0;
-	if (errno != EXDEV && errno != EPERM && errno != EMLINK) {
+	if (errno != EXDEV && errno != EPERM &&
+	    errno != EMLINK && errno != ENOSYS) {
 		fprintf(stderr, "Could not link file `%s' to `%s': %s\n",
 		       from, to, strerror(errno));
 		return 1;

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 25 19:49:08 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Don't fail when link(1) returns ENOSYS, and
+  try to copy in that case.
+
+-------------------------------------------------------------------
 Wed Jan 25 19:27:11 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Fix another missed optimization.
