@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 25 18:20:52 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Cleanups by Markus F.X.J. Oberhumer
+  <markus@oberhumer.com>.
+
+-------------------------------------------------------------------
 Tue Jan 24 03:28:12 CET 2006 - agruen@suse.de
 
 - quilt/scripts/parse-patch.in: files_in_patch improvement from

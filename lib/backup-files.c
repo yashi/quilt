@@ -22,10 +22,10 @@
 /*
  * Create backup files of a list of files similar to GNU patch. A path
  * name prefix and suffix for the backup file can be specified with the
- * -B and -Z options.
+ * -B and -z options.
  */
 
-#define _GNU_SOURCE
+#define _GNU_SOURCE 1
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -98,7 +98,7 @@ create_parents(const char *filename)
 	char *fn = malloc_nofail(strlen(filename) + 1), *f;
 
 	strcpy(fn, filename);
-	
+
 	f = strrchr(fn, '/');
 	if (f == NULL)
 		return;
@@ -140,7 +140,7 @@ out:
 }
 
 static int
-copy(int from_fd, int to_fd)
+copy_fd(int from_fd, int to_fd)
 {
 	char buffer[4096];
 	size_t len;
@@ -153,17 +153,9 @@ copy(int from_fd, int to_fd)
 }
 
 static int
-link_or_copy(const char *from, struct stat *st, const char *to)
+copy_file(const char *from, const struct stat *st, const char *to)
 {
 	int from_fd, to_fd, error = 1;
-
-	if (link(from, to) == 0)
-		return 0;
-	if (errno != EXDEV && errno != EPERM && errno != EMLINK) {
-		fprintf(stderr, "Could not link file `%s' to `%s': %s\n",
-		       from, to, strerror(errno));
-		return 1;
-	}
 
 	if ((from_fd = open(from, O_RDONLY)) == -1) {
 		perror(from);
@@ -180,7 +172,7 @@ link_or_copy(const char *from, struct stat *st, const char *to)
 #elif defined(HAVE_CHMOD)
 	(void) chmod(to, st->st_mode);
 #endif
-	if (copy(from_fd, to_fd)) {
+	if (copy_fd(from_fd, to_fd)) {
 		fprintf(stderr, "%s -> %s: %s\n", from, to, strerror(errno));
 		unlink(to);
 		goto out;
@@ -192,6 +184,19 @@ out:
 	close(to_fd);
 
 	return error;
+}
+
+static int
+link_or_copy_file(const char *from, const struct stat *st, const char *to)
+{
+	if (link(from, to) == 0)
+		return 0;
+	if (errno != EXDEV && errno != EPERM && errno != EMLINK) {
+		fprintf(stderr, "Could not link file `%s' to `%s': %s\n",
+		       from, to, strerror(errno));
+		return 1;
+	}
+	return copy_file(from, st, to);
 }
 
 static int
@@ -228,12 +233,12 @@ ensure_nolinks(const char *filename)
 		to_fd = mkstemp(tmpname);
 		if (to_fd == -1)
 			goto fail;
-		if (copy(from_fd, to_fd))
+		if (copy_fd(from_fd, to_fd))
 			goto fail;
 #if defined(HAVE_FCHMOD)
-	(void) fchmod(to_fd, st.st_mode);
+		(void) fchmod(to_fd, st.st_mode);
 #elif defined(HAVE_CHMOD)
-	(void) chmod(tmpname, st.st_mode);
+		(void) chmod(tmpname, st.st_mode);
 #endif
 		if (rename(tmpname, filename))
 			goto fail;
@@ -278,7 +283,7 @@ process_file(const char *file)
 		} else {
 			if (!opt_silent)
 				printf("Copying %s\n", file);
-			if (link_or_copy(file, &st, backup))
+			if (link_or_copy_file(file, &st, backup))
 				goto fail;
 			if (opt_touch)
 				utime(backup, NULL);
@@ -307,7 +312,7 @@ process_file(const char *file)
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link_or_copy(backup, &st, file))
+			if (link_or_copy_file(backup, &st, file))
 				goto fail;
 			if (opt_touch)
 				utime(file, NULL);
