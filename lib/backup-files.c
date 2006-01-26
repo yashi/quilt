@@ -1,8 +1,8 @@
 /*
   File: backup-files.c
 
-  Copyright (C) 2003 Andreas Gruenbacher <agruen@suse.de>
-  SuSE Labs, SuSE Linux AG
+  Copyright (C) 2003, 2004, 2005, 2006
+  Andreas Gruenbacher <agruen@suse.de>, SuSE Labs
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU Library General Public
@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include <ftw.h>
+#include <dirent.h>
 
 #if !defined(HAVE_MKSTEMP) && defined(HAVE_MKTEMP)
 # define mkstemp(x) creat(mktemp(x), 0600)
@@ -57,7 +57,7 @@ int opt_nolinks, opt_touch;
 #define LINE_LENGTH 1024
 
 
-void
+static void
 usage(void)
 {
 	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-s] [-b|-r|-x] [-L] {file|-} ...\n"
@@ -84,13 +84,13 @@ malloc_nofail(size_t size)
 {
 	void *p = malloc(size);
 	if (!p) {
-		fprintf(stderr, "%s\n", strerror(ENOMEM));
+		perror(NULL);
 		exit(1);
 	}
 	return p;
 }
 
-void
+static void
 create_parents(const char *filename)
 {
 	struct stat st;
@@ -120,7 +120,7 @@ out:
 	free(fn);
 }
 
-void
+static void
 remove_parents(const char *filename)
 {
 	char *fn = malloc_nofail(strlen(filename) + 1), *f;
@@ -273,7 +273,7 @@ ensure_nolinks(const char *filename)
 		return 0;
 }
 
-int
+static int
 process_file(const char *file)
 {
 	char *backup = malloc_nofail(
@@ -375,19 +375,72 @@ fail:
 	return 1;
 }
 
-int
-walk(const char *path, const struct stat *stat, int flag)
+static int
+foreachdir_rec(const char *path, struct stat *st,
+	       int (*walk)(const char *, const struct stat *))
+{
+	DIR *dir;
+	struct dirent *dp;
+	char *p = NULL;
+	int failed = 0;
+
+	if (!(dir = opendir(path)))
+		return walk(path, NULL);
+	while ((dp = readdir(dir))) {
+		char *p0 = p;
+
+		if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
+			continue;
+		if (!(p = realloc(p, strlen(path) + 1 +
+				     strlen(dp->d_name) + 1))) {
+			free(p0);
+			return -1;
+		}
+		sprintf(p, "%s/%s", path, dp->d_name);
+		if (lstat(p, st))
+			continue;  /* file has disappeared meanwhile */
+		if (S_ISDIR(st->st_mode)) {
+			failed = foreachdir_rec(p, st, walk);
+			if (failed)
+				goto out;
+		} else {
+			failed = walk(p, st);
+			if (failed)
+				goto out;
+		}
+	}
+	if (closedir(dir) != 0)
+		failed = -1;
+
+out:
+	free(p);
+	return failed;
+}
+
+static int
+foreachdir(const char *path,
+	   int (*walk)(const char *, const struct stat *))
+{
+	struct stat st;
+
+	if (lstat(path, &st))
+		return walk(path, NULL);
+	return foreachdir_rec(path, &st, walk);
+}
+
+static int
+walk(const char *path, const struct stat *st)
 {
 	size_t prefix_len=strlen(opt_prefix), suffix_len=strlen(opt_suffix);
 	size_t len = strlen(path);
 	char *p;
 	int ret;
 
-	if (flag == FTW_DNR) {
+	if (!st) {
 		perror(path);
 		return 1;
 	}
-	if (!S_ISREG(stat->st_mode))
+	if (!S_ISREG(st->st_mode))
 		return 0;
 	if (strncmp(opt_prefix, path, prefix_len))
 		return 0;  /* prefix does not match */
@@ -493,14 +546,12 @@ main(int argc, char *argv[])
 		if (strcmp(argv[optind], "-") == 0) {
 			char *dir = strdup(opt_prefix), *d = strrchr(dir, '/');
 			if (d)
-				*(d+1) = '\0';
+				*d = '\0';
 			else
 				d = ".";
-			status = ftw(dir, walk, 0);
-			/* An error here indicates a problem somewhere
-			 *  during the walk */
+			status = foreachdir(dir, walk);
 			if (status == -1)
-				perror("ftw");
+				perror(dir);
 
 			free(dir);
 		} else
