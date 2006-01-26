@@ -185,17 +185,13 @@ msgstr "Keine Patches in der series-Datei\\n"
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:107
-msgid "Removing patch %s failed\\n"
+#: quilt/delete.in:107 quilt/delete.in:117
+msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/delete.in:115
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
-
-#: quilt/delete.in:117
-msgid "Failed to remove patch %s\\n"
-msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
@@ -612,11 +608,11 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "Text an Header von Patch %s angefügt\\n"
 
 #: quilt/import.in:22
-msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
-msgstr "Verwendung: quilt import [-f] [-p num] [-n patch] [patchdatei] ...\\n"
+msgid ""
+"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+msgstr "Verwendung: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] [patchdatei] ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -643,6 +639,7 @@ msgstr ""
 "-p num\n"
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
+"\n"
 "-n patch\n"
 "\tPatch-Dateiname, den Quilt verwenden soll. Diese Option kann nur beim\n"
 "\tImport eines einzelnen Patches angegeben werden.\n"

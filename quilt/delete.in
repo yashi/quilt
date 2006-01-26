@@ -104,7 +104,7 @@ if is_applied "$patch"; then
 	fi
 	if ! quilt_command pop -fq
 	then
-		printf $"Removing patch %s failed\n" \
+		printf $"Failed to remove patch %s\n" \
 			"$(print_patch "$patch")" >&2
 		exit 1
 	fi

@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\n"
+	printf $"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"

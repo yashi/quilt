@@ -186,18 +186,13 @@ msgstr "Aucun patch n'est appliqué\\n"
 msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
-#: quilt/delete.in:107
-#, fuzzy
-msgid "Removing patch %s failed\\n"
-msgstr "Retrait de %s\\n"
+#: quilt/delete.in:107 quilt/delete.in:117
+msgid "Failed to remove patch %s\\n"
+msgstr "Impossible de retirer le patch %s\\n"
 
 #: quilt/delete.in:115
 msgid "Removed patch %s\\n"
 msgstr "Patch %s retiré\\n"
-
-#: quilt/delete.in:117
-msgid "Failed to remove patch %s\\n"
-msgstr "Impossible de retirer le patch %s\\n"
 
 #: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
@@ -618,8 +613,9 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "Texte ajouté à la fin de l'en-tête du patch %s\\n"
 
 #: quilt/import.in:22
-msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
-msgstr "Usage : quilt import [-f] [-p num] [-n patch] fichier_de_patch ...\\n"
+msgid ""
+"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+msgstr "Usage : quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
 #, fuzzy
@@ -1481,6 +1477,10 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
+
+#, fuzzy
+#~ msgid "Removing patch %s failed\\n"
+#~ msgstr "Retrait de %s\\n"
 
 #, fuzzy
 #~ msgid "Patch s is currently applied\\n"

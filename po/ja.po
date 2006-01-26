@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2006-01-04 05:35+0900\n"
+"PO-Revision-Date: 2006-01-26 16:45+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -175,26 +175,20 @@ msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
 #: quilt/delete.in:95 quilt/scripts/patchfns.in:442
-#, fuzzy
 msgid "No patches in series\\n"
-msgstr "適用されているパッチはありません\\n"
+msgstr "シリーズに登録されているパッチがありません\\n"
 
 #: quilt/delete.in:101 quilt/scripts/patchfns.in:539
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
-#: quilt/delete.in:107
-#, fuzzy
-msgid "Removing patch %s failed\\n"
-msgstr "パッチ %s をはずします\\n"
+#: quilt/delete.in:107 quilt/delete.in:117
+msgid "Failed to remove patch %s\\n"
+msgstr "パッチ %s の削除に失敗しました\\n"
 
 #: quilt/delete.in:115
 msgid "Removed patch %s\\n"
-msgstr "パッチ %s が削除されました\\n"
-
-#: quilt/delete.in:117
-msgid "Failed to remove patch %s\\n"
-msgstr "パッチ %s を削除することに失敗しました\\n"
+msgstr "パッチ %s を削除しました\\n"
 
 #: quilt/delete.in:128
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
@@ -202,7 +196,7 @@ msgstr "ファイル \\\"%s\\\" のバックアップに失敗しました\\n"
 
 #: quilt/delete.in:135
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
-msgstr "パッチ \\\"%s\\\" を削除することに失敗しました\\n"
+msgstr "パッチ \\\"%s\\\" の削除に失敗しました\\n"
 
 #: quilt/diff.in:24
 msgid ""
@@ -596,11 +590,11 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "パッチ %s のヘッダに追加しました\\n"
 
 #: quilt/import.in:22
-msgid "Usage: quilt import [-f] [-p num] [-n patch] patchfile ...\\n"
-msgstr "使い方: quilt import [-f] [-p num] [-n パッチ] パッチファイル ...\\n"
+msgid ""
+"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+msgstr "使い方: quilt import [-p num] [-n パッチ] [-f] [-d {o|a|n}] パッチファイル ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -621,8 +615,8 @@ msgid ""
 "\tmust be specified. This option is only effective when -f is used.\n"
 msgstr ""
 "\n"
-"外部パッチファイルを取り込む。パッチは最上位パッチの後に取り込まれるが、\n"
-"適用するためには取り込んだ後に pushしなればならない。\n"
+"外部パッチファイルを取り込む。パッチは最上位パッチの次の位置に取り込ま\n"
+"れる。取り込んだパッチを適用するには pushが必要。\n"
 "\n"
 "-p num\n"
 "\tパッチを適用するときに省く、ディレクトリレベルの数 (デフォルトは 1)\n"
@@ -632,40 +626,45 @@ msgstr ""
 "\t一つだけ取り込むときに有効。\n"
 "\n"
 "-f\t存在するパッチの上書き、またはアップデート。\n"
+"\n"
+"-d {o|a|n}\n"
+"\tパッチを上書きするときのパッチヘッダの挙動を示す。古い方を残す\n"
+"\t(o)、全て (a)、または新しい方を残す (n)。両方のパッチにヘッダ\n"
+"\tがある場合は必ずこのオプションを指定する必要がある。このオプショ\n"
+"\tンは -fが指定された時のみ有効。\n"
 
 #: quilt/import.in:68
 msgid "Patch headers differ:\\n"
-msgstr ""
+msgstr "パッチヘッダの差異:\\n"
 
 #: quilt/import.in:71
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
+"どのパッチヘッダを残すか、オプション -d {o|a|n}を使って指定してください"
 
 #: quilt/import.in:124
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
-msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です。\\n"
+msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です\\n"
 
 #: quilt/import.in:144
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
 #: quilt/import.in:153
-#, fuzzy
 msgid "Patch %s already exists in series.\\n"
-msgstr "パッチ %s は seriesの中にありません\\n"
+msgstr "パッチ %s は、すでに seriesの中にあります\\n"
 
 #: quilt/import.in:159
 msgid "Patch %s exists. Replace with -f.\\n"
-msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます。\\n"
+msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます\\n"
 
 #: quilt/import.in:170
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
 #: quilt/import.in:174
-#, fuzzy
 msgid "Importing patch %s\\n"
-msgstr "パッチ %s をはずします\\n"
+msgstr "パッチ %s を取り込みます\\n"
 
 #: quilt/import.in:176
 msgid "Importing patch %s (stored as %s)\\n"
@@ -982,9 +981,8 @@ msgstr ""
 "パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
 #: quilt/push.in:226
-#, fuzzy
 msgid "Patch %s can be reverse-applied\\n"
-msgstr "パッチ %s は、すでに適用されています\\n"
+msgstr "パッチ %s は、反転して適用することができます\\n"
 
 #: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
@@ -1225,9 +1223,8 @@ msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
 #: quilt/scripts/patchfns.in:577
-#, fuzzy
 msgid "Patch %s does not exist\\n"
-msgstr "パッチ %s は seriesの中にありません\\n"
+msgstr "パッチ %s が存在しません\\n"
 
 #: quilt/scripts/patchfns.in:830
 msgid ""
@@ -1443,23 +1440,3 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
-
-#, fuzzy
-#~ msgid "Patch s is currently applied\\n"
-#~ msgstr "パッチ %s は現在適用されています\\n"
-
-#, fuzzy
-#~ msgid "Patch %s is not on top\\n"
-#~ msgstr "パッチ %s を最上位にしました\\n"
-
-#~ msgid "Patch %s is already applied\\n"
-#~ msgstr "パッチ %s は、すでに適用済です\\n"
-
-#~ msgid "Patch is not applied\\n"
-#~ msgstr "パッチは適用されていません\\n"
-
-#~ msgid "Patch %s is not in series file\\n"
-#~ msgstr "パッチ %s は seriesの中にありません\\n"
-
-#~ msgid "Patch %s not found in file series\\n"
-#~ msgstr "パッチ %s が seriesファイル内で見つかりません。\\n"
