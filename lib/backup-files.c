@@ -46,6 +46,10 @@
 # define mkstemp(x) creat(mktemp(x), 0600)
 #endif
 
+#ifndef PATH_MAX
+# define PATH_MAX 4095
+#endif
+
 const char *progname;
 
 enum { what_noop, what_backup, what_restore, what_remove };
@@ -60,7 +64,7 @@ int opt_nolinks, opt_touch;
 static void
 usage(void)
 {
-	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-s] [-b|-r|-x] [-L] {file|-} ...\n"
+	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-s] [-b|-r|-x] [-t] [-L] {file|-} ...\n"
 	       "\n"
 	       "\tCreate hard linked backup copies of a list of files\n"
 	       "\tread from standard input.\n"
@@ -71,10 +75,8 @@ usage(void)
 	       "\t-B\tPath name prefix for backup files\n"
 	       "\t-z\tPath name suffix for backup files\n"
 	       "\t-s\tSilent operation; only print error messages\n"
-	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n"
 	       "\t-f\tRead the filenames to process from file (- = standard input)\n"
 	       "\t-t\tTouch original files after restore (update their mtimes)\n\n"
-
 	       "\t-L\tEnsure that when finished, the source file has a link count of 1\n\n",
 	       progname);
 }
@@ -381,22 +383,24 @@ foreachdir_rec(const char *path, struct stat *st,
 {
 	DIR *dir;
 	struct dirent *dp;
-	char *p = NULL;
 	int failed = 0;
+	char *p = malloc_nofail(sizeof(char) * (PATH_MAX + 1));
 
 	if (access(path, R_OK|X_OK) || !(dir = opendir(path)))
 		return walk(path, NULL);
 	while ((dp = readdir(dir))) {
-		char *p0 = p;
+		int len;
 
 		if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
 			continue;
-		if (!(p = realloc(p, strlen(path) + 1 +
-				     strlen(dp->d_name) + 1))) {
-			free(p0);
-			return -1;
+		len = snprintf(p, PATH_MAX + 1, "%s/%s", path, dp->d_name);
+		if (len > PATH_MAX || len < 0) {
+			fprintf(stderr, "%s/%s: name too long\n", path,
+				dp->d_name);
+			failed = -1;
+			goto out;
 		}
-		sprintf(p, "%s/%s", path, dp->d_name);
+		
 		if (lstat(p, st))
 			continue;  /* file has disappeared meanwhile */
 		if (S_ISDIR(st->st_mode)) {

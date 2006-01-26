@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jan 26 22:35:57 CET 2006 - khali@linux-fr.org
+
+- lib/backup-files.c: Fix usage line and help text.
+- lib/backup-files.c: Improve recursive processing by avoiding
+  repeated realloc and strlen calls. Hardly measurable though.
+
+-------------------------------------------------------------------
 Thu Jan 26 20:26:54 CET 2006 - khali@linux-fr.org
 
 - Makefile.in: Have Makefile depend on configure, so that the
