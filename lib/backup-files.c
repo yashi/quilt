@@ -47,7 +47,7 @@
 #endif
 
 #ifndef PATH_MAX
-# define PATH_MAX 4095
+# define PATH_MAX 4096
 #endif
 
 const char *progname;
@@ -384,7 +384,7 @@ foreachdir_rec(const char *path, struct stat *st,
 	DIR *dir;
 	struct dirent *dp;
 	int failed = 0;
-	char *p = malloc_nofail(sizeof(char) * (PATH_MAX + 1));
+	char *p = malloc_nofail(PATH_MAX + 1);
 
 	if (access(path, R_OK|X_OK) || !(dir = opendir(path)))
 		return walk(path, NULL);
