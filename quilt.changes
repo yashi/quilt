@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 26 13:39:37 CET 2006 - agruen@suse.de
+
+- Stop using find's -printf option: some versions of find don't
+  have it.
+
+-------------------------------------------------------------------
 Thu Jan 26 12:49:00 CET 2006 - agruen@suse.de
 
 - quilt/delete.in: Remove a superfluous message.

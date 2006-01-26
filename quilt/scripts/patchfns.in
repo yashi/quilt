@@ -594,9 +594,11 @@ files_in_patch()
 
 	if [ -d "$path" ]
 	then
-		find "$path" -type f \
-		     -a ! -path "$path/.timestamp" \
-		     -printf "%P\n"
+		local files
+		files=( $(find "$path" -type f \
+			       -a ! -path "$path/.timestamp") ) \
+		|| return 1
+		printf "%s\n" "${files[@]#$path/}"
 	fi
 }
 

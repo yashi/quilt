@@ -1263,7 +1263,7 @@ msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 msgid "Patch %s does not exist\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/scripts/patchfns.in:830
+#: quilt/scripts/patchfns.in:832
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1275,7 +1275,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: quilt/scripts/patchfns.in:915
+#: quilt/scripts/patchfns.in:917
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
