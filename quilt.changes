@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jan 26 13:49:53 CET 2006 - agruen@suse.de
+
+- aclocal.m4(QUILT_COMPAT_PROG_PATH): Create missing compat
+  symlinks for binaries that have a different basename than what
+  quilt expects (e.g., awk/gawk). Patch from Gary V. Vaughan.
+
+-------------------------------------------------------------------
 Thu Jan 26 13:39:37 CET 2006 - agruen@suse.de
 
 - Stop using find's -printf option: some versions of find don't
