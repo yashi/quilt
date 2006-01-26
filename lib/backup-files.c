@@ -384,7 +384,7 @@ foreachdir_rec(const char *path, struct stat *st,
 	char *p = NULL;
 	int failed = 0;
 
-	if (!(dir = opendir(path)))
+	if (access(path, R_OK|X_OK) || !(dir = opendir(path)))
 		return walk(path, NULL);
 	while ((dp = readdir(dir))) {
 		char *p0 = p;
