@@ -84,7 +84,7 @@ malloc_nofail(size_t size)
 {
 	void *p = malloc(size);
 	if (!p) {
-		perror(NULL);
+		perror(progname);
 		exit(1);
 	}
 	return p;
