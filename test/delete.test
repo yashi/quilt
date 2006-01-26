@@ -80,7 +80,6 @@ Test the delete command.
 	$ quilt delete "test3"
 	> Removing patch %{P}test3
 	> .pc/test3/dir: Permission denied
-	> Removing patch %{P}test3 failed
 
 	$ chmod a+rx .pc/test3/dir
 

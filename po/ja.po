@@ -182,19 +182,19 @@ msgstr "シリーズに登録されているパッチがありません\\n"
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
-#: quilt/delete.in:107 quilt/delete.in:117
-msgid "Failed to remove patch %s\\n"
-msgstr "パッチ %s の削除に失敗しました\\n"
-
-#: quilt/delete.in:115
+#: quilt/delete.in:113
 msgid "Removed patch %s\\n"
 msgstr "パッチ %s を削除しました\\n"
 
-#: quilt/delete.in:128
+#: quilt/delete.in:115
+msgid "Failed to remove patch %s\\n"
+msgstr "パッチ %s の削除に失敗しました\\n"
+
+#: quilt/delete.in:126
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "ファイル \\\"%s\\\" のバックアップに失敗しました\\n"
 
-#: quilt/delete.in:135
+#: quilt/delete.in:133
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "パッチ \\\"%s\\\" の削除に失敗しました\\n"
 
@@ -592,7 +592,9 @@ msgstr "パッチ %s のヘッダに追加しました\\n"
 #: quilt/import.in:22
 msgid ""
 "Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
-msgstr "使い方: quilt import [-p num] [-n パッチ] [-f] [-d {o|a|n}] パッチファイル ...\\n"
+msgstr ""
+"使い方: quilt import [-p num] [-n パッチ] [-f] [-d {o|a|n}] パッチファイ"
+"ル ...\\n"
 
 #: quilt/import.in:25
 msgid ""

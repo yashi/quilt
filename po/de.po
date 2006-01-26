@@ -185,19 +185,19 @@ msgstr "Keine Patches in der series-Datei\\n"
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:107 quilt/delete.in:117
-msgid "Failed to remove patch %s\\n"
-msgstr "Konnte Patch %s nicht entfernen\\n"
-
-#: quilt/delete.in:115
+#: quilt/delete.in:113
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
 
-#: quilt/delete.in:128
+#: quilt/delete.in:115
+msgid "Failed to remove patch %s\\n"
+msgstr "Konnte Patch %s nicht entfernen\\n"
+
+#: quilt/delete.in:126
 msgid "Failed to backup patch file \\\"%s\\\"\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: quilt/delete.in:135
+#: quilt/delete.in:133
 msgid "Failed to remove patch file \\\"%s\\\"\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
@@ -610,7 +610,9 @@ msgstr "Text an Header von Patch %s angefügt\\n"
 #: quilt/import.in:22
 msgid ""
 "Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
-msgstr "Verwendung: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] [patchdatei] ...\\n"
+msgstr ""
+"Verwendung: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] "
+"[patchdatei] ...\\n"
 
 #: quilt/import.in:25
 msgid ""

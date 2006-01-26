@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 26 12:49:00 CET 2006 - agruen@suse.de
+
+- quilt/delete.in: Remove a superfluous message.
+
+-------------------------------------------------------------------
 Thu Jan 26 04:20:31 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Stop using ftw and implement our own dir
