@@ -264,7 +264,7 @@ configure : configure.ac
 	@echo "Please run ./configure"
 	@false
 
-Makefile : Makefile.in
+Makefile : Makefile.in configure
 	@echo "Please run ./configure"
 	@false
 
