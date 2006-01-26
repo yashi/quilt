@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 26 22:51:10 CET 2006 - khali@linux-fr.org
+
+- po/fr.po: Update French translation.
+
+-------------------------------------------------------------------
 Thu Jan 26 22:35:57 CET 2006 - khali@linux-fr.org
 
 - lib/backup-files.c: Fix usage line and help text.

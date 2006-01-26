@@ -178,9 +178,8 @@ msgid "No next patch\\n"
 msgstr "Pas de patch suivant\\n"
 
 #: quilt/delete.in:95 quilt/scripts/patchfns.in:442
-#, fuzzy
 msgid "No patches in series\\n"
-msgstr "Aucun patch n'est appliqué\\n"
+msgstr "Aucun patch dans la série\\n"
 
 #: quilt/delete.in:101 quilt/scripts/patchfns.in:539
 msgid "Patch %s is currently applied\\n"
@@ -620,7 +619,6 @@ msgstr ""
 "fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -654,14 +652,20 @@ msgstr ""
 "\tutilisée que lors de l'import d'un patch unique.\n"
 "\n"
 "-f\tÉcrase/met à jour les patchs existants.\n"
+"\n"
+"-d {o|a|n}\n"
+"\tLors du remplacement d'un patch existant, garde l'ancien (o), tous\n"
+"\t(a), ou le nouvel (n) en-tête. Si les deux patches incluent des\n"
+"\ten-têtes, cette option doit être spécifiée. Cette option n'est\n"
+"\teffective que lorsque -f est utilisé.\n"
 
 #: quilt/import.in:68
 msgid "Patch headers differ:\\n"
-msgstr ""
+msgstr "Les en-têtes des patches diffèrent :\\n"
 
 #: quilt/import.in:71
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
-msgstr ""
+msgstr "Veuillez utiliser -d {o|a|n} pour spécifier quel(s) en-tête(s) conserver.\\n"
 
 #: quilt/import.in:124
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
@@ -673,9 +677,8 @@ msgid "Patch %s is applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
 #: quilt/import.in:153
-#, fuzzy
 msgid "Patch %s already exists in series.\\n"
-msgstr "Le patch %s n'est pas dans la série\\n"
+msgstr "Le patch %s existe déjà dans la série.\\n"
 
 #: quilt/import.in:159
 msgid "Patch %s exists. Replace with -f.\\n"
@@ -686,9 +689,8 @@ msgid "Replacing patch %s with new version\\n"
 msgstr "Remplacement du patch %s avec la nouvelle version\\n"
 
 #: quilt/import.in:174
-#, fuzzy
 msgid "Importing patch %s\\n"
-msgstr "Retrait de %s\\n"
+msgstr "Import du patch %s\\n"
 
 #: quilt/import.in:176
 msgid "Importing patch %s (stored as %s)\\n"
@@ -1010,9 +1012,8 @@ msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
 #: quilt/push.in:226
-#, fuzzy
 msgid "Patch %s can be reverse-applied\\n"
-msgstr "Le patch %s n'est pas appliqué\\n"
+msgstr "Le patch %s peut être appliqué à l'envers\\n"
 
 #: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
@@ -1259,9 +1260,8 @@ msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
 #: quilt/scripts/patchfns.in:577
-#, fuzzy
 msgid "Patch %s does not exist\\n"
-msgstr "Le patch %s n'est pas dans la série\\n"
+msgstr "Le patch %s n'existe pas\\n"
 
 #: quilt/scripts/patchfns.in:832
 msgid ""
@@ -1479,119 +1479,3 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
-
-#, fuzzy
-#~ msgid "Removing patch %s failed\\n"
-#~ msgstr "Retrait de %s\\n"
-
-#, fuzzy
-#~ msgid "Patch s is currently applied\\n"
-#~ msgstr "Le patch %s est actuellement appliqué\\n"
-
-#, fuzzy
-#~ msgid "Patch %s is not on top\\n"
-#~ msgstr "Le patch %s est maintenant au sommet\\n"
-
-#~ msgid "Patch %s is already applied\\n"
-#~ msgstr "Le patch %s est déjà appliqué.\\n"
-
-#~ msgid "Patch is not applied\\n"
-#~ msgstr "Le patch n'est pas appliqué\\n"
-
-#~ msgid "Patch %s is not in series file\\n"
-#~ msgstr "Le patch %s n'est pas dans le fichier series\\n"
-
-#~ msgid "Patch %s not found in file series\\n"
-#~ msgstr "Le patch %s est introuvable dans le fichier de série\\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Create mail messages from all patches in the series file, and either "
-#~ "store\n"
-#~ "them in a mailbox file, or send them immediately. The editor is opened\n"
-#~ "with a template for the introductory message. Please see the file\n"
-#~ "%s for details.\n"
-#~ "\n"
-#~ "--mbox file\n"
-#~ "\tStore all messages in the specified file in mbox format. The mbox\n"
-#~ "\tcan later be sent using formail, for example.\n"
-#~ "\n"
-#~ "--send\n"
-#~ "\tSend the messages directly.\n"
-#~ "\n"
-#~ "--from, --subject\n"
-#~ "\tThe values for the From and Subject headers to use.\n"
-#~ "\n"
-#~ "--to, --cc, --bcc\n"
-#~ "\tAppend a recipient to the To, Cc, or Bcc header.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Crée des messages de courrier à partir de tous les patches de la série.\n"
-#~ "Ces fichiers sont ensuite stockés dans un fichier mbox ou expédiés\n"
-#~ "immédiatement. Un éditeur est ouvert avec un patron pour saisir un "
-#~ "message\n"
-#~ "d'introduction. Voir le fichier %s pour plus de\n"
-#~ "détails.\n"
-#~ "\n"
-#~ "--mbox fichier\n"
-#~ "\tStocke les messages dans le fichier spécifié au format mbox. Le\n"
-#~ "\tfichier peut être expédié plus tard en utilisant par exemple\n"
-#~ "\tformail.\n"
-#~ "\n"
-#~ "--send\n"
-#~ "\tExpédie les messages directement en utilisant %s.\n"
-#~ "\n"
-#~ "--from, --subject\n"
-#~ "\tLes valeurs pour les champs d'en-tête De (From) et Objet (Subject),\n"
-#~ "\trespectivement.\n"
-#~ "\n"
-#~ "--to, --cc, --bcc\n"
-#~ "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
-#~ "\tcachée, respectivement.\n"
-
-#, fuzzy
-#~ msgid "Usage: quilt [-p patch] annotate {file}\\n"
-#~ msgstr "Usage : quilt annotate {fichier}\\n"
-
-#~ msgid "Cannot change into directory %s\\n"
-#~ msgstr "Impossible d'entrer dans le répertoire %s\\n"
-
-#~ msgid "Cannot change to temporary directory\\n"
-#~ msgstr "Impossible d'entrer dans le répertoire temporaire\\n"
-
-#~ msgid "Cannot change to source directory\\n"
-#~ msgstr "Impossible d'entrer dans le répertoire source\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Fork the topmost patch. If new_name is missing, the name of the\n"
-#~ "forked patch will be the current patch name, followed by \\\"-2\\\".\n"
-#~ "If the patch name already ends in a dash-and-number, the number is\n"
-#~ "further incremented (e.g., patch.diff, patch-2.diff, patch-3.diff).\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Fork (c-à-d duplique) le patch au sommet.\n"
-#~ "Si {nouveau_nom} n'est pas spécifié, il s'agira du nom actuel du patch \n"
-#~ "dupliqué suivi de «-2». Si le nom du patch se termine déjà par\n"
-#~ "un tiret et un nombre, ce nombre sera incrémenté. (ex: patch.diff,\n"
-#~ "patch-2.diff, patch-3.diff).\n"
-
-#~ msgid "Usage: $0 [-fqv] patchname\\n"
-#~ msgstr "Usage : $0 [-fqv] patchname\\n"
-
-#~ msgid "Usage: %s [-fRq] patchname\\n"
-#~ msgstr "Usage: %s [-fRq] nom_de_patch\\n"
-
-#~ msgid "Interrupted by user\\n"
-#~ msgstr "Interrompu par l'utilisateur\\n"
-
-#~ msgid ""
-#~ "The topmost patch %s is not in the series file anymore;\n"
-#~ "cannot determine the next patch from the series file.\n"
-#~ "Please pop -f the top patch and check your series file.\\n"
-#~ msgstr ""
-#~ "Le patch du sommet %s n'apparait plus dans la série;\n"
-#~ "Impossible de déterminer le prochain patch de la série.\n"
-#~ "Veuillez utiliser pop -f pour le patch du sommet, et vérifier \n"
-#~ "votre fichier de série.\\n"
