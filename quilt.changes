@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 26 20:08:21 CET 2006 - agruen@suse.de
+
+- quilt/import.in: Add missing quoting, stop using diff -U for
+  portability.
+
+-------------------------------------------------------------------
 Thu Jan 26 13:49:53 CET 2006 - agruen@suse.de
 
 - aclocal.m4(QUILT_COMPAT_PROG_PATH): Create missing compat
