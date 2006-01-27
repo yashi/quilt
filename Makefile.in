@@ -280,7 +280,7 @@ compat :: $(COMPAT)
 #   Usage: $(call VIRTUAL_SYMLINK, source, target)
 define VIRTUAL_SYMLINK
 	@echo "Generating $(strip $(1)) wrapper" >&2;
-	@printf "#!%s\n%s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2);
+	@printf "#!%s\nexec %s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2);
 endef
 
 # Generate rules to create compat/<binary> for each binary in $(COMPAT_SYMLINKS)

@@ -236,11 +236,9 @@ if [ -n "$opt_snapshot" -a ${#opt_files[@]} -eq 0 ]
 then
 	# Add all files in the snapshot into the file list (they may all
 	# have changed).
-	while read file
-	do
-		echo "${file#$QUILT_PC/$snap_subdir/}" >&4
-	done \
-	< <(find $QUILT_PC/$snap_subdir -type f | sort)
+	files=( $(find $QUILT_PC/$snap_subdir -type f | sort) )
+	printf "%s\n" "${files[@]#$QUILT_PC/$snap_subdir/}" >&4
+	unset files
 	# Also look at all patches that are currently applied.
 	opt_combine=1
 	first_patch="$(applied_patches | head -n 1)"

@@ -316,27 +316,27 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:260 quilt/files.in:105
+#: quilt/diff.in:258 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: quilt/diff.in:310 quilt/pop.in:98
+#: quilt/diff.in:308 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/diff.in:334 quilt/pop.in:122
+#: quilt/diff.in:332 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
-#: quilt/diff.in:353
+#: quilt/diff.in:351
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: quilt/diff.in:373 quilt/refresh.in:177
+#: quilt/diff.in:371 quilt/refresh.in:177
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: quilt/diff.in:380
+#: quilt/diff.in:378
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 
@@ -668,40 +668,40 @@ msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 "Veuillez utiliser -d {o|a|n} pour spécifier quel(s) en-tête(s) conserver.\\n"
 
-#: quilt/import.in:124
+#: quilt/import.in:125
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr ""
 "L'option « -P » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
 
-#: quilt/import.in:144
+#: quilt/import.in:145
 msgid "Patch %s is applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/import.in:153
+#: quilt/import.in:154
 msgid "Patch %s already exists in series.\\n"
 msgstr "Le patch %s existe déjà dans la série.\\n"
 
-#: quilt/import.in:159
+#: quilt/import.in:160
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Le patch %s existe. Utilisez -f pour le remplacer.\\n"
 
-#: quilt/import.in:170
+#: quilt/import.in:171
 msgid "Replacing patch %s with new version\\n"
 msgstr "Remplacement du patch %s avec la nouvelle version\\n"
 
-#: quilt/import.in:174
+#: quilt/import.in:175
 msgid "Importing patch %s\\n"
 msgstr "Import du patch %s\\n"
 
-#: quilt/import.in:176
+#: quilt/import.in:177
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Import du patch %s (enregistré dans %s)\\n"
 
-#: quilt/import.in:186
+#: quilt/import.in:187
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:193
+#: quilt/import.in:194
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 

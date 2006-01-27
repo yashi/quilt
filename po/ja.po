@@ -305,27 +305,27 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:260 quilt/files.in:105
+#: quilt/diff.in:258 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: quilt/diff.in:310 quilt/pop.in:98
+#: quilt/diff.in:308 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/diff.in:334 quilt/pop.in:122
+#: quilt/diff.in:332 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: quilt/diff.in:353
+#: quilt/diff.in:351
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:373 quilt/refresh.in:177
+#: quilt/diff.in:371 quilt/refresh.in:177
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: quilt/diff.in:380
+#: quilt/diff.in:378
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "警告: 最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 
@@ -644,39 +644,39 @@ msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 "どのパッチヘッダを残すか、オプション -d {o|a|n}を使って指定してください"
 
-#: quilt/import.in:124
+#: quilt/import.in:125
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-P'は、パッチを一つだけ取り込むときのみ有効です\\n"
 
-#: quilt/import.in:144
+#: quilt/import.in:145
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:153
+#: quilt/import.in:154
 msgid "Patch %s already exists in series.\\n"
 msgstr "パッチ %s は、すでに seriesの中にあります\\n"
 
-#: quilt/import.in:159
+#: quilt/import.in:160
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます\\n"
 
-#: quilt/import.in:170
+#: quilt/import.in:171
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:174
+#: quilt/import.in:175
 msgid "Importing patch %s\\n"
 msgstr "パッチ %s を取り込みます\\n"
 
-#: quilt/import.in:176
+#: quilt/import.in:177
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:186
+#: quilt/import.in:187
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:193
+#: quilt/import.in:194
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 

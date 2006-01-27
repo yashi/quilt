@@ -48,20 +48,20 @@ current top patch, and must be pushed after import to apply them.
 
 merge_patches()
 {
-	local old="$1" new="$2" old_desc new_desc
+	local old="$1" new="$2"
+	local old_desc=$(gen_tempfile) new_desc=$(gen_tempfile)
 
-	old_desc=$(cat "$old" | patch_header | strip_diffstat)
-	new_desc=$(cat "$new" | patch_header | strip_diffstat)
+	cat "$old" | patch_header | strip_diffstat > $old_desc
+	cat "$new" | patch_header | strip_diffstat > $new_desc
 
 	if [ -z "$opt_desc" ]
 	then
-		[ -z "$old_desc" ] && opt_desc=n
-		[ -z "$opt_desc" -a -z "$new_desc" ] && opt_desc=o
+		[ -s $old_desc ] || opt_desc=n
+		[ -z "$opt_desc" -a ! -s $new_desc ] && opt_desc=o
 
 		if [ -z "$opt_desc" ]
 		then
-			local diff=$(diff -u <(echo "$old_desc") \
-					     <(echo "$new_desc") \
+			local diff=$(diff -u $old_desc $new_desc \
 				     | sed -e '1,2d')
 			if [ -n "$diff" ]
 			then
@@ -74,7 +74,7 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 		fi
 	fi
 
-	[ "$opt_desc" = n ] || echo "$old_desc"
+	[ "$opt_desc" = n ] || cat "$old_desc"
 	[ "$opt_desc" = a ] && echo '---'
 	if [ "$opt_desc" = o ]
 	then
@@ -82,6 +82,7 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 	else
 		cat "$new"
 	fi
+	rm -f $old_desc $new_desc
 }
 
 options=`getopt -o P:d:fp:h -- "$@"`

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jan 27 06:29:02 CET 2006 - agruen@suse.de
+
+- Stop using bash <(...) process substitution: it triggers bugs
+  on some platforms.
+- In source tree compat/ "virtual symlink" scripts, exec the
+  target binary instead of only calling it.
+
+-------------------------------------------------------------------
 Fri Jan 27 05:55:11 CET 2006 - agruen@suse.de
 
 - Unify existing -p and -n parameters that specify a patch:

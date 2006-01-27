@@ -72,13 +72,13 @@ do
 	case "$(file -b "$file")" in
 		compress*|gzip*)
 			echo -n "g" >&4
-			echo "md5sum < <(gzip -cd $file)" >&2
+			echo "gzip -cd $file | md5sum" >&2
 			set -- $(gzip -cd "$file" | md5sum)
 			echo "$1 $file"
 			;;
 		bzip2*)
 			echo -n "b" >&4
-			echo "md5sum < <(bzip2 -cd $file)" >&2
+			echo "bzip2 -cd $file | md5sum" >&2
 			set -- $(bzip2 -cd "$file" | md5sum)
 			echo "$1 $file"
 			;;
