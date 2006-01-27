@@ -19,15 +19,15 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt remove [-p patch] {file} ...\n"
+	printf $"Usage: quilt remove [-P patch] {file} ...\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Remove one or more files from the topmost or named patch.  Files that
 are modified by patches on top of the specified patch cannot be removed.
 
--p patch
-	Patch to remove files from.
+-P patch
+	Remove named files from the named patch.
 "
 		exit 0
 	else
@@ -35,7 +35,7 @@ are modified by patches on top of the specified patch cannot be removed.
 	fi
 }
 
-options=`getopt -o p:h -- "$@"`
+options=`getopt -o P:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -47,7 +47,7 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-p)
+	-P)
 		opt_patch="$2"
 		shift 2 ;;
 	-h)

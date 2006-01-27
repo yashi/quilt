@@ -78,7 +78,7 @@
 	$ quilt refresh
 	> Refreshed patch %{_P}patch2.diff
 
-	$ quilt add -p patch1 dir/file3
+	$ quilt add -P patch1 dir/file3
 	> File d/dir/file3 modified by patch %{_P}patch2.diff
 
 	$ quilt pop -R
@@ -117,7 +117,7 @@
 	> @@ -1 +0,0 @@
 	> -This is file 4.
 
-	$ quilt add -p patch2 file4
+	$ quilt add -P patch2 file4
 	> File d/file4 modified by patch %{_P}subdir/patch3.diff
 
 	$ quilt refresh

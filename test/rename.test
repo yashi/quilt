@@ -35,16 +35,16 @@
 	$ quilt series -v
 	>   %{P}_tmp_name.diff
 
-	$ quilt rename -p random_name.diff final.name.diff
+	$ quilt rename -P random_name.diff final.name.diff
 	> Patch random_name.diff is not in series
 
 	$ quilt rename final.name.diff
 	> No patches applied
 
-	$ quilt rename -p _tmp_name.diff _tmp_name.diff
+	$ quilt rename -P _tmp_name.diff _tmp_name.diff
 	> Patch %{P}_tmp_name.diff exists already, please choose a different name
 
-	$ quilt rename -p _tmp_name.diff newsubdir/final.name.diff
+	$ quilt rename -P _tmp_name.diff newsubdir/final.name.diff
 	> Patch %{P}_tmp_name.diff renamed to %{P}newsubdir/final.name.diff
 
 	$ quilt series -v

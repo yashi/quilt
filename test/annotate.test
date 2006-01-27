@@ -63,7 +63,7 @@
 	> 2	patches/patch2
 	> 3	patches/patch3
 
-	$ quilt annotate -p patch3 foo
+	$ quilt annotate -P patch3 foo
 	>	foo
 	> 2	baz
 	>
@@ -71,7 +71,7 @@
 	> 2	patches/patch2
 	> 3	patches/patch3
 
-	$ quilt annotate -p patch2 foo
+	$ quilt annotate -P patch2 foo
 	>	foo
 	> 1	Bar
 	> 2	baz
@@ -79,7 +79,7 @@
 	> 1	patches/patch
 	> 2	patches/patch2
 
-	$ quilt annotate -p patch foo
+	$ quilt annotate -P patch foo
 	>	foo
 	> 1	Bar
 	> 1	Baz

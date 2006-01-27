@@ -19,13 +19,13 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt rename [-p patch] new_name\n"
+	printf $"Usage: quilt rename [-P patch] new_name\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Rename the topmost or named patch.
 
--p patch
+-P patch
 	Patch to rename.
 "
 		exit 0
@@ -45,7 +45,7 @@ move_file()
 	return 0
 }
 
-options=`getopt -o p:h -- "$@"`
+options=`getopt -o P:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -57,7 +57,7 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-p)
+	-P)
 		opt_patch="$2"
 		shift 2 ;;
 	-h)

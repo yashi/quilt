@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\n"
+	printf $"Usage: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchfile ...\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -29,7 +29,7 @@ current top patch, and must be pushed after import to apply them.
 -p num
 	Number of directory levels to strip when applying (default=1)
 
--n patch
+-P patch
 	Patch filename to use inside quilt. This option can only be
 	used when importing a single patch.
 
@@ -84,7 +84,7 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 	fi
 }
 
-options=`getopt -o d:fn:p:h -- "$@"`
+options=`getopt -o P:d:fp:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -96,7 +96,7 @@ eval set -- "$options"
 while true
 do
         case "$1" in
-        -n)
+        -P)
 		opt_patch=${2#$QUILT_PATCHES/}
 		shift 2 ;;
 	-p)
@@ -121,7 +121,7 @@ done
 
 if [ $# -gt 1 -a -n "$opt_patch" ]
 then
-	printf $"Option \`-n' can only be used when importing a single patch\n" >&2
+	printf $"Option \`-P' can only be used when importing a single patch\n" >&2
 	exit 1
 fi
 

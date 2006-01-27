@@ -77,7 +77,7 @@ of the installed quilt with `make check'.
 	$ quilt refresh
 	> Refreshed patch %{P}patch2.diff
 
-	$ quilt add -p patch1 dir/file3
+	$ quilt add -P patch1 dir/file3
 	> File dir/file3 modified by patch %{P}patch2.diff
 
 	$ quilt pop -R
@@ -114,7 +114,7 @@ of the installed quilt with `make check'.
 	> @@ -1 +0,0 @@
 	> -This is file 4.
 
-	$ quilt add -p patch2 file4
+	$ quilt add -P patch2 file4
 	> File file4 modified by patch %{P}subdir/patch3.diff
 
 	$ quilt refresh

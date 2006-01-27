@@ -55,8 +55,8 @@ msgstr ""
 "\tバージョン情報を出力して終了。"
 
 #: quilt/add.in:22
-msgid "Usage: quilt add [-p patch] {file} ...\\n"
-msgstr "使い方: quilt add [-p パッチ] {file} ...\\n"
+msgid "Usage: quilt add [-P patch] {file} ...\\n"
+msgstr "使い方: quilt add [-P パッチ] {file} ...\\n"
 
 #: quilt/add.in:25
 msgid ""
@@ -65,7 +65,7 @@ msgid ""
 "added to the patch before being modified.  Files that are modified by\n"
 "patches already applied on top of the specified patch cannot be added.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch to add files to.\n"
 msgstr ""
 "\n"
@@ -73,7 +73,7 @@ msgstr ""
 "集する前にかならず追加する必要がある。指定したパッチより上のパッチで変\n"
 "更されているファイルは追加することができない。\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tファイルを追加するパッチ\n"
 
 #: quilt/add.in:48 quilt/add.in:54
@@ -101,8 +101,8 @@ msgid "File %s added to patch %s\\n"
 msgstr "ファイル %s をパッチ %s に追加しました\\n"
 
 #: quilt/annotate.in:22
-msgid "Usage: quilt annotate [-p patch] {file}\\n"
-msgstr "使い方: quilt annotate [-p パッチ] {file}\\n"
+msgid "Usage: quilt annotate [-P patch] {file}\\n"
+msgstr "使い方: quilt annotate [-P パッチ] {file}\\n"
 
 #: quilt/annotate.in:25
 msgid ""
@@ -110,7 +110,7 @@ msgid ""
 "Print an annotated listing of the specified file showing which\n"
 "patches modify which lines. Only applied patches are included.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tStop checking for changes at the specified rather than the\n"
 "\ttopmost patch.\n"
 msgstr ""
@@ -118,7 +118,7 @@ msgstr ""
 "パッチが変更した行に註釈を付けて表示。適応されるのは、あてられているパッ\n"
 "チのみ。\n"
 "\n"
-"-p パッチ\n"
+"-P パッチ\n"
 "\t最上位のパッチまで処理を行なわず、指定されたパッチで処理を終了\n"
 
 #: quilt/applied.in:22
@@ -591,9 +591,9 @@ msgstr "パッチ %s のヘッダに追加しました\\n"
 
 #: quilt/import.in:22
 msgid ""
-"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+"Usage: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchfile ...\\n"
 msgstr ""
-"使い方: quilt import [-p num] [-n パッチ] [-f] [-d {o|a|n}] パッチファイ"
+"使い方: quilt import [-p num] [-P パッチ] [-f] [-d {o|a|n}] パッチファイ"
 "ル ...\\n"
 
 #: quilt/import.in:25
@@ -605,7 +605,7 @@ msgid ""
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
 "\n"
-"-n patch\n"
+"-P patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
@@ -623,7 +623,7 @@ msgstr ""
 "-p num\n"
 "\tパッチを適用するときに省く、ディレクトリレベルの数 (デフォルトは 1)\n"
 "\n"
-"-n パッチ\n"
+"-P パッチ\n"
 "\tquiltの内部で使用するパッチのファイル名。このオプションはパッチを\n"
 "\t一つだけ取り込むときに有効。\n"
 "\n"
@@ -645,8 +645,8 @@ msgstr ""
 "どのパッチヘッダを残すか、オプション -d {o|a|n}を使って指定してください"
 
 #: quilt/import.in:124
-msgid "Option \\`-n' can only be used when importing a single patch\\n"
-msgstr "オプション \\`-n'は、パッチを一つだけ取り込むときのみ有効です\\n"
+msgid "Option \\`-P' can only be used when importing a single patch\\n"
+msgstr "オプション \\`-P'は、パッチを一つだけ取り込むときのみ有効です\\n"
 
 #: quilt/import.in:144
 msgid "Patch %s is applied\\n"
@@ -1115,8 +1115,8 @@ msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
 #: quilt/remove.in:22
-msgid "Usage: quilt remove [-p patch] {file} ...\\n"
-msgstr "使い方: quilt remove [-p パッチ] {ファイル} ...\\n"
+msgid "Usage: quilt remove [-P patch] {file} ...\\n"
+msgstr "使い方: quilt remove [-P パッチ] {ファイル} ...\\n"
 
 #: quilt/remove.in:25
 msgid ""
@@ -1124,14 +1124,14 @@ msgid ""
 "Remove one or more files from the topmost or named patch.  Files that\n"
 "are modified by patches on top of the specified patch cannot be removed.\n"
 "\n"
-"-p patch\n"
-"\tPatch to remove files from.\n"
+"-P patch\n"
+"\tRemove named files from the named patch.\n"
 msgstr ""
 "\n"
 "指定されたファイルを最上位パッチまたは指定されたパッチから削除する。指\n"
 "定されたファイルがより上のパッチで変更されている場合は、削除できない。\n"
 "\n"
-"-p パッチ\n"
+"-P パッチ\n"
 "\tファイルを削除するパッチを指定。\n"
 
 #: quilt/remove.in:73
@@ -1147,21 +1147,21 @@ msgid "File %s removed from patch %s\\n"
 msgstr "ファイル %s を、パッチ %s から削除しました\\n"
 
 #: quilt/rename.in:22
-msgid "Usage: quilt rename [-p patch] new_name\\n"
-msgstr "使い方: quilt rename [-p patch] new_name\\n"
+msgid "Usage: quilt rename [-P patch] new_name\\n"
+msgstr "使い方: quilt rename [-P patch] new_name\\n"
 
 #: quilt/rename.in:25
 msgid ""
 "\n"
 "Rename the topmost or named patch.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch to rename.\n"
 msgstr ""
 "\n"
 "最上位または指定されたパッチの名前を変更する\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\t名前を変更する patch\n"
 
 #: quilt/rename.in:84

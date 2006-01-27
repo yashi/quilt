@@ -56,8 +56,8 @@ msgstr ""
 "\tAffiche le numéro de version et sort immédiatement."
 
 #: quilt/add.in:22
-msgid "Usage: quilt add [-p patch] {file} ...\\n"
-msgstr "Usage : quilt add [-p patch] {fichier} ...\\n"
+msgid "Usage: quilt add [-P patch] {file} ...\\n"
+msgstr "Usage : quilt add [-P patch] {fichier} ...\\n"
 
 #: quilt/add.in:25
 msgid ""
@@ -66,7 +66,7 @@ msgid ""
 "added to the patch before being modified.  Files that are modified by\n"
 "patches already applied on top of the specified patch cannot be added.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch to add files to.\n"
 msgstr ""
 "\n"
@@ -75,7 +75,7 @@ msgstr ""
 "Les fichiers modifiés par d'autres patches à la fois plus haut dans la pile\n"
 "et déjà appliqués ne peuvent pas être ajoutés.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch auquel les fichiers doivent être ajoutés.\n"
 
 #: quilt/add.in:48 quilt/add.in:54
@@ -103,8 +103,8 @@ msgid "File %s added to patch %s\\n"
 msgstr "Le fichier %s a été ajouté au patch %s\\n"
 
 #: quilt/annotate.in:22
-msgid "Usage: quilt annotate [-p patch] {file}\\n"
-msgstr "Usage : quilt annotate [-p patch] {fichier}\\n"
+msgid "Usage: quilt annotate [-P patch] {file}\\n"
+msgstr "Usage : quilt annotate [-P patch] {fichier}\\n"
 
 #: quilt/annotate.in:25
 msgid ""
@@ -112,7 +112,7 @@ msgid ""
 "Print an annotated listing of the specified file showing which\n"
 "patches modify which lines. Only applied patches are included.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tStop checking for changes at the specified rather than the\n"
 "\ttopmost patch.\n"
 msgstr ""
@@ -121,7 +121,7 @@ msgstr ""
 "patch modifie chaque ligne. Seuls les patches appliqués sont\n"
 "pris en compte.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tAnnote le fichier tel qu'il se trouve après application du patch\n"
 "\tspécifié plutôt que d'aller jusqu'au patch au sommet.\n"
 
@@ -613,9 +613,9 @@ msgstr "Texte ajouté à la fin de l'en-tête du patch %s\\n"
 
 #: quilt/import.in:22
 msgid ""
-"Usage: quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+"Usage: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchfile ...\\n"
 msgstr ""
-"Usage : quilt import [-p num] [-n patch] [-f] [-d {o|a|n}] "
+"Usage : quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] "
 "fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
@@ -627,7 +627,7 @@ msgid ""
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
 "\n"
-"-n patch\n"
+"-P patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
@@ -647,7 +647,7 @@ msgstr ""
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
 "\tpatch (1 par défaut).\n"
 "\n"
-"-n patch\n"
+"-P patch\n"
 "\tNom de fichier à utiliser au sein de quilt. Cette option ne peut être\n"
 "\tutilisée que lors de l'import d'un patch unique.\n"
 "\n"
@@ -669,9 +669,9 @@ msgstr ""
 "Veuillez utiliser -d {o|a|n} pour spécifier quel(s) en-tête(s) conserver.\\n"
 
 #: quilt/import.in:124
-msgid "Option \\`-n' can only be used when importing a single patch\\n"
+msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr ""
-"L'option « -n » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
+"L'option « -P » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
 
 #: quilt/import.in:144
 msgid "Patch %s is applied\\n"
@@ -1151,8 +1151,8 @@ msgid "Refreshed patch %s\\n"
 msgstr "Patch %s rafraîchi\\n"
 
 #: quilt/remove.in:22
-msgid "Usage: quilt remove [-p patch] {file} ...\\n"
-msgstr "Usage : quilt remove [-p patch] {fichier} ...\\n"
+msgid "Usage: quilt remove [-P patch] {file} ...\\n"
+msgstr "Usage : quilt remove [-P patch] {fichier} ...\\n"
 
 #: quilt/remove.in:25
 msgid ""
@@ -1160,15 +1160,15 @@ msgid ""
 "Remove one or more files from the topmost or named patch.  Files that\n"
 "are modified by patches on top of the specified patch cannot be removed.\n"
 "\n"
-"-p patch\n"
-"\tPatch to remove files from.\n"
+"-P patch\n"
+"\tRemove named files from the named patch.\n"
 msgstr ""
 "\n"
 "Retire un ou plusieurs fichiers du patch au sommet ou du patch spécifié.\n"
 "Des fichiers modifiés par des patches plus haut dans la série ne peuvent\n"
 "pas être retirés. \n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch duquel les fichiers doivent être retirés.\n"
 
 #: quilt/remove.in:73
@@ -1184,21 +1184,21 @@ msgid "File %s removed from patch %s\\n"
 msgstr "Le fichier %s a été enlevé du patch %s.\\n"
 
 #: quilt/rename.in:22
-msgid "Usage: quilt rename [-p patch] new_name\\n"
-msgstr "Usage : quilt rename [-p patch] nouveau_nom\\n"
+msgid "Usage: quilt rename [-P patch] new_name\\n"
+msgstr "Usage : quilt rename [-P patch] nouveau_nom\\n"
 
 #: quilt/rename.in:25
 msgid ""
 "\n"
 "Rename the topmost or named patch.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch to rename.\n"
 msgstr ""
 "\n"
 "Renomme le patch au sommet ou spécifié.\n"
 "\n"
-"-p patch\n"
+"-P patch\n"
 "\tPatch à renommer.\n"
 
 #: quilt/rename.in:84

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 27 05:55:11 CET 2006 - agruen@suse.de
+
+- Unify existing -p and -n parameters that specify a patch:
+  always use -P as the option name. Update test suite and the
+  translations accordingly. Patch mostly from Gary V. Vaughan.
+
+-------------------------------------------------------------------
 Thu Jan 26 22:51:10 CET 2006 - khali@linux-fr.org
 
 - po/fr.po: Update French translation.

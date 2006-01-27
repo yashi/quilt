@@ -19,14 +19,14 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt annotate [-p patch] {file}\n"
+	printf $"Usage: quilt annotate [-P patch] {file}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Print an annotated listing of the specified file showing which
 patches modify which lines. Only applied patches are included.
 
--p patch
+-P patch
 	Stop checking for changes at the specified rather than the
 	topmost patch.
 "
@@ -85,7 +85,7 @@ merge_files()
 	exec 4<&-
 }
 
-options=`getopt -o p:h -- "$@"`
+options=`getopt -o P:h -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -97,7 +97,7 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
-	-p)
+	-P)
 		opt_patch="$2"
 		shift 2 ;;
 	-h)
