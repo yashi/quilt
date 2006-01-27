@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan 27 06:42:19 CET 2006 - agruen@suse.de
+
+- po/ja.po: Translation update from Yasushi.
+
+-------------------------------------------------------------------
 Fri Jan 27 06:29:02 CET 2006 - agruen@suse.de
 
 - Stop using bash <(...) process substitution: it triggers bugs
