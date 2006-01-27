@@ -665,7 +665,8 @@ msgstr "Les en-têtes des patches diffèrent :\\n"
 
 #: quilt/import.in:71
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
-msgstr "Veuillez utiliser -d {o|a|n} pour spécifier quel(s) en-tête(s) conserver.\\n"
+msgstr ""
+"Veuillez utiliser -d {o|a|n} pour spécifier quel(s) en-tête(s) conserver.\\n"
 
 #: quilt/import.in:124
 msgid "Option \\`-n' can only be used when importing a single patch\\n"
@@ -954,7 +955,7 @@ msgid ""
 "\n"
 "--interactive\n"
 "\tAllow the patch utility to ask how to deal with conflicts. If\n"
-"\tthis option is not given, the -f option will be passed to the \n"
+"\tthis option is not given, the -f option will be passed to the\n"
 "\tpatch program.\n"
 "\n"
 "--color[=always|auto|never]\n"

@@ -67,14 +67,14 @@ files_may_have_changed()
 {
 	local patch=$1 file
 	local patch_file=$(patch_file_name $patch)
-	
+
 	if [ $? -ne 0 -o ! -e "$patch_file" \
 	     -o ! -e "$QUILT_PC/$patch/.timestamp" \
 	     -o "$QUILT_PC/$patch/.timestamp" -ot "$patch_file" ]
 	then
 		return 0
 	fi
-	
+
 	for file in $(files_in_patch $patch)
 	do
 		[ "$QUILT_PC/$patch/.timestamp" -ot $file ] && return 0
@@ -108,7 +108,7 @@ check_for_pending_changes()
 		find $workdir -type f -size 0 -exec rm -f '{}' ';'
 
 	fi
-	
+
 	if [ -s $patch_file ]
 	then
 		if ! cat_file $patch_file \
@@ -125,7 +125,7 @@ check_for_pending_changes()
 			fi
 		fi
 	fi
-	
+
 	local file failed
 	for file2 in $(files_in_patch $patch)
 	do
@@ -134,7 +134,7 @@ check_for_pending_changes()
 		[ -e $file2 ] || file2=/dev/null
 		diff -q $file $file2 > /dev/null || failed=1
 	done
-	
+
 	if [ -n "$failed" ]
 	then
 		printf $"Patch %s does not remove cleanly (refresh it or enforce with -f)\n" \

@@ -67,7 +67,7 @@ patch=$(find_applied_patch "$opt_patch") || exit 1
 
 status=0
 for file in $*
-do	
+do
 	if ! file_in_patch $SUBDIR$file $patch
 	then
 		printf $"File %s is not in patch %s\n" \
@@ -101,7 +101,7 @@ do
 		# patch permanently.
 		touch $QUILT_PC/$patch~refresh
 	fi
-	
+
 	printf $"File %s removed from patch %s\n" \
 	       "$SUBDIR$file" "$(print_patch $patch)"
 done

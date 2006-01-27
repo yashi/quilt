@@ -46,7 +46,7 @@ be used.
 
 --interactive
 	Allow the patch utility to ask how to deal with conflicts. If
-	this option is not given, the -f option will be passed to the 
+	this option is not given, the -f option will be passed to the
 	patch program.
 
 --color[=always|auto|never]
@@ -92,7 +92,7 @@ push_patch_args()
 {
 	local patch=$1
 
-	if [ -z "$opt_reverse" ] 
+	if [ -z "$opt_reverse" ]
 	then
 		patch_args "$patch"
 	else
@@ -198,7 +198,7 @@ add_patch()
 		else
 			touch $QUILT_PC/$patch~refresh
 		fi
-		
+
 		if [ -e "$QUILT_PC/$patch" ]
 		then
 			touch $QUILT_PC/$patch/.timestamp

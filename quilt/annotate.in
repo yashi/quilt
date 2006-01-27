@@ -156,7 +156,7 @@ trap "rm -f $template" EXIT
 # (which has no context, and removes lines that are removed without
 # caring for the line's contents) is generated. In that diff, all line
 # additions are replaced with the identifier of the patch (1, 2, ...).
-# These patches are then applied to the empty file. 
+# These patches are then applied to the empty file.
 #
 # Finally, the annotations listing is merged with the source file line
 # by line.

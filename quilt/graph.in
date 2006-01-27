@@ -86,7 +86,7 @@ do
 	--lines)
 		opt_lines=${2:-2}
 		shift 2 ;;
-		
+
 	--edge-labels)
 		if [ "$2" != files ]
 		then

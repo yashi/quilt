@@ -65,7 +65,7 @@ fi
 if version_check
 then
 	printf $"The quilt meta-data in %s are already in the version %s format; nothing to do\n" "$QUILT_PC/" "$DB_VERSION"
-	exit 0	
+	exit 0
 fi
 
 printf $"Converting meta-data to version %s\n" "$DB_VERSION"

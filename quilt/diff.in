@@ -22,7 +22,7 @@ setup_colors
 usage()
 {
 	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] [--color] [file ...]\n"
-	
+
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -100,7 +100,7 @@ do_diff()
 		new_file=$old_file
 		old_file=$f
 	fi
-	
+
 	if [ -n "$opt_diff" ]
 	then
 		[ -s "$old_file" ] || old_file=/dev/null
@@ -327,7 +327,7 @@ then
 			# the patch will fail. Also, if a patch was force
 			# applied, we know that it won't apply cleanly. In
 			# all other cases, print a warning.
-			
+
 			if [ ! -e $QUILT_PC/$last_patch~refresh -a \
 			       ${#opt_files[@]} -eq 0 ]
 			then

@@ -154,7 +154,7 @@ else
 
 	maybe_strip_diffstat < $tmp \
 	| maybe_strip_trailing_whitespace > $tmp2
-	
+
 	cat_file "$patch_file_or_null" | patch_body >> $tmp2 || exit 1
 
 	if ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
