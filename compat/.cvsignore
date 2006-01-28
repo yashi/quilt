@@ -1,4 +1,5 @@
 awk
+bash
 column
 diffstat
 getopt
