@@ -117,7 +117,7 @@ do_diff()
 	fi
 }
 
-die ()
+die()
 {
 	local status=$1
 	[ -e "$tmp_files" ] && rm -f $tmp_files

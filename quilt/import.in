@@ -86,7 +86,7 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 	rm -f $old_desc $new_desc
 }
 
-die ()
+die()
 {
 	local status=$1
 	[ "$merged_patch_file" != "$patch_file" ] && rm -f "$merged_patch_file"

@@ -69,7 +69,7 @@ patch.
 	fi
 }
 
-die ()
+die()
 {
 	local status=$1
 	[ -n "$tmp_patch" ] && rm -f $tmp_patch
