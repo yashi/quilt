@@ -607,7 +607,7 @@ msgstr ""
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:273 quilt/push.in:368
+#: quilt/pop.in:273 quilt/push.in:371
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -679,15 +679,15 @@ msgstr ""
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:226
+#: quilt/push.in:228
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:229
+#: quilt/push.in:231
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:348
+#: quilt/push.in:351
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 

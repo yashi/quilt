@@ -896,7 +896,7 @@ msgstr "Kein Patch entfernt\\n"
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
-#: quilt/pop.in:273 quilt/push.in:368
+#: quilt/pop.in:273 quilt/push.in:371
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -998,15 +998,15 @@ msgstr "Patch %s scheint leer zu sein; angewandt\\n"
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Patch %s angewandt (erzwungen, muss aufgefrischt werden (Refresh))\\n"
 
-#: quilt/push.in:226
+#: quilt/push.in:228
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Patch %s kann verkehrt angewandt werden\\n"
 
-#: quilt/push.in:229
+#: quilt/push.in:231
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
-#: quilt/push.in:348
+#: quilt/push.in:351
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 

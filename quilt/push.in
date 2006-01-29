@@ -219,6 +219,8 @@ add_patch()
 		fi
 	else
 		rollback_patch $patch
+		tmp="$(gen_tempfile)"
+		no_reject_files="-r $tmp"
 		opt_reverse=1
 		if apply_patch $patch "$patch_file" > /dev/null 2> /dev/null
 		then
@@ -229,6 +231,7 @@ add_patch()
 			printf $"Patch %s does not apply (enforce with -f)\n" \
 			       "$(print_patch $patch)"
 		fi
+		rm -f $tmp
 		status=1
 	fi
 	trap - SIGINT

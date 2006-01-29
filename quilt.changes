@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jan 29 12:19:24 CET 2006 - khali@linux-fr.org
+
+- quilt/push.in: Fix a temporary file leak and vulnerability.
+
+-------------------------------------------------------------------
 Sun Jan 29 10:48:48 CET 2006 - khali@linux-fr.org
 
 - quilt/scripts/patchfns.in: Drop an unused local variable in
