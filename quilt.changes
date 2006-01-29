@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jan 29 21:17:10 CET 2006 - khali@linux-fr.org
+
+- quilt/files.in, bash_completion: Command files only works on
+  applied patches.
+
+-------------------------------------------------------------------
 Sun Jan 29 15:40:47 CET 2006 - khali@linux-fr.org
 
 - quilt/patches.in, quilt/refresh.in: Update usage line.

@@ -175,7 +175,7 @@ _quilt_completion()
 		COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
-		COMPREPLY=( $( compgen -W "-a -l -v -h --combine $(quilt series)" -- $cur ) )
+		COMPREPLY=( $( compgen -W "-a -l -v -h --combine $(quilt applied)" -- $cur ) )
 		;;
 	   esac
 	   ;;

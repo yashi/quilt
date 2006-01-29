@@ -86,7 +86,7 @@ then
 	usage
 fi
 
-last_patch=$(find_patch_in_series "$1") || exit 1
+last_patch=$(find_applied_patch "$1") || exit 1
 
 if [ -n "$opt_all" -a -z "$first_patch" ]
 then
