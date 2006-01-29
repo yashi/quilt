@@ -113,9 +113,8 @@ sub process_test($$$$) {
 	   chomp $l;
 	   my $r = defined($result->[$n]) ? $result->[$n] : "~";
 	   chomp $r;
-	   print sprintf("%-" . ($width-3) .
-	   		 "s %s %-" . ($width-1) .
-			 "s\n", $r, $good[$n], $l);
+	   print sprintf("%-" . ($width-3) . "s %s %s\n",
+			 $r, $good[$n], $l);
          }
        }
 }
