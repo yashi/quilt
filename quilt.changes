@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Jan 29 10:48:48 CET 2006 - khali@linux-fr.org
+
+- quilt/scripts/patchfns.in: Drop an unused local variable in
+  function find_patch_file.
+- quilt/import.in: Add a missing print_patch call.
+- quilt/import.in: Fix several temporary file leaks.
+
+-------------------------------------------------------------------
 Fri Jan 27 06:42:19 CET 2006 - agruen@suse.de
 
 - po/ja.po: Translation update from Yasushi.

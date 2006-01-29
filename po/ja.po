@@ -203,7 +203,10 @@ msgid ""
 "Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
 "patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] "
 "[--color] [file ...]\\n"
-msgstr "使い方: quilt diff [-p n] [-u|-U 数|-c|-C 数] [--combine パッチ|-z] [-R] [-P パッチ] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] [--color] [ファイル ...]\\n"
+msgstr ""
+"使い方: quilt diff [-p n] [-u|-U 数|-c|-C 数] [--combine パッチ|-z] [-R] [-P "
+"パッチ] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--"
+"sort] [--color] [ファイル ...]\\n"
 
 #: quilt/diff.in:28
 msgid ""
@@ -538,7 +541,9 @@ msgstr ""
 msgid ""
 "Usage: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
 "trailing-whitespace] [patch]\\n"
-msgstr "使い方: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-trailing-whitespace] [パッチ]\\n"
+msgstr ""
+"使い方: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
+"trailing-whitespace] [パッチ]\\n"
 
 #: quilt/header.in:28
 msgid ""
@@ -639,39 +644,39 @@ msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 "どのパッチヘッダを残すか、オプション -d {o|a|n}を使って指定してください"
 
-#: quilt/import.in:125
+#: quilt/import.in:133
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-P'は、パッチを一つだけ取り込むときのみ有効です\\n"
 
-#: quilt/import.in:145
+#: quilt/import.in:153
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:154
+#: quilt/import.in:162
 msgid "Patch %s already exists in series.\\n"
 msgstr "パッチ %s は、すでに seriesの中にあります\\n"
 
-#: quilt/import.in:160
+#: quilt/import.in:168
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます\\n"
 
-#: quilt/import.in:171
+#: quilt/import.in:179
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:175
+#: quilt/import.in:183
 msgid "Importing patch %s\\n"
 msgstr "パッチ %s を取り込みます\\n"
 
-#: quilt/import.in:177
+#: quilt/import.in:185
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:187
+#: quilt/import.in:195
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:194
+#: quilt/import.in:204
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 
@@ -993,7 +998,9 @@ msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 msgid ""
 "Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] "
 "[--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
-msgstr "使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [パッチ]\\n"
+msgstr ""
+"使い方: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
+"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [パッチ]\\n"
 
 #: quilt/refresh.in:26
 msgid ""

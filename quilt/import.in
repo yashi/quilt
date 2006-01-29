@@ -69,6 +69,7 @@ merge_patches()
 				echo "$diff" >&2
 				printf \
 $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
+				rm -f $old_desc $new_desc
 				return 1
 			fi
 		fi
@@ -83,6 +84,13 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 		cat "$new"
 	fi
 	rm -f $old_desc $new_desc
+}
+
+die ()
+{
+	local status=$1
+	[ "$merged_patch_file" != "$patch_file" ] && rm -f "$merged_patch_file"
+	exit $status
 }
 
 options=`getopt -o P:d:fp:h -- "$@"`
@@ -142,7 +150,7 @@ do
 
 	if is_applied $patch
 	then
-		printf $"Patch %s is applied\n" "$patch" >&2
+		printf $"Patch %s is applied\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
 
@@ -166,7 +174,7 @@ do
 			merged_patch_file=$(gen_tempfile)
 			merge_patches "$dest" "$patch_file" \
 				      > $merged_patch_file \
-				|| exit 1
+				|| die 1
 		fi
 		printf $"Replacing patch %s with new version\n" \
 		       "$(print_patch $patch)" >&2
@@ -185,8 +193,10 @@ do
 	   ! cp "$merged_patch_file" "$dest"
 	then
 		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
-		exit 1
+		die 1
 	fi
+
+	[ "$merged_patch_file" != "$patch_file" ] && rm -f "$merged_patch_file"
 
 	if ! patch_in_series $patch &&
 	   ! insert_in_series $patch "$patch_args"
@@ -197,7 +207,6 @@ do
 	fi
 
 	rm -rf $QUILT_PC/$patch
-	[ "$merged_patch_file" != "$patch_file" ] && rm -f "$merged_patch_file"
 done
 
 ### Local Variables:
