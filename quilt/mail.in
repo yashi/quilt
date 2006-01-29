@@ -27,8 +27,16 @@ usage()
 		printf $"
 Create mail messages from all patches in the series file, and either store
 them in a mailbox file, or send them immediately. The editor is opened
-with a template for the introductory message. Please see the file
-%s for details.
+with a template for the introduction. Please see %s for details.
+
+-m text
+	Text to use as the text in the introduction. When this option is
+	used, the editor will not be invoked, and the patches will be
+	processed immediately.
+
+--prefix prefix
+	Use an alternate prefix in the bracketed part of the subjects
+	generated. Defaults to \`patch'.
 
 --mbox file
 	Store all messages in the specified file in mbox format. The mbox
@@ -84,8 +92,9 @@ process_mail()
 	rm -f $tmpfile
 }
 
-options=`getopt -o h --long from:,to:,cc:,bcc:,subject: \
-		     --long send,mbox:,charset:,sender: -- "$@"`
+options=`getopt -o m:h --long from:,to:,cc:,bcc:,subject: \
+		       --long send,mbox:,charset:,sender: \
+		       --long prefix: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -94,9 +103,13 @@ fi
 
 eval set -- "$options"
 
+opt_prefix=patch
 while true
 do
 	case "$1" in
+	-m)
+		opt_message=$2
+		shift 2 ;;
 	--sender)
 		opt_sender=$2
 		shift 2 ;;
@@ -114,6 +127,9 @@ do
 		shift 2 ;;
 	--subject)
 		opt_subject=$2
+		shift 2 ;;
+	--prefix)
+		opt_prefix=$2
 		shift 2 ;;
 	--send)
 		opt_send=1
@@ -162,15 +178,138 @@ fi
 
 if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 	quilt_mail_patch_filter() {
-		echo  # We don't have a mail header
-		cat
-		# We could quote everything that looks like a mail
-		# header instead:
-		#sed -e $'s/^[\41-\176]\\+:/>&/'
+		local patch=$(cat)
+		local header=$(echo "$patch" | patch_header) body
+		local -a mh
+
+		# Does this patch have a Subject: line?
+		local subject=$(echo $(echo "$header" \
+				| sed -n -e '/^$/q' \
+					 -e $'s/^Subject:[ \\t]//ip'))
+		if [ -n "$subject" ]
+		then
+			mh=( "Replace-Subject: $subject" )
+			body=$(echo "$patch" | awk '
+				in_body		{ print }
+				/^$/		{ in_body = 1 }
+				')
+		fi
+
+		# Does this patch have DESC // subject // EDESC?
+		if [ ${#mh[@]} -eq 0 ]
+		then
+			local desc=$(echo $(echo "$header" | awk '
+				/^EDESC\>/	{ desc = 0 }
+				desc		{ print }
+				/^DESC\>/	{ desc = 1 }
+				'))
+			if [ -n "$desc" ]
+			then
+				mh=( "Replace-Subject: $desc" )
+				body=$(echo "$patch" | awk '
+					/^DESC/		{ desc = 1 }
+					! desc		{ print }
+					/^EDESC/	{ desc = 0 }
+					')
+			fi
+		fi
+
+		# Does the first paragraph look like a mail header?
+		if [ ${#mh[@]} -eq 0 ]
+		then
+			if echo "$header" | awk '
+				/^$/	{ exit (!mh || not_mh) }
+				END	{ exit (!mh || not_mh) }
+				{ if ($0 ~ /^[a-z]+:[ \t]/i)
+				    mh = 1
+				  else
+				    not_mh = 1
+				}'
+			then
+				return 1
+			fi
+		fi
+
+		# Is the first paragraph short enough to be used as the subject?
+		if [ ${#mh[@]} -eq 0 ]
+		then
+			local para=$(echo $(echo "$header" \
+					    | sed -e $'/^[ \t]*$/q'))
+			if [ ${#para} > 0 -a ${#para} -lt 150 ]
+			then
+				mh=( "Replace-Subject: $para" )
+				body="$(echo "$patch" | awk '
+					in_body		{ print }
+					/^[ \t]*$/	{ in_body = 1 }
+					')"
+			fi
+		fi
+
+		#if ${#mh[@]} -eq 0 ]
+		#then
+		#	# Use the patch name as the subject.
+		#	mh=( "Replace-Subject: $1" )
+		#	body=$patch
+		#fi
+
+		if [ ${#mh[@]} -eq 0 ]
+		then
+			return 1
+		fi
+
+		# Add recipients defined by some recognized keywords
+		local saved_IFS=$IFS; IFS=$'\n'
+		mh=( "${mh[@]}" 
+		     $(echo "$header" \
+		       | sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
+				-e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
+				-e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip') )
+		IFS=$saved_IFS
+
+		printf "%s\n" "${mh[@]}"
+		echo
+		echo "$body"
 	}
 fi
 
-introduction=$(gen_tempfile)
+patches=( $(cat_series) )
+total=${#patches[@]}
+
+tmpdir=$(gen_tempfile -d)
+trap "rm -rf $tmpdir" EXIT
+
+for patch in "${patches[@]}"
+do
+	mkdir -p "$tmpdir/$(dirname "$patch")"
+	cat_file "$(patch_file_name "$patch")" \
+	| quilt_mail_patch_filter "$patch" > "$tmpdir/$patch"
+	status=${PIPESTATUS[1]}
+
+	subject=$(echo $(sed -n -e '/^$/q' \
+				-e $'s/^Replace-Subject:[ \t]*//ip' \
+			     "$tmpdir/$patch"))
+	if [ $status -ne 0 -o -z "$subject" ]
+	then
+		printf \
+$"Unable to extract a subject header from %s\n" "$(print_patch "$patch")" >&2
+		rm -rf $tmpdir
+		exit 1
+	fi
+	subjects[${#subjects[@]}]="$patch"$'\t'"$subject"
+done
+
+dup_subjects=( $(
+	printf "%s\n" "${subjects[@]}" \
+	| sort -k2 \
+	| uniq -D -f1 \
+	| cut -f1) )
+if [ ${#dup_subjects[@]} -ne 0 ]; then
+	printf $"Patches %s have duplicate subject headers.\n" \
+	       "$(set -- "${dup_subjects[*]/%/, }"; echo ${1%, })"
+	exit 1
+fi
+
+introduction="$(gen_tempfile)"
 (
 	cat <<-EOF
 	Message-Id: <$(msgid)>
@@ -180,18 +319,40 @@ introduction=$(gen_tempfile)
 	To: $(IFS=,; echo "${opt_to[*]}")
 	Cc: $(IFS=,; echo "${opt_cc[*]}")
 	Bcc: $(IFS=,; echo "${opt_bcc[*]}")
-	Subject-Prefix: [patch @num@/@total@]
+	Subject-Prefix: [$opt_prefix @num@/@total@]
 	Subject: $opt_subject
 
-	--
 	EOF
+	if [ -n "$opt_message" ]
+	then
+		echo "$opt_message"
+		echo
+	fi
+	echo "--"
 	[ -r $HOME/.signature ] && cat $HOME/.signature
 ) | $QUILT_DIR/scripts/edmail --charset $opt_charset > $introduction
 
-$EDITOR $introduction || exit 1
+if [ -z "$opt_message" ]
+then
+	if ! $EDITOR $introduction; then
+		rm -f $introduction
+		exit 1
+	fi
+fi
 
-set -- $(cat_series)
-total=$#
+if [ -z "$(sed -n -e '/^$/q' \
+		  -e $'s/^Subject:[ \t]*//ip' \
+	       $introduction)" ]
+then
+	if [ -z "$opt_message" ]
+	then
+		printf $"Introduction has no subject header (saved as %s)\n" \
+			"$introduction" >&2
+	else
+		printf $"Introduction has no subject header\n"
+	fi
+	exit 1
+fi
 
 if [ -n "$opt_mbox" ]; then
 	exec 1> $opt_mbox
@@ -222,8 +383,8 @@ fi
 last_ts=$(date '+%s' -d "$(sed -ne $'s/^Date:[ \t]*//p' $introduction)")
 
 num=1
-body=$(gen_tempfile)
-for patch in "$@"; do
+for patch in "${patches[@]}"; do
+	body=$tmpdir/$patch
 	#echo -n '.' >&2
 	# Timestamps that are a few seconds in the future don't hurt usually
 	#while [ $(date '+%s') -le $last_ts ]; do
@@ -232,8 +393,6 @@ for patch in "$@"; do
 	((last_ts++))
 	new_date="$(date --rfc-822 -d "1970/01/01 UTC $last_ts seconds")"
 
-	cat_file $(patch_file_name $patch) \
-	| quilt_mail_patch_filter $patch > $body
 	modify="$(awk '
 	sub(/^Recipient-/, "")	{ r = $0
 				  sub(/:.*/, "", r)
@@ -245,7 +404,7 @@ for patch in "$@"; do
 	sub(/^Replace-/, "")	{ r = $0
 				  sub(/:.*/, "", r)
 				  s = $0
-				  sub(/^[^:]*:[ \t]*/, s)
+				  sub(/^[^:]*:[ \t]*/, "", s)
 				  gsub(/'\''/, "'\'\''", s)
 				  print "--replace-header " r "='\''" s "'\''"
 				}
@@ -277,8 +436,7 @@ for patch in "$@"; do
 	| process_mail
 
 	if [ ${PIPESTATUS[1]} -ne 0 ]; then
-		echo "Introductory message saved as $introduction" >&2
-		rm -f $body
+		printf $"Introduction saved as %s\n" "$introduction" >&2
 		exit 1
 	fi
 
@@ -296,8 +454,7 @@ for patch in "$@"; do
 
 	((num++))
 done
-rm -f $introduction $body
-#echo >&2
+rm -f $introduction
 ### Local Variables:
 ### mode: shell-script
 ### End:

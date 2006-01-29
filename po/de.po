@@ -357,6 +357,7 @@ msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 msgstr "Verwendung: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 
 #: quilt/files.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
@@ -369,8 +370,8 @@ msgid ""
 "\n"
 "--combine patch\n"
 "\tCreate a listing for all patches between this patch and\n"
-"\tthe topmost applied patch. A patch name of \\\"-\\\" is equivalent\n"
-"\tto specifying the first applied patch.\n"
+"\tthe topmost or specified patch. A patch name of \\\"-\\\" is\n"
+"\tequivalent to specifying the first applied patch.\n"
 "\n"
 msgstr ""
 "\n"
@@ -715,8 +716,16 @@ msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
 "them in a mailbox file, or send them immediately. The editor is opened\n"
-"with a template for the introductory message. Please see the file\n"
-"%s for details.\n"
+"with a template for the introduction. Please see %s for details.\n"
+"\n"
+"-m text\n"
+"\tText to use as the text in the introduction. When this option is\n"
+"\tused, the editor will not be invoked, and the patches will be\n"
+"\tprocessed immediately.\n"
+"\n"
+"--prefix prefix\n"
+"\tUse an alternate prefix in the bracketed part of the subjects\n"
+"\tgenerated. Defaults to \\`patch'.\n"
 "\n"
 "--mbox file\n"
 "\tStore all messages in the specified file in mbox format. The mbox\n"
@@ -739,9 +748,17 @@ msgstr ""
 "\n"
 "Erzeuge E-Mail-Nachrichten für alle Patches in der series-Datei, und\n"
 "speichere sie in einer Mailbox-Datei, oder versende sie sofort. Der Editor\n"
-"wird mit der Vorlage einer Einleitungs-Nachricht geöffnet. Für Details "
-"siehe\n"
+"wird mit der Vorlage einer Einleitung geöffnet. Für Details siehe\n"
 "%s.\n"
+"\n"
+"-m text\n"
+"\tText, der für die Einleitung verwendet werden soll. Wenn\n"
+"\tdiese Option verwendet wird, wird der Editor nicht gestartet, und\n"
+"\tdie Patches werden sofort abgearbeitet.\n"
+"\n"
+"--prefix Prefix\n"
+"\tVerwende einen anderen Prefix als \\`patch' in dem eckig umklammerten\n"
+"\tText in der Subject-Kopfzeile.\n"
 "\n"
 "--mbox datei\n"
 "\tAlle Nachrichten in der angegebenen Datei im mbox-Format speichern. Die\n"
@@ -760,10 +777,30 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
-#: quilt/mail.in:145
+#: quilt/mail.in:161
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
+
+#: quilt/mail.in:294
+msgid "Unable to extract a subject header from %s\\n"
+msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
+
+#: quilt/mail.in:307
+msgid "Patches %s have duplicate subject headers.\\n"
+msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
+
+#: quilt/mail.in:349
+msgid "Introduction has no subject header (saved as %s)\\n"
+msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
+
+#: quilt/mail.in:352
+msgid "Introduction has no subject header\\n"
+msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
+
+#: quilt/mail.in:439
+msgid "Introduction saved as %s\\n"
+msgstr "Einleitung gespeichert als %s\\n"
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"

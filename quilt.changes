@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sun Jan 29 22:46:14 CET 2006 - agruen@suse.de
+
+- quilt/mail.in:
+  + Add -m and --prefix options so that the mail command can be
+    used without invoking an editor. 
+  + Verify that each message generated will have a unique subject.
+  + Verify that the introduction has a subject header.
+  + Fix a bug in the heuristic for adding recipients.
+  + Add a heuristic for extracting subject headers
+  + Clarify some messages.
+  + Add a test case.
+  + Update the documentation.
+
+-------------------------------------------------------------------
 Sun Jan 29 22:30:57 CET 2006 - agruen@suse.de
 
 - Makefile.in: Add a missing dependency.

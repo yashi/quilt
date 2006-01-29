@@ -1,0 +1,85 @@
+	$ rm -rf d
+	$ mkdir -p d/patches
+	$ cd d
+
+	$ cat > no-subject
+	< Here goes a longer description of the patch, which is
+	< totally useless except as a test case for the quilt mail
+	< command. This paragraph is longer than 150 characters so
+	< that it won't be taken for a subject header itself.
+	<
+	< Index: anything
+
+	$ cat no-subject > patches/1.diff
+	$ ls patches/ > series
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
+	> Unable to extract a subject header from patches/1.diff
+
+	$ cat /dev/stdin no-subject > patches/1.diff
+	< Subject: Subject of 1.diff
+	<
+	< Acked-by: Dummy <dummy@some.where>
+	<
+
+	$ quilt mail --mbox mbox --prefix "test" -m "Message"
+	> Introduction has no subject header
+
+	$ cat /dev/stdin no-subject > patches/2.diff
+	< DESC
+	< Subject of 2.diff
+	< is: split
+	< into multiple
+	< lines
+	< EDESC
+	<
+	< Signed-off-by: Dummy <dummy@some.where>
+	<
+
+	$ cat /dev/stdin no-subject > patches/3.diff
+	< Subject of 3.diff
+	<
+	< To: Dummy <dummy@some.where>
+	<
+
+	$ cat /dev/stdin no-subject > patches/4.diff
+	< First paragraph used as
+	< subject of 4.diff.
+	<
+	< Cc: Dummy <dummy@some.where>
+	<
+
+	$ cat /dev/stdin no-subject > patches/5.diff
+	< Subject of 1.diff
+	<
+
+	$ ls patches/ > series
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
+	> Patches 1.diff, 5.diff have duplicate subject headers.
+
+	$ cat /dev/stdin no-subject > patches/5.diff
+	< Subject of 5.diff
+	<
+
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
+	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^--$' mbox
+	> Subject: [test 0/5] This is a test
+	> --
+	> Cc: Dummy <dummy@some.where>
+	> Subject: [test 1/5] Subject of 1.diff
+	> --
+	> Cc: Dummy <dummy@some.where>
+	> Subject: [test 2/5] Subject of 2.diff is: split into multiple lines
+	> --
+	> To: Dummy <dummy@some.where>
+	> Subject: [test 3/5] Subject of 3.diff
+	> To: Dummy <dummy@some.where>
+	> --
+	> Cc: Dummy <dummy@some.where>
+	> Subject: [test 4/5] First paragraph used as subject of 4.diff.
+	> Cc: Dummy <dummy@some.where>
+	> --
+	> Subject: [test 5/5] Subject of 5.diff
+	> --
+
+	$ cd ..
+	$ rm -rf d
