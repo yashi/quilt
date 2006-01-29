@@ -33,7 +33,7 @@ introduction.  Quilt does not enforce a specific patch file format. The
 mail command has a built-in heuristic for extracting subjects from
 patches, though:
 
-    * if The patch starts with something that looks like a mail
+    * if the patch starts with something that looks like a mail
       header, and there is a Subject header, use this as the subject,
       or else
 
