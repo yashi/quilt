@@ -44,7 +44,8 @@ patches, though:
       (150 characters or less), use the first paragraph as the
       subject.
 
-All literal "[patch]" strings are stripped from subject headers as well.
+All bracketed fields and Fwd:, Fw:, Re:, Aw: are stripped from subject
+headers as well.
 
 If no subject can be extracted from a patch, or there are duplicate
 subjects, the mail command will print an error message and abort.
