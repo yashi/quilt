@@ -357,7 +357,6 @@ msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 msgstr "Verwendung: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 
 #: quilt/files.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
@@ -385,8 +384,8 @@ msgstr ""
 "-v\tAusführlichere, benutzerfreundliche Ausgabe.\n"
 "\n"
 "--combine patch\n"
-"\tErzeige eine Liste für alle Patches zwischen dem angegebenen Patch und\n"
-"\tdem angegebenen oder obersten Patch am Stack. Der Patchname \\\"-\\\"\n"
+"\tErzeige eine Liste für alle Patches zwischen diesem und dem obersten\n"
+"\toder angegebenen Patch am Stack. Der Patchname \\\"-\\\"\n"
 "\tentspricht dem ersten angewandten Patch.\n"
 "\n"
 
