@@ -386,8 +386,8 @@ msgstr ""
 "\n"
 "--combine patch\n"
 "\tErzeige eine Liste für alle Patches zwischen dem angegebenen Patch und\n"
-"\tdem obersten Patch am Stack. Der Patchname \\\"-\\\" entspricht dem\n"
-"\tersten angewandten Patch.\n"
+"\tdem angegebenen oder obersten Patch am Stack. Der Patchname \\\"-\\\"\n"
+"\tentspricht dem ersten angewandten Patch.\n"
 "\n"
 
 #: quilt/fold.in:22
