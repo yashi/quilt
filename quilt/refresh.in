@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
+	printf $"Usage: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
 
 	if [ x$1 = x-h ]
 	then

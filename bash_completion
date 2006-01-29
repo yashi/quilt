@@ -96,7 +96,7 @@ _quilt_completion()
 
     # quilt sub commands 
     cmds='add annotate applied delete diff edit files fold fork graph \
-          grep header import new next patches pop previous push refresh \
+          grep header import mail new next patches pop previous push refresh \
 	  remove rename series setup snapshot top unapplied'
 
     # if no command were given, complete on commands
@@ -122,23 +122,23 @@ _quilt_completion()
     case ${command_matches[0]} in
 	add)
 	   case $prev in
-	     -p)
+	     -P)
  	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
 	        _quilt_comfile
-	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
 	        ;;
 	   esac
 	   ;;
 	annotate)
 	   case $prev in
-	     -p)
+	     -P)
  	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
 	        _quilt_comfile
-	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
 	        ;;
 	   esac
 	   ;;
@@ -153,15 +153,15 @@ _quilt_completion()
 	     -p)
  	        COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
 		;;
-	     -P|-c)
+	     -P|--combine)
 	     	COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
-	     --diff|--snapshot)
+	     --diff|-U|-C)
 	        COMREPLY=(  )
 		;;
 	     *)
 	        _filedir 
-	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -P -c -R -z -h --snapshot --diff --no-timestamps" -- $cur ) )
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --sort" -- $cur ) )
 	        ;;
 	   esac
 	   ;;
@@ -170,7 +170,14 @@ _quilt_completion()
 	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
 	   ;;
 	files)
-	   COMPREPLY=( $( compgen -W "-v -h $(quilt series)" -- $cur ) )
+	   case $prev in
+	     --combine)
+		COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
+		;;
+	     *)
+		COMPREPLY=( $( compgen -W "-a -l -v -h --combine $(quilt series)" -- $cur ) )
+		;;
+	   esac
 	   ;;
 	fold)
 	   case $prev in
@@ -186,7 +193,17 @@ _quilt_completion()
 	  COMPREPLY=( )
 	  ;;
 	graph)
-	   COMPREPLY=( $( compgen -W "-h --all --reduce --lines --edge-labels $(quilt applied)" -- $cur ) )
+	   case $prev in
+	     -T)
+	     	COMPREPLY=( $( compgen -W "ps" -- $cur ) )
+		;;
+	     --edge-labels)
+	        COMPREPLY=( $( compgen -W "files" -- $cur ) )
+		;;
+	     *)
+		COMPREPLY=( $( compgen -W "-T -h --all --reduce --lines --edge-labels $(quilt applied)" -- $cur ) )
+		;;
+	   esac
 	   ;;
 	grep)
 	   _longopt grep
@@ -202,11 +219,17 @@ _quilt_completion()
 		;;
 	     -n)
 		;;
+	     -d)
+		COMPREPLY=( $( compgen -W "o a n" -- $cur ) )
+		;;
 	     *)
 	        _quilt_comfile 
-	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -n -f -h" -- $cur ) )
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -n -f -d -h" -- $cur ) )
 	        ;;
 	   esac
+	   ;;
+	mail)
+	   COMPREPLY=( $( compgen -W "--mbox --send --sender --from --subject --to --cc --bcc" -- $cur ) )
 	   ;;
 	new)
 	   ;;
@@ -221,36 +244,38 @@ _quilt_completion()
 	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt applied)" -- $cur ) )
 	   ;;
 	push)
-	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h --leave-rejects --interactive $(quilt unapplied)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --leave-rejects --interactive --color $(quilt unapplied)" -- $cur ) )
 	   ;;
 	refresh)
 	   case $prev in
 	     -p)
  	        COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
 		;;
+	     -U|-C)
+		;;
 	     *)
-	     	COMPREPLY=( $( compgen -W "-p -f -h $(quilt applied)  --no-timestamps" -- $cur ) )
+	     	COMPREPLY=( $( compgen -W "-p -u -U -c -C -f -h $(quilt applied) --no-timestamps --no-index --diffstat --sort --backup --strip-trailing-whitespace" -- $cur ) )
 		;;
 	   esac
 	   ;;
 	remove)
 	   case $prev in
-	     -p)
+	     -P)
  	        COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     *)
 	        _quilt_comfile 
-	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -h" -- $cur ) )
+	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
 	 rename)
 	   case $prev in
-	     -p)
+	     -P)
 		COMPREPLY=( $( compgen -W "$(quilt series)" -- $cur ) )
 		;;
 	     *)
-		COMPREPLY=( $( compgen -W "-p" -- $cur ) )
+		COMPREPLY=( $( compgen -W "-P -h" -- $cur ) )
 		;;
 	   esac
 	   ;;

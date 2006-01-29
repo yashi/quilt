@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jan 29 15:40:47 CET 2006 - khali@linux-fr.org
+
+- quilt/patches.in, quilt/refresh.in: Update usage line.
+- bash_completion: Resync with quilt commands options.
+
+-------------------------------------------------------------------
 Sun Jan 29 12:19:24 CET 2006 - khali@linux-fr.org
 
 - quilt/push.in: Fix a temporary file leak and vulnerability.

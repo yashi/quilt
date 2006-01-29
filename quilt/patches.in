@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt patches {file}\n"
+	printf $"Usage: quilt patches [-v] {file}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"

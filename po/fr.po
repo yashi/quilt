@@ -809,8 +809,8 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/patches.in:22
-msgid "Usage: quilt patches {file}\\n"
-msgstr "Usage : quilt patches {fichier}\\n"
+msgid "Usage: quilt patches [-v] {file}\\n"
+msgstr "Usage : quilt patches [-v] {fichier}\\n"
 
 #: quilt/patches.in:25
 msgid ""
@@ -1027,11 +1027,13 @@ msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
 #: quilt/refresh.in:22
 msgid ""
-"Usage: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--diffstat] "
-"[--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
+"Usage: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--"
+"no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
+"[patch]\\n"
 msgstr ""
-"Usage : quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
-"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\\n"
+"Usage : quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--"
+"no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
+"[patch]\\n"
 
 #: quilt/refresh.in:26
 msgid ""
