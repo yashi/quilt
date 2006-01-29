@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jan 29 22:30:57 CET 2006 - agruen@suse.de
+
+- Makefile.in: Add a missing dependency.
+
+-------------------------------------------------------------------
 Sun Jan 29 21:17:10 CET 2006 - khali@linux-fr.org
 
 - quilt/files.in, bash_completion: Command files only works on
