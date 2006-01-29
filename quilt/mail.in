@@ -257,7 +257,9 @@ if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 			return 1
 		fi
 
-		mh[0]=$(echo "${mh[0]}" | sed -e $'s/\\[patch\\][ \t]*//i')
+		mh[0]=$(echo "${mh[0]}" \
+			| sed -e $'s/\\[[^]]*\\][ \t]*//gi' \
+			      -e $'s/\<\(fwd:\|fw:\|re:\|aw:\)[ \t]//gi')
 
 		# Add recipients defined by some recognized keywords
 		local saved_IFS=$IFS; IFS=$'\n'

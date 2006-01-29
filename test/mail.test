@@ -57,7 +57,7 @@
 	> Patches 1.diff, 5.diff have duplicate subject headers.
 
 	$ cat /dev/stdin no-subject > patches/5.diff
-	< [patch] Subject of 5.diff
+	< Aw: [patch] Fwd: Re: [patch 5/7] Fw: Subject of 5.diff
 	<
 
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"

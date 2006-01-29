@@ -754,23 +754,23 @@ msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:296
+#: quilt/mail.in:298
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:309
+#: quilt/mail.in:311
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:351
+#: quilt/mail.in:353
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:354
+#: quilt/mail.in:356
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:441
+#: quilt/mail.in:443
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
