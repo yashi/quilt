@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:32:29 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Tru64 does not have snprintf. (Reported by
+  John Vandenberg).
+
+-------------------------------------------------------------------
 Mon Jan 30 08:04:17 CET 2006 - khali@linux-fr.org
 
 - bash_completion: Update import and mail commands options.

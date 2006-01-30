@@ -384,22 +384,20 @@ foreachdir_rec(const char *path, struct stat *st,
 	DIR *dir;
 	struct dirent *dp;
 	int failed = 0;
-	char *p = malloc_nofail(PATH_MAX + 1);
+	char *p = malloc_nofail(PATH_MAX);
 
 	if (access(path, R_OK|X_OK) || !(dir = opendir(path)))
 		return walk(path, NULL);
 	while ((dp = readdir(dir))) {
-		int len;
-
 		if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, ".."))
 			continue;
-		len = snprintf(p, PATH_MAX + 1, "%s/%s", path, dp->d_name);
-		if (len > PATH_MAX || len < 0) {
+		if (strlen(path) + 1 + strlen(dp->d_name) + 1 > PATH_MAX) {
 			fprintf(stderr, "%s/%s: name too long\n", path,
 				dp->d_name);
 			failed = -1;
 			goto out;
 		}
+		sprintf(p, "%s/%s", path, dp->d_name);
 		
 		if (lstat(p, st))
 			continue;  /* file has disappeared meanwhile */
