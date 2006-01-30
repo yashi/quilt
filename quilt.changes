@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:36:16 CET 2006 - jayvdb@gmail.com
+
+- test/mail.test: /dev/stdin & /dev/stdout dont exist on Tru64.
+
+-------------------------------------------------------------------
 Mon Jan 30 11:32:29 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Tru64 does not have snprintf. (Reported by

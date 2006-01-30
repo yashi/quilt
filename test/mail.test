@@ -15,7 +15,7 @@
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	> Unable to extract a subject header from patches/1.diff
 
-	$ cat /dev/stdin no-subject > patches/1.diff
+	$ cat - no-subject > patches/1.diff
 	< Subject: Subject of 1.diff
 	<
 	< Acked-by: Dummy <dummy@some.where>
@@ -24,7 +24,7 @@
 	$ quilt mail --mbox mbox --prefix "test" -m "Message"
 	> Introduction has no subject header
 
-	$ cat /dev/stdin no-subject > patches/2.diff
+	$ cat - no-subject > patches/2.diff
 	< DESC
 	< Subject of 2.diff
 	< is: split
@@ -35,20 +35,20 @@
 	< Signed-off-by: Dummy <dummy@some.where>
 	<
 
-	$ cat /dev/stdin no-subject > patches/3.diff
+	$ cat - no-subject > patches/3.diff
 	< Subject of 3.diff
 	<
 	< To: Dummy <dummy@some.where>
 	<
 
-	$ cat /dev/stdin no-subject > patches/4.diff
+	$ cat - no-subject > patches/4.diff
 	< First paragraph used as
 	< subject of 4.diff.
 	<
 	< Cc: Dummy <dummy@some.where>
 	<
 
-	$ cat /dev/stdin no-subject > patches/5.diff
+	$ cat - no-subject > patches/5.diff
 	< Subject of 1.diff
 	<
 
@@ -56,7 +56,7 @@
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	> Patches 1.diff, 5.diff have duplicate subject headers.
 
-	$ cat /dev/stdin no-subject > patches/5.diff
+	$ cat - no-subject > patches/5.diff
 	< Aw: [patch] Fwd: Re: [patch 5/7] Fw: Subject of 5.diff
 	<
 
