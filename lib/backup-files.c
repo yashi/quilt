@@ -50,6 +50,17 @@
 # define PATH_MAX 4096
 #endif
 
+#ifdef __MINGW32__
+#define mkdir(x,y) mkdir(x)
+/* Symlinks are not supported */
+#define lstat stat
+static int link(const char *oldpath, const char *newpath)
+{
+	errno = ENOSYS;
+	return -1;
+}
+#endif
+
 const char *progname;
 
 enum { what_noop, what_backup, what_restore, what_remove };

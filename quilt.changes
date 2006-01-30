@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:52:00 CET 2006 - agruen@suse.de
+
+- Allow backup-files to build on windows using the MinGW compiler.
+
+-------------------------------------------------------------------
 Mon Jan 30 11:46:21 CET 2006 - jayvdb@gmail.com
 
 - Makefile.in: The trailing slash in `find compat/' is causing OSX
