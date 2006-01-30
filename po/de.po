@@ -776,28 +776,28 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
-#: quilt/mail.in:161
+#: quilt/mail.in:166
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
 
-#: quilt/mail.in:298
+#: quilt/mail.in:303
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
 
-#: quilt/mail.in:311
+#: quilt/mail.in:316
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:353
+#: quilt/mail.in:358
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:356
+#: quilt/mail.in:361
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:443
+#: quilt/mail.in:448
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 

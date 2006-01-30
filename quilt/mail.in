@@ -154,7 +154,12 @@ then
 fi
 
 if [ -z "$opt_sender" ]; then
-	opt_sender="${LOGNAME:-$(whoami)}@$(hostname -f 2>/dev/null)"
+	hostname=$(hostname -f 2>/dev/null)
+	if [ "$hostname" = "${hostname/.}" ]
+	then
+		hostname=$(hostname)
+	fi
+	opt_sender="${LOGNAME:-$(whoami)}@$hostname"
 	case "$opt_sender" in
 	*@*.*)	;;
 	*)

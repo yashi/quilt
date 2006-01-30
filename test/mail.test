@@ -12,7 +12,7 @@
 
 	$ cat no-subject > patches/1.diff
 	$ ls patches/ > series
-	$ quilt mail --mbox mbox --prefix "test" --sender user@domain.name --subject "This is a test" -m "Message"
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	> Unable to extract a subject header from patches/1.diff
 
 	$ cat - no-subject > patches/1.diff
@@ -21,7 +21,7 @@
 	< Acked-by: Dummy <dummy@some.where>
 	<
 
-	$ quilt mail --mbox mbox --prefix "test" --sender user@domain.name -m "Message"
+	$ quilt mail --mbox mbox --prefix "test" -m "Message"
 	> Introduction has no subject header
 
 	$ cat - no-subject > patches/2.diff
@@ -53,14 +53,14 @@
 	<
 
 	$ ls patches/ > series
-	$ quilt mail --mbox mbox --prefix "test" --sender user@domain.name --subject "This is a test" -m "Message"
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	> Patches 1.diff, 5.diff have duplicate subject headers.
 
 	$ cat - no-subject > patches/5.diff
 	< Aw: [patch] Fwd: Re: [patch 5/7] Fw: Subject of 5.diff
 	<
 
-	$ quilt mail --mbox mbox --prefix "test" --sender user@domain.name --subject "This is a test" -m "Message"
+	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^--$' mbox
 	> Subject: [test 0/5] This is a test
 	> --

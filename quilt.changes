@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 30 17:42:11 CET 2006 - agruen@suse.de
+
+- quilt/mail.in: Use $(hostname) for the sender address for
+  platforms on which $(hostname -f) doesn't work.
+
+-------------------------------------------------------------------
 Mon Jan 30 11:57:54 CET 2006 - jayvdb@gmail.com
 
 - Properly handle spaces in arguments to getopt.
@@ -15,12 +21,6 @@ Mon Jan 30 11:46:21 CET 2006 - jayvdb@gmail.com
   /usr/bin/find to print 'compat//sed', etc. As a result, they are
   appearing in compat_leftover, being removed in the middle of the
   build, causing errors during the construction of $(DOC).
-
--------------------------------------------------------------------
-Mon Jan 30 11:44:27 CET 2006 - agruen@suse.de
-
-- test/mail.test: Use --sender option to avoid calling
-  hostname -f on platforms that don't support -f.
 
 -------------------------------------------------------------------
 Mon Jan 30 11:36:16 CET 2006 - jayvdb@gmail.com

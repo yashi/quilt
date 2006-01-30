@@ -512,27 +512,27 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 msgstr ""
 
-#: quilt/mail.in:161
+#: quilt/mail.in:166
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:298
+#: quilt/mail.in:303
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:311
+#: quilt/mail.in:316
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:353
+#: quilt/mail.in:358
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:356
+#: quilt/mail.in:361
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:443
+#: quilt/mail.in:448
 msgid "Introduction saved as %s\\n"
 msgstr ""
 

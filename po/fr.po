@@ -777,28 +777,28 @@ msgstr ""
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
 
-#: quilt/mail.in:161
+#: quilt/mail.in:166
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:298
+#: quilt/mail.in:303
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:311
+#: quilt/mail.in:316
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:353
+#: quilt/mail.in:358
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:356
+#: quilt/mail.in:361
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:443
+#: quilt/mail.in:448
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
