@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:44:27 CET 2006 - agruen@suse.de
+
+- test/mail.test: Use --sender option to avoid calling
+  hostname -f on platforms that don't support -f.
+
+-------------------------------------------------------------------
 Mon Jan 30 11:36:16 CET 2006 - jayvdb@gmail.com
 
 - test/mail.test: /dev/stdin & /dev/stdout dont exist on Tru64.
