@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 30 07:45:17 CET 2006 - khali@linux-fr.org
+
+- po/fr.po: Update French translation.
+
+-------------------------------------------------------------------
 Mon Jan 30 00:22:24 CET 2006 - agruen@suse.de
 
 - Also strip any bracketed fields and Re:, Fwd:, Fw:, Aw: from

@@ -359,7 +359,6 @@ msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 msgstr "Usage : quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 
 #: quilt/files.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
@@ -387,8 +386,8 @@ msgstr ""
 "-v\tAffichage verbeux, plus simple à lire.\n"
 "\n"
 "--combine patch\n"
-"\tAffiche les informations pour tous les patches entre celui spécifié et\n"
-"\tcelui appliqué en dernier. Le nom de fichier « - » correspond au \n"
+"\tAffiche la liste pour tous les patches entre ce patch et le patch au\n"
+"\tsommet (ou le patch spécifié). Le nom de fichier « - » correspond au\n"
 "\tpremier patch appliqué.\n"
 
 #: quilt/fold.in:22
@@ -715,7 +714,6 @@ msgstr ""
 "to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -752,9 +750,16 @@ msgstr ""
 "\n"
 "Crée des messages de courrier à partir de tous les patches de la série.\n"
 "Ces fichiers sont ensuite stockés dans un fichier mbox ou expédiés\n"
-"immédiatement. Un éditeur est ouvert avec un patron pour saisir un message\n"
-"d'introduction. Voir le fichier %s pour plus de\n"
-"détails.\n"
+"immédiatement. Un éditeur est ouvert avec un patron pour saisir une\n"
+"introduction. Voir %s pour plus de détails.\n"
+"-m texte\n"
+"\tTexte à utiliser pour l'introduction. Lorsque cette option est\n"
+"\tutilisée, l'éditeur n'est pas invoqué, et les patches sont traités\n"
+"\timmédiatement.\n"
+"\n"
+"--prefix préfixe\n"
+"\tUtiliser un préfixe alternatif pour générer la partie du sujet qui se\n"
+"\ttrouve entre crochets. Le préfixe par défaut est \\`patch'.\n"
 "\n"
 "--mbox fichier\n"
 "\tStocke les messages dans le fichier spécifié au format mbox. Le\n"
@@ -778,23 +783,24 @@ msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
 #: quilt/mail.in:298
 msgid "Unable to extract a subject header from %s\\n"
-msgstr ""
+msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
 #: quilt/mail.in:311
 msgid "Patches %s have duplicate subject headers.\\n"
-msgstr ""
+msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
 #: quilt/mail.in:353
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
+"L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
 #: quilt/mail.in:356
 msgid "Introduction has no subject header\\n"
-msgstr ""
+msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
 #: quilt/mail.in:443
 msgid "Introduction saved as %s\\n"
-msgstr ""
+msgstr "Introduction sauvegardée en tant que %s\\n"
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
