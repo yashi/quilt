@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:46:21 CET 2006 - jayvdb@gmail.com
+
+- Makefile.in: The trailing slash in `find compat/' is causing OSX
+  /usr/bin/find to print 'compat//sed', etc. As a result, they are
+  appearing in compat_leftover, being removed in the middle of the
+  build, causing errors during the construction of $(DOC).
+
+-------------------------------------------------------------------
 Mon Jan 30 11:44:27 CET 2006 - agruen@suse.de
 
 - test/mail.test: Use --sender option to avoid calling
