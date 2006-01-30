@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 30 08:04:17 CET 2006 - khali@linux-fr.org
+
+- bash_completion: Update import and mail commands options.
+
+-------------------------------------------------------------------
 Mon Jan 30 07:45:17 CET 2006 - khali@linux-fr.org
 
 - po/fr.po: Update French translation.
