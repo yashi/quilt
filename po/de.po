@@ -797,7 +797,7 @@ msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:448
+#: quilt/mail.in:450
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 

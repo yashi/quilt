@@ -421,13 +421,15 @@ for patch in "${patches[@]}"; do
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
 	p=${p//@total@/$total}
 	(	echo "Message-Id: <$(msgid)>"
-		sed -e 's/^Message-Id:/References:/' \
-		    -e '/^$/Q' \
+		sed -n -e '/^$/q' \
+		    -e 's/^Message-Id:/References:/' \
+		    -e p \
 		    $introduction
 		echo "Content-Disposition: inline; filename=$patch"
-		sed -e '/^Recipient-.*:/d' \
+		sed -n -e '/^$/q' \
+		    -e '/^Recipient-.*:/d' \
 		    -e '/^Replace-.*:/d' \
-		    -e '/^$/Q' \
+		    -e p \
 		    $body
 		awk '
 		/^$/	{ in_body = 1 }

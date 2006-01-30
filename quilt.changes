@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 30 23:52:55 CET 2006 - khali@linux-fr.org
+
+- quilt/mail.in: Don't use sed's Q command, old versions of
+  sed don't know about it.
+
+-------------------------------------------------------------------
 Mon Jan 30 17:42:11 CET 2006 - agruen@suse.de
 
 - quilt/mail.in: Use $(hostname) for the sender address for
