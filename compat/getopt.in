@@ -8,11 +8,28 @@
 
 use strict;
 
-my ($opts,$args) = split(/ -- /, join(' ',@ARGV));
+my $opts;
+my @words;
+my $found_sep = 0;
+
+foreach my $arg (@ARGV) {
+  $found_sep = 1 if $arg eq '--';
+  if ($arg eq '--') {
+    $found_sep = 1;
+  }
+  else {
+    if (!$found_sep) {
+      $opts .= ' ' . $arg;
+    }
+    else {
+      push @words, $arg;
+    }
+  }
+}
 
 # there is no reason to parse
 # the opts if there are no args.
-if (! $args) {
+if (! length(@words)) {
 	print ' -- ';
 	exit;
 }
@@ -22,7 +39,7 @@ my @long_opts;
 
 # nothing fancy to see here; this script provides minimal compatibility
 # with the getopt from util-linux until a cross platform binary exists.
-if ($opts =~ /^-o ([a-zA-Z:]*)( --long .*)*/) {
+if ($opts =~ /^\s*-o ([a-zA-Z:]*)?(\s+--long .*)*/) {
 	$short_opts = $1;
 	if ($2) {
 		my $long_opts = $2;
@@ -32,15 +49,14 @@ if ($opts =~ /^-o ([a-zA-Z:]*)( --long .*)*/) {
 	}
 }
 
-my @words=split(/\s+/,$args);
-
 my @barewords;
 my @options;
 
-# set the the previous option name when a param is required
+# set the previous option name when a param is required
 my $need_param;
 
 foreach my $word (@words) {
+
 	# allow '-' to be an option value
 	if (!$need_param && $word !~ /^-./) {
 		push @barewords, $word;
@@ -48,7 +64,7 @@ foreach my $word (@words) {
 	}
 	if ($need_param) {
 		die "expecting param for $need_param" if $word =~ /^-./;
-		push @options, $word;
+		push @options, '"'.$word.'"';
 		$need_param = undef;
 		next;
 	}
@@ -90,7 +106,7 @@ foreach my $word (@words) {
 
 		$need_param = $word if $found =~ /:$/ && $param eq '';
 		push @options, "--$word";
-		push @options, $param if $param;
+		push @options, '"'."$param".'"' if $param;
 	}
 }
 

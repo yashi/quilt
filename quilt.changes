@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 30 11:57:54 CET 2006 - jayvdb@gmail.com
+
+- Properly handle spaces in arguments to getopt.
+
+-------------------------------------------------------------------
 Mon Jan 30 11:52:00 CET 2006 - agruen@suse.de
 
 - Allow backup-files to build on windows using the MinGW compiler.
