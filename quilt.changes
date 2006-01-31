@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 31 13:27:37 CET 2006 - agruen@suse.de
+
+- Make sure that the %changes section in the spec file will
+  contain POSIX dates (#15591).
+
+-------------------------------------------------------------------
 Mon Jan 30 23:52:55 CET 2006 - khali@linux-fr.org
 
 - quilt/mail.in: Don't use sed's Q command, old versions of
