@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 31 13:45:06 CET 2006 - agruen@suse.de
+
+- Check for GNU uniq, and test if uniq -D is supported (from Gary
+  V. Vaughan).
+
+-------------------------------------------------------------------
 Tue Jan 31 13:27:37 CET 2006 - agruen@suse.de
 
 - Make sure that the %changes section in the spec file will
