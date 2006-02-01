@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.70 $)
+AC_REVISION ($Revision: 1.71 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -73,7 +73,7 @@ QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
 
 if test -z "$INTERNAL_DATE"; then
   AC_MSG_CHECKING([whether $DATE --rfc-822 works])
-  if date --rfc-822 >/dev/null 2>/dev/null; then
+  if $DATE --rfc-822 >/dev/null 2>/dev/null; then
 	AC_MSG_RESULT(yes)
   else
 	AC_MSG_ERROR([no
