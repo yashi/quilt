@@ -473,8 +473,8 @@ msgstr ""
 
 #: quilt/mail.in:24
 msgid ""
-"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
-"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
 
 #: quilt/mail.in:27

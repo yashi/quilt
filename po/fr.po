@@ -707,11 +707,11 @@ msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
 #: quilt/mail.in:24
 msgid ""
-"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
-"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
-"Usage : quilt mail {--mbox fichier|--send} [--sender ...] [--from ...] [--"
-"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage : quilt mail {--mbox fichier|--send} [-m texte] [--prefix préfixe] [--"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
 msgid ""

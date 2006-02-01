@@ -682,11 +682,11 @@ msgstr "seriesファイルへのパッチ %s の書き込みに失敗しまし�
 
 #: quilt/mail.in:24
 msgid ""
-"Usage: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
-"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 msgstr ""
-"使い方: quilt mail {--mbox file|--send} [--sender ...] [--from ...] [--"
-"to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"使い方: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
 msgid ""
@@ -1457,8 +1457,8 @@ msgid ""
 "The quilt meta-data in %s are already in the version %s format; nothing to do"
 "\\n"
 msgstr ""
-"%s 内の quilt メタデータはすでに version %s フォーマットのため、処理する必要が"
-"ありません。\\n"
+"%s 内の quilt メタデータはすでに version %s フォーマットのため、処理する必要"
+"がありません。\\n"
 
 #: quilt/upgrade.in:71
 msgid "Converting meta-data to version %s\\n"

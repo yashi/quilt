@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb  1 13:50:22 CET 2006 - agruen@suse.de
+
+- quilt/mail.in: Documentation fix.
+
+-------------------------------------------------------------------
 Wed Feb  1 13:28:36 CET 2006 - agruen@suse.de
 
 - configure.ac: Remove uniq -D test; we no longer use it.
