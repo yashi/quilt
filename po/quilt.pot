@@ -520,19 +520,19 @@ msgstr ""
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:316
+#: quilt/mail.in:326
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:358
+#: quilt/mail.in:368
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:361
+#: quilt/mail.in:371
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:450
+#: quilt/mail.in:460
 msgid "Introduction saved as %s\\n"
 msgstr ""
 

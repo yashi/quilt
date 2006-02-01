@@ -785,19 +785,19 @@ msgstr ""
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
 
-#: quilt/mail.in:316
+#: quilt/mail.in:326
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:358
+#: quilt/mail.in:368
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:361
+#: quilt/mail.in:371
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:450
+#: quilt/mail.in:460
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 

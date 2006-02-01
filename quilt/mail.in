@@ -310,8 +310,18 @@ done
 dup_subjects=( $(
 	printf "%s\n" "${subjects[@]}" \
 	| sort -k2 \
-	| uniq -D -f1 \
-	| cut -f1) )
+	| awk '{ patch = $1 ; sub(/^[^\t]+\t/, "");
+		 if ($0 in subjects) {
+			if (subjects[$0] != "")
+				print subjects[$0];
+			print patch;
+			subjects[$0] = "";
+		}
+		else subjects[$0] = patch }' \
+	| while read patch; do
+		echo "$(print_patch "$patch")"
+	  done
+	) )
 if [ ${#dup_subjects[@]} -ne 0 ]; then
 	printf $"Patches %s have duplicate subject headers.\n" \
 	       "$(set -- "${dup_subjects[*]/%/, }"; echo ${1%, })"

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb  1 05:17:05 CET 2006 - jayvdb@gmail.com
+
+- Filter duplicates with awk instead of usig uniq -D.
+
+-------------------------------------------------------------------
 Wed Feb  1 05:04:04 CET 2006 - agruen@suse.de
 
 - Clean up quoting in messages.
