@@ -1254,23 +1254,23 @@ msgstr "Patch %s renommé en %s\\n"
 
 #: quilt/scripts/edmail.in:81
 #, perl-format
-msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr "Le nom '%s' est mal parenthésé\n"
+msgid "Display name `%s' contains unpaired parentheses\n"
+msgstr "Le nom `%s' est mal parenthésé\n"
 
 #: quilt/scripts/edmail.in:85
 #, perl-format
-msgid "Display name '%s' contains invalid characters\n"
-msgstr "Le nom '%s' comprend des caractères invalides\n"
+msgid "Display name `%s' contains invalid characters\n"
+msgstr "Le nom `%s' comprend des caractères invalides\n"
 
 #: quilt/scripts/edmail.in:89
 #, perl-format
-msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr "Le nom '%s' comprend des caractères non-affichables ou 8 bits\n"
+msgid "Display name `%s' contains non-printable or 8-bit characters\n"
+msgstr "Le nom `%s' comprend des caractères non-affichables ou 8 bits\n"
 
 #: quilt/scripts/edmail.in:95
 #, perl-format
-msgid "Delivery address '%s' is invalid\n"
-msgstr "L'adresse de destination '%s' est invalide\n"
+msgid "Delivery address `%s' is invalid\n"
+msgstr "L'adresse de destination `%s' est invalide\n"
 
 #: quilt/scripts/parse-patch.in:50
 #, perl-format

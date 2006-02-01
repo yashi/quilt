@@ -78,7 +78,7 @@ msgstr ""
 
 #: quilt/add.in:48 quilt/add.in:54
 msgid "File %s is located below %s\\n"
-msgstr "ファイル %sは、%s以下にあります\\n"
+msgstr "ファイル %s は、%s 以下にあります\\n"
 
 #: quilt/add.in:103
 msgid "File %s is already in patch %s\\n"
@@ -303,7 +303,7 @@ msgstr ""
 
 #: quilt/diff.in:225
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
-msgstr "-p%sでパッチの差分はとれません。-p0か -p1を指定してください\\n"
+msgstr "-p%s でパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
 #: quilt/diff.in:258 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
@@ -725,7 +725,7 @@ msgstr ""
 "\n"
 "シリーズファイル内にあるすべてのパッチからメールを作成し、mailboxファ\n"
 "イルとして保存するか、すぐに送り出すことができる。説明文作成用にテンプ\n"
-"レート付きでエディタが実行される。詳細については %sを参照。\n"
+"レート付きでエディタが実行される。詳細については %s を参照。\n"
 "\n"
 "-m テキスト\n"
 "\tテキストを序文として使用。このオプションが使用されてた場合に\n"
@@ -1023,7 +1023,7 @@ msgstr "パッチ %s は、反転して適用することができます\\n"
 
 #: quilt/push.in:231
 msgid "Patch %s does not apply (enforce with -f)\\n"
-msgstr "パッチ %sが適用できません (強制適用する場合は -fを付けてください)\\n"
+msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
 #: quilt/push.in:351
 msgid "The topmost patch %s needs to be refreshed first.\\n"
@@ -1124,14 +1124,14 @@ msgstr ""
 #: quilt/refresh.in:149
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
-"-p%sではリフレッシュすることができません。-p0または -p1を指定してください\\n"
+"-p%s ではリフレッシュすることができません。-p0または -p1を指定してください\\n"
 
 #: quilt/refresh.in:183
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
-"より最近のパッチがパッチ %sのファイルに変更を加えています。リフレッシュを実行"
-"する場合は -f オプションを使用してください。\\n"
+"より最近のパッチがパッチ %s のファイルに変更を加えています。リフレッシュを実"
+"行する場合は -f オプションを使用してください。\\n"
 
 #: quilt/refresh.in:189
 msgid ""
@@ -1173,7 +1173,7 @@ msgstr ""
 
 #: quilt/remove.in:73
 msgid "File %s is not in patch %s\\n"
-msgstr "ファイル %sは、パッチ %sに含まれていません\\n"
+msgstr "ファイル %s は、パッチ %s に含まれていません\\n"
 
 #: quilt/remove.in:91
 msgid "Failed to remove file %s from patch %s\\n"
@@ -1207,7 +1207,7 @@ msgstr "パッチ %s はすでに存在します。新しい名前を選んで�
 
 #: quilt/rename.in:98
 msgid "Renaming of patch %s to %s failed\\n"
-msgstr "パッチ %s から %sへの名前の変更に失敗しました\\n"
+msgstr "パッチ %s から %s への名前の変更に失敗しました\\n"
 
 #: quilt/rename.in:104
 msgid "Patch %s renamed to %s\\n"
@@ -1215,23 +1215,23 @@ msgstr "パッチ %s から %s へ名前を変更しました\\n"
 
 #: quilt/scripts/edmail.in:81
 #, perl-format
-msgid "Display name '%s' contains unpaired parentheses\n"
-msgstr "表示用の名前 '%s' が対にならない括弧を含んでいます\n"
+msgid "Display name `%s' contains unpaired parentheses\n"
+msgstr "表示用の名前 `%s' が対にならない括弧を含んでいます\n"
 
 #: quilt/scripts/edmail.in:85
 #, perl-format
-msgid "Display name '%s' contains invalid characters\n"
-msgstr "表示用の名前 '%s' が不正な文字を含んでいます\n"
+msgid "Display name `%s' contains invalid characters\n"
+msgstr "表示用の名前 `%s' が不正な文字を含んでいます\n"
 
 #: quilt/scripts/edmail.in:89
 #, perl-format
-msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-msgstr "表示用の名前 '%s' が非印刷文字または 8 bitの文字を含んでいます\n"
+msgid "Display name `%s' contains non-printable or 8-bit characters\n"
+msgstr "表示用の名前 `%s' が非印刷文字または 8 bitの文字を含んでいます\n"
 
 #: quilt/scripts/edmail.in:95
 #, perl-format
-msgid "Delivery address '%s' is invalid\n"
-msgstr "配送先のアドレス '%s' が不正です\n"
+msgid "Delivery address `%s' is invalid\n"
+msgstr "配送先のアドレス `%s' が不正です\n"
 
 #: quilt/scripts/parse-patch.in:50
 #, perl-format
@@ -1380,7 +1380,7 @@ msgstr "-vオプションを使って、rpmの出力を表示できます"
 
 #: quilt/setup.in:155
 msgid "Unpacking archive %s\\n"
-msgstr "アーカイブ %sを展開しています\\n"
+msgstr "アーカイブ %s を展開しています\\n"
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"
@@ -1457,12 +1457,12 @@ msgid ""
 "The quilt meta-data in %s are already in the version %s format; nothing to do"
 "\\n"
 msgstr ""
-"%s内の quiltメタデータはすでに version %s フォーマットのため、処理する必要が"
+"%s 内の quilt メタデータはすでに version %s フォーマットのため、処理する必要が"
 "ありません。\\n"
 
 #: quilt/upgrade.in:71
 msgid "Converting meta-data to version %s\\n"
-msgstr "メタデータを version %sに変更中です\\n"
+msgstr "メタデータを version %s に変更中です\\n"
 
 #: quilt/upgrade.in:102
 msgid "Conversion failed\\n"

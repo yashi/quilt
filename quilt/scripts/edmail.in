@@ -78,21 +78,21 @@ sub check_recipient($) {
 	    # The value is not (properly) quoted. Check for invalid characters.
 	    while (/\(/ or /\)/) {
 		die sprintf(
-_("Display name '%s' contains unpaired parentheses\n"), $display)
+_("Display name `%s' contains unpaired parentheses\n"), $display)
 		    unless s/\(([^()]*)\)/$1/;
 	    }
 	    die sprintf(
-_("Display name '%s' contains invalid characters\n"), $display)
+_("Display name `%s' contains invalid characters\n"), $display)
 		if /[$spldot]/;
 	}
 	die sprintf(
-_("Display name '%s' contains non-printable or 8-bit characters\n"), $display)
+_("Display name `%s' contains non-printable or 8-bit characters\n"), $display)
 	    if (/[^ \t\40-\176]/);
     } else {
 	$deliver = $_;
     }
     # Check for a valid delivery address
-    die sprintf(_("Delivery address '%s' is invalid\n"), $deliver)
+    die sprintf(_("Delivery address `%s' is invalid\n"), $deliver)
 	if $deliver =~ /[ \t]/ or $deliver =~ /[^ \t\40-\176]/ or
 	   $deliver !~ /^[^$spl]+@(\[?)[^$spldot]+(?:\.[^$spldot]+)*(\]?)$/ or
 	   (!$1) != (!$2);
