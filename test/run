@@ -12,7 +12,7 @@
 use strict;
 use FileHandle;
 use Getopt::Std;
-use POSIX qw(isatty setuid);
+use POSIX qw(isatty setuid getcwd);
 use vars qw($opt_l $opt_v);
 
 no warnings qw(taint);
@@ -202,6 +202,7 @@ sub exec_test($$) {
     if (!chdir $prog->[1]) {
       return [ "chdir: $prog->[1]: $!\n" ];
     }
+    $ENV{PWD} = getcwd;
     return [];
   } elsif ($prog->[0] eq "su") {
     return su($prog->[1]);
@@ -209,6 +210,8 @@ sub exec_test($$) {
     return sg($prog->[1]);
   } elsif ($prog->[0] eq "export") {
     my ($name, $value) = split /=/, $prog->[1];
+    # FIXME: need to evaluate $value, so that things like this will work:
+    # export dir=$PWD/dir
     $ENV{$name} = $value;
     return [];
   } elsif ($prog->[0] eq "unset") {

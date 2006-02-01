@@ -8,7 +8,7 @@
 
 use strict;
 use POSIX qw(strftime);
-use Getopt::Long;
+use Getopt::Long qw(:config gnu_getopt prefix_pattern=(--|-));
 use Date::Parse;
 
 my $spec = '%a %b %e %H:%M:%S %Z %Y';
@@ -40,8 +40,6 @@ sub parse_utc_secs($) {
 	return str2time($now);
     }
 }
-
-Getopt::Long::Configure("gnu_getopt");
 
 GetOptions('rfc-822|R' => sub() { $spec = '%a, %d %b %Y %H:%M:%S %z' },
 	   'utc|universal|u' => \$utc,

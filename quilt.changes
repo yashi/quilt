@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Feb  1 16:03:03 CET 2006 - agruen@suse.de
+
+- compat/date.in: Fix GetOptions problem with options starting
+  with `+'.
+- test/run: Adjust $ENV{PWD} in cd command; add FIXME comment in
+  export command: in commands like `export foo=$var/bar', $var is
+  not evaluated.
+
+-------------------------------------------------------------------
 Wed Feb  1 13:50:22 CET 2006 - agruen@suse.de
 
 - quilt/mail.in: Documentation fix.
