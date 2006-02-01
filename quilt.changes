@@ -89,7 +89,7 @@ Mon Jan 30 17:42:11 CET 2006 - agruen@suse.de
 -------------------------------------------------------------------
 Mon Jan 30 11:57:54 CET 2006 - jayvdb@gmail.com
 
-- Properly handle spaces in arguments to getopt.
+- compat/getopt.in: Properly handle spaces in arguments to getopt.
 
 -------------------------------------------------------------------
 Mon Jan 30 11:52:00 CET 2006 - agruen@suse.de
