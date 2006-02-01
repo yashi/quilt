@@ -1,0 +1,29 @@
+	$ rm -rf d
+	$ mkdir -p d/patches
+	$ cd d
+
+	$ echo foo.orig > foo.orig
+	$ echo foo > foo
+	$ diff -u foo.orig foo > patches/foo.diff
+	$ mv foo.orig foo
+
+	$ mkdir subdir
+	$ cd subdir
+	$ echo bar.orig > bar.orig
+	$ echo bar > bar
+	$ diff -u bar.orig bar > ../patches/bar.diff
+	$ mv bar.orig bar
+	$ cd ..
+
+	#$ export QUILT_PATCHES=$PWD/patches
+	$ cat > patches/series
+	< foo.diff -p0
+	< bar.diff -p0 -d subdir
+
+	$ quilt push -qa
+	> Applying patch patches/foo.diff
+	> Applying patch patches/bar.diff
+	> Now at patch patches/bar.diff
+
+	$ cd ..
+	$ rm -rf d
