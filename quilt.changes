@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb  1 16:11:57 CET 2006 - agruen@suse.de
+
+- Bump version to 0.43.
+
+-------------------------------------------------------------------
 Wed Feb  1 16:03:03 CET 2006 - agruen@suse.de
 
 - compat/date.in: Fix GetOptions problem with options starting
