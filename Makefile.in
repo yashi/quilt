@@ -18,7 +18,6 @@ POD2MAN :=	@POD2MAN@
 COLUMN :=	@COLUMN@
 GETOPT :=	@GETOPT@
 CP :=		@CP@
-UNIQ :=		@UNIQ@
 DATE :=		@DATE@
 PERL :=		@PERL@
 BASH :=		@BASH@

@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.42],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.69 $)
+AC_REVISION ($Revision: 1.70 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -69,19 +69,22 @@ You can download GNU fileutils from ftp.gnu.org
 ])
 fi
 
-QUILT_COMPAT_PROG_PATH(UNIQ, uniq, [guniq uniq])
-AC_MSG_CHECKING(whether $UNIQ -D works)
-if echo 'foo' | $UNIQ -D >/dev/null 2>/dev/null; then
+QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
+
+if test -z "$INTERNAL_DATE"; then
+  AC_MSG_CHECKING([whether $DATE --rfc-822 works])
+  if date --rfc-822 >/dev/null 2>/dev/null; then
 	AC_MSG_RESULT(yes)
-else
+  else
 	AC_MSG_ERROR([no
 
-You appear to have a `uniq' that does not support printing only
-duplicates.  You can download GNU coreutils from ftp.gnu.org.
+If you don't have a version of `date' that supports --rfc-822, you
+can specify '--without-date' and $PACKAGE_NAME will use its own
+internal date.
 ])
+  fi
 fi
 
-QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
 QUILT_COMPAT_PROG_PATH(PERL, perl, [perl perl5])
 QUILT_COMPAT_PROG_PATH(GREP, grep)
 

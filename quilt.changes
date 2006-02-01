@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Feb  1 13:28:36 CET 2006 - agruen@suse.de
+
+- configure.ac: Remove uniq -D test; we no longer use it.
+
+-------------------------------------------------------------------
+Wed Feb  1 13:21:09 CET 2006 - jayvdb@gmail.com
+
+- compat/date.in: Compatibility wrapper that emulates the GNU
+  date features that quilt depends on (with minor cleanups from
+  Andreas Gruenbacher).
+- configure.ac: Add test for date --rfc-822.
+
+-------------------------------------------------------------------
 Wed Feb  1 11:40:58 CET 2006 - agruen@suse.de
 
 - bin/guards: Update to latest version (supports --with-guards
