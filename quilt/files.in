@@ -33,7 +33,7 @@ Print the list of files that the topmost or specified patch changes.
 
 --combine patch
 	Create a listing for all patches between this patch and
-	the topmost or specified patch. A patch name of \"-\" is
+	the topmost or specified patch. A patch name of \`-' is
 	equivalent to specifying the first applied patch.
 
 "

@@ -47,7 +47,7 @@ with a template for the introduction. Please see %s for details.
 
 --sender
 	The envelope sender address to use. The address must be of the form
-	\`\`user@domain.name''. No display name is allowed.
+	\`user@domain.name'. No display name is allowed.
 
 --from, --subject
 	The values for the From and Subject headers to use. If no --from

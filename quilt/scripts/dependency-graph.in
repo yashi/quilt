@@ -297,7 +297,7 @@ if ($filter_patchnames) {
     unless ($pid) {  # child
 	# open a second pipe to the actual filter
 	open(PIPE, "| $filter_patchnames")
-	    or die "\`$filter_patchnames': $!\n";
+	    or die "$filter_patchnames: $!\n";
 	map { print PIPE "$_\n" } @patches;
 	close(PIPE);
 	exit;

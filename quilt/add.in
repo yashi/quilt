@@ -45,13 +45,13 @@ in_valid_dir()
 	do
 		if [ "$path" -ef "$QUILT_PATCHES" ]
 		then
-			printf $"File \`%s' is located below \`%s'\n" \
+			printf $"File %s is located below %s\n" \
 			       "$1" "$QUILT_PATCHES/"
 			return 1
 		fi
 		if [ "$path" -ef "$QUILT_PC" ]
 		then
-			printf $"File \`%s' is located below \`%s'\n" \
+			printf $"File %s is located below %s\n" \
 			       "$1" "$QUILT_PC/"
 			return 1
 		fi

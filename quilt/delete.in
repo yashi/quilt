@@ -34,7 +34,7 @@ topmost patch can be removed right now.)
 
 --backup
 	Rename the patch file to patch~ rather than deleting it.
-	Ignored if not used with \"-r\".
+	Ignored if not used with \`-r'.
 "
 
 		exit 0
@@ -123,14 +123,14 @@ then
 	then
 		if ! mv -f "$patch_file" "$patch_file~"
 		then
-			printf $"Failed to backup patch file \"%s\"\n" \
+			printf $"Failed to backup patch file %s\n" \
 				"$patch_file" >&2
 			exit 1
 		fi
 	else
 		if ! rm -f "$patch_file"
 		then
-			printf $"Failed to remove patch file \"%s\"\n" \
+			printf $"Failed to remove patch file %s\n" \
 				"$patch_file" >&2
 			exit 1
 		fi
