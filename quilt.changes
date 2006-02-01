@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb  1 01:15:38 CET 2006 - agruen@suse.de
+
+- Japanese translation update from Yasushi Shoji.
+
+-------------------------------------------------------------------
 Tue Jan 31 13:45:06 CET 2006 - agruen@suse.de
 
 - Check for GNU uniq, and test if uniq -D is supported (from Gary

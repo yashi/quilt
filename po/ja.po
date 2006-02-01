@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2006-01-27 14:15+0900\n"
+"PO-Revision-Date: 2006-02-01 08:48+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -347,7 +347,6 @@ msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 msgstr "使い方: quilt files [-v] [-a] [-l] [--combine パッチ] [パッチ]\\n"
 
 #: quilt/files.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
@@ -690,7 +689,6 @@ msgstr ""
 "to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from all patches in the series file, and either store\n"
@@ -729,6 +727,13 @@ msgstr ""
 "イルとして保存するか、すぐに送り出すことができる。説明文作成用にテンプ\n"
 "レート付きでエディタが実行される。詳細については %sを参照。\n"
 "\n"
+"-m テキスト\n"
+"\tテキストを序文として使用。このオプションが使用されてた場合に\n"
+"\tはエディタは起動されず、すぐにパッチが処理される。\n"
+"\n"
+"--prefix 接頭文字列\n"
+"\t件名の前に置く括弧内の文字列を指定。デフォルトは\\`patch'。\n"
+"\n"
 "--mbox ファイル\n"
 "\t全メッセージを指定されたファイルに mbox形式で保存。後に例えば\n"
 "\tformailなどを使って送信することができる。\n"
@@ -756,23 +761,23 @@ msgstr ""
 
 #: quilt/mail.in:303
 msgid "Unable to extract a subject header from %s\\n"
-msgstr ""
+msgstr "%s から件名を取り出せません。\\n"
 
 #: quilt/mail.in:316
 msgid "Patches %s have duplicate subject headers.\\n"
-msgstr ""
+msgstr "パッチ %s の件名が重複しています。\\n"
 
 #: quilt/mail.in:358
 msgid "Introduction has no subject header (saved as %s)\\n"
-msgstr ""
+msgstr "序文に件名がありません(%s として保存されました)\\n"
 
 #: quilt/mail.in:361
 msgid "Introduction has no subject header\\n"
-msgstr ""
+msgstr "序文に件名がありません\\n"
 
 #: quilt/mail.in:450
 msgid "Introduction saved as %s\\n"
-msgstr ""
+msgstr "序文は %s という名前で保存されました\\n"
 
 #: quilt/new.in:22
 msgid "Usage: quilt new {patchname}\\n"
