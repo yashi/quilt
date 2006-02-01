@@ -28,6 +28,10 @@ General:
 	  the patches directory history (e.g., CVS, RCS). Also call the
 	  trigger when the series file changes?
 
+	- Check if we can somehow support -p0 style patches that are
+	  applied in subdirectories (patch -d option): There are problems
+	  with relative $QUILT_PATCHES, and likely with several commands.
+
 Documentation:
 
 	- How to import a complete directory before doing wild changes?
