@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Feb  1 08:19:36 CET 2006 - khali@linux-fr.org
+
+- po/fr.po: Add missing translation of quilt mail's --sender
+  option help. Thanks to Andreas Gruenbacher for pointing out.
+
+-------------------------------------------------------------------
 Wed Feb  1 05:37:00 CET 2006 - agruen@suse.de
 
 - 
