@@ -71,7 +71,7 @@ Wed Feb  1 08:19:36 CET 2006 - khali@linux-fr.org
 -------------------------------------------------------------------
 Wed Feb  1 05:17:05 CET 2006 - jayvdb@gmail.com
 
-- Filter duplicates with awk instead of usig uniq -D.
+- Filter duplicates with awk instead of using uniq -D.
 
 -------------------------------------------------------------------
 Wed Feb  1 05:04:04 CET 2006 - agruen@suse.de
