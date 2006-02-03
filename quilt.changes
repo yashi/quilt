@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Feb  3 12:23:00 AEST 2006 - jayvdb@gmail.com
+
+- configure.ac: Add check for GNU diff and use $GREP
+  in GNU patch check.
+
+-------------------------------------------------------------------
 Wed Feb  1 16:11:57 CET 2006 - agruen@suse.de
 
 - Bump version to 0.43.

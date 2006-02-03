@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.43],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.72 $)
+AC_REVISION ($Revision: 1.73 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -220,9 +220,34 @@ fi
 QUILT_COMPAT_PROG_PATH(DIFF, diff)
 QUILT_COMPAT_PROG_PATH(PATCH, patch)
 
+# Sun diff and others will not work because GNU patch options are used.
+AC_MSG_CHECKING([the version of $DIFF])
+if $DIFF --version 2>/dev/null | grep GNU >/dev/null; then
+  set -- `$DIFF --version 2>/dev/null | $AWK '{ print $NF; exit }'`
+  diff_version=$1
+  AC_MSG_RESULT($diff_version)
+  saved_IFS=$IFS; IFS='.'
+  set -- $diff_version
+  IFS=$saved_IFS
+  set -- `echo $1 | $TR -cd 0-9` `echo $2 | $TR -cd 0-9`
+  if test 0$1 -lt 2 || test 0$1 -eq 2 -a 0$2 -lt 7 ; then
+    diff_version=
+  fi
+else
+  AC_MSG_RESULT(no GNU diff)
+fi
+if test -z "$diff_version" ; then
+  AC_MSG_ERROR([
+$PACKAGE_NAME requires at least version 2.7 of GNU diffutils. You can
+download a current version of patch from ftp.gnu.org, or if you already
+have GNU diff then you can supply its path with the '--with-diff=' option.
+])
+fi
+
+
 # Sun's patch, and others, do not work because GNU patch options are used.
 AC_MSG_CHECKING([the version of $PATCH])
-if $PATCH --version 2> /dev/null | grep -q GNU ; then
+if $PATCH --version 2> /dev/null | grep GNU >/dev/null; then
   set -- `$PATCH --version 2> /dev/null`
   patch_version=$2
   AC_MSG_RESULT($patch_version)
