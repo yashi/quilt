@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Feb  3 13:03:10 CET 2006 - khali@linux-fr.org
+
+- quilt/mail.in: Strip "Tr:" from subject lines like we do with
+  "Re:" and "Fwd:".
+
+-------------------------------------------------------------------
 Fri Feb  3 10:26:36 CET 2006 - agruen@suse.de
 
 - quilt/mail.in: Disable broken patch header format check.
