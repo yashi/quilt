@@ -516,23 +516,23 @@ msgstr ""
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:303
+#: quilt/mail.in:304
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:326
+#: quilt/mail.in:327
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:368
+#: quilt/mail.in:369
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:371
+#: quilt/mail.in:372
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:460
+#: quilt/mail.in:461
 msgid "Introduction saved as %s\\n"
 msgstr ""
 

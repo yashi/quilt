@@ -220,20 +220,21 @@ if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 		fi
 
 		# Does the first paragraph look like a mail header?
-		if [ ${#mh[@]} -eq 0 ]
-		then
-			if echo "$header" | awk '
-				/^$/	{ exit (!mh || not_mh) }
-				END	{ exit (!mh || not_mh) }
-				{ if ($0 ~ /^[a-z]+:[ \t]/i)
-				    mh = 1
-				  else
-				    not_mh = 1
-				}'
-			then
-				return 1
-			fi
-		fi
+		#if [ ${#mh[@]} -eq 0 ]
+		#then
+		#	if echo "$header" | awk '
+		#		/^$/	{ exit (!mh || not_mh) }
+		#		END	{ exit (!mh || not_mh) }
+		#		{ if (tolower($0) ~ \
+		#		      /^(from|to|reply-to|date|cc):[ \t]/)
+		#		    mh = 1
+		#		  else
+		#		    not_mh = 1
+		#		}'
+		#	then
+		#		return 1
+		#	fi
+		#fi
 
 		# Is the first paragraph short enough to be used as the subject?
 		if [ ${#mh[@]} -eq 0 ]
