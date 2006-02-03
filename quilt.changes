@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb  3 13:04:52 CET 2006 - khali@linux-fr.org
+
+- bash_completion: Code refactoring, indentation fixes.
+
+-------------------------------------------------------------------
 Fri Feb  3 13:03:10 CET 2006 - khali@linux-fr.org
 
 - quilt/mail.in: Strip "Tr:" from subject lines like we do with

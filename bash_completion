@@ -157,7 +157,6 @@ _quilt_completion()
 	     	COMPREPLY=( $( compgen -W "$(quilt applied)" -- $cur ) )
 		;;
 	     --diff|-U|-C)
-	        COMREPLY=(  )
 		;;
 	     *)
 	        _filedir 
@@ -189,9 +188,6 @@ _quilt_completion()
 	        ;;
 	   esac
 	   ;;
-	fork)
-	  COMPREPLY=( )
-	  ;;
 	graph)
 	   case $prev in
 	     -T)
@@ -231,8 +227,6 @@ _quilt_completion()
 	mail)
 	   COMPREPLY=( $( compgen -W "-m --prefix --mbox --send --sender --from --subject --to --cc --bcc" -- $cur ) )
 	   ;;
-	new)
-	   ;;
 	next|previous)
 	   COMPREPLY=( $( compgen -W "$(quilt series)" -- $cur ) )
 	   ;;
@@ -269,7 +263,7 @@ _quilt_completion()
 		;;
 	   esac
 	   ;;
-	 rename)
+	rename)
 	   case $prev in
 	     -P)
 		COMPREPLY=( $( compgen -W "$(quilt series)" -- $cur ) )
@@ -279,10 +273,10 @@ _quilt_completion()
 		;;
 	   esac
 	   ;;
-	 series)
+	series)
 	   COMPREPLY=( $( compgen -W "-v -h" -- $cur ) )
 	   ;;
-	 setup)
+	setup)
 	   case $prev in
 	     -d)
 	     	_filedir -d
@@ -293,15 +287,13 @@ _quilt_completion()
 		;;
 	   esac
 	   ;;
-	 snapshot)
+	snapshot)
 	   COMPREPLY=( $( compgen -W "-d -h" -- $cur ) )
 	   ;;
-	 top)
-	   ;;
-	 unapplied)
+	unapplied)
 	   COMPREPLY=( $( compgen -W "-h $(quilt series)" -- $cur ) )
 	   ;;
-	 upgrade)
+	fork|new|top|upgrade)
 	   ;;
     esac
     return 0
