@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Feb  4 08:37:47 CET 2006 - agruen@suse.de
+
+- make dist: Add the missing aclocal.m4 to the tarball.
+
+-------------------------------------------------------------------
 Fri Feb  3 13:04:52 CET 2006 - khali@linux-fr.org
 
 - bash_completion: Code refactoring, indentation fixes.
@@ -15,7 +20,7 @@ Fri Feb  3 10:26:36 CET 2006 - agruen@suse.de
 - quilt/mail.in: Disable broken patch header format check.
 
 -------------------------------------------------------------------
-Fri Feb  3 12:23:00 AEST 2006 - jayvdb@gmail.com
+Fri Feb  3 12:23:00 +1100 2006 - jayvdb@gmail.com
 
 - configure.ac: Add check for GNU diff and use $GREP
   in GNU patch check.
