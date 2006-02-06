@@ -40,6 +40,7 @@ RPMBUILD :=	@RPMBUILD@
 SENDMAIL :=	@SENDMAIL@
 
 USE_NLS :=	@USE_NLS@
+PATCH_WRAPPER := @PATCH_WRAPPER@
 
 CC :=		@CC@
 CPPFLAGS +=	@CPPFLAGS@ @DEFS@
@@ -67,11 +68,11 @@ SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
 		bash_completion quilt.quiltrc aclocal.m4
 DIRT +=		quilt.spec
 
-BIN_IN :=	quilt guards patch-wrapper
+BIN_IN :=	quilt guards
 BIN_SRC :=	$(BIN_IN:%=%.in)
 BIN :=		$(BIN_IN)
-SRC +=		$(BIN_SRC:%=bin/%)
-DIRT +=		$(BIN_IN:%=bin/%)
+SRC +=		$(BIN_SRC:%=bin/%) bin/patch-wrapper.in
+DIRT +=		$(BIN_IN:%=bin/%) bin/patch-wrapper
 
 QUILT_IN :=	$(patsubst quilt/%.in,%,$(wildcard quilt/*.in))
 QUILT_SRC :=	$(QUILT_IN:%=%.in)
@@ -148,7 +149,8 @@ endif
 	$(MSGMERGE) -o $@ $@ $^
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
-	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%)
+	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%)			\
+	  $(if $(PATCH_WRAPPER),bin/patch-wrapper)
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
@@ -308,7 +310,12 @@ install-main :: scripts
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
 	$(INSTALL) -m 644 quilt/scripts/patchfns			\
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
-
+ifneq ($(PATCH_WRAPPER),)
+	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)/wrapper
+	$(INSTALL) -m 644 bin/patch-wrapper				\
+		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/wrapper/patch
+endif
+	
 	$(INSTALL) -d $(BUILD_ROOT)$(libdir)/$(PACKAGE)
 	$(INSTALL) -m 755 $(LIB:%=lib/%) $(BUILD_ROOT)$(libdir)/$(PACKAGE)/
 

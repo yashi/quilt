@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.43],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.73 $)
+AC_REVISION ($Revision: 1.74 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -340,6 +340,11 @@ is a required package as you chose the '--enable-nls' option to configure.
 You can download GNU Gettext from ftp.gnu.org
 ])
 fi
+
+AC_ARG_WITH(patch-wrapper, AC_HELP_STRING(
+    [--with-patch-wrapper], [include GNU patch wrapper]))
+PATCH_WRAPPER=$withval
+AC_SUBST(PATCH_WRAPPER)
 
 if test $USE_NLS = no ; then
     AC_MSG_NOTICE([Building without natural language support])

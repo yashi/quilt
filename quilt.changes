@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Feb  6 12:39:43 CET 2006 - agruen@suse.de
+
+- Add --with-patch-wrapper configure argument, and optionally
+  install the wrapper as /usr/share/quilt/wrapper/patch.
+- bin/patch-wrapper.in: Minor cleanups.
+
+-------------------------------------------------------------------
 Mon Feb  6 06:26:59 CET 2006 - agruen@suse.de
 
 - bin/patch-wrapper.in: Add hack to follow pipes via /proc on

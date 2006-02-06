@@ -64,6 +64,18 @@ backup_files() {
     fi
 }
 
+find_pipe_patch() {
+    declare patch=$1
+    patch=${patch//\[/\\[}
+    patch=${patch//\]/\\]}
+    set -- $(stat -c $'%a %N\n' /proc/*/fd/* 2>/dev/null \
+	     | sed -nre "s,^300 \`(/proc/.*/fd)/.*' -> \`$patch'$,\\1,p")
+    set -- $(stat -c $'%a %N\n' $1/* 2>/dev/null \
+	     | sed -nre "s,^500 \`.*' -> \`(.*)',\\1,p")
+    [ $# -eq 1 ] || set -- "$patch"
+    echo "$1"
+}
+
 options=`getopt -q -o bsB:z:i:p:d: \
 		   --long quiet,silent,backup,backup-if-mismatch \
 		   --long no-backup-if-mismatch,prefix: \
@@ -149,35 +161,32 @@ else
     fi
 fi
 
-find_pipe_patch() {
-    declare patch=$1
-    patch=${patch//\[/\\[}
-    patch=${patch//\]/\\]}
-    set -- $(stat -c $'%a %N\n' /proc/*/fd/* 2>/dev/null \
-	     | sed -nre "s,^300 \`(/proc/.*/fd)/.*' -> \`$patch'$,\\1,p")
-    set -- $(stat -c $'%a %N\n' $1/* 2>/dev/null \
-	     | sed -nre "s,^500 \`.*' -> \`(.*)',\\1,p")
-    [ $# -eq 1 ] || set -- "$patch"
-    echo "$1"
-}
+if [ -z "$cannot_handle" ]
+then
+    if [ -n "$opt_input" ]
+    then
+	patch=$opt_input
+    elif [ -e /proc/self/fd/0 ]
+    then
+	patch=$(readlink /proc/self/fd/0)
+	if [[ "$patch" =~ "^pipe:" ]]
+	then
+	    patch=$(find_pipe_patch "$patch")
+	fi
+    fi
+    patch=${patch#$PWD/}
+
+    if [ ! -e "$patch" ]
+    then
+	cannot_handle=1
+    fi
+fi
 
 if [ -n "$cannot_handle" ]
 then
     $PATCH "${original_options[@]}"
     exit
 fi
-
-if [ -n "$opt_input" ]
-then
-    patch=$opt_input
-else
-    patch=$(readlink /proc/self/fd/0)
-    if [[ "$patch" =~ "^pipe:" ]]
-    then
-	patch=$(find_pipe_patch "$patch")
-    fi
-fi
-patch=${patch#$PWD/}
 
 quilt_patches=${QUILT_PATCHES:-patches}
 dir=$(dirname "$quilt_patches/$patch")
