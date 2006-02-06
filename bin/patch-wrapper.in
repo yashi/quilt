@@ -149,6 +149,18 @@ else
     fi
 fi
 
+find_pipe_patch() {
+    declare patch=$1
+    patch=${patch//\[/\\[}
+    patch=${patch//\]/\\]}
+    set -- $(stat -c $'%a %N\n' /proc/*/fd/* 2>/dev/null \
+	     | sed -nre "s,^300 \`(/proc/.*/fd)/.*' -> \`$patch'$,\\1,p")
+    set -- $(stat -c $'%a %N\n' $1/* 2>/dev/null \
+	     | sed -nre "s,^500 \`.*' -> \`(.*)',\\1,p")
+    [ $# -eq 1 ] || set -- "$patch"
+    echo "$1"
+}
+
 if [ -n "$cannot_handle" ]
 then
     $PATCH "${original_options[@]}"
@@ -160,9 +172,10 @@ then
     patch=$opt_input
 else
     patch=$(readlink /proc/self/fd/0)
-    # FIXME: try to recognize pipes, find the other end of a pipe
-    # in /proc, and for gzip and bzip2 processes, use the file
-    # that the process is reading from.
+    if [[ "$patch" =~ "^pipe:" ]]
+    then
+	patch=$(find_pipe_patch "$patch")
+    fi
 fi
 patch=${patch#$PWD/}
 
@@ -173,8 +186,8 @@ if [ -e "$patch" ]
 then
     if [ "${patch:0:1}" = / ]
     then
+	ln -s "$patch" "$quilt_patches$patch"
 	patch=${patch#/}
-	ln -s "$patch" "$quilt_patches/$patch"
     else
 	while ! [ "$dir/$updir$patch" -ef "$patch" ]
 	do

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb  6 06:26:59 CET 2006 - agruen@suse.de
+
+- bin/patch-wrapper.in: Add hack to follow pipes via /proc on
+  Linux (zcat patch.diff.gz | patch -p0, etc.).
+
+-------------------------------------------------------------------
 Mon Feb  6 02:41:10 CET 2006 - agruen@suse.de
 
 - bin/patch-wrapper.in: A wrapper to GNU patch that recognizes the
