@@ -67,7 +67,7 @@ SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
 		bash_completion quilt.quiltrc aclocal.m4
 DIRT +=		quilt.spec
 
-BIN_IN :=	quilt guards
+BIN_IN :=	quilt guards patch-wrapper
 BIN_SRC :=	$(BIN_IN:%=%.in)
 BIN :=		$(BIN_IN)
 SRC +=		$(BIN_SRC:%=bin/%)
@@ -374,6 +374,7 @@ endif # (test|check)
 
 quilt/refresh :: quilt/scripts/remove-trailing-ws
 quilt/mail :: quilt/scripts/edmail
+test/.patch-wrapper.ok : bin/patch-wrapper
 
 # Include a run-time generated list of dependencies for each test case
 test/.depend : Makefile $(TESTS)

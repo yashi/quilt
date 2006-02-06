@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Feb  6 02:41:10 CET 2006 - agruen@suse.de
+
+- bin/patch-wrapper.in: A wrapper to GNU patch that recognizes the
+  most common options and mimics GNU patch's behavior and output,
+  and creates the quilt metadata as if quilt push was used to
+  apply the patch.  When options are used that this wrapper does
+  not recognize, GNU patch is used directly, and no quilt metadata
+  will get created.
+- lib/backup-files.c: Don't fail if a directory specified with
+  -B does not exist.
+
+-------------------------------------------------------------------
 Sat Feb  4 08:37:47 CET 2006 - agruen@suse.de
 
 - make dist: Add the missing aclocal.m4 to the tarball.

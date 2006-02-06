@@ -471,7 +471,7 @@ walk(const char *path, const struct stat *st)
 int
 main(int argc, char *argv[])
 {
-	int opt, status=0;
+	int opt, status = 0;
 
 	progname = argv[0];
 
@@ -557,15 +557,17 @@ main(int argc, char *argv[])
 	}
 	for (; optind < argc; optind++) {
 		if (strcmp(argv[optind], "-") == 0) {
+			struct stat st;
 			char *dir = strdup(opt_prefix), *d = strrchr(dir, '/');
 			if (d)
 				*d = '\0';
 			else
 				d = ".";
-			status = foreachdir(dir, walk);
-			if (status == -1)
-				perror(dir);
-
+			if (stat(dir, &st) == 0) {
+				status = foreachdir(dir, walk);
+				if (status == -1)
+					perror(dir);
+			}
 			free(dir);
 		} else
 			status = process_file(argv[optind]);
