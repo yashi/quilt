@@ -37,12 +37,11 @@ backup_files() {
 	      sub(/^patching file /, "", file)
 	    }
 	/^Hunk #[0-9]* / \
-	    { if (! file in backup)
-		print file > "/dev/stderr"
-	      backup[file] = 1
-	      #print "ln "dir"/"file" "prefix file suffix \
-	      # > "/dev/stderr"
-	      system("ln "dir"/"file" "prefix file suffix)
+	    { if (!(file in backup)) {
+	        backup[file] = 1
+	        #print "ln -f "dir"/"file" "prefix file suffix > "/dev/stderr"
+	        system("ln -f "dir"/"file" "prefix file suffix)
+	      }
 	    }
 	    { if (!silent)
 	        print
@@ -60,7 +59,7 @@ backup_files() {
 	do
 	    dest=$opt_prefix${file#$dir/}$opt_suffix
 	    mkdir -p $(dirname "$dest")
-	    ln $file $dest
+	    ln -f $file $dest
 	done
     fi
 }
