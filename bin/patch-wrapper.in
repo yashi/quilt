@@ -160,30 +160,41 @@ then
     patch=$opt_input
 else
     patch=$(readlink /proc/self/fd/0)
+    # FIXME: try to recognize pipes, find the other end of a pipe
+    # in /proc, and for gzip and bzip2 processes, use the file
+    # that the process is reading from.
 fi
 patch=${patch#$PWD/}
 
 quilt_patches=${QUILT_PATCHES:-patches}
-if [ ! -e "$quilt_patches/$patch" ]
+dir=$(dirname "$quilt_patches/$patch")
+mkdir -p "$dir"
+if [ -e "$patch" ]
 then
-    dir=$(dirname "$quilt_patches/$patch")
-    mkdir -p "$dir"
-    updir=../
-    while ! [ "$dir/$updir$patch" -ef "$patch" ]
-    do
-	updir=$updir../
-    done
-    ln -s "$updir$patch" "$quilt_patches/$patch"
+    if [ "${patch:0:1}" = / ]
+    then
+	patch=${patch#/}
+	ln -s "$patch" "$quilt_patches/$patch"
+    else
+	while ! [ "$dir/$updir$patch" -ef "$patch" ]
+	do
+	    updir=$updir../
+	    [ ${#updir} -gt 96 ] && break
+	done
+	if [ "$dir/$updir$patch" -ef "$patch" ]
+	then
+	    ln -s "$updir$patch" "$quilt_patches/$patch"
+	fi
+    fi
 fi
 
 if [ "$opt_strip" = -p1 ]; then
     echo "$patch"
 else
     echo "$patch $opt_strip"
-fi \
->> $quilt_patches/series
+fi >> $quilt_patches/series
 
-$PATCH "${new_options[@]}" --backup --prefix ${QUILT_PC:-.pc}/$patch/ \
+$PATCH "${new_options[@]}" --backup --prefix "${QUILT_PC:-.pc}/$patch/" \
     | backup_files
 status=${PIPESTATUS[0]}
 if [ $status -eq 0 ]
@@ -198,6 +209,6 @@ then
     then
 	echo 2 > ${QUILT_PC:-.pc}/.version
     fi
-    echo $patch >> "${QUILT_PC:-.pc}/applied-patches"
+    echo "$patch" >> "${QUILT_PC:-.pc}/applied-patches"
 fi
 exit $status
