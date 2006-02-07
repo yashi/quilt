@@ -998,7 +998,7 @@ msgstr ""
 
 #: quilt/push.in:64
 msgid "Interrupted by user; patch %s was not applied.\\n"
-msgstr "ユーザによって中断されました。パッチ % は適用されていません。\\n"
+msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
 #: quilt/push.in:177
 msgid "Applying patch %s\\n"
@@ -1015,7 +1015,7 @@ msgstr "パッチ %s は空のようですが、適用しました\\n"
 #: quilt/push.in:217
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
-"パッチ % を適用しました (強制適用したために、リフレッシュが必要です)\\n"
+"パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
 #: quilt/push.in:228
 msgid "Patch %s can be reverse-applied\\n"
@@ -1145,7 +1145,7 @@ msgstr "パッチ %s にはなにも含まれていません\\n"
 
 #: quilt/refresh.in:272
 msgid "Patch %s is unchanged\\n"
-msgstr "パッチ % に変更はありません\\n"
+msgstr "パッチ %s に変更はありません\\n"
 
 #: quilt/refresh.in:277
 msgid "Refreshed patch %s\\n"

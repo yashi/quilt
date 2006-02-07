@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb  7 20:53:03 CET 2006 - agruen@suse.de
+
+- po/ja.po: Fix three errors: % used instead of %s (Yasushi Shoji).
+
+-------------------------------------------------------------------
 Mon Feb  6 12:39:43 CET 2006 - agruen@suse.de
 
 - Add --with-patch-wrapper configure argument, and optionally
