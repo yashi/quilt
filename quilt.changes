@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Feb  8 02:03:27 CET 2006 - agruen@suse.de
+
+- bin/patch-wrapper.in: Fix permissions of installed file.
+
+-------------------------------------------------------------------
+Wed Feb  8 00:32:10 CET 2006 - agruen@suse.de
+
+- quilt/scripts/inspect.in: Improve recognition of patch's -i and
+  --input options.
+
+-------------------------------------------------------------------
 Tue Feb  7 20:53:03 CET 2006 - agruen@suse.de
 
 - po/ja.po: Fix three errors: % used instead of %s (Yasushi Shoji).

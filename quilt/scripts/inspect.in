@@ -141,14 +141,32 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		fi
 	}
 
-	for file in "$@"; do
-	    if [ -e "${file#-i}" ]; then
-		inputfile=${file#-i}
-		break
-	    fi
-	done
+	input_option() {
+		while [ $# -gt 0 ]; do
+			case "$1" in
+			-i|--input)
+				if [ $# -ge 2 ]; then
+					echo "$2"
+					return
+				fi
+				;;
+			-i*)
+				echo "${1#-i}"
+				return
+				;;
+			--input=*)
+				echo "${1#--input=}"
+				return
+				;;
+			esac
+			shift
+		done
+		return 1
+	}
+
 	tmpdir=${RPM_BUILD_DIR%/*}
 	rm -f $tmpdir/data
+	inputfile=$(input_option "$@")
 	if [ -z "$inputfile" ]; then
 	    # put data from stdin into tmpfile
 	    cat > $tmpdir/data
