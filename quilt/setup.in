@@ -22,17 +22,85 @@ then
 	fi
 fi
 
+check_for_existing_files() {
+	local dir status=0
+	for dir in $(awk ' $1 == "patch" { print $2 }' $tmpfile | uniq)
+	do
+		if [ -e "$prefix$dir/$QUILT_PATCHES" ]
+		then
+			printf $"Directory %s exists\n" \
+			       "$prefix$dir/$QUILT_PATCHES" >&2
+			status=1
+		fi
+		if [ -e "$prefix$dir/${QUILT_SERIES:-series}" ]
+		then
+			printf $"File %s exists\n" \
+			       "$prefix$dir/${QUILT_SERIES:-series}" >&2
+			status=1
+		fi
+	done
+	return $status
+}
+
+find_tarball() {
+	if [ "${1:0:1}" = / ]
+	then
+		echo "$1"
+		return
+	fi
+
+	local IFS=:
+	for dir in $path
+	do
+		[ -z "$dir" ] && continue
+		if [ -e "$dir/$1" ]
+		then
+			echo "$dir/$1"
+			return
+		fi
+	done
+	return 1
+}
+
+create_symlink() {
+	local from=$1 to=$2 up
+	if [ "${from:0:1}" = / ]
+	then
+		ln -s "$from" "$to"
+		return
+	fi
+
+	set -- "$(echo "$PWD/$from" | sed -r -e 's://:/:g' \
+					     -e ':again' \
+					     -e 's:/[^/]+/\.\.(/|$):\1:g' \
+					     -e 'tagain')" \
+	       "$(echo "$PWD/$to" | sed -r -e 's://:/:g' \
+					   -e ':again' \
+					   -e 's:/[^/]+/\.\.(/|$):\1:g' \
+					   -e 'tagain')"
+	while [ "${1%%/*}" = "${2%%/*}" ]
+	do
+		set -- "${1#*/}" "${2#*/}"
+	done
+	up=$(echo "${2%/*}" | sed -re 's:[^/]+:..:g')
+	set -- "${up:+$up/}$1"
+	set -- "${1%/}"
+	ln -s "${1:-.}" "$to"
+}
+
 usage()
 {
-	printf $"Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\n"
+	printf $"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|seriesfile}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Initializes a source tree from an rpm spec file or a quilt series file.
 
--d	optional path prefix (sub-directory).
+-d	Optional path prefix.
 
--v	verbose debug output.
+--path	Directories to search when looking for tarballs. Defaults to \`.'.
+
+-v	Verbose debug output.
 "
 		exit 0
 	else
@@ -40,7 +108,7 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 	fi
 }
 
-options=`getopt -o d:vh -- "$@"`
+options=`getopt -o d:vh --long path: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -62,6 +130,9 @@ do
 	-v)
 		verbose=-v
 		shift ;;
+	--path)
+		path="$path:$2"
+		shift 2 ;;
 	--)
 		shift
 		break ;;
@@ -73,45 +144,14 @@ then
 	usage
 fi
 
-up() {
-	if [ "${1:0:1}" = / ]
-	then
-		echo $1
-	else
-		local up=
-		while ! [ "$1$up" -ef . -o "$1$up" -ef / ]
-		do
-			up=$up/..
-		done
-		echo ${up:1}
-	fi
-}
-
-check_for_existing_files() {
-	local dir status=0
-	for dir in $(awk ' $1 = "patch" { print $2 }' $tmpfile | uniq)
-	do
-		if [ -e "$prefix$dir/$QUILT_PATCHES" ]
-		then
-			printf $"Directory %s exists\n" \
-			       "$prefix$dir/$QUILT_PATCHES" >&2
-			status=1
-		fi
-		if [ -e "$prefix$dir/series" ]
-		then
-			printf $"File %s exists\n" "$prefix$dir/series" >&2
-			status=1
-		fi
-	done
-	return $status
-}
+[ -z "$path" ] && path=.
 
 tmpfile=$(gen_tempfile)
 trap "rm -f $tmpfile" EXIT
 
 case "$1" in
 *.spec)
-	spec_file="$1"
+	spec_file=$1
 
 	if ! $QUILT_DIR/scripts/inspect $verbose "$spec_file" 2>&1 > $tmpfile
 	then
@@ -123,6 +163,7 @@ case "$1" in
 	fi
 	;;
 *)
+	series_file=$1
 	# parse series file
 	while read line; do
 		set -- $line
@@ -141,7 +182,7 @@ case "$1" in
 		*)
 			echo "patch ${patch_dir:-.} $@" ;;
 		esac
-	done < "$1" > $tmpfile
+	done < "$series_file" > $tmpfile
 	;;
 esac
 
@@ -152,14 +193,17 @@ do
 	mkdir -p "$prefix$dir"
 	case "$tag" in
 	tar)
-		printf $"Unpacking archive %s\n" "$arg1"
-		cat_file "$arg1" \
+		if ! tarball=$(find_tarball "$arg1")
+		then
+			printf $"File %s not found in search path\n" "$arg1" >&2
+			exit 1
+		fi
+		printf $"Unpacking archive %s\n" "$tarball"
+		cat_file "$tarball" \
 		| tar xf - -C "$prefix$dir"
 		;;
 	esac
 done < $tmpfile
-
-check_for_existing_files || exit 1
 
 while read tag dir arg1 arg2
 do
@@ -171,24 +215,27 @@ do
 		;;
 	patch)
 		[ -e "$prefix$dir/$QUILT_PATCHES" ] \
-		|| ln -s "$(up $prefix$dir)" $prefix$dir/$QUILT_PATCHES
-
-		if ! [ -e "$prefix$dir/series" ]
+		|| create_symlink "" "$prefix$dir/$QUILT_PATCHES"
+		if [ -n "$series_file" ]
 		then
-			# (There is no reliable way to associate archives with
-			#  patches; we assume that all pathes applied after
-			#  archive extraction belong to that archive.)
-			(	echo "# Patch series file for quilt," \
-				     "created by ${0##*/}"
-				[ -n "$tar_dir" ] \
-					&& echo "# Sourcedir: $tar_dir"
-				[ -n "$tar_file" ] \
-					&& echo "# Source: $tar_file"
-				echo "# Patchdir: $dir"
-				echo "#"
-			) > "$prefix$dir/series"
+			[ -e "$prefix$dir/${QUILT_SERIES:-series}" ] \
+			|| create_symlink "$series_file" \
+					  "$prefix$dir/${QUILT_SERIES:-series}"
+		else
+			if ! [ -e "$prefix$dir/${QUILT_SERIES:-series}" ]
+			then
+				(	echo "# Patch series file for quilt," \
+					     "created by ${0##*/}"
+					[ -n "$tar_dir" ] \
+						&& echo "# Sourcedir: $tar_dir"
+					[ -n "$tar_file" ] \
+						&& echo "# Source: $tar_file"
+					echo "# Patchdir: $dir"
+					echo "#"
+				) > "$prefix$dir/${QUILT_SERIES:-series}"
+			fi
+			echo "$arg1" $arg2 >> "$prefix$dir/series"
 		fi
-		echo "$arg1" $arg2 >> "$prefix$dir/series"
 		;;
 	esac
 done < $tmpfile

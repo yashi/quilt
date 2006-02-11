@@ -1383,20 +1383,34 @@ msgstr ""
 "\n"
 "-v\tAffichage verbeux, plus simple à lire.\n"
 
-#: quilt/setup.in:27
-msgid "Usage: quilt setup [-d path-prefix] [-v] {specfile|seriesfile}\\n"
+#: quilt/setup.in:31
+msgid "Directory %s exists\\n"
+msgstr "Le répertoire %s existe\\n"
+
+#: quilt/setup.in:37
+msgid "File %s exists\\n"
+msgstr "Le fichier %s existe\\n"
+
+#: quilt/setup.in:93
+#, fuzzy
+msgid ""
+"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
+"seriesfile}\\n"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
 "\\n"
 
-#: quilt/setup.in:30
+#: quilt/setup.in:96
+#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\toptional path prefix (sub-directory).\n"
+"-d\tOptional path prefix.\n"
 "\n"
-"-v\tverbose debug output.\n"
+"--path\tDirectories to search when looking for tarballs. Defaults to \\`.'.\n"
+"\n"
+"-v\tVerbose debug output.\n"
 msgstr ""
 "\n"
 "Initialise un arbre de sources à partir d'un fichier de\n"
@@ -1406,24 +1420,21 @@ msgstr ""
 "\n"
 "-v\taffichage verbeux pour le debug.\n"
 
-#: quilt/setup.in:96
-msgid "Directory %s exists\\n"
-msgstr "Le répertoire %s existe\\n"
-
-#: quilt/setup.in:102
-msgid "File %s exists\\n"
-msgstr "Le fichier %s existe\\n"
-
-#: quilt/setup.in:118
+#: quilt/setup.in:158
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "La section %%prep de %s a échoué ; les résultats sont peut-être incomplets\\n"
 
-#: quilt/setup.in:121
+#: quilt/setup.in:161
 msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
-#: quilt/setup.in:155
+#: quilt/setup.in:198
+#, fuzzy
+msgid "File %s not found in search path\\n"
+msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
+
+#: quilt/setup.in:201
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
 

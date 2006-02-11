@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Feb 11 15:15:07 CET 2006 - agruen@suse.de
+
+- quilt/setup.in: Add --path option for defining a tarball search
+  path. Fix a bug in check_for_existing_files. When a series file
+  is given as an argument, symlink to that series file in the
+  same way as we symlink to the patches. Improve the symlink
+  creation algorithm. Add testcase test/setup.test.
+
+-------------------------------------------------------------------
 Sat Feb 11 15:10:03 CET 2006 - agruen@suse.de
 
 - quilt/new.in: Try to explain how to choose another source tree
