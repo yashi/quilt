@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Feb 11 14:28:23 CET 2006 - agruen@suse.de
+
+- quilt/scripts/patchfns.in: Fix bug in quilt_command when working
+  in subdirectories.
+- Add testcase test/edit.test to catch this kind of bug.
+
+-------------------------------------------------------------------
 Wed Feb  8 02:03:27 CET 2006 - agruen@suse.de
 
 - bin/patch-wrapper.in: Fix permissions of installed file.

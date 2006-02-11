@@ -858,7 +858,7 @@ quilt_command()
 	local command=$1
 	shift
 
-	QUILT_COMMAND="" bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt $command" "$@"
+	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
 #

@@ -1,0 +1,20 @@
+$ rm -rf d
+$ mkdir -p d/patches d/subdir
+$ cd d
+
+$ cat > editor
+< #! /bin/sh
+< echo Editing $1
+< echo foo > $1
+$ chmod +x editor
+$ export EDITOR=%PWD/editor
+
+$ quilt new patch
+> Patch patches/patch is now on top
+$ cd subdir
+$ quilt edit foo
+> File subdir/foo added to patch ../patches/patch
+> Editing foo
+
+$ cd ../..
+$ rm -rf d
