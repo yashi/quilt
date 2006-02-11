@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Feb 11 15:10:03 CET 2006 - agruen@suse.de
+
+- quilt/new.in: Try to explain how to choose another source tree
+  root directory when quilt chooses the wrong one.
+
+-------------------------------------------------------------------
 Sat Feb 11 14:28:23 CET 2006 - agruen@suse.de
 
 - quilt/scripts/patchfns.in: Fix bug in quilt_command when working

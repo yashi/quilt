@@ -788,21 +788,23 @@ msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
 "topmost patch in the patch series file.\n"
+"\n"
+"Quilt can be used in sub-directories of a source tree. It determines the\n"
+"root of a source tree by searching for a %s directory above the\n"
+"current working directory. Create a %s directory in the intended root\n"
+"directory if quilt chooses a top-level directory that is too high up\n"
+"in the directory tree.\n"
 msgstr ""
-"\n"
-"指定されたファイル名で新しいパッチを作成し、seriesファイルにに追加する。\n"
-"追加される場所は、現在最上位のパッチの次です。\n"
-"\n"
 
-#: quilt/new.in:64
+#: quilt/new.in:70
 msgid "Patch %s exists already\\n"
 msgstr "パッチ %s は、すでに存在します\\n"
 
-#: quilt/new.in:75
+#: quilt/new.in:81
 msgid "Failed to create patch %s\\n"
 msgstr "パッチ %s の作成に失敗しました\\n"
 
-#: quilt/new.in:78
+#: quilt/new.in:84
 msgid "Patch %s is now on top\\n"
 msgstr "パッチ %s を最上位にしました\\n"
 
@@ -1479,3 +1481,13 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Create a new patch with the specified file name, and insert it after the\n"
+#~ "topmost patch in the patch series file.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "指定されたファイル名で新しいパッチを作成し、seriesファイルにに追加する。\n"
+#~ "追加される場所は、現在最上位のパッチの次です。\n"
+#~ "\n"

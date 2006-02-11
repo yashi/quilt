@@ -25,7 +25,13 @@ usage()
 		printf $"
 Create a new patch with the specified file name, and insert it after the
 topmost patch in the patch series file.
-"
+
+Quilt can be used in sub-directories of a source tree. It determines the
+root of a source tree by searching for a %s directory above the
+current working directory. Create a %s directory in the intended root
+directory if quilt chooses a top-level directory that is too high up
+in the directory tree.
+" "$QUILT_PATCHES" "$QUILT_PATCHES"
 		exit 0
 	else
 		exit 1

@@ -545,17 +545,23 @@ msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
 "topmost patch in the patch series file.\n"
+"\n"
+"Quilt can be used in sub-directories of a source tree. It determines the\n"
+"root of a source tree by searching for a %s directory above the\n"
+"current working directory. Create a %s directory in the intended root\n"
+"directory if quilt chooses a top-level directory that is too high up\n"
+"in the directory tree.\n"
 msgstr ""
 
-#: quilt/new.in:64
+#: quilt/new.in:70
 msgid "Patch %s exists already\\n"
 msgstr ""
 
-#: quilt/new.in:75
+#: quilt/new.in:81
 msgid "Failed to create patch %s\\n"
 msgstr ""
 
-#: quilt/new.in:78
+#: quilt/new.in:84
 msgid "Patch %s is now on top\\n"
 msgstr ""
 
