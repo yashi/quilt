@@ -190,7 +190,6 @@ check_for_existing_files || exit 1
 
 while read tag dir arg1 arg2
 do
-	mkdir -p "$prefix$dir"
 	case "$tag" in
 	tar)
 		if ! tarball=$(find_tarball "$arg1")
@@ -199,6 +198,7 @@ do
 			exit 1
 		fi
 		printf $"Unpacking archive %s\n" "$tarball"
+		mkdir -p "${prefix:-.}" "$prefix$dir"
 		cat_file "$tarball" \
 		| tar xf - -C "$prefix$dir"
 		;;

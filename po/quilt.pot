@@ -999,11 +999,11 @@ msgstr ""
 msgid "The -v option will show rpm's output\\n"
 msgstr ""
 
-#: quilt/setup.in:198
+#: quilt/setup.in:197
 msgid "File %s not found in search path\\n"
 msgstr ""
 
-#: quilt/setup.in:201
+#: quilt/setup.in:200
 msgid "Unpacking archive %s\\n"
 msgstr ""
 

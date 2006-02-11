@@ -1386,12 +1386,12 @@ msgstr ""
 msgid "The -v option will show rpm's output\\n"
 msgstr "-vオプションを使って、rpmの出力を表示できます"
 
-#: quilt/setup.in:198
+#: quilt/setup.in:197
 #, fuzzy
 msgid "File %s not found in search path\\n"
 msgstr "ファイル %s は、パッチ %s に含まれていません\\n"
 
-#: quilt/setup.in:201
+#: quilt/setup.in:200
 msgid "Unpacking archive %s\\n"
 msgstr "アーカイブ %s を展開しています\\n"
 

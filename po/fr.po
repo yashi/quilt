@@ -1429,12 +1429,12 @@ msgstr ""
 msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
-#: quilt/setup.in:198
+#: quilt/setup.in:197
 #, fuzzy
 msgid "File %s not found in search path\\n"
 msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
 
-#: quilt/setup.in:201
+#: quilt/setup.in:200
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
 
