@@ -252,6 +252,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
 		-e 's:@PERL''@:$(PERL):g'				\
 		-e 's:@BASH''@:$(BASH):g'				\
+		-e 's:@PATCH''@:$(PATCH):g'				\
 		-e 's:@VERSION''@:$(VERSION):g'				\
 		-e 's:@RELEASE''@:$(RELEASE):g'				\
 		-e 's:@LOCALEDIR''@:$(localedir):g'			\

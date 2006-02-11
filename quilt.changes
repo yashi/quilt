@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Feb 11 15:35:51 CET 2006 - agruen@suse.de
+
+- bin/patch-wrapper.in: Call GNU patch by absolute patch to avoid
+  recursion. Don't print an error message when a patch contains
+  no files.
+
+-------------------------------------------------------------------
 Sat Feb 11 15:15:07 CET 2006 - agruen@suse.de
 
 - quilt/setup.in: Add --path option for defining a tarball search

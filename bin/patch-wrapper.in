@@ -6,7 +6,7 @@
 # options are used that this wrapper does not recognize, GNU patch is
 # used directly, and no quilt metadata will get created.
 
-PATCH=patch
+PATCH=@PATCH@
 original_options=("$@")
 
 # GNU patch recognizes these environment variables
@@ -53,7 +53,7 @@ backup_files() {
     elif [ -n "$opt_silent" ]; then
 	cat > /dev/null
     fi
-    if [ "$backup_mode" = --backup ]
+    if [ "$backup_mode" = --backup -a -d "$dir" ]
     then
 	for file in $(find "$dir" -type f -a ! -path "$path/.timestamp")
 	do
