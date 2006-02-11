@@ -73,16 +73,10 @@ then
 	new_patch="$1"
 else
 	base=$(echo "$top_patch" \
-	       | sed -e 's:\(\|\.diff\?\|\.patch\)\(\|\.gz\|\.bz2\)$::')
-	num=$(echo "$base" \
-	      | sed -ne 's:.*\(-[0-9]\+\)$:\1:'p)
-	if [ -n "$num" ]
-	then
-		new_patch="${base:0:${#base}-${#num}}-$((${num:1}+1))"
-	else
-		new_patch="$base-2"
-	fi
-	new_patch="$new_patch${top_patch:${#base}}"
+	       | sed -r -e 's:(\.gz|\.bz2)$::' -e 's:(\.diff?|\.patch)$::')
+	num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
+	[ -n "$num" ] || num=1
+	new_patch="${base%-$num}-$((num+1))${top_patch#$base}"
 fi
 
 new_patch=${new_patch#$QUILT_PATCHES/}

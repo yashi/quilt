@@ -97,9 +97,9 @@ push_patch_args()
 		patch_args "$patch"
 	else
 		set -- $(patch_args "$patch")
-		if [ "${*/-R}" != "$*" ]
+		if [ "${*#-R}" != "$*" ]
 		then
-			echo "${*/-R}"
+			echo "${*#-R}"
 		else
 			echo "$*" -R
 		fi

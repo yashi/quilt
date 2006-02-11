@@ -455,15 +455,15 @@ msgstr ""
 "tiret suivi d'un nombre, ce nombre est augmenté à la place (par\n"
 "exemple : patch.diff, patch-2.diff, patch-3.diff).\n"
 
-#: quilt/fork.in:94
+#: quilt/fork.in:88
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom\\n"
 
-#: quilt/fork.in:106
+#: quilt/fork.in:100
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Le fork de %s en %s a échoué\\n"
 
-#: quilt/fork.in:112
+#: quilt/fork.in:106
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 

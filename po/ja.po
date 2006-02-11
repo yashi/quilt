@@ -437,15 +437,15 @@ msgstr ""
 "\\`-2' が付く。すでにパッチ名が -番号で終っている場合、番号の値が1増える "
 "(例: patch.diff、patch-2.diff、patch-3.diff)。\n"
 
-#: quilt/fork.in:94
+#: quilt/fork.in:88
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "パッチ %s はすでに存在します。新しい名前を選んでください\\n"
 
-#: quilt/fork.in:106
+#: quilt/fork.in:100
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "パッチ %s からパッチ %s への分岐に失敗しました\\n"
 
-#: quilt/fork.in:112
+#: quilt/fork.in:106
 msgid "Fork of patch %s created as %s\\n"
 msgstr "パッチ %s の分岐で %s が作成されました\\n"
 

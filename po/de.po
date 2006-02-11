@@ -452,15 +452,15 @@ msgstr ""
 "die\n"
 "Nummer erhöht (z.B. patch.diff, patch-2.diff, patch-3.diff).\n"
 
-#: quilt/fork.in:94
+#: quilt/fork.in:88
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Patch %s existiert bereits, bitte neuen Namen wählen\\n"
 
-#: quilt/fork.in:106
+#: quilt/fork.in:100
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Fehler beim Aufspalten von %s auf %s\\n"
 
-#: quilt/fork.in:112
+#: quilt/fork.in:106
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Neue Version von %s erstellt als %s\\n"
 
