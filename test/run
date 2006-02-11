@@ -27,9 +27,10 @@ if (isatty(fileno(STDOUT))) {
 }
 
 sub exec_test($$);
+sub process_test($$$$);
 
 my ($prog, $in, $out) = ([], [], []);
-my $prog_line;
+my $prog_line = 0;
 my ($tests, $failed) = (0,0);
 my $lineno;
 my $width = ($ENV{COLUMNS} || 80) >> 1;
@@ -38,7 +39,8 @@ for (;;) {
   my $line = <>; $lineno++;
   if (defined $line) {
     # Substitute %VAR and %{VAR} with environment variables.
-    $line =~ s[%(?:(\w+)|\{(\w+)\})][$ENV{"$1$2"}]eg;
+    $line =~ s[%(\w+)][$ENV{$1}]eg;
+    $line =~ s[%{(\w+)}][$ENV{$1}]eg;
   }
   if (defined $line) {
     if ($line =~ s/^\s*< ?//) {
@@ -88,7 +90,6 @@ sub process_test($$$$) {
              map { s/\s/\\$&/g; $_ } @$p), " -- ";
        my $result = exec_test($prog, $in);
        my @good = ();
-       my $good;
        my $nmax = (@$out > @$result) ? @$out : @$result;
        for (my $n=0; $n < $nmax; $n++) {
            my $use_re = ($out->[$n] =~ /^~ /);

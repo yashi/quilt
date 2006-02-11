@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Feb 12 00:54:47 CET 2006 - agruen@suse.de
+
+- test/run: Avoid warnings with some versions of Perl.
+
+-------------------------------------------------------------------
 Sat Feb 11 23:57:09 CET 2006 - agruen@suse.de
 
 - Two bash 3.1 compatibility fixes from Arnaud Patard
