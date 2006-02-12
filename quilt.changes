@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb 12 00:58:49 CET 2006 - agruen@suse.de
+
+- lib/backup-files.c: Close files before rename; Windows won't
+  rename open files.
+
+-------------------------------------------------------------------
 Sun Feb 12 00:54:47 CET 2006 - agruen@suse.de
 
 - test/run: Avoid warnings with some versions of Perl.

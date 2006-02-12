@@ -271,6 +271,10 @@ ensure_nolinks(const char *filename)
 #elif defined(HAVE_CHMOD)
 		(void) chmod(tmpname, st.st_mode);
 #endif
+		close(from_fd);
+		from_fd = -1;
+		close(to_fd);
+		to_fd = -1;
 		if (rename(tmpname, filename))
 			goto fail;
 
@@ -278,9 +282,11 @@ ensure_nolinks(const char *filename)
 	fail:
 		if (error)
 			perror(filename);
+		if (from_fd != -1)
+			close(from_fd);
+		if (to_fd != -1)
+			close(to_fd);
 		free(tmpname);
-		close(from_fd);
-		close(to_fd);
 		return error;
 	} else
 		return 0;
