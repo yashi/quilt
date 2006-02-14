@@ -224,13 +224,13 @@ add_patch()
 		opt_reverse=1
 		if apply_patch $patch "$patch_file" > /dev/null 2> /dev/null
 		then
-			rollback_patch $patch
 			printf $"Patch %s can be reverse-applied\n" \
 			       "$(print_patch "$patch")"
 		else
 			printf $"Patch %s does not apply (enforce with -f)\n" \
 			       "$(print_patch $patch)"
 		fi
+		rollback_patch $patch
 		rm -f $tmp
 		status=1
 	fi

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 14 04:51:24 CET 2006 - agruen@suse.de
+
+- Fix a critical bug in the push command that causes parts of
+  patches to end up half-reversed (introduced on 22 Jan).
+
+-------------------------------------------------------------------
 Sun Feb 12 00:58:49 CET 2006 - agruen@suse.de
 
 - lib/backup-files.c: Close files before rename; Windows won't
