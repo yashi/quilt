@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb 14 16:43:01 CET 2006 - agruen@suse.de
+
+- po/ja.po: Translation update from Yasushi.
+
+-------------------------------------------------------------------
 Tue Feb 14 04:51:24 CET 2006 - agruen@suse.de
 
 - Fix a critical bug in the push command that causes parts of
