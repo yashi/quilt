@@ -775,7 +775,7 @@ msgstr "序文に件名がありません(%s として保存されました)\\n"
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:461
+#: quilt/mail.in:462
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 

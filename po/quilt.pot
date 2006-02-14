@@ -532,7 +532,7 @@ msgstr ""
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:461
+#: quilt/mail.in:462
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
