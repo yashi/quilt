@@ -1361,7 +1361,9 @@ msgstr "ファイル %s は、すでに存在します\\n"
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
 "seriesfile}\\n"
-msgstr "使い方: quilt setup [-d path-prefix] [-v] [--path ディレクトリ1:ディレクトリ2] {specファイル|seriesファイル}\\n"
+msgstr ""
+"使い方: quilt setup [-d path-prefix] [-v] [--path ディレクトリ1:ディレクトリ"
+"2] {specファイル|seriesファイル}\\n"
 
 #: quilt/setup.in:96
 msgid ""
