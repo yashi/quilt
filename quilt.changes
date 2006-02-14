@@ -1,3 +1,9 @@
+-------------------------------------------------------------------
+Tue Feb 14 19:30:02 CET 2006 - khali@linux-fr.org
+
+- po/fr.po: French translation update.
+
+-------------------------------------------------------------------
 Tue Feb 14 19:07:31 CET 2006 - khali@linux-fr.org
 
 - quilt/mail.in: Fix temporary file leak.

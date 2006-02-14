@@ -824,6 +824,15 @@ msgid ""
 "directory if quilt chooses a top-level directory that is too high up\n"
 "in the directory tree.\n"
 msgstr ""
+"\n"
+"Crée un nouveau patch au nom spécifié, et l'insere après le patch\n"
+"au sommet dans le fichier de série.\n"
+"\n"
+"Quilt peut être utilisé dans les sous-répertoires d'une arborescence\n"
+"source. La racine de l'arbre est déterminée en cherchant un répertoire\n"
+"nommé %s en amont du répertoire courant. Créez un repertoire %s dans le\n"
+"répertoire devant être la racine si quilt choisi un répertoire trop haut\n"
+"dans l'arborescence.\n"
 
 #: quilt/new.in:70
 msgid "Patch %s exists already\\n"
@@ -1392,16 +1401,14 @@ msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
 #: quilt/setup.in:93
-#, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
 "seriesfile}\\n"
 msgstr ""
-"Usage : quilt setup [-d répertoire_source] [-v] {fichier_séries|fichier_spec}"
-"\\n"
+"Usage : quilt setup [-d répertoire_source] [-v] [--path rép1:rép2] "
+"{fichier_spec|fichier_séries}\\n"
 
 #: quilt/setup.in:96
-#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1416,9 +1423,12 @@ msgstr ""
 "Initialise un arbre de sources à partir d'un fichier de\n"
 "spécification rpm, ou d'un fichier de série quilt.\n"
 "\n"
-"-d\tpréfix de chemin optionel (sous-répertoire).\n"
+"-d\tPréfixe de chemin optionel (sous-répertoire).\n"
 "\n"
-"-v\taffichage verbeux pour le debug.\n"
+"--path\tRépertoires dans lesquels chercher les fichiers tar. Valeur\n"
+"\tpar défaut : \\`.'.\n"
+"\n"
+"-v\tAffichage verbeux pour le debug.\n"
 
 #: quilt/setup.in:158
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
@@ -1430,9 +1440,8 @@ msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
 #: quilt/setup.in:197
-#, fuzzy
 msgid "File %s not found in search path\\n"
-msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
+msgstr "Le fichier %s est introuvable dans le chemin de recherche\\n"
 
 #: quilt/setup.in:200
 msgid "Unpacking archive %s\\n"
@@ -1538,12 +1547,3 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Create a new patch with the specified file name, and insert it after the\n"
-#~ "topmost patch in the patch series file.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Crée un nouveau patch au nom spécifié, et l'insere après le patch\n"
-#~ "au sommet dans le fichier de série.\n"
