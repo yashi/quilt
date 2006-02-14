@@ -87,6 +87,8 @@ quilt import:
 	- Add option to replace the currently applied patch with a new
 	  one, by backing out the topmost patch first.
 
+	- Add an -R option for reverse-applying a patch.
+
 quilt setup:
 
 	- Also recognize other uses of tar and patch (with options in the
@@ -109,3 +111,7 @@ quilt mail:
 	- Character set handling is missing, too.
 
 	- Too many passes of edmail make it a bit slow.
+
+quilt fold:
+
+	- Add an -R option for reverse-applying a patch.
