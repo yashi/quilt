@@ -1,3 +1,7 @@
+Tue Feb 14 19:07:31 CET 2006 - khali@linux-fr.org
+
+- quilt/mail.in: Fix temporary file leak.
+
 -------------------------------------------------------------------
 Tue Feb 14 16:43:01 CET 2006 - agruen@suse.de
 

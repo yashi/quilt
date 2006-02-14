@@ -370,6 +370,7 @@ then
 			"$introduction" >&2
 	else
 		printf $"Introduction has no subject header\n"
+		rm -f $introduction
 	fi
 	exit 1
 fi
