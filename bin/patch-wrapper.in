@@ -83,10 +83,15 @@ options=`getopt -q -o bsB:z:i:p:d: \
 if [ $? -ne 0 ]
 then
     cannot_handle=1
-elif [[ ! ${LC_ALL:-${LC_MESSAGES:-${LANG}}} =~ "^$|^C$|^POSIX$|^en" ]]
-then
-    cannot_handle=1
 else
+	case "${LC_ALL:-${LC_MESSAGES:-${LANG}}}" in
+	''|C|POSIX|en*)
+		;;
+	*)	cannot_handle=1
+		;;
+	esac
+fi
+if [ -z "$cannot_handle" ]; then
     eval set -- "$options"
 
     backup_mode=--backup-if-mismatch
@@ -169,10 +174,11 @@ then
     elif [ -e /proc/self/fd/0 ]
     then
 	patch=$(readlink /proc/self/fd/0)
-	if [[ "$patch" =~ "^pipe:" ]]
-	then
-	    patch=$(find_pipe_patch "$patch")
-	fi
+	case "$patch" in
+	pipe:*)
+		patch=$(find_pipe_patch "$patch")
+		;;
+	esac
     fi
     patch=${patch#$PWD/}
 
