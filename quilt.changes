@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Feb 15 10:02:15 CET 2006 - agruen@suse.de
+
+- quilt.spec.in: Use wildcards for matching manpage{,.gz,bz2}
+  (Thomas Petazzoni <thomas.petazzoni@enix.org>).
+
+-------------------------------------------------------------------
 Tue Feb 14 23:58:22 CET 2006 - agruen@suse.de
 
 - Stop using bash's =~ operator: older versions don't support it.

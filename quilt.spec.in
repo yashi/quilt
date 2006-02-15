@@ -49,8 +49,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/quilt/
 /etc/bash_completion.d/quilt
 %config(noreplace) /etc/quilt.quiltrc
-%doc %{_mandir}/man1/guards.1.gz
-%doc %{_mandir}/man1/quilt.1.gz
+%doc %{_mandir}/man1/guards.1*
+%doc %{_mandir}/man1/quilt.1*
 %doc %{_docdir}/%{name}-%{version}/README
 %doc %{_docdir}/%{name}-%{version}/README.MAIL
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
