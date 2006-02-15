@@ -32,6 +32,9 @@ General:
 	  applied in subdirectories (patch -d option): There are problems
 	  with relative $QUILT_PATCHES, and likely with several commands.
 
+	- wrapper scripts: check with [ -ef ] if the wrapper is the same
+	  as the default binary found to avoid wrappers like awk -> gawk.
+
 Documentation:
 
 	- How to import a complete directory before doing wild changes?
