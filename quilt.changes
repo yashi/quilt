@@ -3,7 +3,7 @@ Thu Feb 16 09:06:01 CET 2006 - agruen@suse.de
 
 - quilt/scripts/inspect.in: Also recognize when tar is passed a
   filename on the command line -- in this case, md5sum will add
-  a `*' in fromt of thw filename, which indicates a binary file.
+  a `*' in front of the filename, which indicates a binary file.
 
 -------------------------------------------------------------------
 Thu Feb 16 08:35:17 CET 2006 - agruen@suse.de
