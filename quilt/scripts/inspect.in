@@ -101,7 +101,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		do
 			if [ $md5sum = $md5sum_ ]
 			then
-				echo $file_
+				echo ${file_#\*}
 				return 0
 			fi
 		done < $tmpdir/md5sums
@@ -120,7 +120,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		do
 			if [ $md5sum = $md5sum_ ]
 			then
-				echo $file_
+				echo ${file_#\*}
 				return 0
 			fi
 		done < $tmpdir/more-md5sums
@@ -141,7 +141,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		fi
 	}
 
-	input_option() {
+	patch_input_file() {
 		while [ $# -gt 0 ]; do
 			case "$1" in
 			-i|--input)
@@ -164,9 +164,27 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		return 1
 	}
 
+	tar_input_file() {
+		while [ $# -gt 0 ]; do
+			if [ -e "$1" ]
+			then
+				echo "$1"
+				return
+			fi
+			shift
+		done
+	}
+
 	tmpdir=${RPM_BUILD_DIR%/*}
 	rm -f $tmpdir/data
-	inputfile=$(input_option "$@")
+	case "${0##*/}" in
+	patch)
+		inputfile=$(patch_input_file "$@")
+		;;
+	tar)
+		inputfile=$(tar_input_file "$@")
+		;;
+	esac
 	if [ -z "$inputfile" ]; then
 	    # put data from stdin into tmpfile
 	    cat > $tmpdir/data
