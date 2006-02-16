@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb 16 08:35:17 CET 2006 - agruen@suse.de
+
+- quilt/scripts/inspect.in: Add default value for QUILT_DIR so
+  that inspect can be used stand-alone as well.
+
+-------------------------------------------------------------------
 Wed Feb 15 10:02:15 CET 2006 - agruen@suse.de
 
 - quilt.spec.in: Use wildcards for matching manpage{,.gz,bz2}

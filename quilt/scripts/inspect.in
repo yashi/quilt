@@ -6,7 +6,7 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-: ${LIB=@LIB@} ${QUILT=@QUILT@}
+: ${QUILT_DIR=@QUILT_DIR@}
 
 if ! [ -r $QUILT_DIR/scripts/patchfns ]
 then
