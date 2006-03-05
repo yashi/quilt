@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Mar  5 10:41:36 CET 2006 - khali@linux-fr.org
+
+- quilt/import.in: Fix replacement of compressed patches.
+- test/import2.test: New test case for compressed patches.
+
+-------------------------------------------------------------------
 Thu Feb 16 09:06:01 CET 2006 - agruen@suse.de
 
 - quilt/scripts/inspect.in: Also recognize when tar is passed a

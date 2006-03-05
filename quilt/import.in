@@ -51,8 +51,8 @@ merge_patches()
 	local old="$1" new="$2"
 	local old_desc=$(gen_tempfile) new_desc=$(gen_tempfile)
 
-	cat "$old" | patch_header | strip_diffstat > $old_desc
-	cat "$new" | patch_header | strip_diffstat > $new_desc
+	cat_file "$old" | patch_header | strip_diffstat > $old_desc
+	cat_file "$new" | patch_header | strip_diffstat > $new_desc
 
 	if [ -z "$opt_desc" ]
 	then
@@ -79,9 +79,9 @@ $"Please use -d {o|a|n} to specify which patch header(s) to keep.\n" >&2
 	[ "$opt_desc" = a ] && echo '---'
 	if [ "$opt_desc" = o ]
 	then
-		cat "$new" | patch_body
+		cat_file "$new" | patch_body
 	else
-		cat "$new"
+		cat_file "$new"
 	fi
 	rm -f $old_desc $new_desc
 }
@@ -190,7 +190,10 @@ do
 	fi
 
 	if [ "$merged_patch_file" != "$dest" ] && \
-	   ! cp "$merged_patch_file" "$dest"
+	   (( [ "$merged_patch_file" != "$patch_file" ] && \
+	      ! cat_to_new_file "$dest" < "$merged_patch_file" ) || \
+	    ( [ "$merged_patch_file" = "$patch_file" ] && \
+	      ! cp "$merged_patch_file" "$dest" ))
 	then
 		printf $"Failed to import patch %s\n" "$(print_patch $patch)" >&2
 		die 1

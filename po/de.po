@@ -694,11 +694,11 @@ msgstr "Importiere patch %s\\n"
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:195
+#: quilt/import.in:198
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:204
+#: quilt/import.in:207
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
