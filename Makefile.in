@@ -88,10 +88,10 @@ SCRIPTS :=	$(SCRIPTS_IN)
 SRC +=		$(SCRIPTS_SRC:%=quilt/scripts/%)
 DIRT +=		$(SCRIPTS_IN:%=quilt/scripts/%)
 
-SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
-DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in))
-
 COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
+SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
+DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in)) $(COMPAT_SYMLINKS:%=compat/%)
+
 LIB_SRC :=	backup-files.c
 LIB :=		backup-files$(EXEEXT)
 SRC +=		$(LIB_SRC:%=lib/%)
