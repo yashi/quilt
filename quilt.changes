@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar 15 20:34:42 CET 2006 - agruen@suse.de
+
+- quilt/edit.in: Fix for working in subdirectories.
+
+-------------------------------------------------------------------
 Sun Mar 12 14:50:26 CET 2006 - khali@linux-fr.org
 
 - Makefile.in: Fix pseudo-symlinks under compat not being removed

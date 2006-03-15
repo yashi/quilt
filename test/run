@@ -92,8 +92,11 @@ sub process_test($$$$) {
        my @good = ();
        my $nmax = (@$out > @$result) ? @$out : @$result;
        for (my $n=0; $n < $nmax; $n++) {
-           my $use_re = ($out->[$n] =~ /^~ /);
-           $out->[$n] =~ s/^~ //g;
+	   my $use_re;
+	   if (defined $out->[$n] && $out->[$n] =~ /^~ /) {
+		$use_re = 1;
+		$out->[$n] =~ s/^~ //g;
+	   }
 
            if (!defined($out->[$n]) || !defined($result->[$n]) ||
                (!$use_re && $result->[$n] ne $out->[$n]) ||
