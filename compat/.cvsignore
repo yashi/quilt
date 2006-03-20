@@ -1,8 +1,9 @@
 awk
 bash
 column
+date
 diffstat
 getopt
 mktemp
+sed
 sendmail
-date
