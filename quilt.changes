@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar 20 20:08:01 CET 2006 - khali@linux-fr.org
+
+- Makefile.in: Fix building with GNU make < 3.80.
+
+-------------------------------------------------------------------
 Wed Mar 15 20:34:42 CET 2006 - agruen@suse.de
 
 - quilt/edit.in: Fix for working in subdirectories.

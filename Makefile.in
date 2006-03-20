@@ -283,20 +283,15 @@ compat :: $(COMPAT)
 #   Usage: $(call VIRTUAL_SYMLINK, source, target)
 define VIRTUAL_SYMLINK
 	@echo "Generating $(strip $(1)) wrapper" >&2;
-	@printf "#!%s\nexec %s "'"$$$$@"'"\n" $(BASH) $(strip $(1)) > $(2);
+	@printf "#!%s\nexec %s "'"$$@"'"\n" $(BASH) $(strip $(1)) > $(2);
 endef
 
-# Generate rules to create compat/<binary> for each binary in $(COMPAT_SYMLINKS)
-define COMPAT_SYMLINK_local_install
-compat/$(strip $(1)) : Makefile
+# Rule to create compat/<binary> for each binary in $(COMPAT_SYMLINKS)
+$(COMPAT_SYMLINKS:%=compat/%) :: Makefile
 	$(call VIRTUAL_SYMLINK, \
-		$($(shell echo $(1) | $(AWK) '{print toupper($$1)}')), \
-		compat/$(strip $(1)))
-	@chmod +x compat/$(strip $(1));
-
-endef
-
-$(eval $(foreach symlink,$(COMPAT_SYMLINKS),$(call COMPAT_SYMLINK_local_install, $(symlink))))
+		$($(shell echo $@ | $(AWK) '{split($$1, ar, "/"); print toupper(ar[2])}')), \
+		$(strip $@))
+	@chmod +x $(strip $@)
 
 install-main :: scripts
 	$(INSTALL) -d $(BUILD_ROOT)$(bindir)
@@ -336,7 +331,9 @@ endif
 	$(INSTALL) -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
 
 install-compat: install-compat1 $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
-$(COMPAT_SYMLINKS:%=install-compat-symlink-%) :: install-compat1
+install-compat-symlink-% :: install-compat1
+	ln -sf $($(shell echo $* | $(AWK) '{print toupper($$1)}'))	\
+	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat/$*
 
 install-compat1:
 	rm -rf $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
@@ -347,15 +344,6 @@ ifneq ($(COMPAT_PROGRAMS),)
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat
 endif
 endif
-
-# Generate rules to install symlinks for each binary in $(COMPAT_SYMLINKS)
-define COMPAT_SYMLINK_install
-install-compat-symlink-$(strip $(1)) ::
-	ln -sf $($(shell echo $(1) | $(AWK) '{print toupper($$1)}'))	\
-	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)/compat/$(strip $(1))
-endef
-
-$(foreach symlink,$(COMPAT_SYMLINKS),$(eval $(call COMPAT_SYMLINK_install, $(symlink))))
 
 install: install-main install-compat
 
