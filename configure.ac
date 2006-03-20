@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.44],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.75 $)
+AC_REVISION ($Revision: 1.76 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -117,7 +117,7 @@ QUILT_COMPAT_PROG_PATH(TAIL, tail)
 
 # Solaris' /usr/bin/tail doesn't understand -n.
 AC_MSG_CHECKING([whether $TAIL -n works])
-if test "`(echo first; echo second) | $TAIL -n 1 2>/dev/null`" == "second"; then
+if test "`(echo first; echo second) | $TAIL -n 1 2>/dev/null`" = "second"; then
 	AC_MSG_RESULT(yes)
 else
 	AC_MSG_RESULT(no)
