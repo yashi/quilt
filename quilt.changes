@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Mar 21 16:47:57 CET 2006 - agruen@suse.de
+
+- quilt/edit.in: The last fix broke another way of using edit.
+
+-------------------------------------------------------------------
 Mon Mar 20 20:16:42 CET 2006 - khali@linux-fr.org
 
 - configure.ac: Fix a typo in a test expression which was breaking

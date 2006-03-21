@@ -69,7 +69,7 @@ $EDITOR "${@/#/$SUBDIR}"
 status=$?
 for file in "$@"
 do
-	if ! [ -e "$SUBDIR/$file" ]
+	if ! [ -e "$SUBDIR$file" ]
 	then
 		quilt_command remove "$file"
 		status=1

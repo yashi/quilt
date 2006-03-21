@@ -12,14 +12,28 @@ $ export EDITOR=%PWD/editor
 
 $ quilt new patch
 > Patch patches/patch is now on top
+
+$ echo foobar > foobar
+$ quilt edit foobar
+> File foobar added to patch patches/patch
+> Editing foobar
+
 $ cd subdir
 $ echo foo > foo
 $ quilt edit foo
 > File subdir/foo added to patch ../patches/patch
 > Editing subdir/foo
 
-$ cat foo
+$ cd ..
+$ cat foobar
+> barbar
+
+$ cat subdir/foo
 > bar
+
+$ quilt files
+> foobar
+> subdir/foo
 
 $ cd ../..
 $ rm -rf d
