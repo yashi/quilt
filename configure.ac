@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.44],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.76 $)
+AC_REVISION ($Revision: 1.77 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -284,7 +284,7 @@ does understand -path, you can supply its path with the
 ])
 fi
 
-QUILT_COMPAT_PROG_PATH(DIFFSTAT, [diffstat])
+QUILT_COMPAT_PROG_PATH(DIFFSTAT, diffstat)
 
 if test -z "$INTERNAL_DIFFSTAT"; then
     # We need diffstat version 1.32 or better, else quilt refresh --diffstat
@@ -315,7 +315,7 @@ will not work correctly until a newer version (>= 1.32) is installed.
     fi
 fi
 
-QUILT_COMPAT_PROG_PATH(SENDMAIL, [sendmail], [], [/usr/sbin])
+QUILT_COMPAT_PROG_PATH(SENDMAIL, sendmail, [], [/usr/sbin])
 
 AC_PATH_PROG(MSGMERGE, [msgmerge])
 AC_PATH_PROG(MSGFMT, [msgfmt])

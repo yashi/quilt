@@ -1,7 +1,8 @@
 dnl Allow configure to specify a specific binary
 dnl 1: Environment variable
 dnl 2: binary name
-dnl 3: optional list of alternatives
+dnl 3: optional list of alternative binary names
+dnl 4: optional list of additional search directories
 AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
   m4_define([internal_$2_cmd],[esyscmd(ls compat/$2.in 2>/dev/null)])
 
@@ -13,8 +14,8 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
     if test x"$withval" = xnone; then
       AC_MSG_ERROR([Invalid configure argument.  use --without-$2])
     fi
-    AC_MSG_CHECKING(for $2)
     if test x"$withval" != xno; then
+      AC_MSG_CHECKING(for $2)
       $1="$withval"
       if test -e "$$1"; then
 	if test ! -f "$$1" -a ! -h "$$1" || test ! -x "$$1"; then

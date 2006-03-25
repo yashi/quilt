@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Mar 25 14:45:09 CET 2006 - khali@linux-fr.org
+
+- Makefile.in: configure depends on aclocal.m4 too.
+- configure.ac: Cleanup two QUILT_COMPAT_PROG_PATH calls, the
+  second parameter is not supposed to be a list.
+- aclocal.m4: Document the fourth (optional) parameter of
+  QUILT_COMPAT_PROG_PATH.
+- aclocal.m4: No need to check for binaries we were told not to
+  use.
+
+-------------------------------------------------------------------
 Tue Mar 21 16:47:57 CET 2006 - agruen@suse.de
 
 - quilt/edit.in: The last fix broke another way of using edit.
