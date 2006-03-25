@@ -1,5 +1,11 @@
 #! @PERL@ -w
 
+# RFCs important for this script:
+#
+# RFC 2822 - Internet Message Format
+# RFC 2047 - MIME (Multipurpose Internet Mail Extensions) Part Three:
+#            Message Header Extensions for Non-ASCII Text
+
 use Getopt::Long;
 use strict;
 
@@ -31,7 +37,7 @@ sub _($) {
 }
 
 my (%append_name, %append_value, $remove_empty_headers, %remove_header,
-    %extract_recipients, %replace_name, %replace_value, $charset);
+    %extract_recipients_from, %replace_name, %replace_value, $charset);
 GetOptions('add-recipient:s%' =>
     sub {
 	$append_name{lc $_[1]} = $_[1];
@@ -44,59 +50,75 @@ GetOptions('add-recipient:s%' =>
 	$replace_name{lc $_[1]} = $_[1];
 	$replace_value{lc $_[1]} = $_[2];
     },
-    'extract-recipients:s' => sub { $extract_recipients{lc $_[1]} = 1 },
-    'charset' => \$charset)
+    'extract-recipients:s' => sub { $extract_recipients_from{lc $_[1]} = 1 },
+    'charset:s' => \$charset)
     or exit 1;
 my %recipient_headers = map {lc $_ => 1} (@ARGV, keys %append_name);
 
-# Email address formats understood:
-#    Andreas Gruenbacher <agruen@suse.de>
-#    "Andreas G." <agruen@suse.de>
-#    agruen@suse.de (Andreas Gruenbacher)
-#    agruen@suse.de
-#    agruen@[suse.de]
-#
-# Not understood (needs proper encoding):
-#    Andreas Grünbacher <agruen@suse.de>
+sub encode_header($) {
+    my ($word) = @_;
+    $word =~ s{[^\t\41-\76\100-\176]}{sprintf "=%02X", ord($&)}ge;
+    return "=?$charset?q?$word?=";
+}
+
+my $special = '()<>\[\]:;@\\,"';  # special characters
+my $special_dot = "$special.";  # special characters + dot
+
+# Check for a valid display name
+sub check_display_name($) {
+    my ($display) = @_;
+
+    if ($display =~ /^"((?:[^"\\]|\\[^\n\r])*)"/) {
+	my $quoted = $1;
+	if ($quoted =~ /[^\t\40-\176]/) {
+	    $display = $quoted;
+	    $display =~ s/\\//;
+	    return encode_header($display);
+	}
+    } else {
+	local $_ = $display;
+	# The value is not (properly) quoted. Check for invalid characters.
+	while (/\(/ or /\)/) {
+	    die sprintf(
+_("Display name `%s' contains unpaired parentheses\n"), $display)
+		unless s/\(([^()]*)\)/$1/;
+	}
+	if ($display =~ /[^\t\40-\176]/ || $display =~ /[$special_dot]/) {
+	    if ($display =~ /[^\1-\10\13\14\16-\37\40\41\43-\133\135-\177]/) {
+		return encode_header($display);
+	    } elsif ($display =~ /[$special_dot]/) {
+		return "\"$display\"";
+	    }
+	}
+    }
+    return $display;
+}
+
+# Check for a valid delivery address
+sub check_delivery_address($) {
+    my ($deliver) = @_;
+
+    die sprintf(_("Delivery address `%s' is invalid\n"), $deliver)
+	if $deliver =~ /[ \t]/ or
+	   $deliver =~ /[^ \t\40-\176]/ or
+	   $deliver !~ /^[^$special]+@(\[?)[^$special_dot]+(?:\.[^$special_dot]+)*(\]?)$/ or
+	   (!$1) != (!$2);
+    return $deliver;
+}
 
 sub check_recipient($) {
     my ($recipient) = @_;
-    my ($display, $deliver);
-    local $_ = $recipient;
-    my $spl = '()<>\[\]:;@\\,"';  # special characters
-    my $spldot = "$spl.";  # special characters + dot
 
-    # FIXME: Take a character set option and if set, encode invalid
-    #	     characters in atoms: =?iso-8859-1?q?Gr=FCnbacher?=
-
-    if (($display, $deliver) = /^(.*?)\s*<(.+)>$/ or
-	($deliver, $display) = /^(\S*)(\s*\(.*\))$/) {
-	$_ = $display;
-	if (/^"((?:[^"\\]|\\[^\n\r])*)"/) {
-	    $display = $1;
-	} else {
-	    # The value is not (properly) quoted. Check for invalid characters.
-	    while (/\(/ or /\)/) {
-		die sprintf(
-_("Display name `%s' contains unpaired parentheses\n"), $display)
-		    unless s/\(([^()]*)\)/$1/;
-	    }
-	    die sprintf(
-_("Display name `%s' contains invalid characters\n"), $display)
-		if /[$spldot]/;
-	}
-	die sprintf(
-_("Display name `%s' contains non-printable or 8-bit characters\n"), $display)
-	    if (/[^ \t\40-\176]/);
+    if ($recipient =~ /^(.*?)\s*<(.+)>$/) {
+	my $deliver = check_delivery_address($2);
+	return ( check_display_name($1) . " <" . $deliver . ">", $deliver );
+    } elsif ($recipient =~ /^(\S*)\s*\((.*)\)$/) {
+	my $deliver = check_delivery_address($1);
+	return ( $deliver . " (" . check_display_name($2) . ")", $deliver );
     } else {
-	$deliver = $_;
+	my $deliver = check_delivery_address($recipient);
+	return ( $deliver, $deliver );
     }
-    # Check for a valid delivery address
-    die sprintf(_("Delivery address `%s' is invalid\n"), $deliver)
-	if $deliver =~ /[ \t]/ or $deliver =~ /[^ \t\40-\176]/ or
-	   $deliver !~ /^[^$spl]+@(\[?)[^$spldot]+(?:\.[^$spldot]+)*(\]?)$/ or
-	   (!$1) != (!$2);
-    return $deliver;
 }
 
 my %recipients;
@@ -109,14 +131,16 @@ sub process_header($) {
 	print;
 	return
     }
-    if (%extract_recipients) {
-	if (exists $extract_recipients{lc $name}) {
+    if (%extract_recipients_from) {
+	if (exists $extract_recipients_from{lc $name}) {
 	    #print "(($value))";
 	    $value =~ s/^\s*//;  $value =~ s/\s*$//;
 	    foreach my $recipient (split /\s*,\s*/s, $value) {
 		    next if $recipient =~ /^\s*$/;
 		    #print "<<$recipient>>";
-		    print check_recipient($recipient), "\n";
+		    my $deliver;
+		    ($recipient, $deliver) = check_recipient($recipient);
+		    print "$deliver\n";
 	    }
 	}
 	return;
@@ -140,10 +164,12 @@ sub process_header($) {
 	$value =~ s/^\s*//;  $value =~ s/\s*$//;
 	foreach my $recipient (split /\s*,\s*/, $value) {
 	    next if $recipient =~ /^\s*$/;
-	    my $deliver = check_recipient($recipient);
-	    push @recipients, $recipient
-	    	unless exists $recipients{$deliver};
-	    $recipients{$deliver} = $deliver;
+	    my $deliver;
+	    ($recipient, $deliver) = check_recipient($recipient);
+	    unless (exists $recipients{$deliver}) {
+		push @recipients, $recipient;
+		$recipients{$deliver} = $deliver;
+	    }
 	}
 	print "$name: ", join(",\n ", @recipients), "\n"
 	    if @recipients || !$remove_empty_headers;
@@ -165,7 +191,7 @@ process_header $header;
 foreach my $name (keys %append_name) {
     process_header $append_name{$name} . ': ' . $append_value{$name};
 }
-unless (%extract_recipients) {
+unless (%extract_recipients_from) {
     # Copy the message body to standard output
     # FIXME check for 7-bit clean, else assume $charset
     # FIXME if UTF-8, check for invalid characters!

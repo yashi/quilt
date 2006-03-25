@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat Mar 25 21:03:23 CET 2006 - agruen@suse.de
+
+- quilt/main.in: Use -gt instead of > in [ ... ] expression.
+- quilt/scripts/edmail.in: Improve handling of quoting and
+  special characters in recipient addresses: Automatically quote
+  display names that contain quotable characters, and encode
+  special and eight-bit characters according to RFC 2047
+  (e.g., =?utf-8?q?Andreas=20Gr=C3=BCnbacher?=).
+
+-------------------------------------------------------------------
 Sat Mar 25 14:45:09 CET 2006 - khali@linux-fr.org
 
 - Makefile.in: configure depends on aclocal.m4 too.

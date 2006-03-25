@@ -241,7 +241,7 @@ if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 		then
 			local para=$(echo $(echo "$header" \
 					    | sed -e $'/^[ \t]*$/q'))
-			if [ ${#para} > 0 -a ${#para} -lt 150 ]
+			if [ ${#para} -gt 0 -a ${#para} -lt 150 ]
 			then
 				mh=( "Replace-Subject: $para" )
 				body="$(echo "$patch" | awk '
