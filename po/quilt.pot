@@ -852,22 +852,12 @@ msgstr ""
 msgid "Patch %s renamed to %s\\n"
 msgstr ""
 
-#: quilt/scripts/edmail.in:81
+#: quilt/scripts/edmail.in:83
 #, perl-format
 msgid "Display name `%s' contains unpaired parentheses\n"
 msgstr ""
 
-#: quilt/scripts/edmail.in:85
-#, perl-format
-msgid "Display name `%s' contains invalid characters\n"
-msgstr ""
-
-#: quilt/scripts/edmail.in:89
-#, perl-format
-msgid "Display name `%s' contains non-printable or 8-bit characters\n"
-msgstr ""
-
-#: quilt/scripts/edmail.in:95
+#: quilt/scripts/edmail.in:101
 #, perl-format
 msgid "Delivery address `%s' is invalid\n"
 msgstr ""

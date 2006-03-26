@@ -1254,22 +1254,12 @@ msgstr "Fehler beim Umbenennen von Patch %s auf %s\\n"
 msgid "Patch %s renamed to %s\\n"
 msgstr "Patch %s auf %s umbenannt\\n"
 
-#: quilt/scripts/edmail.in:81
+#: quilt/scripts/edmail.in:83
 #, perl-format
 msgid "Display name `%s' contains unpaired parentheses\n"
 msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 
-#: quilt/scripts/edmail.in:85
-#, perl-format
-msgid "Display name `%s' contains invalid characters\n"
-msgstr "Anzeigename `%s' enthält ungültige Zeichen\n"
-
-#: quilt/scripts/edmail.in:89
-#, perl-format
-msgid "Display name `%s' contains non-printable or 8-bit characters\n"
-msgstr "Anzeigename `%s' enthält nichtdruckbare or 8-Bit-Zeichen\n"
-
-#: quilt/scripts/edmail.in:95
+#: quilt/scripts/edmail.in:101
 #, perl-format
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
@@ -1533,3 +1523,9 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
+
+#~ msgid "Display name `%s' contains invalid characters\n"
+#~ msgstr "Anzeigename `%s' enthält ungültige Zeichen\n"
+
+#~ msgid "Display name `%s' contains non-printable or 8-bit characters\n"
+#~ msgstr "Anzeigename `%s' enthält nichtdruckbare or 8-Bit-Zeichen\n"

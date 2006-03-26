@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Mar 26 15:56:40 CEST 2006 - agruen@suse.de
+
+- test/mail.in: Test UTF-8 header encoding.
+
+-------------------------------------------------------------------
 Sun Mar 26 11:45:15 CEST 2006 - khali@linux-fr.org
 
 - test/mail.in: Test for recipients with a dot in their name.

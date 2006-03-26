@@ -47,6 +47,7 @@
 	<
 	< Signed-off-by: Joe R. Hacker <joe@foo.baz>
 	< Cc: "John X. Doe" <jxd@some.where>
+	< Cc: Ü is an umlaut <used@in.german>
 	<
 
 	$ cat - no-subject > patches/5.diff
@@ -76,9 +77,11 @@
 	> To: John X. Doe <jxd@some.where>
 	> --
 	> Cc: "Joe R. Hacker" <joe@foo.baz>,
-	>  "John X. Doe" <jxd@some.where>
+	>  "John X. Doe" <jxd@some.where>,
+	>  =?UTF-8?q?=C3=9C=20is=20an=20umlaut?= <used@in.german>
 	> Subject: [test 4/5] First paragraph used as subject of 4.diff.
 	> Cc: "John X. Doe" <jxd@some.where>
+	> Cc: Ü is an umlaut <used@in.german>
 	> --
 	> Subject: [test 5/5] Subject of 5.diff
 	> --
