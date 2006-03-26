@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Mar 26 11:45:15 CEST 2006 - khali@linux-fr.org
+
+- test/mail.in: Test for recipients with a dot in their name.
+
+-------------------------------------------------------------------
 Sat Mar 25 21:03:23 CET 2006 - agruen@suse.de
 
 - quilt/main.in: Use -gt instead of > in [ ... ] expression.

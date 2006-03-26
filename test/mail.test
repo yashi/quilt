@@ -38,14 +38,15 @@
 	$ cat - no-subject > patches/3.diff
 	< Subject of 3.diff
 	<
-	< To: Dummy <dummy@some.where>
+	< To: John X. Doe <jxd@some.where>
 	<
 
 	$ cat - no-subject > patches/4.diff
 	< First paragraph used as
 	< subject of 4.diff.
 	<
-	< Cc: Dummy <dummy@some.where>
+	< Signed-off-by: Joe R. Hacker <joe@foo.baz>
+	< Cc: "John X. Doe" <jxd@some.where>
 	<
 
 	$ cat - no-subject > patches/5.diff
@@ -61,7 +62,7 @@
 	<
 
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
-	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^--$' mbox
+	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^--$' -e '^ ' mbox
 	> Subject: [test 0/5] This is a test
 	> --
 	> Cc: Dummy <dummy@some.where>
@@ -70,13 +71,14 @@
 	> Cc: Dummy <dummy@some.where>
 	> Subject: [test 2/5] Subject of 2.diff is: split into multiple lines
 	> --
-	> To: Dummy <dummy@some.where>
+	> To: "John X. Doe" <jxd@some.where>
 	> Subject: [test 3/5] Subject of 3.diff
-	> To: Dummy <dummy@some.where>
+	> To: John X. Doe <jxd@some.where>
 	> --
-	> Cc: Dummy <dummy@some.where>
+	> Cc: "Joe R. Hacker" <joe@foo.baz>,
+	>  "John X. Doe" <jxd@some.where>
 	> Subject: [test 4/5] First paragraph used as subject of 4.diff.
-	> Cc: Dummy <dummy@some.where>
+	> Cc: "John X. Doe" <jxd@some.where>
 	> --
 	> Subject: [test 5/5] Subject of 5.diff
 	> --
