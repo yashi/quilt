@@ -13,7 +13,6 @@ my @words;
 my $found_sep = 0;
 
 foreach my $arg (@ARGV) {
-  $found_sep = 1 if $arg eq '--';
   if ($arg eq '--') {
     $found_sep = 1;
   }
