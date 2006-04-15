@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Apr 15 14:38:24 CEST 2006 - khali@linux-fr.org
+
+- quilt/scripts/patchfns.in: Fix broken return in function
+  find_applied_patch, which was causing a bogus error message
+  on failed pop.
+- test/three.test: Test failed pop.
+
+-------------------------------------------------------------------
 Sun Mar 26 15:56:40 CEST 2006 - agruen@suse.de
 
 - test/mail.in: Test UTF-8 header encoding.

@@ -166,5 +166,8 @@
 	$ quilt annotate f
 	> No patches applied
 
+	$ quilt pop patch4.diff
+	> Patch patch4.diff is not in series
+
 	$ cd ..
 	$ rm -rf d

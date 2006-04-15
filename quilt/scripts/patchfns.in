@@ -511,8 +511,9 @@ find_applied_patch()
 
 	if [ -n "$name" ]
 	then
-		local patch=$(find_patch "$name") || return 1
+		local patch
 
+		patch=$(find_patch "$name") || return 1
 	        if ! is_applied "$patch"
 	        then
 	                printf $"Patch %s is not applied\n" \

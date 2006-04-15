@@ -121,7 +121,7 @@ msgstr ""
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:539
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:540
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -881,19 +881,19 @@ msgstr ""
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:518
+#: quilt/scripts/patchfns.in:519
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:555
+#: quilt/scripts/patchfns.in:556
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:577
+#: quilt/scripts/patchfns.in:578
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:832
+#: quilt/scripts/patchfns.in:833
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -901,7 +901,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:917
+#: quilt/scripts/patchfns.in:918
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
