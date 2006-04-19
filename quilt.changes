@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr 19 09:07:12 CEST 2006 - khali@linux-fr.org
+
+- po/*.po: Delete obsolete translations.
+
+-------------------------------------------------------------------
 Wed Apr 19 08:50:55 CEST 2006 - khali@linux-fr.org
 
 - compat/getopt.in: Ignore option -q, rather than failing on it.

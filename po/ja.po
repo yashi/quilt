@@ -1491,9 +1491,3 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
-
-#~ msgid "Display name `%s' contains invalid characters\n"
-#~ msgstr "表示用の名前 `%s' が不正な文字を含んでいます\n"
-
-#~ msgid "Display name `%s' contains non-printable or 8-bit characters\n"
-#~ msgstr "表示用の名前 `%s' が非印刷文字または 8 bitの文字を含んでいます\n"

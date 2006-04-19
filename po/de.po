@@ -1523,9 +1523,3 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
-
-#~ msgid "Display name `%s' contains invalid characters\n"
-#~ msgstr "Anzeigename `%s' enthält ungültige Zeichen\n"
-
-#~ msgid "Display name `%s' contains non-printable or 8-bit characters\n"
-#~ msgstr "Anzeigename `%s' enthält nichtdruckbare or 8-Bit-Zeichen\n"

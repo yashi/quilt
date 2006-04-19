@@ -1537,9 +1537,3 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
-
-#~ msgid "Display name `%s' contains invalid characters\n"
-#~ msgstr "Le nom `%s' comprend des caractères invalides\n"
-
-#~ msgid "Display name `%s' contains non-printable or 8-bit characters\n"
-#~ msgstr "Le nom `%s' comprend des caractères non-affichables ou 8 bits\n"
