@@ -38,7 +38,8 @@ my @long_opts;
 
 # nothing fancy to see here; this script provides minimal compatibility
 # with the getopt from util-linux until a cross platform binary exists.
-if ($opts =~ /^\s*-o ([a-zA-Z:]*)?(\s+--long .*)*/) {
+# We silently ignore option -q.
+if ($opts =~ /^\s*(?:-q\s+)?-o ([a-zA-Z:]*)?(\s+--long .*)*/) {
 	$short_opts = $1;
 	if ($2) {
 		my $long_opts = $2;

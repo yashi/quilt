@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Apr 19 08:50:55 CEST 2006 - khali@linux-fr.org
+
+- compat/getopt.in: Ignore option -q, rather than failing on it.
+  This prevents the test suite from failing on patch-wrapper
+  when --without-getopt is used. Reported by Markus Oberhumer.
+
+-------------------------------------------------------------------
 Sat Apr 15 16:52:12 CEST 2006 - khali@linux-fr.org
 
 - compat/getopt.in: Remove duplicate test.
