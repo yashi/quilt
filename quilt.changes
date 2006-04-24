@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Apr 24 14:57:19 CEST 2006 - agruen@suse.de
+
+- Add @datarootdir@ macro which future versions of Autoconf will
+  start to use in @datadir@ (bug 16155, patch from Ralf
+  Wildenhues).
+
+-------------------------------------------------------------------
 Mon Apr 24 11:35:35 CEST 2006 - khali@linux-fr.org
 
 - Bump version to 0.45.
