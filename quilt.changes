@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Apr 24 11:35:35 CEST 2006 - khali@linux-fr.org
+
+- Bump version to 0.45.
+
+-------------------------------------------------------------------
 Wed Apr 19 09:07:12 CEST 2006 - khali@linux-fr.org
 
 - po/*.po: Delete obsolete translations.
