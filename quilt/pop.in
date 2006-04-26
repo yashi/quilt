@@ -164,7 +164,8 @@ remove_patch()
 		then
 			printf $"Patch %s appears to be empty, removing\n" \
 			       "$(print_patch $patch)"
-			status=0
+			rmdir "$QUILT_PC/$patch"
+			status=$?
 		else
 			printf $"Removing patch %s\n" "$(print_patch $patch)"
 			$QUILT_LIB/backup-files $silent -r -t -B $QUILT_PC/$patch/ -

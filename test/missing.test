@@ -13,8 +13,11 @@
 	> Patch patches/missing2.diff does not exist; applied empty patch
 	> Now at patch patches/missing2.diff
 
+	$ quilt rename missing3.diff
+	> Patch %{P}missing2.diff renamed to %{P}missing3.diff
+
 	$ quilt pop -qa
-	> Patch patches/missing2.diff appears to be empty, removing
+	> Patch %{P}missing3.diff appears to be empty, removing
 	> Patch patches/missing1.diff appears to be empty, removing
 	> No patches applied
 	

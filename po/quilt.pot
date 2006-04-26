@@ -625,23 +625,23 @@ msgstr ""
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr ""
 
-#: quilt/pop.in:169
+#: quilt/pop.in:170
 msgid "Removing patch %s\\n"
 msgstr ""
 
-#: quilt/pop.in:240
+#: quilt/pop.in:241
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: quilt/pop.in:250
+#: quilt/pop.in:251
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:266 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:455
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:273 quilt/push.in:371
+#: quilt/pop.in:274 quilt/push.in:373
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -701,27 +701,27 @@ msgstr ""
 msgid "Applying patch %s\\n"
 msgstr ""
 
-#: quilt/push.in:209
+#: quilt/push.in:211
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr ""
 
-#: quilt/push.in:213
+#: quilt/push.in:215
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr ""
 
-#: quilt/push.in:217
+#: quilt/push.in:219
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:227
+#: quilt/push.in:229
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:230
+#: quilt/push.in:232
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:351
+#: quilt/push.in:353
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 

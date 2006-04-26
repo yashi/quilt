@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Apr 26 12:27:20 CEST 2006 - khali@linux-fr.org
+
+- quilt/pop.in: Delete .pc/$patch directory when popping empty
+  patches. Report and original patch by Arnaud Patard.
+- quilt/push.in: Create .pc/$patch directory when pushing missing
+  or empty patches. If we don't, some commands such as rename can
+  fail later.
+- test/missing.test: Test rename command on missing patches.
+- test/empty.test: New test case similar to missing.test, but for
+  empty patches. Somewhat based on a contribution by Arnaud
+  Patard.
+
+-------------------------------------------------------------------
 Mon Apr 24 14:57:19 CEST 2006 - agruen@suse.de
 
 - Add @datarootdir@ macro which future versions of Autoconf will

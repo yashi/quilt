@@ -202,6 +202,8 @@ add_patch()
 		if [ -e "$QUILT_PC/$patch" ]
 		then
 			touch $QUILT_PC/$patch/.timestamp
+		else
+			mkdir "$QUILT_PC/$patch"
 		fi
 
 		if ! [ -e $patch_file ]
