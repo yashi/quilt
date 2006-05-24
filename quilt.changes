@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue May 23 16:56:02 CEST 2006 - khali@linux-fr.org
+
+- quilt/scripts/edmail.in: Declare option parameters as mandatory
+  rather than optional. This makes more sense as the parameters
+  are indeed not optional, and this also works around a bug in
+  Getopt::Long.
+
+-------------------------------------------------------------------
 Wed Apr 26 12:27:20 CEST 2006 - khali@linux-fr.org
 
 - quilt/pop.in: Delete .pc/$patch directory when popping empty

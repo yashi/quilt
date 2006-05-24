@@ -38,20 +38,20 @@ sub _($) {
 
 my (%append_name, %append_value, $remove_empty_headers, %remove_header,
     %extract_recipients_from, %replace_name, %replace_value, $charset);
-GetOptions('add-recipient:s%' =>
+GetOptions('add-recipient=s%' =>
     sub {
 	$append_name{lc $_[1]} = $_[1];
 	$append_value{lc $_[1]} .= ",\n " . $_[2];
     },
-    'remove-header:s' => sub { $remove_header{lc $_[1]}++ },
+    'remove-header=s' => sub { $remove_header{lc $_[1]}++ },
     'remove-empty-headers' => \$remove_empty_headers,
-    'replace-header:s%' =>
+    'replace-header=s%' =>
     sub {
 	$replace_name{lc $_[1]} = $_[1];
 	$replace_value{lc $_[1]} = $_[2];
     },
-    'extract-recipients:s' => sub { $extract_recipients_from{lc $_[1]} = 1 },
-    'charset:s' => \$charset)
+    'extract-recipients=s' => sub { $extract_recipients_from{lc $_[1]} = 1 },
+    'charset=s' => \$charset)
     or exit 1;
 my %recipient_headers = map {lc $_ => 1} (@ARGV, keys %append_name);
 
