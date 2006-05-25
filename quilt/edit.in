@@ -65,7 +65,7 @@ if [ $status -ne 0 -a $status -ne 2 ]
 then
 	exit $status
 fi
-$EDITOR "${@/#/$SUBDIR}"
+LANG=$ORIGINAL_LANG $EDITOR "${@/#/$SUBDIR}"
 status=$?
 for file in "$@"
 do

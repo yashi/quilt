@@ -171,7 +171,7 @@ Could not determine the envelope sender address. Please use --sender." >&2
 fi
 
 if [ -z "$opt_charset" ]; then
-	case "${LC_ALL:-$LANG}" in
+	case "${LC_ALL:-$ORIGINAL_LANG}" in
 	*.UTF-8)
 		opt_charset=UTF-8
 		;;
@@ -354,7 +354,7 @@ introduction="$(gen_tempfile)"
 
 if [ -z "$opt_message" ]
 then
-	if ! $EDITOR $introduction; then
+	if ! LANG=$ORIGINAL_LANG $EDITOR $introduction; then
 		rm -f $introduction
 		exit 1
 	fi

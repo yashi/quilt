@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu May 25 09:12:08 CEST 2006 - khali@linux-fr.org
+
+- quilt/edit.in, quilt/header.in, quilt/mail.in: Run $EDITOR with
+  LANG=$ORIGINAL_LANG. Fallback to $ORIGINAL_LANG rather than
+  $LANG for charset detection. Patch from Thomas Petazzoni.
+
+-------------------------------------------------------------------
 Tue May 23 16:56:02 CEST 2006 - khali@linux-fr.org
 
 - quilt/scripts/edmail.in: Declare option parameters as mandatory

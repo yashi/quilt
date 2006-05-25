@@ -149,7 +149,7 @@ else
 
 	if [ -n "$opt_edit" ]
 	then
-		$EDITOR "$tmp" || exit 1
+		LANG=$ORIGINAL_LANG $EDITOR "$tmp" || exit 1
 	fi
 
 	maybe_strip_diffstat < $tmp \
