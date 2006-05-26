@@ -87,19 +87,38 @@ quote_re()
 
 basename()
 {
-        local path="${1//\/\//}"
-        path="${path%%/}"
+	local path=$1
+	while [ "${path:(-1)}" = "/" ]
+	do
+		path=${path%/}
+	done
 	echo "${path##*/}"
 }
 
 dirname()
 {
-        local path="${1//\/\//}"
-        path="${path%%/}"
+	local path=$1
+	while [ "${path:(-1)}" = "/" ]
+	do
+		path=${path%/}
+	done
 	local basename="${path##*/}"
 	path="${path:0:${#path}-${#basename}}"
-	[ x"$path" != x"/" ] && path="${path%/}"
-	echo "${path:-.}"
+	while [ "${path:(-1)}" = "/" ]
+	do
+		path=${path%/}
+	done
+	if [ -n "$path" ]
+	then
+		echo "$path"
+	else
+		if [ ${1:0:1} = "/" ]
+		then
+			echo "/"
+		else
+			echo "."
+		fi
+	fi
 }
 
 patch_file_name()

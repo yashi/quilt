@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri May 26 12:16:18 CEST 2006 - agruen@suse.de
+
+- quilt/scripts/patchfns.in: Fix bugs in basename() and dirname().
+
+-------------------------------------------------------------------
 Thu May 25 09:12:08 CEST 2006 - khali@linux-fr.org
 
 - quilt/edit.in, quilt/header.in, quilt/mail.in: Run $EDITOR with
