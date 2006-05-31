@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.45],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.78 $)
+AC_REVISION ($Revision: 1.79 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -360,8 +360,7 @@ fi
 AC_SUBST(docdir)
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
-AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
-AC_SUBST(RPMBUILD)
+QUILT_COMPAT_PROG_PATH(RPMBUILD, rpmbuild, [rpmbuild rpm])
 
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)

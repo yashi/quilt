@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed May 31 17:27:55 CEST 2006 - agruen@suse.de
+
+- Fix the --with-rpmbuild option of configure.
+
+-------------------------------------------------------------------
 Fri May 26 12:16:18 CEST 2006 - agruen@suse.de
 
 - quilt/scripts/patchfns.in: Fix bugs in basename() and dirname().
