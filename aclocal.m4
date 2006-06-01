@@ -33,7 +33,7 @@ AC_DEFUN([QUILT_COMPAT_PROG_PATH],[
       AC_PATH_PROG($1,$2,,$PATH:$4)
     ],[
       AC_PATH_PROGS($1,$3,,$PATH:$4)
-      if test `expr "$$1" : '.*/\([[^/]]*\)$'` != "$2"; then
+      if test -n "$$1" -a "`expr "$$1" : '.*/\([[^/]]*\)$'`" != "$2"; then
 	COMPAT_SYMLINKS="$COMPAT_SYMLINKS $2"
       fi
     ])

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jun  1 11:29:10 CEST 2006 - agruen@suse.de
+
+- compat/rpmbuild.in: Add a version that tries to execute a
+  rpmbuild that may have been installed after building quilt.
+- compat/diffstat.in: Same as for compat/rpmbuild.in, try to
+  execute rpmbuild even though none was there at quilt build
+  time.
+- aclocal.m4: Fix a quoting error.
+
+-------------------------------------------------------------------
 Wed May 31 17:27:55 CEST 2006 - agruen@suse.de
 
 - Fix the --with-rpmbuild option of configure.
