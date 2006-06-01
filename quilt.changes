@@ -1,10 +1,18 @@
 -------------------------------------------------------------------
+Thu Jun  1 11:56:34 CEST 2006 - khali@linux-fr.org
+
+- quilt/import.in: Add some missing quotes. This makes it possible
+  to import a patch with unfriendly characters (say spaces) in its
+  name as long as it is renamed to something more friendly in the
+  process.
+
+-------------------------------------------------------------------
 Thu Jun  1 11:29:10 CEST 2006 - agruen@suse.de
 
 - compat/rpmbuild.in: Add a version that tries to execute a
   rpmbuild that may have been installed after building quilt.
 - compat/diffstat.in: Same as for compat/rpmbuild.in, try to
-  execute rpmbuild even though none was there at quilt build
+  execute diffstat even though none was there at quilt build
   time.
 - aclocal.m4: Fix a quoting error.
 

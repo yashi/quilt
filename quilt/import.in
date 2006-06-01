@@ -145,8 +145,8 @@ do
 		patch=${patch_file##*/}
 	fi
 
-	patch_file=$(find_patch_file $patch_file) || exit 1
-	merged_patch_file=$patch_file
+	patch_file=$(find_patch_file "$patch_file") || exit 1
+	merged_patch_file="$patch_file"
 
 	if is_applied $patch
 	then
