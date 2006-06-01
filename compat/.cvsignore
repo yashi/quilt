@@ -5,5 +5,6 @@ date
 diffstat
 getopt
 mktemp
+rpmbuild
 sed
 sendmail
