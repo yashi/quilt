@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jun  2 11:52:11 CEST 2006 - khali@linux-fr.org
+
+- doc/quilt.1.in: Mention the QUILT_PATCHES_PREFIX,
+  QUILT_NO_DIFF_INDEX and QUILT_NO_DIFF_TIMESTAMP variables, and
+  describe their effects.
+
+-------------------------------------------------------------------
 Thu Jun  1 11:56:34 CEST 2006 - khali@linux-fr.org
 
 - quilt/import.in: Add some missing quotes. This makes it possible

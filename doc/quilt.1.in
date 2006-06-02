@@ -1,6 +1,6 @@
 .\\" Created by Martin Quinson from the tex documentation
 .\\"
-.TH quilt 1 "May 8, 2005" "quilt"
+.TH quilt 1 "June 2, 2006" "quilt"
  
 .SH NAME
 quilt \\- tool to manage series of patches
@@ -171,6 +171,25 @@ methods ("-r1", "-r2").
 .IP QUILT_PATCHES 4
 
 The location of patch files, defaulting to "patches".
+
+.IP QUILT_PATCHES_PREFIX 4
+
+If set to anything, quilt will prefix patch names it prints with their
+directory (QUILT_PATCHES).
+
+.IP QUILT_NO_DIFF_INDEX 4
+
+By default, quilt prepends an Index: line to the patches it generates.
+If this variable is set to anything, no line is prepended.  This is
+a shortcut to adding --no-index to both QUILT_DIFF_ARGS and
+QUILT_REFRESH_ARGS.
+
+.IP QUILT_NO_DIFF_TIMESTAMP 4
+
+By default, quilt includes timestamps in headers when generating patches.
+If this variable is set to anything, no timestamp will be included.  This
+is a shortcut to adding --no-timestamps to both QUILT_DIFF_ARGS and
+QUILT_REFRESH_ARGS.
 
 .IP EDITOR 4
 
