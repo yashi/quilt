@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jun 12 17:22:42 CEST 2006 - agruen@suse.de
+
+- quilt/diff.in, quilt/refresh.in: Add `-p ab' options which
+  produce a/file and b/file filenams in headers instead of
+  dir.orig/file and dir/file, similar to BK, git, hg patches.
+- Only touch .pc/$patch/.timestamp when a path actually is being
+  refreshed.
+
+-------------------------------------------------------------------
 Fri Jun  2 11:52:11 CEST 2006 - khali@linux-fr.org
 
 - doc/quilt.1.in: Mention the QUILT_PATCHES_PREFIX,

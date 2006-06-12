@@ -177,11 +177,11 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:442
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:540
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
@@ -212,6 +212,7 @@ msgstr ""
 "[--sort] [--color] [datei ...]\\n"
 
 #: quilt/diff.in:28
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -219,6 +220,10 @@ msgid ""
 "included.\n"
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 are supported).\n"
+"\n"
+"-p ab\tCreate a -p1 style patch, but use a/file and b/file as the\n"
+"\toriginal and new filenames instead of the default\n"
+"\tdir.orig/file and dir/file names.\n"
 "\n"
 "-u, -U num, -c, -C num\n"
 "\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
@@ -301,40 +306,40 @@ msgstr ""
 "--sort\tSortiere Dateien im Patch nach ihrem namen, statt die ursprüngliche\n"
 "\tReihenfolge zu erhalten.\n"
 
-#: quilt/diff.in:213
+#: quilt/diff.in:217
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Die Optionen \\`--combine', \\`--snapshot', und \\`-z' können nicht "
 "kombiniert werden.\\n"
 
-#: quilt/diff.in:225
+#: quilt/diff.in:231
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: quilt/diff.in:258 quilt/files.in:105
+#: quilt/diff.in:265 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
-#: quilt/diff.in:308 quilt/pop.in:98
+#: quilt/diff.in:315 quilt/pop.in:98
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/diff.in:332 quilt/pop.in:122
+#: quilt/diff.in:339 quilt/pop.in:122
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
-#: quilt/diff.in:351
+#: quilt/diff.in:358
 msgid "File %s is not being modified\\n"
 msgstr "Datei %s wird nicht verändert.\\n"
 
-#: quilt/diff.in:371 quilt/refresh.in:177
+#: quilt/diff.in:378 quilt/refresh.in:184
 msgid "Diff failed, aborting\\n"
 msgstr "Diff fehlgeschlagen, Abbruch.\\n"
 
-#: quilt/diff.in:378
+#: quilt/diff.in:385
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Warnung: später angewandte Patches verändern Dateien von %s\\n"
 
@@ -941,7 +946,7 @@ msgstr "Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:455
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:474
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -1070,6 +1075,7 @@ msgstr ""
 "whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1085,6 +1091,10 @@ msgid ""
 "patch.\n"
 "\n"
 "-p n\tCreate a -p n style patch (-p0 or -p1 supported).\n"
+"\n"
+"-p ab\tCreate a -p1 style patch, but use a/file and b/file as the\n"
+"\toriginal and new filenames instead of the default\n"
+"\tdir.orig/file and dir/file names.\n"
 "\n"
 "-u, -U num, -c, -C num\n"
 "\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
@@ -1158,35 +1168,35 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\tEntferne Whitespace an Zeilenenden.\n"
 
-#: quilt/refresh.in:149
+#: quilt/refresh.in:155
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Kann Patches mit Level -p$opt_strip_level nicht auffrischen, bitte -p0 oder -"
 "p1 angeben\\n"
 
-#: quilt/refresh.in:183
+#: quilt/refresh.in:190
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Später angewandte Patches verändern Dateien von %s. Auffrischen mit -f "
 "erzwingen.\\n"
 
-#: quilt/refresh.in:189
+#: quilt/refresh.in:196
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "Kann --strip-trailing-whitespace nicht für Patches verwenden, die Dateien "
 "enthalten, die danach von anderen Patches weiter verändert werden.\\n"
 
-#: quilt/refresh.in:195
+#: quilt/refresh.in:202
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s ist leer\\n"
 
-#: quilt/refresh.in:272
+#: quilt/refresh.in:279
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: quilt/refresh.in:277
+#: quilt/refresh.in:285
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aufgefrischt\\n"
 
@@ -1279,23 +1289,23 @@ msgstr "Datei %s ist verschwunden\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
 
-#: quilt/scripts/patchfns.in:491
+#: quilt/scripts/patchfns.in:510
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:519
+#: quilt/scripts/patchfns.in:538
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:556
+#: quilt/scripts/patchfns.in:575
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:578
+#: quilt/scripts/patchfns.in:597
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:833
+#: quilt/scripts/patchfns.in:857
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1308,7 +1318,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:918
+#: quilt/scripts/patchfns.in:942
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1322,35 +1332,61 @@ msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "Aufruf: %s [-p num] [-n] [patch]\n"
 
 #: quilt/scripts/remove-trailing-ws.in:65
-#: quilt/scripts/remove-trailing-ws.in:92
+#: quilt/scripts/remove-trailing-ws.in:92 quilt/scripts/remove-ws.in:88
+#: quilt/scripts/remove-ws.in:124
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s: Ich bin verwirrt.\n"
 
-#: quilt/scripts/remove-trailing-ws.in:113
+#: quilt/scripts/remove-trailing-ws.in:113 quilt/scripts/remove-ws.in:166
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:116
+#: quilt/scripts/remove-trailing-ws.in:116 quilt/scripts/remove-ws.in:169
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:120
+#: quilt/scripts/remove-trailing-ws.in:120 quilt/scripts/remove-ws.in:180
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:123
+#: quilt/scripts/remove-trailing-ws.in:123 quilt/scripts/remove-ws.in:183
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:143
+#: quilt/scripts/remove-trailing-ws.in:143 quilt/scripts/remove-ws.in:203
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "Umbenennen von %s auf %s: %s\n"
+
+#: quilt/scripts/remove-ws.in:45
+#, fuzzy, perl-format
+msgid "SYNOPSIS: %s [-p num] [-W tabwidth] [-n] [patch]\n"
+msgstr "Aufruf: %s [-p num] [-n] [patch]\n"
+
+#: quilt/scripts/remove-ws.in:159
+#, fuzzy, perl-format
+msgid "Warning: spaces used for indentation in line %s of %s\n"
+msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
+
+#: quilt/scripts/remove-ws.in:162
+#, fuzzy, perl-format
+msgid "Warning: spaces used for indentation in lines %s of %s\n"
+msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
+
+#: quilt/scripts/remove-ws.in:173
+#, fuzzy, perl-format
+msgid "Warning: converting space indentation to tabs in line %s of %s\n"
+msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
+
+#: quilt/scripts/remove-ws.in:176
+#, fuzzy, perl-format
+msgid "Warning: converting space indentation to tabs in lines %s of %s\n"
+msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"

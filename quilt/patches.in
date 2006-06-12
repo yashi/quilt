@@ -53,6 +53,7 @@ scan_applied()
 touched_by_patch()
 {
 	local strip=$1 patch=$2
+	[ $strip = ab ] && strip=1
 	cat_file $(patch_file_name $patch) \
 	|  awk '
 	/^\+\+\+[ \t]/ {

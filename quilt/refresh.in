@@ -38,6 +38,10 @@ patch.
 
 -p n	Create a -p n style patch (-p0 or -p1 supported).
 
+-p ab	Create a -p1 style patch, but use a/file and b/file as the
+	original and new filenames instead of the default
+	dir.orig/file and dir/file names.
+
 -u, -U num, -c, -C num
 	Create a unified diff (-u, -U) with num lines of context. Create
 	a context diff (-c, -C) with num lines of context. The number of
@@ -144,11 +148,14 @@ if [ -z "$opt_strip_level" ]
 then
 	opt_strip_level=$(patch_strip_level $patch)
 fi
-if [ $opt_strip_level -gt 1 ]
-then
+case "$opt_strip_level" in
+0 | 1 | ab)
+	;;
+*)
 	printf $"Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\n" "$opt_strip_level\n" >&2
 	exit 1
-fi
+	;;
+esac
 
 trap "die 1" SIGTERM
 
@@ -274,12 +281,11 @@ elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
        mv $patch_file $patch_file~ ) && \
      cat_to_new_file $patch_file < $tmp_result
 then
+	touch $QUILT_PC/$patch/.timestamp
 	printf $"Refreshed patch %s\n" "$(print_patch $patch)"
 else
 	die 1
 fi
-
-touch $QUILT_PC/$patch/.timestamp
 
 rm -f $QUILT_PC/$patch~refresh
 if ! change_db_strip_level -p$opt_strip_level $patch
