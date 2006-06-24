@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.45],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.79 $)
+AC_REVISION ($Revision: 1.80 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -53,6 +53,18 @@ if `$BASH -c '[[ "$BASH_VERSION" \< "2.04" ]]'` ; then
     AC_MSG_ERROR([
 $PACKAGE_NAME requires at least version 2.04 of bash, you can download a current
 version of bash from ftp.gnu.org
+])
+fi
+
+AC_MSG_CHECKING(whether $BASH quoting works)
+if test `$BASH -c "echo \"\\\$(set -- \\\$'a b'; echo \\\$#)\"" 2>/dev/null` = "1"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([
+You have a version of `bash' which suffers from a quoting bug.
+This is a known bug of bash 3.1, which was fixed by patch bash31-011.
+You can get this patch at ftp://ftp.gnu.org/gnu/bash/
 ])
 fi
 

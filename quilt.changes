@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun 24 11:47:59 CEST 2006 - khali@linux-fr.org
+
+- configure.ac: Test for bash 3.1 quoting bug (#16763).
+
+-------------------------------------------------------------------
 Sat Jun 24 09:41:33 CEST 2006 - khali@linux-fr.org
 
 - bin/quilt.in, doc/quilt.1.in: Document the --quiltrc=- feature
