@@ -108,7 +108,9 @@ Runs the command in bash trace mode (-x). For internal debugging.
 
 Use the specified configuration file instead of ~/.quiltrc (or
 /etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
-documentation for details about its possible contents.
+documentation for details about its possible contents.  The
+special value \"-\" causes quilt not to read any configuration
+file.
 
 .IP \"\\fB--version\\fP\" 8
 

@@ -46,7 +46,9 @@ Global options:
 --quiltrc file
 	Use the specified configuration file instead of ~/.quiltrc (or
 	/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
-	documentation for details about its possible contents.
+	documentation for details about its possible contents.  The
+	special value \"-\" causes quilt not to read any configuration
+	file.
 
 --version
 	Print the version number and exit immediately."
