@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 28 01:29:39 CEST 2006 - agruen@suse.de
+
+- A few more `-p ab' fixes.
+
+-------------------------------------------------------------------
 Tue Jun 27 22:22:15 CEST 2006 - agruen@suse.de
 
 - quilt/push.in: Fix a bug introduced with the -p ab support.

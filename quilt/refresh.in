@@ -149,7 +149,11 @@ then
 	opt_strip_level=$(patch_strip_level $patch)
 fi
 case "$opt_strip_level" in
-0 | 1 | ab)
+0 | 1)
+	num_strip_level=$opt_strip_level
+	;;
+ab)
+	num_strip_level=1
 	;;
 *)
 	printf $"Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\n" "$opt_strip_level\n" >&2
@@ -206,11 +210,11 @@ fi
 # Check for trailing whitespace
 if [ -z "$opt_strip_whitespace" ]
 then
-	$QUILT_DIR/scripts/remove-trailing-ws -n -p$opt_strip_level \
+	$QUILT_DIR/scripts/remove-trailing-ws -n -p$num_strip_level \
 	< $tmp_patch
 else
 	tmp_patch2=$(gen_tempfile)
-	if $QUILT_DIR/scripts/remove-trailing-ws -p$opt_strip_level \
+	if $QUILT_DIR/scripts/remove-trailing-ws -p$num_strip_level \
 				       < $tmp_patch > $tmp_patch2
 	then
 		rm -f $tmp_patch
@@ -239,7 +243,8 @@ tmp_result=$(gen_tempfile) || die 1
 
 if [ -n "$opt_diffstat" ]
 then
-	diffstat="$(diffstat $QUILT_DIFFSTAT_OPTS -p$opt_strip_level $tmp_patch)" || die 1
+	diffstat="$(diffstat $QUILT_DIFFSTAT_OPTS \
+			     -p$num_strip_level $tmp_patch)" || die 1
 	awk '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
@@ -288,7 +293,7 @@ else
 fi
 
 rm -f $QUILT_PC/$patch~refresh
-if ! change_db_strip_level -p$opt_strip_level $patch
+if ! change_db_strip_level -p$num_strip_level $patch
 then
 	die 1
 fi

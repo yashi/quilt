@@ -713,7 +713,7 @@ diff_file()
 	fi
 	if ! [ -s "$new_file" ]
 	then
-		[ $opt_strip_level -eq 0 ] \
+		[ $opt_strip_level = 0 ] \
 		&& old_hdr=$new_hdr
 		new_file=/dev/null
 		new_hdr=/dev/null

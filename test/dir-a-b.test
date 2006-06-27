@@ -3,6 +3,7 @@
 	$ cd d
 
 	$ echo a > test.txt
+	$ echo d > test3.txt
 
 	$ cat > patches/ab.diff
 	< --- a/test.txt
@@ -10,8 +11,18 @@
 	< @@ -1 +1 @@
 	< -a
 	< +b
+	< --- /dev/null
+	< +++ b/test2.txt
+	< @@ -0,0 +1 @@
+	< +c
+	< --- a/test3.txt
+	< +++ /dev/null
+	< @@ -1 +0,0 @@
+	< -d
 
 	$ echo "ab.diff -pab" > patches/series
+	$ quilt series
+	> patches/ab.diff
 
 	$ quilt push -q
 	> Applying patch patches/ab.diff
@@ -23,6 +34,14 @@
 	> @@ -1 +1 @@
 	> -a
 	> +b
+	> --- /dev/null
+	> +++ b/test2.txt
+	> @@ -0,0 +1 @@
+	> +c
+	> --- a/test3.txt
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -d
 
 	$ rm patches/ab.diff
 	$ quilt refresh --no-index
@@ -34,6 +53,66 @@
 	> @@ -1 +1 @@
 	> -a
 	> +b
+	> --- /dev/null
+	> +++ b/test2.txt
+	> @@ -0,0 +1 @@
+	> +c
+	> --- a/test3.txt
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -d
+
+	$ quilt pop -qR
+	> Removing patch patches/ab.diff
+	> No patches applied
+
+	$ echo "ab.diff" > patches/series
+
+	$ quilt push -q
+	> Applying patch patches/ab.diff
+	> Now at patch patches/ab.diff
+
+	$ quilt diff -p ab --no-index
+	> --- a/test.txt
+	> +++ b/test.txt
+	> @@ -1 +1 @@
+	> -a
+	> +b
+	> --- /dev/null
+	> +++ b/test2.txt
+	> @@ -0,0 +1 @@
+	> +c
+	> --- a/test3.txt
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -d
+
+	$ rm patches/ab.diff
+	$ quilt refresh -p ab --no-index
+	> Refreshed patch patches/ab.diff
+
+	$ cat patches/ab.diff
+	> --- a/test.txt
+	> +++ b/test.txt
+	> @@ -1 +1 @@
+	> -a
+	> +b
+	> --- /dev/null
+	> +++ b/test2.txt
+	> @@ -0,0 +1 @@
+	> +c
+	> --- a/test3.txt
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -d
+
+	$ quilt refresh -p ab --diffstat
+	> Refreshed patch patches/ab.diff
+
+	$ sed -n -e 's/ *//' -e 's/ *|.*//p' patches/ab.diff
+	> test.txt
+	> test2.txt
+	> test3.txt
 
 	$ quilt pop -qR
 	> Removing patch patches/ab.diff
