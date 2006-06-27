@@ -127,7 +127,7 @@ patch_file_name()
 }
 
 # The -pN option and possibly others that should be passed to patch.
-patch_args()
+real_patch_args()
 {
 	local patch=$1
 
@@ -147,10 +147,24 @@ patch_args()
 	fi
 }
 
+patch_args() {
+	local patch=$1 i
+
+	for i in $(real_patch_args $patch)
+	do
+		if [ "$i" = -pab ]
+		then
+			echo -p1
+		else
+			echo "$i"
+		fi
+	done
+}
+
 patch_strip_level()
 {
 	local patch=$1 i
-	for i in $(patch_args $patch)
+	for i in $(real_patch_args $patch)
 	do
 		case $i in
 		-p)

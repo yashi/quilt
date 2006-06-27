@@ -25,6 +25,7 @@ msgid "Commands are:"
 msgstr "コマンド一覧:"
 
 #: bin/quilt.in:40
+#, fuzzy
 msgid ""
 "\n"
 "Global options:\n"
@@ -35,7 +36,9 @@ msgid ""
 "--quiltrc file\n"
 "\tUse the specified configuration file instead of ~/.quiltrc (or\n"
 "\t/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
-"\tdocumentation for details about its possible contents.\n"
+"\tdocumentation for details about its possible contents.  The\n"
+"\tspecial value \\\"-\\\" causes quilt not to read any configuration\n"
+"\tfile.\n"
 "\n"
 "--version\n"
 "\tPrint the version number and exit immediately."
@@ -174,11 +177,11 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:475
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:573
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -924,7 +927,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:474
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:488
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -1259,24 +1262,24 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: quilt/scripts/patchfns.in:510
+#: quilt/scripts/patchfns.in:524
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:538
+#: quilt/scripts/patchfns.in:552
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:575
+#: quilt/scripts/patchfns.in:589
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:597
+#: quilt/scripts/patchfns.in:611
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:857
+#: quilt/scripts/patchfns.in:871
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1288,7 +1291,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:942
+#: quilt/scripts/patchfns.in:956
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

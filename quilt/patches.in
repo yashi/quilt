@@ -68,13 +68,16 @@ touched_by_patch()
 
 scan_unapplied()
 {
-	local prefix=$1 file=$2
+	local prefix=$1 file=$2 strip
 	shift 2
 	local file_bre="$(quote_bre $file)" patch
 
 	for patch in "$@"
 	do
-		if touched_by_patch $(patch_strip_level $patch) $patch \
+		strip=$(patch_strip_level $patch)
+		[ "$strip" = ab ] && strip=1
+
+		if touched_by_patch $strip $patch \
 		   | grep -q "^$file_bre\$"
 		then
 			echo "$prefix$(print_patch $patch)"

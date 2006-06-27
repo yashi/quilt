@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 27 22:22:15 CEST 2006 - agruen@suse.de
+
+- quilt/push.in: Fix a bug introduced with the -p ab support.
+- test/dir-a-b.test: Add a regression test case for this fix.
+
+-------------------------------------------------------------------
 Tue Jun 27 21:30:19 CEST 2006 - agruen@suse.de
 
 - Remove some broken translations that slipped in on Jun 12.
