@@ -1332,61 +1332,35 @@ msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "Aufruf: %s [-p num] [-n] [patch]\n"
 
 #: quilt/scripts/remove-trailing-ws.in:65
-#: quilt/scripts/remove-trailing-ws.in:92 quilt/scripts/remove-ws.in:88
-#: quilt/scripts/remove-ws.in:124
+#: quilt/scripts/remove-trailing-ws.in:92
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s: Ich bin verwirrt.\n"
 
-#: quilt/scripts/remove-trailing-ws.in:113 quilt/scripts/remove-ws.in:166
+#: quilt/scripts/remove-trailing-ws.in:113
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:116 quilt/scripts/remove-ws.in:169
+#: quilt/scripts/remove-trailing-ws.in:116
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:120 quilt/scripts/remove-ws.in:180
+#: quilt/scripts/remove-trailing-ws.in:120
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:123 quilt/scripts/remove-ws.in:183
+#: quilt/scripts/remove-trailing-ws.in:123
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:143 quilt/scripts/remove-ws.in:203
+#: quilt/scripts/remove-trailing-ws.in:143
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "Umbenennen von %s auf %s: %s\n"
-
-#: quilt/scripts/remove-ws.in:45
-#, fuzzy, perl-format
-msgid "SYNOPSIS: %s [-p num] [-W tabwidth] [-n] [patch]\n"
-msgstr "Aufruf: %s [-p num] [-n] [patch]\n"
-
-#: quilt/scripts/remove-ws.in:159
-#, fuzzy, perl-format
-msgid "Warning: spaces used for indentation in line %s of %s\n"
-msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
-
-#: quilt/scripts/remove-ws.in:162
-#, fuzzy, perl-format
-msgid "Warning: spaces used for indentation in lines %s of %s\n"
-msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
-
-#: quilt/scripts/remove-ws.in:173
-#, fuzzy, perl-format
-msgid "Warning: converting space indentation to tabs in line %s of %s\n"
-msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
-
-#: quilt/scripts/remove-ws.in:176
-#, fuzzy, perl-format
-msgid "Warning: converting space indentation to tabs in lines %s of %s\n"
-msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
 #: quilt/series.in:22
 msgid "Usage: quilt series [-v]\\n"

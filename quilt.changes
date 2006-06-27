@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun 27 21:30:19 CEST 2006 - agruen@suse.de
+
+- Remove some broken translations that slipped in on Jun 12.
+
+-------------------------------------------------------------------
 Sat Jun 24 11:47:59 CEST 2006 - khali@linux-fr.org
 
 - configure.ac: Test for bash 3.1 quoting bug (#16763).
