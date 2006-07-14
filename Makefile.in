@@ -10,7 +10,7 @@ libdir :=	@libdir@
 datarootdir :=	@datarootdir@
 datadir :=	@datadir@
 docdir :=	@docdir@
-mandir :=	$(datadir)/man
+mandir :=	@mandir@
 localedir :=	$(datadir)/locale
 etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
 
