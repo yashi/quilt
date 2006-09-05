@@ -63,28 +63,28 @@
 	<
 
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
-	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^--$' -e '^ ' mbox
+	$ grep -e '^Subject:' -e '^To:' -e '^Cc:' -e '^-- $' -e '^ ' mbox
 	> Subject: [test 0/5] This is a test
-	> --
+	> -- 
 	> Cc: Dummy <dummy@some.where>
 	> Subject: [test 1/5] Subject of 1.diff
-	> --
+	> -- 
 	> Cc: Dummy <dummy@some.where>
 	> Subject: [test 2/5] Subject of 2.diff is: split into multiple lines
-	> --
+	> -- 
 	> To: "John X. Doe" <jxd@some.where>
 	> Subject: [test 3/5] Subject of 3.diff
 	> To: John X. Doe <jxd@some.where>
-	> --
+	> -- 
 	> Cc: "Joe R. Hacker" <joe@foo.baz>,
 	>  "John X. Doe" <jxd@some.where>,
 	>  =?UTF-8?q?=C3=9C=20is=20an=20umlaut?= <used@in.german>
 	> Subject: [test 4/5] First paragraph used as subject of 4.diff.
 	> Cc: "John X. Doe" <jxd@some.where>
 	> Cc: Ü is an umlaut <used@in.german>
-	> --
+	> -- 
 	> Subject: [test 5/5] Subject of 5.diff
-	> --
+	> -- 
 
 	$ cd ..
 	$ rm -rf d

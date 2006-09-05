@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep  5 15:50:00 CEST 2006 - khali@linux-fr.org
+
+- quilt/mail.in, test/mail.test: Fix signature separator. Patch
+  from Ville Syrjala.
+
+-------------------------------------------------------------------
 Wed Jun 28 01:29:39 CEST 2006 - agruen@suse.de
 
 - A few more `-p ab' fixes.
