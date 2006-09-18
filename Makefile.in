@@ -393,8 +393,8 @@ else
 test/.%.ok : test/%.test
 endif
 	@echo "[$(<F)]"
-	@LANG=C;							\
-	export LANG ;							\
+	@LANG=C; LC_ALL=C;						\
+	export LANG LC_ALL;						\
 	$(CHECK_ENV);							\
 	cd $(@D);							\
 	./run $(<F)

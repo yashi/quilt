@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Sep 18 21:32:33 CEST 2006 - khali@linux-fr.org
+
+- Makefile.in: Set LC_ALL=C before running the regression tests,
+  setting LANG alone isn't sufficient because LC_ALL overrides LANG
+  when set.
+
+-------------------------------------------------------------------
 Tue Sep  5 15:50:00 CEST 2006 - khali@linux-fr.org
 
 - quilt/mail.in, test/mail.test: Fix signature separator. Patch
