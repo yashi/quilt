@@ -15,7 +15,7 @@ changes each patch makes. Patches can be applied, un-applied, refreshed,
 etc. The key philosophical concept is that your primary output is patches.
 
 With quilt, all work occurs within a single directory tree. Commands can be
-be invoqued from anywhere within the source tree. They are of the form
+be invoked from anywhere within the source tree. They are of the form
 .B quilt cmd
 similar to CVS commands. They can be abbreviated as long as the specified
 part of the command is unique. All commands print some help text with
@@ -53,7 +53,9 @@ file, each patch file name is on a separate line. Patch files are identified
 by pathnames that are relative to the
 .I patches
 directory; patches may be in sub-directories below this directory. Lines
-in the series file that start with a hash character (#) are ignored. When
+in the series file that start with a hash character (#) are ignored.
+You can also add a comment after each patch file name, introduced by a
+space  followed by a hash character. When
 quilt adds, removes, or renames patches, it automatically updates the series
 file. Users of quilt can modify series files while some patches are
 applied, as long as the applied patches remain in their original order.

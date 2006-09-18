@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep 18 23:37:41 CEST 2006 - khali@linux-fr.org
+
+- doc/quilt.1.in: Document the fact that per-patch comments are now
+  supported. Fix a typo.
+
+-------------------------------------------------------------------
 Mon Sep 18 21:32:33 CEST 2006 - khali@linux-fr.org
 
 - Makefile.in: Set LC_ALL=C before running the regression tests,
