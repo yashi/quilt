@@ -313,7 +313,7 @@ quilt (0.25-4) unstable; urgency=low
 
 quilt (0.25-3) unstable; urgency=low
 
-  * Do not invoque autoconf during the build process since I do not change this file.
+  * Do not invoke autoconf during the build process since I do not change this file.
     That way, autobuilder will be happy even without build-depend (Closes: #217055).
 
  -- Martin Quinson <martin.quinson@tuxfamily.org>  Fri, 31 Oct 2003 00:18:43 +0100
