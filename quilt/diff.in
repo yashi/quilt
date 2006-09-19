@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] [--color] [file ...]\n"
+	printf $"Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] [--color] [file ...]\n"
 
 	if [ x$1 = x-h ]
 	then

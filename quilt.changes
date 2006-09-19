@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep 19 17:42:45 CEST 2006 - khali@linux-fr.org
+
+- quilt/diff.in, quilt/refresh.in: Update usage line to mention
+  "-p ab".
+
+-------------------------------------------------------------------
 Tue Sep 19 17:06:36 CEST 2006 - khali@linux-fr.org
 
 - quilt/scripts/patchfns.in: Drop support for "-pab" in series

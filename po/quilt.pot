@@ -145,9 +145,9 @@ msgstr ""
 
 #: quilt/diff.in:24
 msgid ""
-"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
-"patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] "
-"[--color] [file ...]\\n"
+"Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
+"R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
+"[--sort] [--color] [file ...]\\n"
 msgstr ""
 
 #: quilt/diff.in:28
@@ -733,9 +733,9 @@ msgstr ""
 
 #: quilt/refresh.in:22
 msgid ""
-"Usage: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--"
-"no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
-"[patch]\\n"
+"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
+"timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
+"whitespace] [patch]\\n"
 msgstr ""
 
 #: quilt/refresh.in:26

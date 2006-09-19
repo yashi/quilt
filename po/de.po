@@ -205,10 +205,11 @@ msgid "Failed to remove patch file %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/diff.in:24
+#, fuzzy
 msgid ""
-"Usage: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-R] [-P "
-"patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] [--sort] "
-"[--color] [file ...]\\n"
+"Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
+"R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
+"[--sort] [--color] [file ...]\\n"
 msgstr ""
 "Verwendung: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=programm] [--no-timestamps] [--no-index] "
@@ -1068,10 +1069,11 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
 #: quilt/refresh.in:22
+#, fuzzy
 msgid ""
-"Usage: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--"
-"no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] "
-"[patch]\\n"
+"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
+"timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
+"whitespace] [patch]\\n"
 msgstr ""
 "Verwendung: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-"
 "timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
