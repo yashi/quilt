@@ -97,7 +97,7 @@
 	> File jkl added to patch patches/patch4
 	> File wrz added to patch patches/patch4
 
-	$ rm jkl
+	$ rm -f jkl
 	$ cat > wrz
 	< one
 	< two

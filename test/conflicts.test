@@ -71,7 +71,7 @@ anymore, then the patch is fixed.
 
 	$ mv one.txt one.x
 	$ sed -e "s/4/4+/" one.x > one.txt
-	$ rm one.x
+	$ rm -f one.x
 	$ quilt diff -z | grep -v "^\\(---\\|+++\\)"
 	> Index: d/one.txt
 	> ===================================================================

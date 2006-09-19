@@ -108,7 +108,7 @@
 	$ quilt add file4
 	> File d/file4 added to patch %{_P}subdir/patch3.diff
 
-	$ rm file4
+	$ rm -f file4
 	$ quilt diff
 	> Index: d/d/file4
 	> ===================================================================

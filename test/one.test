@@ -105,7 +105,7 @@ of the installed quilt with `make check'.
 	$ quilt add file4
 	> File file4 added to patch %{P}subdir/patch3.diff
 
-	$ rm file4
+	$ rm -f file4
 	$ quilt diff
 	> Index: d/file4
 	> ===================================================================

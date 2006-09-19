@@ -43,7 +43,7 @@
 	> @@ -1 +0,0 @@
 	> -d
 
-	$ rm patches/ab.diff
+	$ rm -f patches/ab.diff
 	$ quilt refresh --no-index
 	> Refreshed patch patches/ab.diff
 
@@ -87,7 +87,7 @@
 	> @@ -1 +0,0 @@
 	> -d
 
-	$ rm patches/ab.diff
+	$ rm -f patches/ab.diff
 	$ quilt refresh -p ab --no-index
 	> Refreshed patch patches/ab.diff
 

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Sep 19 16:35:20 CEST 2006 - khali@linux-fr.org
+
+- test/*.test: Make sure that rm commands are non-interactive.
+
+-------------------------------------------------------------------
 Tue Sep 19 16:24:57 CEST 2006 - khali@linux-fr.org
 
 - test/dir-a-b.test: Don't use diffstat in the regression test

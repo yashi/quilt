@@ -33,7 +33,7 @@
 	$ quilt add file3
 	> File subdir/file3 added to patch %{_P}test.patch
 
-	$ rm file3
+	$ rm -f file3
 	$ quilt files -v
 	>   subdir/file
 	> + subdir/file2

@@ -13,7 +13,7 @@
 	> File h added to patch patches/p.diff
 
 	$ echo h1 > h
-	$ rm g
+	$ rm -f g
 	$ quilt refresh
 	> Refreshed patch patches/p.diff
 

@@ -12,7 +12,7 @@
 In this case, the original file in the --- line must not have .orig appended
 or else patch won't know the real original filename anymore.
 
-	$ rm file
+	$ rm -f file
 	$ quilt diff -p0
 	> Index: file
 	> ===================================================================
