@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Sep 19 17:06:36 CEST 2006 - khali@linux-fr.org
+
+- quilt/scripts/patchfns.in: Drop support for "-pab" in series
+  file, for it breaks compatibility with previous versions of
+  quilt, and is inconsistent.
+- test/dir-a-b.test: Drop test case for "-pab" in series file.
+
+-------------------------------------------------------------------
 Tue Sep 19 16:35:20 CEST 2006 - khali@linux-fr.org
 
 - test/*.test: Make sure that rm commands are non-interactive.

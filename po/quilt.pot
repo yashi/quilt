@@ -119,11 +119,11 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:475
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:573
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgstr ""
 msgid "File %s is not being modified\\n"
 msgstr ""
 
-#: quilt/diff.in:378 quilt/refresh.in:184
+#: quilt/diff.in:378 quilt/refresh.in:188
 msgid "Diff failed, aborting\\n"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:488
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:474
 msgid "No patches applied\\n"
 msgstr ""
 
@@ -785,29 +785,29 @@ msgid ""
 "\tStrip trailing whitespace at the end of lines.\n"
 msgstr ""
 
-#: quilt/refresh.in:155
+#: quilt/refresh.in:159
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/refresh.in:190
+#: quilt/refresh.in:194
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 
-#: quilt/refresh.in:196
+#: quilt/refresh.in:200
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 
-#: quilt/refresh.in:202
+#: quilt/refresh.in:206
 msgid "Nothing in patch %s\\n"
 msgstr ""
 
-#: quilt/refresh.in:279
+#: quilt/refresh.in:284
 msgid "Patch %s is unchanged\\n"
 msgstr ""
 
-#: quilt/refresh.in:285
+#: quilt/refresh.in:290
 msgid "Refreshed patch %s\\n"
 msgstr ""
 
@@ -887,23 +887,23 @@ msgstr ""
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:524
+#: quilt/scripts/patchfns.in:510
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:552
+#: quilt/scripts/patchfns.in:538
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:589
+#: quilt/scripts/patchfns.in:575
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:611
+#: quilt/scripts/patchfns.in:597
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:871
+#: quilt/scripts/patchfns.in:857
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -911,7 +911,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:956
+#: quilt/scripts/patchfns.in:942
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

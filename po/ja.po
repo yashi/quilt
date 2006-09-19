@@ -177,11 +177,11 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:475
+#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:573
+#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -329,7 +329,7 @@ msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:378 quilt/refresh.in:184
+#: quilt/diff.in:378 quilt/refresh.in:188
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
@@ -927,7 +927,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:488
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:474
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -1145,33 +1145,33 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\t末尾の空白文字を削除する。\n"
 
-#: quilt/refresh.in:155
+#: quilt/refresh.in:159
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "-p%s ではリフレッシュすることができません。-p0または -p1を指定してください\\n"
 
-#: quilt/refresh.in:190
+#: quilt/refresh.in:194
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "より最近のパッチがパッチ %s のファイルに変更を加えています。リフレッシュを実"
 "行する場合は -f オプションを使用してください。\\n"
 
-#: quilt/refresh.in:196
+#: quilt/refresh.in:200
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "--strip-trailing-whitespace は影になっているファイルがある場合は使えません"
 
-#: quilt/refresh.in:202
+#: quilt/refresh.in:206
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: quilt/refresh.in:279
+#: quilt/refresh.in:284
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ %s に変更はありません\\n"
 
-#: quilt/refresh.in:285
+#: quilt/refresh.in:290
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
@@ -1262,24 +1262,24 @@ msgstr "ファイル %s が消えました!\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
 
-#: quilt/scripts/patchfns.in:524
+#: quilt/scripts/patchfns.in:510
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:552
+#: quilt/scripts/patchfns.in:538
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:589
+#: quilt/scripts/patchfns.in:575
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:611
+#: quilt/scripts/patchfns.in:597
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:871
+#: quilt/scripts/patchfns.in:857
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1291,7 +1291,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:956
+#: quilt/scripts/patchfns.in:942
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
