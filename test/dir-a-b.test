@@ -106,14 +106,6 @@
 	> @@ -1 +0,0 @@
 	> -d
 
-	$ quilt refresh -p ab --diffstat
-	> Refreshed patch patches/ab.diff
-
-	$ sed -n -e 's/ *//' -e 's/ *|.*//p' patches/ab.diff
-	> test.txt
-	> test2.txt
-	> test3.txt
-
 	$ quilt pop -qR
 	> Removing patch patches/ab.diff
 	> No patches applied

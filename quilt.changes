@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep 19 16:24:57 CEST 2006 - khali@linux-fr.org
+
+- test/dir-a-b.test: Don't use diffstat in the regression test
+  suite, as it may or may not be available.
+
+-------------------------------------------------------------------
 Mon Sep 18 23:37:41 CEST 2006 - khali@linux-fr.org
 
 - doc/quilt.1.in: Document the fact that per-patch comments are now
