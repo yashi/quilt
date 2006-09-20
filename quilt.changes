@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 20 08:38:51 CEST 2006 - khali@linux-fr.org
+
+- po/ja.po: Update the Japanese translation, patch from
+  Yasushi Shoji.
+- po/fr.po: Update the French translation.
+
+-------------------------------------------------------------------
 Tue Sep 19 17:42:45 CEST 2006 - khali@linux-fr.org
 
 - quilt/diff.in, quilt/refresh.in: Update usage line to mention
