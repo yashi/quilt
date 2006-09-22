@@ -92,7 +92,8 @@ then
 fi
 if [ -z "$patch" ]
 then
-	printf $"No patches in series\n" >&2
+	# find_top_patch will display the proper error message for us
+	find_top_patch > /dev/null
 	exit 1
 fi
 if is_applied "$patch"; then

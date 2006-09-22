@@ -94,6 +94,9 @@ Test the delete command.
 	$ quilt series
 	> %{P}test3
 
+	$ quilt delete
+	> No patches applied
+
 	$ quilt delete test3
 	> Removed patch %{P}test3
 
