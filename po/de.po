@@ -27,7 +27,6 @@ msgid "Commands are:"
 msgstr "Vorhandene Befehle:"
 
 #: bin/quilt.in:40
-#, fuzzy
 msgid ""
 "\n"
 "Global options:\n"
@@ -54,7 +53,9 @@ msgstr ""
 "--quiltrc datei\n"
 "\tVerwende die angegebene Konfigurationsdatei statt ~/.quiltrc (oder\n"
 "\t/etc/quilt.quiltrc, wenn ~/.quiltrc fehlt). Siehe die pdf-Dokumentation\n"
-"\tfür mögliche Einstellungen.\n"
+"\tfür mögliche Einstellungen. Der Dateiname \\`-' bedeutet, dass keine\n"
+"\tResource-Datei eingelesen werden soll.\n"
+"\n"
 "--version\n"
 "\tGibt die Versionsummer aus."
 
@@ -180,43 +181,37 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
-msgid "No patches in series\\n"
-msgstr "Keine Patches in der series-Datei\\n"
-
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
-#: quilt/delete.in:113
+#: quilt/delete.in:114
 msgid "Removed patch %s\\n"
 msgstr "Entferne Patch %s\\n"
 
-#: quilt/delete.in:115
+#: quilt/delete.in:116
 msgid "Failed to remove patch %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
-#: quilt/delete.in:126
+#: quilt/delete.in:127
 msgid "Failed to backup patch file %s\\n"
 msgstr "Konnte Datei %s nicht sichern\\n"
 
-#: quilt/delete.in:133
+#: quilt/delete.in:134
 msgid "Failed to remove patch file %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/diff.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
 "[--sort] [--color] [file ...]\\n"
 msgstr ""
-"Verwendung: quilt diff [-p n] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
-"R] [-P patch] [--snapshot] [--diff=programm] [--no-timestamps] [--no-index] "
-"[--sort] [--color] [datei ...]\\n"
+"Verwendung: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-"
+"z] [-R] [-P patch] [--snapshot] [--diff=programm] [--no-timestamps] [--no-"
+"index] [--sort] [--color] [datei ...]\\n"
 
 #: quilt/diff.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -272,6 +267,10 @@ msgstr ""
 "enthaltenen Dateien einbezogen.\n"
 "\n"
 "-p n\tErzeuge einen -p n Patch (n=0 oder n=1 wird unterstützt).\n"
+"\n"
+"-p ab\tErzeuge einen -p1-artigen Patch, verwende aber a/datei und\n"
+"\tb/datei als den ursprünglichen und neuen Dateinamen anstelle von\n"
+"\tdir.orig/datei und dir/datei.\n"
 "\n"
 "-u, -U anzahl, -c, -C anzahl\n"
 "\tErzeuge ein Unified Diff (-u, -U) mit anzahl Kontextzeilen. Erzeuge\n"
@@ -1069,18 +1068,16 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aufgefrischt werden (Refresh).\\n"
 
 #: quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
 "timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
 "whitespace] [patch]\\n"
 msgstr ""
-"Verwendung: quilt refresh [-p n] [-u|-U num|-c|-C num] [-f] [--no-"
+"Verwendung: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
 "timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
 "whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1141,6 +1138,10 @@ msgstr ""
 "Auffrischen berücksichtigt.\n"
 "\n"
 "-p n\tErzeuge einen -p n Patch (n=0 oder n=1 werden unterstützt).\n"
+"\n"
+"-p ab\tErzeuge einen -p1-artigen Patch, verwende aber a/datei und\n"
+"\tb/datei als den ursprünglichen und neuen Dateinamen anstelle von\n"
+"\tdir.orig/datei und dir/datei.\n"
 "\n"
 "-u, -U anzahl, -c, -C anzahl\n"
 "\tErzeuge ein Unified Diff (-u, -U) mit anzahl Kontextzeilen. Erzeuge\n"
@@ -1293,6 +1294,10 @@ msgstr "Datei %s ist verschwunden\n"
 #, perl-format
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Konnte %s nicht auf %s umbenennen: %s\n"
+
+#: quilt/scripts/patchfns.in:461
+msgid "No patches in series\\n"
+msgstr "Keine Patches in der series-Datei\\n"
 
 #: quilt/scripts/patchfns.in:510
 msgid "Patch %s is not in series\\n"

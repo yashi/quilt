@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Oct  9 17:08:19 CEST 2006 - agruen@suse.de
+
+- Update the German translation.
+
+-------------------------------------------------------------------
 Mon Oct  9 16:34:04 CEST 2006 - agruen@suse.de
 
 - quilt.spec.in: Pass %_mandir to --configure (fix from Anders

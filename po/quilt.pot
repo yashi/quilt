@@ -119,27 +119,23 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
-msgid "No patches in series\\n"
-msgstr ""
-
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
-#: quilt/delete.in:113
+#: quilt/delete.in:114
 msgid "Removed patch %s\\n"
 msgstr ""
 
-#: quilt/delete.in:115
+#: quilt/delete.in:116
 msgid "Failed to remove patch %s\\n"
 msgstr ""
 
-#: quilt/delete.in:126
+#: quilt/delete.in:127
 msgid "Failed to backup patch file %s\\n"
 msgstr ""
 
-#: quilt/delete.in:133
+#: quilt/delete.in:134
 msgid "Failed to remove patch file %s\\n"
 msgstr ""
 
@@ -885,6 +881,10 @@ msgstr ""
 #: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
 #, perl-format
 msgid "Failed to rename %s to %s: %s\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:461
+msgid "No patches in series\\n"
 msgstr ""
 
 #: quilt/scripts/patchfns.in:510

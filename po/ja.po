@@ -177,27 +177,23 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:95 quilt/scripts/patchfns.in:461
-msgid "No patches in series\\n"
-msgstr "シリーズに登録されているパッチがありません\\n"
-
-#: quilt/delete.in:101 quilt/scripts/patchfns.in:559
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:559
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
-#: quilt/delete.in:113
+#: quilt/delete.in:114
 msgid "Removed patch %s\\n"
 msgstr "パッチ %s を削除しました\\n"
 
-#: quilt/delete.in:115
+#: quilt/delete.in:116
 msgid "Failed to remove patch %s\\n"
 msgstr "パッチ %s の削除に失敗しました\\n"
 
-#: quilt/delete.in:126
+#: quilt/delete.in:127
 msgid "Failed to backup patch file %s\\n"
 msgstr "ファイル %s のバックアップに失敗しました\\n"
 
-#: quilt/delete.in:133
+#: quilt/delete.in:134
 msgid "Failed to remove patch file %s\\n"
 msgstr "パッチ %s の削除に失敗しました\\n"
 
@@ -1267,6 +1263,10 @@ msgstr "ファイル %s が消えました!\n"
 #, perl-format
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
+
+#: quilt/scripts/patchfns.in:461
+msgid "No patches in series\\n"
+msgstr "シリーズに登録されているパッチがありません\\n"
 
 #: quilt/scripts/patchfns.in:510
 msgid "Patch %s is not in series\\n"
