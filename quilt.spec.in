@@ -30,7 +30,7 @@ Authors:
 %setup
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure
+CFLAGS="$RPM_OPT_FLAGS" ./configure --mandir=%_mandir
 make prefix=/usr BUILD_ROOT=$RPM_BUILD_ROOT RELEASE=%release
 
 %install
