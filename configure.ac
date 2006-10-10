@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.45],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.80 $)
+AC_REVISION ($Revision: 1.81 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -296,9 +296,9 @@ does understand -path, you can supply its path with the
 ])
 fi
 
-QUILT_COMPAT_PROG_PATH(DIFFSTAT, diffstat)
+QUILT_COMPAT_PROG_PATH_OPT(DIFFSTAT, diffstat)
 
-if test -z "$INTERNAL_DIFFSTAT"; then
+if test "$DIFFSTAT" != "diffstat"; then
     # We need diffstat version 1.32 or better, else quilt refresh --diffstat
     # will show progress data we don't want to see.  This is only a warning
     # and we continue even if version is older, as this is only a minor
@@ -372,7 +372,7 @@ fi
 AC_SUBST(docdir)
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
-QUILT_COMPAT_PROG_PATH(RPMBUILD, rpmbuild, [rpmbuild rpm])
+QUILT_COMPAT_PROG_PATH_OPT(RPMBUILD, rpmbuild, [rpmbuild rpm])
 
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)

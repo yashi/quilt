@@ -1,6 +1,0 @@
-#! @BASH@
-
-QUILT_COMPAT=@QUILT_DIR@/compat
-QUILT_COMPAT=${QUILT_COMPAT//\//\\\/}
-PATH=${PATH//$QUILT_COMPAT/}
-exec "${0##*/}" "$@"

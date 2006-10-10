@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Oct 10 17:44:30 CEST 2006 - khali@linux-fr.org
+
+- aclocal.m4: New helper for optional binaries.
+- configure.ac: Use the new helper for diffstat and rpmbuild.
+- compat/diffstat.in: Delete.
+- compat/rpmbuild.in: Delete.
+
+-------------------------------------------------------------------
 Mon Oct  9 17:08:19 CEST 2006 - agruen@suse.de
 
 - Update the German translation.
