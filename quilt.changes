@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Oct 19 18:04:36 CEST 2006 - khali@linux-fr.org
+
+- Bump version to 0.46.
+
+-------------------------------------------------------------------
 Tue Oct 10 17:44:30 CEST 2006 - khali@linux-fr.org
 
 - aclocal.m4: New helper for optional binaries.
