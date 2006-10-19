@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Oct 19 20:49:23 CEST 2006 - agruen@suse.de
+
+- Refresh command: add -z option, which refreshes changes into a
+  new patch instead of modifying the existing patch.
+
+-------------------------------------------------------------------
 Thu Oct 19 18:04:36 CEST 2006 - khali@linux-fr.org
 
 - Bump version to 0.46.

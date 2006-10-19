@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
+	printf $"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [patch]\n"
 
 	if [ x$1 = x-h ]
 	then
@@ -46,6 +46,11 @@ patch.
 	Create a unified diff (-u, -U) with num lines of context. Create
 	a context diff (-c, -C) with num lines of context. The number of
 	context lines defaults to 3.
+
+-z[new_name]
+	Create a new patch containing the changes instead of refreshing the
+	topmost patch. If no new name is specified, \`-2' is added to the
+	original patch name, etc. (See the fork command.)
 
 --no-timestamps
 	Do not include file timestamps in patch headers.
@@ -77,14 +82,14 @@ die()
 {
 	local status=$1
 	[ -n "$tmp_patch" ] && rm -f $tmp_patch
-	[ -n "$tmp_header" ] && rm -f $tmp_header
 	[ -n "$tmp_result" ] && rm -f $tmp_result
+	[ -n "$workdir" ] && rm -rf $workdir
 	exit $status
 }
 
-options=`getopt -o p:uU:cC:fh --long no-timestamps,diffstat,backup,sort \
-			      --long no-index \
-			      --long strip-trailing-whitespace -- "$@"`
+options=`getopt -o p:uU:cC:fz::h --long no-timestamps,diffstat,backup,sort \
+				 --long no-index \
+				 --long strip-trailing-whitespace -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -108,6 +113,10 @@ do
 		shift ;;
 	-U|-C)
 		opt_format="$1 $2"
+		shift 2 ;;
+	-z)
+		opt_fork=1
+		opt_new_name=$2
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -144,6 +153,34 @@ QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
 patch=$(find_applied_patch "$1") || exit 1
 
+if [ -z "$opt_sort" ]
+then
+	files=( $(files_in_patch_ordered $patch) )
+else
+	files=( $(files_in_patch $patch | sort) )
+fi
+
+if [ -n "$opt_fork" -a $# -ne 0 ]
+then
+	printf $"Can only refresh the topmost patch with -z currently\n" >&2
+	exit 1
+fi
+
+if [ -n "$opt_fork" ]; then
+	old_patch=$patch
+	old_patch_args=$(patch_args "$old_patch")
+	if [ -n "$opt_new_name" ]
+	then
+		patch=$opt_new_name
+	else
+		patch=$(next_filename "$patch")
+	fi
+	if [ -e "$(patch_file_name "patch")" ]; then
+		printf $"Patch %s exists already\n" "$(print_patch $patch)" >&2
+		exit 1
+	fi
+fi
+
 if [ -z "$opt_strip_level" ]
 then
 	opt_strip_level=$(patch_strip_level $patch)
@@ -163,27 +200,30 @@ esac
 
 trap "die 1" SIGTERM
 
-tmp_patch=$(gen_tempfile)
-
-if [ -z "$opt_sort" ]
-then
-	files=( $(files_in_patch_ordered $patch) )
-else
-	files=( $(files_in_patch $patch | sort) )
+if [ -n "$opt_fork" ]; then
+	workdir=$(gen_tempfile -d $PWD/quilt)
+	apply_patch_temporarily "$workdir" "$old_patch" || exit 1
 fi
+
+tmp_patch=$(gen_tempfile)
 
 for file in "${files[@]}"
 do
-	old_file=$(backup_file_name $patch $file)
-	next_patch=$(next_patch_for_file $patch $file)
-	if [ -z "$next_patch" ]
-	then
+	if [ -n "$opt_fork" ]; then
+		old_file=$workdir/$file
 		new_file=$file
 	else
-		new_file=$(backup_file_name $next_patch $file)
-		files_were_shadowed=1
+		old_file=$(backup_file_name $patch $file)
+		next_patch=$(next_patch_for_file $patch $file)
+		if [ -z "$next_patch" ]
+		then
+			new_file=$file
+		else
+			new_file=$(backup_file_name $next_patch $file)
+			files_were_shadowed=1
+		fi
 	fi
-	if ! diff_file $file $old_file $new_file >> $tmp_patch
+	if ! diff_file $file $old_file $new_file
 	then
 		printf $"Diff failed, aborting\n" >&2
 		die 1
@@ -199,7 +239,7 @@ do
 	then
 		printf $"Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\n" >&2
 	fi
-done
+done >> $tmp_patch
 
 if ! [ -s $tmp_patch ]
 then
@@ -227,25 +267,17 @@ patch_file=$(patch_file_name $patch)
 
 trap "" SIGINT
 
-if ! tmp_header=$(gen_tempfile)
-then
-	die 1
-fi
-
-mkdir -p $(dirname $patch_file)
-
-if ! cat_file $patch_file | patch_header > $tmp_header
-then
-	die 1
-fi
-
 tmp_result=$(gen_tempfile) || die 1
+
+prev_patch_file=$patch_file
+[ -e "$prev_patch_file" ] || prev_patch_file=/dev/null
 
 if [ -n "$opt_diffstat" ]
 then
 	diffstat="$(diffstat $QUILT_DIFFSTAT_OPTS \
 			     -p$num_strip_level $tmp_patch)" || die 1
-	awk '
+	cat_file "$prev_patch_file" | patch_header \
+	| awk '
 	    function print_diffstat(arr, i) {
 	      split(diffstat, arr, "\n")
 	      for (i=1; i in arr; i++)
@@ -271,12 +303,15 @@ then
 			  }
 			}
 	    ' diffstat="$diffstat" \
-	    $tmp_header > $tmp_result
+	    > $tmp_result
 else
-	cat $tmp_header > $tmp_result
+	cat_file "$prev_patch_file" | patch_header \
+	> $tmp_result
 fi
 
 cat $tmp_patch >> $tmp_result
+
+mkdir -p $(dirname $patch_file)
 
 if [ -e $patch_file ] && \
    diff -q $patch_file $tmp_result > /dev/null
@@ -286,8 +321,30 @@ elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
        mv $patch_file $patch_file~ ) && \
      cat_to_new_file $patch_file < $tmp_result
 then
+	if [ -n "$opt_fork" ]
+	then
+		if ! insert_in_series "$patch" "$old_patch_args"
+		then
+			printf $"Failed to insert patch %s into file series\n" \
+			       "$(print_patch $patch)" >&2
+			rm -f "$patch_file"
+			exit 1
+		fi
+		if ! rm -rf "$QUILT_PC/$patch" || \
+		   ! mv "$workdir" "$QUILT_PC/$patch" || \
+		   ! echo "$patch" >> $QUILT_PC/applied-patches
+		then
+			printf $"Failed to create patch %s\n" \
+			       "$(print_patch $patch)" >&2
+			exit 1
+		fi
+		printf $"Fork of patch %s created as %s\n" \
+			"$(print_patch $old_patch)" \
+			"$(print_patch $patch)"
+	else
+		printf $"Refreshed patch %s\n" "$(print_patch $patch)"
+	fi
 	touch $QUILT_PC/$patch/.timestamp
-	printf $"Refreshed patch %s\n" "$(print_patch $patch)"
 else
 	die 1
 fi

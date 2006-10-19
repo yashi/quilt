@@ -72,11 +72,7 @@ if [ $# -eq 1 ]
 then
 	new_patch="$1"
 else
-	base=$(echo "$top_patch" \
-	       | sed -r -e 's:(\.gz|\.bz2)$::' -e 's:(\.diff?|\.patch)$::')
-	num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
-	[ -n "$num" ] || num=1
-	new_patch="${base%-$num}-$((num+1))${top_patch#$base}"
+	new_patch="$(next_filename "$top_patch")"
 fi
 
 new_patch=${new_patch#$QUILT_PATCHES/}

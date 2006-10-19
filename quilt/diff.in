@@ -80,7 +80,8 @@ included.
 }
 
 colorize() {
-	if [ -n "$opt_color" ]; then
+	if [ -n "$opt_color" ]
+	then
 		sed -e '
 		    s/^\(Index:\|---\|+++\|\*\*\*\) .*/'$color_diff_hdr'&'$color_clear'/
 		t ; s/^+.*/'$color_diff_add'&'$color_clear'/
@@ -304,42 +305,9 @@ fi
 
 if [ -n "$opt_relative" ]
 then
-	patch_file=$(patch_file_name $last_patch)
-	patch_args=$(patch_args $last_patch)
 	workdir=$(gen_tempfile -d $PWD/quilt)
-
-	if [ ${#files[@]} -gt 0 ] \
-	   && ! ( cd $QUILT_PC/$last_patch &&
-		  cp -l --parents "${files[@]}" $workdir/ )
-	then
-		printf $"Failed to copy files to temporary directory\n" >&2
-		die 1
-	fi
-	# Now we may have some zero-size files that have no permissions
-	# (which represent files that the patch creates). Those may have
-	# been created in the meantime, but patch would refuse to touch
-	# them: We must remove them here.
-	find $workdir -type f -size 0 -exec rm -f '{}' ';'
-
-	if [ -s $patch_file ]
-	then
-		if ! cat_file $patch_file \
-		     | patch -d $workdir $QUILT_PATCH_OPTS $patch_args \
-		     	     --no-backup-if-mismatch -Ef \
-			     >/dev/null 2>/dev/null
-		then
-			# Generating a relative diff for a subset of files in
-			# the patch will fail. Also, if a patch was force
-			# applied, we know that it won't apply cleanly. In
-			# all other cases, print a warning.
-
-			if [ ! -e $QUILT_PC/$last_patch~refresh -a \
-			       ${#opt_files[@]} -eq 0 ]
-			then
-				printf $"Failed to patch temporary files\n" >&2
-			fi
-		fi
-	fi
+	apply_patch_temporarily "$workdir" "$last_patch" "${files[@]}" \
+	|| die 1
 fi
 
 for file in "${files[@]}"

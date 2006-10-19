@@ -838,6 +838,65 @@ first_modified_by()
 	return 1
 }
 
+apply_patch_temporarily()
+{
+	local workdir=$1 patch=$2 patch_file patch_args files
+
+	patch_file=$(patch_file_name "$patch")
+	patch_args=$(patch_args "$patch")
+
+	shift 2
+	if [ $# -gt 0 ]
+	then
+		files=( "$@" )
+	else
+		files=( $(files_in_patch "$patch") )
+	fi
+
+	if [ ${#files[@]} -gt 0 ] \
+	   && ! ( cd $QUILT_PC/$patch &&
+		  cp -l --parents "${files[@]}" $workdir/ )
+	then
+		printf $"Failed to copy files to temporary directory\n" >&2
+		return 1
+	fi
+	# Now we may have some zero-size files that have no permissions
+	# (which represent files that the patch creates). Those may have
+	# been created in the meantime, but patch would refuse to touch
+	# them: We must remove them here.
+	find $workdir -type f -size 0 -exec rm -f '{}' ';'
+
+	if [ -s $patch_file ]
+	then
+		if ! cat_file $patch_file \
+		     | patch -d $workdir $QUILT_PATCH_OPTS $patch_args \
+		     	     --no-backup-if-mismatch -Ef \
+			     >/dev/null 2>/dev/null
+		then
+			# Generating a relative diff for a subset of files in
+			# the patch will fail. Also, if a patch was force
+			# applied, we know that it won't apply cleanly. In
+			# all other cases, print a warning.
+
+			if [ ! -e $QUILT_PC/$patch~refresh -a $# -eq 0 ]
+			then
+				printf $"Failed to patch temporary files\n" >&2
+				return 1
+			fi
+		fi
+	fi
+}
+
+next_filename()
+{
+	local patch=$1 base num
+        base=$(echo "$patch" \
+               | sed -r -e 's:(\.gz|\.bz2)$::' -e 's:(\.diff?|\.patch)$::')
+        num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
+        [ -n "$num" ] || num=1
+        echo "${base%-$num}-$((num+1))${patch#$base}"
+}
+
 create_db() {
 	if ! [ -e $QUILT_PC ]
 	then
