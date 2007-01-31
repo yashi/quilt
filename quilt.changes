@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 31 10:46:32 PST 2007 - agruen@suse.de
+
+- Update the German translation.
+
+-------------------------------------------------------------------
 Thu Oct 19 20:49:23 CEST 2006 - agruen@suse.de
 
 - Refresh command: add -z option, which refreshes changes into a

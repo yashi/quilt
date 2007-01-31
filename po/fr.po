@@ -311,40 +311,32 @@ msgstr ""
 "--sort\tTrie les fichiers par leur nom au lieu de préserver leur ordre\n"
 "\td'origine.\n"
 
-#: quilt/diff.in:217
+#: quilt/diff.in:218
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
 "Les options «--combine», «--snapshot» et «-z» ne peuvent pas être combinées."
 "\\n"
 
-#: quilt/diff.in:231
+#: quilt/diff.in:232
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:265 quilt/files.in:105
+#: quilt/diff.in:266 quilt/files.in:105
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: quilt/diff.in:315 quilt/pop.in:98
-msgid "Failed to copy files to temporary directory\\n"
-msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
-
-#: quilt/diff.in:339 quilt/pop.in:122
-msgid "Failed to patch temporary files\\n"
-msgstr "Impossible de patcher les fichiers temporaires\\n"
-
-#: quilt/diff.in:358
+#: quilt/diff.in:326
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: quilt/diff.in:378 quilt/refresh.in:188
+#: quilt/diff.in:346 quilt/refresh.in:228
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: quilt/diff.in:385
+#: quilt/diff.in:353
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 
@@ -463,15 +455,15 @@ msgstr ""
 "tiret suivi d'un nombre, ce nombre est augmenté à la place (par\n"
 "exemple : patch.diff, patch-2.diff, patch-3.diff).\n"
 
-#: quilt/fork.in:88
+#: quilt/fork.in:84
 msgid "Patch %s exists already, please choose a new name\\n"
 msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom\\n"
 
-#: quilt/fork.in:100
+#: quilt/fork.in:96
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Le fork de %s en %s a échoué\\n"
 
-#: quilt/fork.in:106
+#: quilt/fork.in:102 quilt/refresh.in:341
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 
@@ -709,7 +701,7 @@ msgstr "Import du patch %s (enregistré dans %s)\\n"
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:207
+#: quilt/import.in:207 quilt/refresh.in:328
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
@@ -842,11 +834,11 @@ msgstr ""
 "répertoire devant être la racine si quilt choisi un répertoire trop haut\n"
 "dans l'arborescence.\n"
 
-#: quilt/new.in:70
+#: quilt/new.in:70 quilt/refresh.in:179
 msgid "Patch %s exists already\\n"
 msgstr "Le patch %s existe déjà\\n"
 
-#: quilt/new.in:81
+#: quilt/new.in:81 quilt/refresh.in:337
 msgid "Failed to create patch %s\\n"
 msgstr "Impossible de créer le patch %s\\n"
 
@@ -938,6 +930,14 @@ msgstr ""
 "-q\tOpère silencieusement.\n"
 "\n"
 "-v\tOpère verbeusement.\n"
+
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:860
+msgid "Failed to copy files to temporary directory\\n"
+msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
+
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:883
+msgid "Failed to patch temporary files\\n"
+msgstr "Impossible de patcher les fichiers temporaires\\n"
 
 #: quilt/pop.in:140
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
@@ -1088,16 +1088,18 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
 #: quilt/refresh.in:22
+#, fuzzy
 msgid ""
-"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
-"timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
-"whitespace] [patch]\\n"
+"Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] "
+"[--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
+"trailing-whitespace] [patch]\\n"
 msgstr ""
 "Usage : quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
 "timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
 "whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
+#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1122,6 +1124,11 @@ msgid ""
 "\tCreate a unified diff (-u, -U) with num lines of context. Create\n"
 "\ta context diff (-c, -C) with num lines of context. The number of\n"
 "\tcontext lines defaults to 3.\n"
+"\n"
+"-z[new_name]\n"
+"\tCreate a new patch containing the changes instead of refreshing the\n"
+"\ttopmost patch. If no new name is specified, \\`-2' is added to the\n"
+"\toriginal patch name, etc. (See the fork command.)\n"
 "\n"
 "--no-timestamps\n"
 "\tDo not include file timestamps in patch headers.\n"
@@ -1190,35 +1197,39 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\tSupprime les espaces à la fin des lignes.\n"
 
-#: quilt/refresh.in:159
+#: quilt/refresh.in:165
+msgid "Can only refresh the topmost patch with -z currently\\n"
+msgstr ""
+
+#: quilt/refresh.in:196
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de rafraîchir des patchs avec -p%s. Veuillez spécifier -p0 ou -p1 "
 "à la place.\\n"
 
-#: quilt/refresh.in:194
+#: quilt/refresh.in:234
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que %s.\n"
 "Forcez le rafraîchissement avec -f.\\n"
 
-#: quilt/refresh.in:200
+#: quilt/refresh.in:240
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "Impossible d'utiliser --strip-trailing-whitespace sur un patch dont\n"
 "certains fichiers sont masqués.\\n"
 
-#: quilt/refresh.in:206
+#: quilt/refresh.in:246
 msgid "Nothing in patch %s\\n"
 msgstr "Le patch %s ne contient rien\\n"
 
-#: quilt/refresh.in:284
+#: quilt/refresh.in:319
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s inchangé\\n"
 
-#: quilt/refresh.in:290
+#: quilt/refresh.in:345
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s rafraîchi\\n"
 
@@ -1295,21 +1306,6 @@ msgstr "Le nom `%s' est mal parenthésé\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "L'adresse de destination `%s' est invalide\n"
 
-#: quilt/scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
-
-#: quilt/scripts/parse-patch.in:97 quilt/scripts/parse-patch.in:104
-#, perl-format
-msgid "File %s disappeared!\n"
-msgstr "Le fichier %s a disparu !\n"
-
-#: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
-#, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr "Impossible de renommer %s en %s : %s\n"
-
 #: quilt/scripts/patchfns.in:461
 msgid "No patches in series\\n"
 msgstr "Aucun patch dans la série\\n"
@@ -1330,7 +1326,7 @@ msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 msgid "Patch %s does not exist\\n"
 msgstr "Le patch %s n'existe pas\\n"
 
-#: quilt/scripts/patchfns.in:857
+#: quilt/scripts/patchfns.in:916
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1342,7 +1338,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: quilt/scripts/patchfns.in:942
+#: quilt/scripts/patchfns.in:1001
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1557,3 +1553,12 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
+
+#~ msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
+#~ msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
+
+#~ msgid "File %s disappeared!\n"
+#~ msgstr "Le fichier %s a disparu !\n"
+
+#~ msgid "Failed to rename %s to %s: %s\n"
+#~ msgstr "Impossible de renommer %s en %s : %s\n"
