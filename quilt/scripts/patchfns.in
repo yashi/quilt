@@ -153,9 +153,6 @@ patch_strip_level()
 	for i in $(patch_args $patch)
 	do
 		case $i in
-		-p)
-			echo $2
-			return ;;
 		-p*)
 			echo ${i:2}
 			return ;;
