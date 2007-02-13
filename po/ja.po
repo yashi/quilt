@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2006-09-20 08:07+0900\n"
+"PO-Revision-Date: 2007-02-01 14:48+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "MIME-Version: 1.0\n"
@@ -1048,18 +1048,16 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
 #: quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] "
 "[--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"使い方: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
-"timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
-"whitespace] [パッチ]\\n"
+"使い方: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[新しい名前]] [-"
+"f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
+"trailing-whitespace] [パッチ]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1133,6 +1131,11 @@ msgstr ""
 "\tテキストで context diff (-c, -C)を作成。デフォルトのコンテキス\n"
 "\tト行数は 3行。\n"
 "\n"
+"-z[新しい名前]\n"
+"\t一番上のパッチをリフレッシュせずに、新しいパッチを作成する。も\n"
+"\tし新しい名前が与えられない場合は、\\`-2'が元のパッチ名に付加さ\n"
+"\tれる。(forkコマンド参照)\n"
+"\n"
 "--no-timestamps\n"
 "\tパッチヘッダにタイムスタンプを含めない。\n"
 "\n"
@@ -1156,7 +1159,7 @@ msgstr ""
 
 #: quilt/refresh.in:165
 msgid "Can only refresh the topmost patch with -z currently\\n"
-msgstr ""
+msgstr "-zオプションがある場合、最上位パッチ以外のリフレッシュはできません\\n"
 
 #: quilt/refresh.in:196
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -1506,12 +1509,3 @@ msgstr ""
 "現在作業中のツリーを作成した quiltと同じバージョンの quiltで \\`quilt\n"
 "pop -a'を実行し、すべてのパッチをはずしてください。または、%s ディレク\n"
 "トリを削除し、最初からパッチをあて直してください。\\n"
-
-#~ msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-#~ msgstr "使いかた: %s {-s|-u} section file [< replacement]\n"
-
-#~ msgid "File %s disappeared!\n"
-#~ msgstr "ファイル %s が消えました!\n"
-
-#~ msgid "Failed to rename %s to %s: %s\n"
-#~ msgstr "パッチ %s から %sへの名前の変更に失敗しました: %s\n"
