@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb 20 11:12:05 CET 2007 - khali@linux-fr.org
+
+- test/run: Don't attempt to remove comments from command lines.
+  We don't put such comments in our test cases, and it prevents
+  legitimate uses of the "#" character (e.g. in a string, inside
+  quotes) in commands.
+
+-------------------------------------------------------------------
 Tue Feb 13 21:09:37 CET 2007 - khali@linux-fr.org
 
 - Update the Japanese translation. Patch from Yasushi Shoji.

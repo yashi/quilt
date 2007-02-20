@@ -55,7 +55,6 @@ for (;;) {
       $prog_line = 0;
     }
     if ($line =~ s/^\s*\$ ?//) {
-      $line =~ s/\s+#.*//;  # remove comments here...
       $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
       $prog_line = $lineno;
       $in = [];
