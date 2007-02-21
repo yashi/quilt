@@ -136,10 +136,13 @@ patch_args()
 		awk '
 			{sub(/(^|[ \t]+)#.*/, "") }
 		$1 == "'"$patch"'" \
-			{ if (NF >= 2)
-				for (i=2; i <= NF; i++)
-					print $i
-			  else
+			{ p_printed=0
+			  for (i=2; i<=NF; i++) {
+				print $i
+				if ($i ~ /^-p/)
+					p_printed=1
+			  }
+			  if (!p_printed)
 				print "-p1" ;
 			  exit
 			}
@@ -161,6 +164,7 @@ patch_strip_level()
 	echo "1"
 }
 
+# Also remove -R if present.
 change_db_strip_level()
 {
 	local level=$1 patch=$2
@@ -176,14 +180,33 @@ change_db_strip_level()
 	then
 		local tmpfile=$(gen_tempfile)
 		awk '
+		function remove_arg(nr, j) {
+			for (j=nr; j<NF; j++)
+				$j=$(j+1)
+			NF--
+		}
 		/^'"$(quote_re $patch)"'([ \t]|$)/ \
-			{ for(i=2; i<=NF; i++)
+			{ p_printed=0
+			  for (i=2; i<=NF; i++) {
+				if ($i ~ /^#/) break
 				if ($i ~ /^-p/) {
-					$i="'"$level"'"
-					break
+					if ("'"$level"'" == "")
+						remove_arg(i--)
+					else
+						$i="'"$level"'"
+					p_printed=1
+					continue
 				}
-			  if (i > NF && "'"$level"'" != "")
-				 $i="'"$level"'"
+				if ($i == "-R") {
+					remove_arg(i--)
+					continue
+				}
+			  }
+			  if (!p_printed && "'"$level"'" != "") {
+				for (j=NF; j>i; j--)
+					$(j+1)=$j
+				$i="'"$level"'"
+			  }
 			}
 			{ print }
 		' $SERIES > $tmpfile

@@ -14,7 +14,27 @@
 	$ quilt refresh
 	> Refreshed patch %{P}patch1.diff
 
-	$ quilt pop
+	$ quilt new patchR.diff
+	> Patch %{P}patchR.diff is now on top
+
+	$ quilt add f
+	> File f added to patch %{P}patchR.diff
+
+	$ rm -f f
+
+	$ quilt refresh
+	> Refreshed patch %{P}patchR.diff
+
+	$ quilt fork patchRp0.diff
+	> Fork of patch %{P}patchR.diff created as %{P}patchRp0.diff
+
+	$ quilt refresh -p0
+	> Refreshed patch %{P}patchRp0.diff
+
+	$ quilt pop -a
+	> Removing patch patches/patchRp0.diff
+	> Restoring f
+	>
 	> Removing patch patches/patch1.diff
 	> Removing f
 	>
@@ -22,6 +42,8 @@
 
 	$ mkdir t
 	$ mv patches/patch1.diff t/patch1.diff
+	$ mv patches/patchR.diff t/patchR.diff
+	$ mv patches/patchRp0.diff t/patchRp0.diff
 
 	# test importing into an empty series
 	$ rm -rf patches/ .pc/
@@ -136,6 +158,75 @@
 
 	$ quilt delete patch1.diff
 	> Patch patch1.diff is not in series
+
+	# test importing a reverse patch
+	$ rm -rf patches/ .pc/
+	$ mkdir patches
+	$ quilt import -R t/patchR.diff
+	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+
+	$ quilt push
+	> Applying patch patches/patchR.diff
+	>~ patching file `?f'?
+	>
+	> Now at patch patches/patchR.diff
+
+	$ cat f
+	> f
+
+	$ cat patches/series
+	> patchR.diff -R
+
+	# test that comments are preserved
+	$ echo "# Test of -R import" > patches/series
+	$ echo "patchR.diff -R # This patch was originally -R -p1" >> patches/series
+
+	# refreshing a reverse patch un-reverses it
+	$ quilt refresh
+	> Refreshed patch %{P}patchR.diff
+
+	$ cat patches/series
+	> # Test of -R import
+	> patchR.diff # This patch was originally -R -p1
+
+	$ touch f
+	$ quilt pop
+	> Removing patch patches/patchR.diff
+	> Removing f
+	>
+	> No patches applied
+
+	# test importing a reverse patch with strip level
+	$ rm -rf patches/ .pc/
+	$ mkdir patches
+	$ quilt import -R -p0 t/patchRp0.diff
+	> Importing patch t/patchRp0.diff (stored as patches/patchRp0.diff)
+
+	$ quilt push
+	> Applying patch patches/patchRp0.diff
+	>~ patching file `?f'?
+	>
+	> Now at patch patches/patchRp0.diff
+
+	$ cat f
+	> f
+
+	$ cat patches/series
+	> patchRp0.diff -p0 -R
+
+	# refreshing a reverse patch un-reverses it
+	$ quilt refresh
+	> Refreshed patch %{P}patchRp0.diff
+
+	$ cat patches/series
+	> patchRp0.diff -p0
+
+	$ touch f
+	$ quilt pop
+	> Removing patch patches/patchRp0.diff
+	> Removing f
+	>
+	> No patches applied
 
 	$ cd ..
 	$ rm -rf d

@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchfile ...\n"
+	printf $"Usage: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] patchfile ...\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -28,6 +28,9 @@ current top patch, and must be pushed after import to apply them.
 
 -p num
 	Number of directory levels to strip when applying (default=1)
+
+-R
+	Apply patch in reverse.
 
 -P patch
 	Patch filename to use inside quilt. This option can only be
@@ -93,7 +96,7 @@ die()
 	exit $status
 }
 
-options=`getopt -o P:d:fp:h -- "$@"`
+options=`getopt -o P:d:fp:Rh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -111,6 +114,9 @@ do
 	-p)
 		opt_strip=$2
 		shift 2 ;;
+	-R)
+		opt_reverse=1
+		shift ;;
 	-d)
 		case "$2" in
 			o|n|a) opt_desc=$2 ;;
@@ -135,6 +141,15 @@ then
 fi
 
 [ -n "$opt_strip" ] && patch_args="-p$opt_strip"
+if [ -n "$opt_reverse" ]
+then
+	if [ -n "$patch_args" ]
+	then
+		patch_args="$patch_args -R"
+	else
+		patch_args="-R"
+	fi
+fi
 
 for patch_file in "$@"
 do

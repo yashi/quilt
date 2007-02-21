@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:559
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:579
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
@@ -608,13 +608,16 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "Text an Header von Patch %s angefügt\\n"
 
 #: quilt/import.in:22
+#, fuzzy
 msgid ""
-"Usage: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchfile ...\\n"
+"Usage: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] patchfile ..."
+"\\n"
 msgstr ""
 "Verwendung: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] "
 "[patchdatei] ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -622,6 +625,9 @@ msgid ""
 "\n"
 "-p num\n"
 "\tNumber of directory levels to strip when applying (default=1)\n"
+"\n"
+"-R\n"
+"\tApply patch in reverse.\n"
 "\n"
 "-P patch\n"
 "\tPatch filename to use inside quilt. This option can only be\n"
@@ -654,51 +660,51 @@ msgstr ""
 "\tOption angegeben werden. Diese Option ist nur in Kombination mit -f "
 "wirksam.\n"
 
-#: quilt/import.in:68
+#: quilt/import.in:71
 msgid "Patch headers differ:\\n"
 msgstr "Die Patch-Header unterscheiden sich:\\n"
 
-#: quilt/import.in:71
+#: quilt/import.in:74
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 "Bitte verwenden Sie die Option -d {o|a|n} um anzugeben, welche Patch-Header "
 "erhalten bleiben sollen.\\n"
 
-#: quilt/import.in:133
+#: quilt/import.in:139
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr ""
 "Die Option \\`-P' kann nur beim Importieren eines einzelnen Patches "
 "verwendet werden\\n"
 
-#: quilt/import.in:153
+#: quilt/import.in:168
 msgid "Patch %s is applied\\n"
 msgstr "Patch %s ist angewandt\\n"
 
-#: quilt/import.in:162
+#: quilt/import.in:177
 msgid "Patch %s already exists in series.\\n"
 msgstr "Patch %s existiert bereits in der series-Datei\\n"
 
-#: quilt/import.in:168
+#: quilt/import.in:183
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Patch %s existiert bereits. Ersetzen mit -f.\\n"
 
-#: quilt/import.in:179
+#: quilt/import.in:194
 msgid "Replacing patch %s with new version\\n"
 msgstr "Ersetze Patch %s durch neuere Version\\n"
 
-#: quilt/import.in:183
+#: quilt/import.in:198
 msgid "Importing patch %s\\n"
 msgstr "Importiere patch %s\\n"
 
-#: quilt/import.in:185
+#: quilt/import.in:200
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Importiere Patch %s (abgelegt als %s)\\n"
 
-#: quilt/import.in:198
+#: quilt/import.in:213
 msgid "Failed to import patch %s\\n"
 msgstr "Konnte Patch %s nicht importieren\\n"
 
-#: quilt/import.in:207 quilt/refresh.in:328
+#: quilt/import.in:222 quilt/refresh.in:328
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
@@ -919,11 +925,11 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:860
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:880
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:883
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:903
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
@@ -949,7 +955,7 @@ msgstr "Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:474
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:494
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -1293,27 +1299,27 @@ msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
-#: quilt/scripts/patchfns.in:461
+#: quilt/scripts/patchfns.in:481
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:510
+#: quilt/scripts/patchfns.in:530
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:538
+#: quilt/scripts/patchfns.in:558
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:575
+#: quilt/scripts/patchfns.in:595
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:597
+#: quilt/scripts/patchfns.in:617
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:916
+#: quilt/scripts/patchfns.in:936
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1326,7 +1332,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:1001
+#: quilt/scripts/patchfns.in:1021
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

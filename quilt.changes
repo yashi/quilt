@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Feb 21 21:29:29 CET 2007 - khali@linux-fr.org
+
+- quilt/import.in, quilt/scripts/patchfns.in: Implement import -R
+  for reverse-applying a patch. Original patch contributed by
+  Randy Dunlap.
+
+-------------------------------------------------------------------
 Tue Feb 20 11:12:05 CET 2007 - khali@linux-fr.org
 
 - test/run: Don't attempt to remove comments from command lines.
