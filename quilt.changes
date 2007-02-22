@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Feb 22 10:11:34 CET 2007 - khali@linux-fr.org
+
+- quilt/scripts/patchfns.in: Fix an off-by-one error in
+  change_db_strip_level when inserting the strip level in the
+  patch argument list. Also cleanup this function a bit.
+
+-------------------------------------------------------------------
 Wed Feb 21 21:29:29 CET 2007 - khali@linux-fr.org
 
 - quilt/import.in, quilt/scripts/patchfns.in: Implement import -R
