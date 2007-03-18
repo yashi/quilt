@@ -15,7 +15,7 @@
 #  - Download the upstream tarball and open it on need
 #    * Define the SITE variable to tell it where to search for it (with wget) 
 #    * The package name is guessed from the current directory, but can be
-#      explicitely given as the PKG variable.
+#      explicitly given as the PKG variable.
 #    * The verion number must be given as VER variable
 #
 #  - Copy the debian directory onto the working directory
