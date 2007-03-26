@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar 26 15:27:07 CEST 2007 - agruen@suse.de
+
+- Quilt refresh: fix existing patch check.
+
+-------------------------------------------------------------------
 Thu Feb 22 10:11:34 CET 2007 - khali@linux-fr.org
 
 - quilt/scripts/patchfns.in: Fix an off-by-one error in

@@ -175,7 +175,7 @@ if [ -n "$opt_fork" ]; then
 	else
 		patch=$(next_filename "$patch")
 	fi
-	if [ -e "$(patch_file_name "patch")" ]; then
+	if [ -e "$(patch_file_name "$patch")" ]; then
 		printf $"Patch %s exists already\n" "$(print_patch $patch)" >&2
 		exit 1
 	fi
