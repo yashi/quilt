@@ -119,7 +119,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:579
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:581
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -615,11 +615,11 @@ msgid ""
 "-v\tVerbose operation.\n"
 msgstr ""
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:880
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:882
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:903
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:905
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:494
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:496
 msgid "No patches applied\\n"
 msgstr ""
 
@@ -881,27 +881,27 @@ msgstr ""
 msgid "Delivery address `%s' is invalid\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:481
+#: quilt/scripts/patchfns.in:483
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:530
+#: quilt/scripts/patchfns.in:532
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:558
+#: quilt/scripts/patchfns.in:560
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:595
+#: quilt/scripts/patchfns.in:597
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:617
+#: quilt/scripts/patchfns.in:619
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:936
+#: quilt/scripts/patchfns.in:938
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -909,7 +909,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1021
+#: quilt/scripts/patchfns.in:1023
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

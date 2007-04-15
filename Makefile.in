@@ -93,7 +93,7 @@ COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
 SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
 DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in)) $(COMPAT_SYMLINKS:%=compat/%)
 
-LIB_SRC :=	backup-files.c
+LIB_SRC :=	backup-files.c quilt.el
 LIB :=		backup-files$(EXEEXT)
 SRC +=		$(LIB_SRC:%=lib/%)
 DIRT +=		lib/backup-files$(EXEEXT) $(LIB_SRC:%.c=lib/%.o)
@@ -103,7 +103,7 @@ DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile doc/quilt.1.in	\
-		doc/README.MAIL
+		doc/README.MAIL doc/README.EMACS
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
 MAN1 :=		bin/guards.1 doc/quilt.1
