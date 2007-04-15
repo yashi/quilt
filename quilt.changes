@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Apr 15 09:53:41 CEST 2007 - khali@linux-fr.org
+
+- quilt/refresh.in: Remove stray \n in error message. Reported by
+  Randy Dunlap.
+
+-------------------------------------------------------------------
 Mon Mar 26 15:27:07 CEST 2007 - agruen@suse.de
 
 - Quilt refresh: fix existing patch check.
