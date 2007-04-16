@@ -320,10 +320,13 @@ process_file(const char *file)
 		} else {
 			if (!opt_silent)
 				printf("Copying %s\n", file);
-			if (link_or_copy_file(file, &st, backup))
-				goto fail;
-			if (opt_nolinks) {
-				if (ensure_nolinks(file))
+			if (opt_nolinks && st.st_nlink == 1) {
+				if (copy_file(file, &st, backup))
+					goto fail;
+			} else {
+				if (link_or_copy_file(file, &st, backup))
+					goto fail;
+				if (opt_nolinks && ensure_nolinks(file))
 					goto fail;
 			}
 			if (opt_touch)
@@ -356,14 +359,17 @@ process_file(const char *file)
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
 			unlink(file);
-			if (link_or_copy_file(backup, &st, file))
-				goto fail;
-			unlink(backup);
-			remove_parents(backup);
-			if (opt_nolinks) {
-				if (ensure_nolinks(file))
+			if (opt_nolinks && st.st_nlink != 1) {
+				if (copy_file(backup, &st, file))
+					goto fail;
+			} else {
+				if (link_or_copy_file(backup, &st, file))
+					goto fail;
+				if (opt_nolinks && ensure_nolinks(file))
 					goto fail;
 			}
+			unlink(backup);
+			remove_parents(backup);
 			if (opt_touch)
 				(void) utime(file, NULL);
 			else {

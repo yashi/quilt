@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Apr 16 06:10:18 CEST 2007 - agruen@suse.de
+
+- lib/backup-files.c: Do not modify the original file whenever
+  possible: previously, a ``quilt add'' usually linked the file
+  to he backup and then copied the backup over the file to ensure
+  a link count of one. Recognize this case, and create a copy in
+  the first place instead.
+
+-------------------------------------------------------------------
 Sun Apr 15 16:47:58 CEST 2007 - agruen@suse.de
 
 - Add quilt.el and its README file. (The emacs mode is not being
