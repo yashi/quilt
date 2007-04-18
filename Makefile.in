@@ -12,6 +12,7 @@ datadir :=	@datadir@
 docdir :=	@docdir@
 mandir :=	@mandir@
 localedir :=	$(datadir)/locale
+emacsdir :=	$(datadir)/emacs/site-lisp
 etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
 
 INSTALL :=	@INSTALL@
@@ -330,6 +331,8 @@ endif
 	$(INSTALL) -m 644 bash_completion				\
 		   $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt
 	$(INSTALL) -m 644 quilt.quiltrc $(BUILD_ROOT)$(etcdir)/
+	$(INSTALL) -d $(BUILD_ROOT)$(emacsdir)/
+	$(INSTALL) -m 644 lib/quilt.el $(BUILD_ROOT)$(emacsdir)/
 
 install-compat: install-compat1 $(COMPAT_SYMLINKS:%=install-compat-symlink-%)
 install-compat-symlink-% :: install-compat1
@@ -356,7 +359,8 @@ uninstall ::
 		   $(notdir $(MAN1)))					\
 	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt		\
 	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc			\
-	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/		\
+	       $(BUILD_ROOT)$(emacsdir)/quilt.el
 
 check: $(TESTS:test/%.test=test/.%.ok)
 check-all: $(TESTS:test/%.test=check-%)
