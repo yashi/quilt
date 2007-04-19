@@ -148,9 +148,24 @@ do
 	esac
 done
 
-if [ $# -gt 0 -o \( -z "$opt_send" -a -z "$opt_mbox" \) ]
+if [ $# -gt 2 -o \( -z "$opt_send" -a -z "$opt_mbox" \) ]
 then
 	usage
+fi
+
+if [ $# -ge 1 ]; then
+	if [ "$1" = - ]
+	then
+		first_patch="$(find_first_patch)" || exit 1
+	else
+		first_patch="$(find_patch "$1")" || exit 1
+	fi
+
+	if [ $# -ge 2 ]; then
+		last_patch="$(find_patch "$2")" || exit 1
+	else
+		last_patch="$(find_last_patch)" || exit 1
+	fi
 fi
 
 if [ -z "$opt_sender" ]; then
@@ -282,7 +297,30 @@ if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]; then
 	}
 fi
 
-patches=( $(cat_series) )
+if [ -n "$first_patch" ]
+then
+	if [ -n "$last_patch" ]
+	then
+		set -- $(patches_before "$last_patch") "$last_patch"
+		while [ $# -ne 0 ]
+		do
+			[ "$1" = "$first_patch" ] && break
+			shift
+		done
+		if [ $# -eq 0 ]
+		then
+			printf $"Patch %s not applied before patch %s\n" \
+			       "$(print_patch $first_patch)" \
+			       "$(print_patch $last_patch)" >&2
+			exit 1
+		fi
+		patches=( "$@" )
+	else
+		patches=( "$first_patch" $(patches_after "$first_patch") )
+	fi
+else
+	patches=( $(cat_series) )
+fi
 total=${#patches[@]}
 
 tmpdir=$(gen_tempfile -d)

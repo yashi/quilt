@@ -177,7 +177,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:579
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:593
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%s でパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:312
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -758,29 +758,29 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tToやCC、BCCへの受信者の追加。\n"
 
-#: quilt/mail.in:166
+#: quilt/mail.in:181
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:304
+#: quilt/mail.in:342
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:327
+#: quilt/mail.in:365
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:369
+#: quilt/mail.in:407
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "序文に件名がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:372
+#: quilt/mail.in:410
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:462
+#: quilt/mail.in:500
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 
@@ -902,11 +902,11 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:880
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:903
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
@@ -932,7 +932,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:494
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -1269,28 +1269,28 @@ msgstr "表示用の名前 `%s' が対にならない括弧を含んでいます
 msgid "Delivery address `%s' is invalid\n"
 msgstr "配送先のアドレス `%s' が不正です\n"
 
-#: quilt/scripts/patchfns.in:481
+#: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/scripts/patchfns.in:530
+#: quilt/scripts/patchfns.in:544
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:558
+#: quilt/scripts/patchfns.in:572
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:595
+#: quilt/scripts/patchfns.in:609
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:617
+#: quilt/scripts/patchfns.in:631
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:936
+#: quilt/scripts/patchfns.in:950
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1302,7 +1302,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:1021
+#: quilt/scripts/patchfns.in:1035
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

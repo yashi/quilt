@@ -112,6 +112,10 @@ quilt mail:
 	- Character set handling is missing, too.
 
 	- Too many passes of edmail make it a bit slow.
+	- If someone adds a References header to the intro, the References
+	  header added to patch messages for threading do not append to that
+	  header. They probably should; not sure if duplicate References
+	  headers are valid.
 
 quilt fold:
 

@@ -487,6 +487,18 @@ find_first_patch()
 	echo "$patch"
 }
 
+find_last_patch()
+{
+	local patch=$(cat_series | tail -n 1)
+	if [ -z "$patch" ]
+	then
+		printf $"No patches in series\n" >&2
+		return 1
+	fi
+
+	echo "$patch"
+}
+
 find_top_patch()
 {
 	if ! top_patch

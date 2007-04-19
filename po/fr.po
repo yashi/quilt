@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Pas de patch suivant\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:579
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:593
 msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
@@ -324,7 +324,7 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:312
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -789,28 +789,28 @@ msgstr ""
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
 
-#: quilt/mail.in:166
+#: quilt/mail.in:181
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:304
+#: quilt/mail.in:342
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:327
+#: quilt/mail.in:365
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:369
+#: quilt/mail.in:407
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:372
+#: quilt/mail.in:410
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:462
+#: quilt/mail.in:500
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -937,11 +937,11 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:880
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:903
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
@@ -967,7 +967,7 @@ msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:494
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
@@ -1312,27 +1312,27 @@ msgstr "Le nom `%s' est mal parenthésé\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "L'adresse de destination `%s' est invalide\n"
 
-#: quilt/scripts/patchfns.in:481
+#: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
 msgid "No patches in series\\n"
 msgstr "Aucun patch dans la série\\n"
 
-#: quilt/scripts/patchfns.in:530
+#: quilt/scripts/patchfns.in:544
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/scripts/patchfns.in:558
+#: quilt/scripts/patchfns.in:572
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/scripts/patchfns.in:595
+#: quilt/scripts/patchfns.in:609
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
-#: quilt/scripts/patchfns.in:617
+#: quilt/scripts/patchfns.in:631
 msgid "Patch %s does not exist\\n"
 msgstr "Le patch %s n'existe pas\\n"
 
-#: quilt/scripts/patchfns.in:936
+#: quilt/scripts/patchfns.in:950
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1344,7 +1344,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: quilt/scripts/patchfns.in:1021
+#: quilt/scripts/patchfns.in:1035
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

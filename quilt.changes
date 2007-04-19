@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Apr 20 01:13:49 CEST 2007 - agruen@suse.de
+
+- quilt mail: Allow to specify a patch range.
+- Remove fuzzy German translations.
+
+-------------------------------------------------------------------
 Fri Apr 20 00:02:19 CEST 2007 - agruen@suse.de
 
 - Make pod2man optional (./configure --without-pod2man).
