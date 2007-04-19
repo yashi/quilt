@@ -107,7 +107,10 @@ SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile doc/quilt.1.in	\
 		doc/README.MAIL doc/README.EMACS
 DIRT +=		$(DOC_IN:%=doc/%) doc/quilt.1
 
-MAN1 :=		bin/guards.1 doc/quilt.1
+MAN1 :=		doc/quilt.1
+ifneq ($(POD2MAN),)
+MAN1 +=		bin/guards.1
+endif
 DIRT +=		$(MAN1)
 
 LINGUAS :=	fr de ja

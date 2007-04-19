@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 20 00:02:19 CEST 2007 - agruen@suse.de
+
+- Make pod2man optional (./configure --without-pod2man).
+
+-------------------------------------------------------------------
 Wed Apr 18 13:29:38 CEST 2007 - agruen@suse.de
 
 - Install quilt.el into $(datadir)/emacs/site-lisp/.

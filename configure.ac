@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_INIT([quilt],[0.46],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
-AC_REVISION ($Revision: 1.82 $)
+AC_REVISION ($Revision: 1.83 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
@@ -188,7 +188,20 @@ Solaris users can use /usr/xpg4/bin/awk.
 ])
 fi
 
-QUILT_COMPAT_PROG_PATH(POD2MAN, pod2man)
+AC_ARG_WITH(pod2man, AC_HELP_STRING(
+  [--with-pod2man],
+  [name of the pod2man executable to use (use --without-pod2man to disable)]),
+  [
+    if test x"$withval" = xno; then
+      POD2MAN=
+    else
+      POD2MAN=$withval
+    fi],[
+    AC_PATH_PROG(POD2MAN, pod2man)
+  ]
+  )
+AC_SUBST(POD2MAN)
+
 QUILT_COMPAT_PROG_PATH(COLUMN, column)
 QUILT_COMPAT_PROG_PATH(GETOPT, getopt)
 
