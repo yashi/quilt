@@ -376,8 +376,6 @@ ifneq ($(findstring test,$(MAKECMDGOALS))$(findstring check,$(MAKECMDGOALS)),)
 -include test/.depend
 endif # (test|check)
 
-quilt/refresh :: quilt/scripts/remove-trailing-ws
-quilt/mail :: quilt/scripts/edmail
 test/.patch-wrapper.ok : bin/patch-wrapper
 
 # Include a run-time generated list of dependencies for each test case
@@ -387,7 +385,12 @@ test/.depend : Makefile $(TESTS)
 			{ print FILENAME, ":", "quilt/"$$1}' $(TESTS); \
 	    $(AWK) 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/)	\
 			{ print FILENAME, ":", "quilt/"$$1 }' quilt/*.in; \
-	) | sort -u | $(SED) -re 's:^test/(.*)\.test:test/.\1.ok:' > $@
+	) | sort -u | $(SED) -re 's:^test/(.*)\.test:test/.\1.ok:' \
+	    -e 's:quilt/graph:quilt/graph quilt/scripts/dependency-graph:' \
+	    -e 's:quilt/mail:quilt/mail quilt/scripts/edmail:' \
+	    -e 's:quilt/refresh:quilt/refresh quilt/scripts/remove-trailing-ws:' \
+	    -e 's:quilt/setup:quilt/setup quilt/scripts/inspect:' \
+	  > $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 CHECK_ENV := P=patches/; _P=../patches/; export P _P

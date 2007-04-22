@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Apr 22 10:13:18 CEST 2007 - khali@linux-fr.org
+
+- Dependencies of quilt/* on quilt/scripts/* are run-time
+  dependencies for the test suite, not build-time dependencies.
+
+-------------------------------------------------------------------
 Fri Apr 20 01:13:49 CEST 2007 - agruen@suse.de
 
 - quilt mail: Allow to specify a patch range.
@@ -19,7 +25,7 @@ Mon Apr 16 06:10:18 CEST 2007 - agruen@suse.de
 
 - lib/backup-files.c: Do not modify the original file whenever
   possible: previously, a ``quilt add'' usually linked the file
-  to he backup and then copied the backup over the file to ensure
+  to the backup and then copied the backup over the file to ensure
   a link count of one. Recognize this case, and create a copy in
   the first place instead.
 
