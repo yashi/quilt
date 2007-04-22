@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Apr 22 10:40:36 CEST 2007 - khali@linux-fr.org
+
+- quilt mail: Document the possibility to specifiy a patch range.
+
+-------------------------------------------------------------------
 Sun Apr 22 10:13:18 CEST 2007 - khali@linux-fr.org
 
 - Dependencies of quilt/* on quilt/scripts/* are run-time

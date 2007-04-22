@@ -4,9 +4,10 @@ QUILT MAIL COMMAND
 The mail command starts up the system editor ($EDITOR, or vi if $EDITOR
 is undefined) with an template in Internet Message Format (RFC 2822).
 This template is used to generate an introduction, as well as one
-message for each patch in the series file.  The template is used as
-follows: The headers are used in each message generated, and modified as
-required.  The template body is used only for the introduction.
+message for each patch in the selected range of the series file.  The
+template is used as follows: The headers are used in each message
+generated, and modified as required.  The template body is used only for
+the introduction.
 
 In the template, the headers can be modified, additional headers added,
 and unneeeded headers can be removed.  The template header also contains
