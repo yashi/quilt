@@ -120,7 +120,7 @@
 	$ quilt unapplied patch1
 	> patches/patch2.diff
 
-	$ quilt remove f
+	$ quilt revert f
 	> No patches applied
 
 	$ quilt delete patch3.diff

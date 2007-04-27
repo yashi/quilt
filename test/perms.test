@@ -56,8 +56,8 @@ the backup file.
 	> Removing patch %{P}test2.diff
 	> Now at patch %{P}test.diff
 
-	$ quilt remove foo
-	> File foo removed from patch %{P}test.diff
+	$ quilt revert foo
+	> Changes to foo in patch %{P}test.diff reverted
 
 	$ ls -l foo | awk '{ print $1,$NF }'
 	> -rwx---r-- foo

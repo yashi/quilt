@@ -21,8 +21,8 @@
 	$ quilt fork
 	> Fork of patch %{P}snapshot created as %{P}snapshot-2
 
-	$ quilt remove g.txt
-	> File g.txt removed from patch %{P}snapshot-2
+	$ quilt revert g.txt
+	> Changes to g.txt in patch patches/snapshot-2 reverted
 
 	$ quilt add h.txt
 	> File h.txt added to patch %{P}snapshot-2

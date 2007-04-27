@@ -63,8 +63,8 @@
 	$ quilt refresh
 	> Refreshed patch %{_P}test.patch
 
-	$ quilt remove file2
-	> File subdir/file2 removed from patch %{_P}test.patch
+	$ quilt revert file2
+	> Changes to subdir/file2 in patch ../patches/test.patch reverted
 
 	$ quilt files
 	> subdir/file

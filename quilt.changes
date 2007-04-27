@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 27 13:52:00 CEST 2007 - agruen@suse.de
+
+- Rename the ``remove'' command to ``revert'': this removes
+  ambiguities with the delete command, and more closely matches
+  what the command does.
+
+-------------------------------------------------------------------
 Sun Apr 22 10:40:36 CEST 2007 - khali@linux-fr.org
 
 - quilt mail: Document the possibility to specifiy a patch range.

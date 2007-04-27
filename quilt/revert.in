@@ -19,15 +19,16 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt remove [-P patch] {file} ...\n"
+	printf $"Usage: quilt revert [-P patch] {file} ...\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Remove one or more files from the topmost or named patch.  Files that
-are modified by patches on top of the specified patch cannot be removed.
+Revert the changes to one or more files in the topmost or named patch.
+Changes in files that are modified by patches on top of the specified patch
+cannot be reverted.
 
 -P patch
-	Remove named files from the named patch.
+	Revert changes in the named patch.
 "
 		exit 0
 	else
@@ -88,7 +89,7 @@ do
 	# Restore file from backup
 	if ! $QUILT_LIB/backup-files -r -t -s -B $QUILT_PC/$patch/ $SUBDIR$file
 	then
-		printf $"Failed to remove file %s from patch %s\n" \
+		printf $"Failed to revert changed to %s in patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		status=1
 		continue
@@ -102,7 +103,7 @@ do
 		touch $QUILT_PC/$patch~refresh
 	fi
 
-	printf $"File %s removed from patch %s\n" \
+	printf $"Changes to %s in patch %s reverted\n" \
 	       "$SUBDIR$file" "$(print_patch $patch)"
 done
 exit $status

@@ -90,7 +90,7 @@ msgstr "Die Datei %s befindet sich unter dem Verzeichnis %s\\n"
 msgid "File %s is already in patch %s\\n"
 msgstr "Datei %s ist bereits in Patch $patch\\n"
 
-#: quilt/add.in:111 quilt/remove.in:82
+#: quilt/add.in:111 quilt/revert.in:83
 msgid "File %s modified by patch %s\\n"
 msgstr "Datei %s wird von Patch %s verändert\\n"
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:593
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:581
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
@@ -612,8 +612,8 @@ msgid ""
 "Usage: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] patchfile ..."
 "\\n"
 msgstr ""
-"Verwendung: quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] patchdatei ..."
-"\\n"
+"Verwendung: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] "
+"[patchdatei] ...\\n"
 
 #: quilt/import.in:25
 msgid ""
@@ -645,6 +645,9 @@ msgstr ""
 "-p num\n"
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen (Standard=1).\n"
+"\n"
+"-R\n"
+"\tPatch umgekehrt anwenden.\n"
 "\n"
 "-P patch\n"
 "\tPatch-Dateiname, den Quilt verwenden soll. Diese Option kann nur beim\n"
@@ -923,11 +926,11 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:882
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:905
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
@@ -953,7 +956,7 @@ msgstr "Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:496
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -1224,39 +1227,6 @@ msgstr "Patch %s ist unverändert\\n"
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aktualisiert\\n"
 
-#: quilt/remove.in:22
-msgid "Usage: quilt remove [-P patch] {file} ...\\n"
-msgstr "Verwendung: quilt remove [-P patch] {datei} ...\\n"
-
-#: quilt/remove.in:25
-msgid ""
-"\n"
-"Remove one or more files from the topmost or named patch.  Files that\n"
-"are modified by patches on top of the specified patch cannot be removed.\n"
-"\n"
-"-P patch\n"
-"\tRemove named files from the named patch.\n"
-msgstr ""
-"\n"
-"Entfernt Dateien aus dem obersten oder angegebenen Patch. Dateien, die\n"
-"durch Patches über dem angegebenen Patch verändert werden, können nicht\n"
-"entfernt werden.\n"
-"\n"
-"-P patch\n"
-"\tPatch, aus dem Dateien entfernt werden sollen.\n"
-
-#: quilt/remove.in:73
-msgid "File %s is not in patch %s\\n"
-msgstr "Datei %s ist nicht in Patch %s\\n"
-
-#: quilt/remove.in:91
-msgid "Failed to remove file %s from patch %s\\n"
-msgstr "Konnte Datei %s nicht aus Patch %s entfernen\\n"
-
-#: quilt/remove.in:105
-msgid "File %s removed from patch %s\\n"
-msgstr "Datei %s aus Patch %s entfernt\\n"
-
 #: quilt/rename.in:22
 msgid "Usage: quilt rename [-P patch] new_name\\n"
 msgstr "Verwendung: quilt rename [-P patch] neuer_name\\n"
@@ -1287,6 +1257,40 @@ msgstr "Fehler beim Umbenennen von Patch %s auf %s\\n"
 msgid "Patch %s renamed to %s\\n"
 msgstr "Patch %s auf %s umbenannt\\n"
 
+#: quilt/revert.in:22
+msgid "Usage: quilt revert [-P patch] {file} ...\\n"
+msgstr "Verwendung: quilt revert [-P patch] {datei} ...\\n"
+
+#: quilt/revert.in:25
+msgid ""
+"\n"
+"Revert the changes to one or more files in the topmost or named patch.\n"
+"Changes in files that are modified by patches on top of the specified patch\n"
+"cannot be reverted.\n"
+"\n"
+"-P patch\n"
+"\tRevert changes in the named patch.\n"
+msgstr ""
+"\n"
+"Änderungen an den angegebenen Datei(en) im obersten oder angegebenen Patch\n"
+"zurücknehmen. Änderungen in Dateien, die durch Patches über dem angegebenen\n"
+"Patch verändert werden, können nicht zurückgenommen werden."
+"\n"
+"-P patch\n"
+"\tPatch, aus dem Dateien entfernt werden sollen.\n"
+
+#: quilt/revert.in:74
+msgid "File %s is not in patch %s\\n"
+msgstr "Datei %s ist nicht in Patch %s\\n"
+
+#: quilt/revert.in:92
+msgid "Failed to revert changed to %s in patch %s\\n"
+msgstr "Konnte Änderungen an %s in Patch %s nicht zurücknehmen\\n"
+
+#: quilt/revert.in:106
+msgid "Changes to %s in patch %s reverted\\n"
+msgstr "Änderungen an %s in Patch %s zurückgenommen\\n"
+
 #: quilt/scripts/edmail.in:83
 #, perl-format
 msgid "Display name `%s' contains unpaired parentheses\n"
@@ -1297,27 +1301,27 @@ msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
-#: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
+#: quilt/scripts/patchfns.in:483
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:544
+#: quilt/scripts/patchfns.in:532
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:572
+#: quilt/scripts/patchfns.in:560
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:609
+#: quilt/scripts/patchfns.in:597
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:631
+#: quilt/scripts/patchfns.in:619
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:950
+#: quilt/scripts/patchfns.in:938
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1330,7 +1334,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:1035
+#: quilt/scripts/patchfns.in:1023
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1545,3 +1549,6 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
+
+#~ msgid "File %s removed from patch %s\\n"
+#~ msgstr "Datei %s aus Patch %s entfernt\\n"

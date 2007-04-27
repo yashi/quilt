@@ -17,8 +17,8 @@
 	$ quilt refresh
 	> Refreshed patch patches/p.diff
 
-	$ quilt remove f
-	> File f removed from patch patches/p.diff
+	$ quilt revert f
+	> Changes to f in patch patches/p.diff reverted
 
 	$ quilt diff -z
 	$ quilt pop -qf
@@ -29,8 +29,8 @@
 	> Applying patch patches/p.diff
 	> Now at patch patches/p.diff
 
-	$ quilt remove g
-	> File g removed from patch patches/p.diff
+	$ quilt revert g
+	> Changes to g in patch patches/p.diff reverted
 
 	$ quilt diff -z
 	$ quilt pop -qf
@@ -41,8 +41,8 @@
 	> Applying patch patches/p.diff
 	> Now at patch patches/p.diff
 
-	$ quilt remove h
-	> File h removed from patch patches/p.diff
+	$ quilt revert h
+	> Changes to h in patch patches/p.diff reverted
 
 	$ quilt diff -z
 

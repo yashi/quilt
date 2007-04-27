@@ -71,7 +71,7 @@ for file in "$@"
 do
 	if ! [ -e "$SUBDIR$file" ]
 	then
-		quilt_command remove "$file"
+		quilt_command revert "$file"
 		status=1
 	fi
 done

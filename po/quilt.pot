@@ -52,7 +52,7 @@ msgstr ""
 msgid "File %s is already in patch %s\\n"
 msgstr ""
 
-#: quilt/add.in:111 quilt/remove.in:82
+#: quilt/add.in:111 quilt/revert.in:83
 msgid "File %s modified by patch %s\\n"
 msgstr ""
 
@@ -820,32 +820,6 @@ msgstr ""
 msgid "Refreshed patch %s\\n"
 msgstr ""
 
-#: quilt/remove.in:22
-msgid "Usage: quilt remove [-P patch] {file} ...\\n"
-msgstr ""
-
-#: quilt/remove.in:25
-msgid ""
-"\n"
-"Remove one or more files from the topmost or named patch.  Files that\n"
-"are modified by patches on top of the specified patch cannot be removed.\n"
-"\n"
-"-P patch\n"
-"\tRemove named files from the named patch.\n"
-msgstr ""
-
-#: quilt/remove.in:73
-msgid "File %s is not in patch %s\\n"
-msgstr ""
-
-#: quilt/remove.in:91
-msgid "Failed to remove file %s from patch %s\\n"
-msgstr ""
-
-#: quilt/remove.in:105
-msgid "File %s removed from patch %s\\n"
-msgstr ""
-
 #: quilt/rename.in:22
 msgid "Usage: quilt rename [-P patch] new_name\\n"
 msgstr ""
@@ -869,6 +843,33 @@ msgstr ""
 
 #: quilt/rename.in:104
 msgid "Patch %s renamed to %s\\n"
+msgstr ""
+
+#: quilt/revert.in:22
+msgid "Usage: quilt revert [-P patch] {file} ...\\n"
+msgstr ""
+
+#: quilt/revert.in:25
+msgid ""
+"\n"
+"Revert the changes to one or more files in the topmost or named patch.\n"
+"Changes in files that are modified by patches on top of the specified patch\n"
+"cannot be reverted.\n"
+"\n"
+"-P patch\n"
+"\tRevert changes in the named patch.\n"
+msgstr ""
+
+#: quilt/revert.in:74
+msgid "File %s is not in patch %s\\n"
+msgstr ""
+
+#: quilt/revert.in:92
+msgid "Failed to revert changed to %s in patch %s\\n"
+msgstr ""
+
+#: quilt/revert.in:106
+msgid "Changes to %s in patch %s reverted\\n"
 msgstr ""
 
 #: quilt/scripts/edmail.in:83
