@@ -28,6 +28,11 @@ After making sure that all files modified are part of the topmost
 patch, the patch is applied with the specified strip level (which
 defaults to 1).
 
+-q	Quiet operation.
+
+-f	Force apply, even if the patch has rejects. Unless in quiet mode,
+	apply the patch interactively: the patch utility may ask questions.
+
 -p strip-level
 	The number of pathname components to strip from file names
 	when applying patchfile.
@@ -39,7 +44,7 @@ defaults to 1).
 	fi
 }
 
-options=`getopt -o p:qh -- "$@"`
+options=`getopt -o p:qfh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -51,11 +56,14 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-f)
+		opt_force=1
+		shift ;;
 	-p)
 		opt_strip_level=$2
 		shift 2 ;;
 	-q)
-		opt_silent=1
+		opt_quiet=1
 		shift ;;
 	-h)
 		usage -h ;;
@@ -71,7 +79,8 @@ then
 fi
 
 : ${opt_strip_level:=1}
-[ -n "$opt_silent" ] && silent=-s
+[ -n "$opt_quiet" ] && silent=-s
+[ -z "$opt_force" -o -n "$opt_quiet" ] && force_apply=-f
 
 top=$(find_top_patch) || exit 1
 
@@ -79,8 +88,10 @@ trap "failed=1" SIGINT
 
 workdir=$(gen_tempfile -d $PWD)
 patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level $silent \
-      --backup --prefix="$workdir/$SUBDIR" -E \
+      --backup --prefix="$workdir/$SUBDIR" -E $force_apply \
 || failed=1
+
+[ -n "$opt_force" ] && failed=
 
 if [ -z "$failed" ]
 then

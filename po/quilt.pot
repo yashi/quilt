@@ -267,12 +267,17 @@ msgid ""
 "patch, the patch is applied with the specified strip level (which\n"
 "defaults to 1).\n"
 "\n"
+"-q\tQuiet operation.\n"
+"\n"
+"-f\tForce apply, even if the patch has rejects. Unless in quiet mode,\n"
+"\tapply the patch interactively: the patch utility may ask questions.\n"
+"\n"
 "-p strip-level\n"
 "\tThe number of pathname components to strip from file names\n"
 "\twhen applying patchfile.\n"
 msgstr ""
 
-#: quilt/fold.in:112
+#: quilt/fold.in:123
 msgid "File %s may be corrupted\\n"
 msgstr ""
 
@@ -647,7 +652,7 @@ msgstr ""
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:274 quilt/push.in:373
+#: quilt/pop.in:274 quilt/push.in:369
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -664,8 +669,8 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
-"auto|never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--leave-rejects] [--color[=always|auto|never]] "
+"[num|patch]\\n"
 msgstr ""
 
 #: quilt/push.in:27
@@ -680,9 +685,10 @@ msgid ""
 "\n"
 "-a\tApply all patches in the series file.\n"
 "\n"
-"-f\tForce apply, even if the patch has rejects.\n"
-"\n"
 "-q\tQuiet operation.\n"
+"\n"
+"-f\tForce apply, even if the patch has rejects. Unless in quiet mode,\n"
+"\tapply the patch interactively: the patch utility may ask questions.\n"
 "\n"
 "-v\tVerbose operation.\n"
 "\n"
@@ -690,44 +696,39 @@ msgid ""
 "\tLeave around the reject files patch produced, even if the patch\n"
 "\tis not actually applied.\n"
 "\n"
-"--interactive\n"
-"\tAllow the patch utility to ask how to deal with conflicts. If\n"
-"\tthis option is not given, the -f option will be passed to the\n"
-"\tpatch program.\n"
-"\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring.\n"
 msgstr ""
 
-#: quilt/push.in:64
+#: quilt/push.in:60
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr ""
 
-#: quilt/push.in:177
+#: quilt/push.in:173
 msgid "Applying patch %s\\n"
 msgstr ""
 
-#: quilt/push.in:211
+#: quilt/push.in:207
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr ""
 
-#: quilt/push.in:215
+#: quilt/push.in:211
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr ""
 
-#: quilt/push.in:219
+#: quilt/push.in:215
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:229
+#: quilt/push.in:225
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:232
+#: quilt/push.in:228
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:353
+#: quilt/push.in:349
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 

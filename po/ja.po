@@ -383,12 +383,18 @@ msgid "Usage: quilt fold [-p strip-level]\\n"
 msgstr "使い方: quilt fold [-p strip-level]\\n"
 
 #: quilt/fold.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Integrate the patch read from standard input into the topmost patch:\n"
 "After making sure that all files modified are part of the topmost\n"
 "patch, the patch is applied with the specified strip level (which\n"
 "defaults to 1).\n"
+"\n"
+"-q\tQuiet operation.\n"
+"\n"
+"-f\tForce apply, even if the patch has rejects. Unless in quiet mode,\n"
+"\tapply the patch interactively: the patch utility may ask questions.\n"
 "\n"
 "-p strip-level\n"
 "\tThe number of pathname components to strip from file names\n"
@@ -402,7 +408,7 @@ msgstr ""
 "-p strip-level\n"
 "\tパッチを適用するときに、ファイル名から省くパス名要素の数\n"
 
-#: quilt/fold.in:112
+#: quilt/fold.in:123
 msgid "File %s may be corrupted\\n"
 msgstr "ファイル %s は壊れている可能性があります\\n"
 
@@ -936,7 +942,7 @@ msgstr "適用されているパッチはありません\\n"
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:274 quilt/push.in:373
+#: quilt/pop.in:274 quilt/push.in:369
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -955,14 +961,16 @@ msgstr ""
 "されたパッチの前のパッチ名を表示。\n"
 
 #: quilt/push.in:24
+#, fuzzy
 msgid ""
-"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|"
-"auto|never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--leave-rejects] [--color[=always|auto|never]] "
+"[num|patch]\\n"
 msgstr ""
 "使い方: quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
 "[=always|auto|never]] [数字|パッチ]\\n"
 
 #: quilt/push.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -974,20 +982,16 @@ msgid ""
 "\n"
 "-a\tApply all patches in the series file.\n"
 "\n"
-"-f\tForce apply, even if the patch has rejects.\n"
-"\n"
 "-q\tQuiet operation.\n"
+"\n"
+"-f\tForce apply, even if the patch has rejects. Unless in quiet mode,\n"
+"\tapply the patch interactively: the patch utility may ask questions.\n"
 "\n"
 "-v\tVerbose operation.\n"
 "\n"
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
 "\tis not actually applied.\n"
-"\n"
-"--interactive\n"
-"\tAllow the patch utility to ask how to deal with conflicts. If\n"
-"\tthis option is not given, the -f option will be passed to the\n"
-"\tpatch program.\n"
 "\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring.\n"
@@ -1020,36 +1024,36 @@ msgstr ""
 "        シンタックスの色付けを行なう。\n"
 "\n"
 
-#: quilt/push.in:64
+#: quilt/push.in:60
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
-#: quilt/push.in:177
+#: quilt/push.in:173
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:211
+#: quilt/push.in:207
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:215
+#: quilt/push.in:211
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:219
+#: quilt/push.in:215
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:229
+#: quilt/push.in:225
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "パッチ %s は、反転して適用することができます\\n"
 
-#: quilt/push.in:232
+#: quilt/push.in:228
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:353
+#: quilt/push.in:349
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 

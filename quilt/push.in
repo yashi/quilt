@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt push [-afqv] [--leave-rejects] [--interactive] [--color[=always|auto|never]] [num|patch]\n"
+	printf $"Usage: quilt push [-afqv] [--leave-rejects] [--color[=always|auto|never]] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -34,20 +34,16 @@ be used.
 
 -a	Apply all patches in the series file.
 
--f	Force apply, even if the patch has rejects.
-
 -q	Quiet operation.
+
+-f	Force apply, even if the patch has rejects. Unless in quiet mode,
+	apply the patch interactively: the patch utility may ask questions.
 
 -v	Verbose operation.
 
 --leave-rejects
 	Leave around the reject files patch produced, even if the patch
 	is not actually applied.
-
---interactive
-	Allow the patch utility to ask how to deal with conflicts. If
-	this option is not given, the -f option will be passed to the
-	patch program.
 
 --color[=always|auto|never]
 	Use syntax coloring.
@@ -344,7 +340,7 @@ stop_at_patch=$(find_unapplied_patch "$stop_at_patch") || exit 1
 
 [ -n "$opt_quiet" ] && silent=-s
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
-[ -z "$opt_interactive" ] && force_apply=-f
+[ -z "$opt_force" -o -n "$opt_quiet" ] && force_apply=-f
 [ -n "$opt_force" ] && opt_leave_rejects=1
 
 top=$(top_patch)

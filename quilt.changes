@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Apr 28 00:51:22 CEST 2007 - agruen@suse.de
+
+- Try to clean up the force-apply and interactive-apply logic
+  in quilt push, and add a force option to quilt fold: Fold was
+  applying patches interactively and was restoring files if there
+  were rejects; this was very unexpected for users.
+
+-------------------------------------------------------------------
 Fri Apr 27 13:52:00 CEST 2007 - agruen@suse.de
 
 - Rename the ``remove'' command to ``revert'': this removes
