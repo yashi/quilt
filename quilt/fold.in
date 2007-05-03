@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt fold [-p strip-level]\n"
+	printf $"Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -27,6 +27,8 @@ Integrate the patch read from standard input into the topmost patch:
 After making sure that all files modified are part of the topmost
 patch, the patch is applied with the specified strip level (which
 defaults to 1).
+
+-R	Apply patch in reverse.
 
 -q	Quiet operation.
 
@@ -44,7 +46,7 @@ defaults to 1).
 	fi
 }
 
-options=`getopt -o p:qfh -- "$@"`
+options=`getopt -o Rp:qfh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -56,6 +58,9 @@ eval set -- "$options"
 while true
 do
 	case "$1" in
+	-R)
+		opt_reverse=1
+		shift ;;
 	-f)
 		opt_force=1
 		shift ;;
@@ -79,16 +84,17 @@ then
 fi
 
 : ${opt_strip_level:=1}
-[ -n "$opt_quiet" ] && silent=-s
-[ -z "$opt_force" -o -n "$opt_quiet" ] && force_apply=-f
+[ -n "$opt_quiet" ] && patch_args="$patch_args -s"
+[ -z "$opt_force" -o -n "$opt_quiet" ] && patch_args="$patch_args -f"
+[ -n "$opt_reverse" ] && patch_args="$patch_args -R"
 
 top=$(find_top_patch) || exit 1
 
 trap "failed=1" SIGINT
 
 workdir=$(gen_tempfile -d $PWD)
-patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level $silent \
-      --backup --prefix="$workdir/$SUBDIR" -E $force_apply \
+patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level \
+      --backup --prefix="$workdir/$SUBDIR" -E $patch_args \
 || failed=1
 
 [ -n "$opt_force" ] && failed=

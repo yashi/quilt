@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May  3 18:56:44 CEST 2007 - agruen@suse.de
+
+- fold command: Add -R option.
+- Update German translation.
+
+-------------------------------------------------------------------
 Sat Apr 28 00:51:22 CEST 2007 - agruen@suse.de
 
 - Try to clean up the force-apply and interactive-apply logic

@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:581
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:593
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
@@ -322,7 +322,7 @@ msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:312
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:315
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
@@ -390,8 +390,8 @@ msgstr ""
 "\n"
 
 #: quilt/fold.in:22
-msgid "Usage: quilt fold [-p strip-level]\\n"
-msgstr "Verwendung: quilt fold [-p strip-ebenen]\\n"
+msgid "Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
+msgstr "Verwendung: quilt fold [-R] [-q] [-f] [-p strip-ebenen]\\n"
 
 #: quilt/fold.in:25
 msgid ""
@@ -400,6 +400,8 @@ msgid ""
 "After making sure that all files modified are part of the topmost\n"
 "patch, the patch is applied with the specified strip level (which\n"
 "defaults to 1).\n"
+"\n"
+"-R\tApply patch in reverse.\n"
 "\n"
 "-q\tQuiet operation.\n"
 "\n"
@@ -416,6 +418,8 @@ msgstr ""
 "obersten Patch enthalten sind, und wendet dann den neuen Patch\n"
 "mit der angegebenen Anzahl an Strip-Ebenen an (Standardwert = 1).\n"
 "\n"
+"-r\tPatch vekehrt herum anwenden.\n"
+"\n"
 "-q\tWenige Meldungen ausgeben.\n"
 "\n"
 "-f\tAnwenden erzwingen, selbst wenn dabei Fehler auftreten. Wenn -q nicht\n"
@@ -426,7 +430,7 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
 
-#: quilt/fold.in:123
+#: quilt/fold.in:129
 msgid "File %s may be corrupted\\n"
 msgstr "Datei %s ist möglicherweise defekt\\n"
 
@@ -723,17 +727,21 @@ msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 #: quilt/mail.in:24
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
+"[first_patch [last_patch]]\\n"
 msgstr ""
 "Verwendung: quilt mail {--mbox datei|--send} [-m text] [--prefix prefix] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
 msgid ""
 "\n"
-"Create mail messages from all patches in the series file, and either store\n"
-"them in a mailbox file, or send them immediately. The editor is opened\n"
-"with a template for the introduction. Please see %s for details.\n"
+"Create mail messages from a specified range of patches, or all patches in\n"
+"the series file, and either store them in a mailbox file, or send them\n"
+"immediately. The editor is opened with a template for the introduction.\n"
+"Please see %s for details.\n"
+"When specifying a range of patches, a first patch name of \\`-' is\n"
+"equivalent to specifying the first applied patch.\n"
 "\n"
 "-m text\n"
 "\tText to use as the text in the introduction. When this option is\n"
@@ -767,6 +775,8 @@ msgstr ""
 "speichere sie in einer Mailbox-Datei, oder versende sie sofort. Der Editor\n"
 "wird mit der Vorlage einer Einleitung geöffnet. Für Details siehe\n"
 "%s.\n"
+"Wenn ein Bereich von Patches angegeben wird, kann \\`-' für den ersten Patch\n"
+"verwendet werden.\n"
 "\n"
 "-m text\n"
 "\tText, der für die Einleitung verwendet werden soll. Wenn\n"
@@ -794,28 +804,28 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
-#: quilt/mail.in:181
+#: quilt/mail.in:184
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
 
-#: quilt/mail.in:342
+#: quilt/mail.in:345
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
 
-#: quilt/mail.in:365
+#: quilt/mail.in:368
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:407
+#: quilt/mail.in:410
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:410
+#: quilt/mail.in:413
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:500
+#: quilt/mail.in:503
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 
@@ -937,11 +947,11 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:882
+#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:905
+#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
@@ -967,7 +977,7 @@ msgstr "Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:496
+#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
@@ -1279,8 +1289,7 @@ msgstr ""
 "\n"
 "Änderungen an den angegebenen Datei(en) im obersten oder angegebenen Patch\n"
 "zurücknehmen. Änderungen in Dateien, die durch Patches über dem angegebenen\n"
-"Patch verändert werden, können nicht zurückgenommen werden."
-"\n"
+"Patch verändert werden, können nicht zurückgenommen werden.\n"
 "-P patch\n"
 "\tPatch, aus dem Dateien entfernt werden sollen.\n"
 
@@ -1306,27 +1315,27 @@ msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
-#: quilt/scripts/patchfns.in:483
+#: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:532
+#: quilt/scripts/patchfns.in:544
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:560
+#: quilt/scripts/patchfns.in:572
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:597
+#: quilt/scripts/patchfns.in:609
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:619
+#: quilt/scripts/patchfns.in:631
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:938
+#: quilt/scripts/patchfns.in:950
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1339,7 +1348,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:1023
+#: quilt/scripts/patchfns.in:1035
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

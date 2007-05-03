@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:312
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:315
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgid ""
 msgstr ""
 
 #: quilt/fold.in:22
-msgid "Usage: quilt fold [-p strip-level]\\n"
+msgid "Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
 msgstr ""
 
 #: quilt/fold.in:25
@@ -266,6 +266,8 @@ msgid ""
 "After making sure that all files modified are part of the topmost\n"
 "patch, the patch is applied with the specified strip level (which\n"
 "defaults to 1).\n"
+"\n"
+"-R\tApply patch in reverse.\n"
 "\n"
 "-q\tQuiet operation.\n"
 "\n"
@@ -277,7 +279,7 @@ msgid ""
 "\twhen applying patchfile.\n"
 msgstr ""
 
-#: quilt/fold.in:123
+#: quilt/fold.in:129
 msgid "File %s may be corrupted\\n"
 msgstr ""
 
@@ -477,15 +479,19 @@ msgstr ""
 #: quilt/mail.in:24
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
+"[first_patch [last_patch]]\\n"
 msgstr ""
 
 #: quilt/mail.in:27
 msgid ""
 "\n"
-"Create mail messages from all patches in the series file, and either store\n"
-"them in a mailbox file, or send them immediately. The editor is opened\n"
-"with a template for the introduction. Please see %s for details.\n"
+"Create mail messages from a specified range of patches, or all patches in\n"
+"the series file, and either store them in a mailbox file, or send them\n"
+"immediately. The editor is opened with a template for the introduction.\n"
+"Please see %s for details.\n"
+"When specifying a range of patches, a first patch name of \\`-' is\n"
+"equivalent to specifying the first applied patch.\n"
 "\n"
 "-m text\n"
 "\tText to use as the text in the introduction. When this option is\n"
@@ -515,27 +521,27 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 msgstr ""
 
-#: quilt/mail.in:181
+#: quilt/mail.in:184
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:342
+#: quilt/mail.in:345
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:365
+#: quilt/mail.in:368
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:407
+#: quilt/mail.in:410
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:410
+#: quilt/mail.in:413
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:500
+#: quilt/mail.in:503
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
