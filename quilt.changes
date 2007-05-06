@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun May  6 14:36:25 CEST 2007 - agruen@suse.de
+
+- Mail command: when only a single patch is specified, only mail
+  that one. Only mail all patches to the end of the series if the
+  last patch is '-', or no patches have been specified.
+- Revert command: change semantics to really revert the changes
+  relative to the patch instead of removing the file from the
+  patch. That's much more useful; the other behavior is available
+  as ``quilt diff <file> | patch -p1'', anyway.
+- Update German translation.
+
+-------------------------------------------------------------------
 Thu May  3 18:56:44 CEST 2007 - agruen@suse.de
 
 - fold command: Add -R option.

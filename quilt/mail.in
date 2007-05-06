@@ -29,8 +29,8 @@ Create mail messages from a specified range of patches, or all patches in
 the series file, and either store them in a mailbox file, or send them
 immediately. The editor is opened with a template for the introduction.
 Please see %s for details.
-When specifying a range of patches, a first patch name of \`-' is
-equivalent to specifying the first applied patch.
+When specifying a range of patches, a first patch name of \`-' denotes the
+first, and a last patch name of \`-' denotes the last patch in the series.
 
 -m text
 	Text to use as the text in the introduction. When this option is
@@ -165,9 +165,14 @@ if [ $# -ge 1 ]; then
 	fi
 
 	if [ $# -ge 2 ]; then
-		last_patch="$(find_patch "$2")" || exit 1
+		if [ "$2" = - ]
+		then
+			last_patch="$(find_last_patch)" || exit 1
+		else
+			last_patch="$(find_patch "$2")" || exit 1
+		fi
 	else
-		last_patch="$(find_last_patch)" || exit 1
+		last_patch=$first_patch
 	fi
 fi
 

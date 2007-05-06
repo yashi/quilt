@@ -19,11 +19,12 @@
 	$ quilt refresh
 	> Refreshed patch patches/revert.patch
 
+	$ echo will-revert > bar
 	$ quilt revert bar
 	> Changes to bar in patch patches/revert.patch reverted
 
 	$ quilt refresh
-	> Refreshed patch patches/revert.patch
+	> Patch patches/revert.patch is unchanged
 
 	$ cd ..
 	$ rm -rf d

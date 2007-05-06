@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:315
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -490,8 +490,8 @@ msgid ""
 "the series file, and either store them in a mailbox file, or send them\n"
 "immediately. The editor is opened with a template for the introduction.\n"
 "Please see %s for details.\n"
-"When specifying a range of patches, a first patch name of \\`-' is\n"
-"equivalent to specifying the first applied patch.\n"
+"When specifying a range of patches, a first patch name of \\`-' denotes the\n"
+"first, and a last patch name of \\`-' denotes the last patch in the series.\n"
 "\n"
 "-m text\n"
 "\tText to use as the text in the introduction. When this option is\n"
@@ -521,27 +521,27 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 msgstr ""
 
-#: quilt/mail.in:184
+#: quilt/mail.in:189
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:345
+#: quilt/mail.in:350
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:368
+#: quilt/mail.in:373
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:410
+#: quilt/mail.in:415
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:413
+#: quilt/mail.in:418
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:503
+#: quilt/mail.in:508
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -859,8 +859,8 @@ msgstr ""
 #: quilt/revert.in:25
 msgid ""
 "\n"
-"Revert the changes to one or more files in the topmost or named patch.\n"
-"Changes in files that are modified by patches on top of the specified patch\n"
+"Revert the changes to the topmost or named patch for the specified file(s).\n"
+"Changes to files that are modified by patches on top of the specified patch\n"
 "cannot be reverted.\n"
 "\n"
 "-P patch\n"
@@ -871,11 +871,15 @@ msgstr ""
 msgid "File %s is not in patch %s\\n"
 msgstr ""
 
-#: quilt/revert.in:92
-msgid "Failed to revert changed to %s in patch %s\\n"
+#: quilt/revert.in:102 quilt/revert.in:112
+msgid "File %s is unchanged\\n"
 msgstr ""
 
-#: quilt/revert.in:106
+#: quilt/revert.in:120
+msgid "Failed to revert changes to %s in patch %s\\n"
+msgstr ""
+
+#: quilt/revert.in:124
 msgid "Changes to %s in patch %s reverted\\n"
 msgstr ""
 

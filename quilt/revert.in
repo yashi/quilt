@@ -23,8 +23,8 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Revert the changes to one or more files in the topmost or named patch.
-Changes in files that are modified by patches on top of the specified patch
+Revert the changes to the topmost or named patch for the specified file(s).
+Changes to files that are modified by patches on top of the specified patch
 cannot be reverted.
 
 -P patch
@@ -67,47 +67,66 @@ fi
 patch=$(find_applied_patch "$opt_patch") || exit 1
 
 status=0
-for file in $*
+for file in "${@/#/$SUBDIR}"
 do
-	if ! file_in_patch $SUBDIR$file $patch
+	if ! file_in_patch "$file" $patch
 	then
 		printf $"File %s is not in patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $patch)" >&2
+		       "$file" "$(print_patch $patch)" >&2
 		status=1
 		continue
 	fi
 
-	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
+	next_patch=$(next_patch_for_file $patch "$file")
 	if [ -n "$next_patch" ]
 	then
 		printf $"File %s modified by patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $next_patch)"
+		       "$file" "$(print_patch $next_patch)"
 		status=1
 		continue
 	fi
+done
+[ $status -eq 0 ] || exit $status
 
-	# Restore file from backup
-	if ! $QUILT_LIB/backup-files -r -t -s -B $QUILT_PC/$patch/ $SUBDIR$file
+workdir=$(gen_tempfile -d $PWD)
+trap "rm -rf $workdir" EXIT
+apply_patch_temporarily $workdir $patch "${@/#/$SUBDIR}" || exit 1
+
+for file in ${*/#/$SUBDIR}
+do
+	if [ -s "$workdir/$file" ]
 	then
-		printf $"Failed to revert changed to %s in patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $patch)" >&2
+		if [ -e "$file" ] &&
+		   diff -q "$workdir/$file" "$file" > /dev/null
+		then
+			printf $"File %s is unchanged\n" "$file"
+			continue
+		fi
+
+		mkdir -p "$(dirname "$file")"
+		ln -f "$workdir/$file" "$file" 2>&1 ||
+		cp -p "$workdir/$file" "$file"
+	else
+		if [ ! -e "$file" ]
+		then
+			printf $"File %s is unchanged\n" "$file"
+			continue
+		fi
+
+		rm -f "$file"
+	fi
+	if [ $? -ne 0 ]
+	then
+		printf $"Failed to revert changes to %s in patch %s\n" \
+		       "$file" "$(print_patch $patch)" >&2
 		status=1
-		continue
+	else
+		printf $"Changes to %s in patch %s reverted\n" \
+		       "$file" "$(print_patch $patch)"
 	fi
-
-	if [ -e $(dirname $QUILT_PC/$patch~refresh) -a \
-	     -e $(patch_file_name $patch) ]
-	then
-		# The patch must be refreshed in order to get rid of the
-		# patch permanently.
-		touch $QUILT_PC/$patch~refresh
-	fi
-
-	printf $"Changes to %s in patch %s reverted\n" \
-	       "$SUBDIR$file" "$(print_patch $patch)"
 done
 exit $status
 ### Local Variables:
 ### mode: shell-script
 ### End:
-# vim:filetype=sh
+# vim:filetype=sh:w

@@ -324,7 +324,7 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:315
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -738,8 +738,8 @@ msgid ""
 "the series file, and either store them in a mailbox file, or send them\n"
 "immediately. The editor is opened with a template for the introduction.\n"
 "Please see %s for details.\n"
-"When specifying a range of patches, a first patch name of \\`-' is\n"
-"equivalent to specifying the first applied patch.\n"
+"When specifying a range of patches, a first patch name of \\`-' denotes the\n"
+"first, and a last patch name of \\`-' denotes the last patch in the series.\n"
 "\n"
 "-m text\n"
 "\tText to use as the text in the introduction. When this option is\n"
@@ -804,28 +804,28 @@ msgstr ""
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
 
-#: quilt/mail.in:184
+#: quilt/mail.in:189
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:345
+#: quilt/mail.in:350
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:368
+#: quilt/mail.in:373
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:410
+#: quilt/mail.in:415
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:413
+#: quilt/mail.in:418
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:503
+#: quilt/mail.in:508
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -1291,8 +1291,8 @@ msgstr "Usage : quilt remove [-P patch] {fichier} ...\\n"
 #, fuzzy
 msgid ""
 "\n"
-"Revert the changes to one or more files in the topmost or named patch.\n"
-"Changes in files that are modified by patches on top of the specified patch\n"
+"Revert the changes to the topmost or named patch for the specified file(s).\n"
+"Changes to files that are modified by patches on top of the specified patch\n"
 "cannot be reverted.\n"
 "\n"
 "-P patch\n"
@@ -1310,12 +1310,17 @@ msgstr ""
 msgid "File %s is not in patch %s\\n"
 msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
 
-#: quilt/revert.in:92
+#: quilt/revert.in:102 quilt/revert.in:112
 #, fuzzy
-msgid "Failed to revert changed to %s in patch %s\\n"
+msgid "File %s is unchanged\\n"
+msgstr "Patch %s inchangé\\n"
+
+#: quilt/revert.in:120
+#, fuzzy
+msgid "Failed to revert changes to %s in patch %s\\n"
 msgstr "Impossible d'enlever le fichier %s du patch %s.\\n"
 
-#: quilt/revert.in:106
+#: quilt/revert.in:124
 #, fuzzy
 msgid "Changes to %s in patch %s reverted\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
