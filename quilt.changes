@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun  5 17:37:43 CEST 2007 - agruen@suse.de
+
+- Man page improvements from Ben Pfaff <blp@cs.stanford.edu>.
+- QUILT_SERIES and series file search algorithm bugfix.
+
+-------------------------------------------------------------------
 Sun May  6 14:36:25 CEST 2007 - agruen@suse.de
 
 - Mail command: when only a single patch is specified, only mail

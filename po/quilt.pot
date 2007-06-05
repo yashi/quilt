@@ -921,7 +921,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1035
+#: quilt/scripts/patchfns.in:1037
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

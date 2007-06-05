@@ -80,8 +80,8 @@ when doing a refresh. (This is limited to patches in unified format; see
 .B diff
 documentation).
 
-The series file is looked up in the root of the source tree, in the patches
-directory, and in the .pc directory.  The first series file that is found is
+The series file is looked up in the .pc directory, in the root of the source
+tree, and in the patches directory.  The first series file that is found is
 used. This may also be a symbolic link, or a file with multiple hard links.
 Usually, only one series file is used for a set of patches, so the
 patches sub-directory is a convenient location.
@@ -175,6 +175,11 @@ methods ("-r1", "-r2").
 .IP QUILT_PATCHES 4
 
 The location of patch files, defaulting to "patches".
+
+.IP QUILT_SERIES 4
+
+The name of the series file, defaulting to "series". Unless an absolute path
+is used, the search algorithm described above applies.
 
 .IP QUILT_PATCHES_PREFIX 4
 

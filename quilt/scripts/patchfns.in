@@ -1015,17 +1015,19 @@ then
     unset basedir down
 fi
 
-if [ -n "$QUILT_SERIES" ]
+: ${QUILT_SERIES:=series}
+
+if [ "${QUILT_SERIES:0:1}" = / ]
 then
 	SERIES=$QUILT_SERIES
-elif [ -e $QUILT_PC/series ]
+elif [ -e $QUILT_PC/$QUILT_SERIES ]
 then
-	SERIES=$QUILT_PC/series
-elif [ -e series ]
+	SERIES=$QUILT_PC/$QUILT_SERIES
+elif [ -e $QUILT_SERIES ]
 then
-	SERIES=series
+	SERIES=$QUILT_SERIES
 else
-	SERIES=$QUILT_PATCHES/series
+	SERIES=$QUILT_PATCHES/$QUILT_SERIES
 fi
 
 DB="$QUILT_PC/applied-patches"
