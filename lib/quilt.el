@@ -132,10 +132,11 @@
 	       p2
 	     (concat (substring p2 0 8) ".."))))))
 
+(defvar quilt-mode-line nil)
+(make-variable-buffer-local 'quilt-mode-line)
+
 (defun quilt-update-modeline ()
   (interactive)
-  (defvar quilt-mode-line nil)
-  (make-variable-buffer-local 'quilt-mode-line)
   (setq quilt-mode-line
 	(concat " Q:" (quilt-short-patchname)))
   (force-mode-line-update))
