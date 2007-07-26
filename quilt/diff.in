@@ -118,7 +118,7 @@ do_diff()
 			true
 		fi
 	else
-		diff_file $file $old_file $new_file
+		diff_file $file $old_file $new_file | colorize
 	fi
 }
 
@@ -338,8 +338,7 @@ do
 		files_were_shadowed=1
 	fi
 
-	do_diff "$file" "$old_file" "$new_file" \
-	| colorize
+	do_diff "$file" "$old_file" "$new_file"
 
 	if [ $? -ne 0 ]
 	then
