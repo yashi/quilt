@@ -68,7 +68,7 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 msgid()
 {
 	local timestamp=$(date --utc "+%Y%m%d%H%M%S.%N")
-	echo "$timestamp@$opt_sender_address"
+	echo "$timestamp@${opt_sender_address#*@}"
 }
 
 process_mail()
