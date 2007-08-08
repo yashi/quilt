@@ -13,7 +13,7 @@ $ cat > series
 < #
 < foo.diff -p1
 $ quilt setup series
-> Unpacking archive ./dir.tar.gz
+> Unpacking archive dir.tar.gz
 $ cd dir
 $ ls -l patches series | sed -e 's:.* -> ::'
 > ..
@@ -24,7 +24,7 @@ $ quilt push -qa
 $ cd ..
 $ rm -rf dir
 $ quilt setup -d other series
-> Unpacking archive ./dir.tar.gz
+> Unpacking archive dir.tar.gz
 $ cd other/dir
 $ ls -l patches series | sed -e 's:.* -> ::'
 > ../..
@@ -35,15 +35,15 @@ $ quilt push -qa
 $ cd ../..
 $ rm -rf other
 $ mkdir dir1
-$ mv foo.diff series dir1
+$ mv series dir1
 $ cd dir1
 $ quilt setup -d ../other series
-> File dir.tar.gz not found in search path
-$ quilt setup --path .. -d ../other series
+> File dir.tar.gz not found
+$ quilt setup --sourcedir .. -d ../other series
 > Unpacking archive ../dir.tar.gz
 $ cd ../other/dir
 $ ls -l patches series | sed -e 's:.* -> ::'
-> ../../dir1
+> ../..
 > ../../dir1/series
 $ quilt push -qa
 > Applying patch patches/foo.diff

@@ -320,11 +320,11 @@ msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:346 quilt/refresh.in:228
+#: quilt/diff.in:345 quilt/refresh.in:228
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: quilt/diff.in:353
+#: quilt/diff.in:352
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "警告: 最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 
@@ -1394,22 +1394,25 @@ msgstr "ディレクトリ %s は、すでに存在します\\n"
 msgid "File %s exists\\n"
 msgstr "ファイル %s は、すでに存在します\\n"
 
-#: quilt/setup.in:93
+#: quilt/setup.in:75
+#, fuzzy
 msgid ""
-"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
+"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|"
 "seriesfile}\\n"
 msgstr ""
 "使い方: quilt setup [-d path-prefix] [-v] [--path ディレクトリ1:ディレクトリ"
 "2] {specファイル|seriesファイル}\\n"
 
-#: quilt/setup.in:96
+#: quilt/setup.in:78
+#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\tOptional path prefix.\n"
+"-d\tOptional path prefix for the resulting source tree.\n"
 "\n"
-"--path\tDirectories to search when looking for tarballs. Defaults to \\`.'.\n"
+"--sourcedir\n"
+"\tDirectory that contains the package sources. Defaults to \\`.'.\n"
 "\n"
 "-v\tVerbose debug output.\n"
 msgstr ""
@@ -1423,21 +1426,22 @@ msgstr ""
 "\n"
 "-v\t詳細なデバッグ表示\n"
 
-#: quilt/setup.in:158
+#: quilt/setup.in:143
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "%%prepセクションの解析に失敗しました。完全に作業が完了していない場合がありま"
 "す\\n"
 
-#: quilt/setup.in:161
+#: quilt/setup.in:146
 msgid "The -v option will show rpm's output\\n"
 msgstr "-vオプションを使って、rpmの出力を表示できます"
 
-#: quilt/setup.in:197
-msgid "File %s not found in search path\\n"
+#: quilt/setup.in:183
+#, fuzzy
+msgid "File %s not found\\n"
 msgstr "ファイル %s は、サーチパス内にありません\\n"
 
-#: quilt/setup.in:200
+#: quilt/setup.in:186
 msgid "Unpacking archive %s\\n"
 msgstr "アーカイブ %s を展開しています\\n"
 

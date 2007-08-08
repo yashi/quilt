@@ -332,11 +332,11 @@ msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: quilt/diff.in:346 quilt/refresh.in:228
+#: quilt/diff.in:345 quilt/refresh.in:228
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: quilt/diff.in:353
+#: quilt/diff.in:352
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 
@@ -1435,22 +1435,25 @@ msgstr "Le répertoire %s existe\\n"
 msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
-#: quilt/setup.in:93
+#: quilt/setup.in:75
+#, fuzzy
 msgid ""
-"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
+"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|"
 "seriesfile}\\n"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] [-v] [--path rép1:rép2] "
 "{fichier_spec|fichier_séries}\\n"
 
-#: quilt/setup.in:96
+#: quilt/setup.in:78
+#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\tOptional path prefix.\n"
+"-d\tOptional path prefix for the resulting source tree.\n"
 "\n"
-"--path\tDirectories to search when looking for tarballs. Defaults to \\`.'.\n"
+"--sourcedir\n"
+"\tDirectory that contains the package sources. Defaults to \\`.'.\n"
 "\n"
 "-v\tVerbose debug output.\n"
 msgstr ""
@@ -1465,20 +1468,21 @@ msgstr ""
 "\n"
 "-v\tAffichage verbeux pour le debug.\n"
 
-#: quilt/setup.in:158
+#: quilt/setup.in:143
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "La section %%prep de %s a échoué ; les résultats sont peut-être incomplets\\n"
 
-#: quilt/setup.in:161
+#: quilt/setup.in:146
 msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
-#: quilt/setup.in:197
-msgid "File %s not found in search path\\n"
+#: quilt/setup.in:183
+#, fuzzy
+msgid "File %s not found\\n"
 msgstr "Le fichier %s est introuvable dans le chemin de recherche\\n"
 
-#: quilt/setup.in:200
+#: quilt/setup.in:186
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
 

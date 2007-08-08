@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Aug  8 12:13:16 CEST 2007 - agruen@suse.de
+
+- quilt setup: replace the --path argument with --sourcedir for
+  specifying the location of the package sources. Pass the source
+  dir to inspect as well. Fix a test suite bug for quilt setup.
+  Minor cosmetic changes.
+- Fix a quilt mail test suite bug: specify a dummy --sender in
+  test.quiltrc.
+
+-------------------------------------------------------------------
 Thu Jul 26 13:53:09 CEST 2007 - agruen@suse.de
 
 - quilt diff: don't colorize the output when the --diff=... option

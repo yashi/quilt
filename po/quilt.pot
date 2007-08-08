@@ -214,11 +214,11 @@ msgstr ""
 msgid "File %s is not being modified\\n"
 msgstr ""
 
-#: quilt/diff.in:346 quilt/refresh.in:228
+#: quilt/diff.in:345 quilt/refresh.in:228
 msgid "Diff failed, aborting\\n"
 msgstr ""
 
-#: quilt/diff.in:353
+#: quilt/diff.in:352
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr ""
 
@@ -983,37 +983,38 @@ msgstr ""
 msgid "File %s exists\\n"
 msgstr ""
 
-#: quilt/setup.in:93
+#: quilt/setup.in:75
 msgid ""
-"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|"
+"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|"
 "seriesfile}\\n"
 msgstr ""
 
-#: quilt/setup.in:96
+#: quilt/setup.in:78
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
 "\n"
-"-d\tOptional path prefix.\n"
+"-d\tOptional path prefix for the resulting source tree.\n"
 "\n"
-"--path\tDirectories to search when looking for tarballs. Defaults to \\`.'.\n"
+"--sourcedir\n"
+"\tDirectory that contains the package sources. Defaults to \\`.'.\n"
 "\n"
 "-v\tVerbose debug output.\n"
 msgstr ""
 
-#: quilt/setup.in:158
+#: quilt/setup.in:143
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 
-#: quilt/setup.in:161
+#: quilt/setup.in:146
 msgid "The -v option will show rpm's output\\n"
 msgstr ""
 
-#: quilt/setup.in:197
-msgid "File %s not found in search path\\n"
+#: quilt/setup.in:183
+msgid "File %s not found\\n"
 msgstr ""
 
-#: quilt/setup.in:200
+#: quilt/setup.in:186
 msgid "Unpacking archive %s\\n"
 msgstr ""
 

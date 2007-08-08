@@ -21,23 +21,41 @@ usage() {
 	exit 1
 }
 
-if [ "$1" = -v ]
-then
-	verbose=1
-	shift
-fi
+options=$(getopt -o v --long sourcedir: -n "${0##*/}" -- "$@") || exit
+
+eval set -- "$options"
+
+sourcedir=
+
+while true
+do
+	case "$1" in
+	-v)
+		verbose=1
+		shift ;;
+	--sourcedir)
+		sourcedir=${2%/}/
+		shift 2 ;;
+	--)
+		shift
+		break ;;
+	esac
+done
+
+[ "${sourcedir:0:1}" = / ] || sourcedir=$PWD/$sourcedir
 
 specfile=$1
 if [ $# -ne 1 -o ! -f "$specfile" ]
 then
 	usage
 fi
-
-if [ "${specfile:0:1}"  != / ]
+if [ "${specfile:0:1}"  = / ]
 then
-	specfile="$PWD/$specfile"
+	specdir=$(dirname "$specfile")
+	specfile=${specfile##*/}
+else
+	specdir=$PWD
 fi
-sourcedir=${specfile%/*}
 
 tmpdir="$(gen_tempfile -d ${TMPDIR-/var/tmp}/${0##*/})"
 mkdir -p $tmpdir || exit 1
@@ -56,10 +74,10 @@ fi
 # create md5 sums, also for uncompressed files
 echo -n "### md5sum: " >&4
 shopt -s nullglob
-for file in *
+for file in $sourcedir/*
 do
-	file=${file##*/}
-	case "$file" in
+	basename=${file##*/}
+	case "$basename" in
 		ready|bigpack|MD5SUMS|MD5SUMS.meta|*.spec|*.changes)
 			continue
 			;;
@@ -68,19 +86,19 @@ do
 	echo -n "." >&4
 	echo "md5sum < $file" >&2
 	set -- $(md5sum < "$file")
-	echo "$1 $file"
+	echo "$1 $basename"
 	case "$(file -b "$file")" in
 		compress*|gzip*)
 			echo -n "g" >&4
 			echo "gzip -cd $file | md5sum" >&2
 			set -- $(gzip -cd "$file" | md5sum)
-			echo "$1 $file"
+			echo "$1 $basename"
 			;;
 		bzip2*)
 			echo -n "b" >&4
 			echo "bzip2 -cd $file | md5sum" >&2
 			set -- $(bzip2 -cd "$file" | md5sum)
-			echo "$1 $file"
+			echo "$1 $basename"
 			;;
 	esac
 done > $tmpdir/md5sums
@@ -225,10 +243,10 @@ echo -n "### rpmbuild: " >&4
 
 export PATH="$tmpdir/bin:$PATH"
 rpmbuild --eval "%define _sourcedir $sourcedir" \
-	 --eval "%define _specdir   $sourcedir" \
+	 --eval "%define _specdir   $specdir" \
 	 --eval "%define _builddir  $tmpdir/build" \
 	 --nodeps \
-	 -bp "$specfile" < /dev/null >&2
+	 -bp "$specdir/$specfile" < /dev/null >&2
 status=$?
 echo >&4
 exit $status

@@ -32,52 +32,34 @@ check_for_existing_files() {
 			       "$prefix$dir/$QUILT_PATCHES" >&2
 			status=1
 		fi
-		if [ -e "$prefix$dir/${QUILT_SERIES:-series}" ]
+		if [ -e "$prefix$dir/$QUILT_SERIES" ]
 		then
 			printf $"File %s exists\n" \
-			       "$prefix$dir/${QUILT_SERIES:-series}" >&2
+			       "$prefix$dir/$QUILT_SERIES" >&2
 			status=1
 		fi
 	done
 	return $status
 }
 
-find_tarball() {
-	if [ "${1:0:1}" = / ]
-	then
-		echo "$1"
-		return
-	fi
-
-	local IFS=:
-	for dir in $path
-	do
-		[ -z "$dir" ] && continue
-		if [ -e "$dir/$1" ]
-		then
-			echo "$dir/$1"
-			return
-		fi
-	done
-	return 1
-}
-
 create_symlink() {
-	local from=$1 to=$2 up
-	if [ "${from:0:1}" = / ]
+	local target=$1 link=$2 up
+	if [ "${target:0:1}" = / -o "${link:0:1}" = / ]
 	then
-		ln -s "$from" "$to"
+		ln -s "$target" "$link"
 		return
 	fi
 
-	set -- "$(echo "$PWD/$from" | sed -r -e 's://:/:g' \
-					     -e ':again' \
-					     -e 's:/[^/]+/\.\.(/|$):\1:g' \
-					     -e 'tagain')" \
-	       "$(echo "$PWD/$to" | sed -r -e 's://:/:g' \
-					   -e ':again' \
-					   -e 's:/[^/]+/\.\.(/|$):\1:g' \
-					   -e 'tagain')"
+	set -- "$(echo "$PWD/$target" | \
+		  sed -r -e 's://:/:g' \
+			 -e ':again' \
+			 -e 's:/[^/]+/\.\.(/|$):\1:g' \
+			 -e 'tagain')" \
+	       "$(echo "$PWD/$link" | \
+	          sed -r -e 's://:/:g' \
+			 -e ':again' \
+			 -e 's:/[^/]+/\.\.(/|$):\1:g' \
+			 -e 'tagain')"
 	while [ "${1%%/*}" = "${2%%/*}" ]
 	do
 		set -- "${1#*/}" "${2#*/}"
@@ -85,20 +67,21 @@ create_symlink() {
 	up=$(echo "${2%/*}" | sed -re 's:[^/]+:..:g')
 	set -- "${up:+$up/}$1"
 	set -- "${1%/}"
-	ln -s "${1:-.}" "$to"
+	ln -s "${1:-.}" "$link"
 }
 
 usage()
 {
-	printf $"Usage: quilt setup [-d path-prefix] [-v] [--path dir1:dir2] {specfile|seriesfile}\n"
+	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|seriesfile}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
 Initializes a source tree from an rpm spec file or a quilt series file.
 
--d	Optional path prefix.
+-d	Optional path prefix for the resulting source tree.
 
---path	Directories to search when looking for tarballs. Defaults to \`.'.
+--sourcedir
+	Directory that contains the package sources. Defaults to \`.'.
 
 -v	Verbose debug output.
 "
@@ -108,7 +91,7 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 	fi
 }
 
-options=`getopt -o d:vh --long path: -- "$@"`
+options=`getopt -o d:vh --long sourcedir: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -118,6 +101,7 @@ fi
 eval set -- "$options"
 
 prefix=
+sourcedir=
 
 while true
 do
@@ -130,8 +114,8 @@ do
 	-v)
 		verbose=-v
 		shift ;;
-	--path)
-		path="$path:$2"
+	--sourcedir)
+		sourcedir=${2%/}/
 		shift 2 ;;
 	--)
 		shift
@@ -144,7 +128,7 @@ then
 	usage
 fi
 
-[ -z "$path" ] && path=.
+[ -n "$sourcedir" ] && opt_sourcedir="--sourcedir $sourcedir"
 
 tmpfile=$(gen_tempfile)
 trap "rm -f $tmpfile" EXIT
@@ -153,7 +137,8 @@ case "$1" in
 *.spec)
 	spec_file=$1
 
-	if ! $QUILT_DIR/scripts/inspect $verbose "$spec_file" 2>&1 > $tmpfile
+	if ! $QUILT_DIR/scripts/inspect $verbose $opt_sourcedir \
+					"$spec_file" 2>&1 > $tmpfile
 	then
 		printf $"The %%prep section of %s failed; results may be incomplete\n" "$spec_file"
 		if [ -z "$verbose" ]
@@ -192,9 +177,10 @@ while read tag dir arg1 arg2
 do
 	case "$tag" in
 	tar)
-		if ! tarball=$(find_tarball "$arg1")
+		tarball=$sourcedir$arg1
+		if [ ! -e $tarball ]
 		then
-			printf $"File %s not found in search path\n" "$arg1" >&2
+			printf $"File %s not found\n" "$tarball" >&2
 			exit 1
 		fi
 		printf $"Unpacking archive %s\n" "$tarball"
@@ -215,14 +201,14 @@ do
 		;;
 	patch)
 		[ -e "$prefix$dir/$QUILT_PATCHES" ] \
-		|| create_symlink "" "$prefix$dir/$QUILT_PATCHES"
+		|| create_symlink "$sourcedir" "$prefix$dir/$QUILT_PATCHES"
 		if [ -n "$series_file" ]
 		then
-			[ -e "$prefix$dir/${QUILT_SERIES:-series}" ] \
+			[ -e "$prefix$dir/$QUILT_SERIES" ] \
 			|| create_symlink "$series_file" \
-					  "$prefix$dir/${QUILT_SERIES:-series}"
+					  "$prefix$dir/$QUILT_SERIES"
 		else
-			if ! [ -e "$prefix$dir/${QUILT_SERIES:-series}" ]
+			if ! [ -e "$prefix$dir/$QUILT_SERIES" ]
 			then
 				(	echo "# Patch series file for quilt," \
 					     "created by ${0##*/}"
@@ -232,9 +218,9 @@ do
 						&& echo "# Source: $tar_file"
 					echo "# Patchdir: $dir"
 					echo "#"
-				) > "$prefix$dir/${QUILT_SERIES:-series}"
+				) > "$prefix$dir/$QUILT_SERIES"
 			fi
-			echo "$arg1" $arg2 >> "$prefix$dir/series"
+			echo "$arg1" $arg2 >> "$prefix$dir/$QUILT_SERIES"
 		fi
 		;;
 	esac
