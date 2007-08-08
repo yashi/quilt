@@ -68,7 +68,7 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 msgid()
 {
 	local timestamp=$(date --utc "+%Y%m%d%H%M%S.%N")
-	echo "$timestamp@${opt_sender#*@}"
+	echo "$timestamp@$opt_sender_address"
 }
 
 process_mail()
@@ -88,7 +88,7 @@ process_mail()
 		| sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
-		echo "From $opt_sender $from_date"
+		echo "From $opt_sender_address $from_date"
 		sed -e 's/^From />From /' $tmpfile
 		echo
 	fi
@@ -192,6 +192,7 @@ Could not determine the envelope sender address. Please use --sender." >&2
 		;;
 	esac
 fi
+opt_sender_address=$(echo "$opt_sender" | sed -re 's:.*<([^<>]+)>.*:\1:')
 
 if [ -z "$opt_charset" ]; then
 	case "${LC_ALL:-$ORIGINAL_LANG}" in

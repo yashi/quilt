@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug  2 12:37:19 MDT 2007 - paul@pwsan.com
+
+- quilt mail: strip closing angle brackets from the mail sender
+  address before it is inserted into the message ID. (Changed
+  by agruen@suse.de.)
+
+-------------------------------------------------------------------
 Wed Aug  8 12:13:16 CEST 2007 - agruen@suse.de
 
 - quilt setup: replace the --path argument with --sourcedir for
