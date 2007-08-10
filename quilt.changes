@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 10 15:40:31 CEST 2007 - agruen@suse.de
+
+- quilt mail: only add a "-- " at the end of messages if it is
+  actually followed by a signature.
+
+-------------------------------------------------------------------
 Fri Aug 10 15:16:12 CEST 2007 - agruen@suse.de
 
 - quilt mail: Add a --reply-to <message> option which adds the

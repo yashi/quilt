@@ -465,8 +465,11 @@ introduction="$(gen_tempfile)"
 		echo "$opt_message"
 		echo
 	fi
-	echo "-- "
-	[ -r $HOME/.signature ] && cat $HOME/.signature
+	if [ -r $HOME/.signature ]
+	then
+		echo "-- "
+		cat $HOME/.signature
+	fi
 ) | $QUILT_DIR/scripts/edmail --charset $opt_charset > $introduction
 
 if [ -z "$opt_message" ]
