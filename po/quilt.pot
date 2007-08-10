@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[first_patch [last_patch]]\\n"
+"[--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
 
 #: quilt/mail.in:27
@@ -519,29 +519,36 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--reply-to message\n"
+"\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:189
+#: quilt/mail.in:235
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:350
+#: quilt/mail.in:397
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:373
+#: quilt/mail.in:420
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:415
+#: quilt/mail.in:429
+msgid "File %s does not exist\\n"
+msgstr ""
+
+#: quilt/mail.in:486
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:418
+#: quilt/mail.in:489
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:508
+#: quilt/mail.in:578
 msgid "Introduction saved as %s\\n"
 msgstr ""
 

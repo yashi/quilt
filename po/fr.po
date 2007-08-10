@@ -324,7 +324,7 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -725,7 +725,7 @@ msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[first_patch [last_patch]]\\n"
+"[--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
 "Usage : quilt mail {--mbox fichier|--send} [-m texte] [--prefix préfixe] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
@@ -767,6 +767,9 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--reply-to message\n"
+"\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 "\n"
 "Crée des messages de courrier à partir de tous les patches de la série.\n"
@@ -804,28 +807,33 @@ msgstr ""
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
 
-#: quilt/mail.in:189
+#: quilt/mail.in:235
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:350
+#: quilt/mail.in:397
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:373
+#: quilt/mail.in:420
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:415
+#: quilt/mail.in:429
+#, fuzzy
+msgid "File %s does not exist\\n"
+msgstr "Le patch %s n'existe pas\\n"
+
+#: quilt/mail.in:486
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:418
+#: quilt/mail.in:489
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:508
+#: quilt/mail.in:578
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 

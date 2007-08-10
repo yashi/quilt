@@ -312,7 +312,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%s でパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -699,7 +699,7 @@ msgstr "seriesファイルへのパッチ %s の書き込みに失敗しまし�
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[first_patch [last_patch]]\\n"
+"[--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
 "使い方: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
@@ -741,6 +741,9 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--reply-to message\n"
+"\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 "\n"
 "シリーズファイル内にあるすべてのパッチからメールを作成し、mailboxファ\n"
@@ -773,29 +776,34 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tToやCC、BCCへの受信者の追加。\n"
 
-#: quilt/mail.in:189
+#: quilt/mail.in:235
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:350
+#: quilt/mail.in:397
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:373
+#: quilt/mail.in:420
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:415
+#: quilt/mail.in:429
+#, fuzzy
+msgid "File %s does not exist\\n"
+msgstr "パッチ %s が存在しません\\n"
+
+#: quilt/mail.in:486
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "序文に件名がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:418
+#: quilt/mail.in:489
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:508
+#: quilt/mail.in:578
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 

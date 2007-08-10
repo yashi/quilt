@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug 10 15:16:12 CEST 2007 - agruen@suse.de
+
+- quilt mail: Add a --reply-to <message> option which adds the
+  appropriate Subject, Reply-To, and References headers to the
+  intro and patch messages.
+
+-------------------------------------------------------------------
 Thu Aug  2 12:37:19 MDT 2007 - paul@pwsan.com
 
 - quilt mail: strip closing angle brackets from the mail sender

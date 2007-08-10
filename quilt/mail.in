@@ -21,7 +21,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [first_patch [last_patch]]\n"
+	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -58,6 +58,9 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
+
+--reply-to message
+	Add the appropriate headers to reply to the specified message.
 " "@DOCSUBDIR@/README.MAIL"
 		exit 0
 	else
@@ -69,6 +72,45 @@ msgid()
 {
 	local timestamp=$(date --utc "+%Y%m%d%H%M%S.%N")
 	echo "$timestamp@${opt_sender_address#*@}"
+}
+
+# See RFC 2822 Internet Message Format for how the In-Reply-To and
+# References headers are generated...
+
+in_reply_to_header() {
+	local message=$1 message_id
+
+	message_id=$(formail -x Message-ID < "$message")
+	message_id=${message_id# }
+	[ -n "$message_id" ] && echo "In-Reply-To: $message_id"
+}
+
+references_header() {
+	local message=$1 message_id references in_reply_to
+
+	message_id=$(formail -x Message-ID < "$message")
+	message_id=${message_id# }
+	
+	references=$(formail -x References < "$message")
+	references=${references# }
+	if [ -z "$references" ]
+	then
+		in_reply_to=$(formail -x In-Reply-To < "$message")
+		in_reply_to=${in_reply_to# }
+		if [ -n "$in_reply_to" ] &&
+		   ! [[ "$in_reply_to" =~ "@.*@" ]]
+		then
+			references=$in_reply_to
+		fi
+	fi
+	if [ -z "$references" ]
+	then
+		references=$message_id
+	elif [ -n "$message_id" ]
+	then
+		references="$references"$'\n '"$message_id"
+	fi
+	[ -n "$references" ] && echo "References: $references"
 }
 
 process_mail()
@@ -97,7 +139,7 @@ process_mail()
 
 options=`getopt -o m:h --long from:,to:,cc:,bcc:,subject: \
 		       --long send,mbox:,charset:,sender: \
-		       --long prefix: -- "$@"`
+		       --long prefix:,reply-to: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -107,6 +149,7 @@ fi
 eval set -- "$options"
 
 opt_prefix=patch
+
 while true
 do
 	case "$1" in
@@ -142,6 +185,9 @@ do
 		shift 2 ;;
 	--charset)
 		opt_charset=$2
+		shift 2 ;;
+	--reply-to)
+		opt_reply_to=$2
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -376,6 +422,21 @@ if [ ${#dup_subjects[@]} -ne 0 ]; then
 	exit 1
 fi
 
+if [ -n "$opt_reply_to" ]
+then
+	if [ ! -e "$opt_reply_to" ]
+	then
+		printf $"File %s does not exist\n" "$opt_reply_to"
+		exit 1
+	fi
+
+	if [ -z "$opt_subject" ]
+	then
+		opt_subject="Re: $(formail -x Subject < "$opt_reply_to" \
+			      | sed -e 's/^ *\([rR][eE]: *\)*//')"
+	fi
+fi
+
 introduction="$(gen_tempfile)"
 (
 	cat <<-EOF
@@ -386,6 +447,15 @@ introduction="$(gen_tempfile)"
 	To: $(IFS=,; echo "${opt_to[*]}")
 	Cc: $(IFS=,; echo "${opt_cc[*]}")
 	Bcc: $(IFS=,; echo "${opt_bcc[*]}")
+	EOF
+
+	if [ -n "$opt_reply_to" ]
+	then
+		in_reply_to_header "$opt_reply_to"
+		references_header "$opt_reply_to"
+	fi
+
+	cat <<-EOF
 	Subject-Prefix: [$opt_prefix @num@/@total@]
 	Subject: $opt_subject
 
@@ -480,20 +550,19 @@ for patch in "${patches[@]}"; do
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
 	p=${p//@total@/$total}
 	(	echo "Message-Id: <$(msgid)>"
-		sed -n -e '/^$/q' \
-		    -e 's/^Message-Id:/References:/' \
-		    -e p \
-		    $introduction
-		echo "Content-Disposition: inline; filename=$patch"
-		sed -n -e '/^$/q' \
-		    -e '/^Recipient-.*:/d' \
-		    -e '/^Replace-.*:/d' \
-		    -e p \
-		    $body
 		awk '
-		/^$/	{ in_body = 1 }
-		in_body	{ print }
-		' $body
+		    /^$/	{ exit }
+		    tolower($0) !~ /^(message-id|references|in-reply-to):/ \
+		    		{ print }
+		' $introduction
+		references_header $introduction
+		echo "Content-Disposition: inline; filename=$patch"
+		awk '
+		    !in_body && tolower($0) ~ /^(Recipient|Replace)-.*:/ \
+		    		{ next }
+		    /^$/	{ in_body = 1 }
+				{ print }
+		    ' $body
 		echo -e '\n-- '
 		[ -r $HOME/.signature ] && cat $HOME/.signature
 	) | eval $QUILT_DIR/scripts/edmail --charset $opt_charset \

@@ -322,7 +322,7 @@ msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:320
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
@@ -725,16 +725,18 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
 #: quilt/mail.in:24
+#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[first_patch [last_patch]]\\n"
+"[--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
 "Verwendung: quilt mail {--mbox datei|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
 "[first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -770,6 +772,9 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--reply-to message\n"
+"\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 "\n"
 "Erzeuge E-Mail-Nachrichten für alle Patches in der series-Datei, und\n"
@@ -805,28 +810,33 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
-#: quilt/mail.in:189
+#: quilt/mail.in:235
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
 
-#: quilt/mail.in:350
+#: quilt/mail.in:397
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
 
-#: quilt/mail.in:373
+#: quilt/mail.in:420
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:415
+#: quilt/mail.in:429
+#, fuzzy
+msgid "File %s does not exist\\n"
+msgstr "Patch %s existiert nicht\\n"
+
+#: quilt/mail.in:486
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:418
+#: quilt/mail.in:489
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:508
+#: quilt/mail.in:578
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 
