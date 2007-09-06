@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:368
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -524,31 +524,31 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:235
+#: quilt/mail.in:236
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:397
+#: quilt/mail.in:398
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:420
+#: quilt/mail.in:421
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:429
+#: quilt/mail.in:430
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:486
+#: quilt/mail.in:502
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:489
+#: quilt/mail.in:505
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:578
+#: quilt/mail.in:594
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgstr ""
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
-"topmost patch in the patch series file.\n"
+"topmost patch.\n"
 "\n"
 "Quilt can be used in sub-directories of a source tree. It determines the\n"
 "root of a source tree by searching for a %s directory above the\n"

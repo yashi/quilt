@@ -322,7 +322,7 @@ msgstr ""
 "Kann kein Diff mit -p$opt_strip_level erzeugen, bitte -p0 oder -p1 verwenden."
 "\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:368
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
@@ -810,33 +810,33 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
-#: quilt/mail.in:235
+#: quilt/mail.in:236
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Konnte die Envelope-Adresse nicht feststellen. Bitte verwenden Sie --sender."
 
-#: quilt/mail.in:397
+#: quilt/mail.in:398
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Konnte keine Subject-Kopfzeile aus %s extrahieren\\n"
 
-#: quilt/mail.in:420
+#: quilt/mail.in:421
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben die selben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:429
+#: quilt/mail.in:430
 #, fuzzy
 msgid "File %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/mail.in:486
+#: quilt/mail.in:502
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:489
+#: quilt/mail.in:505
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:578
+#: quilt/mail.in:594
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 
@@ -848,7 +848,7 @@ msgstr "Verwendung: new {patchname}\\n"
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
-"topmost patch in the patch series file.\n"
+"topmost patch.\n"
 "\n"
 "Quilt can be used in sub-directories of a source tree. It determines the\n"
 "root of a source tree by searching for a %s directory above the\n"
@@ -858,7 +858,7 @@ msgid ""
 msgstr ""
 "\n"
 "Erzeuge einen neuen Patch mit dem angegebenen Dateinamen, und fügt\n"
-"ihn nach dem obersten Patch in die series-Datei ein.\n"
+"ihn nach dem obersten Patch ein.\n"
 "\n"
 "Quilt kann aus Unterverzeichnissen eines Quellbaums heraus verwendet "
 "werden.\n"

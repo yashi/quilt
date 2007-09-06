@@ -24,7 +24,7 @@ usage()
 	then
 		printf $"
 Create a new patch with the specified file name, and insert it after the
-topmost patch in the patch series file.
+topmost patch.
 
 Quilt can be used in sub-directories of a source tree. It determines the
 root of a source tree by searching for a %s directory above the
