@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Sep  8 20:13:34 CEST 2007 - agruen@suse.de
+
+- quite refresh: Avoid a possible environment overflow with very,
+  very large patches (#19748).
+
+-------------------------------------------------------------------
 Fri Aug 10 15:40:31 CEST 2007 - agruen@suse.de
 
 - quilt mail: only add a "-- " at the end of messages if it is

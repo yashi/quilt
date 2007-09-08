@@ -274,14 +274,13 @@ prev_patch_file=$patch_file
 
 if [ -n "$opt_diffstat" ]
 then
-	diffstat="$(diffstat $QUILT_DIFFSTAT_OPTS \
-			     -p$num_strip_level $tmp_patch)" || die 1
 	cat_file "$prev_patch_file" | patch_header \
 	| awk '
 	    function print_diffstat(arr, i) {
-	      split(diffstat, arr, "\n")
-	      for (i=1; i in arr; i++)
-		print prefix arr[i]
+	      if (system("diffstat '"$QUILT_DIFFSTAT_OPTS \
+		      		     -p$num_strip_level \
+				     $tmp_patch | sed -e s:^:"'" prefix ":"))
+		exit 1
 	    }
 			{ prefix=""
 			  if (index($0, "#") == 1)
@@ -291,19 +290,19 @@ then
 			  next }
 	    /^#? .* files? changed(, .* insertions?\(\+\))?(, .* deletions?\(-\))?/ \
 			{ print_diffstat()
-			  diffstat = "" ; eat = ""
+			  diffstat_printed=1
+			  eat = ""
 			  next }
 			{ print eat $0
 			  eat = "" }
 	    END		{ printf "%s", eat
-	    		  if (diffstat != "") {
+	    		  if (!diffstat_printed) {
 			    print "---"
 			    print_diffstat()
 			    print prefix
 			  }
 			}
-	    ' diffstat="$diffstat" \
-	    > $tmp_result
+	    ' > $tmp_result
 else
 	cat_file "$prev_patch_file" | patch_header \
 	> $tmp_result
