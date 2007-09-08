@@ -572,7 +572,7 @@ msgid ""
 "Usage: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"Verwendung: quilt header [-e|-r|-e] [--backup] [--strip-diffstat] [--strip-"
+"Verwendung: quilt header [-a|-r|-e] [--backup] [--strip-diffstat] [--strip-"
 "trailing-whitespace] [patch]\\n"
 
 #: quilt/header.in:28
