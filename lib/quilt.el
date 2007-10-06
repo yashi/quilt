@@ -99,7 +99,7 @@
 (defun quilt-top-patch ()
   (let ((top (quilt-cmd-to-string "top")))
     (if top
-	(substring top 0 -1))))
+	(file-name-nondirectory (substring top 0 -1)))))
 
 (defun quilt-complete-list (p l)
   (defun to-alist (list n)
