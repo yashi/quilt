@@ -248,7 +248,9 @@
 (defun quilt-import (fn pn)
   "Import external patch"
   (interactive "fPatch to import: \nsPatch name: ")
-  (quilt-cmd (concat "import -n " pn ".patch " fn)))
+  (if (not pn)
+      (message "no patch name supplied")
+    (quilt-cmd (concat "import -p " pn ".patch " (if fn fn pn)))))
 
 (defun quilt-diff ()
   "Display diff of current changes"
