@@ -124,10 +124,12 @@ process_mail()
 				  --extract-recipients Bcc \
 				  < $tmpfile)
 	if [ -n "$opt_send" ]; then
-		echo sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
+		echo ${QUILT_SENDMAIL:-sendmail} \
+			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 		$QUILT_DIR/scripts/edmail --charset $opt_charset \
 				 --remove-header Bcc "$@" < $tmpfile \
-		| sendmail ${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
+		| ${QUILT_SENDMAIL:-sendmail} \
+			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
 		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
 		echo "From $opt_sender_address $from_date"

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Oct  6 22:15:19 CEST 2007 - agruen@suse.de
+
+- Allow to define a MUA different from the one found at configure
+  time in .quiltrc (by setting QUILT_SENDMAIL).
+
+-------------------------------------------------------------------
 Sat Sep  8 20:13:34 CEST 2007 - agruen@suse.de
 
 - quite refresh: Avoid a possible environment overflow with very,
