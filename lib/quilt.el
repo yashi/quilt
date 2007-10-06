@@ -97,9 +97,10 @@
 	 (split-string s "\n"))))
 
 (defun quilt-top-patch ()
-  (let ((top (quilt-cmd-to-string "top")))
-    (if top
-	(file-name-nondirectory (substring top 0 -1)))))
+  (if (quilt-bottom-p)
+      nil
+    (file-name-nondirectory
+     (substring (quilt-cmd-to-string "top")  0 -1))))
 
 (defun quilt-complete-list (p l)
   (defun to-alist (list n)
@@ -119,9 +120,11 @@
 	    (editable file (cdr dirs)))
 	nil))
     (if qd
-	(editable fn (if quilt-edit-top-only
-			 (list (quilt-top-patch))
-		       (cdr (cdr (directory-files (concat qd ".pc/")))))))))
+	(if (quilt-bottom-p)
+	    (quilt-cmd "applied")	; to print error message
+	  (editable fn (if quilt-edit-top-only
+			   (list (quilt-top-patch))
+			 (cdr (cdr (directory-files (concat qd ".pc/"))))))))))
 
 (defun quilt-short-patchname ()
   (let ((p (quilt-top-patch)))
@@ -288,14 +291,17 @@
   (let ((qd (quilt-dir)))
     (if (not qd)
 	(quilt-cmd "push")		; to print error message
-      (quilt-save)
-      (let ((patch (concat qd
-			(format "/%s/" (quilt-patches-directory))
-			(quilt-top-patch))))
-	(if (file-exists-p patch)
-	    (progn (find-file patch)
-		   (toggle-read-only))
-	  (message (format "%s doesn't exist yet." patch)))))))
+      (let ((patch (quilt-top-patch)))
+	(if (not patch)
+	    (quilt-cmd "applied")	; to print error message
+	  (quilt-save)
+	  (let ((pf (concat qd
+			    (format "/%s/" (quilt-patches-directory))
+			    patch)))
+	    (if (file-exists-p pf)
+		(progn (find-file pf)
+		       (toggle-read-only))
+	      (message (format "%s doesn't exist yet." pf)))))))))
 
 (defun quilt-patches ()
   "Show which patches modify the current buffer"
@@ -331,7 +337,7 @@
       (quilt-cmd "push")) ; to print error message
      (t
       (if (quilt-bottom-p)
-	  (quilt-cmd "applied")
+	  (quilt-cmd "applied")		; to print error message
 	(let ((dropped (quilt-drop-dir f)))
 	  (if (y-or-n-p (format "Really drop %s? " dropped))
 	      (progn
@@ -370,15 +376,17 @@
     (if (not qd)
 	(quilt-cmd "push")		; to print error message
       (let ((p (if arg
-		    (quilt-complete-list "Delete patch: " (quilt-patch-list))
-		  (quilt-top-patch))))
+		   (quilt-complete-list "Delete patch: " (quilt-patch-list))
+		 (quilt-top-patch))))
 	(if (string-equal p "")
 	    (message "no patch name is supplied")
-	  (if (y-or-n-p (format "Really delete %s?" p))
-	      (progn
-		(quilt-save)
-		(quilt-cmd (concat "delete " p))
-		(quilt-revert))))))))
+	  (if (not p)
+	      (quilt-cmd "applied")	; to print error message
+	    (if (y-or-n-p (format "Really delete %s?" p))
+		(progn
+		  (quilt-save)
+		  (quilt-cmd (concat "delete " p))
+		  (quilt-revert)))))))))
 
 (defun quilt-header-commit ()
   "commit to change patch header"
@@ -403,19 +411,21 @@
       (let ((p (if arg
 		   (quilt-complete-list "Edit patch: " (quilt-patch-list))
 		 (quilt-top-patch))))
-	(if (string-equal p "")
-	    (message "no patch name is supplied")
-	  (let ((qb (get-buffer-create (format " *quilt-heaer(%s)*" p))))
-	    (switch-to-buffer-other-window qb)
-	    (erase-buffer)
-	    (kill-all-local-variables)
-	    (make-local-variable 'quilt-header-directory)
-	    (setq quilt-header-directory default-directory)
-	    (setq mode-map "quilt-header")
-	    (use-local-map quilt-header-mode-map)
-	    (setq major-mode 'quilt-header-mode)
-	    (call-process "quilt" nil qb nil "header" p)
-	    (goto-char 0)))))))
+	  (if (string-equal p "")
+	      (message "no patch name is supplied")
+	    (if (not p)
+		(quilt-cmd "applied")	; to print error message
+	      (let ((qb (get-buffer-create (format " *quilt-heaer(%s)*" p))))
+		(switch-to-buffer-other-window qb)
+		(erase-buffer)
+		(kill-all-local-variables)
+		(make-local-variable 'quilt-header-directory)
+		(setq quilt-header-directory default-directory)
+		(setq mode-map "quilt-header")
+		(use-local-map quilt-header-mode-map)
+		(setq major-mode 'quilt-header-mode)
+		(call-process "quilt" nil qb nil "header" p)
+		(goto-char 0))))))))
 
 (defun quilt-series (arg)
   "Show patche series."
