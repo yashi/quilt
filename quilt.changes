@@ -407,7 +407,7 @@ Sun Mar 26 11:45:15 CEST 2006 - khali@linux-fr.org
 -------------------------------------------------------------------
 Sat Mar 25 21:03:23 CET 2006 - agruen@suse.de
 
-- quilt/main.in: Use -gt instead of > in [ ... ] expression.
+- quilt/mail.in: Use -gt instead of > in [ ... ] expression.
 - quilt/scripts/edmail.in: Improve handling of quoting and
   special characters in recipient addresses: Automatically quote
   display names that contain quotable characters, and encode
@@ -1354,7 +1354,7 @@ Sun Sep 18 17:41:56 CEST 2005 - agruen@suse.de
 - Always create the mta symlink in compat/. Replace "@MTA@" with
   "mta" in scripts. Replace mta check in configure.ac with
   QUILT_COMPAT_PROG_PATH.
-- quilt/main.in: Add a User-Agent header.
+- quilt/mail.in: Add a User-Agent header.
 - Update the German translation.
 
 -------------------------------------------------------------------
