@@ -324,7 +324,7 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0 ou -p1 à "
 "la place\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:367
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:391
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -472,7 +472,7 @@ msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom\\n"
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Le fork de %s en %s a échoué\\n"
 
-#: quilt/fork.in:102 quilt/refresh.in:341
+#: quilt/fork.in:102 quilt/refresh.in:340
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 
@@ -716,7 +716,7 @@ msgstr "Import du patch %s (enregistré dans %s)\\n"
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:222 quilt/refresh.in:328
+#: quilt/import.in:222 quilt/refresh.in:327
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
@@ -768,6 +768,10 @@ msgid ""
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
+"--signature file\n"
+"\tAppend the specified signature to messages (defaults to ~/.signature\n"
+"\tif found; use \\`-' for no signature).\n"
+"\n"
 "--reply-to message\n"
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
@@ -807,33 +811,33 @@ msgstr ""
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
 
-#: quilt/mail.in:235
+#: quilt/mail.in:257
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:397
+#: quilt/mail.in:421
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:420
+#: quilt/mail.in:445
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:429
+#: quilt/mail.in:454
 #, fuzzy
 msgid "File %s does not exist\\n"
 msgstr "Le patch %s n'existe pas\\n"
 
-#: quilt/mail.in:486
+#: quilt/mail.in:515
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:489
+#: quilt/mail.in:518
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:578
+#: quilt/mail.in:614
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -842,10 +846,11 @@ msgid "Usage: quilt new {patchname}\\n"
 msgstr "Usage : quilt new {nom_de_patch}\\n"
 
 #: quilt/new.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
-"topmost patch in the patch series file.\n"
+"topmost patch.\n"
 "\n"
 "Quilt can be used in sub-directories of a source tree. It determines the\n"
 "root of a source tree by searching for a %s directory above the\n"
@@ -867,7 +872,7 @@ msgstr ""
 msgid "Patch %s exists already\\n"
 msgstr "Le patch %s existe déjà\\n"
 
-#: quilt/new.in:81 quilt/refresh.in:337
+#: quilt/new.in:81 quilt/refresh.in:336
 msgid "Failed to create patch %s\\n"
 msgstr "Impossible de créer le patch %s\\n"
 
@@ -1252,11 +1257,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr "Le patch %s ne contient rien\\n"
 
-#: quilt/refresh.in:319
+#: quilt/refresh.in:318
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s inchangé\\n"
 
-#: quilt/refresh.in:345
+#: quilt/refresh.in:344
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s rafraîchi\\n"
 

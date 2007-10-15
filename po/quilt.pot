@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:368
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:391
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr ""
 
-#: quilt/fork.in:102 quilt/refresh.in:341
+#: quilt/fork.in:102 quilt/refresh.in:340
 msgid "Fork of patch %s created as %s\\n"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 msgid "Failed to import patch %s\\n"
 msgstr ""
 
-#: quilt/import.in:222 quilt/refresh.in:328
+#: quilt/import.in:222 quilt/refresh.in:327
 msgid "Failed to insert patch %s into file series\\n"
 msgstr ""
 
@@ -520,35 +520,39 @@ msgid ""
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
+"--signature file\n"
+"\tAppend the specified signature to messages (defaults to ~/.signature\n"
+"\tif found; use \\`-' for no signature).\n"
+"\n"
 "--reply-to message\n"
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:236
+#: quilt/mail.in:257
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:398
+#: quilt/mail.in:421
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:421
+#: quilt/mail.in:445
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:430
+#: quilt/mail.in:454
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:502
+#: quilt/mail.in:515
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:505
+#: quilt/mail.in:518
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:594
+#: quilt/mail.in:614
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -573,7 +577,7 @@ msgstr ""
 msgid "Patch %s exists already\\n"
 msgstr ""
 
-#: quilt/new.in:81 quilt/refresh.in:337
+#: quilt/new.in:81 quilt/refresh.in:336
 msgid "Failed to create patch %s\\n"
 msgstr ""
 
@@ -826,11 +830,11 @@ msgstr ""
 msgid "Nothing in patch %s\\n"
 msgstr ""
 
-#: quilt/refresh.in:319
+#: quilt/refresh.in:318
 msgid "Patch %s is unchanged\\n"
 msgstr ""
 
-#: quilt/refresh.in:345
+#: quilt/refresh.in:344
 msgid "Refreshed patch %s\\n"
 msgstr ""
 
