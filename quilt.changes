@@ -1,7 +1,19 @@
 -------------------------------------------------------------------
+Thu Oct 25 13:52:34 CEST 2007 - agruen@suse.de
+
+- quilt/mail.in: Make sure that shell meta-characters like * in
+  subjects won't get expanded by accident (this was broken). Add
+  test case.
+- quilt/mail.in: ``formail -x Foo'' will extract all Foo* headers,
+  so use ``formail -x Foo:'' instead.
+- quilt/mail.in: Recognize sequences of common subject prefixes
+  like Fwd:, Fw:, Re:, Aw:, Tr:, [foo] only at the beginning of
+  subjects.
+
+-------------------------------------------------------------------
 Mon Oct 15 15:29:55 CEST 2007 - agruen@suse.de
 
-- quilt/main.in: Add a --signature flag that allows to override
+- quilt/mail.in: Add a --signature flag that allows to override
   the signature used. (The test suite still depended on the
   .signature file of the user runnig it; fixed now.)
 
