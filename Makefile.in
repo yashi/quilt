@@ -123,7 +123,7 @@ SRC +=		changes2changelog
 
 NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
 
-ISODATE :=	$(shell date +%Y-%m-%d)
+ISODATE :=	$(shell date +%Y%m%d)
 
 TESTS :=	$(wildcard test/*.test)
 DIRT +=		test/.depend $(wildcard test/.*.ok)
@@ -159,7 +159,7 @@ scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
-snapshot : $(PACKAGE)-$(ISODATE).tar.bz2
+snapshot : $(PACKAGE)-$(VERSION)_cvs$(ISODATE).tar.bz2
 
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
@@ -234,11 +234,11 @@ $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
-$(PACKAGE)-$(ISODATE).tar.bz2 : configure $(PACKAGE).spec
-	rm -f $(PACKAGE)-$(ISODATE) $@
-	ln -s . $(PACKAGE)-$(ISODATE)
-	tar chf - $(+:%=$(PACKAGE)-$(ISODATE)/%) | bzip2 -9 > $@
-	rm -f $(PACKAGE)-$(ISODATE)
+$(PACKAGE)-$(VERSION)_cvs$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
+	rm -f $(PACKAGE)-$(VERSION)_cvs$(ISODATE) $@
+	ln -s . $(PACKAGE)-$(VERSION)_cvs$(ISODATE)
+	tar chf - $(+:%=$(PACKAGE)-$(VERSION)_cvs$(ISODATE)/%) | bzip2 -9 > $@
+	rm -f $(PACKAGE)-$(VERSION)_cvs$(ISODATE)
 	@echo "File $@ created."
 
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile

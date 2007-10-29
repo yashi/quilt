@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 30 00:24:20 CET 2007 - agruen@suse.de
+
+- Fix `make snapshot'.
+- Make the changelog file chronological again.
+
+-------------------------------------------------------------------
 Mon Oct 29 20:38:25 CET 2007 - agruen@suse.de
 
 - quilt/mail.in: Ran into a bash ``Broken pipe'' problem in
@@ -51,13 +57,6 @@ Fri Aug 10 15:16:12 CEST 2007 - agruen@suse.de
   intro and patch messages.
 
 -------------------------------------------------------------------
-Thu Aug  2 12:37:19 MDT 2007 - paul@pwsan.com
-
-- quilt mail: strip closing angle brackets from the mail sender
-  address before it is inserted into the message ID. (Changed
-  by agruen@suse.de.)
-
--------------------------------------------------------------------
 Wed Aug  8 12:13:16 CEST 2007 - agruen@suse.de
 
 - quilt setup: replace the --path argument with --sourcedir for
@@ -66,6 +65,13 @@ Wed Aug  8 12:13:16 CEST 2007 - agruen@suse.de
   Minor cosmetic changes.
 - Fix a quilt mail test suite bug: specify a dummy --sender in
   test.quiltrc.
+
+-------------------------------------------------------------------
+Thu Aug  2 12:37:19 MDT 2007 - paul@pwsan.com
+
+- quilt mail: strip closing angle brackets from the mail sender
+  address before it is inserted into the message ID. (Changed
+  by agruen@suse.de.)
 
 -------------------------------------------------------------------
 Thu Jul 26 13:53:09 CEST 2007 - agruen@suse.de
