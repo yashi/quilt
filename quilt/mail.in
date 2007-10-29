@@ -288,59 +288,54 @@ fi
 if [ "$(type -t quilt_mail_patch_filter 2> /dev/null)" != function ]
 then
 	quilt_mail_patch_filter() {
-		local patch=$(cat)
-		local header=$(echo "$patch" | patch_header) body subject
+		local tmpdir=$(gen_tempfile -d)
+		cat > $tmpdir/patch
+		patch_header < $tmpdir/patch > $tmpdir/header
+		local subject
 		local -a mh
 
 		# Does this patch have a Subject: line?
-		subject=$(echo "$header" | formail -x Subject:)
+		subject=$(formail -x Subject: < $tmpdir/header)
 		if [ -n "$subject" ]
 		then
-			body=$(echo "$patch" | awk '
-				in_body		{ print }
-				/^$/		{ in_body = 1 }
-				')
+			awk '
+			in_body		{ print }
+			/^$/		{ in_body = 1 }
+			' $tmpdir/patch > $tmpdir/body
 		fi
 
 		# Does this patch have DESC // subject // EDESC?
 		if [ -z "$subject" ]
 		then
-			local desc=$(echo "$header" | awk '
+			local desc=$(awk '
 				/^EDESC\>/	{ desc = 0 }
 				desc		{ print }
 				/^DESC\>/	{ desc = 1 }
-				')
+				' $tmpdir/header)
 			if [ -n "$desc" ]
 			then
 				subject=$(echo "$desc" | join_lines)
-				body=$(echo "$patch" | awk '
-					/^DESC/		{ desc = 1 }
-					! desc		{ print }
-					/^EDESC/	{ desc = 0 }
-					')
+				awk '
+				/^DESC/		{ desc = 1 }
+				! desc		{ print }
+				/^EDESC/	{ desc = 0 }
+				' $tmpdir/patch > $tmpdir/body
 			fi
 		fi
 
 		# Is the first paragraph short enough to be used as the subject?
 		if [ -z "$subject" ]
 		then
-			local para=$(echo "$header" | sed -e $'/^[ \t]*$/q')
+			local para=$(sed -e $'/^[ \t]*$/q' $tmpdir/header)
 			if [ ${#para} -gt 0 -a ${#para} -lt 150 ]
 			then
 				subject=$(echo "$para" | join_lines)
-				body="$(echo "$patch" | awk '
-					in_body		{ print }
-					/^[ \t]*$/	{ in_body = 1 }
-					')"
+				awk '
+				in_body		{ print }
+				/^[ \t]*$/	{ in_body = 1 }
+				' $tmpdir/patch > $tmpdir/body
 			fi
 		fi
-
-		#if ${#mh[@]} -eq 0 ]
-		#then
-		#	# Use the patch name as the subject.
-		#	mh=( "Replace-Subject: $1" )
-		#	body=$patch
-		#fi
 
 		if [ -z "$subject" ]
 		then
@@ -349,20 +344,17 @@ then
 
 		subject=$(echo "$subject" \
 			  | sed -e $'s/^\\(\\(\\[[^]]*\\]\\|fwd:\\|fw:\\|re:\\|aw:\\|tr:\\)[ \t]*\\)*//i')
-		mh=( "Replace-Subject: $subject" )
+		echo "Replace-Subject: $subject"
 
 		# Add recipients defined by some recognized keywords
-		local saved_IFS=$IFS; IFS=$'\n'
-		mh=( "${mh[@]}" 
-		     $(echo "$header" \
-		       | sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
-				-e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
-				-e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip') )
-		IFS=$saved_IFS
+		sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
+		       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
+		       -e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip' \
+		    $tmpdir/header
 
-		printf "%s\n" "${mh[@]}"
 		echo
-		echo "$body"
+		cat $tmpdir/body
+		rm -rf $tmpdir
 	}
 fi
 

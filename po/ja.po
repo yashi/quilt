@@ -312,7 +312,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%s でパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:391
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:373
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -780,34 +780,34 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tToやCC、BCCへの受信者の追加。\n"
 
-#: quilt/mail.in:257
+#: quilt/mail.in:268
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:421
+#: quilt/mail.in:401
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:445
+#: quilt/mail.in:425
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:454
+#: quilt/mail.in:434
 #, fuzzy
 msgid "File %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/mail.in:515
+#: quilt/mail.in:494
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "序文に件名がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:518
+#: quilt/mail.in:497
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:614
+#: quilt/mail.in:594
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 

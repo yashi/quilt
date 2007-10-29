@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Oct 29 20:38:25 CET 2007 - agruen@suse.de
+
+- quilt/mail.in: Ran into a bash ``Broken pipe'' problem in
+  quilt_mail_patch_filter() which I cannot explain or cleanly
+  reproduce. Work around it by not using pipes and subshells as
+  extensively here.
+
+-------------------------------------------------------------------
 Thu Oct 25 13:52:34 CEST 2007 - agruen@suse.de
 
 - quilt/mail.in: Make sure that shell meta-characters like * in
