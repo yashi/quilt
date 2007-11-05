@@ -68,7 +68,7 @@
 
 	$ ls patches/ > series
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
-	$ sed -nre "s/^(From [^ ]*).*/\\1/p" -e "/^Subject:/p" -e "/^To:/p" -e "/^Cc:/p" -e "/^ /p" mbox
+	$ sed -nre "s/^(From [^ ]*).*/\\1/p" -e "/^Subject:/p" -e "/^To:/p" -e "/^Cc:/p" -e "/^ /p" -e "/^Replace-.*:/p" -e "/^Recipient-.*:/p" mbox
 	> From a@b.c
 	> Subject: [test 0/6] This is a test
 	> From a@b.c

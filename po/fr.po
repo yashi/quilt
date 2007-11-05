@@ -1348,6 +1348,21 @@ msgstr "Le nom `%s' est mal parenthésé\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "L'adresse de destination `%s' est invalide\n"
 
+#: quilt/scripts/parse-patch.in:50
+#, perl-format
+msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
+msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
+
+#: quilt/scripts/parse-patch.in:97 quilt/scripts/parse-patch.in:104
+#, perl-format
+msgid "File %s disappeared!\n"
+msgstr "Le fichier %s a disparu !\n"
+
+#: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
+#, perl-format
+msgid "Failed to rename %s to %s: %s\n"
+msgstr "Impossible de renommer %s en %s : %s\n"
+
 #: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
 msgid "No patches in series\\n"
 msgstr "Aucun patch dans la série\\n"
@@ -1602,12 +1617,3 @@ msgstr ""
 
 #~ msgid "File %s removed from patch %s\\n"
 #~ msgstr "Le fichier %s a été enlevé du patch %s.\\n"
-
-#~ msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-#~ msgstr "USAGE : %s {-s|-u} section fichier [< remplacement]\n"
-
-#~ msgid "File %s disappeared!\n"
-#~ msgstr "Le fichier %s a disparu !\n"
-
-#~ msgid "Failed to rename %s to %s: %s\n"
-#~ msgstr "Impossible de renommer %s en %s : %s\n"

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Nov  5 17:25:49 CET 2007 - agruen@suse.de
+
+- quilt/mail.in: Remove the Recipient-* and Replace-* headers
+  used internally from the resulting emails; not sure how that
+  was missed so far.
+
+-------------------------------------------------------------------
 Tue Oct 30 00:24:20 CET 2007 - agruen@suse.de
 
 - Fix `make snapshot'.

@@ -569,7 +569,7 @@ for patch in "${patches[@]}"; do
 		references_header $introduction
 		echo "Content-Disposition: inline; filename=$patch"
 		awk '
-		    !in_body && tolower($0) ~ /^(Recipient|Replace)-.*:/ \
+		    !in_body && tolower($0) ~ /^(recipient|replace)-.*:/ \
 		    		{ next }
 		    /^$/	{ in_body = 1 }
 				{ print }
