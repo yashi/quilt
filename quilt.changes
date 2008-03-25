@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar 26 00:11:27 CET 2008 - agruen@suse.de
+
+- Assume patches are in unified format by default when applying
+  them. (For working with other patch formats, make sure to remove
+  "--unified" from QUILT_PATCH_OPTS in ~/.quiltrc or
+  /etc/quilt.quiltrc.)
+
+-------------------------------------------------------------------
 Mon Nov  5 17:25:49 CET 2007 - agruen@suse.de
 
 - quilt/mail.in: Remove the Recipient-* and Replace-* headers
