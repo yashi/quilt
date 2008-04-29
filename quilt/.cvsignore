@@ -21,7 +21,7 @@ push
 refresh
 remove
 rename
-rest
+revert
 series
 setup
 snapshot
