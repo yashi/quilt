@@ -930,41 +930,41 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:889
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
+#: quilt/pop.in:116 quilt/scripts/patchfns.in:907
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: quilt/pop.in:140
+#: quilt/pop.in:134
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "パッチ %s を、正常にはずすことができません (リフレッシュするか -fを付\n"
 "けてはずしてください)\\n"
 
-#: quilt/pop.in:165
+#: quilt/pop.in:159
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "パッチ %s は、空のようです。はずします\\n"
 
-#: quilt/pop.in:170
+#: quilt/pop.in:164
 msgid "Removing patch %s\\n"
 msgstr "パッチ %s をはずします\\n"
 
-#: quilt/pop.in:241
+#: quilt/pop.in:235
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 
-#: quilt/pop.in:251
+#: quilt/pop.in:245
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
+#: quilt/pop.in:261 quilt/scripts/patchfns.in:508
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:274 quilt/push.in:369
+#: quilt/pop.in:268 quilt/push.in:369
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -1341,7 +1341,7 @@ msgstr ""
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:950
+#: quilt/scripts/patchfns.in:940
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1353,7 +1353,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:1037
+#: quilt/scripts/patchfns.in:1027
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

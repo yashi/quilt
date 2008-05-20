@@ -1,7 +1,7 @@
 /*
   File: backup-files.c
 
-  Copyright (C) 2003, 2004, 2005, 2006
+  Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
   Andreas Gruenbacher <agruen@suse.de>, SuSE Labs
 
   This program is free software; you can redistribute it and/or
@@ -68,6 +68,7 @@ enum { what_noop, what_backup, what_restore, what_remove };
 const char *opt_prefix="", *opt_suffix="", *opt_file;
 int opt_silent, opt_what=what_noop;
 int opt_nolinks, opt_touch;
+int opt_keep_backup;
 
 #define LINE_LENGTH 1024
 
@@ -75,7 +76,7 @@ int opt_nolinks, opt_touch;
 static void
 usage(void)
 {
-	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-s] [-b|-r|-x] [-t] [-L] {file|-} ...\n"
+	printf("Usage: %s [-B prefix] [-z suffix] [-f {file|-}] [-sktL] [-b|-r|-x] {file|-} ...\n"
 	       "\n"
 	       "\tCreate hard linked backup copies of a list of files\n"
 	       "\tread from standard input.\n"
@@ -83,6 +84,7 @@ usage(void)
 	       "\t-b\tCreate backup\n"
 	       "\t-r\tRestore the backup\n"
 	       "\t-x\tRemove backup files and empty parent directories\n"
+	       "\t-k\tWhen doing a restore, keep the backup files\n"
 	       "\t-B\tPath name prefix for backup files\n"
 	       "\t-z\tPath name suffix for backup files\n"
 	       "\t-s\tSilent operation; only print error messages\n"
@@ -353,8 +355,10 @@ process_file(const char *file)
 				perror(file);
 				goto fail;
 			}
-			unlink(backup);
-			remove_parents(backup);
+			if (!opt_keep_backup) {
+				unlink(backup);
+				remove_parents(backup);
+			}
 		} else {
 			if (!opt_silent)
 				printf("Restoring %s\n", file);
@@ -368,8 +372,10 @@ process_file(const char *file)
 				if (opt_nolinks && ensure_nolinks(file))
 					goto fail;
 			}
-			unlink(backup);
-			remove_parents(backup);
+			if (!opt_keep_backup) {
+				unlink(backup);
+				remove_parents(backup);
+			}
 			if (opt_touch)
 				(void) utime(file, NULL);
 			else {
@@ -487,7 +493,7 @@ main(int argc, char *argv[])
 
 	progname = argv[0];
 
-	while ((opt = getopt(argc, argv, "brxB:z:f:shLt")) != -1) {
+	while ((opt = getopt(argc, argv, "brkxB:z:f:shLt")) != -1) {
 		switch(opt) {
 			case 'b':
 				opt_what = what_backup;
@@ -495,6 +501,10 @@ main(int argc, char *argv[])
 
 			case 'r':
 				opt_what = what_restore;
+				break;
+
+			case 'k':
+				opt_keep_backup = 1;
 				break;
 
 			case 'x':

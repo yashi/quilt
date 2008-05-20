@@ -92,21 +92,15 @@ check_for_pending_changes()
 
 	if [ -d $QUILT_PC/$patch ]
 	then
-		if ! rmdir $workdir ||  # note that this is racey...
-		   ! cp -rl $QUILT_PC/$patch $workdir
+		local prefix=$QUILT_PC/$patch/
+		[ ${prefix:0:1} == / ] || prefix=$PWD/$prefix
+		if ! ( cd $workdir && \
+		       $QUILT_LIB/backup-files -B $prefix -rks - )
 		then
 			printf $"Failed to copy files to temporary directory\n" >&2
 			rm -rf $workdir
 			return 1
 		fi
-
-		# Now we may have some zero-size files that have no
-		# permissions (which represent files that the patch
-		# creates). Those may have been created in the meantime,
-		# but patch would refuse to touch them: We must remove
-		# them here.
-		find $workdir -type f -size 0 -exec rm -f '{}' ';'
-
 	fi
 
 	if [ -s $patch_file ]

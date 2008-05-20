@@ -874,31 +874,21 @@ first_modified_by()
 
 apply_patch_temporarily()
 {
-	local workdir=$1 patch=$2 patch_file patch_args files
+	local workdir=$1 patch=$2 patch_file patch_args
 
 	patch_file=$(patch_file_name "$patch")
 	patch_args=$(patch_args "$patch")
 
 	shift 2
-	if [ $# -gt 0 ]
-	then
-		files=( "$@" )
-	else
-		files=( $(files_in_patch "$patch") )
-	fi
 
-	if [ ${#files[@]} -gt 0 ] \
-	   && ! ( cd $QUILT_PC/$patch &&
-		  cp -l --parents "${files[@]}" $workdir/ )
+	local prefix=$QUILT_PC/$patch/
+	[ ${prefix:0:1} == / ] || prefix=$PWD/$prefix
+	if ! ( cd $workdir && \
+	       $QUILT_LIB/backup-files -B $prefix -rks ${@:--} )
 	then
 		printf $"Failed to copy files to temporary directory\n" >&2
 		return 1
 	fi
-	# Now we may have some zero-size files that have no permissions
-	# (which represent files that the patch creates). Those may have
-	# been created in the meantime, but patch would refuse to touch
-	# them: We must remove them here.
-	find $workdir -type f -size 0 -exec rm -f '{}' ';'
 
 	if [ -s $patch_file ]
 	then

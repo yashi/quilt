@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue May 20 09:30:33 CEST 2008 - agruen@suse.de
+
+- Stop using cp -l: it doesn't fall back to doing a regular copy
+  when hardlinks are not supported; on some types of filesystems
+  like AFS and in some situtions, this is annoying.
+
+-------------------------------------------------------------------
 Wed Mar 26 00:11:27 CET 2008 - agruen@suse.de
 
 - Assume patches are in unified format by default when applying

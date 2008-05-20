@@ -962,41 +962,41 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: quilt/pop.in:98 quilt/scripts/patchfns.in:894
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:889
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/pop.in:122 quilt/scripts/patchfns.in:917
+#: quilt/pop.in:116 quilt/scripts/patchfns.in:907
 msgid "Failed to patch temporary files\\n"
 msgstr "Konnte temporäre Dateien nicht patchen\\n"
 
-#: quilt/pop.in:140
+#: quilt/pop.in:134
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Patch %s kann nicht entfernt werden (Patch aktualisieren oder entfernen "
 "erzwingen mit -f)\\n"
 
-#: quilt/pop.in:165
+#: quilt/pop.in:159
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "Patch %s scheint leer zu sein; wird entfernt\\n"
 
-#: quilt/pop.in:170
+#: quilt/pop.in:164
 msgid "Removing patch %s\\n"
 msgstr "Entferne patch %s\\n"
 
-#: quilt/pop.in:241
+#: quilt/pop.in:235
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 
-#: quilt/pop.in:251
+#: quilt/pop.in:245
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:267 quilt/scripts/patchfns.in:508
+#: quilt/pop.in:261 quilt/scripts/patchfns.in:508
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
-#: quilt/pop.in:274 quilt/push.in:369
+#: quilt/pop.in:268 quilt/push.in:369
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -1370,7 +1370,7 @@ msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:950
+#: quilt/scripts/patchfns.in:940
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1383,7 +1383,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:1037
+#: quilt/scripts/patchfns.in:1027
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
