@@ -1597,11 +1597,11 @@ msgstr ""
 
 #: quilt/upgrade.in:71
 msgid "Converting meta-data to version %s\\n"
-msgstr "Conversion des méta-donées au format v%s\\n"
+msgstr "Conversion des méta-données au format v%s\\n"
 
 #: quilt/upgrade.in:102
 msgid "Conversion failed\\n"
-msgstr "Échec de la convertion\\n"
+msgstr "Échec de la conversion\\n"
 
 #: quilt/upgrade.in:103
 msgid ""
