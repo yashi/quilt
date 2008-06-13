@@ -238,7 +238,7 @@ patch_in_series()
 insert_in_series()
 {
 	local patch=$1 patch_args=$2
-	local next=$(patch_after "$(top_patch)") tmpfile
+	local before=${3-$(patch_after "$(top_patch)")} tmpfile
 
 	if [ -n "$patch_args" ]
 	then
@@ -247,10 +247,10 @@ insert_in_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	mkdir -p $(dirname $SERIES)
-	if [ -n "$next" ]
+	if [ -n "$before" ]
 	then
 		awk '
-		/^'"$(quote_re $next)"'([ \t]|$)/ \
+		/^'"$(quote_re $before)"'([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
 				{ print }
 		' $SERIES > $tmpfile

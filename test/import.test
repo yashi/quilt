@@ -228,5 +228,25 @@
 	>
 	> No patches applied
 
+	# Test importing multiple patches at once
+	$ rm -rf .pc patches
+	$ quilt import t/patch1.diff t/patchR.diff
+	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
+	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+
+	$ cat patches/series
+	> patch1.diff
+	> patchR.diff
+
+	$ rm -rf .pc patches
+	$ quilt import t/patchR.diff
+	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+	$ quilt import t/patch1.diff
+	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
+
+	$ cat patches/series
+	> patch1.diff
+	> patchR.diff
+
 	$ cd ..
 	$ rm -rf d

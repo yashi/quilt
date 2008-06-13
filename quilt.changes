@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jun 13 11:50:30 CEST 2008 - agruen@suse.de
+
+- quilt/import.in: When importing multiple patches at once, make
+  sure that they won't end up in the series file in reverse order.
+  This happened because each new patch was inserted before the
+  "next" patch, which made it the new "next" patch.
+
+-------------------------------------------------------------------
 Tue May 20 09:30:33 CEST 2008 - agruen@suse.de
 
 - Stop using cp -l: it doesn't fall back to doing a regular copy

@@ -662,35 +662,35 @@ msgstr ""
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr "オプション \\`-P'は、パッチを一つだけ取り込むときのみ有効です\\n"
 
-#: quilt/import.in:168
+#: quilt/import.in:169
 msgid "Patch %s is applied\\n"
 msgstr "パッチ %s は、すでに適用されています\\n"
 
-#: quilt/import.in:177
+#: quilt/import.in:178
 msgid "Patch %s already exists in series.\\n"
 msgstr "パッチ %s は、すでに seriesの中にあります\\n"
 
-#: quilt/import.in:183
+#: quilt/import.in:184
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "パッチ %s は、すでに存在します。-fで置き換えることができます\\n"
 
-#: quilt/import.in:194
+#: quilt/import.in:195
 msgid "Replacing patch %s with new version\\n"
 msgstr "パッチ %s を新しいバージョンに置き換えます\\n"
 
-#: quilt/import.in:198
+#: quilt/import.in:199
 msgid "Importing patch %s\\n"
 msgstr "パッチ %s を取り込みます\\n"
 
-#: quilt/import.in:200
+#: quilt/import.in:201
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "パッチ %s を取り込んでいます (%s として保存されます)\\n"
 
-#: quilt/import.in:213
+#: quilt/import.in:214
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:222 quilt/refresh.in:327
+#: quilt/import.in:223 quilt/refresh.in:327
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 

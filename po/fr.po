@@ -688,35 +688,35 @@ msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr ""
 "L'option « -P » ne peut être utilisé que lors de l'import d'un seul patch.\\n"
 
-#: quilt/import.in:168
+#: quilt/import.in:169
 msgid "Patch %s is applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/import.in:177
+#: quilt/import.in:178
 msgid "Patch %s already exists in series.\\n"
 msgstr "Le patch %s existe déjà dans la série.\\n"
 
-#: quilt/import.in:183
+#: quilt/import.in:184
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Le patch %s existe. Utilisez -f pour le remplacer.\\n"
 
-#: quilt/import.in:194
+#: quilt/import.in:195
 msgid "Replacing patch %s with new version\\n"
 msgstr "Remplacement du patch %s avec la nouvelle version\\n"
 
-#: quilt/import.in:198
+#: quilt/import.in:199
 msgid "Importing patch %s\\n"
 msgstr "Import du patch %s\\n"
 
-#: quilt/import.in:200
+#: quilt/import.in:201
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Import du patch %s (enregistré dans %s)\\n"
 
-#: quilt/import.in:213
+#: quilt/import.in:214
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:222 quilt/refresh.in:327
+#: quilt/import.in:223 quilt/refresh.in:327
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
