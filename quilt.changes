@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 24 09:32:29 CEST 2008 - agruen@suse.de
+
+- quilt/scripts/patchfns.in (cat_series): Handle lines properly
+  that only contain whitespace.
+
+-------------------------------------------------------------------
 Fri Jun 13 11:50:30 CEST 2008 - agruen@suse.de
 
 - quilt/import.in: When importing multiple patches at once, make

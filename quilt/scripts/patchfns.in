@@ -346,8 +346,8 @@ cat_series()
 {
 	if [ -e $SERIES ]
 	then
-		sed -e '/^$/d' -e '/^#/d' -e 's/^[ '$'\t'']*//' \
-		    -e 's/[ '$'\t''].*//' $SERIES
+		sed -e '/^#/d' -e 's/^[ '$'\t'']*//' \
+		    -e 's/[ '$'\t''].*//' -e '/^$/d' $SERIES
 	else
 		return 1
 	fi
