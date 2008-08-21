@@ -159,6 +159,11 @@ scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
 
+publish : dist
+	gpg --detach-sign --use-agent $(PACKAGE)-$(VERSION).tar.gz
+	scp $(PACKAGE)-$(VERSION).tar.gz{,.sig} \
+		dl.sv.nongnu.org:/releases/quilt/
+
 snapshot : $(PACKAGE)-$(VERSION)_cvs$(ISODATE).tar.bz2
 
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz

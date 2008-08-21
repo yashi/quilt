@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug 21 14:26:56 CEST 2008 - agruen@suse.de
+
+- Bump version to 0.47.
+- Add a new "publish" makefile target for pushing releases to
+  savannah.nongnu.org.
+
+-------------------------------------------------------------------
 Tue Jun 24 09:32:29 CEST 2008 - agruen@suse.de
 
 - quilt/scripts/patchfns.in (cat_series): Handle lines properly
