@@ -184,6 +184,7 @@ _quilt_completion()
 	        COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
 		;;
 	     *)
+	        _quilt_comfile
 	        COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p" -- $cur ) )
 	        ;;
 	   esac
