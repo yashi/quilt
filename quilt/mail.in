@@ -308,9 +308,9 @@ then
 		if [ -z "$subject" ]
 		then
 			local desc=$(awk '
-				/^EDESC\>/	{ desc = 0 }
+				/^EDESC/	{ desc = 0 }
 				desc		{ print }
-				/^DESC\>/	{ desc = 1 }
+				/^DESC/	{ desc = 1 }
 				' $tmpdir/header)
 			if [ -n "$desc" ]
 			then
