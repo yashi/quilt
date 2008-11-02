@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Nov  2 18:07:36 CET 2008 - agruen@suse.de
+
+- To allow using 'procmail' (which contains 'formail') as weak
+  dependency in package managers, explicitely check for the
+  'formail' binary when invoking 'quilt mail' so that the user
+  gets a clear error message when 'formail' is missing and knows
+  what to do. (From Bernhard Walle <bwalle@suse.de>.)
+
+-------------------------------------------------------------------
 Sun Nov  2 18:05:14 CET 2008 - agruen@suse.de
 
 - push command: Remove leftovers of the former interactive-option.
