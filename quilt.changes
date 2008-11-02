@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Nov  2 17:59:03 CET 2008 - agruen@suse.de
+
+- From Wolfram Sang <w.sang@pengutronix.de>:
+  "The test for import did not always recreate a patches-dir
+   inside the temporary location, so it would fail if you
+   modified quilt using quilt."
+
+-------------------------------------------------------------------
 Sun Nov  2 17:54:51 CET 2008 - agruen@suse.de
 
 - Fix from Dean Roehrich <Dean.Roehrich@sun.com> for Solaris:
