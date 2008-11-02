@@ -426,8 +426,8 @@ ifeq ($(USE_NLS),yes)
 install-main ::
 	for lang in $(LINGUAS) ; do					\
 		dir=$(BUILD_ROOT)$(localedir)/$$lang/LC_MESSAGES;	\
-		install -d $$dir;					\
-		install -m 644 po/$$lang.mo				\
+		$(INSTALL) -d $$dir;					\
+		$(INSTALL) -m 644 po/$$lang.mo				\
 		    $$dir/quilt.mo ;					\
 	done
 

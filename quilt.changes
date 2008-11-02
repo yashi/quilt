@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Nov  2 17:54:51 CET 2008 - agruen@suse.de
+
+- Fix from Dean Roehrich <Dean.Roehrich@sun.com> for Solaris:
+  "I ran into a case solaris ON build 99 where configure found
+   ginstall, but the Makefile.in used something else, and that
+   led to things going a bit haywire."
+
+-------------------------------------------------------------------
 Sun Nov  2 17:48:40 CET 2008 - agruen@suse.de
 
 - Add a dual BSD/GPL license header to test/run.
