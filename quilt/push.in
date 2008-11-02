@@ -268,7 +268,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvah --long leave-rejects,interactive,color:: -- "$@"`
+options=`getopt -o fqvah --long leave-rejects,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -296,9 +296,6 @@ do
 		usage -h ;;
 	--leave-rejects)
 		opt_leave_rejects=1
-		shift ;;
-	--interactive)
-		opt_interactive=1
 		shift ;;
 	--color)
 		case "$2" in

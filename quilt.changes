@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Nov  2 18:05:14 CET 2008 - agruen@suse.de
+
+- push command: Remove leftovers of the former interactive-option.
+  (From Wolfram Sang <w.sang@pengutronix.de>.)
+
+-------------------------------------------------------------------
 Sun Nov  2 18:01:23 CET 2008 - agruen@suse.de
 
 - mail command: don't word boundaries in awk; it's a GNU awk
