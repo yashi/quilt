@@ -245,6 +245,8 @@ export PATH="$tmpdir/bin:$PATH"
 rpmbuild --eval "%define _sourcedir $sourcedir" \
 	 --eval "%define _specdir   $specdir" \
 	 --eval "%define _builddir  $tmpdir/build" \
+	 --eval "%define __patch    $tmpdir/bin/patch" \
+	 --eval "%define __tar      $tmpdir/bin/tar" \
 	 --nodeps \
 	 -bp "$specdir/$specfile" < /dev/null >&2
 status=$?

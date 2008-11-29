@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Nov 29 15:58:21 CET 2008 - agruen@suse.de
+
+- quilt setup: Define %__tar and %__patch to refer to the tar and
+  patch wrapper. (Patch from Jan Kratochvil, Savannah bug 24964).
+
+-------------------------------------------------------------------
 Sun Nov  2 18:07:36 CET 2008 - agruen@suse.de
 
 - To allow using 'procmail' (which contains 'formail') as weak
