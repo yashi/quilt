@@ -35,6 +35,10 @@ General:
 	- wrapper scripts: check with [ -ef ] if the wrapper is the same
 	  as the default binary found to avoid wrappers like awk -> gawk.
 
+	- Add some more colors.
+
+	- Add the same kind of (optional) pager handling that git has.
+
 Documentation:
 
 	- How to import a complete directory before doing wild changes?
