@@ -123,7 +123,7 @@ SRC +=		changes2changelog
 
 NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
 
-ISODATE :=	$(shell date +%Y%m%d)
+GIT_DESC :=	$(shell ./git-desc)
 
 TESTS :=	$(filter-out test/patch-wrapper.test,$(wildcard test/*.test))
 DIRT +=		test/.depend $(wildcard test/.*.ok)
@@ -164,7 +164,7 @@ publish : dist
 	scp $(PACKAGE)-$(VERSION).tar.gz{,.sig} \
 		dl.sv.nongnu.org:/releases/quilt/
 
-snapshot : $(PACKAGE)-$(VERSION)_cvs$(ISODATE).tar.bz2
+snapshot : $(PACKAGE)-$(GIT_DESC).tar.bz2
 
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
@@ -239,11 +239,11 @@ $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(VERSION)
 	@echo "File $@ created."
 
-$(PACKAGE)-$(VERSION)_cvs$(ISODATE).tar.bz2 : $(SRC) configure $(PACKAGE).spec
-	rm -f $(PACKAGE)-$(VERSION)_cvs$(ISODATE) $@
-	ln -s . $(PACKAGE)-$(VERSION)_cvs$(ISODATE)
-	tar chf - $(+:%=$(PACKAGE)-$(VERSION)_cvs$(ISODATE)/%) | bzip2 -9 > $@
-	rm -f $(PACKAGE)-$(VERSION)_cvs$(ISODATE)
+$(PACKAGE)-$(GIT_DESC).tar.bz2 : $(SRC) configure $(PACKAGE).spec
+	rm -f $(PACKAGE)-$(GIT_DESC) $@
+	ln -s . $(PACKAGE)-$(GIT_DESC)
+	tar chf - $(+:%=$(PACKAGE)-$(GIT_DESC)/%) | bzip2 -9 > $@
+	rm -f $(PACKAGE)-$(GIT_DESC)
 	@echo "File $@ created."
 
 $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
