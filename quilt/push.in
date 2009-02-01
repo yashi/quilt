@@ -46,7 +46,7 @@ be used.
 
 -M, --merge
 	Three-way merge format: all changes are merged into the patched
-	files (see diff3(1), merge(1)).  Bumps the default fuzz factor to 3.
+	files (see diff3(1), merge(1)).
 
 --leave-rejects
 	Leave around the reject files patch produced, even if the patch
@@ -353,7 +353,7 @@ more_patch_args=
 if [ -n "$opt_merge" ]
 then
 	more_patch_args="$more_patch_args --merge=rejects"
-	[ -z "$opt_fuzz" ] && opt_fuzz=3
+	#[ -z "$opt_fuzz" ] && opt_fuzz=3
 fi
 [ -n "$opt_fuzz" ] && more_patch_args="$more_patch_args -F$opt_fuzz"
 
