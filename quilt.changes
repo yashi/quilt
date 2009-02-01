@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Feb  1 21:03:42 CET 2009 - agruen@suse.de
+
+- push command: Add --fuzz=N option. Add experimental --merge
+  option. Fail pushes when GNU patch exits with a status > 1.
+  Some cleanups.
+
+-------------------------------------------------------------------
 Sat Nov 29 15:58:21 CET 2008 - agruen@suse.de
 
 - quilt setup: Define %__tar and %__patch to refer to the tar and
