@@ -269,7 +269,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvaMh --long fuzz:,merge,leave-rejects,color:: -- "$@"`
+options=`getopt -o fqvaMh --long fuzz:,merge::,leave-rejects,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -300,8 +300,8 @@ do
 		opt_fuzz=$2
 		shift 2 ;;
 	-M|--merge)
-		opt_merge=1
-		shift ;;
+		opt_merge=${2:-rejects}
+		shift 2 ;;
 	--leave-rejects)
 		opt_leave_rejects=1
 		shift ;;
@@ -352,7 +352,7 @@ more_patch_args=
 	more_patch_args="$more_patch_args -f"
 if [ -n "$opt_merge" ]
 then
-	more_patch_args="$more_patch_args --merge=rejects"
+	more_patch_args="$more_patch_args --merge=$opt_merge"
 	#[ -z "$opt_fuzz" ] && opt_fuzz=3
 fi
 [ -n "$opt_fuzz" ] && more_patch_args="$more_patch_args -F$opt_fuzz"
