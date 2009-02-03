@@ -137,7 +137,7 @@ export QUILT_DIR QUILT_LIB QUILTRC
 
 #-----------------------------------------------------------------------
 
-all : configure scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
+all : configure quilt.spec scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
 
 $(LIB:%=lib/%) :: $(LIBOBJS)
 
