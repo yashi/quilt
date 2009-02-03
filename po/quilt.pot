@@ -206,7 +206,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:373
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:380
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -528,31 +528,31 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:268
+#: quilt/mail.in:275
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:401
+#: quilt/mail.in:408
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:425
+#: quilt/mail.in:432
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:434
+#: quilt/mail.in:441
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:494
+#: quilt/mail.in:501
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:497
+#: quilt/mail.in:504
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:594
+#: quilt/mail.in:601
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -669,7 +669,7 @@ msgstr ""
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:268 quilt/push.in:369
+#: quilt/pop.in:268 quilt/push.in:383
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -686,8 +686,8 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--leave-rejects] [--color[=always|auto|never]] "
-"[num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge] [--leave-rejects] [--color[=always|auto|"
+"never]] [num|patch]\\n"
 msgstr ""
 
 #: quilt/push.in:27
@@ -709,6 +709,13 @@ msgid ""
 "\n"
 "-v\tVerbose operation.\n"
 "\n"
+"--fuzz=N\n"
+"\tSet the maximum fuzz factor (default: 2).\n"
+"\n"
+"-M, --merge\n"
+"\tThree-way merge format: all changes are merged into the patched\n"
+"\tfiles (see diff3(1), merge(1)).\n"
+"\n"
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
 "\tis not actually applied.\n"
@@ -717,7 +724,7 @@ msgid ""
 "\tUse syntax coloring.\n"
 msgstr ""
 
-#: quilt/push.in:60
+#: quilt/push.in:67
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr ""
 
@@ -725,27 +732,27 @@ msgstr ""
 msgid "Applying patch %s\\n"
 msgstr ""
 
-#: quilt/push.in:207
+#: quilt/push.in:208
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr ""
 
-#: quilt/push.in:211
+#: quilt/push.in:212
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr ""
 
-#: quilt/push.in:215
+#: quilt/push.in:216
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:225
+#: quilt/push.in:226
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:228
+#: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:349
+#: quilt/push.in:363
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 

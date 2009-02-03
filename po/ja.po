@@ -312,7 +312,7 @@ msgstr ""
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr "-p%s でパッチの差分はとれません。-p0か -p1を指定してください\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:373
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:380
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -780,34 +780,34 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tToやCC、BCCへの受信者の追加。\n"
 
-#: quilt/mail.in:268
+#: quilt/mail.in:275
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:401
+#: quilt/mail.in:408
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:425
+#: quilt/mail.in:432
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:434
+#: quilt/mail.in:441
 #, fuzzy
 msgid "File %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/mail.in:494
+#: quilt/mail.in:501
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "序文に件名がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:497
+#: quilt/mail.in:504
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:594
+#: quilt/mail.in:601
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 
@@ -964,7 +964,7 @@ msgstr "適用されているパッチはありません\\n"
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:268 quilt/push.in:369
+#: quilt/pop.in:268 quilt/push.in:383
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -985,8 +985,8 @@ msgstr ""
 #: quilt/push.in:24
 #, fuzzy
 msgid ""
-"Usage: quilt push [-afqv] [--leave-rejects] [--color[=always|auto|never]] "
-"[num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge] [--leave-rejects] [--color[=always|auto|"
+"never]] [num|patch]\\n"
 msgstr ""
 "使い方: quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
 "[=always|auto|never]] [数字|パッチ]\\n"
@@ -1010,6 +1010,13 @@ msgid ""
 "\tapply the patch interactively: the patch utility may ask questions.\n"
 "\n"
 "-v\tVerbose operation.\n"
+"\n"
+"--fuzz=N\n"
+"\tSet the maximum fuzz factor (default: 2).\n"
+"\n"
+"-M, --merge\n"
+"\tThree-way merge format: all changes are merged into the patched\n"
+"\tfiles (see diff3(1), merge(1)).\n"
 "\n"
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
@@ -1046,7 +1053,7 @@ msgstr ""
 "        シンタックスの色付けを行なう。\n"
 "\n"
 
-#: quilt/push.in:60
+#: quilt/push.in:67
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
@@ -1054,28 +1061,28 @@ msgstr "ユーザによって中断されました。パッチ %s は適用さ�
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:207
+#: quilt/push.in:208
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:211
+#: quilt/push.in:212
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:215
+#: quilt/push.in:216
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:225
+#: quilt/push.in:226
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "パッチ %s は、反転して適用することができます\\n"
 
-#: quilt/push.in:228
+#: quilt/push.in:229
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:349
+#: quilt/push.in:363
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
