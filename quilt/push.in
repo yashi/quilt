@@ -44,9 +44,9 @@ be used.
 --fuzz=N
 	Set the maximum fuzz factor (default: 2).
 
--M, --merge
+-M, --merge={rejects,fuzz,all}
 	Three-way merge format: all changes are merged into the patched
-	files (see diff3(1), merge(1)).
+	files (see patch(1), diff3(1), merge(1)).
 
 --leave-rejects
 	Leave around the reject files patch produced, even if the patch
@@ -299,7 +299,10 @@ do
 	--fuzz)
 		opt_fuzz=$2
 		shift 2 ;;
-	-M|--merge)
+	-M)
+		opt_merge=rejects
+		shift 1 ;;
+	--merge)
 		opt_merge=${2:-rejects}
 		shift 2 ;;
 	--leave-rejects)
