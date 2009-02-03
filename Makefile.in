@@ -123,7 +123,7 @@ SRC +=		changes2changelog
 
 NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
 
-GIT_DESC :=	$(shell ./git-desc)
+GIT_DESC :=	$(shell ./git-desc | sed -e 's:^v::')
 
 TESTS :=	$(filter-out test/patch-wrapper.test,$(wildcard test/*.test))
 DIRT +=		test/.depend $(wildcard test/.*.ok)
