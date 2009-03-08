@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Mar  8 22:17:46 CET 2009 - agruen@suse.de
+
+- series and patches commands: add --color options for colorizing
+  the output.
+
+-------------------------------------------------------------------
 Sun Feb  1 21:03:42 CET 2009 - agruen@suse.de
 
 - push command: Add --fuzz=N option. Add experimental --merge
