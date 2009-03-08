@@ -953,7 +953,7 @@ print_patch() {
 
 setup_colors()
 {
-	local C=diff_hdr=32:diff_add=36:diff_mod=35:diff_rem=35:diff_hunk=33:diff_ctx=35:diff_cctx=33:patch_offs=33:patch_fuzz=35:patch_fail=31:patch_applied=32:clear=00
+	local C=diff_hdr=32:diff_add=36:diff_mod=35:diff_rem=35:diff_hunk=33:diff_ctx=35:diff_cctx=33:patch_offs=33:patch_fuzz=35:patch_fail=31:patch_applied=32:series_app=32:series_top=32:series_una=:clear=00
 	[ -n "$QUILT_COLORS" ] && C="$C:$QUILT_COLORS"
 
 	C=${C//=/=\'$'\e'[}

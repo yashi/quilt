@@ -35,17 +35,17 @@ Print the names of all patches in the series file.
 
 cat_patches()
 {
-	local prefix=$1
-	shift
+	local color=$1 prefix=$2
+	shift 2
 	local patch
 
 	for patch in "$@"
 	do
-		echo "$prefix$(print_patch "$patch")"
+		echo "$color$prefix$(print_patch "$patch")$color_clear"
 	done
 }
 
-options=`getopt -o vh -- "$@"`
+options=`getopt -o vh --long color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -60,6 +60,19 @@ do
 	-v)
 		opt_verbose=1
 		shift ;;
+	--color)
+		case "$2" in
+		"" | always)
+			opt_color=1 ;;
+		auto | tty)
+			opt_color=
+			[ -t 1 ] && opt_color=1 ;;
+		never)
+			opt_color= ;;
+		*)
+			usage ;;
+		esac
+		shift 2 ;;
 	-h)
 		usage -h ;;
 	--)
@@ -73,14 +86,19 @@ then
 	usage
 fi
 
-if [ -n "$opt_verbose" ]
+if [ -n "$opt_verbose$opt_color" ]
 then
+	[ -n "$opt_color" ] && setup_colors
+
 	top=$(top_patch)
-	cat_patches "+ " $(patches_before $top)
-	[ -n "$top" ] && cat_patches "= " $top
-	cat_patches "  " $(patches_after $top)
+	cat_patches "$color_series_app" \
+		"${opt_verbose:++ }" $(patches_before $top)
+	[ -n "$top" ] && cat_patches "$color_series_top" \
+		"${opt_verbose:+= }" $top
+	cat_patches "$color_series_una" \
+		"${opt_verbose:+  }" $(patches_after $top)
 else
-	cat_patches "" $(cat_series)
+	cat_patches "" "" $(cat_series)
 fi
 ### Local Variables:
 ### mode: shell-script

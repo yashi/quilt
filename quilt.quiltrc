@@ -15,6 +15,7 @@ QUILT_PATCH_OPTS="--unified"
 QUILT_PUSH_ARGS="--color=auto"
 QUILT_DIFF_ARGS="--no-timestamps --color=auto"
 QUILT_REFRESH_ARGS="--no-timestamps --backup"
+QUILT_SERIES_ARGS="--color=auto"
 
 # (Add "-p ab" to QUILT_DIFF_ARGS and QUILT_REFRESH_ARGS to get
 #  -p1 style diffs with a/file and b/file filenams in headers
