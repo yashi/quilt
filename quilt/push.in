@@ -44,7 +44,7 @@ be used.
 --fuzz=N
 	Set the maximum fuzz factor (default: 2).
 
--M, --merge={rejects,fuzz,all}
+-M, --merge
 	Three-way merge format: all changes are merged into the patched
 	files (see patch(1), diff3(1), merge(1)).
 
@@ -269,7 +269,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvaMh --long fuzz:,merge::,leave-rejects,color:: -- "$@"`
+options=`getopt -o fqvaMh --long fuzz:,merge,leave-rejects,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -299,12 +299,9 @@ do
 	--fuzz)
 		opt_fuzz=$2
 		shift 2 ;;
-	-M)
-		opt_merge=rejects
+	-M | --merge)
+		opt_merge=1
 		shift 1 ;;
-	--merge)
-		opt_merge=${2:-rejects}
-		shift 2 ;;
 	--leave-rejects)
 		opt_leave_rejects=1
 		shift ;;
@@ -355,8 +352,7 @@ more_patch_args=
 	more_patch_args="$more_patch_args -f"
 if [ -n "$opt_merge" ]
 then
-	more_patch_args="$more_patch_args --merge=$opt_merge"
-	#[ -z "$opt_fuzz" ] && opt_fuzz=3
+	more_patch_args="$more_patch_args --merge"
 fi
 [ -n "$opt_fuzz" ] && more_patch_args="$more_patch_args -F$opt_fuzz"
 
