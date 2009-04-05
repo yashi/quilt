@@ -315,8 +315,7 @@ msgstr ""
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
-"Les options «--combine», «--snapshot» et «-z» ne peuvent pas être combinées."
-"\\n"
+"Les options «--combine», «--snapshot» et «-z» ne peuvent pas être combinées.\\n"
 
 #: quilt/diff.in:232
 msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -999,7 +998,7 @@ msgstr "Aucun patch retiré\\n"
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
-#: quilt/pop.in:268 quilt/push.in:383
+#: quilt/pop.in:268 quilt/push.in:381
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -1051,9 +1050,8 @@ msgid ""
 "--fuzz=N\n"
 "\tSet the maximum fuzz factor (default: 2).\n"
 "\n"
-"-M, --merge\n"
-"\tThree-way merge format: all changes are merged into the patched\n"
-"\tfiles (see diff3(1), merge(1)).\n"
+"-m, --merge\n"
+"\tMerge the patch file into the original files (see patch(1)).\n"
 "\n"
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
@@ -1093,36 +1091,36 @@ msgstr ""
 "\tApplique une coloration syntaxique, toujours («always»), de manière\n"
 "\tautomatique («auto») ou jamais («never»).\n"
 
-#: quilt/push.in:67
+#: quilt/push.in:66
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Interrompu par l'utilisateur ; le patch %s n'a pas été appliqué.\\n"
 
-#: quilt/push.in:173
+#: quilt/push.in:172
 msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
-#: quilt/push.in:208
+#: quilt/push.in:207
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Le patch %s n'existe pas ; patch vide appliqué\\n"
 
-#: quilt/push.in:212
+#: quilt/push.in:211
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
-#: quilt/push.in:216
+#: quilt/push.in:215
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
-#: quilt/push.in:226
+#: quilt/push.in:225
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Le patch %s peut être appliqué à l'envers\\n"
 
-#: quilt/push.in:229
+#: quilt/push.in:228
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
-#: quilt/push.in:363
+#: quilt/push.in:361
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 

@@ -57,6 +57,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
+* Sun Apr 05 2009 - agruen@suse.de
+- Push command: don't imply --force when --merge is given so that
+  a patch that doesn't merge cleanly will still require to
+  spcify --force separately.  Update merge syntax highlighting.
+* Tue Mar 31 2009 - agruen@suse.de
+- Rename push's -M option to -m.
+* Sun Mar 08 2009 - agruen@suse.de
+- series and patches commands: add --color options for colorizing
+  the output.
 * Sun Feb 01 2009 - agruen@suse.de
 - push command: Add --fuzz=N option. Add experimental --merge
   option. Fail pushes when GNU patch exits with a status > 1.

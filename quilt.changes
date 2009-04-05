@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sun Apr  5 16:05:05 CEST 2009 - agruen@suse.de
+
+- Push command: don't imply --force when --merge is given so that
+  a patch that doesn't merge cleanly will still require to
+  spcify --force separately.  Update merge syntax highlighting.
+
+-------------------------------------------------------------------
+Tue Mar 31 14:16:07 CEST 2009 - agruen@suse.de
+
+- Rename push's -M option to -m.
+
+-------------------------------------------------------------------
 Sun Mar  8 22:17:46 CET 2009 - agruen@suse.de
 
 - series and patches commands: add --color options for colorizing

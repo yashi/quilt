@@ -964,7 +964,7 @@ msgstr "適用されているパッチはありません\\n"
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:268 quilt/push.in:383
+#: quilt/pop.in:268 quilt/push.in:381
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -1014,9 +1014,8 @@ msgid ""
 "--fuzz=N\n"
 "\tSet the maximum fuzz factor (default: 2).\n"
 "\n"
-"-M, --merge\n"
-"\tThree-way merge format: all changes are merged into the patched\n"
-"\tfiles (see diff3(1), merge(1)).\n"
+"-m, --merge\n"
+"\tMerge the patch file into the original files (see patch(1)).\n"
 "\n"
 "--leave-rejects\n"
 "\tLeave around the reject files patch produced, even if the patch\n"
@@ -1053,36 +1052,36 @@ msgstr ""
 "        シンタックスの色付けを行なう。\n"
 "\n"
 
-#: quilt/push.in:67
+#: quilt/push.in:66
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
-#: quilt/push.in:173
+#: quilt/push.in:172
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:208
+#: quilt/push.in:207
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:212
+#: quilt/push.in:211
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:216
+#: quilt/push.in:215
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:226
+#: quilt/push.in:225
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "パッチ %s は、反転して適用することができます\\n"
 
-#: quilt/push.in:229
+#: quilt/push.in:228
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:363
+#: quilt/push.in:361
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
