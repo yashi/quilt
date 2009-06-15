@@ -4,3 +4,5 @@ QUILT_REFRESH_ARGS="--no-timestamps"
 QUILT_MAIL_ARGS="--charset=UTF-8 --sender a@b.c --signature=-"
 
 QUILT_PATCHES_PREFIX=yes
+
+export QUOTING_STYLE=literal
