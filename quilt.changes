@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jun 15 16:12:30 CEST 2009 - agruen@suse.de
+
+- Some filesystems / operating systems may miss files in readdir()
+  loops when the directory is modified at the same time (e.g.,
+  http://support.apple.com/kb/TA21420). Avoid running into this
+  problem in backup-files.c by reading all files before processing
+  them.
+
+-------------------------------------------------------------------
 Sun Apr  5 16:05:05 CEST 2009 - agruen@suse.de
 
 - Push command: don't imply --force when --merge is given so that
