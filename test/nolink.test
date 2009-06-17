@@ -2,6 +2,7 @@
 	$ mkdir -p d/patches
 	$ cd d
 
+# quilt should preserve hard links and not create new ones
 	$ echo foo > foo
 	$ ln foo foo2
 	$ ls -l foo | awk '{ print $2 }'
@@ -52,6 +53,25 @@
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 2
+
+# quilt revert should not create hard links
+	$ echo bar > bar
+	$ quilt push -q
+	> Applying patch patches/test.diff
+	> Now at patch patches/test.diff
+
+	$ quilt add bar
+	> File bar added to patch patches/test.diff
+	$ echo "bar changed" > bar
+	$ quilt revert bar
+	> Changes to bar in patch patches/test.diff reverted
+
+	$ ls -l bar | awk '{ print $2 }'
+	> 1
+
+	$ quilt pop -q
+	> Removing patch patches/test.diff
+	> No patches applied
 
 	$ cd ..
 	$ rm -rf d

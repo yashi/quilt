@@ -104,7 +104,6 @@ do
 		fi
 
 		mkdir -p "$(dirname "$file")"
-		ln -f "$workdir/$file" "$file" 2>&1 ||
 		cp -p "$workdir/$file" "$file"
 	else
 		if [ ! -e "$file" ]
