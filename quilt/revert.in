@@ -23,9 +23,10 @@ usage()
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Revert the changes to the topmost or named patch for the specified file(s).
-Changes to files that are modified by patches on top of the specified patch
-cannot be reverted.
+Revert uncommitted changes to the topmost or named patch for the specified
+file(s): after the revert, 'quilt diff -z' will show no differences for those
+files. Changes to files that are modified by patches on top of the specified
+patch cannot be reverted.
 
 -P patch
 	Revert changes in the named patch.

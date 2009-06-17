@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jun 17 12:58:10 CEST 2009 - agruen@suse.de
+
+- Prevent "quilt revert" from accidentally creating hard links
+  (bug #25305; fix from Jean Delvare <jdelvare@suse.de>).
+- Try to clarify the help text of "quilt revert".
+
+-------------------------------------------------------------------
 Mon Jun 15 16:12:30 CEST 2009 - agruen@suse.de
 
 - Some filesystems / operating systems may miss files in readdir()
