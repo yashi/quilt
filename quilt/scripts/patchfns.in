@@ -841,12 +841,11 @@ in_array()
 
 gen_tempfile()
 {
-	local name
 	if [ "$1" = -d ]
 	then
-		mktemp -d ${2:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
+		mktemp -d ${2:-${TMPDIR:-/tmp}}/quilt.XXXXXX
 	else
-		mktemp ${1:-${TMPDIR:-/tmp}/${0// /_}}.XXXXXX
+		mktemp ${1:-${TMPDIR:-/tmp}}/quilt.XXXXXX
 	fi
 }
 

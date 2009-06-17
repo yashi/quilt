@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 17 13:43:19 CEST 2009 - agruen@suse.de
+
+- No longer use $0 in gen_tempfile.
+
+-------------------------------------------------------------------
 Wed Jun 17 12:58:10 CEST 2009 - agruen@suse.de
 
 - Prevent "quilt revert" from accidentally creating hard links
