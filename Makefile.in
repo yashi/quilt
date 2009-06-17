@@ -67,7 +67,7 @@ DIRT +=		$(shell $(FIND) . -name '.\#*')
 
 SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
 		config/install-sh quilt.spec.in quilt.changes		\
-		bash_completion quilt.quiltrc aclocal.m4
+		bash_completion quilt.quiltrc aclocal.m4 git-desc
 DIRT +=		quilt.spec
 
 BIN_IN :=	quilt guards
