@@ -390,12 +390,10 @@ msgstr ""
 "\tpremier patch appliqué.\n"
 
 #: quilt/fold.in:22
-#, fuzzy
 msgid "Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
-msgstr "Usage : quilt fold [-p strip-level]\\n"
+msgstr "Usage : quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
 
 #: quilt/fold.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Integrate the patch read from standard input into the topmost patch:\n"
@@ -419,6 +417,14 @@ msgstr ""
 "Après s'être assuré que tous les fichiers modifiés par le patch en entrée \n"
 "font déjà partie du patch au sommet, le patch d'entrée est appliqué avec \n"
 "le strip-level spécifié (1 par défaut).\n"
+"\n"
+"-R\tApplique le patch à l'envers.\n"
+"\n"
+"-q\tOpère silencieusement.\n"
+"\n"
+"-f\tForce l'application, même si cela doit produire des rejets. Excepté en\n"
+"\tmode silencieux, applique le patch interactivement : l'utilitaire patch\n"
+"\tpeut poser des questions.\n"
 "\n"
 "-p strip-level\n"
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
@@ -620,16 +626,14 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "Texte ajouté à la fin de l'en-tête du patch %s\\n"
 
 #: quilt/import.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] patchfile ..."
 "\\n"
 msgstr ""
-"Usage : quilt import [-p num] [-P patch] [-f] [-d {o|a|n}] "
+"Usage : quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] "
 "fichier_de_patch ...\\n"
 
 #: quilt/import.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -660,6 +664,9 @@ msgstr ""
 "-p num\n"
 "\tNombre de niveaux de répertoires à retirer lors de l'application du \n"
 "\tpatch (1 par défaut).\n"
+"\n"
+"-R\n"
+"\tApplique le patch à l'envers.\n"
 "\n"
 "-P patch\n"
 "\tNom de fichier à utiliser au sein de quilt. Cette option ne peut être\n"
@@ -720,17 +727,16 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
 #: quilt/mail.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--"
 "sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
 "[--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
 "Usage : quilt mail {--mbox fichier|--send} [-m texte] [--prefix préfixe] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...]\\n"
+"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
+"[--reply-to message] [premier_patch [dernier_patch]]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -779,6 +785,10 @@ msgstr ""
 "Ces fichiers sont ensuite stockés dans un fichier mbox ou expédiés\n"
 "immédiatement. Un éditeur est ouvert avec un patron pour saisir une\n"
 "introduction. Voir %s pour plus de détails.\n"
+"Lorsqu'un intervalle de patches est spécifié, \\`-' utilisé comme nom du\n"
+"premier patch désigne le premier patch de la série, tandis que \\`-'\n"
+"utilisé comme nom du dernier patch désigne le dernier patch de la série.\n"
+"\n"
 "-m texte\n"
 "\n"
 "\tTexte à utiliser pour l'introduction. Lorsque cette option est\n"
@@ -809,6 +819,9 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tAjoute un destinataire dans le champ d'en-tête A, Copie ou Copie\n"
 "\tcachée, respectivement.\n"
+"\n"
+"--reply-to message\n"
+"\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
 #: quilt/mail.in:275
 msgid "Could not determine the envelope sender address. Please use --sender."
@@ -823,9 +836,8 @@ msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
 #: quilt/mail.in:441
-#, fuzzy
 msgid "File %s does not exist\\n"
-msgstr "Le patch %s n'existe pas\\n"
+msgstr "Le fichier %s n'existe pas\\n"
 
 #: quilt/mail.in:501
 msgid "Introduction has no subject header (saved as %s)\\n"
@@ -845,7 +857,6 @@ msgid "Usage: quilt new {patchname}\\n"
 msgstr "Usage : quilt new {nom_de_patch}\\n"
 
 #: quilt/new.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
@@ -858,7 +869,7 @@ msgid ""
 "in the directory tree.\n"
 msgstr ""
 "\n"
-"Crée un nouveau patch au nom spécifié, et l'insere après le patch\n"
+"Crée un nouveau patch au nom spécifié, et l'insère après le patch\n"
 "au sommet dans le fichier de série.\n"
 "\n"
 "Quilt peut être utilisé dans les sous-répertoires d'une arborescence\n"
@@ -955,7 +966,7 @@ msgstr ""
 "-a\tRetire tous les patches de la série.\n"
 "\n"
 "-f\tForce l'action. L'état avant que les patches ne soient retirés\n"
-"\tsera restoré depuis les fichiers de sauvegarde.\n"
+"\tsera restauré depuis les fichiers de sauvegarde.\n"
 "\n"
 "-R\tVérifie que le patch s'enlève proprement ; ne se base pas sur\n"
 "\tles horaires de dernière modification des fichiers.\n"
@@ -1019,16 +1030,14 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/push.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt push [-afqv] [--merge] [--leave-rejects] [--color[=always|auto|"
 "never]] [num|patch]\\n"
 msgstr ""
-"Usage : quilt push [-afqv] [--leave-rejects] [--interactive] [--color"
+"Usage : quilt push [-afqv] [--merge] [--leave-rejects] [--color"
 "[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1078,14 +1087,15 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 "\n"
+"--fuzz=N\n"
+"\tDéfinit le niveau maximum de flou (valeur par défaut : 2).\n"
+"\n"
+"-m, --merge\n"
+"\tFusionne le patch avec les fichiers originaux (voir patch(1)).\n"
+"\n"
 "--leave-rejects\n"
 "\tLaisse les fichiers de rejets produits, même si l'application du\n"
 "\tpatch a échoué et qu'il n'est finalement pas appliqué.\n"
-"\n"
-"--interactive\n"
-"\tLaisse l'utilitaire patch demander comment résoudre les conflits.\n"
-"\tSi cette option n'est pas utilisée, l'option -f sera passée au\n"
-"\tprogramme patch.\n"
 "\n"
 "--color[=always|auto|never]\n"
 "\tApplique une coloration syntaxique, toujours («always»), de manière\n"
@@ -1125,18 +1135,16 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
 #: quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] "
 "[--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"Usage : quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-f] [--no-"
-"timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-trailing-"
-"whitespace] [patch]\\n"
+"Usage : quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] "
+"[--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
+"trailing-whitespace] [patch]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1211,6 +1219,12 @@ msgstr ""
 "\tCrée un diff contextuel (-c, -C) ayant num lignes de contexte.\n"
 "\tPar défaut, les diffs ont 3 lignes de contexte.\n"
 "\n"
+"-z[nouveau_nom]\n"
+"\tCrée un nouveau patch contenant les modifications au lieu de\n"
+"\trafraîchir le patch au sommet. Si le nouveau nom n'est pas spécifié,\n"
+"\t\\`-2' est ajouté au nom du patch d'origine, etc. (voir la commande\n"
+"\tfork.)\n"
+"\n"
 "--no-timestamps\n"
 "\tOmet les tampons («timestamps») dans les entêtes de patch.\n"
 "\n"
@@ -1236,7 +1250,7 @@ msgstr ""
 
 #: quilt/refresh.in:165
 msgid "Can only refresh the topmost patch with -z currently\\n"
-msgstr ""
+msgstr "Seul le patch au sommet peut actuellement être rafraîchi avec -z\\n"
 
 #: quilt/refresh.in:196
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
@@ -1301,12 +1315,10 @@ msgid "Patch %s renamed to %s\\n"
 msgstr "Patch %s renommé en %s\\n"
 
 #: quilt/revert.in:22
-#, fuzzy
 msgid "Usage: quilt revert [-P patch] {file} ...\\n"
-msgstr "Usage : quilt remove [-P patch] {fichier} ...\\n"
+msgstr "Usage : quilt revert [-P patch] {fichier} ...\\n"
 
 #: quilt/revert.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Revert the changes to the topmost or named patch for the specified file(s).\n"
@@ -1317,31 +1329,28 @@ msgid ""
 "\tRevert changes in the named patch.\n"
 msgstr ""
 "\n"
-"Retire un ou plusieurs fichiers du patch au sommet ou du patch spécifié.\n"
+"Restaure un ou plusieurs fichiers du patch au sommet ou du patch spécifié.\n"
 "Des fichiers modifiés par des patches plus haut dans la série ne peuvent\n"
-"pas être retirés. \n"
+"pas être restaurés.\n"
 "\n"
 "-P patch\n"
-"\tPatch duquel les fichiers doivent être retirés.\n"
+"\tPatch dont les fichiers doivent être restaurés.\n"
 
 #: quilt/revert.in:74
 msgid "File %s is not in patch %s\\n"
 msgstr "Le fichier %s n'est pas dans le patch %s.\\n"
 
 #: quilt/revert.in:102 quilt/revert.in:112
-#, fuzzy
 msgid "File %s is unchanged\\n"
-msgstr "Patch %s inchangé\\n"
+msgstr "Le fichier %s est inchangé\\n"
 
 #: quilt/revert.in:120
-#, fuzzy
 msgid "Failed to revert changes to %s in patch %s\\n"
-msgstr "Impossible d'enlever le fichier %s du patch %s.\\n"
+msgstr "Impossible de restaurer le fichier %s du patch %s.\\n"
 
 #: quilt/revert.in:124
-#, fuzzy
 msgid "Changes to %s in patch %s reverted\\n"
-msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
+msgstr "Modifications de %s dans le patch %s annulées\\n"
 
 #: quilt/scripts/edmail.in:83
 #, perl-format
@@ -1469,16 +1478,14 @@ msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
 #: quilt/setup.in:75
-#, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|"
 "seriesfile}\\n"
 msgstr ""
-"Usage : quilt setup [-d répertoire_source] [-v] [--path rép1:rép2] "
+"Usage : quilt setup [-d répertoire_source] [-v] [--sourcedir répertoire] "
 "{fichier_spec|fichier_séries}\\n"
 
 #: quilt/setup.in:78
-#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1496,8 +1503,8 @@ msgstr ""
 "\n"
 "-d\tPréfixe de chemin optionel (sous-répertoire).\n"
 "\n"
-"--path\tRépertoires dans lesquels chercher les fichiers tar. Valeur\n"
-"\tpar défaut : \\`.'.\n"
+"--sourcefdir\n"
+"\tRépertoire contenant les sources. Valeur par défaut : \\`.'.\n"
 "\n"
 "-v\tAffichage verbeux pour le debug.\n"
 
@@ -1511,9 +1518,8 @@ msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
 #: quilt/setup.in:183
-#, fuzzy
 msgid "File %s not found\\n"
-msgstr "Le fichier %s est introuvable dans le chemin de recherche\\n"
+msgstr "Le fichier %s est introuvable\\n"
 
 #: quilt/setup.in:186
 msgid "Unpacking archive %s\\n"

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep  9 14:59:10 CEST 2009 - agruen@suse.de
+
+- French translation update from from
+  Jean Delvare <jdelvare@suse.de>.
+
+-------------------------------------------------------------------
 Wed Jun 17 13:43:19 CEST 2009 - agruen@suse.de
 
 - No longer use $0 in gen_tempfile.

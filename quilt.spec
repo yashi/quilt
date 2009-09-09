@@ -57,6 +57,21 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
+* Wed Sep 09 2009 - agruen@suse.de
+- French translation update from from
+  Jean Delvare <jdelvare@suse.de>.
+* Wed Jun 17 2009 - agruen@suse.de
+- No longer use $0 in gen_tempfile.
+* Wed Jun 17 2009 - agruen@suse.de
+- Prevent "quilt revert" from accidentally creating hard links
+  (bug #25305; fix from Jean Delvare <jdelvare@suse.de>).
+- Try to clarify the help text of "quilt revert".
+* Mon Jun 15 2009 - agruen@suse.de
+- Some filesystems / operating systems may miss files in readdir()
+  loops when the directory is modified at the same time (e.g.,
+  http://support.apple.com/kb/TA21420). Avoid running into this
+  problem in backup-files.c by reading all files before processing
+  them.
 * Sun Apr 05 2009 - agruen@suse.de
 - Push command: don't imply --force when --merge is given so that
   a patch that doesn't merge cleanly will still require to
