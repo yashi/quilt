@@ -689,7 +689,7 @@ msgstr ""
 
 #: quilt/import.in:169
 msgid "Patch %s is applied\\n"
-msgstr "Le patch %s n'est pas appliqué\\n"
+msgstr "Le patch %s est appliqué\\n"
 
 #: quilt/import.in:178
 msgid "Patch %s already exists in series.\\n"
