@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep 17 22:11:54 CEST 2009 - agruen@suse.de
+
+- Restore the "remove" command which a few people were missing
+  since its replacement by "revert" in April 2007. (Patch from
+  Pedro Alves.)
+
+-------------------------------------------------------------------
 Wed Sep  9 14:59:10 CEST 2009 - agruen@suse.de
 
 - French translation update from from
