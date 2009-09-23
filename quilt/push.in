@@ -36,8 +36,7 @@ be used.
 
 -q	Quiet operation.
 
--f	Force apply, even if the patch has rejects. Unless in quiet mode,
-	apply the patch interactively: the patch utility may ask questions.
+-f	Force apply, even if the patch has rejects.
 
 -v	Verbose operation.
 
@@ -121,7 +120,7 @@ apply_patch()
 	[ -s "$patch_file" ] || return 0
 
 	set -- patch $QUILT_PATCH_OPTS $(push_patch_args "$patch") \
-		     --backup --prefix="$QUILT_PC/$patch/" \
+		     --backup --prefix="$QUILT_PC/$patch/" -f \
 		     $no_reject_files $more_patch_args
 
 	if [ "${patch_file:(-3)}" = ".gz" ]
@@ -394,8 +393,6 @@ stop_at_patch=$(find_unapplied_patch "$stop_at_patch") || exit
 
 more_patch_args=
 [ -n "$opt_quiet" ] && more_patch_args="$more_patch_args -s"
-[ -z "$opt_force" -o -n "$opt_quiet" ] &&
-	more_patch_args="$more_patch_args -f"
 if [ -n "$opt_merge" ]
 then
 	more_patch_args="$more_patch_args --merge$opt_merge_arg"
