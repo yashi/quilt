@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Nov  2 20:12:31 CET 2009 - agruen@suse.de
+
+- Implement -r / --reference option in compat/date (patch from
+  Olivier Mehani <shtrom-savanah@ssji.net>).
+
+-------------------------------------------------------------------
 Thu Sep 17 22:11:54 CEST 2009 - agruen@suse.de
 
 - Restore the "remove" command which a few people were missing
