@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Nov  4 15:48:59 CET 2009 - agruen@suse.de
+
+- Fix typo in doc/quilt.1.in.
+
+-------------------------------------------------------------------
 Mon Nov  2 20:12:31 CET 2009 - agruen@suse.de
 
 - Implement -r / --reference option in compat/date (patch from

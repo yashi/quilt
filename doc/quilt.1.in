@@ -193,7 +193,7 @@ If this variable is set to anything, no line is prepended.  This is
 a shortcut to adding --no-index to both QUILT_DIFF_ARGS and
 QUILT_REFRESH_ARGS.
 
-.IP QUILT_NO_DIFF_TIMESTAMP 4
+.IP QUILT_NO_DIFF_TIMESTAMPS 4
 
 By default, quilt includes timestamps in headers when generating patches.
 If this variable is set to anything, no timestamp will be included.  This
