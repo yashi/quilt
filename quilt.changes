@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov  5 17:54:32 CET 2009 - agruen@suse.de
+
+- patches command: Commit 2e581933a introduced a bug in scanning
+  unapplied patches which lead to missed matches.
+
+-------------------------------------------------------------------
 Wed Nov  4 15:48:59 CET 2009 - agruen@suse.de
 
 - Fix typo in doc/quilt.1.in.

@@ -68,7 +68,7 @@ touched_by_patch()
 
 scan_unapplied()
 {
-	local prefix=$1 file=$2 strip
+	local color=$1 prefix=$2 file=$3 strip
 	shift 2
 	local file_bre="$(quote_bre $file)" patch
 
@@ -80,7 +80,7 @@ scan_unapplied()
 		if touched_by_patch $strip $patch \
 		   | grep -q "^$file_bre\$"
 		then
-			echo "$prefix$(print_patch $patch)"
+			echo "$color$prefix$(print_patch $patch)$color_clear"
 		fi
 	done
 }
