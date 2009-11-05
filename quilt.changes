@@ -5,6 +5,8 @@ Thu Nov  5 17:54:32 CET 2009 - agruen@suse.de
   unapplied patches which lead to missed matches.
 - patches command: Prevent false matches in unapplied patches
   for patches which delete files.
+- patches command: Also match deleted files in unapplied patches,
+  at the cost of more possible false matches.
 
 -------------------------------------------------------------------
 Wed Nov  4 15:48:59 CET 2009 - agruen@suse.de
