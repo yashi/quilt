@@ -3,6 +3,8 @@ Thu Nov  5 17:54:32 CET 2009 - agruen@suse.de
 
 - patches command: Commit 2e581933a introduced a bug in scanning
   unapplied patches which lead to missed matches.
+- patches command: Prevent false matches in unapplied patches
+  for patches which delete files.
 
 -------------------------------------------------------------------
 Wed Nov  4 15:48:59 CET 2009 - agruen@suse.de

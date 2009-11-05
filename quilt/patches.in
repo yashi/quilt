@@ -62,7 +62,8 @@ touched_by_patch()
 		sub(/^\/dev\/null/, "")
 		for (i=0; i<'$strip'; i++)
 			sub(/^[^\/]*\//, "")
-		print
+		if ($0 != "")
+			print
 	}'
 }
 
