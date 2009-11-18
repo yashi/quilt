@@ -65,6 +65,8 @@ else
 	patch=$(find_unapplied_patch) || exit 1
 fi
 
+setup_pager
+
 (
 	echo "$patch"
 	patches_after "$patch"

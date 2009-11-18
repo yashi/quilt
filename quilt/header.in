@@ -125,6 +125,8 @@ if [ -z "$opt_replace" -a -z "$opt_append" -a -z "$opt_edit" ]
 then
 	[ -e "$patch_file" ] || exit 0
 
+	setup_pager
+
 	cat_file "$patch_file" \
 	| patch_header \
 	| maybe_strip_diffstat \

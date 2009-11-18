@@ -59,6 +59,8 @@ fi
 
 patch=$(find_applied_patch "$1") || exit 1
 
+setup_pager
+
 for patch in $(applied_before "$patch") $patch
 do
 	echo "$(print_patch $patch)"

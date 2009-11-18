@@ -86,6 +86,8 @@ then
 	usage
 fi
 
+setup_pager
+
 if [ -n "$opt_verbose$opt_color" ]
 then
 	[ -n "$opt_color" ] && setup_colors

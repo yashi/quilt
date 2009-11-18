@@ -161,6 +161,8 @@ add_exit_handler "rm -f $template"
 # Finally, the annotations listing is merged with the source file line
 # by line.
 
+setup_pager
+
 empty_file ${files[0]} > $template
 for ((n = 0; n < ${#patches[@]}; n++))
 do

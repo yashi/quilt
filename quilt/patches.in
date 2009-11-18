@@ -147,6 +147,8 @@ fi
 
 [ -n "$opt_color" ] && setup_colors
 
+setup_pager
+
 scan_applied "$color_series_app" "$applied" "$opt_file" \
 	$(patches_before $top)
 [ -n "$top" ] && \

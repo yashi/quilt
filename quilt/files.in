@@ -159,6 +159,8 @@ list_files_in_patch()
 	done
 }
 
+setup_pager
+
 for patch in ${patches[@]}
 do
 	list_files_in_patch $patch

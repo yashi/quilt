@@ -310,6 +310,8 @@ then
 	|| die 1
 fi
 
+setup_pager
+
 for file in "${files[@]}"
 do
 	if [ -n "$opt_snapshot" -a -e "$QUILT_PC/$snap_subdir/$file" ]
