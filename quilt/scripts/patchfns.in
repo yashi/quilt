@@ -46,30 +46,34 @@ fi
 
 # ========================================================
 
-#declare -a exit_handlers
-#
-#add_exit_handler() {
-#	exit_handlers[${#exit_handlers[@]}]=$1
-#}
-#
-#remove_exit_handler() {
-#	declare -a handlers
-#	local h
-#	for h in "${exit_handlers[@]}"; do
-#		[ "$h" = "$1" ] && continue
-#		handlers[${#handlers[@]}]=$h
-#	done
-#	exit_handlers=( "${handlers[@]}" )
-#}
-#
-#run_exit_handlers() {
-#	local h
-#	for h in "${exit_handlers[@]}"; do
-#		eval $h
-#	done
-#}
-#
-#trap run_exit_handlers EXIT
+declare -a exit_handlers
+
+add_exit_handler() {
+	exit_handlers[${#exit_handlers[@]}]=$1
+}
+
+remove_exit_handler()
+{
+	declare -a handlers
+	local h
+	for h in "${exit_handlers[@]}"
+	do
+		[ "$h" = "$1" ] && continue
+		handlers[${#handlers[@]}]=$h
+	done
+	exit_handlers=( "${handlers[@]}" )
+}
+
+run_exit_handlers()
+{
+	local h
+	for h in "${exit_handlers[@]}"
+	do
+		eval $h
+	done
+}
+
+trap run_exit_handlers EXIT
 
 # ========================================================
 

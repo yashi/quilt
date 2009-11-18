@@ -131,7 +131,7 @@ fi
 [ -n "$sourcedir" ] && opt_sourcedir="--sourcedir $sourcedir"
 
 tmpfile=$(gen_tempfile)
-trap "rm -f $tmpfile" EXIT
+add_exit_handler "rm -f $tmpfile"
 
 case "$1" in
 *.spec)

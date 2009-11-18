@@ -90,7 +90,7 @@ done
 [ $status -eq 0 ] || exit $status
 
 workdir=$(gen_tempfile -d $PWD)
-trap "rm -rf $workdir" EXIT
+add_exit_handler "rm -rf $workdir"
 apply_patch_temporarily $workdir $patch "${@/#/$SUBDIR}" || exit 1
 
 for file in ${*/#/$SUBDIR}

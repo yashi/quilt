@@ -59,7 +59,7 @@ fi
 
 tmpdir="$(gen_tempfile -d ${TMPDIR-/var/tmp}/${0##*/})"
 mkdir -p $tmpdir || exit 1
-trap "rm -rf $tmpdir" EXIT
+add_exit_handler "rm -rf $tmpdir"
 mkdir -p $tmpdir/build
 mkdir -p $tmpdir/bin
 

@@ -135,7 +135,7 @@ else
 
 	tmp=$(gen_tempfile) || exit 1
 	tmp2=$(gen_tempfile) || exit 1
-	trap "rm -f $tmp $tmp2" EXIT
+	add_exit_handler "rm -f $tmp $tmp2"
 
 	(	if [ -z "$opt_replace" ]
 		then

@@ -396,7 +396,7 @@ fi
 total=${#patches[@]}
 
 tmpdir=$(gen_tempfile -d)
-trap "rm -rf $tmpdir" EXIT
+add_exit_handler "rm -rf $tmpdir"
 
 for patch in "${patches[@]}"
 do
