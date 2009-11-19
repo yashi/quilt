@@ -18,6 +18,10 @@ QUILT_REFRESH_ARGS="--no-timestamps --backup"
 QUILT_SERIES_ARGS="--color=auto"
 QUILT_PATCHES_ARGS="--color=auto"
 
+# When non-default less options are used, add the -R option so that less outputs
+# ANSI color escape codes "raw".
+[ -n "$LESS" ] && QUILT_PAGER="less -R"
+
 # (Add "-p ab" to QUILT_DIFF_ARGS and QUILT_REFRESH_ARGS to get
 #  -p1 style diffs with a/file and b/file filenams in headers
 #  instead of dir.orig/file and dir/file.)

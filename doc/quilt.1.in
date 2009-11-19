@@ -200,6 +200,13 @@ If this variable is set to anything, no timestamp will be included.  This
 is a shortcut to adding --no-timestamps to both QUILT_DIFF_ARGS and
 QUILT_REFRESH_ARGS.
 
+.IP QUILT_PAGER 4
+
+Th pager quilt shall use for commands which produce paginated output. If
+unset, the values of GIT_PAGER or PAGER is used.  If none of these variables
+is set, "less" is used.  An empty value indicates that no pager should be
+used.
+
 .IP EDITOR 4
 
 The program to run to edit files.  If it isn't redefined in the

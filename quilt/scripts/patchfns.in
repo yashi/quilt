@@ -976,36 +976,31 @@ quilt_command()
 	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
-# isatty FD
-isatty()
-{
-	test -t $1
-}
-
-# setup_pager
 # Spawn pager process and redirect the rest of our output to it
 setup_pager()
 {
-	isatty 1 || return 0
+	test -t 1 || return 0
 
-	# QUILT_PAGER = GIT_PAGER | PAGER | less
-	# NOTE: GIT_PAGER='' is significant
-	QUILT_PAGER=${GIT_PAGER-${PAGER-less}}
+	# QUILT_PAGER = QUILT_PAGER | GIT_PAGER | PAGER | less
+	# NOTE: QUILT_PAGER='' is significant
+	QUILT_PAGER=${QUILT_PAGER-${GIT_PAGER-${PAGER-less}}}
 
-	[ -z "$QUILT_PAGER"  -o  "$QUILT_PAGER" = "cat" ]  && return 0
+	[ -z "$QUILT_PAGER" -o "$QUILT_PAGER" = "cat" ]  && return 0
 
-	# now spawn pager
-	export LESS="${LESS:-FRSX}"	# as in pager.c:pager_preexec()
+	export LESS="${LESS:-FRSX}"
 
-	_pager_fifo_dir="$(gen_tempfile -d)"
-	_pager_fifo="$_pager_fifo_dir/0"
-	mkfifo -m 600 "$_pager_fifo"
+	# NOTE: with "exec > >($pager)" there is no way to get the pid of the
+	# pager so we can't wait for it to complete.  Otherwise we wouldn't
+	# need temporary files here.  Alternatively, in recent versions of
+	# bash, a coprocess could be used instead.
 
-	"$QUILT_PAGER" < "$_pager_fifo" &
-	exec > "$_pager_fifo"		# dup2(pager_fifo.in, 1)
-
-	# atexit(close(1); wait pager)
-	add_exit_handler "exec >&-; rm \"$_pager_fifo\"; rmdir \"$_pager_fifo_dir\"; wait"
+	local pager_fifo_dir pager_fifo
+	pager_fifo_dir="$(gen_tempfile -d)"
+	pager_fifo="$pager_fifo_dir/0"
+	mkfifo -m 600 "$pager_fifo"
+	"$QUILT_PAGER" < "$pager_fifo" &
+	exec > "$pager_fifo"
+	add_exit_handler "exec >&-; rm $pager_fifo; rmdir $pager_fifo_dir; wait"
 }
 
 #

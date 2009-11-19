@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Nov 20 22:43:33 CET 2009 - agruen@suse.de
+
+- Add pagination support (code based on topgit; patch from Bert
+  Wesarg <bert.wesarg@googlemail.com>).
+- When QUILT_PAGER is set to an empty value, do not paginate.
+- Document QUILT_PAGER in the man page.
+- Clean things up a little.
+- Add a workaround in quilt.quiltrc for color output when $LESS
+  is defined.
+
+-------------------------------------------------------------------
 Fri Nov 20 20:40:55 CET 2009 - pth@novell.com
 
 - Enable quilt to handle compressed tarballs and patches that were
