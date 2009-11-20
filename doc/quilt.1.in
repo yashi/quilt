@@ -202,7 +202,7 @@ QUILT_REFRESH_ARGS.
 
 .IP QUILT_PAGER 4
 
-Th pager quilt shall use for commands which produce paginated output. If
+The pager quilt shall use for commands which produce paginated output. If
 unset, the values of GIT_PAGER or PAGER is used.  If none of these variables
 is set, "less" is used.  An empty value indicates that no pager should be
 used.
