@@ -125,6 +125,9 @@ apply_patch()
 	elif [ "${patch_file:(-4)}" = ".bz2" ]
 	then
 		bzip2 -cd $patch_file | "$@" 2>&1
+	elif [ "${patch_file:(-3)}" = ".xz" -o "${patch_file:(-5)}" = ".lzma" ]
+	then
+		xz -cd $patch_file | "$@" 2>&1
 	else
 		"$@" -i $patch_file 2>&1
 	fi

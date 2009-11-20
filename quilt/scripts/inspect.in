@@ -100,6 +100,12 @@ do
 			set -- $(bzip2 -cd "$file" | md5sum)
 			echo "$1 $basename"
 			;;
+		xz*|lzma*)
+			echo -n "b" >&4
+			echo "xz -cd $file | md5sum" >&2
+			set -- $(xz -cd "$file" | md5sum)
+			echo "$1 $basename"
+			;;
 	esac
 done > $tmpdir/md5sums
 echo >&4

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Nov 20 20:40:55 CET 2009 - pth@novell.com
+
+- Enable quilt to handle compressed tarballs and patches that were
+  compressed with lzma or xz.
+
+-------------------------------------------------------------------
 Thu Nov  5 17:54:32 CET 2009 - agruen@suse.de
 
 - patches command: Commit 2e581933a introduced a bug in scanning
