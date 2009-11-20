@@ -998,7 +998,7 @@ setup_pager()
 	pager_fifo_dir="$(gen_tempfile -d)"
 	pager_fifo="$pager_fifo_dir/0"
 	mkfifo -m 600 "$pager_fifo"
-	"$QUILT_PAGER" < "$pager_fifo" &
+	$QUILT_PAGER < "$pager_fifo" &
 	exec > "$pager_fifo"
 	add_exit_handler "exec >&-; rm $pager_fifo; rmdir $pager_fifo_dir; wait"
 }
