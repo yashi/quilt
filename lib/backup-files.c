@@ -313,8 +313,9 @@ process_file(const char *file)
 
 			if (!opt_silent)
 				printf("New file %s\n", file);
-			/* GNU patch creates new files with mode==0. */
-			if ((fd = creat(backup, 0)) == -1) {
+			/* Old versions of GNU patch create new files with mode==0.
+			   (This has been changed/fixed in patch version 2.6.)  */
+			if ((fd = creat(backup, 0666)) == -1) {
 				perror(backup);
 				goto fail;
 			}

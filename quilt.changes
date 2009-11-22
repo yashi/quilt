@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Nov 22 21:32:39 CET 2009 - agruen@suse.de
+
+- No longer create backup files of new files with file mode 0.
+  (This has been changed in GNU patch 2.6 as well.)
+
+-------------------------------------------------------------------
 Fri Nov 20 22:43:33 CET 2009 - agruen@suse.de
 
 - Add pagination support (code based on topgit; patch from Bert
