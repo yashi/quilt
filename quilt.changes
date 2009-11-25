@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov 25 19:44:18 CET 2009 - agruen@suse.de
+
+- inspect: When guessing the tarball filename, make sure that only
+  regular files are considered. (Otherwise, we will trip over
+  command lines like "tar xjCf dir file").
+
+-------------------------------------------------------------------
 Wed Nov 25 18:36:12 CET 2009 - agruen@suse.de
 
 - new command: Add -p ... option (equivalent to diff -p ...).

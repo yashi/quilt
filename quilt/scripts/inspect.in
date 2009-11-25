@@ -189,8 +189,11 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	}
 
 	tar_input_file() {
+		# FIXME: this is a very crude way of guessing, but the tar command line
+		#	 options are a total mess.
+
 		while [ $# -gt 0 ]; do
-			if [ -e "$1" ]
+			if [ -f "$1" ]
 			then
 				echo "$1"
 				return
