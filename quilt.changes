@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Nov 25 14:21:44 CET 2009 - bert.wesarg@googlemail.com
+
+- push: update color matcher for failed merge
+
+-------------------------------------------------------------------
 Sun Nov 22 21:32:39 CET 2009 - agruen@suse.de
 
 - No longer create backup files of new files with file mode 0.
