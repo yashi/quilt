@@ -152,17 +152,33 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		return 1
 	}
 
-	# Extract the -p option from the command line
-	strip_option() {
-		while [ $# -ne 0 -a "${1:0:2}" != -p ]
+	# Extract a command line option with argument from the command line
+	cmdline_option() {
+		local letter=$1
+		shift
+
+		while [ $# -ne 0 ]
 		do
+			if [ "${1:0:2}" = -$letter ]
+			then
+				[ "$1" = -$letter ] && set -- "$1$2"
+				echo $1
+				break
+			fi
 			shift
 		done
-		if [ "${1:0:2}" = -p ]
-		then
-			[ "$1" = -p ] && set -- "$1$2"
-			[ "$1" != -p1 ] && echo $1
-		fi
+	}
+
+	# Extract the -p option from the command line
+	strip_option() {
+		set -- $(cmdline_option p "$@")
+		[ "$1" != -p1 ] && echo $1
+	}
+
+	patch_opt_d() {
+		local subdir=$(cmdline_option d "$@")
+		[ -z "$subdir" ] || echo "${subdir:2}"
+
 	}
 
 	patch_input_file() {
@@ -189,17 +205,22 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	}
 
 	tar_input_file() {
-		# FIXME: this is a very crude way of guessing, but the tar command line
-		#	 options are a total mess.
+		case "$1" in
+		[^-]*C*f* | C*f*)
+			echo "$3"
+			;;
+		[^-]*f* | f*)
+			echo "$2"
+			;;
+		esac
+	}
 
-		while [ $# -gt 0 ]; do
-			if [ -f "$1" ]
-			then
-				echo "$1"
-				return
-			fi
-			shift
-		done
+	tar_opt_C() {
+		case "$1" in
+		[^-]*C*f* | C*f*)
+			echo "$2"
+			return ;;
+		esac
 	}
 
 	tmpdir=${RPM_BUILD_DIR%/*}
@@ -220,17 +241,32 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	unpackfile="$(original_file ${inputfile:-$tmpdir/data})"
 	if [ -n "$unpackfile" ]
 	then
-		dir=${PWD/$RPM_BUILD_DIR}
-		dir=${dir##/}
-
 		case "${0##*/}" in
 		patch)
 			echo -n p >&4
+			subdir=$(patch_opt_d "$@")
+			if [ -n "$subdir" ]
+			then
+				dir=$(cd "$subdir" && echo $PWD)
+			else
+				dir=$PWD
+			fi
+			dir=${dir/$RPM_BUILD_DIR}
+			dir=${dir##/}
 			echo "${0##*/} ${dir:-.} $unpackfile" \
 			     $(strip_option "$@") >&3
 			;;
 		tar)
 			echo -n t >&4
+			subdir=$(tar_opt_C "$@")
+			if [ -n "$subdir" ]
+			then
+				dir=$(cd "$subdir" && echo $PWD)
+			else
+				dir=$PWD
+			fi
+			dir=${dir/$RPM_BUILD_DIR}
+			dir=${dir##/}
 			echo "${0##*/} ${dir:-.} $unpackfile" >&3
 			;;
 		esac

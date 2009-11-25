@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov 25 20:30:39 CET 2009 - agruen@suse.de
+
+- inspect: Try to better recognize "patch -d" and "tar -C" (which
+  both change the working directory).  (This may fail in some other
+  cases now -- there are still a lot of heuristics involved here.)
+
+-------------------------------------------------------------------
 Wed Nov 25 19:44:18 CET 2009 - agruen@suse.de
 
 - inspect: When guessing the tarball filename, make sure that only
