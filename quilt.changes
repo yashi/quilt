@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 25 20:52:52 CET 2009 - agruen@suse.de
+
+- quilt.quiltrc: make sur eto only override QUILT_PAGER if
+  QUILT_PAGER isn't set already.
+
+-------------------------------------------------------------------
 Wed Nov 25 20:30:39 CET 2009 - agruen@suse.de
 
 - inspect: Try to better recognize "patch -d" and "tar -C" (which
