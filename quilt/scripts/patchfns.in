@@ -989,6 +989,23 @@ quilt_command()
 	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
+declare pager_fifo pager_fifo_dir pager_pid
+
+wait_for_pager()
+{
+	exec >&-
+	wait $pager_pid
+	rm $pager_fifo 2>/dev/null
+	rmdir $pager_fifo_dir 2>/dev/null
+}
+
+wait_for_pager_signal()
+{
+	remove_exit_handler wait_for_pager
+	wait_for_pager
+	trap - INT HUP TERM QUIT PIPE
+}
+
 # Spawn pager process and redirect the rest of our output to it
 setup_pager()
 {
@@ -1007,13 +1024,15 @@ setup_pager()
 	# need temporary files here.  Alternatively, in recent versions of
 	# bash, a coprocess could be used instead.
 
-	local pager_fifo_dir pager_fifo
 	pager_fifo_dir="$(gen_tempfile -d)"
 	pager_fifo="$pager_fifo_dir/0"
 	mkfifo -m 600 "$pager_fifo"
 	$QUILT_PAGER < "$pager_fifo" &
+	pager_pid=$!
 	exec > "$pager_fifo"
-	add_exit_handler "exec >&-; rm $pager_fifo; rmdir $pager_fifo_dir; wait"
+
+	trap wait_for_pager_signal INT HUP TERM QUIT PIPE
+	add_exit_handler wait_for_pager
 }
 
 #
