@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 25 15:03:38 CET 2009 - agruen@suse.de
+
+- Make sure the series file is a regular file (or a symlink to a
+  regular file).  Reported by Raphael Hertzog <hertzog@debian.org>.
+
+-------------------------------------------------------------------
 Wed Nov 25 14:21:44 CET 2009 - bert.wesarg@googlemail.com
 
 - push: update color matcher for failed merge
