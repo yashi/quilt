@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 25 18:36:12 CET 2009 - agruen@suse.de
+
+- new command: Add -p ... option (equivalent to diff -p ...).
+  (Based on a patch from Egbert Eich <eich@freedesktop.org>.)
+
+-------------------------------------------------------------------
 Wed Nov 25 15:03:38 CET 2009 - agruen@suse.de
 
 - Make sure the series file is a regular file (or a symlink to a
