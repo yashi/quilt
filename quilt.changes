@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Nov 27 18:36:27 CET 2009 - jdelvare@suse.de
+
+- Some (possibly all) versions of "file" do not recognize lzma-
+  compressed files. Rely on the file name for these.
+
+-------------------------------------------------------------------
 Fri Nov 27 15:26:22 CET 2009 - jdelvare@suse.de
 
 - Fix support of lzma- or xz-compressed files:

@@ -87,7 +87,18 @@ do
 	echo "md5sum < $file" >&2
 	set -- $(md5sum < "$file")
 	echo "$1 $basename"
-	case "$(file -b "$file")" in
+
+	case "$file" in
+		*.lzma)
+			# file doesn't reliably recognize lzma-compressed files
+			filetype="lzma"
+			;;
+		*)
+			filetype="$(file -b "$file")"
+			;;
+	esac
+
+	case "$filetype" in
 		compress*|gzip*)
 			echo -n "g" >&4
 			echo "gzip -cd $file | md5sum" >&2
