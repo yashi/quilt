@@ -60,8 +60,10 @@ foreach my $arg (@ARGV) {
 		$fh = new FileHandle("gzip -cd $arg |");
 	} elsif ($arg =~ /\.bz2$/) {
 		$fh = new FileHandle("bzip2 -cd $arg |");
-	} elsif ($arg =~ /\.xz$/ or $arg =~ /\.lzma$/) {
+	} elsif ($arg =~ /\.xz$/) {
 		$fh = new FileHandle("xz -cd $arg |");
+	} elsif ($arg =~ /\.lzma$/) {
+		$fh = new FileHandle("lzma -cd $arg |");
 	} else {
 		$fh = new FileHandle("< $arg");
 	}
@@ -106,13 +108,20 @@ _("File %s disappeared!\n"), $tempname);
 _("File %s disappeared!\n"), $tempname);
 			}
 			$fh2 = new FileHandle("| bzip2 -c > $tempname");
-		} elsif ($arg =~ /\.xz$/ || $arg =~ /\.lzma$/) {
+		} elsif ($arg =~ /\.xz$/) {
 			$fh2->close();
 			if (! -e $tempname) {
 				die sprintf(
 _("File %s disappeared!\n"), $tempname);
 			}
 			$fh2 = new FileHandle("| xz -c > $tempname");
+		} elsif ($arg =~ /\.lzma$/) {
+			$fh2->close();
+			if (! -e $tempname) {
+				die sprintf(
+_("File %s disappeared!\n"), $tempname);
+			}
+			$fh2 = new FileHandle("| lzma -c > $tempname");
 		}
 		unless ($fh2) {
 			die "$tempname: $!\n";

@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Fri Nov 27 15:26:22 CET 2009 - jdelvare@suse.de
+
+- Fix support of lzma- or xz-compressed files:
+  * Let xz handle lzma compatibility externally, with links.
+    Otherwise lzma support will not work for users with only lzma
+    installed and not xz.
+  * "upgrade" doesn't need to care about lzma nor xz, these
+    compression formats were not supported back in v1.
+  * Fix cat_to_new_file() for lzma/xz files..
+  * Use a different letter for lzma and xz files in inspect.
+
+-------------------------------------------------------------------
 Wed Nov 25 20:52:52 CET 2009 - agruen@suse.de
 
 - quilt.quiltrc: make sur eto only override QUILT_PAGER if
