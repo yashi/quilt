@@ -66,9 +66,9 @@ fi
 patch=$(find_applied_patch "$opt_patch") || exit 1
 
 status=0
-for file in $*
+for file in "$@"
 do
-	if ! file_in_patch $SUBDIR$file $patch
+	if ! file_in_patch "$SUBDIR$file" $patch
 	then
 		printf $"File %s is not in patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2
@@ -76,7 +76,7 @@ do
 		continue
 	fi
 
-	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
+	next_patch=$(next_patch_for_file $patch "$SUBDIR$file")
 	if [ -n "$next_patch" ]
 	then
 		printf $"File %s modified by patch %s\n" \
@@ -86,7 +86,7 @@ do
 	fi
 
 	# Restore file from backup
-	if ! $QUILT_LIB/backup-files -r -t -s -B $QUILT_PC/$patch/ $SUBDIR$file
+	if ! $QUILT_LIB/backup-files -r -t -s -B $QUILT_PC/$patch/ "$SUBDIR$file"
 	then
 		printf $"Failed to remove file %s from patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2

@@ -116,6 +116,7 @@ list_files_in_patch()
 {
 	local patch=$1
 	local status
+	local saved_IFS="$IFS"
 
 	if [ -n "$opt_all" ] && [ -n "$opt_verbose" ] && [ -z "$opt_labels" ]
 	then
@@ -126,7 +127,10 @@ list_files_in_patch()
 		use_status=yes
 	fi
 	# Note: If opt_labels is set, then use_status is not set.
-	for file in $(files_in_patch $patch | sort)
+	IFS=
+	echo $(files_in_patch "$patch") |
+	sort |
+	while read file
 	do
 		if [ -n "$opt_labels" ]
 		then
@@ -157,13 +161,14 @@ list_files_in_patch()
 			echo "$status $file"
 		fi
 	done
+	IFS="$saved_IFS"
 }
 
 setup_pager
 
 for patch in ${patches[@]}
 do
-	list_files_in_patch $patch
+	list_files_in_patch "$patch"
 done
 
 ### Local Variables:

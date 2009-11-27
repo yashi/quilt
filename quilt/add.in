@@ -91,21 +91,21 @@ fi
 patch=$(find_applied_patch "$opt_patch") || exit 1
 
 status=0
-for file in $*
+for file in "$@"
 do
-	if ! in_valid_dir $SUBDIR$file
+	if ! in_valid_dir "$SUBDIR$file"
 	then
 		status=1
 		continue
 	fi
-	if file_in_patch $SUBDIR$file $patch
+	if file_in_patch "$SUBDIR$file" $patch
 	then
 		printf $"File %s is already in patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2
 		[ $status -ne 1 ] && status=2
 		continue
 	fi
-	next_patch=$(next_patch_for_file $patch $SUBDIR$file)
+	next_patch=$(next_patch_for_file $patch "$SUBDIR$file")
 	if [ -n "$next_patch" ]
 	then
 		printf $"File %s modified by patch %s\n" \
@@ -114,24 +114,24 @@ do
 		continue
 	fi
 
-	if [ -L $SUBDIR$file ]
+	if [ -L "$SUBDIR$file" ]
 	then
 	        printf $"Cannot add symbolic link %s\n" "$SUBDIR$file" >&2
 		status=1
 		continue
 	fi
 
-	if ! $QUILT_LIB/backup-files -b -s -L -B $QUILT_PC/$patch/ $SUBDIR$file
+	if ! $QUILT_LIB/backup-files -b -s -L -B $QUILT_PC/$patch/ "$SUBDIR$file"
 	then
 		printf $"Failed to back up file %s\n" "$SUBDIR$file" >&2
 		status=1
 		continue
 	fi
 
-	if [ -e $SUBDIR$file ]
+	if [ -e "$SUBDIR$file" ]
 	then
 		# The original tree may be read-only.
-		chmod u+w $SUBDIR$file
+		chmod u+w "$SUBDIR$file"
 	fi
 
 	printf $"File %s added to patch %s\n" \

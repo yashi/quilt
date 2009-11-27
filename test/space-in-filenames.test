@@ -1,0 +1,43 @@
+$ rm -rf d
+$ mkdir -p d/patches
+$ cd d
+$ quilt new test.diff
+>Patch patches/test.diff is now on top
+
+$ echo foo > foo
+$ quilt add foo
+> File foo added to patch patches/test.diff
+
+$ quilt files
+> foo
+
+$ quilt add "foo bar"
+> File foo bar added to patch patches/test.diff
+
+$ quilt files
+> foo
+> foo bar
+
+$ quilt add "a: b [c]"
+> File a: b [c] added to patch patches/test.diff
+
+$ quilt files
+> a: b [c]
+> foo
+> foo bar
+
+$quilt remove "a: b [c]"
+> File a: b [c] removed from patch patches/test.diff
+
+$ quilt files
+> foo
+> foo bar
+
+$quilt remove "foo bar"
+> File foo bar removed from patch patches/test.diff
+
+$ quilt files
+> foo
+
+$ cd ..
+$ rm -rf d
