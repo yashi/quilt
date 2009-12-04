@@ -2,31 +2,31 @@
 
 	$ touch e
 	$ quilt annotate e
-	> No patches in series
+	> No series file found
 
 	$ quilt top
-	> No patches in series
+	> No series file found
 
 	$ quilt next
-	> No patches in series
+	> No series file found
 
 	$ quilt previous
-	> No patches in series
+	> No series file found
 
 	$ quilt unapplied
-	> No patches in series
+	> No series file found
 
 	$ quilt applied
-	> No patches in series
+	> No series file found
 
 	$ quilt next patch1
-	> No patches in series
+	> No series file found
 
 	$ quilt push patch1
-	> No patches in series
+	> No series file found
 
 	$ quilt push
-	> No patches in series
+	> No series file found
 
 	$ quilt pop
 	> No patch removed

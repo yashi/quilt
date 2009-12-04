@@ -490,7 +490,12 @@ find_first_patch()
 	local patch=$(cat_series | head -n 1)
 	if [ -z "$patch" ]
 	then
-		printf $"No patches in series\n" >&2
+		if [ -e "$SERIES" ]
+		then
+			printf $"No patches in series\n" >&2
+		else
+			printf $"No series file found\n" >&2
+		fi
 		return 1
 	fi
 
@@ -502,7 +507,12 @@ find_last_patch()
 	local patch=$(cat_series | tail -n 1)
 	if [ -z "$patch" ]
 	then
-		printf $"No patches in series\n" >&2
+		if [ -e "$SERIES" ]
+		then
+			printf $"No patches in series\n" >&2
+		else
+			printf $"No series file found\n" >&2
+		fi
 		return 1
 	fi
 

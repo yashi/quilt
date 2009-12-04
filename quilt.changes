@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Jan 27 13:41:35 CET 2010 - dapal@debian.org
+
+- quilt/scripts/patchfns.in: Differentiate output when
+  $QUILT_PATCHES/series is not found from when
+  $QUILT_PATCHES/series is empty.
+- test/*.test: Update accordingly.
+
+-------------------------------------------------------------------
 Wed Jan 27 13:40:10 CET 2010 - jdelvare@suse.de
 
 - configure.ac: Stop testing for cp -l. Bug reported by Olivier
