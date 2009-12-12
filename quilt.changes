@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Dec 12 10:00:52 CET 2009 - jdelvare@suse.de
+
+- quilt/scripts/patchfns.in (diff_file): Swap options and
+  parameters for better portability.
+
+-------------------------------------------------------------------
 Fri Nov 27 18:36:27 CET 2009 - jdelvare@suse.de
 
 - Some (possibly all) versions of "file" do not recognize lzma-
