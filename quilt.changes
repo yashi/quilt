@@ -25,7 +25,7 @@ Fri Nov 27 15:26:22 CET 2009 - jdelvare@suse.de
 -------------------------------------------------------------------
 Wed Nov 25 20:52:52 CET 2009 - agruen@suse.de
 
-- quilt.quiltrc: make sur eto only override QUILT_PAGER if
+- quilt.quiltrc: make sure to only override QUILT_PAGER if
   QUILT_PAGER isn't set already.
 
 -------------------------------------------------------------------
