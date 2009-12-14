@@ -1006,7 +1006,7 @@ wait_for_pager_signal()
 {
 	remove_exit_handler wait_for_pager
 	wait_for_pager
-	trap - INT HUP TERM QUIT PIPE
+	trap - INT HUP TERM QUIT
 }
 
 # Spawn pager process and redirect the rest of our output to it
@@ -1034,7 +1034,7 @@ setup_pager()
 	pager_pid=$!
 	exec > "$pager_fifo"
 
-	trap wait_for_pager_signal INT HUP TERM QUIT PIPE
+	trap wait_for_pager_signal INT HUP TERM QUIT
 	add_exit_handler wait_for_pager
 }
 
