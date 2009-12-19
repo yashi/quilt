@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Dec 19 15:45:12 CET 2009 - bert.wesarg@googlemail.com
+
+- quilt/scripts/patchfns.in: Fix pager on broken pipe.
+
+-------------------------------------------------------------------
 Sat Dec 12 10:00:52 CET 2009 - jdelvare@suse.de
 
 - quilt/scripts/patchfns.in (diff_file): Swap options and
