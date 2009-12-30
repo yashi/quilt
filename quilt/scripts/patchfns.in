@@ -20,7 +20,6 @@ export LANG=POSIX
 export QUILT_PATCHES QUILT_PC SUBDIR SERIES DB
 DB_VERSION=2
 
-: ${QUILT_PATCHES:=patches}
 : ${QUILT_PC:=.pc}
 
 # Support compatibility layer
@@ -950,6 +949,14 @@ create_db() {
 		mkdir -p $QUILT_PC
 		echo $DB_VERSION > $QUILT_PC/.version
 	fi
+	if ! [ -e $QUILT_PC/.quilt_patches ]
+	then
+		echo "$QUILT_PATCHES" > $QUILT_PC/.quilt_patches
+	fi
+	if ! [ -e $QUILT_PC/.quilt_series ]
+	then
+		echo "$QUILT_SERIES" > $QUILT_PC/.quilt_series
+	fi
 }
 
 version_check() {
@@ -1052,14 +1059,14 @@ setup_pager()
 # drivers/net/.
 
 unset SUBDIR SUBDIR_DOWN
-if ! [ -d "$QUILT_PATCHES" ]
+if ! [ -d "$QUILT_PC" -o -d "${QUILT_PATCHES:-patches}" ]
 then
     basedir=$PWD
     while [ -n "$basedir" ]
     do
 	basedir=${basedir%/*}
 	down=$down../
-	if [ -d "$basedir/$QUILT_PATCHES" ]
+	if [ -d "$basedir/$QUILT_PC" -o -d "$basedir/${QUILT_PATCHES:-patches}" ]
 	then
 	    SUBDIR="${PWD#$basedir/}/"
 	    SUBDIR_DOWN=$down
@@ -1074,7 +1081,18 @@ then
     unset basedir down
 fi
 
-: ${QUILT_SERIES:=series}
+if [ -r $QUILT_PC/.quilt_patches ]
+then
+	: ${QUILT_PATCHES:=$(< $QUILT_PC/.quilt_patches)}
+else
+	: ${QUILT_PATCHES:=patches}
+fi
+if [ -r $QUILT_PC/.quilt_series ]
+then
+	: ${QUILT_SERIES:=$(< $QUILT_PC/.quilt_series)}
+else
+	: ${QUILT_SERIES:=series}
+fi
 
 if [ "${QUILT_SERIES:0:1}" = / ]
 then

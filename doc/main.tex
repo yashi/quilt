@@ -175,7 +175,9 @@ The remainder of this document discusses the script collection
 
 With quilt, all work occurs within a single directory tree. Since
 version 0.30, commands can be invoked from anywhere within the source
-tree.  Commands are of the form ``\quilt{cmd}'', similar to CVS
+tree (the directory tree is scanned upwards until either the
+\textsf{.pc} or the \textsf{patches} directory is found).
+Commands are of the form ``\quilt{cmd}'', similar to CVS
 commands. They can be abbreviated as long as the specified part of the
 command is unique. All commands print some help text with ``\quilt{cmd
 -h}''.
@@ -198,7 +200,9 @@ After the refresh, the patch and the working state are the same.
 
 Patch files are located in the \textsf{patches} sub-directory of the
 source tree (see Figure~\ref{fig:dir-layout}). The \textsf{QUILT\_PATCHES}
-environment variable can be used to override this location. The
+environment variable can be used to override this location and quilt
+will remember this location by storing its value in the
+\textsf{.pc/.quilt\_patches} file. The
 \textsf{patches} directory may contain sub-directories.
 \textsf{patches} may also be a symbolic link instead of a directory.
 
