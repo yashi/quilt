@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt push [-afqv] [--merge] [--leave-rejects] [--color[=always|auto|never]] [num|patch]\n"
+	printf $"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color[=always|auto|never]] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -44,7 +44,7 @@ be used.
 --fuzz=N
 	Set the maximum fuzz factor (default: 2).
 
--m, --merge
+-m, --merge[=merge|diff3]
 	Merge the patch file into the original files (see patch(1)).
 
 --leave-rejects
@@ -274,7 +274,7 @@ list_patches()
 	fi
 }
 
-options=`getopt -o fqvamh --long fuzz:,merge,leave-rejects,color:: -- "$@"`
+options=`getopt -o fqvam::h --long fuzz:,merge::,leave-rejects,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -305,8 +305,17 @@ do
 		opt_fuzz=$2
 		shift 2 ;;
 	-m | --merge)
-		opt_merge=1
-		shift 1 ;;
+		case "$2" in
+		"" | merge)
+			opt_merge=1
+			opt_merge_arg= ;;
+		diff3)
+			opt_merge=1
+			opt_merge_arg="=diff3" ;;
+		*)
+			usage ;;
+		esac
+		shift 2 ;;
 	--leave-rejects)
 		opt_leave_rejects=1
 		shift ;;
@@ -357,7 +366,7 @@ more_patch_args=
 	more_patch_args="$more_patch_args -f"
 if [ -n "$opt_merge" ]
 then
-	more_patch_args="$more_patch_args --merge"
+	more_patch_args="$more_patch_args --merge$opt_merge_arg"
 fi
 [ -n "$opt_fuzz" ] && more_patch_args="$more_patch_args -F$opt_fuzz"
 

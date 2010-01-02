@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 27 13:39:06 CET 2010 - bert.wesarg@googlemail.com
+
+- quilt/push.in: patch's --merge option has an optional argument
+  now.
+
+-------------------------------------------------------------------
 Wed Jan 27 13:38:02 CET 2010 - hertzog@debian.org
 
 - quilt/scripts/patchfns.in: Skip non-files when selecting the
