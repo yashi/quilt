@@ -57,6 +57,70 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
+* Sat Dec 12 2009 - jdelvare@suse.de
+- quilt/scripts/patchfns.in (diff_file): Swap options and
+  parameters for better portability.
+* Fri Nov 27 2009 - jdelvare@suse.de
+- Some (possibly all) versions of "file" do not recognize lzma-
+  compressed files. Rely on the file name for these.
+* Fri Nov 27 2009 - jdelvare@suse.de
+- Fix support of lzma- or xz-compressed files:
+  * Let xz handle lzma compatibility externally, with links.
+    Otherwise lzma support will not work for users with only lzma
+    installed and not xz.
+  * "upgrade" doesn't need to care about lzma nor xz, these
+    compression formats were not supported back in v1.
+  * Fix cat_to_new_file() for lzma/xz files..
+  * Use a different letter for lzma and xz files in inspect.
+* Wed Nov 25 2009 - agruen@suse.de
+- quilt.quiltrc: make sure to only override QUILT_PAGER if
+  QUILT_PAGER isn't set already.
+* Wed Nov 25 2009 - agruen@suse.de
+- inspect: Try to better recognize "patch -d" and "tar -C" (which
+  both change the working directory).  (This may fail in some other
+  cases now -- there are still a lot of heuristics involved here.)
+* Wed Nov 25 2009 - agruen@suse.de
+- inspect: When guessing the tarball filename, make sure that only
+  regular files are considered. (Otherwise, we will trip over
+  command lines like "tar xjCf dir file").
+* Wed Nov 25 2009 - agruen@suse.de
+- new command: Add -p ... option (equivalent to diff -p ...).
+  (Based on a patch from Egbert Eich <eich@freedesktop.org>.)
+* Wed Nov 25 2009 - agruen@suse.de
+- Make sure the series file is a regular file (or a symlink to a
+  regular file).  Reported by Raphael Hertzog <hertzog@debian.org>.
+* Wed Nov 25 2009 - bert.wesarg@googlemail.com
+- push: update color matcher for failed merge
+* Sun Nov 22 2009 - agruen@suse.de
+- No longer create backup files of new files with file mode 0.
+  (This has been changed in GNU patch 2.6 as well.)
+* Fri Nov 20 2009 - agruen@suse.de
+- Add pagination support (code based on topgit; patch from Bert
+  Wesarg <bert.wesarg@googlemail.com>).
+- When QUILT_PAGER is set to an empty value, do not paginate.
+- Document QUILT_PAGER in the man page.
+- Clean things up a little.
+- Add a workaround in quilt.quiltrc for color output when $LESS
+  is defined.
+* Fri Nov 20 2009 - pth@novell.com
+- Enable quilt to handle compressed tarballs and patches that were
+  compressed with lzma or xz.
+* Thu Nov 05 2009 - agruen@suse.de
+- patches command: Commit 2e581933a introduced a bug in scanning
+  unapplied patches which lead to missed matches.
+- patches command: Prevent false matches in unapplied patches
+  for patches which delete files.
+- patches command: Also match deleted files in unapplied patches,
+  at the cost of more possible false matches.
+* Wed Nov 04 2009 - agruen@suse.de
+- Fix typo in doc/quilt.1.in.
+* Mon Nov 02 2009 - agruen@suse.de
+- Implement -r / --reference option in compat/date (patch from
+  Olivier Mehani <shtrom-savanah@ssji.net>).
+* Thu Sep 17 2009 - agruen@suse.de
+- Restore the "remove" command which a few people were missing
+  since its replacement by "revert" in April 2007. (Patch from
+  Pedro Alves.)
 * Wed Sep 09 2009 - agruen@suse.de
 - French translation update from from
   Jean Delvare <jdelvare@suse.de>.
