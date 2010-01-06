@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan  6 18:27:09 CET 2010 - jdelvare@suse.de
+
+- quilt.spec, doc/main.tex: Update URI of Andrew Morton's patch
+  scripts. Reported by Randy Dunlap.
+
+-------------------------------------------------------------------
 Sat Dec 19 15:45:12 CET 2009 - bert.wesarg@googlemail.com
 
 - quilt/scripts/patchfns.in: Fix pager on broken pipe.

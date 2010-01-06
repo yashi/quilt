@@ -19,7 +19,7 @@ track of the changes each patch makes. Patches can be
 applied, un-applied, refreshed, etc.
 
 The scripts are heavily based on Andrew Morton's patch scripts
-found at http://www.zip.com.au/~akpm/linux/patches/.
+found at http://userweb.kernel.org/~akpm/stuff/patch-scripts.tar.gz.
 
 Authors:
 --------
@@ -1481,7 +1481,8 @@ rm -rf $RPM_BUILD_ROOT
   Messages are found even when not installing into /usr.
 * Fri Jul 02 2004 - agruen@suse.de
 - Several Fixes from Joe Green <jgreen@mvista.com>:
-  + Another sed 	 problem, in Makefile.in
+  + Another sed 	
+ problem, in Makefile.in
   + Bad error message on "quilt delete" of non-existent patch
   + "import" doesn't remove all leading components on patch file
   + Misspelling in "import" help text
