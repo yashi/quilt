@@ -57,6 +57,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-%{version}/quilt.pdf
 
 %changelog
+* Sat Dec 19 2009 - bert.wesarg@googlemail.com
+- quilt/scripts/patchfns.in: Fix pager on broken pipe.
 * Sat Dec 12 2009 - jdelvare@suse.de
 - quilt/scripts/patchfns.in (diff_file): Swap options and
   parameters for better portability.
