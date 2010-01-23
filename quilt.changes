@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 27 13:38:02 CET 2010 - hertzog@debian.org
+
+- quilt/scripts/patchfns.in: Skip non-files when selecting the
+  SERIES file.
+
+-------------------------------------------------------------------
 Sat Jan 23 21:11:12 CET 2010 - jdelvare@suse.de
 
 - test/run, test/*.test: Separate working directory for each test

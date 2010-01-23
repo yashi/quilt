@@ -1097,10 +1097,10 @@ fi
 if [ "${QUILT_SERIES:0:1}" = / ]
 then
 	SERIES=$QUILT_SERIES
-elif [ -e $QUILT_PC/$QUILT_SERIES ]
+elif [ -f $QUILT_PC/$QUILT_SERIES ]
 then
 	SERIES=$QUILT_PC/$QUILT_SERIES
-elif [ -e $QUILT_SERIES ]
+elif [ -f $QUILT_SERIES ]
 then
 	SERIES=$QUILT_SERIES
 else
