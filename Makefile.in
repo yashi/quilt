@@ -407,12 +407,11 @@ test/.%.ok : test/%.test FORCE
 else
 test/.%.ok : test/%.test
 endif
-	@echo "[$(<F)]"
 	@LANG=C; LC_ALL=C;						\
 	export LANG LC_ALL;						\
 	$(CHECK_ENV);							\
 	cd $(@D);							\
-	./run $(<F)
+	./run -q $(<F)
 	@touch $@
 
 clean :
