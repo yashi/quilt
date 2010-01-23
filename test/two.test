@@ -1,8 +1,7 @@
 (To run, type `./run two.test' in this directory.)
 
-	$ rm -rf d
-	$ mkdir -p d/patches d/d
-	$ cd d
+	$ mkdir patches d
+
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top
 
@@ -21,19 +20,19 @@
 	> Nothing in patch %{_P}patch1.diff
 
 	$ echo "This is file two." > file2
-	$ quilt diff
-	> Index: d/d/file2
+	$ quilt diff -p ab
+	> Index: b/d/file2
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/d/file2
+	> +++ b/d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
 
-	$ quilt diff -z
-	> Index: d/d/file2
+	$ quilt diff -z -p ab
+	> Index: b/d/file2
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/d/file2
+	> +++ b/d/file2
 	> @@ -0,0 +1 @@
 	> +This is file two.
 
@@ -42,21 +41,21 @@
 
 	$ quilt diff -z
 	$ echo "Another line has been added." >> dir/file1
-	$ quilt diff -z
-	> Index: d/d/dir/file1
+	$ quilt diff -z -p ab
+	> Index: b/d/dir/file1
 	> ===================================================================
-	> --- d.orig/d/dir/file1
-	> +++ d/d/dir/file1
+	> --- a/d/dir/file1
+	> +++ b/d/dir/file1
 	> @@ -1 +1,2 @@
 	>  This is file one.
 	> +Another line has been added.
 
 	$ cd dir
-	$ quilt diff -z file1
-	> Index: d/d/dir/file1
+	$ quilt diff -z file1 -p ab
+	> Index: b/d/dir/file1
 	> ===================================================================
-	> --- d.orig/d/dir/file1
-	> +++ d/d/dir/file1
+	> --- a/d/dir/file1
+	> +++ b/d/dir/file1
 	> @@ -1 +1,2 @@
 	>  This is file one.
 	> +Another line has been added.
@@ -109,10 +108,10 @@
 	> File d/file4 added to patch %{_P}subdir/patch3.diff
 
 	$ rm -f file4
-	$ quilt diff
-	> Index: d/d/file4
+	$ quilt diff -p ab
+	> Index: b/d/file4
 	> ===================================================================
-	> --- d.orig/d/file4
+	> --- a/d/file4
 	> +++ /dev/null
 	> @@ -1 +0,0 @@
 	> -This is file 4.
@@ -128,11 +127,11 @@
 	> Refreshed patch %{_P}patch2.diff
 
 	$ echo "Another line added." >> file2
-	$ quilt diff -z -P patch1
-	> Index: d/d/file2
+	$ quilt diff -z -P patch1 -p ab
+	> Index: b/d/file2
 	> ===================================================================
-	> --- d.orig/d/file2
-	> +++ d/d/file2
+	> --- a/d/file2
+	> +++ b/d/file2
 	> @@ -1 +1,2 @@
 	>  This is file two.
 	> +Another line added.
@@ -158,6 +157,3 @@
 	> Removing patch %{_P}patch2.diff
 	> Removing patch %{_P}patch1.diff
 	> No patches applied
-
-	$ cd ../..
-	$ rm -rf d

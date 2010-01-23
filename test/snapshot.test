@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ quilt new snapshot
 	> Patch %{P}snapshot is now on top
@@ -35,19 +33,16 @@
 	> Refreshed patch %{P}snapshot-2
 
 	$ quilt diff --snapshot | grep -v "^\\(---\\|+++\\)"
-	> Index: d/f.txt
+	>~ Index: [^/]+/f\.txt
 	> ===================================================================
 	> @@ -1 +1,2 @@
 	>  f.txt
 	> +more changes
-	> Index: d/g.txt
+	>~ Index: [^/]+/g\.txt
 	> ===================================================================
 	> @@ -1 +0,0 @@
 	> -g.txt
-	> Index: d/h.txt
+	>~ Index: [^/]+/h\.txt
 	> ===================================================================
 	> @@ -0,0 +1 @@
 	> +h.txt
-	
-	$ cd ..
-	$ rm -rf d

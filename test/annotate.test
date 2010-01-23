@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 	
 	$ cat > foo
 	< foo
@@ -114,6 +112,3 @@
 	> 1	two
 	>
 	> 1	patches/patch4
-
-	$ cd ..
-	$ rm -rf d

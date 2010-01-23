@@ -1,6 +1,4 @@
-$ rm -rf d
-$ mkdir -p d/patches
-$ cd d
+$ mkdir patches
 
 $ echo foo > foo.orig
 $ echo foo2 > foo
@@ -40,5 +38,3 @@ $ quilt diff
 > @@ -1 +1 @@
 > -foo
 > +foo2
-$ cd ..
-$ rm -rf d

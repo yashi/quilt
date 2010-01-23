@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ mkdir sub
 	$ echo f1 > sub/f
@@ -50,6 +48,3 @@
 	> Changes to sub/h in patch ../patches/p.diff reverted
 
 	$ quilt diff -z
-
-	$ cd ../..
-	$ rm -rf d

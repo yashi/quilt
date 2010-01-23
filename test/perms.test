@@ -1,7 +1,6 @@
-	$ rm -rf d
 	$ umask 022
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
+
 	$ echo foo > foo
 	$ chmod 704 foo
 	$ ls -l foo | awk '{ print $1,$NF }'
@@ -55,6 +54,3 @@ the backup file.
 	$ quilt pop -q
 	> Removing patch %{P}test2.diff
 	> Now at patch %{P}test.diff
-
-	$ cd ..
-	$ rm -rf d

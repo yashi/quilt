@@ -1,6 +1,4 @@
-$ rm -rf d
-$ mkdir -p d/patches d/subdir
-$ cd d
+$ mkdir patches subdir
 
 $ cat > editor
 < #! /bin/sh
@@ -34,6 +32,3 @@ $ cat subdir/foo
 $ quilt files
 > foobar
 > subdir/foo
-
-$ cd ../..
-$ rm -rf d

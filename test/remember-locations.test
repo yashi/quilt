@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/my/changes
-	$ cd d
+	$ mkdir -p my/changes
 
 	$ export QUILT_PATCHES=my/changes
 	$ export QUILT_SERIES=patchlist
@@ -26,5 +24,4 @@
 	> ../my/changes/mychange1
 	> ../my/changes/mychange2
 
-	$ cd ../..
-	$ rm -rf d
+	$ cd ..

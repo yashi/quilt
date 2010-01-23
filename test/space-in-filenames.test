@@ -1,6 +1,5 @@
-$ rm -rf d
-$ mkdir -p d/patches
-$ cd d
+$ mkdir patches
+
 $ quilt new test.diff
 >Patch patches/test.diff is now on top
 
@@ -38,6 +37,3 @@ $quilt remove "foo bar"
 
 $ quilt files
 > foo
-
-$ cd ..
-$ rm -rf d

@@ -1,9 +1,8 @@
 The text used here was taken from:
 http://the-tech.mit.edu/Shakespeare/midsummer/full.html
 
-	$ rm -rf example1
-	$ mkdir -p example1/patches
-	$ cd example1
+	$ mkdir patches
+
 	$ cat > Oberon.txt
 	< Yet mark'd I where the bolt of Cupid fell:
 	< It fell upon a little western flower,
@@ -23,14 +22,14 @@ http://the-tech.mit.edu/Shakespeare/midsummer/full.html
 
 Or ``quilt edit Oberon.txt''
 
-	$ quilt refresh
+	$ quilt refresh -p ab
 	> Refreshed patch %{P}flower.diff
 
 	$ cat patches/flower.diff
-	> Index: example1/Oberon.txt
+	> Index: b/Oberon.txt
 	> ===================================================================
-	> --- example1.orig/Oberon.txt
-	> +++ example1/Oberon.txt
+	> --- a/Oberon.txt
+	> +++ b/Oberon.txt
 	> @@ -2,3 +2,6 @@
 	>  It fell upon a little western flower,
 	>  Before milk-white, now purple with love's wound,
@@ -43,11 +42,11 @@ Or ``quilt edit Oberon.txt''
 	$ echo "Fetch me that flower; the herb I shew'd thee once:" >> Oberon.new
 	$ sed -e '1,4d' Oberon.txt >> Oberon.new
 	$ mv Oberon.new Oberon.txt
-	$ quilt diff -z
-	> Index: example1/Oberon.txt
+	$ quilt diff -z -p ab
+	> Index: b/Oberon.txt
 	> ===================================================================
-	> --- example1.orig/Oberon.txt
-	> +++ example1/Oberon.txt
+	> --- a/Oberon.txt
+	> +++ b/Oberon.txt
 	> @@ -2,6 +2,7 @@
 	>  It fell upon a little western flower,
 	>  Before milk-white, now purple with love's wound,
@@ -57,11 +56,11 @@ Or ``quilt edit Oberon.txt''
 	>  Will make a man or woman madly dote
 	>  Upon the next live creature that it sees.
 
-	$ quilt diff
-	> Index: example1/Oberon.txt
+	$ quilt diff -p ab
+	> Index: b/Oberon.txt
 	> ===================================================================
-	> --- example1.orig/Oberon.txt
-	> +++ example1/Oberon.txt
+	> --- a/Oberon.txt
+	> +++ b/Oberon.txt
 	> @@ -2,3 +2,7 @@
 	>  It fell upon a little western flower,
 	>  Before milk-white, now purple with love's wound,
@@ -110,7 +109,7 @@ Or ``quilt edit Oberon.txt''
 	< Will make a man or woman madly dote
 	< Upon the next live creature that it sees.
 	
-	$ quilt refresh
+	$ quilt refresh -p ab
 	> Refreshed patch %{P}flower.diff
 
 	$ cat Oberon.txt
@@ -124,10 +123,10 @@ Or ``quilt edit Oberon.txt''
 	> Upon the next live creature that it sees.
 
 	$ cat patches/flower.diff
-	> Index: example1/Oberon.txt
+	> Index: b/Oberon.txt
 	> ===================================================================
-	> --- example1.orig/Oberon.txt
-	> +++ example1/Oberon.txt
+	> --- a/Oberon.txt
+	> +++ b/Oberon.txt
 	> @@ -2,3 +2,7 @@
 	>  It fell upon a little western flower,
 	>  Before milk-white, now purple with love's wound,
@@ -136,6 +135,3 @@ Or ``quilt edit Oberon.txt''
 	> +The juice of it on sleeping eye-lids laid
 	> +Will make a man or woman madly dote
 	> +Upon the next live creature that it sees.
-
-	$ cd ..
-	$ rm -rf example1

@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo file > file
 	$ quilt new remove.diff
@@ -31,6 +29,3 @@ or else patch won't know the real original filename anymore.
 	$ quilt push -q
 	> Applying patch patches/remove.diff
 	> Now at patch patches/remove.diff
-	
-	$ cd ..
-	$ rm -r d

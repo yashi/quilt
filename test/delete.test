@@ -1,8 +1,6 @@
 Test the delete command.
 
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ quilt delete
 	> No patches in series
@@ -99,6 +97,3 @@ Test the delete command.
 
 	$ quilt delete test3
 	> Removed patch %{P}test3
-
-	$ cd ..
-	$ rm -rf d

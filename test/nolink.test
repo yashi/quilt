@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 # quilt should preserve hard links and not create new ones
 	$ echo foo > foo
@@ -72,6 +70,3 @@
 	$ quilt pop -q
 	> Removing patch patches/test.diff
 	> No patches applied
-
-	$ cd ..
-	$ rm -rf d

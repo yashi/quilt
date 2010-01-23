@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo a > test.txt
 	$ echo d > test3.txt
@@ -63,6 +61,3 @@
 	$ quilt pop -qR
 	> Removing patch patches/ab.diff
 	> No patches applied
-
-	$ cd ..
-	$ rm -rf d

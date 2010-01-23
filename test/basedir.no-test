@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo foo.orig > foo.orig
 	$ echo foo > foo
@@ -24,6 +22,3 @@
 	> Applying patch patches/foo.diff
 	> Applying patch patches/bar.diff
 	> Now at patch patches/bar.diff
-
-	$ cd ..
-	$ rm -rf d

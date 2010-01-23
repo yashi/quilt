@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > patches/series
 	< missing1.diff
@@ -20,6 +18,3 @@
 	> Patch %{P}missing3.diff appears to be empty, removing
 	> Patch patches/missing1.diff appears to be empty, removing
 	> No patches applied
-	
-	$ cd ..
-	$ rm -rf d

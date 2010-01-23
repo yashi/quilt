@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ quilt new dotglob.diff
 	> Patch patches/dotglob.diff is now on top
@@ -19,6 +17,3 @@
 	$ quilt push -q
 	> Applying patch patches/dotglob.diff
 	> Now at patch patches/dotglob.diff
-	
-	$ cd ..
-	$ rm -rf d

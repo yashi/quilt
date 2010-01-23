@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ quilt new revert.patch
 	> Patch patches/revert.patch is now on top
@@ -25,6 +23,3 @@
 
 	$ quilt refresh
 	> Patch patches/revert.patch is unchanged
-
-	$ cd ..
-	$ rm -rf d

@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo foo > foo
 	$ quilt new patch
@@ -10,7 +8,7 @@
 	> File foo added to patch patches/patch
 	
 	$ echo bar > foo
-	$ quilt refresh
+	$ quilt refresh -p ab
 	> Refreshed patch patches/patch
 
 	$ mv patches/patch patches/patch~
@@ -37,13 +35,10 @@
 	$ cat patches/patch
 	> Header2
 	> Appended
-	> Index: d/foo
+	> Index: b/foo
 	> ===================================================================
-	> --- d.orig/foo
-	> +++ d/foo
+	> --- a/foo
+	> +++ b/foo
 	> @@ -1 +1 @@
 	> -foo
 	> +bar
-
-	$ cd ..
-	$ rm -rf d

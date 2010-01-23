@@ -1,6 +1,4 @@
-$ rm -rf d
-$ mkdir -p d/somewhere
-$ cd d
+$ mkdir somewhere
 
 $ cat > foo.orig
 < 1
@@ -69,6 +67,3 @@ $ quilt pop -q
 > Removing patch patches/somewhere/foo.diff
 > No patches applied
 $ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
-
-$ cd ..
-$ rm -rf d

@@ -1,7 +1,4 @@
-
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top
@@ -249,6 +246,3 @@
 	$ cat patches/series
 	> patch1.diff
 	> patchR.diff
-
-	$ cd ..
-	$ rm -rf d

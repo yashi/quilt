@@ -1,9 +1,8 @@
 Regresion test case: Empty lines in patch descriptions were
 accidentally removed.
 
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
+
 	$ echo one > f
 	$ cat > patches/test.diff
 	< C1
@@ -75,6 +74,3 @@ accidentally removed.
 	> @@ -1 +1 @@
 	> -one
 	> +two
-	$ cd ..
-	$ rm -rf d
-

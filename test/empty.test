@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > patches/series
 	< empty1.diff
@@ -34,6 +32,3 @@
 
 	$ quilt rename -P empty3.diff empty_new.diff
 	> Patch %{P}empty3.diff renamed to %{P}empty_new.diff
-
-	$ cd ..
-	$ rm -rf d

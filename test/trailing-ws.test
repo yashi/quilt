@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > a
 	< a
@@ -77,6 +75,3 @@
 	$ quilt pop -q
 	> Removing patch patches/test2.diff
 	> No patches applied
-
-	$ cd ..
-	$ rm -rf d

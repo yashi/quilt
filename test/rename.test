@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > announce.txt
 	< A short summary of the fixes are below.
@@ -57,6 +55,3 @@
 	$ quilt pop -q
 	> Removing patch %{P}newsubdir/final.name.diff
 	> No patches applied
-
-	$ cd ..
-	$ rm -rf d

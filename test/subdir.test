@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ mkdir subdir
 	$ cat > subdir/file
@@ -39,29 +37,26 @@
 	> + subdir/file2
 	> - subdir/file3
 
-	$ quilt diff
-	> Index: d/subdir/file
+	$ quilt diff -p ab
+	> Index: b/subdir/file
 	> ===================================================================
-	> --- d.orig/subdir/file
-	> +++ d/subdir/file
+	> --- a/subdir/file
+	> +++ b/subdir/file
 	> @@ -1 +1 @@
 	> -old file
 	> +new contents
-	> Index: d/subdir/file2
+	> Index: b/subdir/file2
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/subdir/file2
+	> +++ b/subdir/file2
 	> @@ -0,0 +1 @@
 	> +another file
-	> Index: d/subdir/file3
+	> Index: b/subdir/file3
 	> ===================================================================
-	> --- d.orig/subdir/file3
+	> --- a/subdir/file3
 	> +++ /dev/null
 	> @@ -1 +0,0 @@
 	> -yet another file
 
 	$ quilt refresh
 	> Refreshed patch %{_P}test.patch
-
-	$ cd ../..
-	$ rm -rf d

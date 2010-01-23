@@ -1,9 +1,7 @@
 Check whether quilt generates patches properly so that GNU patch recognizes
 file creates and deletions.
 
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo delete > delete
 	$ quilt new test.diff
@@ -40,6 +38,3 @@ file creates and deletions.
 	> Apply anyway? [n] 
 	> Skipping patch.
 	> 1 out of 1 hunk ignored
-
-	$ cd ..
-	$ rm -rf d

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Jan 23 21:11:12 CET 2010 - jdelvare@suse.de
+
+- test/run, test/*.test: Separate working directory for each test
+  case.
+
+-------------------------------------------------------------------
 Sat Jan 23 17:59:33 CET 2010 - hertzog@debian.org
 
 - quilt/scripts/patchfns.in: Remember QUILT_PATCHES and

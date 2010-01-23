@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > test.txt
 	< This is test.txt.
@@ -23,6 +21,3 @@
 	$ mv patches/test.new patches/test.diff
 	$ quilt pop
 	> Patch %{P}test.diff does not remove cleanly (refresh it or enforce with -f)
-
-	$ cd ..
-	$ rm -rf d

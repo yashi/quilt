@@ -2,9 +2,7 @@ This test case creates a patch and then applies that patch to a modified
 source file. The source file is modified until the patch doesn't apply
 anymore, then the patch is fixed.
 
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ cat > one.txt
 	< 1
@@ -73,7 +71,7 @@ anymore, then the patch is fixed.
 	$ sed -e "s/4/4+/" one.x > one.txt
 	$ rm -f one.x
 	$ quilt diff -z | grep -v "^\\(---\\|+++\\)"
-	> Index: d/one.txt
+	>~ Index: [^/]+/one\.txt
 	> ===================================================================
 	> @@ -1,7 +1,7 @@
 	>  1-
@@ -86,7 +84,7 @@ anymore, then the patch is fixed.
 	>  7-
 
 	$ quilt diff | grep -v "^\\(---\\|+++\\)"
-	> Index: d/one.txt
+	>~ Index: [^/]+/one\.txt
 	> ===================================================================
 	> @@ -1,7 +1,7 @@
 	>  1-
@@ -111,7 +109,7 @@ anymore, then the patch is fixed.
 	> Refreshed patch %{P}a.diff
 
 	$ cat patches/a.diff | grep -v "^\\(---\\|+++\\)"
-	> Index: d/one.txt
+	>~ Index: [^/]+/one\.txt
 	> ===================================================================
 	> @@ -1,7 +1,7 @@
 	>  1-
@@ -135,6 +133,3 @@ anymore, then the patch is fixed.
 	$ quilt pop -q
 	> Removing patch %{P}a.diff
 	> No patches applied
-
-	$ cd ..
-	$ rm -rf d

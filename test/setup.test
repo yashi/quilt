@@ -1,6 +1,5 @@
-$ rm -rf d
-$ mkdir -p d/dir
-$ cd d
+$ mkdir dir
+
 $ echo 1 > dir/foo.orig
 $ echo 2 > dir/foo
 $ diff -u dir/foo.orig dir/foo > foo.diff
@@ -48,5 +47,3 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 $ quilt push -qa
 > Applying patch patches/foo.diff
 > Now at patch patches/foo.diff
-$ cd ..
-$ rm -rf d

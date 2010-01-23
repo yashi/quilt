@@ -1,4 +1,6 @@
-	$ rm -rf d
+	# We create our own working directory to be able to verify
+	# all patch formats, including the ones which mention the
+	# base directory.
 	$ mkdir -p d/patches
 	$ cd d
 
@@ -116,6 +118,3 @@
 	> +new
 	>  4
 	>  5
-
-	$ cd ..
-	$ rm -rf d

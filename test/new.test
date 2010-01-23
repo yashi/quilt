@@ -1,6 +1,4 @@
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ echo reject > f
 	$ echo p.diff > patches/series
@@ -33,22 +31,19 @@
 	> Applied patch %{P}p.diff (forced; needs refresh)
 
 	$ echo new > f
-	$ quilt refresh
+	$ quilt refresh -p ab
 	> Refreshed patch %{P}p.diff
 	$ cat patches/p.diff
-	> Index: d/f
+	> Index: b/f
 	> ===================================================================
-	> --- d.orig/f
-	> +++ d/f
+	> --- a/f
+	> +++ b/f
 	> @@ -1 +1 @@
 	> -reject
 	> +new
-	> Index: d/g
+	> Index: b/g
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/g
+	> +++ b/g
 	> @@ -0,0 +1 @@
 	> +added
-
-	$ cd ..
-	$ rm -rf d

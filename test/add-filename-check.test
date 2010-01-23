@@ -1,6 +1,5 @@
-$ rm -rf d
-$ mkdir -p d/patches
-$ cd d
+$ mkdir patches
+
 $ quilt new test.diff
 >Patch patches/test.diff is now on top
 
@@ -13,6 +12,3 @@ $ quilt add patches/bar
 
 $ quilt add .pc/baz
 > File .pc/baz is located below .pc/
-
-$ cd ..
-$ rm -rf d

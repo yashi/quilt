@@ -1,7 +1,4 @@
-
-	$ rm -rf d
-	$ mkdir -p d/patches
-	$ cd d
+	$ mkdir patches
 
 	$ touch e
 	$ quilt annotate e
@@ -137,17 +134,17 @@
 	$ quilt push
 	> File series fully applied, ends at patch patches/patch2.diff
 
-	$ quilt diff --combine patch1 -P patch2
-	> Index: d/f
+	$ quilt diff --combine patch1 -P patch2 -p ab
+	> Index: b/f
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/f
+	> +++ b/f
 	> @@ -0,0 +1 @@
 	> +f
-	> Index: d/g
+	> Index: b/g
 	> ===================================================================
 	> --- /dev/null
-	> +++ d/g
+	> +++ b/g
 	> @@ -0,0 +1 @@
 	> +g
 
@@ -168,6 +165,3 @@
 
 	$ quilt pop patch4.diff
 	> Patch patch4.diff is not in series
-
-	$ cd ..
-	$ rm -rf d
