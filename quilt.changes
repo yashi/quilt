@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jan 23 17:59:33 CET 2010 - hertzog@debian.org
+
+- quilt/scripts/patchfns.in: Remember QUILT_PATCHES and
+  QUILT_SERIES by storing them in .pc.
+- doc/main.tex: Document this change.
+- test/remember-locations.test: Add non-regression test to verify
+  that quilt remembers QUILT_PATCHES/QUILT_SERIES.
+
+-------------------------------------------------------------------
 Wed Jan  6 18:27:09 CET 2010 - jdelvare@suse.de
 
 - quilt.spec, doc/main.tex: Update URI of Andrew Morton's patch
