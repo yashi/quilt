@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 27 13:40:10 CET 2010 - jdelvare@suse.de
+
+- configure.ac: Stop testing for cp -l. Bug reported by Olivier
+  Mengué.
+
+-------------------------------------------------------------------
 Wed Jan 27 13:39:06 CET 2010 - bert.wesarg@googlemail.com
 
 - quilt/push.in: patch's --merge option has an optional argument

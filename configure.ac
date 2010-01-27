@@ -69,18 +69,6 @@ You can get this patch at ftp://ftp.gnu.org/gnu/bash/
 fi
 
 QUILT_COMPAT_PROG_PATH(CP, cp, [gcp cp])
-AC_MSG_CHECKING(whether $CP -l works)
-touch conftest.1
-if $CP -l conftest.1 conftest.2 2>/dev/null; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_ERROR([no
-
-You appear to have a `cp' that does not support hard links.
-You can download GNU fileutils from ftp.gnu.org
-])
-fi
-
 QUILT_COMPAT_PROG_PATH(DATE, date, [gdate date])
 
 if test -z "$INTERNAL_DATE"; then
