@@ -4441,26 +4441,6 @@ echo "$as_me: error: Please specify the location of cp with the option '--with-c
   fi
 
 
-{ echo "$as_me:$LINENO: checking whether $CP -l works" >&5
-echo $ECHO_N "checking whether $CP -l works... $ECHO_C" >&6; }
-touch conftest.1
-if $CP -l conftest.1 conftest.2 2>/dev/null; then
-	{ echo "$as_me:$LINENO: result: yes" >&5
-echo "${ECHO_T}yes" >&6; }
-else
-	{ { echo "$as_me:$LINENO: error: no
-
-You appear to have a \`cp' that does not support hard links.
-You can download GNU fileutils from ftp.gnu.org
-" >&5
-echo "$as_me: error: no
-
-You appear to have a \`cp' that does not support hard links.
-You can download GNU fileutils from ftp.gnu.org
-" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
 
 
 
