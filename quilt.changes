@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb 14 23:08:24 CET 2010 - agruen@suse.de
+
+- doc/main-rus.tex: Add a russion translation of the quilt paper
+  by Ivan Borzenkov <ivan1986@list.ru>.
+
+-------------------------------------------------------------------
 Wed Jan 27 13:41:35 CET 2010 - dapal@debian.org
 
 - quilt/scripts/patchfns.in: Differentiate output when
