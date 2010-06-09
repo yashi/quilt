@@ -265,6 +265,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@PATCH''@:$(PATCH):g'				\
 		-e 's:@VERSION''@:$(VERSION):g'				\
 		-e 's:@RELEASE''@:$(RELEASE):g'				\
+		-e 's:@ETCDIR''@:$(etcdir):g'				\
 		-e 's:@LOCALEDIR''@:$(localedir):g'			\
 		-e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g'	\
 		$< > $@

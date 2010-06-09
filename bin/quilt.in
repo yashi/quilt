@@ -14,7 +14,7 @@ export QUILT_DIR QUILT_LIB
 
 if [ -z "$QUILTRC" ]
 then
-	for QUILTRC in $HOME/.quiltrc /etc/quilt.quiltrc; do
+	for QUILTRC in $HOME/.quiltrc @ETCDIR@/quilt.quiltrc; do
 		[ -e $QUILTRC ] && break
 	done
 	export QUILTRC
@@ -45,7 +45,7 @@ Global options:
 
 --quiltrc file
 	Use the specified configuration file instead of ~/.quiltrc (or
-	/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
+	@ETCDIR@/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf
 	documentation for details about its possible contents.  The
 	special value \"-\" causes quilt not to read any configuration
 	file.
