@@ -19,7 +19,7 @@ track of the changes each patch makes. Patches can be
 applied, un-applied, refreshed, etc.
 
 The scripts are heavily based on Andrew Morton's patch scripts
-found at http://www.zip.com.au/~akpm/linux/patches/.
+found at http://userweb.kernel.org/~akpm/stuff/patch-scripts.tar.gz.
 
 Authors:
 --------

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun 23 14:01:25 CEST 2010 - jdelvare@suse.de
+
+- doc/main-rus.tex, quilt.spec.in: Update the remaining outdated
+  links to Andrew Morton's stuff.
+
+-------------------------------------------------------------------
 Wed Jun 23 13:23:08 CEST 2010 - jdelvare@suse.de
 
 - configure.ac: Properly detect newer versions of GNU patch.
