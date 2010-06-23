@@ -17,11 +17,11 @@ fi
 cd ${SUBDIR:-.}
 
 usage() {
-	echo "Usage: ${0##*/} specfile"
+	echo "Usage: ${0##*/} [--fuzz=N] specfile"
 	exit 1
 }
 
-options=$(getopt -o v --long sourcedir: -n "${0##*/}" -- "$@") || exit
+options=$(getopt -o v --long sourcedir:,fuzz: -n "${0##*/}" -- "$@") || exit
 
 eval set -- "$options"
 
@@ -35,6 +35,10 @@ do
 		shift ;;
 	--sourcedir)
 		sourcedir=${2%/}/
+		shift 2 ;;
+	--fuzz)
+		# Only works with rpm 4.6 and later
+		DEFINE_FUZZ="%define _default_patch_fuzz $2"
 		shift 2 ;;
 	--)
 		shift
@@ -309,6 +313,7 @@ rpmbuild --eval "%define _sourcedir $sourcedir" \
 	 --eval "%define _builddir  $tmpdir/build" \
 	 --eval "%define __patch    $tmpdir/bin/patch" \
 	 --eval "%define __tar      $tmpdir/bin/tar" \
+	 --eval "$DEFINE_FUZZ" \
 	 --nodeps \
 	 -bp "$specdir/$specfile" < /dev/null >&2
 status=$?

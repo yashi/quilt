@@ -72,7 +72,7 @@ create_symlink() {
 
 usage()
 {
-	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|seriesfile}\n"
+	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] {specfile|seriesfile}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -84,6 +84,9 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 	Directory that contains the package sources. Defaults to \`.'.
 
 -v	Verbose debug output.
+
+--fuzz=N
+	Set the maximum fuzz factor (needs rpm 4.6 or later).
 "
 		exit 0
 	else
@@ -91,7 +94,7 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 	fi
 }
 
-options=`getopt -o d:vh --long sourcedir: -- "$@"`
+options=`getopt -o d:vh --long sourcedir:,fuzz: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -117,6 +120,9 @@ do
 	--sourcedir)
 		sourcedir=${2%/}/
 		shift 2 ;;
+	--fuzz)
+		opt_fuzz="--fuzz $2"
+		shift 2 ;;
 	--)
 		shift
 		break ;;
@@ -137,7 +143,7 @@ case "$1" in
 *.spec)
 	spec_file=$1
 
-	if ! $QUILT_DIR/scripts/inspect $verbose $opt_sourcedir \
+	if ! $QUILT_DIR/scripts/inspect $verbose $opt_sourcedir $opt_fuzz \
 					"$spec_file" 2>&1 > $tmpfile
 	then
 		printf $"The %%prep section of %s failed; results may be incomplete\n" "$spec_file"

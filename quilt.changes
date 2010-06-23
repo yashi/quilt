@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun 23 13:16:45 CEST 2010 - jdelvare@suse.de
+
+- quilt/setup.in, quilt/scripts/inspect.in: Add a --fuzz parameter
+  to quilt setup and inspect.
+
+-------------------------------------------------------------------
 Sun Feb 14 23:08:24 CET 2010 - agruen@suse.de
 
 - doc/main-rus.tex: Add a russion translation of the quilt paper
