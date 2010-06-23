@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 23 13:20:26 CEST 2010 - jdelvare@suse.de
+
+- quilt/scripts/inspect.in: Handle reversed patches in spec files.
+
+-------------------------------------------------------------------
 Wed Jun 23 13:16:45 CEST 2010 - jdelvare@suse.de
 
 - quilt/setup.in, quilt/scripts/inspect.in: Add a --fuzz parameter

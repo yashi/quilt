@@ -173,16 +173,19 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		return 1
 	}
 
-	# Extract a command line option with argument from the command line
+	# Extract a command line option with or without argument
 	cmdline_option() {
-		local letter=$1
+		local letter=$1 no_arg=$2
 		shift
 
 		while [ $# -ne 0 ]
 		do
 			if [ "${1:0:2}" = -$letter ]
 			then
-				[ "$1" = -$letter ] && set -- "$1$2"
+				if [ -z "$no_arg" ]
+				then
+					[ "$1" = -$letter ] && set -- "$1$2"
+				fi
 				echo $1
 				break
 			fi
@@ -194,6 +197,12 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	strip_option() {
 		set -- $(cmdline_option p "$@")
 		[ "$1" != -p1 ] && echo $1
+	}
+
+	# Extract the -R option from the command line
+	reverse_option() {
+		set -- $(cmdline_option R no_arg "$@")
+		echo $1
 	}
 
 	patch_opt_d() {
@@ -275,7 +284,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 			dir=${dir/$RPM_BUILD_DIR}
 			dir=${dir##/}
 			echo "${0##*/} ${dir:-.} $unpackfile" \
-			     $(strip_option "$@") >&3
+			     $(strip_option "$@") $(reverse_option "$@") >&3
 			;;
 		tar)
 			echo -n t >&4
