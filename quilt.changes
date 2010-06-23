@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 23 13:23:08 CEST 2010 - jdelvare@suse.de
+
+- configure.ac: Properly detect newer versions of GNU patch.
+
+-------------------------------------------------------------------
 Wed Jun 23 13:20:26 CEST 2010 - jdelvare@suse.de
 
 - quilt/scripts/inspect.in: Handle reversed patches in spec files.

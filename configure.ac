@@ -262,7 +262,11 @@ fi
 AC_MSG_CHECKING([the version of $PATCH])
 if $PATCH --version 2> /dev/null | grep GNU >/dev/null; then
   set -- `$PATCH --version 2> /dev/null`
-  patch_version=$2
+  if test x$1 = xGNU ; then
+    patch_version=$3
+  else
+    patch_version=$2
+  fi
   AC_MSG_RESULT($patch_version)
   saved_IFS=$IFS; IFS='.'
   set -- $patch_version
