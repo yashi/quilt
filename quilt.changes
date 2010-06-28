@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 28 09:51:13 CEST 2010 - jdelvare@suse.de
+
+- No longer ship quilt.spec, it can easily be regerated from
+  quilt.spec.in.
+
+-------------------------------------------------------------------
 Wed Jun 23 14:01:25 CEST 2010 - jdelvare@suse.de
 
 - doc/main-rus.tex, quilt.spec.in: Update the remaining outdated
