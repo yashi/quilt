@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov  2 18:51:17 CET 2010 - jdelvare@suse.de
+
+- Add bash completion for revert command.
+
+-------------------------------------------------------------------
 Mon Jun 28 09:51:13 CEST 2010 - jdelvare@suse.de
 
 - No longer ship quilt.spec, it can easily be regerated from
