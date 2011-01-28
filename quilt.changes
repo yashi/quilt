@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 28 11:29:37 CET 2011 - jdelvare@suse.de
+
+- test/nolink.test: Add missing check, to make sure we won't miss a
+  bug.
+
+-------------------------------------------------------------------
 Tue Nov  2 18:51:17 CET 2010 - jdelvare@suse.de
 
 - Add bash completion for revert command.

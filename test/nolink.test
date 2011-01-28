@@ -45,6 +45,9 @@
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
+	$ ls -l .pc/test.diff/foo | awk '{ print $2 }'
+	> 2
+
 	$ quilt pop -q
 	> Removing patch patches/test.diff
 	> No patches applied
