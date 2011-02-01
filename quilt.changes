@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb  1 10:26:38 CET 2011 - jdelvare@suse.de
+
+- po/quilt.pot, po/fr.po: Update French translation.
+
+-------------------------------------------------------------------
 Fri Jan 28 11:29:37 CET 2011 - jdelvare@suse.de
 
 - test/nolink.test: Add missing check, to make sure we won't miss a

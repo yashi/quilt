@@ -20,7 +20,7 @@ msgid ""
 "\n"
 "--quiltrc file\n"
 "\tUse the specified configuration file instead of ~/.quiltrc (or\n"
-"\t/etc/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
+"\t@ETCDIR@/quilt.quiltrc if ~/.quiltrc does not exist).  See the pdf\n"
 "\tdocumentation for details about its possible contents.  The\n"
 "\tspecial value \\\"-\\\" causes quilt not to read any configuration\n"
 "\tfile.\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "File %s is already in patch %s\\n"
 msgstr ""
 
-#: quilt/add.in:111 quilt/revert.in:83
+#: quilt/add.in:111 quilt/remove.in:82 quilt/revert.in:84
 msgid "File %s modified by patch %s\\n"
 msgstr ""
 
@@ -119,7 +119,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:593
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:619
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -203,22 +203,23 @@ msgid ""
 msgstr ""
 
 #: quilt/diff.in:232
-msgid "Cannot diff patches with -p%s, please specify -p0 or -p1 instead\\n"
+msgid ""
+"Cannot diff patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
 msgstr ""
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:380
+#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:384
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
-#: quilt/diff.in:326
+#: quilt/diff.in:328
 msgid "File %s is not being modified\\n"
 msgstr ""
 
-#: quilt/diff.in:345 quilt/refresh.in:228
+#: quilt/diff.in:347 quilt/refresh.in:228
 msgid "Diff failed, aborting\\n"
 msgstr ""
 
-#: quilt/diff.in:352
+#: quilt/diff.in:354
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr ""
 
@@ -394,11 +395,11 @@ msgid ""
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
 
-#: quilt/header.in:167
+#: quilt/header.in:169
 msgid "Replaced header of patch %s\\n"
 msgstr ""
 
-#: quilt/header.in:170
+#: quilt/header.in:172
 msgid "Appended text to header of patch %s\\n"
 msgstr ""
 
@@ -528,36 +529,36 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:275
+#: quilt/mail.in:279
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:408
+#: quilt/mail.in:412
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:432
+#: quilt/mail.in:436
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:441
+#: quilt/mail.in:445
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:501
+#: quilt/mail.in:505
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:504
+#: quilt/mail.in:508
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:601
+#: quilt/mail.in:605
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
 #: quilt/new.in:22
-msgid "Usage: quilt new {patchname}\\n"
+msgid "Usage: quilt new [-p n|-p ab] {patchname}\\n"
 msgstr ""
 
 #: quilt/new.in:25
@@ -566,6 +567,12 @@ msgid ""
 "Create a new patch with the specified file name, and insert it after the\n"
 "topmost patch.\n"
 "\n"
+"-p n\tCreate a -p n style patch (-p0 or -p1 are supported).\n"
+"\n"
+"-p ab\tCreate a -p1 style patch, but use a/file and b/file as the\n"
+"\toriginal and new filenames instead of the default\n"
+"\tdir.orig/file and dir/file names.\n"
+"\n"
 "Quilt can be used in sub-directories of a source tree. It determines the\n"
 "root of a source tree by searching for a %s directory above the\n"
 "current working directory. Create a %s directory in the intended root\n"
@@ -573,15 +580,20 @@ msgid ""
 "in the directory tree.\n"
 msgstr ""
 
-#: quilt/new.in:70 quilt/refresh.in:179
+#: quilt/new.in:75
+msgid ""
+"Cannot create patches with -p%s, please specify -p0, p1, or -pab instead\\n"
+msgstr ""
+
+#: quilt/new.in:90 quilt/refresh.in:179
 msgid "Patch %s exists already\\n"
 msgstr ""
 
-#: quilt/new.in:81 quilt/refresh.in:336
+#: quilt/new.in:101 quilt/refresh.in:336
 msgid "Failed to create patch %s\\n"
 msgstr ""
 
-#: quilt/new.in:84
+#: quilt/new.in:104
 msgid "Patch %s is now on top\\n"
 msgstr ""
 
@@ -637,11 +649,11 @@ msgid ""
 "-v\tVerbose operation.\n"
 msgstr ""
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:889
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:921
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:907
+#: quilt/pop.in:116 quilt/scripts/patchfns.in:939
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
@@ -665,11 +677,11 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:508
+#: quilt/pop.in:261 quilt/scripts/patchfns.in:528
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:268 quilt/push.in:381
+#: quilt/pop.in:268 quilt/push.in:396
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -686,8 +698,8 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge] [--leave-rejects] [--color[=always|auto|"
-"never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color"
+"[=always|auto|never]] [num|patch]\\n"
 msgstr ""
 
 #: quilt/push.in:27
@@ -712,7 +724,7 @@ msgid ""
 "--fuzz=N\n"
 "\tSet the maximum fuzz factor (default: 2).\n"
 "\n"
-"-m, --merge\n"
+"-m, --merge[=merge|diff3]\n"
 "\tMerge the patch file into the original files (see patch(1)).\n"
 "\n"
 "--leave-rejects\n"
@@ -727,31 +739,31 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr ""
 
-#: quilt/push.in:172
+#: quilt/push.in:178
 msgid "Applying patch %s\\n"
 msgstr ""
 
-#: quilt/push.in:207
+#: quilt/push.in:213
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr ""
 
-#: quilt/push.in:211
+#: quilt/push.in:217
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr ""
 
-#: quilt/push.in:215
+#: quilt/push.in:221
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:225
+#: quilt/push.in:231
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:228
+#: quilt/push.in:234
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:361
+#: quilt/push.in:376
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 
@@ -844,6 +856,32 @@ msgstr ""
 msgid "Refreshed patch %s\\n"
 msgstr ""
 
+#: quilt/remove.in:22
+msgid "Usage: quilt remove [-P patch] {file} ...\\n"
+msgstr ""
+
+#: quilt/remove.in:25
+msgid ""
+"\n"
+"Remove one or more files from the topmost or named patch.  Files that\n"
+"are modified by patches on top of the specified patch cannot be removed.\n"
+"\n"
+"-P patch\n"
+"\tRemove named files from the named patch.\n"
+msgstr ""
+
+#: quilt/remove.in:73 quilt/revert.in:75
+msgid "File %s is not in patch %s\\n"
+msgstr ""
+
+#: quilt/remove.in:91
+msgid "Failed to remove file %s from patch %s\\n"
+msgstr ""
+
+#: quilt/remove.in:105
+msgid "File %s removed from patch %s\\n"
+msgstr ""
+
 #: quilt/rename.in:22
 msgid "Usage: quilt rename [-P patch] new_name\\n"
 msgstr ""
@@ -876,19 +914,18 @@ msgstr ""
 #: quilt/revert.in:25
 msgid ""
 "\n"
-"Revert the changes to the topmost or named patch for the specified file(s).\n"
-"Changes to files that are modified by patches on top of the specified patch\n"
-"cannot be reverted.\n"
+"Revert uncommitted changes to the topmost or named patch for the specified\n"
+"file(s): after the revert, 'quilt diff -z' will show no differences for "
+"those\n"
+"files. Changes to files that are modified by patches on top of the "
+"specified\n"
+"patch cannot be reverted.\n"
 "\n"
 "-P patch\n"
 "\tRevert changes in the named patch.\n"
 msgstr ""
 
-#: quilt/revert.in:74
-msgid "File %s is not in patch %s\\n"
-msgstr ""
-
-#: quilt/revert.in:102 quilt/revert.in:112
+#: quilt/revert.in:103 quilt/revert.in:112
 msgid "File %s is unchanged\\n"
 msgstr ""
 
@@ -915,37 +952,46 @@ msgstr ""
 msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
 msgstr ""
 
-#: quilt/scripts/parse-patch.in:97 quilt/scripts/parse-patch.in:104
+#: quilt/scripts/parse-patch.in:101 quilt/scripts/parse-patch.in:108
+#: quilt/scripts/parse-patch.in:115 quilt/scripts/parse-patch.in:122
 #, perl-format
 msgid "File %s disappeared!\n"
 msgstr ""
 
-#: quilt/scripts/parse-patch.in:150 quilt/scripts/parse-patch.in:156
+#: quilt/scripts/parse-patch.in:168 quilt/scripts/parse-patch.in:174
 #, perl-format
 msgid "Failed to rename %s to %s: %s\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:483 quilt/scripts/patchfns.in:495
+#: quilt/scripts/patchfns.in:247 quilt/scripts/patchfns.in:541
+msgid "%s is not a regular file\\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:495 quilt/scripts/patchfns.in:512
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:544
+#: quilt/scripts/patchfns.in:497 quilt/scripts/patchfns.in:514
+msgid "No series file found\\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:570
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:572
+#: quilt/scripts/patchfns.in:598
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:609
+#: quilt/scripts/patchfns.in:635
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:631
+#: quilt/scripts/patchfns.in:657
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:940
+#: quilt/scripts/patchfns.in:980
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -953,7 +999,7 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1027
+#: quilt/scripts/patchfns.in:1124
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1017,8 +1063,8 @@ msgstr ""
 
 #: quilt/setup.in:75
 msgid ""
-"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] {specfile|"
-"seriesfile}\\n"
+"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
+"{specfile|seriesfile}\\n"
 msgstr ""
 
 #: quilt/setup.in:78
@@ -1032,21 +1078,24 @@ msgid ""
 "\tDirectory that contains the package sources. Defaults to \\`.'.\n"
 "\n"
 "-v\tVerbose debug output.\n"
+"\n"
+"--fuzz=N\n"
+"\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
 msgstr ""
 
-#: quilt/setup.in:143
+#: quilt/setup.in:149
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 
-#: quilt/setup.in:146
+#: quilt/setup.in:152
 msgid "The -v option will show rpm's output\\n"
 msgstr ""
 
-#: quilt/setup.in:183
+#: quilt/setup.in:189
 msgid "File %s not found\\n"
 msgstr ""
 
-#: quilt/setup.in:186
+#: quilt/setup.in:192
 msgid "Unpacking archive %s\\n"
 msgstr ""
 
