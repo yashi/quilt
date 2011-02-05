@@ -5,6 +5,7 @@ config.status
 configure-stamp
 Makefile
 README
+quilt.spec
 quilt-*.tar.gz
 quilt-*.tar.bz2
 
