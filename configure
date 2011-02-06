@@ -650,6 +650,7 @@ MSGFMT
 MSGMERGE
 SENDMAIL
 DIFFSTAT
+XARGS
 FIND
 PATCH
 DIFF
@@ -736,6 +737,7 @@ with_mktemp
 with_diff
 with_patch
 with_find
+with_xargs
 with_diffstat
 with_sendmail
 enable_nls
@@ -1398,6 +1400,7 @@ Optional Packages:
   --with-diff             name of the diff executable to use
   --with-patch            name of the patch executable to use
   --with-find             name of the find executable to use
+  --with-xargs            name of the xargs executable to use
   --with-diffstat         name of the diffstat executable to use
   --with-sendmail         name of the sendmail executable to use (use
                           --without-sendmail to use an internal mechanism)
@@ -6190,6 +6193,97 @@ does understand -path, you can supply its path with the
 " >&2;}
    { (exit 1); exit 1; }; }
 fi
+
+
+
+
+
+# Check whether --with-xargs was given.
+if test "${with_xargs+set}" = set; then
+  withval=$with_xargs;
+    if test x"$withval" = xnone; then
+      { { $as_echo "$as_me:$LINENO: error: Invalid configure argument.  use --without-xargs" >&5
+$as_echo "$as_me: error: Invalid configure argument.  use --without-xargs" >&2;}
+   { (exit 1); exit 1; }; }
+    fi
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:$LINENO: checking for xargs" >&5
+$as_echo_n "checking for xargs... " >&6; }
+      XARGS="$withval"
+      if test -e "$XARGS"; then
+	if test ! -f "$XARGS" -a ! -h "$XARGS" || test ! -x "$XARGS"; then
+	  { { $as_echo "$as_me:$LINENO: error: $XARGS is not an executable file" >&5
+$as_echo "$as_me: error: $XARGS is not an executable file" >&2;}
+   { (exit 1); exit 1; }; }
+	fi
+      fi
+      { $as_echo "$as_me:$LINENO: result: $XARGS" >&5
+$as_echo "$XARGS" >&6; }
+      if test ! -e "$XARGS"; then
+        { $as_echo "$as_me:$LINENO: WARNING: $XARGS does not exist" >&5
+$as_echo "$as_me: WARNING: $XARGS does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS xargs"
+    fi
+
+else
+
+
+      # Extract the first word of "xargs", so it can be a program name with args.
+set dummy xargs; ac_word=$2
+{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_XARGS+set}" = set; then
+  $as_echo_n "(cached) " >&6
+else
+  case $XARGS in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_XARGS="$XARGS" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_XARGS="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+XARGS=$ac_cv_path_XARGS
+if test -n "$XARGS"; then
+  { $as_echo "$as_me:$LINENO: result: $XARGS" >&5
+$as_echo "$XARGS" >&6; }
+else
+  { $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+
+
+
+fi
+
+  if test -z "$XARGS"; then
+
+      { { $as_echo "$as_me:$LINENO: error: Please specify the location of xargs with the option '--with-xargs'" >&5
+$as_echo "$as_me: error: Please specify the location of xargs with the option '--with-xargs'" >&2;}
+   { (exit 1); exit 1; }; }
+
+  fi
+
+
 
 
 

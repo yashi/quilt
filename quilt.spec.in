@@ -8,7 +8,7 @@ License:	GPL
 Group:		Productivity/Text/Utilities
 Version:	@VERSION@
 Release:	@RELEASE@
-Requires:	coreutils diffutils patch gzip bzip2 perl mktemp gettext
+Requires:	coreutils diffutils findutils patch gzip bzip2 perl mktemp gettext
 Autoreqprov:	off
 Source:		quilt-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

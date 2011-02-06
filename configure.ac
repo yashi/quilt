@@ -301,6 +301,8 @@ does understand -path, you can supply its path with the
 ])
 fi
 
+QUILT_COMPAT_PROG_PATH(XARGS, xargs)
+
 QUILT_COMPAT_PROG_PATH_OPT(DIFFSTAT, diffstat)
 
 if test "$DIFFSTAT" != "diffstat"; then

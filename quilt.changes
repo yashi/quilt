@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Feb  6 17:43:28 CET 2011 - jdelvare@suse.de
+
+- quilt.spec.in: List findutils as a requirement (for find and
+  xargs.)
+- configure.ac: Check for the presence of xargs.
+
+-------------------------------------------------------------------
 Sun Feb  6 17:33:10 CET 2011 - yashi@atmark-techno.com
 
 - po/ja.po: Update Japanese translation.
