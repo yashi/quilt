@@ -350,6 +350,7 @@ then
 
 		if [ -z "$subject" ]
 		then
+			rm -rf $tmpdir
 			return 1
 		fi
 

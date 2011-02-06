@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Feb  6 18:03:29 CET 2011 - jdelvare@suse.de
+
+- quilt/mail.in: Fix a temporary directory leak.
+
+-------------------------------------------------------------------
 Sun Feb  6 17:50:26 CET 2011 - jdelvare@suse.de
 
 - Makefile.in: Don't build quilt.spec by default, it's only needed
