@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Feb  6 17:50:26 CET 2011 - jdelvare@suse.de
+
+- Makefile.in: Don't build quilt.spec by default, it's only needed
+  for packaging purposes.
+
+-------------------------------------------------------------------
 Sun Feb  6 17:43:28 CET 2011 - jdelvare@suse.de
 
 - quilt.spec.in: List findutils as a requirement (for find and
