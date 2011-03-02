@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar  2 09:30:10 CET 2011 - jdelvare@suse.de
+
+- compat/mktemp.in: Properly support white space in file names.
+
+-------------------------------------------------------------------
 Sun Feb  6 18:03:29 CET 2011 - jdelvare@suse.de
 
 - quilt/mail.in: Fix a temporary directory leak.
