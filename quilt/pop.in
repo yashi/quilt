@@ -120,7 +120,7 @@ check_for_pending_changes()
 		fi
 	fi
 
-	local file failed
+	local file file2 failed
 	for file2 in $(files_in_patch $patch)
 	do
 		file=$workdir/$file2
