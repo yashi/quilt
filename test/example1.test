@@ -111,6 +111,7 @@ Or ``quilt edit Oberon.txt''
 	
 	$ quilt refresh -p ab
 	> Refreshed patch %{P}flower.diff
+	$ rm -f Oberon.txt.rej
 
 	$ cat Oberon.txt
 	> Yet mark'd I where the bolt of Cupid fell:
@@ -135,3 +136,7 @@ Or ``quilt edit Oberon.txt''
 	> +The juice of it on sleeping eye-lids laid
 	> +Will make a man or woman madly dote
 	> +Upon the next live creature that it sees.
+
+	$ quilt grep love
+	> Oberon.txt:Before milk-white, now purple with love's wound,
+	> Oberon.txt:And maidens call it love-in-idleness.

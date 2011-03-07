@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar  7 08:39:54 CET 2011 - jdelvare@suse.de
+
+- test/example1.test, test/two.test, test/three.test: Let the test
+  suite cover "quilt grep".
+
+-------------------------------------------------------------------
 Sat Mar  5 21:06:57 CET 2011 - jdelvare@suse.de
 
 - quilt/pop.in: Add missing local variable declaration.

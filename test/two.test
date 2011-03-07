@@ -153,6 +153,9 @@
 	$ quilt refresh patch2
 	> Refreshed patch %{_P}patch2.diff
 
+	$ quilt grep -- two
+	> d/file2:This is file two.
+
 	$ quilt pop -qaR
 	> Removing patch %{_P}patch2.diff
 	> Removing patch %{_P}patch1.diff
