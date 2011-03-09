@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar  9 22:56:29 CET 2011 - jdelvare@suse.de
+
+- quilt.spec.in: BUILD_ROOT is only needed at installation time,
+  not at build time.
+
+-------------------------------------------------------------------
 Mon Mar  7 08:39:54 CET 2011 - jdelvare@suse.de
 
 - test/example1.test, test/two.test, test/three.test: Let the test
