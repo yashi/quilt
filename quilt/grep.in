@@ -114,7 +114,7 @@ fi
 # may pass a single filename to grep and cause it to omit the file name.
 [ -z "$opt_h" ] && opt_H=-H
 
-find "${myargs[@]}" \( \
+find "${myargs[@]:-.}" \( \
 	-path "./$QUILT_PATCHES/*" -o \
 	-path "./$QUILT_PC/*" \) -prune -o \
 	-type f -print \

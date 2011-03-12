@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Mar 12 15:12:38 CET 2011 - jdelvare@suse.de
+
+- quilt/grep.in: Not all implementations of find default to the
+  current directory as the search root. So explicitly set the root
+  to "." if the user didn't provide one.
+
+-------------------------------------------------------------------
 Wed Mar  9 22:56:29 CET 2011 - jdelvare@suse.de
 
 - quilt.spec.in: BUILD_ROOT is only needed at installation time,
