@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Mar 15 13:47:41 CET 2011 - jdelvare@suse.de
+
+- compat/getopt.in: Add support of options with optional
+  parameters. Both short and long options are supported. This is
+  required to pass the test suite, if nothing else.
+
+-------------------------------------------------------------------
 Tue Mar 15 13:44:51 CET 2011 - jdelvare@suse.de
 
 - compat/getopt.in: Fix quoting and spacing. This way the output

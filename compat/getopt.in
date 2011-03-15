@@ -83,6 +83,20 @@ foreach my $word (@words) {
 			my $found = grep(/$letter/, $short_opts);
 			push @options, '-'.$letter;
 			die "illegal option: $letter" if !$found;
+
+			# handle options with optional parameters
+			if (grep(/${letter}::/, $short_opts)) {
+				if (scalar(@letters) == 0) {
+					push @options, quote_word('');
+				} else {
+					# what looked like more short options
+					# are in fact the optional parameters
+					push @options, quote_word(join('', reverse @letters));
+				}
+				last;
+			}
+
+			# handle options with mandatory parameters
 			if (grep(/$letter:/, $short_opts)) {
 				if (scalar(@letters) == 0) {
 					$need_param = $letter;
@@ -107,13 +121,13 @@ foreach my $word (@words) {
 			$word = $1;
 			$param = $2;
 		}
-		my ($found) = grep(/^$word:?$/,@long_opts);
+		my ($found) = grep(/^$word:{0,2}$/,@long_opts);
 		die "illegal option: $word" if !$found;
 		die "$word: unexpected paramater $param" if $found !~ /:$/ && $param ne '';
 
-		$need_param = $word if $found =~ /:$/ && $param eq '';
+		$need_param = $word if $found =~ /[^:]:$/ && $param eq '';
 		push @options, "--$word";
-		push @options, quote_word($param) if $param;
+		push @options, quote_word($param) if $param || $found =~ /::$/;
 	}
 }
 
