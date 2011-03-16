@@ -1,5 +1,3 @@
-#! @BASH@
-
 # This file contains the common functions used in all quilt script
 # It is meant to be sourced by bash scripts.
 
