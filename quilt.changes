@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 16 19:13:36 CET 2011 - jdelvare@suse.de
+
+- quilt/diff.in: If diffing against snapshot, ensure that snapshot
+  is actually present. If not, bail out with an error message.
+
+-------------------------------------------------------------------
 Tue Mar 15 13:47:41 CET 2011 - jdelvare@suse.de
 
 - compat/getopt.in: Add support of options with optional

@@ -235,6 +235,13 @@ case "$opt_strip_level" in
 	;;
 esac
 
+# If diffing against snapshot, ensure that snapshot is actually present
+if [ -n "$opt_snapshot" ] && [ ! -d "$QUILT_PC/$snap_subdir" ]
+then
+	printf $"No snapshot to diff against\n" >&2
+	die 1
+fi
+
 trap "die 1" SIGTERM
 
 tmp_files=$(gen_tempfile)
