@@ -83,8 +83,7 @@ if (defined $ARGV[0]) {
 for (;;) {
   my $line = <SOURCE>; $lineno++;
   if (defined $line) {
-    # Substitute %VAR and %{VAR} with environment variables.
-    $line =~ s[%(\w+)][$ENV{$1}]eg;
+    # Substitute %{VAR} with environment variables.
     $line =~ s[%{(\w+)}][$ENV{$1}]eg;
   }
   if (defined $line) {
