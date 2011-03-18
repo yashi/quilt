@@ -174,7 +174,8 @@ po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
 			   		  $(wildcard */*/*.in))
 	rm -f po/quilt.pot; touch po/quilt.pot
 	for file in $+ ; do						\
-	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"; then	\
+	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"		\
+	       -o "$$file" = quilt/scripts/patchfns.in; then		\
 	    $(BASH) --dump-po-strings $$file ;				\
 	  elif test -n "`$(SED) -ne '1{ /@PERL''@/p }' $$file`"; then	\
 	    $(XGETTEXT) --from-code=UTF-8 --omit-header --language=Perl	\

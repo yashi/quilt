@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Mar 18 11:55:17 CET 2011 - jdelvare@suse.de
+
+- Makefile.in: Fix i18n of quilt/scripts/patchfns, broken by
+  previous commit.
+
+-------------------------------------------------------------------
 Wed Mar 16 19:17:18 CET 2011 - jdelvare@suse.de
 
 - quilt/scripts/patchfns.in: Drop #! stament. patchfns is meant to
