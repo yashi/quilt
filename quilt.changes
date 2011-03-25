@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 25 19:50:44 CET 2011 - jdelvare@suse.de
+
+- configure.ac: Fix test for GNU patch version.
+
+-------------------------------------------------------------------
 Fri Mar 25 18:47:53 CET 2011 - jdelvare@suse.de
 
 - quilt/diff.in, quilt/refresh.in: Accept file names with spaces.

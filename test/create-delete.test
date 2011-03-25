@@ -28,12 +28,12 @@ file creates and deletions.
 	$ echo create > create
 	$ rm -f delete
 	$ patch -p1 --dry-run < patches/test.diff
-	> The next patch would create the file create,
+	>~ The next patch would create the file `?create'?,
 	> which already exists!  Assume -R? [n] 
 	> Apply anyway? [n] 
 	> Skipping patch.
-	>~ 1 out of 1 hunk ignored( -- saving rejects to file create.rej)?
-	> The next patch would delete the file delete,
+	>~ 1 out of 1 hunk ignored( -- saving rejects to( file)? create.rej)?
+	>~ The next patch would delete the file `?delete'?,
 	> which does not exist!  Assume -R? [n] 
 	> Apply anyway? [n] 
 	> Skipping patch.
