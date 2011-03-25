@@ -10,6 +10,7 @@ $ quilt add foo
 $ quilt files
 > foo
 
+$ echo foo > "foo bar"
 $ quilt add "foo bar"
 > File foo bar added to patch patches/test.diff
 
@@ -24,6 +25,57 @@ $ quilt files
 > a: b [c]
 > foo
 > foo bar
+
+$ echo bar > "foo bar"
+$ echo "new line" > "a: b [c]"
+$ quilt diff -p ab
+> Index: b/a: b [c]
+> ===================================================================
+> --- /dev/null
+> +++ b/a: b [c]
+> @@ -0,0 +1 @@
+> +new line
+> Index: b/foo bar
+> ===================================================================
+> --- a/foo bar
+> +++ b/foo bar
+> @@ -1 +1 @@
+> -foo
+> +bar
+
+$ quilt refresh -p ab
+> Refreshed patch patches/test.diff
+$ cat patches/test.diff
+> Index: b/a: b [c]
+> ===================================================================
+> --- /dev/null
+> +++ b/a: b [c]
+> @@ -0,0 +1 @@
+> +new line
+> Index: b/foo bar
+> ===================================================================
+> --- a/foo bar
+> +++ b/foo bar
+> @@ -1 +1 @@
+> -foo
+> +bar
+
+$ quilt refresh -p ab --sort
+> Patch patches/test.diff is unchanged
+$ cat patches/test.diff
+> Index: b/a: b [c]
+> ===================================================================
+> --- /dev/null
+> +++ b/a: b [c]
+> @@ -0,0 +1 @@
+> +new line
+> Index: b/foo bar
+> ===================================================================
+> --- a/foo bar
+> +++ b/foo bar
+> @@ -1 +1 @@
+> -foo
+> +bar
 
 $quilt remove "a: b [c]"
 > File a: b [c] removed from patch patches/test.diff

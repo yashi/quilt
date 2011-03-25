@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 25 18:47:53 CET 2011 - jdelvare@suse.de
+
+- quilt/diff.in, quilt/refresh.in: Accept file names with spaces.
+
+-------------------------------------------------------------------
 Fri Mar 18 12:05:33 CET 2011 - jdelvare@suse.de
 
 -  test/run: Enforce single variable substitution method. There is

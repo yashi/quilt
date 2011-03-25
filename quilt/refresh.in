@@ -153,12 +153,18 @@ QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
 patch=$(find_applied_patch "$1") || exit 1
 
+# Properly handle spaces in file names
+saved_IFS=$IFS
+IFS=$'\n'
+
 if [ -z "$opt_sort" ]
 then
 	files=( $(files_in_patch_ordered $patch) )
 else
 	files=( $(files_in_patch $patch | sort) )
 fi
+
+IFS=$saved_IFS
 
 if [ -n "$opt_fork" -a $# -ne 0 ]
 then
@@ -213,17 +219,17 @@ do
 		old_file=$workdir/$file
 		new_file=$file
 	else
-		old_file=$(backup_file_name $patch $file)
-		next_patch=$(next_patch_for_file $patch $file)
+		old_file=$(backup_file_name "$patch" "$file")
+		next_patch=$(next_patch_for_file "$patch" "$file")
 		if [ -z "$next_patch" ]
 		then
 			new_file=$file
 		else
-			new_file=$(backup_file_name $next_patch $file)
+			new_file=$(backup_file_name "$next_patch" "$file")
 			files_were_shadowed=1
 		fi
 	fi
-	if ! diff_file $file $old_file $new_file
+	if ! diff_file "$file" "$old_file" "$new_file"
 	then
 		printf $"Diff failed, aborting\n" >&2
 		die 1

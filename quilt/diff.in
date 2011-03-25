@@ -110,15 +110,15 @@ do_diff()
 	then
 		[ -s "$old_file" ] || old_file=/dev/null
 		[ -s "$new_file" ] || new_file=/dev/null
-		if ! diff -q $old_file $new_file >/dev/null
+		if ! diff -q "$old_file" "$new_file" >/dev/null
 		then
 			export LANG=$ORIGINAL_LANG
-			$opt_diff $old_file $new_file
+			$opt_diff "$old_file" "$new_file"
 			export LANG=POSIX
 			true
 		fi
 	else
-		diff_file $file $old_file $new_file | colorize
+		diff_file "$file" "$old_file" "$new_file" | colorize
 	fi
 }
 
@@ -281,6 +281,10 @@ else
 	patches=( $last_patch )
 fi
 
+# Properly handle spaces in file names
+saved_IFS=$IFS
+IFS=$'\n'
+
 for patch in ${patches[@]}
 do
 	for file in $(files_in_patch_ordered $patch)
@@ -310,6 +314,8 @@ else
 	files=( $(sort -u $tmp_files) )
 fi
 
+IFS=$saved_IFS
+
 if [ -n "$opt_relative" ]
 then
 	workdir=$(gen_tempfile -d $PWD/quilt)
@@ -328,22 +334,22 @@ do
 	then
 		old_file="$workdir/$file"
 	else
-		patch="$(first_modified_by $file ${patches[@]})"
+		patch=$(first_modified_by "$file" "${patches[@]}")
 		if [ -z "$patch" ]
 		then
 			[ -z "$opt_snapshot" ] \
 			&& printf $"File %s is not being modified\n" "$file" >&2
 			continue
 		fi
-		old_file="$(backup_file_name $patch $file)"
+		old_file=$(backup_file_name "$patch" "$file")
 	fi
 
-	next_patch=$(next_patch_for_file $last_patch $file)
+	next_patch=$(next_patch_for_file "$last_patch" "$file")
 	if [ -z "$next_patch" ]
 	then
 		new_file="$file"
 	else
-		new_file="$(backup_file_name $next_patch $file)"
+		new_file=$(backup_file_name "$next_patch" "$file")
 		files_were_shadowed=1
 	fi
 
