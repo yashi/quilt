@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Apr  4 17:50:50 CEST 2011 - jdelvare@suse.de
+
+- test/no-file-to-patch.test: New test case for patches attempting
+  to modify files which do not exist.
+
+-------------------------------------------------------------------
 Fri Mar 25 19:50:44 CET 2011 - jdelvare@suse.de
 
 - configure.ac: Fix test for GNU patch version.
