@@ -74,6 +74,7 @@ then
 fi
 
 # Save current working state
+create_db
 mkdir -p $QUILT_PC/$snap_subdir
 for patch in $(applied_patches); do
 	files_in_patch $patch
