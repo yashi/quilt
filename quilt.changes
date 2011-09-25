@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Sep 25 15:33:20 CEST 2011 - mquinson@debian.org
+
+- po/ru.po: incorporate the russian translation contributed by Sergey
+  Basalaev as savannah bug report #34340 (thanks for your work!)
+
+-------------------------------------------------------------------
 Mon Apr  4 17:50:50 CEST 2011 - jdelvare@suse.de
 
 - test/no-file-to-patch.test: New test case for patches attempting
