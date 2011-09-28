@@ -145,8 +145,8 @@ Please refer to the pdf documentation for an example.
 
 Upon startup, quilt evaluates the file .quiltrc in the user's home
 directory, or the file specified with the --quiltrc option.  This file
-is a regular bash script. Default options can be passed to any command
-by defining a QUILT_COMMAND_ARGS variable.  For example,
+is a regular bash script. Default options can be passed to any COMMAND
+by defining a QUILT_${COMMAND}_ARGS variable.  For example,
 QUILT_DIFF_ARGS="--color=auto" causes the output of quilt diff to be
 syntax colored when writing to a terminal.
 
@@ -161,9 +161,9 @@ to show in the resulting patch which function a change is in.
 .IP QUILT_PATCH_OPTS 4
 
 Additional options that quilt shall pass to GNU patch when applying
-patches.  For example, some versions of GNU patch support the
-"--unified-reject-files" option for generating reject files in unified
-diff style.
+patches.  For example, recent versions of GNU patch support the
+"--reject-format=unified" option for generating reject files in unified
+diff style (older patch versions used "--unified-reject-files" for that).
     
 .IP QUILT_DIFFSTAT_OPTS 4
 

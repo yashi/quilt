@@ -36,7 +36,7 @@ current top patch, and must be pushed after import to apply them.
 	Patch filename to use inside quilt. This option can only be
 	used when importing a single patch.
 
--f	Overwite/update existing patches.
+-f	Overwrite/update existing patches.
 
 -d {o|a|n}
 	When overwriting in existing patch, keep the old (o), all (a), or
