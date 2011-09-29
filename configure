@@ -6059,7 +6059,7 @@ $as_echo "$patch_version" >&6; }
   set -- $patch_version
   IFS=$saved_IFS
   set -- `echo $1 | $TR -cd 0-9` `echo $2 | $TR -cd 0-9`
-  if test 0$1 -lt 2 || test 0$1 -eq 2 -a 0$2 -lt 4 ; then
+  if test 0$1 -lt 2 || test 0$1 -eq 2 -a 0$2 -lt 5 ; then
     patch_version=
   fi
 else
@@ -6068,12 +6068,12 @@ $as_echo "no GNU patch" >&6; }
 fi
 if test -z "$patch_version" ; then
   { { $as_echo "$as_me:$LINENO: error:
-$PACKAGE_NAME requires at least version 2.4 of GNU patch. You can download a
+$PACKAGE_NAME requires at least version 2.5 of GNU patch. You can download a
 current version of patch from ftp.gnu.org, or if you already have GNU patch
 then you can supply its path with the '--with-patch=' option.
 " >&5
 $as_echo "$as_me: error:
-$PACKAGE_NAME requires at least version 2.4 of GNU patch. You can download a
+$PACKAGE_NAME requires at least version 2.5 of GNU patch. You can download a
 current version of patch from ftp.gnu.org, or if you already have GNU patch
 then you can supply its path with the '--with-patch=' option.
 " >&2;}
