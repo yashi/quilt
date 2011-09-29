@@ -113,7 +113,7 @@ MAN1 +=		bin/guards.1
 endif
 DIRT +=		$(MAN1)
 
-LINGUAS :=	fr de ja
+LINGUAS :=	fr de ja ru
 PO :=		quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
 DIRT +=         po/*.mo po/*~
