@@ -560,20 +560,25 @@ for patch in "${patches[@]}"; do
 	new_date="$(date --rfc-822 -d "1970/01/01 UTC $last_ts seconds")"
 
 	modify="$(awk '
-	sub(/^Recipient-/, "")	{ r = $0
-				  sub(/:.*/, "", r)
-				  s = $0
-				  sub(/^[^:]*:[ \t]*/, "", s)
-				  gsub(/'\''/, "'\'\''", s)
-				  print "--add-recipient " r "='\''" s "'\'' \\"
-				}
-	sub(/^Replace-/, "")	{ r = $0
-				  sub(/:.*/, "", r)
-				  s = $0
-				  sub(/^[^:]*:[ \t]*/, "", s)
-				  gsub(/'\''/, "'\'\''", s)
-				  print "--replace-header " r "='\''" s "'\'' \\"
-				}
+	in_header	{ if (/^[ \t]/) {
+			    headers[n] = headers[n] "\n" $0
+			    next }
+			  in_header = 0 }
+	sub(/^Recipient-/, "")	{ headers[++n] = $0
+				  options[n] = "--add-recipient"
+				  in_header = 1
+				  next }
+	sub(/^Replace-/, "")	{ headers[++n] = $0
+				  options[n] = "--replace-header"
+				  in_header = 1
+				  next }
+	END			{ for(n = 1; n in headers; n++) {
+				    r = headers[n]
+				    sub(/:.*/, "", r)
+				    s = headers[n]
+				    sub(/^[^:]*:[ \t]*/, "", s)
+				    gsub(/'\''/, "'\'\''", s)
+				    print options[n] " " r "='\''" s "'\'' \\" } }
 	' $body)"
 #	echo "$modify" | sed -e 's/^/>> /' >&2
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
@@ -587,8 +592,9 @@ for patch in "${patches[@]}"; do
 		references_header $introduction
 		echo "Content-Disposition: inline; filename=$patch"
 		awk '
+		    kill_header { if (/^[ \t]/) next ; kill_header = 0 }
 		    !in_body && tolower($0) ~ /^(recipient|replace)-.*:/ \
-		    		{ next }
+				{ kill_header = 1 ; next }
 		    /^$/	{ in_body = 1 }
 				{ print }
 		    ' $body
