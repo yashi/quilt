@@ -121,6 +121,23 @@ sub check_recipient($) {
     }
 }
 
+sub split_recipients($) {
+    my ($recipients) = @_;
+    my @list = ();
+
+    while ($recipients !~ /^\s*$/) {
+	my $recipient;
+	if ($recipients =~ s/^\s*,?\s*((?:"(?:[^"]+)"|[^",])*)//) {
+	    $recipient = $1; s/\s*$//;
+	} else {
+	    $recipient = $recipients;
+	    $recipients = "";
+	}
+	push @list, $recipient;
+    }
+    return @list;
+}
+
 my %recipients;
 sub process_header($) {
     local ($_) = @_;
@@ -133,11 +150,8 @@ sub process_header($) {
     }
     if (%extract_recipients_from) {
 	if (exists $extract_recipients_from{lc $name}) {
-	    #print "(($value))";
 	    $value =~ s/^\s*//;  $value =~ s/\s*$//;
-	    foreach my $recipient (split /\s*,\s*/s, $value) {
-		    next if $recipient =~ /^\s*$/;
-		    #print "<<$recipient>>";
+	    foreach my $recipient (split_recipients($value)) {
 		    my $deliver;
 		    ($recipient, $deliver) = check_recipient($recipient);
 		    print "$deliver\n";
@@ -161,9 +175,7 @@ sub process_header($) {
 	my @recipients;
 	# This is a recipients field. Split out all the recipients and
 	# check the addresses. Suppress duplicate recipients.
-	$value =~ s/^\s*//;  $value =~ s/\s*$//;
-	foreach my $recipient (split /\s*,\s*/, $value) {
-	    next if $recipient =~ /^\s*$/;
+	foreach my $recipient (split_recipients($value)) {
 	    my $deliver;
 	    ($recipient, $deliver) = check_recipient($recipient);
 	    unless (exists $recipients{$deliver}) {
