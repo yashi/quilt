@@ -365,8 +365,14 @@ then
 		echo "Replace-Subject: $subject"
 
 		# Add recipients defined by some recognized keywords
+
+		# In Signed-off-by: and Acked-by: lines, try to recognize email
+		# addresses that contain commas and add quotes, e.g.,
+		#   Last, First <email>    =>    "Last, First" <email>
+
 		sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
 		       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
+		       -e 's/^\(\(Signed-off-by\|Acked-by\):[ '$'\t'']*\)\([^"]*\(,[^"]*\)\+[^" '$'\t'']\)\([ '$'\t'']*<.*>\)/\1"\3"\5/i' \
 		       -e 's/^\(Signed-off-by\|Acked-by\):/Recipient-Cc:/ip' \
 		    $tmpdir/header
 
