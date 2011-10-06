@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Oct  5 16:21:28 CEST 2011 - ohering@suse.de
+
+- quilt/inspect.in: Quote strings to avoid flood of shell syntax
+  errors during quilt setup -v *.spec.
+
+-------------------------------------------------------------------
 Sun Sep 25 15:33:20 CEST 2011 - mquinson@debian.org
 
 - po/ru.po: incorporate the russian translation contributed by Sergey

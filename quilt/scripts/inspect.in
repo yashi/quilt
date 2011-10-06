@@ -144,7 +144,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		md5sum=$1
 		while read md5sum_ file_
 		do
-			if [ $md5sum = $md5sum_ ]
+			if [ "$md5sum" = "$md5sum_" ]
 			then
 				echo ${file_#\*}
 				return 0
@@ -163,7 +163,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		
 		while read md5sum_ file_
 		do
-			if [ $md5sum = $md5sum_ ]
+			if [ "$md5sum" = "$md5sum_" ]
 			then
 				echo ${file_#\*}
 				return 0
