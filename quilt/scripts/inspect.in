@@ -97,6 +97,11 @@ do
 			# file doesn't reliably recognize lzma-compressed files
 			filetype="lzma"
 			;;
+		*.xz)
+			# old versions of file don't know about xz-compressed
+			# files
+			filetype="xz"
+			;;
 		*)
 			filetype="$(file -b "$file")"
 			;;

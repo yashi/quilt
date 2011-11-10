@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 10 21:26:10 CET 2011 - jdelvare@suse.de
+
+- scripts/inspect.in: Old versions of file don't know about
+  xz-compressed files, so recognize them by their filename too.
+
+-------------------------------------------------------------------
 Thu Nov 10 21:11:36 CET 2011 - pth@suse.de
 
 - quilt/inspect.in: Newer file changed the output for xz compressed
