@@ -115,7 +115,7 @@ do
 			set -- $(bzip2 -cd "$file" | md5sum)
 			echo "$1 $basename"
 			;;
-		xz*)
+		xz*|XZ*)
 			echo -n "x" >&4
 			echo "xz -cd $file | md5sum" >&2
 			set -- $(xz -cd "$file" | md5sum)
