@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Nov 14 22:09:32 CET 2011 - jdelvare@suse.de
+
+- scripts/inspect.in: Fix decompression of tar archives.
+
+-------------------------------------------------------------------
 Thu Nov 10 21:26:10 CET 2011 - jdelvare@suse.de
 
 - scripts/inspect.in: Old versions of file don't know about
