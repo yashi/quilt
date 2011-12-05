@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Dec  5 22:00:00 CET 2011 - jdelvare@suse.de
+
+- configure*: Bump version to 0.50.
+
+-------------------------------------------------------------------
 Mon Dec  5 21:23:12 CET 2011 - jdelvare@suse.de
 
 - po/*: Synchronize language files.
