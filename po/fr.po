@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Pas de patch suivant\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:619
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:617
 msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
@@ -324,19 +324,23 @@ msgstr ""
 "Impossible de créer des patches avec -p%s. Veuillez spécifier -p0, -p1 ou -"
 "pab à la place\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:384
+#: quilt/diff.in:241
+msgid "No snapshot to diff against\\n"
+msgstr "Pas d'instantané avec lequel comparer\\n"
+
+#: quilt/diff.in:273 quilt/files.in:105 quilt/mail.in:397
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
-#: quilt/diff.in:328
+#: quilt/diff.in:341
 msgid "File %s is not being modified\\n"
 msgstr "Le fichier %s n'est pas modifié.\\n"
 
-#: quilt/diff.in:347 quilt/refresh.in:228
+#: quilt/diff.in:360 quilt/refresh.in:234
 msgid "Diff failed, aborting\\n"
 msgstr "Le diff a échoué. Abandon.\\n"
 
-#: quilt/diff.in:354
+#: quilt/diff.in:367
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Attention: un patch plus recent modifie des fichiers communs à %s\\n"
 
@@ -478,7 +482,7 @@ msgstr "Le patch %s existe déjà, veuillez choisir un nouveau nom\\n"
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Le fork de %s en %s a échoué\\n"
 
-#: quilt/fork.in:102 quilt/refresh.in:340
+#: quilt/fork.in:102 quilt/refresh.in:346
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Le fork de %s a été créé en tant que %s\\n"
 
@@ -650,7 +654,7 @@ msgid ""
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
-"-f\tOverwite/update existing patches.\n"
+"-f\tOverwrite/update existing patches.\n"
 "\n"
 "-d {o|a|n}\n"
 "\tWhen overwriting in existing patch, keep the old (o), all (a), or\n"
@@ -723,7 +727,7 @@ msgstr "Import du patch %s (enregistré dans %s)\\n"
 msgid "Failed to import patch %s\\n"
 msgstr "Impossible d'importer le patch %s\\n"
 
-#: quilt/import.in:223 quilt/refresh.in:327
+#: quilt/import.in:223 quilt/refresh.in:333
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
@@ -824,32 +828,32 @@ msgstr ""
 "--reply-to message\n"
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
-#: quilt/mail.in:279
+#: quilt/mail.in:285
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:412
+#: quilt/mail.in:425
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:436
+#: quilt/mail.in:449
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:445
+#: quilt/mail.in:458
 msgid "File %s does not exist\\n"
 msgstr "Le fichier %s n'existe pas\\n"
 
-#: quilt/mail.in:505
+#: quilt/mail.in:518
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:508
+#: quilt/mail.in:521
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:605
+#: quilt/mail.in:624
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -898,11 +902,11 @@ msgstr ""
 "Impossible de créer des patchs avec -p%s. Veuillez spécifier -p0, -p1 ou -"
 "pab à la place.\\n"
 
-#: quilt/new.in:90 quilt/refresh.in:179
+#: quilt/new.in:90 quilt/refresh.in:185
 msgid "Patch %s exists already\\n"
 msgstr "Le patch %s existe déjà\\n"
 
-#: quilt/new.in:101 quilt/refresh.in:336
+#: quilt/new.in:101 quilt/refresh.in:342
 msgid "Failed to create patch %s\\n"
 msgstr "Impossible de créer le patch %s\\n"
 
@@ -995,11 +999,11 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:921
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:919
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:939
+#: quilt/pop.in:116 quilt/scripts/patchfns.in:937
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
@@ -1025,7 +1029,7 @@ msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:528
+#: quilt/pop.in:261 quilt/scripts/patchfns.in:526
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
@@ -1268,39 +1272,39 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\tSupprime les espaces à la fin des lignes.\n"
 
-#: quilt/refresh.in:165
+#: quilt/refresh.in:171
 msgid "Can only refresh the topmost patch with -z currently\\n"
 msgstr "Seul le patch au sommet peut actuellement être rafraîchi avec -z\\n"
 
-#: quilt/refresh.in:196
+#: quilt/refresh.in:202
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "Impossible de rafraîchir des patchs avec -p%s. Veuillez spécifier -p0 ou -p1 "
 "à la place.\\n"
 
-#: quilt/refresh.in:234
+#: quilt/refresh.in:240
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Des fichiers plus récents modifient les mêmes fichiers que %s.\n"
 "Forcez le rafraîchissement avec -f.\\n"
 
-#: quilt/refresh.in:240
+#: quilt/refresh.in:246
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "Impossible d'utiliser --strip-trailing-whitespace sur un patch dont\n"
 "certains fichiers sont masqués.\\n"
 
-#: quilt/refresh.in:246
+#: quilt/refresh.in:252
 msgid "Nothing in patch %s\\n"
 msgstr "Le patch %s ne contient rien\\n"
 
-#: quilt/refresh.in:318
+#: quilt/refresh.in:324
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s inchangé\\n"
 
-#: quilt/refresh.in:344
+#: quilt/refresh.in:350
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s rafraîchi\\n"
 
@@ -1431,35 +1435,35 @@ msgstr "Le fichier %s a disparu !\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "Impossible de renommer %s en %s : %s\n"
 
-#: quilt/scripts/patchfns.in:247 quilt/scripts/patchfns.in:541
+#: quilt/scripts/patchfns.in:245 quilt/scripts/patchfns.in:539
 msgid "%s is not a regular file\\n"
 msgstr "%s n'est pas un fichier régulier\\n"
 
-#: quilt/scripts/patchfns.in:495 quilt/scripts/patchfns.in:512
+#: quilt/scripts/patchfns.in:493 quilt/scripts/patchfns.in:510
 msgid "No patches in series\\n"
 msgstr "Aucun patch dans la série\\n"
 
-#: quilt/scripts/patchfns.in:497 quilt/scripts/patchfns.in:514
+#: quilt/scripts/patchfns.in:495 quilt/scripts/patchfns.in:512
 msgid "No series file found\\n"
 msgstr "Fichier de série non trouvé"
 
-#: quilt/scripts/patchfns.in:570
+#: quilt/scripts/patchfns.in:568
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/scripts/patchfns.in:598
+#: quilt/scripts/patchfns.in:596
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/scripts/patchfns.in:635
+#: quilt/scripts/patchfns.in:633
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
-#: quilt/scripts/patchfns.in:657
+#: quilt/scripts/patchfns.in:655
 msgid "Patch %s does not exist\\n"
 msgstr "Le patch %s n'existe pas\\n"
 
-#: quilt/scripts/patchfns.in:980
+#: quilt/scripts/patchfns.in:978
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1471,7 +1475,7 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: quilt/scripts/patchfns.in:1124
+#: quilt/scripts/patchfns.in:1122
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

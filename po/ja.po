@@ -178,7 +178,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:619
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:617
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -315,19 +315,23 @@ msgid ""
 msgstr ""
 "-p%s でパッチの差分はとれません。-p0、-p1、または -pab を指定してください\\n"
 
-#: quilt/diff.in:266 quilt/files.in:105 quilt/mail.in:384
+#: quilt/diff.in:241
+msgid "No snapshot to diff against\\n"
+msgstr ""
+
+#: quilt/diff.in:273 quilt/files.in:105 quilt/mail.in:397
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
-#: quilt/diff.in:328
+#: quilt/diff.in:341
 msgid "File %s is not being modified\\n"
 msgstr "ファイル %s は変更されていません\\n"
 
-#: quilt/diff.in:347 quilt/refresh.in:228
+#: quilt/diff.in:360 quilt/refresh.in:234
 msgid "Diff failed, aborting\\n"
 msgstr "差分に失敗しました。異常終了します\\n"
 
-#: quilt/diff.in:354
+#: quilt/diff.in:367
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "警告: 最近のパッチが、パッチ %s 内のファイルを変更しています\\n"
 
@@ -462,7 +466,7 @@ msgstr "パッチ %s はすでに存在します。新しい名前を選んで�
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "パッチ %s からパッチ %s への分岐に失敗しました\\n"
 
-#: quilt/fork.in:102 quilt/refresh.in:340
+#: quilt/fork.in:102 quilt/refresh.in:346
 msgid "Fork of patch %s created as %s\\n"
 msgstr "パッチ %s の分岐で %s が作成されました\\n"
 
@@ -615,6 +619,7 @@ msgstr ""
 "ル ...\\n"
 
 #: quilt/import.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Import external patches.  The patches will be inserted following the\n"
@@ -630,7 +635,7 @@ msgid ""
 "\tPatch filename to use inside quilt. This option can only be\n"
 "\tused when importing a single patch.\n"
 "\n"
-"-f\tOverwite/update existing patches.\n"
+"-f\tOverwrite/update existing patches.\n"
 "\n"
 "-d {o|a|n}\n"
 "\tWhen overwriting in existing patch, keep the old (o), all (a), or\n"
@@ -700,7 +705,7 @@ msgstr "パッチ %s を取り込んでいます (%s として保存されます
 msgid "Failed to import patch %s\\n"
 msgstr "パッチ %s の取り込みに失敗しました\\n"
 
-#: quilt/import.in:223 quilt/refresh.in:327
+#: quilt/import.in:223 quilt/refresh.in:333
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "seriesファイルへのパッチ %s の書き込みに失敗しました\\n"
 
@@ -797,33 +802,33 @@ msgstr ""
 "--reply-to メッセージ\n"
 "\t指定されたメッセージへのリプライとなるように、適切なヘッダを追加。\n"
 
-#: quilt/mail.in:279
+#: quilt/mail.in:285
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:412
+#: quilt/mail.in:425
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:436
+#: quilt/mail.in:449
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:445
+#: quilt/mail.in:458
 msgid "File %s does not exist\\n"
 msgstr "ファイル %s が存在しません\\n"
 
-#: quilt/mail.in:505
+#: quilt/mail.in:518
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "序文に件名がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:508
+#: quilt/mail.in:521
 msgid "Introduction has no subject header\\n"
 msgstr "序文に件名がありません\\n"
 
-#: quilt/mail.in:605
+#: quilt/mail.in:624
 msgid "Introduction saved as %s\\n"
 msgstr "序文は %s という名前で保存されました\\n"
 
@@ -866,18 +871,17 @@ msgstr ""
 "合は、正しい場所に %s ディレクトリを作成すること。\n"
 
 #: quilt/new.in:75
-#, fuzzy
 msgid ""
 "Cannot create patches with -p%s, please specify -p0, p1, or -pab instead\\n"
 msgstr ""
 "-p%s でパッチを作成することができません。-p0、-p1 または -pab を指定してくだ"
 "さい\\n"
 
-#: quilt/new.in:90 quilt/refresh.in:179
+#: quilt/new.in:90 quilt/refresh.in:185
 msgid "Patch %s exists already\\n"
 msgstr "パッチ %s は、すでに存在します\\n"
 
-#: quilt/new.in:101 quilt/refresh.in:336
+#: quilt/new.in:101 quilt/refresh.in:342
 msgid "Failed to create patch %s\\n"
 msgstr "パッチ %s の作成に失敗しました\\n"
 
@@ -965,11 +969,11 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:921
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:919
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:939
+#: quilt/pop.in:116 quilt/scripts/patchfns.in:937
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
@@ -995,7 +999,7 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:528
+#: quilt/pop.in:261 quilt/scripts/patchfns.in:526
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
@@ -1231,37 +1235,37 @@ msgstr ""
 "--strip-trailing-whitespace\n"
 "\t末尾の空白文字を削除する。\n"
 
-#: quilt/refresh.in:165
+#: quilt/refresh.in:171
 msgid "Can only refresh the topmost patch with -z currently\\n"
 msgstr "-zオプションがある場合、最上位パッチ以外のリフレッシュはできません\\n"
 
-#: quilt/refresh.in:196
+#: quilt/refresh.in:202
 msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
 msgstr ""
 "-p%s ではリフレッシュすることができません。-p0または -p1を指定してください\\n"
 
-#: quilt/refresh.in:234
+#: quilt/refresh.in:240
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "より最近のパッチがパッチ %s のファイルに変更を加えています。リフレッシュを実"
 "行する場合は -f オプションを使用してください。\\n"
 
-#: quilt/refresh.in:240
+#: quilt/refresh.in:246
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "--strip-trailing-whitespace は影になっているファイルがある場合は使えません"
 
-#: quilt/refresh.in:246
+#: quilt/refresh.in:252
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
-#: quilt/refresh.in:318
+#: quilt/refresh.in:324
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ %s に変更はありません\\n"
 
-#: quilt/refresh.in:344
+#: quilt/refresh.in:350
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
@@ -1391,36 +1395,36 @@ msgstr "ファイル %s に変更はありません\\n"
 msgid "Failed to rename %s to %s: %s\n"
 msgstr "%s から %s へ名前を変更しました: %s\n"
 
-#: quilt/scripts/patchfns.in:247 quilt/scripts/patchfns.in:541
+#: quilt/scripts/patchfns.in:245 quilt/scripts/patchfns.in:539
 msgid "%s is not a regular file\\n"
 msgstr "%s は普通のファイルではありません\\n"
 
-#: quilt/scripts/patchfns.in:495 quilt/scripts/patchfns.in:512
+#: quilt/scripts/patchfns.in:493 quilt/scripts/patchfns.in:510
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/scripts/patchfns.in:497 quilt/scripts/patchfns.in:514
+#: quilt/scripts/patchfns.in:495 quilt/scripts/patchfns.in:512
 msgid "No series file found\\n"
 msgstr "シリーズファイルが見つかりません\\n"
 
-#: quilt/scripts/patchfns.in:570
+#: quilt/scripts/patchfns.in:568
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:598
+#: quilt/scripts/patchfns.in:596
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:635
+#: quilt/scripts/patchfns.in:633
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:657
+#: quilt/scripts/patchfns.in:655
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:980
+#: quilt/scripts/patchfns.in:978
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1432,7 +1436,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:1124
+#: quilt/scripts/patchfns.in:1122
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"

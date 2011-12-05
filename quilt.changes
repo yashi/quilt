@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Dec  5 21:23:12 CET 2011 - jdelvare@suse.de
+
+- po/*: Synchronize language files.
+- po/fr.po: French translation update.
+- po/de.po: Partial German translation update.
+
+-------------------------------------------------------------------
 Mon Nov 14 22:09:32 CET 2011 - jdelvare@suse.de
 
 - scripts/inspect.in: Fix decompression of tar archives.
