@@ -211,6 +211,10 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 		   -e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
 		   -e $$'s/^  \t\\?//'					\
 	    ;;								\
+	  *@DOCSUBDIR@*)						\
+	    echo "$$line" |						\
+	    $(SED) -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
+	    ;;								\
 	  *)								\
 	    echo "$$line"						\
 	    ;;								\

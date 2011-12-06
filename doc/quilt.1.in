@@ -224,7 +224,7 @@ the pdf documentation, and in the help messages of each commands.
 
 .SH SEE ALSO
 
-The pdf documentation, which should be under /usr/share/doc/quilt/quilt.pdf.
+The pdf documentation, which should be under @DOCSUBDIR@/quilt.pdf.
 Note that some distributors compress this file. 
 .BR zxpdf ( 1 )
 can be used to display compressed pdf files.

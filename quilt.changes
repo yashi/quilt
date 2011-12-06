@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Dec  6 17:44:55 CET 2011 - jdelvare@suse.de
+
+- Makefile.in, doc/quilt.1.in: Substitute documentation directory
+  name in path to PDF documentation.
+
+-------------------------------------------------------------------
 Mon Dec  5 22:00:00 CET 2011 - jdelvare@suse.de
 
 - configure*: Bump version to 0.50.
