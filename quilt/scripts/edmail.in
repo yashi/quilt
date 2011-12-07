@@ -128,11 +128,12 @@ sub split_recipients($) {
     while ($recipients !~ /^\s*$/) {
 	my $recipient;
 	if ($recipients =~ s/^\s*,?\s*((?:"(?:[^"]+)"|[^",])*)//) {
-	    $recipient = $1; s/\s*$//;
+	    $recipient = $1;
 	} else {
 	    $recipient = $recipients;
 	    $recipients = "";
 	}
+	$recipient =~ s/\s*$//;
 	push @list, $recipient;
     }
     return @list;
@@ -144,7 +145,7 @@ sub process_header($) {
     my ($name, $value);
 
     return unless defined $_;
-    unless (($name, $value) = /^([\41-\176]+):\s*(.*)\s*/s) {
+    unless (($name, $value) = /^([\41-\176]+):\s*(.*)/s) {
 	print;
 	return
     }
