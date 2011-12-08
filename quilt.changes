@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Dec  8 16:32:26 CET 2011 - jdelvare@suse.de
+
+- configure*: Honor $TMPDIR if set.
+
+-------------------------------------------------------------------
 Tue Dec  6 17:44:55 CET 2011 - jdelvare@suse.de
 
 - Makefile.in, doc/quilt.1.in: Substitute documentation directory

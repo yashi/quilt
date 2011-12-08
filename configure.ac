@@ -216,7 +216,7 @@ fi
 QUILT_COMPAT_PROG_PATH(MKTEMP, mktemp)
 if test -z "$INTERNAL_MKTEMP" ; then
     AC_MSG_CHECKING(whether $MKTEMP -d works)
-    if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
+    if tempdir=`$MKTEMP -d ${TMPDIR:-/tmp}/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
        rmdir "$tempdir" ; then
 	AC_MSG_RESULT(yes)
     else
