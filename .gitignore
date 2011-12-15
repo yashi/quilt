@@ -30,6 +30,7 @@ lib/backup-files
 po/*.mo
 
 quilt/*
+!quilt/scripts
 !quilt/*.in
 
 quilt/scripts/*
