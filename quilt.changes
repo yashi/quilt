@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Dec 15 13:53:35 CET 2011 - jdelvare@suse.de
+
+- scripts/inspect.in: Fix quilt setup. A file name of "-" means
+  "read from stdin" for tar.
+
+-------------------------------------------------------------------
 Thu Dec  8 16:42:24 CET 2011 - jdelvare@suse.de
 
 - scripts/inspect.in: Consistently use ${TMPDIR:-...} when testing

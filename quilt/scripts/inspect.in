@@ -266,6 +266,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		;;
 	tar)
 		inputfile=$(tar_input_file "$@")
+		# For tar, file - means read from stdin
+		[ "$inputfile" = "-" ] && inputfile=
 		;;
 	esac
 	if [ -z "$inputfile" ]; then
