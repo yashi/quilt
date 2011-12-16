@@ -1902,6 +1902,7 @@ ac_configure="$SHELL $ac_aux_dir/configure"  # Please don't use this var.
 PACKAGE_RELEASE=1
 
 
+
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -6757,11 +6758,6 @@ $as_echo "$as_me: Building without natural language support" >&6;}
 fi
 
 
-if test -n "$RPM_DOC_DIR" ; then
-    docdir="$RPM_DOC_DIR"
-else
-    docdir='$(datadir)/doc'
-fi
 
 
 

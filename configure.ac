@@ -6,6 +6,7 @@ AC_REVISION ($Revision: 1.84 $)
 
 PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
+AC_SUBST(PACKAGE_TARNAME)
 
 dnl Setup for backup-files compilation
 AC_HEADER_STDC
@@ -370,12 +371,6 @@ if test $USE_NLS = no ; then
 fi
 AC_SUBST(USE_NLS)
 
-dnl Determine where package documentation is supposed to go
-if test -n "$RPM_DOC_DIR" ; then
-    docdir="$RPM_DOC_DIR"
-else
-    docdir='$(datadir)/doc'
-fi
 AC_SUBST(docdir)
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)

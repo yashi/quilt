@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Dec 16 15:56:46 CET 2011 - jdelvare@suse.de
+
+- configure*, Makefile.in: Use the standard docdir definition, so
+  that it can be easily changed from the command line.
+
+-------------------------------------------------------------------
 Thu Dec 15 14:20:04 CET 2011 - jdelvare@suse.de
 
 - scripts/inspect.in: Don't let TMPDIR take over /var/tmp.

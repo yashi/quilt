@@ -1,6 +1,7 @@
 PACKAGE :=	@PACKAGE_NAME@
 VERSION :=	@PACKAGE_VERSION@
 RELEASE :=	@PACKAGE_RELEASE@
+PACKAGE_TARNAME := @PACKAGE_TARNAME@
 PACKAGE_BUGREPORT := @PACKAGE_BUGREPORT@
 
 prefix :=	@prefix@
@@ -213,7 +214,7 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	    ;;								\
 	  *@DOCSUBDIR@*)						\
 	    echo "$$line" |						\
-	    $(SED) -e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g' \
+	    $(SED) -e 's:@DOCSUBDIR''@:$(docdir):g' \
 	    ;;								\
 	  *)								\
 	    echo "$$line"						\
@@ -272,7 +273,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@RELEASE''@:$(RELEASE):g'				\
 		-e 's:@ETCDIR''@:$(etcdir):g'				\
 		-e 's:@LOCALEDIR''@:$(localedir):g'			\
-		-e 's:@DOCSUBDIR''@:$(docdir)/$(PACKAGE)-$(VERSION):g'	\
+		-e 's:@DOCSUBDIR''@:$(docdir):g'			\
 		$< > $@
 	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
 
@@ -331,11 +332,11 @@ endif
 	$(INSTALL) -d $(BUILD_ROOT)$(libdir)/$(PACKAGE)
 	$(INSTALL) -m 755 $(LIB:%=lib/%) $(BUILD_ROOT)$(libdir)/$(PACKAGE)/
 
-	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/
 	$(INSTALL) -m 644 doc/README					\
-		   $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+		   $(BUILD_ROOT)$(docdir)/
 	$(INSTALL) -m 644 doc/quilt.pdf doc/README.MAIL			\
-		   $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/
+		   $(BUILD_ROOT)$(docdir)/
 
 	$(INSTALL) -d $(BUILD_ROOT)$(mandir)/man1
 	$(INSTALL) -m 644 $(MAN1) $(BUILD_ROOT)$(mandir)/man1/
@@ -373,7 +374,7 @@ uninstall ::
 		   $(notdir $(MAN1)))					\
 	       $(BUILD_ROOT)$(etcdir)/bash_completion.d/quilt		\
 	       $(BUILD_ROOT)$(etcdir)/quilt.quiltrc			\
-	       $(BUILD_ROOT)$(docdir)/$(PACKAGE)-$(VERSION)/		\
+	       $(BUILD_ROOT)$(docdir)/					\
 	       $(BUILD_ROOT)$(emacsdir)/quilt.el
 
 check: $(TESTS:test/%.test=test/.%.ok)
