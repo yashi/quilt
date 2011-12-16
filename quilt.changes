@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Dec 16 16:01:38 CET 2011 - jdelvare@suse.de
+
+- Makefile.in: Really skip setting execute bit on scripts/patchfns.
+
+-------------------------------------------------------------------
 Fri Dec 16 15:56:46 CET 2011 - jdelvare@suse.de
 
 - configure*, Makefile.in: Use the standard docdir definition, so

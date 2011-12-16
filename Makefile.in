@@ -275,7 +275,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@LOCALEDIR''@:$(localedir):g'			\
 		-e 's:@DOCSUBDIR''@:$(docdir):g'			\
 		$< > $@
-	@$(if $(filter-out $<,$(NON_EXEC_IN)),chmod +x $@)
+	@$(if $(filter $@,$(NON_EXEC_IN)),,chmod +x $@)
 
 lib/backup-files.o :: Makefile
 
