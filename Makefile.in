@@ -197,7 +197,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
 			$(MAKE) -s reference				\
 			;;						\
 		*)							\
-			echo $$line					\
+			printf "%s\n" "$$line"				\
 			;;						\
 		esac ;							\
 	done 2>&1 < $< > $@
@@ -209,15 +209,15 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	  '@REFERENCE''@')						\
 	    $(MAKE) -s reference |					\
 	    $(SED) -e 's/^quilt \([^ ]*\)\(.*\)/.IP "\\fB\1\\fP\2 " 4/'	\
-		   -e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
-		   -e $$'s/^  \t\\?//'					\
+		   -e 's/^  \(-[^\t]*\)\t\?/.IP "    \1" 8\n/'		\
+		   -e 's/^  \t\?//'					\
 	    ;;								\
 	  *@DOCSUBDIR@*)						\
-	    echo "$$line" |						\
+	    printf "%s\n" "$$line" |					\
 	    $(SED) -e 's:@DOCSUBDIR''@:$(docdir):g' \
 	    ;;								\
 	  *)								\
-	    echo "$$line"						\
+	    printf "%s\n" "$$line"					\
 	    ;;								\
 	  esac;								\
 	done < $< 2>&1 > $@
