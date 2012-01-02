@@ -83,6 +83,12 @@ then
 	usage
 fi
 
+if [ "$QUILT_PATCHES" = "$QUILT_PC" ]
+then
+	printf $"QUILT_PATCHES(%s) must differ from QUILT_PC(%s)\n" "$QUILT_PATCHES" "$QUILT_PC"
+	exit 1
+fi
+
 patch=${1#$QUILT_PATCHES/}
 
 if patch_in_series $patch
