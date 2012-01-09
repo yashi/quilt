@@ -24,6 +24,7 @@ CP :=		@CP@
 DATE :=		@DATE@
 PERL :=		@PERL@
 BASH :=		@BASH@
+SHELL:=		@BASH@ # It does not work if dash is used as a shell, for example
 GREP :=		@GREP@
 TAIL :=		@TAIL@
 TR :=		@TR@

@@ -1,3 +1,13 @@
+Mon Jan  9 20:49:04 CET 2012 - mquinson@debian.org
+- Makefile.in: 
+  - revert the change to fix the generation of quilt.1 with dash
+    It induced relying on GNU sed, which introduce severe portability
+    issues as BSD and Mac OSX versions of sed (at least) cannot deal
+    with \n by themselves.
+  - Force it to use SHELL = @BASH@ to ensure that it works when dash
+    is the default shell (bash is installed anyway since our scripts
+    use it)
+
 Mon Jan  2 11:02:38 CET 2012 - mquinson@debian.org
 
 - Makefile.in: Fix auto-generation of quilt.1 to work with dash
