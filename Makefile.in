@@ -205,7 +205,7 @@ doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
 
 doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	@echo "quilt.1.in -> quilt.1"
-	while read line; do						\
+	@while read line; do						\
 	  case "$$line" in						\
 	  '@REFERENCE''@')						\
 	    $(MAKE) -s reference |					\
