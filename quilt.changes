@@ -1,9 +1,17 @@
 -------------------------------------------------------------------
+Tue Jan 10 11:11:13 CET 2012 - jdelvare@suse.de
+
+- 
+
+-------------------------------------------------------------------
 Tue Jan 10 11:05:36 CET 2012 - jdelvare@suse.de
 
 - Makefile.in: No need to delete doc/quilt.1 twice on "make clean".
 - Makefile.in: Silent the generation of the quilt manual page, for
   consistency.
+- Makefile.in: Store the quilt command reference once generated.
+  This avoids generating it twice, once for README and once for
+  quilt.1.
 
 -------------------------------------------------------------------
 Mon Jan  9 20:49:04 CET 2012 - mquinson@debian.org

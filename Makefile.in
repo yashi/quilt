@@ -107,7 +107,7 @@ DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
 SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile	\
 		doc/README.MAIL doc/README.EMACS
-DIRT +=		$(DOC_IN:%=doc/%)
+DIRT +=		$(DOC_IN:%=doc/%) doc/reference
 
 MAN1 :=		doc/quilt.1
 ifneq ($(POD2MAN),)
@@ -190,12 +190,12 @@ po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
 	|$(MSGUNIQ)							\
 	|$(MSGCAT) --force-po -F - $@ -o $@
 
-doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
+doc/README : doc/README.in doc/reference
 	@echo "README.in -> README"
 	@while read line; do						\
 		case "$$line" in					\
 		'@REFERENCE''@')					\
-			$(MAKE) -s reference				\
+			cat doc/reference				\
 			;;						\
 		*)							\
 			echo $$line					\
@@ -203,15 +203,15 @@ doc/README : doc/README.in $(QUILT:%=quilt/%) $(COMPAT)
 		esac ;							\
 	done 2>&1 < $< > $@
 
-doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
+doc/quilt.1: doc/quilt.1.in doc/reference $(COMPAT)
 	@echo "quilt.1.in -> quilt.1"
 	@while read line; do						\
 	  case "$$line" in						\
 	  '@REFERENCE''@')						\
-	    $(MAKE) -s reference |					\
 	    $(SED) -e 's/^quilt \([^ ]*\)\(.*\)/.IP "\\fB\1\\fP\2 " 4/'	\
 		   -e $$'s/^  \\(-[^\t]*\\)\t\\?/.IP "    \\1" 8\\\n/'	\
 		   -e $$'s/^  \t\\?//'					\
+	    < doc/reference						\
 	    ;;								\
 	  *@DOCSUBDIR@*)						\
 	    echo "$$line" |						\
@@ -223,8 +223,7 @@ doc/quilt.1: doc/quilt.1.in $(QUILT:%=quilt/%) $(COMPAT)
 	  esac;								\
 	done < $< 2>&1 > $@
 
-.PHONY :: reference
-reference : $(QUILT:%=quilt/%) quilt/scripts/patchfns compat
+doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns $(COMPAT)
 	@unset LANG LC_MESSAGES LC_CTYPE LC_ALL;			\
 	for i in $(QUILT);						\
 	do								\
@@ -234,7 +233,7 @@ reference : $(QUILT:%=quilt/%) quilt/scripts/patchfns compat
 	done |								\
 	$(SED) -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'			\
 	       -e '/^$$/!s/^/  /'					\
-	       -e 's/^  Usage: *//'
+	       -e 's/^  Usage: *//' > $@
 
 bin/guards.1 : bin/guards
 	$(POD2MAN) $< > $@
