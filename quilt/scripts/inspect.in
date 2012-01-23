@@ -317,7 +317,18 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	    ${0##*/} "$@" < $tmpdir/data
 	fi
 EOF
+
 chmod 755 $tmpdir/bin/wrapper
+# If $TMPDIR is mounted with noexec, rpmbuild won't be able to execute
+# our wrapper script
+if [ ! -x $tmpdir/bin/wrapper ]
+then
+	printf "Cannot execute %s; filesystem mounted with noexec?\n" \
+	       $tmpdir/bin/wrapper >&2
+ 	printf "Setting %s in ~/.quiltrc may help\n" "VARTMPDIR" >&2
+	exit 1
+fi
+
 ln -s wrapper $tmpdir/bin/patch
 ln -s wrapper $tmpdir/bin/tar
 
