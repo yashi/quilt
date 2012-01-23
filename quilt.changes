@@ -1,13 +1,13 @@
 -------------------------------------------------------------------
+Mon Jan 23 13:56:57 CET 2012 - jdelvare@suse.de
+
+- scripts/inspect.in: Leave stderr free for actual error reporting.
+
+-------------------------------------------------------------------
 Mon Jan 23 10:20:16 CET 2012 - mquinson@debian.org
 
 - bash_completion: silence the errors of "quilt unapplied" in the
   completion of quilt push, as we did previously on other scripts.
-
--------------------------------------------------------------------
-Tue Jan 10 11:11:13 CET 2012 - jdelvare@suse.de
-
-- 
 
 -------------------------------------------------------------------
 Tue Jan 10 11:05:36 CET 2012 - jdelvare@suse.de
