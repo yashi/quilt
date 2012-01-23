@@ -239,7 +239,7 @@ _quilt_completion()
 	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt applied 2>/dev/null)" -- $cur ) )
 	   ;;
 	push)
-	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --leave-rejects --interactive --color $(quilt unapplied)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --leave-rejects --interactive --color $(quilt unapplied 2>/dev/null)" -- $cur ) )
 	   ;;
 	refresh)
 	   case $prev in
