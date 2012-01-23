@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 23 10:20:16 CET 2012 - mquinson@debian.org
+
+- bash_completion: silence the errors of "quilt unapplied" in the
+  completion of quilt push, as we did previously on other scripts.
+
+-------------------------------------------------------------------
 Tue Jan 10 11:11:13 CET 2012 - jdelvare@suse.de
 
 - 
