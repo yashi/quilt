@@ -1379,22 +1379,6 @@ msgstr "表示用の名前 `%s' が対にならない括弧を含んでいます
 msgid "Delivery address `%s' is invalid\n"
 msgstr "配送先のアドレス `%s' が不正です\n"
 
-#: quilt/scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
-
-#: quilt/scripts/parse-patch.in:101 quilt/scripts/parse-patch.in:108
-#: quilt/scripts/parse-patch.in:115 quilt/scripts/parse-patch.in:122
-#, fuzzy, perl-format
-msgid "File %s disappeared!\n"
-msgstr "ファイル %s に変更はありません\\n"
-
-#: quilt/scripts/parse-patch.in:168 quilt/scripts/parse-patch.in:174
-#, fuzzy, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr "%s から %s へ名前を変更しました: %s\n"
-
 #: quilt/scripts/patchfns.in:245 quilt/scripts/patchfns.in:539
 msgid "%s is not a regular file\\n"
 msgstr "%s は普通のファイルではありません\\n"

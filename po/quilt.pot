@@ -951,22 +951,6 @@ msgstr ""
 msgid "Delivery address `%s' is invalid\n"
 msgstr ""
 
-#: quilt/scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
-
-#: quilt/scripts/parse-patch.in:101 quilt/scripts/parse-patch.in:108
-#: quilt/scripts/parse-patch.in:115 quilt/scripts/parse-patch.in:122
-#, perl-format
-msgid "File %s disappeared!\n"
-msgstr ""
-
-#: quilt/scripts/parse-patch.in:168 quilt/scripts/parse-patch.in:174
-#, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr ""
-
 #: quilt/scripts/patchfns.in:245 quilt/scripts/patchfns.in:539
 msgid "%s is not a regular file\\n"
 msgstr ""

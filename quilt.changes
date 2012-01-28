@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat Jan 28 15:47:53 CET 2012 - jdelvare@suse.de
+
+- Remove parse-patch which is no longer used. Based on a
+  preliminary patch by Yasushi SHOJI.
+
+  None of quilt code uses parse-patch anymore.  The last one, it seems,
+  was contrib/import.diff, which was removed at 2f9728a9.  So, just
+  remove it.
+
+-------------------------------------------------------------------
 Mon Jan 23 13:56:57 CET 2012 - jdelvare@suse.de
 
 - scripts/inspect.in: Leave stderr free for actual error reporting.

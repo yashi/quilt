@@ -1395,22 +1395,6 @@ msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
-#: quilt/scripts/parse-patch.in:50
-#, perl-format
-msgid "USAGE: %s {-s|-u} section file [< replacement]\n"
-msgstr ""
-
-#: quilt/scripts/parse-patch.in:101 quilt/scripts/parse-patch.in:108
-#: quilt/scripts/parse-patch.in:115 quilt/scripts/parse-patch.in:122
-#, fuzzy, perl-format
-msgid "File %s disappeared!\n"
-msgstr "Datei %s ist unverändert\\n"
-
-#: quilt/scripts/parse-patch.in:168 quilt/scripts/parse-patch.in:174
-#, fuzzy, perl-format
-msgid "Failed to rename %s to %s: %s\n"
-msgstr "Umbenennen von %s auf %s: %s\n"
-
 #: quilt/scripts/patchfns.in:245 quilt/scripts/patchfns.in:539
 #, fuzzy
 msgid "%s is not a regular file\\n"
