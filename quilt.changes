@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 31 16:41:39 CET 2012 - jdelvare@suse.de
+
+- import.in, scripts/patchfns.in: Fix import of patches from a
+  subdirectory (bug #35244).
+
+-------------------------------------------------------------------
 Sat Jan 28 16:38:10 CET 2012 - jdelvare@suse.de
 
 - configure*: Bump version to 0.51.

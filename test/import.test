@@ -246,3 +246,12 @@
 	$ cat patches/series
 	> patch1.diff
 	> patchR.diff
+
+# Also test importing when in a subdirectory
+	$ touch empty.patch
+	$ cd t
+	$ touch empty2.patch
+	$ quilt import ../empty.patch
+	> Importing patch ../empty.patch (stored as ../patches/empty.patch)
+	$ quilt import %{PWD}/empty2.patch
+	> Importing patch %{PWD}/empty2.patch (stored as ../patches/empty2.patch)

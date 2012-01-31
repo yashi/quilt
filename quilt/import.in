@@ -152,16 +152,16 @@ then
 fi
 
 before=$(patch_after "$(top_patch)")
-for patch_file in "$@"
+for orig_patch_file in "$@"
 do
 	if [ -n "$opt_patch" ]
 	then
 		patch=$opt_patch
 	else
-		patch=${patch_file##*/}
+		patch=${orig_patch_file##*/}
 	fi
 
-	patch_file=$(find_patch_file "$patch_file") || exit 1
+	patch_file=$(find_patch_file "$orig_patch_file") || exit 1
 	merged_patch_file="$patch_file"
 
 	if is_applied $patch
@@ -199,7 +199,7 @@ do
 		printf $"Importing patch %s\n" "$(print_patch $patch)"
 	else
 		printf $"Importing patch %s (stored as %s)\n" \
-		       "$patch_file" \
+		       "$orig_patch_file" \
 		       "$(print_patch $patch)"
 
 		mkdir -p "${dest%/*}"

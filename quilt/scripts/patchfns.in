@@ -641,10 +641,21 @@ find_patch_file()
 {
 	local name="$1"
 
-	if [ -r "$name" ]
+	if [ ${name:0:1} = / ]
 	then
-		echo "$name"
-		return
+		# Patch has absolute path
+		if [ -r "$name" ]
+		then
+			echo "$name"
+			return
+		fi
+	else
+		# Patch has a relative path
+		if [ -r "$SUBDIR$name" ]
+		then
+			echo "$SUBDIR$name"
+			return
+		fi
 	fi
 
 	local patch
