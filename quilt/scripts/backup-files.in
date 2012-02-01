@@ -151,18 +151,17 @@ remove()
 	rmdir -p "${backup%/*}" 2> /dev/null || true
 }
 
-noop()
+noop_nolinks()
 {
 	local file=$1
 
-	if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
+	if [ -e "$file" ]; then
 		ensure_nolinks "$file"
 	fi
 }
 
 
 ECHO=echo
-OPT_WHAT=noop
 while [ $# -gt 0 ]; do
 	case $1 in
 	-b)	OPT_WHAT=backup
@@ -203,6 +202,14 @@ fi
 if [ "${OPT_PREFIX:(-1)}" != / ]; then
 	echo "Prefix must be a directory" >&2
 	exit 1
+fi
+
+if [ -z "$OPT_WHAT" ]; then
+	if [ -n "$OPT_NOLINKS" ]; then
+		OPT_WHAT=noop_nolinks
+	else
+		exit 0
+	fi
 fi
 
 if [ -n "$OPT_FILE" ]; then
