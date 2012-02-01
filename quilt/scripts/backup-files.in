@@ -1,6 +1,8 @@
 #! @BASH@
 
 set -e
+# Keep /dev/null opened as we will need it repeatedly
+exec 4> /dev/null
 
 # Copyright (C) 2006 Steve Langasek <vorlon@debian.org>
 # Copyright (C) 2011 Jean Delvare <jdelvare@suse.de>
@@ -78,7 +80,7 @@ backup() {
 		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = 1 ]; then
 			cp -p "$file" "$backup"
 		else
-			ln "$file" "$backup" 2> /dev/null || cp -p "$file" "$backup"
+			ln "$file" "$backup" 2>&4 || cp -p "$file" "$backup"
 			if [ -n "$OPT_NOLINKS" ]; then
 				ensure_nolinks "$file"
 			fi
@@ -104,7 +106,7 @@ restore()
 		else
 			mkdir -p "$(dirname "$file")"
 		fi
-		ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
+		ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
 
 		if [ -n "$OPT_TOUCH" ]; then
 			touch "$file"
@@ -118,7 +120,7 @@ restore()
 
 	if [ -z "$OPT_KEEP_BACKUP" ]; then
 		rm "$backup"
-		rmdir -p "${backup%/*}" 2> /dev/null || true
+		rmdir -p "${backup%/*}" 2>&4 || true
 	fi
 }
 
@@ -154,7 +156,7 @@ restore_all()
 		if (cd "$OPT_PREFIX" && \
 		    xargs -0 cp -l --parents --remove-destination \
 				--target-directory="$target_dir" \
-				< "$NONEMPTY_FILES" 2> /dev/null); then
+				< "$NONEMPTY_FILES" 2>&4); then
 			while read -d $'\0' -r
 			do
 				$ECHO "Restoring ${REPLY#./}"
@@ -171,7 +173,7 @@ restore_all()
 				local backup=$OPT_PREFIX$file
 
 				$ECHO "Restoring $file"
-				ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
+				ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
 			done < "$NONEMPTY_FILES"
 		fi
 
@@ -240,7 +242,7 @@ copy_many()
 		# fallback to per-file processing, which always works.
 
 		if xargs -0 cp -p --parents --target-directory="$OPT_PREFIX" \
-		   < "$NONEMPTY_FILES" 2> /dev/null; then
+		   < "$NONEMPTY_FILES" 2>&4; then
 			while read -d $'\0' -r
 			do
 				$ECHO "Copying $REPLY"
@@ -258,7 +260,7 @@ copy_many()
 some_files_have_links()
 {
 	(cd "$OPT_PREFIX" && find . -type f -print0) \
-	| xargs -0 stat @STAT_HARDLINK@ 2> /dev/null | grep -qv '^1$'
+	| xargs -0 stat @STAT_HARDLINK@ 2>&4 | grep -qv '^1$'
 }
 
 
