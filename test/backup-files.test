@@ -200,3 +200,32 @@ Unit test of the backup-files script.
 	> Removing new
 	> Restoring foo
 	> Restoring space bar
+	$ rm "linked space"
+
+	# Test copy (as used by quilt snapshot)
+	$ %{QUILT_DIR}/scripts/backup-files -B snapshot/ -c -f -
+	< new
+	< foo
+	< space bar
+	< dir with spaces/space file
+	> New file new
+	> Copying foo
+	> Copying space bar
+	> Copying dir with spaces/space file
+	$ ls -l foo | awk '{ print $2 }'
+	> 2
+	$ ls -l "space bar" | awk '{ print $2 }'
+	> 1
+	$ ls -l "dir with spaces/space file" | awk '{ print $2 }'
+	> 1
+	$ [ ! -e new ] || echo "file new shouldn't exist"
+	$ ls -l snapshot/new | awk '{ print $2 }'
+	> 1
+	$ ls -l snapshot/foo | awk '{ print $2 }'
+	> 1
+	$ ls -l snapshot/"space bar" | awk '{ print $2 }'
+	> 1
+	$ ls -l snapshot/"dir with spaces/space file" | awk '{ print $2 }'
+	> 1
+	$ [ ! -s new ] || echo "file snapshot/new should be empty"
+	$ rm -rf snapshot

@@ -27,12 +27,13 @@ set -e
 # name prefix for the backup files must be specified with the -B option.
 
 usage () {
-	echo "Usage: $0 -B prefix [-s] [-k] [-t] [-L] [-b|-r|-x] {-f {file|-}|-|file ...}
+	echo "Usage: $0 -B prefix [-s] [-k] [-t] [-L] [-b|-r|-c|-x] {-f {file|-}|-|file ...}
 
 	Create or restore backup copies of a list of files.
 
 	-b	Create backup
 	-r	Restore the backup
+	-c	Create simple copy
 	-x	Remove backup files and empty parent directories
 	-k	When doing a restore, keep the backup files
 	-B	Path name prefix for backup files
@@ -220,6 +221,24 @@ noop_nolinks()
 	fi
 }
 
+copy()
+{
+	local file=$1
+	local backup=$OPT_PREFIX$file
+	local dir
+
+	dir=$(dirname "$backup")
+	[ -d "$dir" ] || mkdir -p "$dir"
+
+	if [ -e "$file" ]; then
+		$ECHO "Copying $file"
+		cp -p "$file" "$backup"
+	else
+		$ECHO "New file $file"
+		: > "$backup"
+	fi
+}
+
 # Test if some backed up files have a link count greater than 1
 some_files_have_links()
 {
@@ -234,6 +253,8 @@ while [ $# -gt 0 ]; do
 	-b)	OPT_WHAT=backup
 		;;
 	-r)	OPT_WHAT=restore
+		;;
+	-c)	OPT_WHAT=copy
 		;;
 	-x)	OPT_WHAT=remove
 		;;
