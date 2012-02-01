@@ -141,7 +141,6 @@ noop()
 
 ECHO=echo
 OPT_WHAT=noop
-declare -a FILELIST
 while [ $# -gt 0 ]; do
 	case $1 in
 	-b)	OPT_WHAT=backup
@@ -167,8 +166,7 @@ while [ $# -gt 0 ]; do
 	-?*)	usage
 		exit 0
 		;;
-	*)	FILELIST=("$@")
-		break
+	*)	break
 		;;
 	esac
 
@@ -192,10 +190,8 @@ if [ -n "$OPT_FILE" ]; then
 	done
 fi
 
-I=0
-while [ $I -lt ${#FILELIST[@]} ]; do
-
-	case "${FILELIST[$I]}" in
+while [ $# -gt 0 ]; do
+	case $1 in
 	-)
 		# No backup directory? We're done
 		[ -d "$OPT_PREFIX" ] || exit 0
@@ -210,9 +206,9 @@ while [ $I -lt ${#FILELIST[@]} ]; do
 		fi
 		;;
 	*)
-		$OPT_WHAT "${FILELIST[$I]}"
+		$OPT_WHAT "$1"
 		;;
 	esac
 
-	I=$(($I+1))
+	shift
 done
