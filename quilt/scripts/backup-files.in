@@ -24,12 +24,11 @@ set -e
 
 
 # Create backup files of a list of files similar to GNU patch. A path
-# name prefix and suffix for the backup file can be specified with the
-# -B and -z options.
+# name prefix for the backup files must be specified with the -B option.
 
 usage () {
 	local progname="$1"
-	echo "Usage: $progname [-B prefix] [-z suffix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
+	echo "Usage: $progname [-B prefix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
 
 	Create hard linked backup copies of a list of files
 	read from standard input.
@@ -39,7 +38,6 @@ usage () {
 	-x	Remove backup files and empty parent directories
 	-k	When doing a restore, keep the backup files
 	-B	Path name prefix for backup files
-	-z	Path name suffix for backup files
 	-s	Silent operation; only print error messages
 	-f	Read the filenames to process from file (- = standard input)
 	-t	Touch original files after restore (update their mtimes)
@@ -79,7 +77,7 @@ ensure_nolinks() {
 
 process_file() {
 	local file="$1"
-	local backup="${OPT_PREFIX}${file}${OPT_SUFFIX}"
+	local backup="${OPT_PREFIX}${file}"
 
 	if [ "$OPT_WHAT" == "backup" ]; then
 		if [ -e "$backup" ]; then
@@ -168,13 +166,6 @@ walk() {
 	fi
 	path="${path#$OPT_PREFIX}"
 
-	if [ -n "$OPT_SUFFIX" ] && [ "${path%$OPT_SUFFIX}" == "$path" ]
-	then
-		# suffix does not match
-		return 0
-	fi
-	path="${path%$OPT_SUFFIX}"
-
 	process_file "$path"
 }
 
@@ -196,9 +187,6 @@ while [ $# -gt 0 ]; do
 	-f)	OPT_FILE=$2
 		shift
 		;;
-	-z)	OPT_SUFFIX=$2
-		shift
-		;;
 	-s)	ECHO=:
 		;;
 	-k)	OPT_KEEP_BACKUP=1
@@ -218,7 +206,7 @@ while [ $# -gt 0 ]; do
 	shift
 done
 
-if [ -z "${OPT_PREFIX}${OPT_SUFFIX}" ]; then
+if [ -z "$OPT_PREFIX" ]; then
 	usage "$progname"
 	exit 1
 fi
