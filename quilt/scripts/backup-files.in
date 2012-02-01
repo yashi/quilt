@@ -91,8 +91,6 @@ restore()
 	local file="$1"
 	local backup="${OPT_PREFIX}${file}"
 
-	mkdir -p "$(dirname "$file")"
-
 	if [ ! -e "$backup" ]; then
 		return 1
 	fi
@@ -101,31 +99,27 @@ restore()
 		if [ -e "$file" ]; then
 			rm "$file"
 		fi
-		if [ -z "$OPT_KEEP_BACKUP" ]; then
-			rm "$backup"
-			rmdir -p "${backup%/*}" 2> /dev/null || true
-		fi
 	else
 		$ECHO "Restoring $file"
 		if [ -e "$file" ]; then
 			rm "$file"
+		else
+			mkdir -p "$(dirname "$file")"
 		fi
-		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$backup")" != "1" ]; then
+		if [ -n "$OPT_NOLINKS" ]; then
 			cp -p "$backup" "$file"
 		else
 			ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
-			if [ -n "$OPT_NOLINKS" ]; then
-				ensure_nolinks "$file"
-			fi
 		fi
 
-		if [ -z "$OPT_KEEP_BACKUP" ]; then
-			rm "$backup"
-			rmdir -p "${backup%/*}" 2> /dev/null || true
-		fi
 		if [ -n "$OPT_TOUCH" ]; then
 			touch "$file"
 		fi
+	fi
+
+	if [ -z "$OPT_KEEP_BACKUP" ]; then
+		rm "$backup"
+		rmdir -p "${backup%/*}" 2> /dev/null || true
 	fi
 }
 
