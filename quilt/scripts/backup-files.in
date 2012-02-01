@@ -187,6 +187,13 @@ noop_nolinks()
 	fi
 }
 
+# Test if some backed up files have a link count greater than 1
+some_files_have_links()
+{
+	(cd "$OPT_PREFIX" && find . -type f -print0) \
+	| xargs -0 stat @STAT_HARDLINK@ 2> /dev/null | grep -qv '^1$'
+}
+
 
 ECHO=echo
 while [ $# -gt 0 ]; do
@@ -253,6 +260,13 @@ if [ "$1" = - ]; then
 
 	if [ "$OPT_WHAT" = restore ]; then
 		restore_all
+		exit
+	fi
+
+	# We typically expect the link count of backed up files to be 1
+	# already, so check quickly that this is the case, and only if not,
+	# take the slow path and walk the file list in search of files to fix.
+	if [ "$OPT_WHAT" = noop_nolinks ] && ! some_files_have_links; then
 		exit
 	fi
 
