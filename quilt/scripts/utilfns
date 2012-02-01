@@ -42,3 +42,13 @@ dirname()
 		fi
 	fi
 }
+
+gen_tempfile()
+{
+	if [ "$1" = -d ]
+	then
+		mktemp -d ${2:-${TMPDIR:-/tmp}/quilt.}XXXXXX
+	else
+		mktemp ${1:-${TMPDIR:-/tmp}/quilt.}XXXXXX
+	fi
+}

@@ -321,19 +321,6 @@ fi
 
 QUILT_COMPAT_PROG_PATH(XARGS, xargs)
 
-AC_MSG_CHECKING([whether $XARGS -r works])
-if echo | $XARGS -r echo >/dev/null 2>&1; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR([
-Sorry, you have a version of xargs which doesn't understand -r.
-$PACKAGE_NAME needs it.  If you have access to a version of xargs which
-does understand -r, you can supply its path with the
-'--with-xargs=' option.
-])
-fi
-
 AC_MSG_CHECKING([whether $XARGS -0 works])
 if echo | $XARGS -0 echo >/dev/null 2>&1; then
 	AC_MSG_RESULT(yes)

@@ -142,24 +142,36 @@ restore()
 
 restore_all()
 {
+	local FILELIST
+
 	(cd "$OPT_PREFIX" && find . -type d -print0) \
 	| xargs -0 mkdir -p
 	if [ ${PIPESTATUS[0]} != 0 ]; then
 		return 1
 	fi
 
-	(cd "$OPT_PREFIX" && find . -type f -print0) \
-	| xargs -0 -r rm -f
+	# Store the list of files to process
+	FILELIST=$(gen_tempfile)
+	trap "rm -f \"$FILELIST\"" EXIT
 
-	find "$OPT_PREFIX" -type f -print \
-	| while read
+	cd "$OPT_PREFIX"
+	find . -type f -print0 > "$FILELIST"
+	cd "$OLDPWD"
+
+	if [ ! -s "$FILELIST" ]; then
+		rm -f "$FILELIST"
+		exit
+	fi
+
+	xargs -0 rm -f < "$FILELIST"
+
+	while read -d $'\0' -r
 	do
-		restore_fast "${REPLY#$OPT_PREFIX}"
-	done
+		restore_fast "${REPLY#./}"
+	done < "$FILELIST"
 
 	if [ -n "$OPT_TOUCH" ]; then
-		(cd "$OPT_PREFIX" && find . -type f -size +0 -print0) \
-		| xargs -0 -r touch
+		xargs -0 touch -c < "$FILELIST"
 	fi
 
 	if [ -z "$OPT_KEEP_BACKUP" ]; then
