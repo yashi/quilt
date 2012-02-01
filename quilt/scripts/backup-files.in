@@ -21,7 +21,7 @@ set -e
 # MA 02110-1301, USA.
 
 usage () {
-	echo "Usage: $0 -B prefix {-b|-r|-c|-x|-L} [-s] [-k] [-t] [-L] {-f {file|-}|-|file ...}
+	echo "Usage: $0 -B prefix {-b|-r|-c|-L} [-s] [-k] [-t] [-L] {-f {file|-}|-|file ...}
 
 	Create or restore backup copies of a list of files.
 
@@ -32,7 +32,6 @@ usage () {
 	-b	Create backup (preserve links)
 	-r	Restore the backup
 	-c	Create simple copy
-	-x	Remove backup files and empty parent directories
 	-L	Ensure that source files have a link count of 1
 
 	Common options:
@@ -186,17 +185,6 @@ restore_all()
 	fi
 }
 
-remove()
-{
-	local file=$1
-	local backup=$OPT_PREFIX$file
-
-	if [ -e "$backup" ]; then
-		rm "$backup"
-	fi
-	rmdir -p "${backup%/*}" 2> /dev/null || true
-}
-
 noop_nolinks()
 {
 	local file=$1
@@ -282,8 +270,6 @@ while [ $# -gt 0 ]; do
 	-r)	OPT_WHAT=restore
 		;;
 	-c)	OPT_WHAT=copy
-		;;
-	-x)	OPT_WHAT=remove
 		;;
 	-B)	OPT_PREFIX=$2
 		shift

@@ -13,8 +13,8 @@ Unit test of the backup-files script.
 	> 2
 	$ [ backup/foo -nt foo ] && echo "mtimes differ"
 
-	# Test remove
-	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -x foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r foo
+	> Restoring foo
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
