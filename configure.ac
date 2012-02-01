@@ -8,25 +8,6 @@ PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
 AC_SUBST(PACKAGE_TARNAME)
 
-dnl Setup for backup-files compilation
-AC_HEADER_STDC
-AC_CHECK_FUNCS([fchmod chmod])
-AC_CHECK_FUNCS([mkstemp mktemp], break)
-AC_CHECK_FUNCS([mkdir rmdir])
-AC_CHECK_FUNCS([strchr strrchr])
-AC_CHECK_FUNCS([strerror])
-AC_C_CONST
-AC_FUNC_STAT
-
-#AC_CONFIG_LIBOBJ_DIR(lib)
-#AC_REPLACE_FUNCS()
-
-if test "$ac_compiler_gnu" = "yes"; then
-  CFLAGS="$CFLAGS -Wall"
-fi
-EXEEXT="$ac_cv_exeext"
-AC_SUBST(EXEEXT)
-
 AC_PROG_INSTALL
 
 AC_SYS_INTERPRETER
@@ -410,12 +391,6 @@ AC_MSG_RESULT([])
 AC_MSG_RESULT([$PACKAGE_NAME version $PACKAGE_VERSION configured.])
 AC_MSG_RESULT([])
 AC_MSG_RESULT([Using '$prefix' for installation prefix.])
-
-# we don't need to see this just for the backup-files command
-# but we may as well spec it for the future
-#AC_MSG_RESULT([Using '$CC' for C compiler.])
-#AC_MSG_RESULT([Building with '$CFLAGS' for C compiler flags.])
-#AC_MSG_RESULT([Building with '$LIBS' for linker flags.])
 
 AC_MSG_RESULT([])
 AC_MSG_RESULT([Report bugs to $PACKAGE_BUGREPORT])

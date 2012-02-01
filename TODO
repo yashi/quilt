@@ -2,7 +2,7 @@ General:
 
 	- Abstract backup operations to/from the .pc/ directory, so that
 	  optionally something like rcs can be used instead of
-	  lib/backup-files?
+	  scripts/backup-files?
 
 	- Add something similar to cvs diff, which scans all files for
 	  changes that have not been folded back into their patches,
