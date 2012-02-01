@@ -193,21 +193,15 @@ while [ $I -lt ${#FILELIST[@]} ]; do
 
 	case "${FILELIST[$I]}" in
 	-)
-		find "$OPT_PREFIX" -mindepth 1 \( -type f -o -type d \) -print 2>/dev/null \
+		# No backup directory? We're done
+		[ -d "$OPT_PREFIX" ] || exit 0
+
+		find "$OPT_PREFIX" -type f -print \
 		| while read
 		do
-			if [ -d "$REPLY" ]
-			then
-				if ! [ -r "$REPLY" ] || ! [ -x "$REPLY" ]
-				then
-					echo "$REPLY: Permission denied"
-					exit 1
-				fi
-			else
-				process_file "${REPLY#$OPT_PREFIX}"
-			fi
+			process_file "${REPLY#$OPT_PREFIX}"
 		done
-		if [ $? != 0 ]; then
+		if [ ${PIPESTATUS[0]} != 0 ]; then
 			exit 1
 		fi
 		;;
