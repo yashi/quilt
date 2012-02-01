@@ -33,7 +33,7 @@ FIND :=		@FIND@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
-MSGMERGE :=     @MSGMERGE@
+MSGMERGE :=	@MSGMERGE@
 MSGFMT :=	@MSGFMT@
 XGETTEXT :=	@XGETTEXT@
 MSGUNIQ :=	@MSGUNIQ@
@@ -91,7 +91,7 @@ DOC_IN :=	README quilt.1
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
 DOC :=		$(DOC_IN)
 SRC +=		$(DOC_SRC)
-SRC +=          doc/main.tex doc/quilt.pdf doc/Makefile	\
+SRC +=		doc/main.tex doc/quilt.pdf doc/Makefile	\
 		doc/README.MAIL doc/README.EMACS
 DIRT +=		$(DOC_IN:%=doc/%) doc/reference
 
@@ -104,7 +104,7 @@ endif
 LINGUAS :=	fr de ja ru
 PO :=		quilt.pot $(LINGUAS:%=%.po)
 SRC +=		$(PO:%=po/%)
-DIRT +=         po/*.mo po/*~
+DIRT +=		po/*.mo po/*~
 
 SRC +=		$(wildcard test/*.test) test/run test/test.quiltrc
 SRC +=		changes2changelog
@@ -309,7 +309,7 @@ ifneq ($(PATCH_WRAPPER),)
 	$(INSTALL) -m 755 bin/patch-wrapper				\
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/wrapper/patch
 endif
-	
+
 	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/
 	$(INSTALL) -m 644 doc/README					\
 		   $(BUILD_ROOT)$(docdir)/
