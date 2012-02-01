@@ -57,86 +57,101 @@ ensure_nolinks() {
 	fi
 }
 
-process_file() {
+backup() {
 	local file="$1"
 	local backup="${OPT_PREFIX}${file}"
 
-	if [ "$OPT_WHAT" == "backup" ]; then
-		if [ -e "$backup" ]; then
-			rm "$backup"
+	if [ -e "$backup" ]; then
+		rm "$backup"
+	else
+		mkdir -p "$(dirname "$backup")"
+	fi
+
+	if [ ! -e "$file" ]; then
+		$ECHO "New file $file"
+		touch "$backup"
+	else
+		$ECHO "Copying $file"
+		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = "1" ]; then
+			cp -p "$file" "$backup"
 		else
-			mkdir -p "$(dirname "$backup")"
+			ln "$file" "$backup" 2> /dev/null || cp -p "$file" "$backup"
+			if [ -n "$OPT_NOLINKS" ]; then
+				ensure_nolinks "$file"
+			fi
 		fi
-		if [ ! -e "$file" ]; then
-			$ECHO "New file $file"
+		if [ -n "$OPT_TOUCH" ]; then
 			touch "$backup"
-		else
-			$ECHO "Copying $file"
-			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = "1" ]; then
-				cp -p "$file" "$backup"
-			else
-				ln "$file" "$backup" 2> /dev/null || cp -p "$file" "$backup"
-				if [ -n "$OPT_NOLINKS" ]; then
-					ensure_nolinks "$file"
-				fi
-			fi
-			if [ -n "$OPT_TOUCH" ]; then
-				touch "$backup"
-			fi
 		fi
-	elif [ "$OPT_WHAT" == "restore" ]; then
-		mkdir -p "$(dirname "$file")"
+	fi
+}
 
-		if [ ! -e "$backup" ]; then
-			return 1
-		fi
-		if [ ! -s "$backup" ]; then
-			if [ -e "$file" ]; then
-				rm "$file"
-			fi
-			$ECHO "Removing $file"
-			if [ -z "$OPT_KEEP_BACKUP" ]; then
-				rm "$backup"
-				rmdir -p "${backup%/*}" 2> /dev/null || true
-			fi
-		else
-			$ECHO "Restoring $file"
-			if [ -e "$file" ]; then
-				rm "$file"
-			fi
-			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$backup")" != "1" ]; then
-				cp -p "$backup" "$file"
-			else
-				ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
-				if [ -n "$OPT_NOLINKS" ]; then
-					ensure_nolinks "$file"
-				fi
-			fi
+restore()
+{
+	local file="$1"
+	local backup="${OPT_PREFIX}${file}"
 
-			if [ -z "$OPT_KEEP_BACKUP" ]; then
-				rm "$backup"
-				rmdir -p "${backup%/*}" 2> /dev/null || true
-			fi
-			if [ -n "$OPT_TOUCH" ]; then
-				touch "$file"
-			fi
+	mkdir -p "$(dirname "$file")"
+
+	if [ ! -e "$backup" ]; then
+		return 1
+	fi
+	if [ ! -s "$backup" ]; then
+		$ECHO "Removing $file"
+		if [ -e "$file" ]; then
+			rm "$file"
 		fi
-	elif [ "$OPT_WHAT" == "remove" ]; then
-		if [ -e "$backup" ]; then
+		if [ -z "$OPT_KEEP_BACKUP" ]; then
 			rm "$backup"
-		fi
-		rmdir -p "${backup%/*}" 2> /dev/null || true
-	elif [ -z "$OPT_WHAT" ]; then
-		if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
-			ensure_nolinks "$file"
+			rmdir -p "${backup%/*}" 2> /dev/null || true
 		fi
 	else
-		return 1
+		$ECHO "Restoring $file"
+		if [ -e "$file" ]; then
+			rm "$file"
+		fi
+		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$backup")" != "1" ]; then
+			cp -p "$backup" "$file"
+		else
+			ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
+			if [ -n "$OPT_NOLINKS" ]; then
+				ensure_nolinks "$file"
+			fi
+		fi
+
+		if [ -z "$OPT_KEEP_BACKUP" ]; then
+			rm "$backup"
+			rmdir -p "${backup%/*}" 2> /dev/null || true
+		fi
+		if [ -n "$OPT_TOUCH" ]; then
+			touch "$file"
+		fi
+	fi
+}
+
+remove()
+{
+	local file="$1"
+	local backup="${OPT_PREFIX}${file}"
+
+	if [ -e "$backup" ]; then
+		rm "$backup"
+	fi
+	rmdir -p "${backup%/*}" 2> /dev/null || true
+}
+
+noop()
+{
+	local file="$1"
+
+	if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
+		ensure_nolinks "$file"
 	fi
 }
 
 
 ECHO=echo
+OPT_WHAT=noop
 declare -a FILELIST
 while [ $# -gt 0 ]; do
 	case $1 in
@@ -184,7 +199,7 @@ fi
 if [ -n "$OPT_FILE" ]; then
 	cat "$OPT_FILE" \
 	| while read nextfile; do
-		process_file "$nextfile"
+		$OPT_WHAT "$nextfile"
 	done
 fi
 
@@ -199,14 +214,14 @@ while [ $I -lt ${#FILELIST[@]} ]; do
 		find "$OPT_PREFIX" -type f -print \
 		| while read
 		do
-			process_file "${REPLY#$OPT_PREFIX}"
+			$OPT_WHAT "${REPLY#$OPT_PREFIX}"
 		done
 		if [ ${PIPESTATUS[0]} != 0 ]; then
 			exit 1
 		fi
 		;;
 	*)
-		process_file "${FILELIST[$I]}"
+		$OPT_WHAT "${FILELIST[$I]}"
 		;;
 	esac
 
