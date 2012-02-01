@@ -51,7 +51,7 @@ usage () {
 copy_file() {
 	local from="$1"
 	local to="$2"
-	cp -dp --remove-destination "$from" "$to"
+	cp -p "$from" "$to"
 }
 
 link_or_copy_file() {
@@ -72,7 +72,7 @@ ensure_nolinks() {
 		basename=$(basename "$filename")
 		# Temp file name is "path/to/.file.XXXXXX"
 		tmpname=$(mktemp "${dirname}/.${basename}.XXXXXX")
-		cp -dp "$filename" "$tmpname"
+		cp -p "$filename" "$tmpname"
 		mv "$tmpname" "$filename"
 	fi
 }
