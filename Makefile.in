@@ -7,7 +7,6 @@ PACKAGE_BUGREPORT := @PACKAGE_BUGREPORT@
 prefix :=	@prefix@
 exec_prefix :=	@exec_prefix@
 bindir :=	@bindir@
-libdir :=	@libdir@
 datarootdir :=	@datarootdir@
 datadir :=	@datadir@
 docdir :=	@docdir@
@@ -53,11 +52,6 @@ LDFLAGS +=	@LDFLAGS@
 LIBS :=		@LIBS@
 EXEEXT :=	@EXEEXT@
 
-LIBOBJS :=	$(filter $(patsubst lib/%.c,lib/%.o,$(wildcard lib/*.c)), $(patsubst %,lib/%,@LIBOBJS@))
-ifneq ($(LIBOBJS),)
-CFLAGS += -Ilib
-endif
-
 COMPAT_SYMLINKS	:= @COMPAT_SYMLINKS@
 COMPAT_PROGRAMS	:= @COMPAT_PROGRAMS@
 
@@ -85,7 +79,7 @@ SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
 SCRIPTS_IN :=	patchfns inspect dependency-graph edmail	\
-		remove-trailing-ws
+		remove-trailing-ws backup-files
 
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
@@ -96,10 +90,8 @@ COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
 SRC +=		$(wildcard compat/*.in) $(wildcard compat/*.sh)
 DIRT +=		$(patsubst %.in,%,$(wildcard compat/*.in)) $(COMPAT_SYMLINKS:%=compat/%)
 
-LIB_SRC :=	backup-files.c quilt.el
-LIB :=		backup-files$(EXEEXT)
+LIB_SRC :=	quilt.el
 SRC +=		$(LIB_SRC:%=lib/%)
-DIRT +=		lib/backup-files$(EXEEXT) $(LIB_SRC:%.c=lib/%.o)
 
 DOC_IN :=	README quilt.1
 DOC_SRC :=	$(DOC_IN:%=doc/%.in)
@@ -133,15 +125,12 @@ DIRT +=		test/.depend $(wildcard test/.*.ok)
 # Settings for running the uninstalled version of quilt in the source tree:
 PATH :=		$(CURDIR)/bin:$(CURDIR)/compat:$(PATH)
 QUILT_DIR :=	$(CURDIR)/quilt
-QUILT_LIB :=	$(CURDIR)/lib
 QUILTRC :=	$(CURDIR)/test/test.quiltrc
-export QUILT_DIR QUILT_LIB QUILTRC
+export QUILT_DIR QUILTRC
 
 #-----------------------------------------------------------------------
 
 all : configure scripts compat $(DOC:%=doc/%) $(MAN1) mofiles
-
-$(LIB:%=lib/%) :: $(LIBOBJS)
 
 ifeq ($(USE_NLS),yes)
 mofiles : $(LINGUAS:%=po/%.mo)
@@ -156,7 +145,7 @@ endif
 	$(MSGMERGE) -o $@ $@ $^
 
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%) 				\
-	  $(SCRIPTS:%=quilt/scripts/%) $(LIB:%=lib/%)			\
+	  $(SCRIPTS:%=quilt/scripts/%) 					\
 	  $(if $(PATCH_WRAPPER),bin/patch-wrapper)
 
 dist : clean $(PACKAGE)-$(VERSION).tar.gz
@@ -264,8 +253,7 @@ $(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
 $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefile
 % :: %.in
 	@echo "$< -> $@" >&2
-	@$(SED) -e 's:@QUILT_LIB''@:$(libdir)/$(PACKAGE):g'		\
-		-e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
+	@$(SED) -e 's:@QUILT_DIR''@:$(datadir)/$(PACKAGE):g'		\
 		-e 's:@PERL''@:$(PERL):g'				\
 		-e 's:@BASH''@:$(BASH):g'				\
 		-e 's:@PATCH''@:$(PATCH):g'				\
@@ -276,8 +264,6 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@DOCSUBDIR''@:$(docdir):g'			\
 		$< > $@
 	@$(if $(filter $@,$(NON_EXEC_IN)),,chmod +x $@)
-
-lib/backup-files.o :: Makefile
 
 configure : configure.ac aclocal.m4
 	autoconf
@@ -329,9 +315,6 @@ ifneq ($(PATCH_WRAPPER),)
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/wrapper/patch
 endif
 	
-	$(INSTALL) -d $(BUILD_ROOT)$(libdir)/$(PACKAGE)
-	$(INSTALL) -m 755 $(LIB:%=lib/%) $(BUILD_ROOT)$(libdir)/$(PACKAGE)/
-
 	$(INSTALL) -d $(BUILD_ROOT)$(docdir)/
 	$(INSTALL) -m 644 doc/README					\
 		   $(BUILD_ROOT)$(docdir)/
@@ -368,7 +351,6 @@ install: install-main install-compat
 
 uninstall ::
 	rm -rf $(BIN:%=$(BUILD_ROOT)$(bindir)/%)			\
-	       $(BUILD_ROOT)$(libdir)/$(PACKAGE)			\
 	       $(BUILD_ROOT)$(datadir)/$(PACKAGE)			\
 	       $(patsubst %,$(BUILD_ROOT)$(mandir)/man1/%,		\
 		   $(notdir $(MAN1)))					\
@@ -392,7 +374,7 @@ test/.patch-wrapper.ok : bin/patch-wrapper
 
 # Include a run-time generated list of dependencies for each test case
 test/.depend : Makefile $(TESTS)
-	@(  printf "%s : bin/quilt quilt/scripts/patchfns $(LIB:%=lib/%) $(COMPAT)\n" $(TESTS); \
+	@(  printf "%s : bin/quilt quilt/scripts/patchfns quilt/scripts/backup-files $(COMPAT)\n" $(TESTS); \
 	    $(AWK) 'sub(/.*\$$ *quilt /, "")				\
 			{ print FILENAME, ":", "quilt/"$$1}' $(TESTS); \
 	    $(AWK) 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/)	\

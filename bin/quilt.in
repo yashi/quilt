@@ -9,8 +9,8 @@
 export TEXTDOMAIN=quilt
 export TEXTDOMAINDIR=@LOCALEDIR@
 
-: ${QUILT_DIR=@QUILT_DIR@} ${QUILT_LIB=@QUILT_LIB@}
-export QUILT_DIR QUILT_LIB
+: ${QUILT_DIR=@QUILT_DIR@}
+export QUILT_DIR
 
 if [ -z "$QUILTRC" ]
 then

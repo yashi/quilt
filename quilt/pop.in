@@ -95,7 +95,7 @@ check_for_pending_changes()
 		local prefix=$QUILT_PC/$patch/
 		[ ${prefix:0:1} == / ] || prefix=$PWD/$prefix
 		if ! ( cd $workdir && \
-		       $QUILT_LIB/backup-files -B $prefix -rks - )
+		       $QUILT_DIR/scripts/backup-files -B $prefix -r -k -s - )
 		then
 			printf $"Failed to copy files to temporary directory\n" >&2
 			rm -rf $workdir
@@ -162,7 +162,7 @@ remove_patch()
 			status=$?
 		else
 			printf $"Removing patch %s\n" "$(print_patch $patch)"
-			$QUILT_LIB/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
+			$QUILT_DIR/scripts/backup-files $silent -r -t -B $QUILT_PC/$patch/ -
 			status=$?
 		fi
 		remove_from_db $patch
@@ -264,7 +264,7 @@ else
 	# of one: This will automatically be the case in the usual
 	# situations, but we don't want to risk file corruption in weird
 	# corner cases such as files added to a patch but not modified.
-	$QUILT_LIB/backup-files -L -s -B $QUILT_PC/$patch/ -
+	$QUILT_DIR/scripts/backup-files -L -s -B $QUILT_PC/$patch/ -
 	printf $"Now at patch %s\n" "$(print_patch $patch)"
 fi
 ### Local Variables:

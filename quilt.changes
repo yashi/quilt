@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Feb  1 16:58:22 CET 2012 - mquinson@debian.org
+
+- Make backup-files a shell script. This makes it possible to
+  package quilt as an architecture-indepdendent package.
+
+-------------------------------------------------------------------
 Wed Feb  1 16:55:57 CET 2012 - jdelvare@suse.de
 
 - Add a dedicated test case for backup-files.

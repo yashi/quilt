@@ -1,0 +1,289 @@
+#! @BASH@
+
+set -e
+
+# File: backup-files.sh
+
+# Copyright (C) 2006 Steve Langasek <vorlon@debian.org>
+# portions Copyright (C) 2003, 2004, 2005, 2006 Andreas Gruenbacher
+# <agruen@suse.de>, SuSE Labs
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 dated June, 1991.
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program;  if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+
+
+# Create backup files of a list of files similar to GNU patch. A path
+# name prefix and suffix for the backup file can be specified with the
+# -B and -z options.
+
+usage () {
+	local progname="$1"
+	echo "Usage: $progname [-B prefix] [-z suffix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
+
+	Create hard linked backup copies of a list of files
+	read from standard input.
+
+	-b	Create backup
+	-r	Restore the backup
+	-x	Remove backup files and empty parent directories
+	-k	When doing a restore, keep the backup files
+	-B	Path name prefix for backup files
+	-z	Path name suffix for backup files
+	-s	Silent operation; only print error messages
+	-f	Read the filenames to process from file (- = standard input)
+	-t	Touch original files after restore (update their mtimes)
+
+	-L	Ensure that when finished, the source file has a link count of 1
+"
+}
+
+copy_file() {
+	local from="$1"
+	local to="$2"
+	cp -dp --remove-destination "$from" "$to"
+}
+
+link_or_copy_file() {
+	local from="$1"
+	local to="$2"
+	if ! ln "$from" "$to" 2>/dev/null ; then
+		copy_file "$from" "$to"
+	fi
+}
+
+ensure_nolinks() {
+	local filename="$1"
+	local link_count dirname basename tmpname
+
+	link_count=$(stat -c '%h' "$filename")
+	if [ -z "$link_count" ] || [ "$link_count" -gt 1 ]; then
+		dirname=$(dirname "$filename")
+		basename=$(basename "$filename")
+		# Temp file name is "path/to/.file.XXXXXX"
+		tmpname=$(mktemp "${dirname}/.${basename}.XXXXXX")
+		cp -dp "$filename" "$tmpname"
+		mv "$tmpname" "$filename"
+	fi
+}
+
+process_file() {
+	local file="$1"
+	local backup="${OPT_PREFIX}${file}${OPT_SUFFIX}"
+
+	if [ "$OPT_WHAT" == "backup" ]; then
+		if [ -e "$backup" ]; then
+			rm "$backup"
+		else
+			mkdir -p "$(dirname "$backup")"
+		fi
+		if [ ! -e "$file" ]; then
+			$ECHO "New file $file"
+			touch "$backup"
+		else
+			$ECHO "Copying $file"
+			if [ -n "$OPT_NOLINKS" -a "$(stat -c '%h' "$file")" = "1" ]; then
+				copy_file "$file" "$backup"
+			else
+				link_or_copy_file "$file" "$backup"
+				if [ -n "$OPT_NOLINKS" ]; then
+					ensure_nolinks "$file"
+				fi
+			fi
+			if [ -n "$OPT_TOUCH" ]; then
+				touch "$backup"
+			fi
+		fi
+	elif [ "$OPT_WHAT" == "restore" ]; then
+		mkdir -p "$(dirname "$file")"
+
+		if [ ! -e "$backup" ]; then
+			return 1
+		fi
+		if [ ! -s "$backup" ]; then
+			if [ -e "$file" ]; then
+				rm "$file"
+			fi
+			$ECHO "Removing $file"
+			if [ -z "$OPT_KEEP_BACKUP" ]; then
+				rm "$backup"
+				while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
+				do
+					backup="${backup%/*}"
+					rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
+					if [ -d "$backup" ]; then
+						break
+					fi
+				done
+			fi
+		else
+			$ECHO "Restoring $file"
+			if [ -e "$file" ]; then
+				rm "$file"
+			fi
+			if [ -n "$OPT_NOLINKS" -a "$(stat -c '%h' "$backup")" != "1" ]; then
+				copy_file "$backup" "$file"
+			else
+				link_or_copy_file "$backup" "$file"
+				if [ -n "$OPT_NOLINKS" ]; then
+					ensure_nolinks "$file"
+				fi
+			fi
+
+			if [ -z "$OPT_KEEP_BACKUP" ]; then
+				rm "$backup"
+				while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
+				do
+					backup="${backup%/*}"
+					rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
+					if [ -d "$backup" ]; then
+						break
+					fi
+				done
+			fi
+			if [ -n "$OPT_TOUCH" ]; then
+				touch "$file"
+			fi
+		fi
+	elif [ "$OPT_WHAT" == "remove" ]; then
+		if [ -e "$backup" ]; then
+			rm "$backup"
+		fi
+		while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
+		do
+			backup="${backup%/*}"
+			rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
+			if [ -d "$backup" ]; then
+				break
+			fi
+		done
+	elif [ -z "$OPT_WHAT" ]; then
+		if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
+			ensure_nolinks "$file"
+		fi
+	else
+		return 1
+	fi
+}
+
+walk() {
+	local path="$1"
+	if [ ! -f "$path" ]; then
+		return 0
+	fi
+
+	if [ "${path#$OPT_PREFIX}" == "$path" ]
+	then
+		# prefix does not match
+		return 0
+	fi
+	path="${path#$OPT_PREFIX}"
+
+	if [ -n "$OPT_SUFFIX" ] && [ "${path%$OPT_SUFFIX}" == "$path" ]
+	then
+		# suffix does not match
+		return 0
+	fi
+	path="${path%$OPT_SUFFIX}"
+
+	process_file "$path"
+}
+
+
+ECHO=echo
+declare -a FILELIST
+progname="$0"
+while [ $# -gt 0 ]; do
+	case $1 in
+	-b)	OPT_WHAT=backup
+		;;
+	-r)	OPT_WHAT=restore
+		;;
+	-x)	OPT_WHAT=remove
+		;;
+	-B)	OPT_PREFIX=$2
+		shift
+		;;
+	-f)	OPT_FILE=$2
+		shift
+		;;
+	-z)	OPT_SUFFIX=$2
+		shift
+		;;
+	-s)	ECHO=:
+		;;
+	-k)	OPT_KEEP_BACKUP=1
+		;;
+	-L)	OPT_NOLINKS=1
+		;;
+	-t)	OPT_TOUCH=1
+		;;
+	-?*)	usage "$progname"
+		exit 0
+		;;
+	*)	FILELIST=("$@")
+		break
+		;;
+	esac
+
+	shift
+done
+
+if [ -z "${OPT_PREFIX}${OPT_SUFFIX}" ]; then
+	usage "$progname"
+	exit 1
+fi
+if [ ${#FILELIST[@]} == 0 ] && [ -z "$OPT_FILE" ]; then
+	usage "$progname"
+	exit 1
+fi
+
+if [ -n "$OPT_FILE" ]; then
+	cat "$OPT_FILE" \
+	| while read nextfile; do
+		process_file "$nextfile"
+	done
+fi
+
+I=0
+while [ $I -lt ${#FILELIST[@]} ]; do
+
+	case "${FILELIST[$I]}" in
+	-)
+		path="${OPT_PREFIX%/*}"
+
+		find "$path" -mindepth 1 \( -type f -o -type d \) -print 2>/dev/null \
+		| while read
+		do
+			if [ -d "$REPLY" ]
+			then
+				if ! [ -r "$REPLY" ] || ! [ -x "$REPLY" ]
+				then
+					echo "$REPLY: Permission denied"
+					exit 1
+				fi
+			else
+				walk "$REPLY"
+			fi
+		done
+		if [ $? != 0 ]; then
+			exit 1
+		fi
+		;;
+	*)
+		process_file "${FILELIST[$I]}"
+		;;
+	esac
+
+	I=$(($I+1))
+done

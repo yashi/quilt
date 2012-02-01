@@ -4,7 +4,7 @@ Unit test of the backup-files script.
 	$ echo foo > foo
 	$ echo bar > "space bar"
 	$ sleep 1
-	$ %{QUILT_LIB}/backup-files -B backup/ -b foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b foo
 	> Copying foo
 
 	$ ls -l foo | awk '{ print $2 }'
@@ -14,12 +14,12 @@ Unit test of the backup-files script.
 	$ [ backup/foo -nt foo ] && echo "mtimes differ"
 
 	# Test remove
-	$ %{QUILT_LIB}/backup-files -B backup/ -x foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -x foo
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
 	# Test silent backup with -L; it should copy, not link
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L foo
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
@@ -30,7 +30,7 @@ Unit test of the backup-files script.
 	# Test restore without options
 	$ echo modified > foo
 	$ sleep 1
-	$ %{QUILT_LIB}/backup-files -B backup/ -r foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r foo
 	> Restoring foo
 
 	$ cat foo
@@ -40,13 +40,13 @@ Unit test of the backup-files script.
 
 	# Test backup files with hard links
 	$ ln foo foo2
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L foo
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 	$ ls -l backup/foo | awk '{ print $2 }'
 	> 2
 
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L foo2
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L foo2
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 	$ ls -l foo2 | awk '{ print $2 }'
@@ -58,7 +58,7 @@ Unit test of the backup-files script.
 
 	# Test restore of files with hard links
 	$ rm -f foo foo2
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s foo
 	$ ls -l foo | awk '{ print $2 }'
 	> 2
 	$ ls -l backup/foo2 | awk '{ print $2 }'
@@ -66,7 +66,7 @@ Unit test of the backup-files script.
 	$ [ -e backup/foo ] && echo "backup/foo not deleted"
 	$ [ ! -e foo2 ] || echo "file foo2 shouldn't exist"
 
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s foo2
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s foo2
 	$ ls -l foo | awk '{ print $2 }'
 	> 2
 	$ ls -l foo2 | awk '{ print $2 }'
@@ -75,16 +75,16 @@ Unit test of the backup-files script.
 	$ [ -e backup ] && echo "backup directory not deleted"
 
 	# Test restore with -t
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s foo
 	$ touch -r foo foo.timeref
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s -t foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s -t foo
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 2
 	$ [ foo -nt foo.timeref ] || echo "touch failed"
 
 	# Test restore with -k
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L foo "space bar"
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L foo "space bar"
 	$ touch -r "space bar" bar.timeref
 	$ ls -l backup/foo | awk '{ print $2 }'
 	> 2
@@ -92,7 +92,7 @@ Unit test of the backup-files script.
 	> 1
 	$ mkdir tmp
 	$ cd tmp
-	$ %{QUILT_LIB}/backup-files -B ../backup/ -r -s -k foo "space bar"
+	$ %{QUILT_DIR}/scripts/backup-files -B ../backup/ -r -s -k foo "space bar"
 	$ cd ..
 
 	$ ls -l foo | awk '{ print $2 }'
@@ -111,7 +111,7 @@ Unit test of the backup-files script.
 
 	# Test restore all (-)
 	$ rm -f foo "space bar"
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s -t -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s -t -
 	$ cat foo
 	> foo
 	$ cat "space bar"
@@ -120,14 +120,14 @@ Unit test of the backup-files script.
 
 	# Backup and restore a non-existing files
 	$ mkdir "dir with spaces"
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L new "dir with spaces/space file"
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L new "dir with spaces/space file"
 	$ echo data > new
 	$ echo data2 > "dir with spaces/space file"
 	$ ls -l backup/new | awk '{ print $5 }'
 	> 0
 	$ ls -l "backup/dir with spaces/space file" | awk '{ print $5 }'
 	> 0
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s -
 	$ [ ! -e backup/new ] || echo "file backup/new shouldn't exist"
 	$ [ ! -e new ] || echo "file new shouldn't exist"
 	$ [ ! -e "backup/dir with spaces/space file" ] || echo "file backup/dir with spaces/space file shouldn't exist"
@@ -135,17 +135,17 @@ Unit test of the backup-files script.
 
 	# Test restore involving a dir name with spaces
 	$ echo data > "dir with spaces/space file"
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -L "dir with spaces/space file"
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -L "dir with spaces/space file"
 	> Copying dir with spaces/space file
 	$ rm -rf "dir with spaces"
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -
 	> Restoring dir with spaces/space file
 	$ cat "dir with spaces/space file"
 	> data
 	$ [ -e backup ] && echo "backup directory not deleted"
 
 	# Test backup reading file list from a file
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -s -L -f -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -s -L -f -
 	< foo
 	< new
 	< space bar
@@ -159,7 +159,7 @@ Unit test of the backup-files script.
 	> foo
 	$ cat "backup/space bar"
 	> bar
-	$ %{QUILT_LIB}/backup-files -B backup/ -r -s -f -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -s -f -
 	< foo
 	< new
 	< space bar
@@ -171,7 +171,7 @@ Unit test of the backup-files script.
 	> bar
 
 	# Test the special -L alone case
-	$ %{QUILT_LIB}/backup-files -B backup/ -b -L -f -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b -L -f -
 	< new
 	< foo
 	< space bar
@@ -183,20 +183,20 @@ Unit test of the backup-files script.
 	> 1
 	$ ls -l "space bar" | awk '{ print $2 }'
 	> 2
-	$ %{QUILT_LIB}/backup-files -B backup/ -L -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -L -
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 	$ ls -l "space bar" | awk '{ print $2 }'
 	> 1
 	$ [ ! -e new ] || echo "file new shouldn't exist"
 	# Second call should be idempotent
-	$ %{QUILT_LIB}/backup-files -B backup/ -L -
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -L -
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 	$ ls -l "space bar" | awk '{ print $2 }'
 	> 1
 	$ [ ! -e new ] || echo "file new shouldn't exist"
-	$ %{QUILT_LIB}/backup-files -B backup/ -r - | sort
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r - | sort
 	> Removing new
 	> Restoring foo
 	> Restoring space bar

@@ -86,7 +86,7 @@ do
 	fi
 
 	# Restore file from backup
-	if ! $QUILT_LIB/backup-files -r -t -s -B $QUILT_PC/$patch/ "$SUBDIR$file"
+	if ! $QUILT_DIR/scripts/backup-files -r -t -s -B $QUILT_PC/$patch/ "$SUBDIR$file"
 	then
 		printf $"Failed to remove file %s from patch %s\n" \
 		       "$SUBDIR$file" "$(print_patch $patch)" >&2

@@ -47,7 +47,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/quilt
 /usr/share/quilt/
 /usr/share/emacs/
-/usr/lib/quilt/
 /etc/bash_completion.d/quilt
 %config(noreplace) /etc/quilt.quiltrc
 %doc %{_mandir}/man1/guards.1*

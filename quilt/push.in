@@ -140,7 +140,7 @@ rollback_patch()
 {
 	local patch=$1
 
-	$QUILT_LIB/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
+	$QUILT_DIR/scripts/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
 }
 
 cleanup_patch_output() {

@@ -121,7 +121,7 @@ do
 		continue
 	fi
 
-	if ! $QUILT_LIB/backup-files -b -s -L -B $QUILT_PC/$patch/ "$SUBDIR$file"
+	if ! $QUILT_DIR/scripts/backup-files -b -s -L -B $QUILT_PC/$patch/ "$SUBDIR$file"
 	then
 		printf $"Failed to back up file %s\n" "$SUBDIR$file" >&2
 		status=1
