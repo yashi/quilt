@@ -170,12 +170,28 @@ restore_all()
 	fi
 
 	if [ -s "$NONEMPTY_FILES" ]; then
-		xargs -0 rm -f < "$NONEMPTY_FILES"
+		# Try a mass link (or copy) first, as it is much faster.
+		# It is however not portable and may thus fail. If it fails,
+		# fallback to per-file processing, which always works.
+		local target_dir=$PWD opt_l=-l
+		[ -n "$OPT_NOLINKS" ] && opt_l=-p
 
-		while read -d $'\0' -r
-		do
-			restore_fast "${REPLY#./}"
-		done < "$NONEMPTY_FILES"
+		if (cd "$OPT_PREFIX" && \
+		    xargs -0 cp $opt_l --parents --remove-destination \
+				--target-directory="$target_dir" \
+				< "$NONEMPTY_FILES" 2> /dev/null); then
+			while read -d $'\0' -r
+			do
+				$ECHO "Restoring ${REPLY#./}"
+			done < "$NONEMPTY_FILES"
+		else
+			xargs -0 rm -f < "$NONEMPTY_FILES"
+
+			while read -d $'\0' -r
+			do
+				restore_fast "${REPLY#./}"
+			done < "$NONEMPTY_FILES"
+		fi
 
 		if [ -n "$OPT_TOUCH" ]; then
 			xargs -0 touch -c < "$NONEMPTY_FILES"
