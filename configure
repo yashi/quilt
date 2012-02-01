@@ -660,6 +660,8 @@ COLUMN
 POD2MAN
 AWK
 SED
+STAT_HARDLINK
+STAT
 TR
 TAIL
 PERL
@@ -728,6 +730,7 @@ with_perl
 with_grep
 with_tail
 with_tr
+with_stat
 with_sed
 with_awk
 with_pod2man
@@ -1387,6 +1390,7 @@ Optional Packages:
   --with-grep             name of the grep executable to use
   --with-tail             name of the tail executable to use
   --with-tr               name of the tr executable to use
+  --with-stat             name of the stat executable to use
   --with-sed              name of the sed executable to use
   --with-awk              name of the awk executable to use
   --with-pod2man          name of the pod2man executable to use (use
@@ -5201,6 +5205,130 @@ Solaris users can use /usr/xpg4/bin/tr.
 " >&2;}
    { (exit 1); exit 1; }; }
 fi
+
+
+
+
+
+# Check whether --with-stat was given.
+if test "${with_stat+set}" = set; then
+  withval=$with_stat;
+    if test x"$withval" = xnone; then
+      { { $as_echo "$as_me:$LINENO: error: Invalid configure argument.  use --without-stat" >&5
+$as_echo "$as_me: error: Invalid configure argument.  use --without-stat" >&2;}
+   { (exit 1); exit 1; }; }
+    fi
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:$LINENO: checking for stat" >&5
+$as_echo_n "checking for stat... " >&6; }
+      STAT="$withval"
+      if test -e "$STAT"; then
+	if test ! -f "$STAT" -a ! -h "$STAT" || test ! -x "$STAT"; then
+	  { { $as_echo "$as_me:$LINENO: error: $STAT is not an executable file" >&5
+$as_echo "$as_me: error: $STAT is not an executable file" >&2;}
+   { (exit 1); exit 1; }; }
+	fi
+      fi
+      { $as_echo "$as_me:$LINENO: result: $STAT" >&5
+$as_echo "$STAT" >&6; }
+      if test ! -e "$STAT"; then
+        { $as_echo "$as_me:$LINENO: WARNING: $STAT does not exist" >&5
+$as_echo "$as_me: WARNING: $STAT does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS stat"
+    fi
+
+else
+
+
+      # Extract the first word of "stat", so it can be a program name with args.
+set dummy stat; ac_word=$2
+{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_STAT+set}" = set; then
+  $as_echo_n "(cached) " >&6
+else
+  case $STAT in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_STAT="$STAT" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_STAT="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+STAT=$ac_cv_path_STAT
+if test -n "$STAT"; then
+  { $as_echo "$as_me:$LINENO: result: $STAT" >&5
+$as_echo "$STAT" >&6; }
+else
+  { $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+
+
+
+fi
+
+  if test -z "$STAT"; then
+
+      { { $as_echo "$as_me:$LINENO: error: Please specify the location of stat with the option '--with-stat'" >&5
+$as_echo "$as_me: error: Please specify the location of stat with the option '--with-stat'" >&2;}
+   { (exit 1); exit 1; }; }
+
+  fi
+
+
+
+{ $as_echo "$as_me:$LINENO: checking whether $STAT -c '%h' works" >&5
+$as_echo_n "checking whether $STAT -c '%h' works... " >&6; }
+if $STAT -c '%h' /dev/null >/dev/null 2>/dev/null; then
+	{ $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+	STAT_HARDLINK="-c '%h'"
+else
+	{ $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+	{ $as_echo "$as_me:$LINENO: checking whether $STAT -f '%l' works" >&5
+$as_echo_n "checking whether $STAT -f '%l' works... " >&6; }
+	if $STAT -f '%l' /dev/null >/dev/null 2>/dev/null; then
+		{ $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+		STAT_HARDLINK="-f '%l'"
+	else
+		{ $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+		{ { $as_echo "$as_me:$LINENO: error:
+Sorry, you have a version of stat which understands neither -c nor -f.
+$PACKAGE_NAME needs it.  If you have access to a version of stat which does
+understand -c or -f, you can supply its path with the '--with-stat=' option.
+" >&5
+$as_echo "$as_me: error:
+Sorry, you have a version of stat which understands neither -c nor -f.
+$PACKAGE_NAME needs it.  If you have access to a version of stat which does
+understand -c or -f, you can supply its path with the '--with-stat=' option.
+" >&2;}
+   { (exit 1); exit 1; }; }
+	fi
+fi
+
 
 
 

@@ -146,6 +146,29 @@ Solaris users can use /usr/xpg4/bin/tr.
 ])
 fi
 
+QUILT_COMPAT_PROG_PATH(STAT, stat)
+
+AC_MSG_CHECKING([whether $STAT -c '%h' works])
+if $STAT -c '%h' /dev/null >/dev/null 2>/dev/null; then
+	AC_MSG_RESULT(yes)
+	STAT_HARDLINK="-c '%h'"
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_CHECKING([whether $STAT -f '%l' works])
+	if $STAT -f '%l' /dev/null >/dev/null 2>/dev/null; then
+		AC_MSG_RESULT(yes)
+		STAT_HARDLINK="-f '%l'"
+	else
+		AC_MSG_RESULT(no)
+		AC_MSG_ERROR([
+Sorry, you have a version of stat which understands neither -c nor -f.
+$PACKAGE_NAME needs it.  If you have access to a version of stat which does
+understand -c or -f, you can supply its path with the '--with-stat=' option.
+])
+	fi
+fi
+AC_SUBST(STAT_HARDLINK)
+
 QUILT_COMPAT_PROG_PATH(SED, sed)
 
 AC_MSG_CHECKING([whether $SED understands (foo|bar)])

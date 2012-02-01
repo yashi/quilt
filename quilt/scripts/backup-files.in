@@ -66,7 +66,7 @@ ensure_nolinks() {
 	local filename="$1"
 	local link_count dirname basename tmpname
 
-	link_count=$(stat -c '%h' "$filename")
+	link_count=$(stat @STAT_HARDLINK@ "$filename")
 	if [ -z "$link_count" ] || [ "$link_count" -gt 1 ]; then
 		dirname=$(dirname "$filename")
 		basename=$(basename "$filename")
@@ -92,7 +92,7 @@ process_file() {
 			touch "$backup"
 		else
 			$ECHO "Copying $file"
-			if [ -n "$OPT_NOLINKS" -a "$(stat -c '%h' "$file")" = "1" ]; then
+			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = "1" ]; then
 				copy_file "$file" "$backup"
 			else
 				link_or_copy_file "$file" "$backup"
@@ -131,7 +131,7 @@ process_file() {
 			if [ -e "$file" ]; then
 				rm "$file"
 			fi
-			if [ -n "$OPT_NOLINKS" -a "$(stat -c '%h' "$backup")" != "1" ]; then
+			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$backup")" != "1" ]; then
 				copy_file "$backup" "$file"
 			else
 				link_or_copy_file "$backup" "$file"

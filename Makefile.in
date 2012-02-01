@@ -43,6 +43,7 @@ RPMBUILD :=	@RPMBUILD@
 SENDMAIL :=	@SENDMAIL@
 
 USE_NLS :=	@USE_NLS@
+STAT_HARDLINK := @STAT_HARDLINK@
 PATCH_WRAPPER := @PATCH_WRAPPER@
 
 CC :=		@CC@
@@ -257,6 +258,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@PERL''@:$(PERL):g'				\
 		-e 's:@BASH''@:$(BASH):g'				\
 		-e 's:@PATCH''@:$(PATCH):g'				\
+		-e 's:@STAT_HARDLINK''@:$(STAT_HARDLINK):g'		\
 		-e 's:@VERSION''@:$(VERSION):g'				\
 		-e 's:@RELEASE''@:$(RELEASE):g'				\
 		-e 's:@ETCDIR''@:$(etcdir):g'				\
