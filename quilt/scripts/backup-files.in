@@ -44,6 +44,9 @@ usage () {
 "
 }
 
+: ${QUILT_DIR=@QUILT_DIR@}
+. $QUILT_DIR/scripts/utilfns
+
 ensure_nolinks() {
 	local filename="$1"
 	local link_count tmpname

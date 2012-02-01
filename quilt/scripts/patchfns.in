@@ -41,6 +41,8 @@ if [ -n "$QUILT_COMMAND" ]; then
 	unset args
 fi
 
+. $QUILT_DIR/scripts/utilfns
+
 # ========================================================
 
 declare -a exit_handlers
@@ -84,42 +86,6 @@ quote_bre()
 quote_re()
 {
 	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
-}
-
-basename()
-{
-	local path=$1
-	while [ "${path:(-1)}" = "/" ]
-	do
-		path=${path%/}
-	done
-	echo "${path##*/}"
-}
-
-dirname()
-{
-	local path=$1
-	while [ "${path:(-1)}" = "/" ]
-	do
-		path=${path%/}
-	done
-	local basename="${path##*/}"
-	path="${path:0:${#path}-${#basename}}"
-	while [ "${path:(-1)}" = "/" ]
-	do
-		path=${path%/}
-	done
-	if [ -n "$path" ]
-	then
-		echo "$path"
-	else
-		if [ ${1:0:1} = "/" ]
-		then
-			echo "/"
-		else
-			echo "."
-		fi
-	fi
 }
 
 patch_file_name()

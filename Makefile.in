@@ -109,7 +109,7 @@ DIRT +=         po/*.mo po/*~
 SRC +=		$(wildcard test/*.test) test/run test/test.quiltrc
 SRC +=		changes2changelog
 
-NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns
+NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns quilt/scripts/utilfns
 
 GIT_DESC :=	$(shell ./git-desc | sed -e 's:^v::')
 
@@ -206,7 +206,7 @@ doc/quilt.1: doc/quilt.1.in doc/reference $(COMPAT)
 	  esac;								\
 	done < $< 2>&1 > $@
 
-doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns $(COMPAT)
+doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns quilt/scripts/utilfns $(COMPAT)
 	@unset LANG LC_MESSAGES LC_CTYPE LC_ALL;			\
 	for i in $(QUILT);						\
 	do								\
@@ -302,7 +302,7 @@ install-main :: scripts
 	$(INSTALL) -m 755 $(patsubst %,quilt/scripts/%,			\
 			  $(filter-out patchfns,$(SCRIPTS)))		\
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
-	$(INSTALL) -m 644 quilt/scripts/patchfns			\
+	$(INSTALL) -m 644 quilt/scripts/patchfns quilt/scripts/utilfns	\
 		   $(BUILD_ROOT)$(datadir)/$(PACKAGE)/scripts
 ifneq ($(PATCH_WRAPPER),)
 	$(INSTALL) -d $(BUILD_ROOT)$(datadir)/$(PACKAGE)/wrapper
@@ -369,7 +369,7 @@ test/.patch-wrapper.ok : bin/patch-wrapper
 
 # Include a run-time generated list of dependencies for each test case
 test/.depend : Makefile $(TESTS)
-	@(  printf "%s : bin/quilt quilt/scripts/patchfns quilt/scripts/backup-files $(COMPAT)\n" $(TESTS); \
+	@(  printf "%s : bin/quilt quilt/scripts/patchfns quilt/scripts/utilfns quilt/scripts/backup-files $(COMPAT)\n" $(TESTS); \
 	    $(AWK) 'sub(/.*\$$ *quilt /, "")				\
 			{ print FILENAME, ":", "quilt/"$$1}' $(TESTS); \
 	    $(AWK) 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/)	\
