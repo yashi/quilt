@@ -135,22 +135,6 @@ process_file() {
 	fi
 }
 
-walk() {
-	local path="$1"
-	if [ ! -f "$path" ]; then
-		return 0
-	fi
-
-	if [ "${path#$OPT_PREFIX}" == "$path" ]
-	then
-		# prefix does not match
-		return 0
-	fi
-	path="${path#$OPT_PREFIX}"
-
-	process_file "$path"
-}
-
 
 ECHO=echo
 declare -a FILELIST
@@ -192,6 +176,11 @@ if [ -z "$OPT_PREFIX" ]; then
 	exit 1
 fi
 
+if [ "${OPT_PREFIX:(-1)}" != / ]; then
+	echo "Prefix must be a directory" >&2
+	exit 1
+fi
+
 if [ -n "$OPT_FILE" ]; then
 	cat "$OPT_FILE" \
 	| while read nextfile; do
@@ -204,9 +193,7 @@ while [ $I -lt ${#FILELIST[@]} ]; do
 
 	case "${FILELIST[$I]}" in
 	-)
-		path="${OPT_PREFIX%/*}"
-
-		find "$path" -mindepth 1 \( -type f -o -type d \) -print 2>/dev/null \
+		find "$OPT_PREFIX" -mindepth 1 \( -type f -o -type d \) -print 2>/dev/null \
 		| while read
 		do
 			if [ -d "$REPLY" ]
@@ -217,7 +204,7 @@ while [ $I -lt ${#FILELIST[@]} ]; do
 					exit 1
 				fi
 			else
-				walk "$REPLY"
+				process_file "${REPLY#$OPT_PREFIX}"
 			fi
 		done
 		if [ $? != 0 ]; then
