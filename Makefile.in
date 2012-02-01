@@ -78,6 +78,7 @@ SCRIPTS_IN :=	patchfns inspect dependency-graph edmail	\
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
 SRC +=		$(SCRIPTS_SRC:%=quilt/scripts/%)
+SRC +=		quilt/scripts/utilfns
 DIRT +=		$(SCRIPTS_IN:%=quilt/scripts/%)
 
 COMPAT :=	$(COMPAT_PROGRAMS:%=compat/%) $(COMPAT_SYMLINKS:%=compat/%)
