@@ -140,6 +140,33 @@ restore()
 	fi
 }
 
+restore_all()
+{
+	(cd "$OPT_PREFIX" && find . -type d -print0) \
+	| xargs -0 mkdir -p
+	if [ ${PIPESTATUS[0]} != 0 ]; then
+		return 1
+	fi
+
+	(cd "$OPT_PREFIX" && find . -type f -print0) \
+	| xargs -0 -r rm -f
+
+	find "$OPT_PREFIX" -type f -print \
+	| while read
+	do
+		restore_fast "${REPLY#$OPT_PREFIX}"
+	done
+
+	if [ -n "$OPT_TOUCH" ]; then
+		(cd "$OPT_PREFIX" && find . -type f -size +0 -print0) \
+		| xargs -0 -r touch
+	fi
+
+	if [ -z "$OPT_KEEP_BACKUP" ]; then
+		rm -rf "$OPT_PREFIX"
+	fi
+}
+
 remove()
 {
 	local file=$1
@@ -225,16 +252,8 @@ if [ "$1" = - ]; then
 	[ -d "$OPT_PREFIX" ] || exit 0
 
 	if [ "$OPT_WHAT" = restore ]; then
-		OPT_WHAT=restore_fast
-
-		(cd "$OPT_PREFIX" && find . -type d -print0) \
-		| xargs -0 mkdir -p
-		if [ ${PIPESTATUS[0]} != 0 ]; then
-			exit 1
-		fi
-
-		(cd "$OPT_PREFIX" && find . -type f -print0) \
-		| xargs -0 -r rm -f
+		restore_all
+		exit
 	fi
 
 	find "$OPT_PREFIX" -type f -print \
@@ -244,17 +263,6 @@ if [ "$1" = - ]; then
 	done
 	if [ ${PIPESTATUS[0]} != 0 ]; then
 		exit 1
-	fi
-
-	if [ "$OPT_WHAT" = restore_fast ]; then
-		if [ -n "$OPT_TOUCH" ]; then
-			(cd "$OPT_PREFIX" && find . -type f -size +0 -print0) \
-			| xargs -0 -r touch
-		fi
-
-		if [ -z "$OPT_KEEP_BACKUP" ]; then
-			rm -rf "$OPT_PREFIX"
-		fi
 	fi
 	exit
 fi
