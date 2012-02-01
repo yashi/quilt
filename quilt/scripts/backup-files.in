@@ -67,6 +67,17 @@ ensure_nolinks() {
 	fi
 }
 
+notify_action()
+{
+	[ $ECHO != : ] || return 0
+	local action=$1 filename=$2
+
+	while read -d $'\0' -r
+	do
+		$ECHO "$action ${REPLY#./}"
+	done < "$filename"
+}
+
 backup() {
 	local file=$1
 	local backup=$OPT_PREFIX$file
@@ -140,11 +151,7 @@ restore_all()
 
 	if [ -s "$EMPTY_FILES" ]; then
 		xargs -0 rm -f < "$EMPTY_FILES"
-
-		while read -d $'\0' -r
-		do
-			$ECHO "Removing ${REPLY#./}"
-		done < "$EMPTY_FILES"
+		notify_action Removing "$EMPTY_FILES"
 	fi
 
 	if [ -s "$NONEMPTY_FILES" ]; then
@@ -157,10 +164,7 @@ restore_all()
 		    xargs -0 cp -l --parents --remove-destination \
 				--target-directory="$target_dir" \
 				< "$NONEMPTY_FILES" 2>&4); then
-			while read -d $'\0' -r
-			do
-				$ECHO "Restoring ${REPLY#./}"
-			done < "$NONEMPTY_FILES"
+			notify_action Restoring "$NONEMPTY_FILES"
 		else
 			(cd "$OPT_PREFIX" && find . -type d -print0) \
 			| xargs -0 mkdir -p
@@ -243,10 +247,7 @@ copy_many()
 
 		if xargs -0 cp -p --parents --target-directory="$OPT_PREFIX" \
 		   < "$NONEMPTY_FILES" 2>&4; then
-			while read -d $'\0' -r
-			do
-				$ECHO "Copying $REPLY"
-			done < "$NONEMPTY_FILES"
+			notify_action Copying "$NONEMPTY_FILES"
 		else
 			while read -d $'\0' -r
 			do

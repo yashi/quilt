@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Feb  1 17:23:39 CET 2012 - jdelvare@suse.de
+
+- backup-files: 32 performance improvements, developed during Suse
+  Hack Week VI (February 2010.) This speeds up backup-files by a
+  factor 50, roughly, bringing it close enough to the original C
+  implementation. Many thanks to Raphael Hertzog for reviewing
+  most of the series.
+
+-------------------------------------------------------------------
 Wed Feb  1 17:06:24 CET 2012 - jdelvare@suse.de
 
 - Finally get rid of the old C implementation of backup-files,
