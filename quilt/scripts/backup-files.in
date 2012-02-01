@@ -67,10 +67,7 @@ backup() {
 	dir=$(dirname "$backup")
 	[ -d "$dir" ] || mkdir -p "$dir"
 
-	if [ ! -e "$file" ]; then
-		$ECHO "New file $file"
-		: > "$backup"
-	else
+	if [ -e "$file" ]; then
 		$ECHO "Copying $file"
 		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = 1 ]; then
 			cp -p "$file" "$backup"
@@ -80,6 +77,9 @@ backup() {
 				ensure_nolinks "$file"
 			fi
 		fi
+	else
+		$ECHO "New file $file"
+		: > "$backup"
 	fi
 }
 
@@ -91,15 +91,15 @@ restore_fast()
 	local file=$1
 	local backup=$OPT_PREFIX$file
 
-	if [ ! -s "$backup" ]; then
-		$ECHO "Removing $file"
-	else
+	if [ -s "$backup" ]; then
 		$ECHO "Restoring $file"
 		if [ -n "$OPT_NOLINKS" ]; then
 			cp -p "$backup" "$file"
 		else
 			ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
 		fi
+	else
+		$ECHO "Removing $file"
 	fi
 }
 
@@ -111,12 +111,7 @@ restore()
 	if [ ! -e "$backup" ]; then
 		return 1
 	fi
-	if [ ! -s "$backup" ]; then
-		$ECHO "Removing $file"
-		if [ -e "$file" ]; then
-			rm "$file"
-		fi
-	else
+	if [ -s "$backup" ]; then
 		$ECHO "Restoring $file"
 		if [ -e "$file" ]; then
 			rm "$file"
@@ -131,6 +126,11 @@ restore()
 
 		if [ -n "$OPT_TOUCH" ]; then
 			touch "$file"
+		fi
+	else
+		$ECHO "Removing $file"
+		if [ -e "$file" ]; then
+			rm "$file"
 		fi
 	fi
 
