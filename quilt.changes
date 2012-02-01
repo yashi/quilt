@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Feb  1 17:02:32 CET 2012 - jdelvare@suse.de
+
+- backup-files: Avoid relying on GNU-specific extensions of stat,
+  cp and rmdir. Otherwise it fails on BSD systems and probably
+  others.
+
+-------------------------------------------------------------------
 Wed Feb  1 16:58:22 CET 2012 - mquinson@debian.org
 
 - Make backup-files a shell script. This makes it possible to

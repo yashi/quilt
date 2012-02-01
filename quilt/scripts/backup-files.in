@@ -117,14 +117,7 @@ process_file() {
 			$ECHO "Removing $file"
 			if [ -z "$OPT_KEEP_BACKUP" ]; then
 				rm "$backup"
-				while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
-				do
-					backup="${backup%/*}"
-					rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
-					if [ -d "$backup" ]; then
-						break
-					fi
-				done
+				rmdir -p "${backup%/*}" 2> /dev/null || true
 			fi
 		else
 			$ECHO "Restoring $file"
@@ -142,14 +135,7 @@ process_file() {
 
 			if [ -z "$OPT_KEEP_BACKUP" ]; then
 				rm "$backup"
-				while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
-				do
-					backup="${backup%/*}"
-					rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
-					if [ -d "$backup" ]; then
-						break
-					fi
-				done
+				rmdir -p "${backup%/*}" 2> /dev/null || true
 			fi
 			if [ -n "$OPT_TOUCH" ]; then
 				touch "$file"
@@ -159,14 +145,7 @@ process_file() {
 		if [ -e "$backup" ]; then
 			rm "$backup"
 		fi
-		while [ -d "${backup%/*}" ] && ! [ -L "${backup%/*}" ]
-		do
-			backup="${backup%/*}"
-			rmdir --ignore-fail-on-non-empty "$backup" 2>/dev/null
-			if [ -d "$backup" ]; then
-				break
-			fi
-		done
+		rmdir -p "${backup%/*}" 2> /dev/null || true
 	elif [ -z "$OPT_WHAT" ]; then
 		if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
 			ensure_nolinks "$file"
