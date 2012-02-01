@@ -2,11 +2,9 @@
 
 set -e
 
-# File: backup-files.sh
-
 # Copyright (C) 2006 Steve Langasek <vorlon@debian.org>
-# portions Copyright (C) 2003, 2004, 2005, 2006 Andreas Gruenbacher
-# <agruen@suse.de>, SuSE Labs
+# Copyright (C) 2011 Jean Delvare <jdelvare@suse.de>
+# Loosely based on C implementation by Andreas Gruenbacher <agruen@suse.de>
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,26 +20,35 @@ set -e
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-
-# Create backup files of a list of files similar to GNU patch. A path
-# name prefix for the backup files must be specified with the -B option.
-
 usage () {
-	echo "Usage: $0 -B prefix [-s] [-k] [-t] [-L] [-b|-r|-c|-x] {-f {file|-}|-|file ...}
+	echo "Usage: $0 -B prefix {-b|-r|-c|-x|-L} [-s] [-k] [-t] [-L] {-f {file|-}|-|file ...}
 
 	Create or restore backup copies of a list of files.
 
-	-b	Create backup
+	Mandatory parameters:
+	-B	Path name prefix for backup files
+
+	Action parameters:
+	-b	Create backup (preserve links)
 	-r	Restore the backup
 	-c	Create simple copy
 	-x	Remove backup files and empty parent directories
-	-k	When doing a restore, keep the backup files
-	-B	Path name prefix for backup files
-	-s	Silent operation; only print error messages
-	-f	Read the filenames to process from file (- = standard input)
-	-t	Touch original files after restore (update their mtimes)
+	-L	Ensure that source files have a link count of 1
 
-	-L	Ensure that when finished, the source file has a link count of 1
+	Common options:
+	-s	Silent operation; only print error messages
+
+	Restore options:
+	-k	Keep backup files
+	-t	Touch original files after restore (update their mtimes)
+	-L	Ensure that source files have a link count of 1
+
+	Backup options:
+	-L	Ensure that source files have a link count of 1
+
+	File list parameters:
+	-f	Read the filenames to process from file (- = standard input)
+	-	Read the filenames to process from backup
 "
 }
 
@@ -338,7 +345,8 @@ if [ -z "$OPT_WHAT" ]; then
 	if [ -n "$OPT_NOLINKS" ]; then
 		OPT_WHAT=noop_nolinks
 	else
-		exit 0
+		echo "Please specify an action" >&2
+		exit 1
 	fi
 fi
 
