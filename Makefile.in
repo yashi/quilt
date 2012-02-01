@@ -60,6 +60,10 @@ SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
 		bash_completion quilt.quiltrc aclocal.m4 git-desc
 DIRT +=		quilt.spec
 
+DIRT +=		$(PACKAGE)-*.tar.gz
+DIRT +=		$(PACKAGE)-*.tar.gz.sig
+DIRT +=		$(PACKAGE)-*.tar.bz2
+
 BIN_IN :=	quilt guards
 BIN_SRC :=	$(BIN_IN:%=%.in)
 BIN :=		$(BIN_IN)
