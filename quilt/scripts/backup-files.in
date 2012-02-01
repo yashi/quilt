@@ -27,10 +27,9 @@ set -e
 # name prefix for the backup files must be specified with the -B option.
 
 usage () {
-	echo "Usage: $0 [-B prefix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
+	echo "Usage: $0 -B prefix [-s] [-k] [-t] [-L] [-b|-r|-x] {-f {file|-}|-|file ...}
 
-	Create hard linked backup copies of a list of files
-	read from standard input.
+	Create or restore backup copies of a list of files.
 
 	-b	Create backup
 	-r	Restore the backup
@@ -188,27 +187,25 @@ if [ -n "$OPT_FILE" ]; then
 	| while read nextfile; do
 		$OPT_WHAT "$nextfile"
 	done
+	exit
+fi
+
+if [ "$1" = - ]; then
+	# No backup directory? We're done
+	[ -d "$OPT_PREFIX" ] || exit 0
+
+	find "$OPT_PREFIX" -type f -print \
+	| while read
+	do
+		$OPT_WHAT "${REPLY#$OPT_PREFIX}"
+	done
+	if [ ${PIPESTATUS[0]} != 0 ]; then
+		exit 1
+	fi
+	exit
 fi
 
 while [ $# -gt 0 ]; do
-	case $1 in
-	-)
-		# No backup directory? We're done
-		[ -d "$OPT_PREFIX" ] || exit 0
-
-		find "$OPT_PREFIX" -type f -print \
-		| while read
-		do
-			$OPT_WHAT "${REPLY#$OPT_PREFIX}"
-		done
-		if [ ${PIPESTATUS[0]} != 0 ]; then
-			exit 1
-		fi
-		;;
-	*)
-		$OPT_WHAT "$1"
-		;;
-	esac
-
+	$OPT_WHAT "$1"
 	shift
 done
