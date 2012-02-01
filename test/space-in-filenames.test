@@ -77,6 +77,13 @@ $ cat patches/test.diff
 > -foo
 > +bar
 
+$ quilt grep bar
+> foo bar:bar
+$ quilt grep new
+> a: b [c]:new line
+$ quilt grep " "
+> a: b [c]:new line
+
 $quilt remove "a: b [c]"
 > File a: b [c] removed from patch patches/test.diff
 

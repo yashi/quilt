@@ -117,8 +117,8 @@ fi
 find "${myargs[@]:-.}" \( \
 	-path "./$QUILT_PATCHES/*" -o \
 	-path "./$QUILT_PC/*" \) -prune -o \
-	-type f -print \
-| xargs grep $opt_H "${args[@]}" \
+	-type f -print0 \
+| xargs -0 grep $opt_H "${args[@]}" \
 | if [ ${#myargs[@]} -eq 0 ]; then
 	sed -e 's,^./,,'
 else
