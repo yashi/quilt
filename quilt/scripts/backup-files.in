@@ -41,7 +41,6 @@ usage () {
 	Restore options:
 	-k	Keep backup files
 	-t	Touch original files after restore (update their mtimes)
-	-L	Ensure that source files have a link count of 1
 
 	Backup options:
 	-L	Ensure that source files have a link count of 1
@@ -106,11 +105,7 @@ restore()
 		else
 			mkdir -p "$(dirname "$file")"
 		fi
-		if [ -n "$OPT_NOLINKS" ]; then
-			cp -p "$backup" "$file"
-		else
-			ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
-		fi
+		ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
 
 		if [ -n "$OPT_TOUCH" ]; then
 			touch "$file"
@@ -155,11 +150,10 @@ restore_all()
 		# Try a mass link (or copy) first, as it is much faster.
 		# It is however not portable and may thus fail. If it fails,
 		# fallback to per-file processing, which always works.
-		local target_dir=$PWD opt_l=-l
-		[ -n "$OPT_NOLINKS" ] && opt_l=-p
+		local target_dir=$PWD
 
 		if (cd "$OPT_PREFIX" && \
-		    xargs -0 cp $opt_l --parents --remove-destination \
+		    xargs -0 cp -l --parents --remove-destination \
 				--target-directory="$target_dir" \
 				< "$NONEMPTY_FILES" 2> /dev/null); then
 			while read -d $'\0' -r
@@ -178,11 +172,7 @@ restore_all()
 				local backup=$OPT_PREFIX$file
 
 				$ECHO "Restoring $file"
-				if [ -n "$OPT_NOLINKS" ]; then
-					cp -p "$backup" "$file"
-				else
-					ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
-				fi
+				ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
 			done < "$NONEMPTY_FILES"
 		fi
 
