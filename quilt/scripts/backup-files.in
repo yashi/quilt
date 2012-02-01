@@ -144,12 +144,6 @@ restore_all()
 {
 	local EMPTY_FILES NONEMPTY_FILES
 
-	(cd "$OPT_PREFIX" && find . -type d -print0) \
-	| xargs -0 mkdir -p
-	if [ ${PIPESTATUS[0]} != 0 ]; then
-		return 1
-	fi
-
 	# Store the list of files to process
 	EMPTY_FILES=$(gen_tempfile)
 	NONEMPTY_FILES=$(gen_tempfile)
@@ -185,6 +179,9 @@ restore_all()
 				$ECHO "Restoring ${REPLY#./}"
 			done < "$NONEMPTY_FILES"
 		else
+			(cd "$OPT_PREFIX" && find . -type d -print0) \
+			| xargs -0 mkdir -p
+
 			xargs -0 rm -f < "$NONEMPTY_FILES"
 
 			while read -d $'\0' -r
