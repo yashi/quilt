@@ -60,28 +60,23 @@ ensure_nolinks() {
 backup() {
 	local file="$1"
 	local backup="${OPT_PREFIX}${file}"
+	local dir
 
-	if [ -e "$backup" ]; then
-		rm "$backup"
-	else
-		mkdir -p "$(dirname "$backup")"
-	fi
+	dir=$(dirname "$backup")
+	[ -d "$dir" ] || mkdir -p "$dir"
 
 	if [ ! -e "$file" ]; then
 		$ECHO "New file $file"
-		touch "$backup"
+		: > "$backup"
 	else
 		$ECHO "Copying $file"
-		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = "1" ]; then
+		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = 1 ]; then
 			cp -p "$file" "$backup"
 		else
 			ln "$file" "$backup" 2> /dev/null || cp -p "$file" "$backup"
 			if [ -n "$OPT_NOLINKS" ]; then
 				ensure_nolinks "$file"
 			fi
-		fi
-		if [ -n "$OPT_TOUCH" ]; then
-			touch "$backup"
 		fi
 	fi
 }
