@@ -91,26 +91,6 @@ backup() {
 	fi
 }
 
-# Same as restore, but assume that required directories are already
-# created, target files are already removed, and don't bother removing
-# the backup files or touching target files after restoration.
-restore_fast()
-{
-	local file=$1
-	local backup=$OPT_PREFIX$file
-
-	if [ -s "$backup" ]; then
-		$ECHO "Restoring $file"
-		if [ -n "$OPT_NOLINKS" ]; then
-			cp -p "$backup" "$file"
-		else
-			ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
-		fi
-	else
-		$ECHO "Removing $file"
-	fi
-}
-
 restore()
 {
 	local file=$1
@@ -167,7 +147,7 @@ restore_all()
 
 		while read -d $'\0' -r
 		do
-			restore_fast "${REPLY#./}"
+			$ECHO "Removing ${REPLY#./}"
 		done < "$EMPTY_FILES"
 	fi
 
@@ -194,7 +174,15 @@ restore_all()
 
 			while read -d $'\0' -r
 			do
-				restore_fast "${REPLY#./}"
+				local file=${REPLY#./}
+				local backup=$OPT_PREFIX$file
+
+				$ECHO "Restoring $file"
+				if [ -n "$OPT_NOLINKS" ]; then
+					cp -p "$backup" "$file"
+				else
+					ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
+				fi
 			done < "$NONEMPTY_FILES"
 		fi
 
