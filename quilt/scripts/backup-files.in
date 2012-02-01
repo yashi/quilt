@@ -210,10 +210,6 @@ if [ -z "$OPT_PREFIX" ]; then
 	usage "$progname"
 	exit 1
 fi
-if [ ${#FILELIST[@]} == 0 ] && [ -z "$OPT_FILE" ]; then
-	usage "$progname"
-	exit 1
-fi
 
 if [ -n "$OPT_FILE" ]; then
 	cat "$OPT_FILE" \
