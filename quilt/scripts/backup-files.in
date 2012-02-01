@@ -47,14 +47,11 @@ usage () {
 
 ensure_nolinks() {
 	local filename="$1"
-	local link_count dirname basename tmpname
+	local link_count tmpname
 
 	link_count=$(stat @STAT_HARDLINK@ "$filename")
-	if [ -z "$link_count" ] || [ "$link_count" -gt 1 ]; then
-		dirname=$(dirname "$filename")
-		basename=$(basename "$filename")
-		# Temp file name is "path/to/.file.XXXXXX"
-		tmpname=$(mktemp "${dirname}/.${basename}.XXXXXX")
+	if [ $link_count -gt 1 ]; then
+		tmpname=$(mktemp "$filename.XXXXXX")
 		cp -p "$filename" "$tmpname"
 		mv "$tmpname" "$filename"
 	fi
