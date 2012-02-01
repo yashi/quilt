@@ -27,8 +27,7 @@ set -e
 # name prefix for the backup files must be specified with the -B option.
 
 usage () {
-	local progname="$1"
-	echo "Usage: $progname [-B prefix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
+	echo "Usage: $0 [-B prefix] [-f {file|-}] [-s] [-k] [-t] [-L] [-b|-r|-x] {file|-} ...
 
 	Create hard linked backup copies of a list of files
 	read from standard input.
@@ -172,7 +171,6 @@ walk() {
 
 ECHO=echo
 declare -a FILELIST
-progname="$0"
 while [ $# -gt 0 ]; do
 	case $1 in
 	-b)	OPT_WHAT=backup
@@ -195,7 +193,7 @@ while [ $# -gt 0 ]; do
 		;;
 	-t)	OPT_TOUCH=1
 		;;
-	-?*)	usage "$progname"
+	-?*)	usage
 		exit 0
 		;;
 	*)	FILELIST=("$@")
@@ -207,7 +205,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "$OPT_PREFIX" ]; then
-	usage "$progname"
+	usage
 	exit 1
 fi
 
