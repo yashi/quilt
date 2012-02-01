@@ -239,6 +239,34 @@ copy()
 	fi
 }
 
+copy_many()
+{
+	local NONEMPTY_FILES
+
+	# Store the list of non-empty files to process
+	NONEMPTY_FILES=$(gen_tempfile)
+	trap "rm -f \"$NONEMPTY_FILES\"" EXIT
+
+	# Keep the temporary file opened to speed up the loop
+	exec 3> "$NONEMPTY_FILES"
+	cat "$OPT_FILE" \
+	| while read
+	do
+		if [ -e "$REPLY" ]; then
+			printf '%s\0' "$REPLY" >&3
+		else
+			# This is a rare case, not worth optimizing
+			copy "$REPLY"
+		fi
+	done
+	exec 3>&-
+
+	while read -d $'\0' -r
+	do
+		copy "$REPLY"
+	done < "$NONEMPTY_FILES"
+}
+
 # Test if some backed up files have a link count greater than 1
 some_files_have_links()
 {
@@ -301,6 +329,11 @@ if [ -z "$OPT_WHAT" ]; then
 fi
 
 if [ -n "$OPT_FILE" ]; then
+	if [ "$OPT_WHAT" = copy ]; then
+		copy_many
+		exit
+	fi
+
 	cat "$OPT_FILE" \
 	| while read nextfile; do
 		$OPT_WHAT "$nextfile"
