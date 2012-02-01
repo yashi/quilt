@@ -48,7 +48,7 @@ usage () {
 . $QUILT_DIR/scripts/utilfns
 
 ensure_nolinks() {
-	local filename="$1"
+	local filename=$1
 	local link_count tmpname
 
 	link_count=$(stat @STAT_HARDLINK@ "$filename")
@@ -60,8 +60,8 @@ ensure_nolinks() {
 }
 
 backup() {
-	local file="$1"
-	local backup="${OPT_PREFIX}${file}"
+	local file=$1
+	local backup=$OPT_PREFIX$file
 	local dir
 
 	dir=$(dirname "$backup")
@@ -88,8 +88,8 @@ backup() {
 # the backup files or touching target files after restoration.
 restore_fast()
 {
-	local file="$1"
-	local backup="${OPT_PREFIX}${file}"
+	local file=$1
+	local backup=$OPT_PREFIX$file
 
 	if [ ! -s "$backup" ]; then
 		$ECHO "Removing $file"
@@ -105,8 +105,8 @@ restore_fast()
 
 restore()
 {
-	local file="$1"
-	local backup="${OPT_PREFIX}${file}"
+	local file=$1
+	local backup=$OPT_PREFIX$file
 
 	if [ ! -e "$backup" ]; then
 		return 1
@@ -142,8 +142,8 @@ restore()
 
 remove()
 {
-	local file="$1"
-	local backup="${OPT_PREFIX}${file}"
+	local file=$1
+	local backup=$OPT_PREFIX$file
 
 	if [ -e "$backup" ]; then
 		rm "$backup"
@@ -153,7 +153,7 @@ remove()
 
 noop()
 {
-	local file="$1"
+	local file=$1
 
 	if [ -e "$file" ] && [ -n "$OPT_NOLINKS" ]; then
 		ensure_nolinks "$file"
