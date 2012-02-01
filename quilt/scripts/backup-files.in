@@ -142,7 +142,7 @@ restore()
 
 restore_all()
 {
-	local FILELIST
+	local EMPTY_FILES NONEMPTY_FILES
 
 	(cd "$OPT_PREFIX" && find . -type d -print0) \
 	| xargs -0 mkdir -p
@@ -151,27 +151,35 @@ restore_all()
 	fi
 
 	# Store the list of files to process
-	FILELIST=$(gen_tempfile)
-	trap "rm -f \"$FILELIST\"" EXIT
+	EMPTY_FILES=$(gen_tempfile)
+	NONEMPTY_FILES=$(gen_tempfile)
+	trap "rm -f \"$EMPTY_FILES\" \"$NONEMPTY_FILES\"" EXIT
 
 	cd "$OPT_PREFIX"
-	find . -type f -print0 > "$FILELIST"
+	find . -type f -size 0 -print0 > "$EMPTY_FILES"
+	find . -type f -size +0 -print0 > "$NONEMPTY_FILES"
 	cd "$OLDPWD"
 
-	if [ ! -s "$FILELIST" ]; then
-		rm -f "$FILELIST"
-		exit
+	if [ -s "$EMPTY_FILES" ]; then
+		xargs -0 rm -f < "$EMPTY_FILES"
+
+		while read -d $'\0' -r
+		do
+			restore_fast "${REPLY#./}"
+		done < "$EMPTY_FILES"
 	fi
 
-	xargs -0 rm -f < "$FILELIST"
+	if [ -s "$NONEMPTY_FILES" ]; then
+		xargs -0 rm -f < "$NONEMPTY_FILES"
 
-	while read -d $'\0' -r
-	do
-		restore_fast "${REPLY#./}"
-	done < "$FILELIST"
+		while read -d $'\0' -r
+		do
+			restore_fast "${REPLY#./}"
+		done < "$NONEMPTY_FILES"
 
-	if [ -n "$OPT_TOUCH" ]; then
-		xargs -0 touch -c < "$FILELIST"
+		if [ -n "$OPT_TOUCH" ]; then
+			xargs -0 touch -c < "$NONEMPTY_FILES"
+		fi
 	fi
 
 	if [ -z "$OPT_KEEP_BACKUP" ]; then
