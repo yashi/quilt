@@ -45,20 +45,6 @@ usage () {
 "
 }
 
-copy_file() {
-	local from="$1"
-	local to="$2"
-	cp -p "$from" "$to"
-}
-
-link_or_copy_file() {
-	local from="$1"
-	local to="$2"
-	if ! ln "$from" "$to" 2>/dev/null ; then
-		copy_file "$from" "$to"
-	fi
-}
-
 ensure_nolinks() {
 	local filename="$1"
 	local link_count dirname basename tmpname
@@ -90,9 +76,9 @@ process_file() {
 		else
 			$ECHO "Copying $file"
 			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = "1" ]; then
-				copy_file "$file" "$backup"
+				cp -p "$file" "$backup"
 			else
-				link_or_copy_file "$file" "$backup"
+				ln "$file" "$backup" 2> /dev/null || cp -p "$file" "$backup"
 				if [ -n "$OPT_NOLINKS" ]; then
 					ensure_nolinks "$file"
 				fi
@@ -122,9 +108,9 @@ process_file() {
 				rm "$file"
 			fi
 			if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$backup")" != "1" ]; then
-				copy_file "$backup" "$file"
+				cp -p "$backup" "$file"
 			else
-				link_or_copy_file "$backup" "$file"
+				ln "$backup" "$file" 2> /dev/null || cp -p "$backup" "$file"
 				if [ -n "$OPT_NOLINKS" ]; then
 					ensure_nolinks "$file"
 				fi
