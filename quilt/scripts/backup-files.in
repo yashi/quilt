@@ -261,10 +261,24 @@ copy_many()
 	done
 	exec 3>&-
 
-	while read -d $'\0' -r
-	do
-		copy "$REPLY"
-	done < "$NONEMPTY_FILES"
+	if [ -s "$NONEMPTY_FILES" ]; then
+		# Try a mass copy first, as it is much faster.
+		# It is however not portable and may thus fail. If it fails,
+		# fallback to per-file processing, which always works.
+
+		if xargs -0 cp -p --parents --target-directory="$OPT_PREFIX" \
+		   < "$NONEMPTY_FILES" 2> /dev/null; then
+			while read -d $'\0' -r
+			do
+				$ECHO "Copying $REPLY"
+			done < "$NONEMPTY_FILES"
+		else
+			while read -d $'\0' -r
+			do
+				copy "$REPLY"
+			done < "$NONEMPTY_FILES"
+		fi
+	fi
 }
 
 # Test if some backed up files have a link count greater than 1
