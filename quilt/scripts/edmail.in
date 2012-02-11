@@ -36,12 +36,28 @@ sub _($) {
     return gettext(shift);
 }
 
+my $special = '()<>\[\]:;@\\,"';  # special characters
+my $special_dot = "$special.";  # special characters + dot
+
+sub check_recipient($);
+
 my (%append_name, %append_value, $remove_empty_headers, %remove_header,
     %extract_recipients_from, %replace_name, %replace_value, $charset);
 GetOptions('add-recipient=s%' =>
     sub {
 	$append_name{lc $_[1]} = $_[1];
 	$append_value{lc $_[1]} .= ",\n " . $_[2];
+    },
+    'add-good-recipient=s%' =>
+    sub {
+	eval { check_recipient($_[2]) };
+	if ($@) {
+		chomp $@;
+		print STDERR "$@; skipping\n";
+	} else {
+		$append_name{lc $_[1]} = $_[1];
+		$append_value{lc $_[1]} .= ",\n " . $_[2];
+	}
     },
     'remove-header=s' => sub { $remove_header{lc $_[1]}++ },
     'remove-empty-headers' => \$remove_empty_headers,
@@ -60,9 +76,6 @@ sub encode_header($) {
     $word =~ s{[^\t\41-\76\100-\176]}{sprintf "=%02X", ord($&)}ge;
     return "=?$charset?q?$word?=";
 }
-
-my $special = '()<>\[\]:;@\\,"';  # special characters
-my $special_dot = "$special.";  # special characters + dot
 
 # Check for a valid display name
 sub check_display_name($) {
