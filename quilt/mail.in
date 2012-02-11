@@ -137,7 +137,7 @@ process_mail()
 		echo ${QUILT_SENDMAIL:-sendmail} \
 			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 		$QUILT_DIR/scripts/edmail --charset $opt_charset \
-				 --remove-header Bcc "$@" < $tmpfile \
+				 --remove-header Bcc < $tmpfile \
 		| ${QUILT_SENDMAIL:-sendmail} \
 			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
