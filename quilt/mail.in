@@ -370,14 +370,14 @@ then
 		# addresses that contain commas and add quotes, e.g.,
 		#   Last, First <email>    =>    "Last, First" <email>
 
-		set -- Signed-off-by Acked-by Suggested-by Reviewed-by Requested-by Reported-by Tested-by
+		set -- Signed-off-by Acked-by Suggested-by Reviewed-by Requested-by Reported-by Tested-by Cc
 		set -- "$*"
 		set -- ${*// /\\|}
 
 		sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
-		       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
-		       -e 's/^\(\('"$*"'\):[ '$'\t'']*\)\([^"]*\(,[^"]*\)\+[^" '$'\t'']\)\([ '$'\t'']*<.*>\)/\1"\3"\5/i' \
-		       -e 's/^\('"$*"'\):/Recipient-Cc:/ip' \
+		       -e 's/^\(\(To\|'"$*"'\):[ '$'\t'']*\)\([^"]*\(,[^"]*\)\+[^" '$'\t'']\)\([ '$'\t'']*<.*>\)/\1"\3"\5/I' \
+		       -e 's/^To:\(.*<.*@.*>\)/Recipient-To:\1/Ip' \
+		       -e 's/^\('"$*"'\):\(.*<.*@.*>\)/Recipient-Cc:\2/Ip' \
 		    $tmpdir/header
 
 		echo
