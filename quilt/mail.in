@@ -593,7 +593,11 @@ for patch in "${patches[@]}"; do
 #	echo "$modify" | sed -e 's/^/>> /' >&2
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
 	p=${p//@total@/$total}
-	(	echo "Message-Id: <$(msgid)>"
+
+	# Make pipes fail if any of their commands fail (requires bash 3):
+	set -o pipefail
+
+	( (	echo "Message-Id: <$(msgid)>"
 		awk '
 		    /^$/	{ exit }
 		    tolower($0) !~ /^(message-id|references|in-reply-to):/ \
@@ -621,9 +625,14 @@ for patch in "${patches[@]}"; do
 	| sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
 	      -e '/^Subject-Prefix:/d' \
 	| $QUILT_DIR/scripts/edmail --remove-empty-headers \
-	| process_mail
+	| process_mail ) 2> $tmpdir/err
 
-	if [ ${PIPESTATUS[1]} -ne 0 ]
+	status=$?
+	if [ -s $tmpdir/err ]
+	then
+		sed -e "s/^/${patch//\//\\/}: /" <  $tmpdir/err >&2
+	fi
+	if [ $status -ne 0 ]
 	then
 		printf $"Introduction saved as %s\n" "$introduction" >&2
 		exit 1
