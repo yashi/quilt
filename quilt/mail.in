@@ -141,7 +141,7 @@ process_mail()
 		| ${QUILT_SENDMAIL:-sendmail} \
 			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
-		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
+		local from_date=$(LC_ALL=POSIX date "+%a %b %e %H:%M:%S %Y")
 		echo "From $opt_sender_address $from_date"
 		sed -e 's/^From />From /' $tmpfile
 		echo
