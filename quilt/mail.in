@@ -575,7 +575,7 @@ for patch in "${patches[@]}"; do
 			    next }
 			  in_header = 0 }
 	sub(/^Recipient-/, "")	{ headers[++n] = $0
-				  options[n] = "--add-recipient"
+				  options[n] = "--add-good-recipient"
 				  in_header = 1
 				  next }
 	sub(/^Replace-/, "")	{ headers[++n] = $0
