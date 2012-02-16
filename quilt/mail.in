@@ -21,7 +21,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
+	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -36,6 +36,9 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 	Text to use as the text in the introduction. When this option is
 	used, the editor will not be invoked, and the patches will be
 	processed immediately.
+
+-M file
+	Like the -m option, but read the introduction from file.
 
 --prefix prefix
 	Use an alternate prefix in the bracketed part of the subjects
@@ -159,9 +162,10 @@ join_lines() {
 	'
 }
 
-options=`getopt -o m:h --long from:,to:,cc:,bcc:,subject: \
-		       --long send,mbox:,charset:,sender: \
-		       --long prefix:,reply-to:,signature: -- "$@"`
+options=`getopt -o m:M:h \
+		--long from:,to:,cc:,bcc:,subject: \
+		--long send,mbox:,charset:,sender: \
+		--long prefix:,reply-to:,signature: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -180,7 +184,20 @@ while true
 do
 	case "$1" in
 	-m)
+		if [ -n "$opt_message" ]
+		then
+			echo "Introduction message already specified" >&2
+			exit 1
+		fi
 		opt_message=$2
+		shift 2 ;;
+	-M)
+		if [ -n "$opt_message" ]
+		then
+			echo "Introduction message already specified" >&2
+			exit 1
+		fi
+		opt_message=$(< "$2")
 		shift 2 ;;
 	--sender)
 		opt_sender=$2
