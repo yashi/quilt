@@ -108,12 +108,9 @@ inspect
 	A script to create a series file from an rpm spec file (including
 	a list of tar files).
 
-parse-patch {-s|-u} section file [< replacement]
-	Select a %section from a patch (-s) or replace a
-	%section with the text from standard input (-u).
-
 patchfns
-	A collection of functions.
+utilfns
+	Collections of functions.
 
 remove-trailing-ws
 	A utility to report trailing whitespace, and remove trailing
