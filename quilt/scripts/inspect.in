@@ -291,6 +291,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 			fi
 			dir=${dir/$RPM_BUILD_DIR}
 			dir=${dir##/}
+			dir=${dir// /\\ }
 			echo "${0##*/} ${dir:-.} $unpackfile" \
 			     $(strip_option "$@") $(reverse_option "$@") >&3
 			;;
@@ -305,6 +306,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 			fi
 			dir=${dir/$RPM_BUILD_DIR}
 			dir=${dir##/}
+			dir=${dir// /\\ }
 			echo "${0##*/} ${dir:-.} $unpackfile" >&3
 			;;
 		esac

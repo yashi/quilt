@@ -161,13 +161,19 @@ case "$1" in
 		case "$@" in
 		"# Sourcedir: "*)
 			shift 2
-			tar_dir="$@" ;;
+			tar_dir="$@"
+			tar_dir=${tar_dir// /\\ }
+			;;
 		"# Source: "*)
 			shift 2
-			echo "tar ${tar_dir:-.} $@" ;;
+			source="$@"
+			echo "tar ${tar_dir:-.} ${source// /\\ }"
+			;;
 		"# Patchdir: "*)
 			shift 2
-			patch_dir="$@" ;;
+			patch_dir="$@"
+			patch_dir=${patch_dir// /\\ }
+			;;
 		''|'#'*)
 			;;
 		*)
@@ -184,7 +190,7 @@ do
 	case "$tag" in
 	tar)
 		tarball=$sourcedir$arg1
-		if [ ! -e $tarball ]
+		if [ ! -e "$tarball" ]
 		then
 			printf $"File %s not found\n" "$tarball" >&2
 			exit 1
