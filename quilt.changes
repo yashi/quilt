@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 17 21:18:06 CET 2012 - jdelvare@suse.de
+
+- setup.test: Increase coverage. Test for reverted patches, patches
+  without options in the series file, as well as spaces in
+  directory names.
+
+-------------------------------------------------------------------
 Fri Feb 17 21:14:20 CET 2012 - jdelvare@suse.de
 
 - setup, scripts/inspect: Properly escape spaces in directory and

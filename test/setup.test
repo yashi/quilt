@@ -3,6 +3,8 @@ $ mkdir dir
 $ echo 1 > dir/foo.orig
 $ echo 2 > dir/foo
 $ diff -u dir/foo.orig dir/foo > foo.diff
+$ diff -u dir/foo.orig dir/foo > revert.diff
+$ diff -u dir/foo.orig dir/foo > again.diff
 $ mv dir/foo.orig dir/foo
 $ tar cf - dir | gzip > dir.tar.gz
 $ rm -rf dir
@@ -11,6 +13,8 @@ $ cat > series
 < # Patchdir: dir
 < #
 < foo.diff -p1
+< revert.diff -p1 -R
+< again.diff
 $ quilt setup series
 > Unpacking archive dir.tar.gz
 $ cd dir
@@ -19,7 +23,9 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ../series
 $ quilt push -qa
 > Applying patch patches/foo.diff
-> Now at patch patches/foo.diff
+> Applying patch patches/revert.diff
+> Applying patch patches/again.diff
+> Now at patch patches/again.diff
 $ cd ..
 $ rm -rf dir
 $ quilt setup -d other series
@@ -30,7 +36,9 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ../../series
 $ quilt push -qa
 > Applying patch patches/foo.diff
-> Now at patch patches/foo.diff
+> Applying patch patches/revert.diff
+> Applying patch patches/again.diff
+> Now at patch patches/again.diff
 $ cd ../..
 $ rm -rf other
 $ mkdir dir1
@@ -46,4 +54,37 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ../../dir1/series
 $ quilt push -qa
 > Applying patch patches/foo.diff
-> Now at patch patches/foo.diff
+> Applying patch patches/revert.diff
+> Applying patch patches/again.diff
+> Now at patch patches/again.diff
+
+# Now a basic test with space in dir name
+$ mkdir "space [dir]"
+$ echo 1 > "space [dir]/foo.orig"
+$ echo 2 > "space [dir]/foo"
+$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > foo.diff
+$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > revert.diff
+$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > again.diff
+$ mv "space [dir]/foo.orig" "space [dir]/foo"
+$ tar cf - "space [dir]" | gzip > "space [dir].tar.gz"
+$ rm -rf "space [dir]"
+$ cat > series
+< # Source: space [dir].tar.gz
+< # Patchdir: space [dir]
+< #
+< foo.diff -p1
+< revert.diff -p1 -R
+< again.diff
+$ quilt setup series
+> Unpacking archive space [dir].tar.gz
+$ cd space\ [dir]
+$ ls -l patches series | sed -e 's:.* -> ::'
+> ..
+> ../series
+$ quilt push -qa
+> Applying patch patches/foo.diff
+> Applying patch patches/revert.diff
+> Applying patch patches/again.diff
+> Now at patch patches/again.diff
+$ cd ..
+$ rm -rf "space [dir]"
