@@ -24,7 +24,8 @@ usage()
 	then
 		printf $"
 Create a new patch with the specified file name, and insert it after the
-topmost patch.
+topmost patch. The name can be prefixed with a sub-directory name, allowing
+for grouping related patches together.
 
 -p n	Create a -p n style patch (-p0 or -p1 are supported).
 
