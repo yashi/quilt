@@ -19,11 +19,14 @@ debian/quilt
 debian/quilt.substvars
 
 doc/quilt.1
-doc/quilt.aux 
+doc/quilt.aux
 doc/quilt.dvi
 doc/quilt.log
-doc/quilt.ps 
-doc/README 
+doc/quilt.ps
+doc/quilt-rus.aux
+doc/quilt-rus.log
+doc/quilt-rus.pdf
+doc/README
 doc/reference
 
 lib/backup-files
