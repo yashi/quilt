@@ -216,7 +216,7 @@ doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns quilt/script
 	for i in $(QUILT);						\
 	do								\
 		echo;							\
-		quilt $$i -h;						\
+		QUILT_PC=.fake_pc quilt $$i -h;				\
 		echo;							\
 	done |								\
 	$(SED) -e 's/\$$EDITOR ([^)]*)/$$EDITOR/'			\
