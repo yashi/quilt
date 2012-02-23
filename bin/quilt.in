@@ -6,6 +6,10 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+# unset posix strict conformance variable since patch cannot be run
+# non-interactively when it's set.
+unset POSIXLY_CORRECT
+
 export TEXTDOMAIN=quilt
 export TEXTDOMAINDIR=@LOCALEDIR@
 

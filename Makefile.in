@@ -398,6 +398,7 @@ test/.%.ok : test/%.test
 endif
 	@LANG=C; LC_ALL=C;						\
 	export LANG LC_ALL;						\
+	unset POSIXLY_CORRECT;						\
 	$(CHECK_ENV);							\
 	cd $(@D);							\
 	./run -q $(<F)
