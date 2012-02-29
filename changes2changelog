@@ -16,8 +16,5 @@ while (<>) {
 		next;
 	} elsif (/(- |  +)(?!\s)/) {
 		print;
-	} else {
-		print STDERR "Syntax error in line $. of changelog:\n$_\n";
-		exit 1;
 	}
 }
