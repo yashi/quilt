@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Feb 29 17:50:45 CET 2012 - jdelvare@suse.de
+
+Two fixes from Debian:
+
+- Ensure quilt(1) documents the correct patches directory.
+- Unset POSIXLY_CORRECT to ensure that patch works
+  non-interactively.
+
+-------------------------------------------------------------------
 Wed Feb 29 07:36:34 CET 2012 - jdelvare@suse.de
 
 Merge branch fixes-0.51, containing many fixes from Andreas
