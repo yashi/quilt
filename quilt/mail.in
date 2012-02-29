@@ -21,7 +21,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
+	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -36,6 +36,9 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 	Text to use as the text in the introduction. When this option is
 	used, the editor will not be invoked, and the patches will be
 	processed immediately.
+
+-M file
+	Like the -m option, but read the introduction from file.
 
 --prefix prefix
 	Use an alternate prefix in the bracketed part of the subjects
@@ -137,11 +140,11 @@ process_mail()
 		echo ${QUILT_SENDMAIL:-sendmail} \
 			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 		$QUILT_DIR/scripts/edmail --charset $opt_charset \
-				 --remove-header Bcc "$@" < $tmpfile \
+				 --remove-header Bcc < $tmpfile \
 		| ${QUILT_SENDMAIL:-sendmail} \
 			${QUILT_SENDMAIL_ARGS--f "$opt_sender"} "$@"
 	else
-		local from_date=$(date "+%a %b %e %H:%M:%S %Y")
+		local from_date=$(LC_ALL=POSIX date "+%a %b %e %H:%M:%S %Y")
 		echo "From $opt_sender_address $from_date"
 		sed -e 's/^From />From /' $tmpfile
 		echo
@@ -159,9 +162,10 @@ join_lines() {
 	'
 }
 
-options=`getopt -o m:h --long from:,to:,cc:,bcc:,subject: \
-		       --long send,mbox:,charset:,sender: \
-		       --long prefix:,reply-to:,signature: -- "$@"`
+options=`getopt -o m:M:h \
+		--long from:,to:,cc:,bcc:,subject: \
+		--long send,mbox:,charset:,sender: \
+		--long prefix:,reply-to:,signature: -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -180,7 +184,20 @@ while true
 do
 	case "$1" in
 	-m)
+		if [ -n "$opt_message" ]
+		then
+			echo "Introduction message already specified" >&2
+			exit 1
+		fi
 		opt_message=$2
+		shift 2 ;;
+	-M)
+		if [ -n "$opt_message" ]
+		then
+			echo "Introduction message already specified" >&2
+			exit 1
+		fi
+		opt_message=$(< "$2")
 		shift 2 ;;
 	--sender)
 		opt_sender=$2
@@ -370,14 +387,14 @@ then
 		# addresses that contain commas and add quotes, e.g.,
 		#   Last, First <email>    =>    "Last, First" <email>
 
-		set -- Signed-off-by Acked-by Suggested-by Reviewed-by Requested-by Reported-by Tested-by
+		set -- Signed-off-by Acked-by Suggested-by Reviewed-by Requested-by Reported-by Tested-by Cc
 		set -- "$*"
 		set -- ${*// /\\|}
 
 		sed -n -e "/\<${LOGNAME:-$(whoami)}@/d" \
-		       -e 's/^\(To\|Cc\):/Recipient-\1:/ip' \
-		       -e 's/^\(\('"$*"'\):[ '$'\t'']*\)\([^"]*\(,[^"]*\)\+[^" '$'\t'']\)\([ '$'\t'']*<.*>\)/\1"\3"\5/i' \
-		       -e 's/^\('"$*"'\):/Recipient-Cc:/ip' \
+		       -e 's/^\(\(To\|'"$*"'\):[ '$'\t'']*\)\([^"]*\(,[^"]*\)\+[^" '$'\t'']\)\([ '$'\t'']*<.*>\)/\1"\3"\5/I' \
+		       -e 's/^To:\(.*<.*@.*>\)/Recipient-To:\1/Ip' \
+		       -e 's/^\('"$*"'\):\(.*<.*@.*>\)/Recipient-Cc:\2/Ip' \
 		    $tmpdir/header
 
 		echo
@@ -575,7 +592,7 @@ for patch in "${patches[@]}"; do
 			    next }
 			  in_header = 0 }
 	sub(/^Recipient-/, "")	{ headers[++n] = $0
-				  options[n] = "--add-recipient"
+				  options[n] = "--add-good-recipient"
 				  in_header = 1
 				  next }
 	sub(/^Replace-/, "")	{ headers[++n] = $0
@@ -593,7 +610,11 @@ for patch in "${patches[@]}"; do
 #	echo "$modify" | sed -e 's/^/>> /' >&2
 	p=${subject_prefix//@num@/$(printf %0*d ${#total} $num)}
 	p=${p//@total@/$total}
-	(	echo "Message-Id: <$(msgid)>"
+
+	# Make pipes fail if any of their commands fail (requires bash 3):
+	set -o pipefail
+
+	( (	echo "Message-Id: <$(msgid)>"
 		awk '
 		    /^$/	{ exit }
 		    tolower($0) !~ /^(message-id|references|in-reply-to):/ \
@@ -621,9 +642,14 @@ for patch in "${patches[@]}"; do
 	| sed -e $'s/^\\(Subject:[ \t]\\)/\\1'"$p"'/' \
 	      -e '/^Subject-Prefix:/d' \
 	| $QUILT_DIR/scripts/edmail --remove-empty-headers \
-	| process_mail
+	| process_mail ) 2> $tmpdir/err
 
-	if [ ${PIPESTATUS[1]} -ne 0 ]
+	status=$?
+	if [ -s $tmpdir/err ]
+	then
+		sed -e "s/^/${patch//\//\\/}: /" <  $tmpdir/err >&2
+	fi
+	if [ $status -ne 0 ]
 	then
 		printf $"Introduction saved as %s\n" "$introduction" >&2
 		exit 1

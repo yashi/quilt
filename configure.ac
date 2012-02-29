@@ -31,9 +31,9 @@ QUILT_COMPAT_PROG_PATH(BASH, bash)
 # though the result /could/ be available to us directly as $BASH_VERSION we
 # don't want to use, or trust it, incase the user is specifying a different
 # bash executable.
-if `$BASH -c '[[ "$BASH_VERSION" \< "2.04" ]]'` ; then
+if `$BASH -c '[[ "$BASH_VERSION" \< "3.0" ]]'` ; then
     AC_MSG_ERROR([
-$PACKAGE_NAME requires at least version 2.04 of bash, you can download a current
+$PACKAGE_NAME requires at least version 3.0 of bash, you can download a current
 version of bash from ftp.gnu.org
 ])
 fi
