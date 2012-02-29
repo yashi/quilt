@@ -2071,13 +2071,13 @@ $as_echo "$as_me: error: Please specify the location of bash with the option '--
 # though the result /could/ be available to us directly as $BASH_VERSION we
 # don't want to use, or trust it, incase the user is specifying a different
 # bash executable.
-if `$BASH -c '[ "$BASH_VERSION" \< "2.04" ]'` ; then
+if `$BASH -c '[ "$BASH_VERSION" \< "3.0" ]'` ; then
     { { $as_echo "$as_me:$LINENO: error:
-$PACKAGE_NAME requires at least version 2.04 of bash, you can download a current
+$PACKAGE_NAME requires at least version 3.0 of bash, you can download a current
 version of bash from ftp.gnu.org
 " >&5
 $as_echo "$as_me: error:
-$PACKAGE_NAME requires at least version 2.04 of bash, you can download a current
+$PACKAGE_NAME requires at least version 3.0 of bash, you can download a current
 version of bash from ftp.gnu.org
 " >&2;}
    { (exit 1); exit 1; }; }

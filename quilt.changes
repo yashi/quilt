@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Wed Feb 29 07:36:34 CET 2012 - jdelvare@suse.de
+
+Merge branch fixes-0.51, containing many fixes from Andreas
+Gruenbacher for the mail command:
+
+- mail: Skip additional recipients with "bad" email addresses
+- edmail: Allow to add "good" recipient addresses while skipping
+  "bad" ones
+- mail: Fix wrong use of edmail
+- mail: Require a "reasonable looking" email address in patch
+  headers
+- mail: Don't use localized date format in From lines
+- mail: Improve error reporting (requires bash 3.0)
+
+-------------------------------------------------------------------
 Wed Feb 22 14:39:44 CET 2012 - jdelvare@suse.de
 
 - doc/main.tex, new: Document the patch grouping feature. This
