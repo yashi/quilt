@@ -732,18 +732,16 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 
 #: quilt/mail.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
 "subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
-"Usage : quilt mail {--mbox fichier|--send} [-m texte] [--prefix préfixe] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[--reply-to message] [premier_patch [dernier_patch]]\\n"
+"Usage : quilt mail {--mbox fichier|--send} [-m texte] [-M fichier] [--prefix "
+"préfixe] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] "
+"[--subject ...] [--reply-to message] [premier_patch [dernier_patch]]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -804,6 +802,9 @@ msgstr ""
 "\tTexte à utiliser pour l'introduction. Lorsque cette option est\n"
 "\tutilisée, l'éditeur n'est pas invoqué, et les patches sont traités\n"
 "\timmédiatement.\n"
+"\n"
+"-M fichier\n"
+"\tComme l'option -m, mais lit l'introduction depuis un fichier.\n"
 "\n"
 "--prefix préfixe\n"
 "\tUtiliser un préfixe alternatif pour générer la partie du sujet qui se\n"
@@ -867,7 +868,6 @@ msgid "Usage: quilt new [-p n|-p ab] {patchname}\\n"
 msgstr "Usage : quilt new [-p n|-p ab] {nom_de_patch}\\n"
 
 #: quilt/new.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Create a new patch with the specified file name, and insert it after the\n"
@@ -888,7 +888,8 @@ msgid ""
 msgstr ""
 "\n"
 "Crée un nouveau patch au nom spécifié, et l'insère après le patch\n"
-"au sommet dans le fichier de série.\n"
+"au sommet dans le fichier de série. Le nom peut être préfixé avec\n"
+"le nom d'un répertoire, ce qui permet de grouper les patches apparentés.\n"
 "\n"
 "-p n\tCrée un patch de type -p n (-p0 et -p1 sont supportés).\n"
 "\n"
@@ -911,7 +912,7 @@ msgstr ""
 
 #: quilt/new.in:89
 msgid "QUILT_PATCHES(%s) must differ from QUILT_PC(%s)\\n"
-msgstr ""
+msgstr "QUILT_PATCHES(%s) et QUILT_PC(%s) doivent être différents\\n"
 
 #: quilt/new.in:97 quilt/refresh.in:185
 msgid "Patch %s exists already\\n"
