@@ -118,28 +118,31 @@
      (substring (quilt-cmd-to-string "top")  0 -1))))
 
 (defun quilt-complete-list (p l)
-  (defun to-alist (list n)
-    (if list
-	(cons (cons (car list) n)
-	      (to-alist (cdr list) (+ 1 n)))
-      nil))
-  (completing-read p (to-alist l 0) nil t))
+  ; First turn the list into an alist using indices as keys.
+  ; This modifies the list passed as an argument.
+  (let ((list l)
+	(n 0))
+    (while list
+      (setcar list (cons (car list) n))
+      (setq list (cdr list))
+      (setq n (1+ n))))
+  (completing-read p l nil t))
 
 (defun quilt-editable (f)
   (let ((qd (quilt-dir))
-	 (fn (quilt-drop-dir f)))
-    (defun editable (file dirs)
-      (if (car dirs)
-	  (if (file-exists-p (concat qd ".pc/" (car dirs) "/" file))
-	      't
-	    (editable file (cdr dirs)))
-	nil))
+	 (fn (quilt-drop-dir f))
+	 dirs result)
     (if qd
 	(if (quilt-bottom-p)
 	    (quilt-cmd "applied")	; to print error message
-	  (editable fn (if quilt-edit-top-only
-			   (list (quilt-top-patch))
-			 (cdr (cdr (directory-files (concat qd ".pc/"))))))))))
+	  (setq dirs (if quilt-edit-top-only
+			 (list (quilt-top-patch))
+			 (cdr (cdr (directory-files (concat qd ".pc/"))))))
+	  (while (and (not result) dirs)
+	    (if (file-exists-p (concat qd ".pc/" (car dirs) "/" fn))
+		(setq result t)
+	      (setq dirs (cdr dirs))))
+	  result))))
 
 (defun quilt-short-patchname ()
   (let ((p (quilt-top-patch)))
@@ -160,25 +163,18 @@
   (force-mode-line-update))
 
 (defun quilt-revert ()
-  (defun revert-or-hook-buffer ()
-    ;; If the file doesn't exist on disk it can't be reverted, but we
-    ;; need the revert hooks to run anyway so that the buffer's
-    ;; editability will update.
-    (if (file-exists-p buffer-file-name)
-	(revert-buffer 't 't)
-      (run-hooks 'after-revert-hook)))
-  (defun revert (buf)
-    (save-excursion
-      (set-buffer buf)
-      (let* ((fn (quilt-buffer-file-name-safe)))
-	(if (quilt-p fn)
-	  (quilt-update-modeline))
-	(if (and (quilt-owned-p fn)
-		 (not (buffer-modified-p)))
-	  (revert-or-hook-buffer)))))
   (dolist (buffer (buffer-list))
     (if (not (string-match "^ " (buffer-name buffer)))
-	(revert buffer))))
+	(save-excursion
+	  (set-buffer buffer)
+	  (let* ((fn (quilt-buffer-file-name-safe)))
+	    (if (quilt-p fn)
+		(quilt-update-modeline))
+	    (if (and (quilt-owned-p fn)
+		     (not (buffer-modified-p)))
+		(if (file-exists-p buffer-file-name)
+		    (revert-buffer 't 't)
+		  (run-hooks 'after-revert-hook))))))))
 
 (defun quilt-push (arg)
   "Push next patch, force with prefix arg"
