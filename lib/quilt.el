@@ -3,7 +3,7 @@
 ;;;
 ;;; Copyright 2005  Matt Mackall <mpm@selenic.com>
 ;;;
-;;; Satoru Takeuchi<nqm08501@nifty.com> took over this package
+;;; Satoru Takeuchi<satoru.takeuchi@gmail.com> took over this package
 ;;; from Matt Mackall.
 ;;;
 ;;; This software may be used and distributed according to the terms
