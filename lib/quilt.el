@@ -96,20 +96,21 @@
 	  (shell-command-to-string (concat "quilt " cmd))
 	(cd d)))))
 
-(defun quilt-applied-list ()
-  (let ((s (quilt-cmd-to-string "applied")))
+(defun quilt-cmd-to-list (cmd)
+  "execute a quilt command at the top of the quilt tree for the current buffer.
+Return the lines of the command output as elements of a list."
+  (let ((s (quilt-cmd-to-string cmd)))
     (if s
-	(split-string s "\n"))))
+        (split-string s "\n" t))))
+
+(defun quilt-applied-list ()
+  (quilt-cmd-to-list "applied"))
 
 (defun quilt-file-list ()
-  (let ((s (quilt-cmd-to-string "files")))
-    (if s
-	(split-string s "\n"))))
+  (quilt-cmd-to-list "files"))
 
 (defun quilt-patch-list ()
-  (let ((s (quilt-cmd-to-string "series")))
-     (if s
-	 (split-string s "\n"))))
+  (quilt-cmd-to-list "patches"))
 
 (defun quilt-top-patch ()
   (if (quilt-bottom-p)
