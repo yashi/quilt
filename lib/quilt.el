@@ -20,8 +20,20 @@
   (if (> (call-process "quilt" nil nil nil "applied") 0) 1))
 
 (defun quilt-patches-directory ()
-  (or (getenv "QUILT_PATCHES")
-      "patches"))
+  (or (save-excursion
+        (set-buffer (generate-new-buffer " *cmd"))
+        (shell-command
+         (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
+                 "echo -n $QUILT_PATCHES")
+         t)
+        (unwind-protect
+            (let ((v (buffer-string)))
+              (if (string= "" (buffer-string))
+                  nil
+                v))
+          (kill-buffer (current-buffer))))
+      (or (getenv "QUILT_PATCHES")
+          "patches")))
 
 (defun quilt-find-dir (fn)
   "find the top level dir for quilt from fn"
