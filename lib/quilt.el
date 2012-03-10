@@ -173,12 +173,8 @@
 	(if (and (quilt-owned-p fn)
 		 (not (buffer-modified-p)))
 	  (revert-or-hook-buffer)))))
-  (defun revert-list (buffers)
-    (if (not (car buffers))
-	nil
-      (revert (car buffers))
-      (revert-list (cdr buffers))))
-  (revert-list (buffer-list)))
+  (dolist (buffer (buffer-list))
+    (revert buffer)))
 
 (defun quilt-push (arg)
   "Push next patch, force with prefix arg"
