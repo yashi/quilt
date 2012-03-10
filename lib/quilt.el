@@ -175,7 +175,8 @@
 		 (not (buffer-modified-p)))
 	  (revert-or-hook-buffer)))))
   (dolist (buffer (buffer-list))
-    (revert buffer)))
+    (if (not (string-match "^ " (buffer-name buffer)))
+	(revert buffer))))
 
 (defun quilt-push (arg)
   "Push next patch, force with prefix arg"
