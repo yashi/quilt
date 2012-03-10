@@ -33,8 +33,7 @@
 
 (defun quilt-patches-directory ()
   "Return the location of patch files."
-  (or (save-excursion
-        (set-buffer (generate-new-buffer " *cmd"))
+  (or (with-current-buffer (generate-new-buffer " *cmd")
         (shell-command
          (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
                  "echo -n $QUILT_PATCHES")
@@ -218,8 +217,7 @@ editability adjusted."
 	fn)
     (dolist (buf (buffer-list))
       (if (not (string-match "^ " (buffer-name buf)))
-	(save-excursion
-	  (set-buffer buf)
+	(with-current-buffer buf
 	  (setq fn (quilt-buffer-file-name-safe))
 	  (when (string-equal qd (quilt-dir))
 	    (quilt-update-modeline)
@@ -353,8 +351,7 @@ editability adjusted."
 (defun quilt-add (arg)
   "Add ARG to the current patch."
   (interactive "b")
-  (save-excursion
-    (set-buffer arg)
+  (with-current-buffer arg
     (let ((fn (quilt-buffer-file-name-safe)))
       (cond
        ((not fn)
@@ -468,6 +465,8 @@ editability adjusted."
 		  (quilt-cmd (concat "delete " p))
 		  (quilt-revert fa)))))))))
 
+(defvar quilt-header-directory nil)
+
 (defun quilt-header-commit ()
   "Commit to change patch header."
   (interactive)
@@ -495,13 +494,12 @@ editability adjusted."
 	      (message "no patch name is supplied")
 	    (if (not p)
 		(quilt-cmd "applied")	; to print error message
-	      (let ((qb (get-buffer-create (format " *quilt-heaer(%s)*" p))))
+	      (let ((qb (get-buffer-create (format " *quilt-header(%s)*" p))))
 		(switch-to-buffer-other-window qb)
 		(erase-buffer)
 		(kill-all-local-variables)
 		(make-local-variable 'quilt-header-directory)
 		(setq quilt-header-directory default-directory)
-		(setq mode-map "quilt-header")
 		(use-local-map quilt-header-mode-map)
 		(setq major-mode 'quilt-header-mode)
 		(call-process "quilt" nil qb nil "header" p)
