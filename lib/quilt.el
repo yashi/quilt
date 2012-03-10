@@ -112,6 +112,24 @@ Return the lines of the command output as elements of a list."
 (defun quilt-patch-list ()
   (quilt-cmd-to-list "patches"))
 
+(defun quilt-files-affected (&optional first last)
+  (let ((qd (quilt-dir))
+        files fp)
+    (when qd
+      (setq files (quilt-cmd-to-list
+                   (if last
+                       (if (equal first last)
+                           (concat "files " first)
+                         (concat "files --combine " first last))
+                     (if first
+                         (concat "files --combine " first)
+                       "files"))))
+      (setq fp files)
+      (while fp
+        (setcar fp (concat qd (car fp)))
+        (setq fp (cdr fp)))
+      files)))
+
 (defun quilt-top-patch ()
   (if (quilt-bottom-p)
       nil
@@ -163,19 +181,34 @@ Return the lines of the command output as elements of a list."
 	(concat " Q:" (quilt-short-patchname)))
   (force-mode-line-update))
 
-(defun quilt-revert ()
-  (dolist (buffer (buffer-list))
-    (if (not (string-match "^ " (buffer-name buffer)))
+(defun quilt-revert (filelist)
+  "Refresh contents, editability and modeline of buffers.
+The buffers won't be touched unless their file is a child of the
+current quilt directory. The filelist should contain the absolute
+file names of those files affected by the latest quilt
+operation. Their buffers get reverted to update their
+contents. Other buffers will only get their modeline and
+editability adjusted."
+  (let ((qd (quilt-dir))
+	fn)
+    (dolist (buf (buffer-list))
+      (if (not (string-match "^ " (buffer-name buf)))
 	(save-excursion
-	  (set-buffer buffer)
-	  (let* ((fn (quilt-buffer-file-name-safe)))
-	    (if (quilt-p fn)
-		(quilt-update-modeline))
-	    (if (and (quilt-owned-p fn)
-		     (not (buffer-modified-p)))
-		(if (file-exists-p buffer-file-name)
-		    (revert-buffer 't 't)
-		  (run-hooks 'after-revert-hook))))))))
+	  (set-buffer buf)
+	  (setq fn (quilt-buffer-file-name-safe))
+	  (when (string-equal qd (quilt-dir))
+	    (quilt-update-modeline)
+	    (when (and (not (buffer-modified-p))
+		       (quilt-owned-p fn))
+	      ;; If the file doesn't exist on disk it can't be reverted, but we
+	      ;; need the revert hooks to run anyway so that the buffer's
+	      ;; editability will update. Files not affected by the latest change
+	      ;; (as listed in filelist) don't need to get reverted either.
+	      (if (and (file-exists-p buffer-file-name)
+		       (member fn filelist))
+		  (progn
+		    (revert-buffer t t t))
+		(run-hooks 'after-revert-hook)))))))))
 
 (defun quilt-push (arg)
   "Push next patch, force with prefix arg"
@@ -184,7 +217,7 @@ Return the lines of the command output as elements of a list."
   (if arg
       (quilt-cmd "push -f" "*quilt*")
     (quilt-cmd "push -q"))
-  (quilt-revert))
+  (quilt-revert (quilt-files-affected)))
 
 (defun quilt-pop (arg)
   "Pop top patch, force with prefix arg"
@@ -193,25 +226,27 @@ Return the lines of the command output as elements of a list."
   (if arg
       (quilt-cmd "pop -f")
     (quilt-cmd "pop -q"))
-  (quilt-revert))
+  (quilt-revert (quilt-files-affected)))
 
 (defun quilt-push-all (arg)
   "Push all remaining patches"
   (interactive "P")
   (quilt-save)
-  (if arg
-      (quilt-cmd "push -f" "*quilt*")
-    (quilt-cmd "push -qa"))
-  (quilt-revert))
+  (let ((next (car (quilt-cmd-to-list "next"))))
+    (if arg
+	(quilt-cmd "push -f" "*quilt*")
+      (quilt-cmd "push -qa"))
+    (quilt-revert (quilt-files-affected next))))
 
 (defun quilt-pop-all (arg)
   "Pop all applied patches, force with prefix arg"
   (interactive "P")
   (quilt-save)
-  (if arg
-      (quilt-cmd "pop -af")
-    (quilt-cmd "pop -qa"))
-  (quilt-revert))
+  (let ((fa (quilt-files-affected "-")))
+    (if arg
+	(quilt-cmd "pop -af")
+      (quilt-cmd "pop -qa"))
+    (quilt-revert fa)))
 
 (defun quilt-goto ()
   "Go to a specified patch"
@@ -222,11 +257,20 @@ Return the lines of the command output as elements of a list."
       (let ((arg (quilt-complete-list "Goto patch: " (quilt-patch-list))))
 	(if (string-equal arg "")
 	    (message "no patch name is supplied")
-	    (quilt-save)
+	  (quilt-save)
+	  (let (cmd first last)
 	    (if (file-exists-p (concat qd ".pc/" arg))
-		(quilt-cmd (concat "pop -q " arg) "*quilt*")
-	      (quilt-cmd (concat "push -q " arg) "*quilt*"))
-	    (quilt-revert))))))
+		(progn
+		  (setq cmd "pop")
+		  (setq first (car (quilt-cmd-to-list (concat "next " arg))))
+		  (setq last (quilt-top-patch)))
+	      (setq cmd "push")
+	      (setq last arg)
+	      (setq first (if (quilt-bottom-p)
+			      "-"
+			    (car (quilt-cmd-to-list "next")))))
+	    (quilt-cmd (concat cmd " -q " arg) "*quilt*")
+	  (quilt-revert (quilt-files-affected first last))))))))
 
 (defun quilt-top ()
   "Display topmost patch"
@@ -274,7 +318,7 @@ Return the lines of the command output as elements of a list."
       (message "no patch name is supplied")
     (quilt-save)
     (quilt-cmd (concat "new " f ".patch"))
-    (quilt-revert)))
+    (quilt-revert nil)))
 
 (defun quilt-applied ()
   "Show applied patches"
@@ -294,7 +338,7 @@ Return the lines of the command output as elements of a list."
 	(quilt-cmd (concat "push")))	; to print error message
        (t
 	(quilt-cmd (concat "add " (quilt-drop-dir fn)))
-	(quilt-revert))))))
+	(quilt-revert (list fn)))))))
 
 (defun quilt-edit-patch ()
   "Edit the topmost patch"
@@ -353,7 +397,7 @@ Return the lines of the command output as elements of a list."
 	  (if (y-or-n-p (format "Really drop %s? " dropped))
 	      (progn
 		(quilt-cmd (concat "remove " dropped))
-		(quilt-revert)))))))))
+		(quilt-revert (list f))))))))))
 
 (defun quilt-edit-series ()
   "Edit the patch series file"
@@ -394,10 +438,10 @@ Return the lines of the command output as elements of a list."
 	  (if (not p)
 	      (quilt-cmd "applied")	; to print error message
 	    (if (y-or-n-p (format "Really delete %s?" p))
-		(progn
+		(let ((fa (quilt-files-affected p p)))
 		  (quilt-save)
 		  (quilt-cmd (concat "delete " p))
-		  (quilt-revert)))))))))
+		  (quilt-revert fa)))))))))
 
 (defun quilt-header-commit ()
   "commit to change patch header"
