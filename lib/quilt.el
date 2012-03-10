@@ -48,7 +48,8 @@
   (quilt-find-dir (if fn fn
 		    (let ((fn2 (quilt-buffer-file-name-safe)))
 		      (if fn2 fn2
-			(expand-file-name default-directory))))))
+			(if default-directory
+			    (expand-file-name default-directory)))))))
 
 (defun quilt-drop-dir (fn)
   (let ((d (quilt-find-dir fn)))
