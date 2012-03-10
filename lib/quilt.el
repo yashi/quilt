@@ -81,8 +81,9 @@
     (if (not qd)
 	(shell-command (concat "quilt " cmd) buf)
       (cd qd)
-      (shell-command (concat "quilt " cmd) buf)
-      (cd d))))
+      (unwind-protect ; make sure to cd back even if an erro occurs.
+	  (shell-command (concat "quilt " cmd) buf)
+	(cd d)))))
 
 (defun quilt-cmd-to-string (cmd)
   "execute a quilt command at the top of the quilt tree for the given buffer"
@@ -91,8 +92,9 @@
     (if (not qd)
 	nil
       (cd qd)
-      (let ((r (shell-command-to-string (concat "quilt " cmd))))
-	(cd d) r))))
+      (unwind-protect ; make sure to cd back even if an error occurs.
+	  (shell-command-to-string (concat "quilt " cmd))
+	(cd d)))))
 
 (defun quilt-applied-list ()
   (let ((s (quilt-cmd-to-string "applied")))
