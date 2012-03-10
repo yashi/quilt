@@ -5,8 +5,6 @@
 ;;  from Matt Mackall.
 
 ;; Author: Saotru takeuchi <satoru.takeuchi@gmail.com>
-;; Version: 0.45.3
-;; URL:  http://stakeuchi.sakura.ne.jp/dev/quilt-el
 ;;
 ;; This software may be used and distributed according to the terms
 ;; of the GNU General Public License, incorporated herein by reference.
