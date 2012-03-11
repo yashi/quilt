@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Mar 11 14:21:58 JST 2012 - satoru.takeuchi@gmail.com
+
+New features and bug fixes for lib/quilt.el.
+
+- Be aware of QUILT_PATCHES environment variable.
+- Support multiple quilt trees.
+- Optimize "quilt-revert".
+- Fix some bugs and clean up code.
+
+-------------------------------------------------------------------
 Wed Feb 29 18:25:56 CET 2012 - jdelvare@suse.de
 
 - configure*: Bump version to 0.60 "Happy Birthday Lina".
