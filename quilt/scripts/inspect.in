@@ -274,6 +274,22 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	}
 
+	pwd_to_dir() {
+		local subdir=$1 dir
+
+		if [ -n "$subdir" ]
+		then
+			dir=$(cd "$subdir" && echo $PWD)
+		else
+			dir=$PWD
+		fi
+		dir=${dir/$RPM_BUILD_DIR}
+		dir=${dir##/}
+		dir=${dir// /\\ }
+
+		echo "$dir"
+	}
+
 	tmpdir=${RPM_BUILD_DIR%/*}
 	rm -f $tmpdir/data
 	case "${0##*/}" in
@@ -301,38 +317,19 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		patch)
 			echo -n p >&4
 			subdir=$(patch_opt_d "$@")
-			if [ -n "$subdir" ]
-			then
-				dir=$(cd "$subdir" && echo $PWD)
-			else
-				dir=$PWD
-			fi
-			dir=${dir/$RPM_BUILD_DIR}
-			dir=${dir##/}
-			dir=${dir// /\\ }
+			dir=$(pwd_to_dir $subdir)
 			echo "${0##*/} ${dir:-.} $unpackfile" \
 			     $(strip_option "$@") $(reverse_option "$@") >&3
 			;;
 		tar)
 			echo -n t >&4
 			subdir=$(tar_opt_C "$@")
-			if [ -n "$subdir" ]
-			then
-				dir=$(cd "$subdir" && echo $PWD)
-			else
-				dir=$PWD
-			fi
-			dir=${dir/$RPM_BUILD_DIR}
-			dir=${dir##/}
-			dir=${dir// /\\ }
+			dir=$(pwd_to_dir $subdir)
 			echo "${0##*/} ${dir:-.} $unpackfile" >&3
 			;;
 		unzip)
 			echo -n Z >&4
-			dir=$PWD
-			dir=${dir/$RPM_BUILD_DIR}
-			dir=${dir##/}
-			dir=${dir// /\\ }
+			dir=$(pwd_to_dir)
 			echo "${0##*/} ${dir:-.} $unpackfile" >&3
 			;;
 		esac
