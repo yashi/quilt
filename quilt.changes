@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Oct 25 18:04:15 CEST 2012 - jdelvare@suse.de
+
+- Fix typos in japanese translation.
+
+-------------------------------------------------------------------
 Thu Oct 25 15:05:42 CEST 2012 - jdelvare@suse.de
 
 - setup: Check for existing files after unpacking, not before.
