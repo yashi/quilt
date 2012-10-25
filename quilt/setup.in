@@ -183,8 +183,6 @@ case "$1" in
 	;;
 esac
 
-check_for_existing_files || exit 1
-
 while read tag dir arg1 arg2
 do
 	case "$tag" in
@@ -202,6 +200,8 @@ do
 		;;
 	esac
 done < $tmpfile
+
+check_for_existing_files || exit 1
 
 while read tag dir arg1 arg2
 do
