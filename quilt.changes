@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Oct 25 15:05:10 CEST 2012 - jdelvare@suse.de
+
+- Makefile: Keep reference entries sorted.
+
+-------------------------------------------------------------------
 Sun Mar 11 14:21:58 JST 2012 - satoru.takeuchi@gmail.com
 
 New features and bug fixes for lib/quilt.el.

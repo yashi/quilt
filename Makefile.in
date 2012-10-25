@@ -213,7 +213,7 @@ doc/quilt.1: doc/quilt.1.in doc/reference $(COMPAT)
 
 doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns quilt/scripts/utilfns $(COMPAT)
 	@unset LANG LC_MESSAGES LC_CTYPE LC_ALL;			\
-	for i in $(QUILT);						\
+	for i in $(sort $(QUILT));					\
 	do								\
 		echo;							\
 		QUILT_PC=.fake_pc quilt $$i -h;				\
