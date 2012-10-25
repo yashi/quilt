@@ -22,6 +22,25 @@ then
 	fi
 fi
 
+check_for_existing_directories() {
+	local tag dir last_dir arg status=0
+
+	while read tag dir arg
+	do
+		[ "$dir" != "." -a "$dir" != "$last_dir" ] || continue
+
+		if [ -e "$prefix$dir" ]
+		then
+			printf $"Directory %s exists\n" \
+			       "$prefix$dir" >&2
+			status=1
+		fi
+		last_dir=$dir
+	done < $tmpfile
+
+	return $status
+}
+
 check_for_existing_files() {
 	local tag dir last_dir arg status=0
 
@@ -195,6 +214,9 @@ case "$1" in
 	done < "$series_file" > $tmpfile
 	;;
 esac
+
+# Make sure that unpacking will not overwrite anything
+check_for_existing_directories || exit 1
 
 while read tag dir arg1 arg2
 do

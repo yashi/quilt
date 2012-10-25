@@ -64,12 +64,17 @@ $ quilt push -qa
 $ cd ../..
 $ rm -rf "dir"
 
-# Now test the case where the tarball contains a patches directory
+# Now test the cases where the directory already exists, or the tarball
+# contains a patches directory
 $ cat > series_with_patches
 < # Source: dir_with_patches.tar.gz
 < # Patchdir: dir
 < #
 < foo.diff
+$ mkdir dir
+$ quilt setup series_with_patches
+> Directory dir exists
+$ rmdir dir
 $ quilt setup series_with_patches
 > Unpacking archive dir_with_patches.tar.gz
 > Directory dir/patches exists

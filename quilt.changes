@@ -6,6 +6,7 @@ Thu Oct 25 15:05:42 CEST 2012 - jdelvare@suse.de
 - setup: Run create_db().
 - setup/inspect: Handle zip archives.
 - setup: Fix white space handling by check_for_existing_files.
+- setup: Check for existing directories before unpacking.
 
 -------------------------------------------------------------------
 Thu Oct 25 15:05:10 CEST 2012 - jdelvare@suse.de
