@@ -201,7 +201,13 @@ do
 	esac
 done < $tmpfile
 
-check_for_existing_files || exit 1
+if ! check_for_existing_files
+then
+	echo "Trying alternative patches and series names..." >&2
+	QUILT_PATCHES=quilt_patches
+	QUILT_SERIES=quilt_series
+	check_for_existing_files || exit 1
+fi
 
 while read tag dir arg1 arg2
 do
