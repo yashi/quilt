@@ -3,6 +3,7 @@ Thu Oct 25 15:05:42 CEST 2012 - jdelvare@suse.de
 
 - setup: Check for existing files after unpacking, not before.
 - setup: Try alternative patches/series names.
+- setup: Run create_db().
 
 -------------------------------------------------------------------
 Thu Oct 25 15:05:10 CEST 2012 - jdelvare@suse.de

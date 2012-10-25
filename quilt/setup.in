@@ -218,8 +218,12 @@ do
 		tar_file="$arg1"
 		;;
 	patch)
-		[ -e "$prefix$dir/$QUILT_PATCHES" ] \
-		|| create_symlink "$sourcedir" "$prefix$dir/$QUILT_PATCHES"
+		if [ ! -e "$prefix$dir/$QUILT_PATCHES" ]
+		then
+			create_symlink "$sourcedir" "$prefix$dir/$QUILT_PATCHES"
+			(cd "$prefix$dir" && create_db)
+		fi
+
 		if [ -n "$series_file" ]
 		then
 			[ -e "$prefix$dir/$QUILT_SERIES" ] \

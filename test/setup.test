@@ -7,7 +7,11 @@ $ diff -u dir/foo.orig dir/foo > revert.diff
 $ diff -u dir/foo.orig dir/foo > again.diff
 $ mv dir/foo.orig dir/foo
 $ tar cf - dir | gzip > dir.tar.gz
+$ mkdir dir/patches
+$ echo crap > dir/patches/foo.diff
+$ tar cf - dir | gzip > dir_with_patches.tar.gz
 $ rm -rf dir
+
 $ cat > series
 < # Source: dir.tar.gz
 < # Patchdir: dir
@@ -57,6 +61,28 @@ $ quilt push -qa
 > Applying patch patches/revert.diff
 > Applying patch patches/again.diff
 > Now at patch patches/again.diff
+$ cd ../..
+$ rm -rf "dir"
+
+# Now test the case where the tarball contains a patches directory
+$ cat > series_with_patches
+< # Source: dir_with_patches.tar.gz
+< # Patchdir: dir
+< #
+< foo.diff
+$ quilt setup series_with_patches
+> Unpacking archive dir_with_patches.tar.gz
+> Directory dir/patches exists
+> Trying alternative patches and series names...
+$ cd dir
+$ ls -l quilt_patches quilt_series | sed -e 's:.* -> ::'
+> ..
+> ../series_with_patches
+$ quilt push -qa
+> Applying patch quilt_patches/foo.diff
+> Now at patch quilt_patches/foo.diff
+$ cd ..
+$ rm -rf "dir"
 
 # Now a basic test with space in dir name
 $ mkdir "space [dir]"
