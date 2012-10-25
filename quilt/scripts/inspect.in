@@ -251,6 +251,21 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	}
 
+	unzip_input_file() {
+		while [ $# -gt 0 ]; do
+			case "$1" in
+			-*)
+				shift
+				;;
+			*)
+				echo "$1"
+				return
+				;;
+			esac
+		done
+		return 1
+	}
+
 	tar_opt_C() {
 		case "$1" in
 		*C*f*)
@@ -269,6 +284,9 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		inputfile=$(tar_input_file "$@")
 		# For tar, file - means read from stdin
 		[ "$inputfile" = "-" ] && inputfile=
+		;;
+	unzip)
+		inputfile=$(unzip_input_file "$@")
 		;;
 	esac
 	if [ -z "$inputfile" ]; then
@@ -309,6 +327,14 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 			dir=${dir// /\\ }
 			echo "${0##*/} ${dir:-.} $unpackfile" >&3
 			;;
+		unzip)
+			echo -n Z >&4
+			dir=$PWD
+			dir=${dir/$RPM_BUILD_DIR}
+			dir=${dir##/}
+			dir=${dir// /\\ }
+			echo "${0##*/} ${dir:-.} $unpackfile" >&3
+			;;
 		esac
 	fi
 
@@ -333,6 +359,7 @@ fi
 
 ln -s wrapper $tmpdir/bin/patch
 ln -s wrapper $tmpdir/bin/tar
+ln -s wrapper $tmpdir/bin/unzip
 
 # let rpm do all the dirty specfile stuff ...
 echo -n "### rpmbuild: " >&4
@@ -343,6 +370,7 @@ rpmbuild --eval "%define _sourcedir $sourcedir" \
 	 --eval "%define _builddir  $tmpdir/build" \
 	 --eval "%define __patch    $tmpdir/bin/patch" \
 	 --eval "%define __tar      $tmpdir/bin/tar" \
+	 --eval "%define __unzip    $tmpdir/bin/unzip" \
 	 --eval "$DEFINE_FUZZ" \
 	 --nodeps \
 	 -bp "$specdir/$specfile" < /dev/null >&5 2>&5

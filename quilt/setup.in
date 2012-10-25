@@ -167,7 +167,15 @@ case "$1" in
 		"# Source: "*)
 			shift 2
 			source="$@"
-			echo "tar ${tar_dir:-.} ${source// /\\ }"
+			filetype="$(file -b "$source")"
+			case "$filetype" in
+			Zip*)
+				echo "unzip ${tar_dir:-.} ${source// /\\ }"
+				;;
+			*)
+				echo "tar ${tar_dir:-.} ${source// /\\ }"
+				;;
+			esac
 			;;
 		"# Patchdir: "*)
 			shift 2
@@ -198,6 +206,17 @@ do
 		cat_file "$tarball" \
 		| tar xf - -C "$prefix$dir"
 		;;
+	unzip)
+		tarball=$sourcedir$arg1
+		if [ ! -e "$tarball" ]
+		then
+			printf $"File %s not found\n" "$tarball" >&2
+			exit 1
+		fi
+		printf $"Unpacking archive %s\n" "$tarball"
+		mkdir -p "${prefix:-.}" "$prefix$dir"
+		unzip -qqo "$tarball" -d "$prefix$dir"
+		;;
 	esac
 done < $tmpfile
 
@@ -212,7 +231,7 @@ fi
 while read tag dir arg1 arg2
 do
 	case "$tag" in
-	tar)
+	tar|unzip)
 		tar_dir="$dir"
 		[ "$tar_dir" = . ] && tar_dir=
 		tar_file="$arg1"
