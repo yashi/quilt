@@ -95,7 +95,7 @@ fi
 
 if [ -n "$opt_all" ]
 then
-	set -- $(patches_before $last_patch) $last_patch
+	set -- $(patches_before "$last_patch") "$last_patch"
 	while [ $# -ge 1 -a "$1" != "$first_patch" ]
 	do
 		shift
@@ -103,20 +103,20 @@ then
 	if [ $# -eq 0 ]
 	then
 		printf $"Patch %s not applied before patch %s\n" \
-		       "$(print_patch $first_patch)" \
-		       "$(print_patch $last_patch)" >&2
+		       "$(print_patch "$first_patch")" \
+		       "$(print_patch "$last_patch")" >&2
 		exit 1
 	fi
-	patches=( $@ )
+	patches=( "$@" )
 else
-	patches=( $last_patch )
+	patches=( "$last_patch" )
 fi
 
 list_files_in_patch()
 {
 	local patch=$1
 	local status
-	local saved_IFS="$IFS"
+	local saved_IFS=$IFS
 
 	if [ -n "$opt_all" ] && [ -n "$opt_verbose" ] && [ -z "$opt_labels" ]
 	then
@@ -146,14 +146,14 @@ list_files_in_patch()
 			echo "$file"
 		else
 			status=" "
-			if [ -s $(backup_file_name $patch $file) ]
+			if [ -s $(backup_file_name "$patch" "$file") ]
 			then
-				if ! [ -s $file ]
+				if ! [ -s "$file" ]
 				then
 					status="-"
 				fi
 			else
-				if [ -s $file ]
+				if [ -s "$file" ]
 				then
 					status="+"
 				fi
@@ -161,12 +161,12 @@ list_files_in_patch()
 			echo "$status $file"
 		fi
 	done
-	IFS="$saved_IFS"
+	IFS=$saved_IFS
 }
 
 setup_pager
 
-for patch in ${patches[@]}
+for patch in "${patches[@]}"
 do
 	list_files_in_patch "$patch"
 done

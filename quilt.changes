@@ -6,6 +6,7 @@ Wed Dec  5 14:44:13 CET 2012 - jdelvare@suse.de
 - diff: Fix parameter quoting.
 - refresh: Fix parameter quoting.
 - remove: Fix parameter quoting.
+- files: Fix parameter quoting.
 
 -------------------------------------------------------------------
 Wed Dec  5 14:43:58 CET 2012 - jdelvare@suse.de
