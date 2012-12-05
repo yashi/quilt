@@ -149,7 +149,7 @@ do
 		opt_strip_level=$2
 		shift 2 ;;
 	-P)
-		last_patch="$2"
+		last_patch=$2
 		shift 2 ;;
 	--combine)
 		opt_combine=1
@@ -179,7 +179,7 @@ do
 		snap_subdir=.snap
 		shift ;;
 	--diff)
-		opt_diff="$2"
+		opt_diff=$2
 		shift 2 ;;
 	--no-timestamps)
 		QUILT_NO_DIFF_TIMESTAMPS=1
@@ -223,7 +223,7 @@ last_patch=$(find_applied_patch "$last_patch") || exit 1
 
 if [ -z "$opt_strip_level" ]
 then
-	opt_strip_level=$(patch_strip_level $last_patch)
+	opt_strip_level=$(patch_strip_level "$last_patch")
 fi
 case "$opt_strip_level" in
 0 | 1 | ab)
@@ -256,12 +256,12 @@ then
 	unset files
 	# Also look at all patches that are currently applied.
 	opt_combine=1
-	first_patch="$(applied_patches | head -n 1)"
+	first_patch=$(applied_patches | head -n 1)
 fi
 
 if [ -n "$opt_combine" ]
 then
-	set -- $(patches_before $last_patch) $last_patch
+	set -- $(patches_before "$last_patch") "$last_patch"
 	if [ "$first_patch" != "-" ]
 	then
 		while [ $# -ge 1 -a "$1" != "$first_patch" ]
@@ -271,14 +271,14 @@ then
 		if [ $# -eq 0 ]
 		then
 			printf $"Patch %s not applied before patch %s\n" \
-			       "$(print_patch $first_patch)" \
-			       "$(print_patch $last_patch)" >&2
+			       "$(print_patch "$first_patch")" \
+			       "$(print_patch "$last_patch")" >&2
 			die 1
 		fi
 	fi
-	patches=( $@ )
+	patches=( "$@" )
 else
-	patches=( $last_patch )
+	patches=( "$last_patch" )
 fi
 
 # Properly handle spaces in file names
@@ -287,7 +287,7 @@ IFS=$'\n'
 
 for patch in ${patches[@]}
 do
-	for file in $(files_in_patch_ordered $patch)
+	for file in $(files_in_patch_ordered "$patch")
 	do
 		if [ ${#opt_files[@]} -gt 0 ] && \
 		   ! in_array "$file" "${opt_files[@]#./}"
@@ -347,7 +347,7 @@ do
 	next_patch=$(next_patch_for_file "$last_patch" "$file")
 	if [ -z "$next_patch" ]
 	then
-		new_file="$file"
+		new_file=$file
 	else
 		new_file=$(backup_file_name "$next_patch" "$file")
 		files_were_shadowed=1
@@ -365,7 +365,7 @@ done
 if [ -n "$files_were_shadowed" ]
 then
 	printf $"Warning: more recent patches modify files in patch %s\n" \
-	       "$(print_patch $last_patch)" >&2
+	       "$(print_patch "$last_patch")" >&2
 fi
 die 0
 ### Local Variables:
