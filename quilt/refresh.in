@@ -182,14 +182,14 @@ if [ -n "$opt_fork" ]; then
 		patch=$(next_filename "$patch")
 	fi
 	if [ -e "$(patch_file_name "$patch")" ]; then
-		printf $"Patch %s exists already\n" "$(print_patch $patch)" >&2
+		printf $"Patch %s exists already\n" "$(print_patch "$patch")" >&2
 		exit 1
 	fi
 fi
 
 if [ -z "$opt_strip_level" ]
 then
-	opt_strip_level=$(patch_strip_level $patch)
+	opt_strip_level=$(patch_strip_level "$patch")
 fi
 case "$opt_strip_level" in
 0 | 1)
@@ -237,7 +237,7 @@ do
 
 	if [ -n "$files_were_shadowed" -a -z "$opt_force" ]
 	then
-		printf $"More recent patches modify files in patch %s. Enforce refresh with -f.\n" "$(print_patch $patch)" >&2
+		printf $"More recent patches modify files in patch %s. Enforce refresh with -f.\n" "$(print_patch "$patch")" >&2
 		die 1
 	fi
 
@@ -249,7 +249,7 @@ done >> $tmp_patch
 
 if ! [ -s $tmp_patch ]
 then
-	printf $"Nothing in patch %s\n" "$(print_patch $patch)" >&2
+	printf $"Nothing in patch %s\n" "$(print_patch "$patch")" >&2
 	die 1
 fi
 
@@ -269,7 +269,7 @@ else
 fi
 # FIXME: no stripping of non-topmost patch !!!
 
-patch_file=$(patch_file_name $patch)
+patch_file=$(patch_file_name "$patch")
 
 trap "" SIGINT
 
@@ -316,22 +316,22 @@ fi
 
 cat $tmp_patch >> $tmp_result
 
-mkdir -p $(dirname $patch_file)
+mkdir -p $(dirname "$patch_file")
 
-if [ -e $patch_file ] && \
-   diff -q $patch_file $tmp_result > /dev/null
+if [ -e "$patch_file" ] && \
+   diff -q "$patch_file" $tmp_result > /dev/null
 then
-	printf $"Patch %s is unchanged\n" "$(print_patch $patch)"
-elif ( [ -z "$QUILT_BACKUP" -o ! -e $patch_file ] || \
-       mv $patch_file $patch_file~ ) && \
-     cat_to_new_file $patch_file < $tmp_result
+	printf $"Patch %s is unchanged\n" "$(print_patch "$patch")"
+elif ( [ -z "$QUILT_BACKUP" -o ! -e "$patch_file" ] || \
+       mv "$patch_file" "$patch_file~" ) && \
+     cat_to_new_file "$patch_file" < $tmp_result
 then
 	if [ -n "$opt_fork" ]
 	then
 		if ! insert_in_series "$patch" "$old_patch_args"
 		then
 			printf $"Failed to insert patch %s into file series\n" \
-			       "$(print_patch $patch)" >&2
+			       "$(print_patch "$patch")" >&2
 			rm -f "$patch_file"
 			exit 1
 		fi
@@ -340,22 +340,22 @@ then
 		   ! echo "$patch" >> $QUILT_PC/applied-patches
 		then
 			printf $"Failed to create patch %s\n" \
-			       "$(print_patch $patch)" >&2
+			       "$(print_patch "$patch")" >&2
 			exit 1
 		fi
 		printf $"Fork of patch %s created as %s\n" \
-			"$(print_patch $old_patch)" \
-			"$(print_patch $patch)"
+			"$(print_patch "$old_patch")" \
+			"$(print_patch "$patch")"
 	else
-		printf $"Refreshed patch %s\n" "$(print_patch $patch)"
+		printf $"Refreshed patch %s\n" "$(print_patch "$patch")"
 	fi
-	touch $QUILT_PC/$patch/.timestamp
+	touch "$QUILT_PC/$patch/.timestamp"
 else
 	die 1
 fi
 
-rm -f $QUILT_PC/$patch~refresh
-if ! change_db_strip_level -p$num_strip_level $patch
+rm -f "$QUILT_PC/$patch~refresh"
+if ! change_db_strip_level -p$num_strip_level "$patch"
 then
 	die 1
 fi
