@@ -58,7 +58,7 @@ while true
 do
 	case "$1" in
 	-P)
-		opt_patch="$2"
+		opt_patch=$2
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -77,33 +77,33 @@ patch=$(find_patch_in_series "$opt_patch") || exit 1
 
 new_patch=${1#$QUILT_PATCHES/}
 
-if patch_in_series $new_patch || \
+if patch_in_series "$new_patch" || \
    [ -d "$QUILT_PC/$new_patch" ] || \
-   [ -e "$(patch_file_name $new_patch)" ]
+   [ -e "$(patch_file_name "$new_patch")" ]
 then
 	printf $"Patch %s exists already, please choose a different name\n" \
-	       "$(print_patch $new_patch)" >&2
+	       "$(print_patch "$new_patch")" >&2
 	exit 1
 fi
 
-if ( is_applied $patch && \
+if ( is_applied "$patch" && \
      ( ! rename_in_db "$patch" "$new_patch" || \
        ! move_file "$QUILT_PC/$patch" \
 		   "$QUILT_PC/$new_patch" ) ) || \
    ! rename_in_series "$patch" "$new_patch" || \
-   ( [ -e "$(patch_file_name $patch)" ] && \
-     ! move_file "$(patch_file_name $patch)" \
-		 "$(patch_file_name $new_patch)" )
+   ( [ -e "$(patch_file_name "$patch")" ] && \
+     ! move_file "$(patch_file_name "$patch")" \
+		 "$(patch_file_name "$new_patch")" )
 then
 	printf $"Renaming of patch %s to %s failed\n" \
-	       "$(print_patch $patch)" \
-	       "$(print_patch $new_patch)" >&2
+	       "$(print_patch "$patch")" \
+	       "$(print_patch "$new_patch")" >&2
 	exit 1
 fi
 
 printf $"Patch %s renamed to %s\n" \
-       "$(print_patch $patch)" \
-       "$(print_patch $new_patch)"
+       "$(print_patch "$patch")" \
+       "$(print_patch "$new_patch")"
 
 ### Local Variables:
 ### mode: shell-script
