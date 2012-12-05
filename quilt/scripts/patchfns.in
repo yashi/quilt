@@ -88,6 +88,12 @@ quote_re()
 	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
 
+# Quote a string for use in a globing pattern.
+quote_glob()
+{
+	echo "$1" | sed -e 's:\([][*?\\]\):\\\1:g'
+}
+
 patch_file_name()
 {
 	echo "$QUILT_PATCHES/$1"
@@ -650,8 +656,8 @@ files_in_patch()
 	if [ -d "$path" ]
 	then
 		find "$path" -type f \
-			       -a ! -path "$path/.timestamp" |
-		sed -e "s:$path/::"
+			       -a ! -path "$(quote_glob "$path")/.timestamp" |
+		sed -e "s/$(quote_bre "$path")\///"
 	fi
 }
 

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Dec  5 14:42:33 CET 2012 - bpoirier@suse.de
+
+- Fix handling of patch files with ':' in their name.
+
+-------------------------------------------------------------------
 Mon Dec  3 10:29:57 CET 2012 - jdelvare@suse.de
 
 - push: Always let the user force pushing a patch.
