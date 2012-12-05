@@ -48,7 +48,7 @@ while true
 do
 	case "$1" in
 	-P)
-		opt_patch="$2"
+		opt_patch=$2
 		shift 2 ;;
 	-h)
 		usage -h ;;
@@ -68,38 +68,38 @@ patch=$(find_applied_patch "$opt_patch") || exit 1
 status=0
 for file in "$@"
 do
-	if ! file_in_patch "$SUBDIR$file" $patch
+	if ! file_in_patch "$SUBDIR$file" "$patch"
 	then
 		printf $"File %s is not in patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $patch)" >&2
+		       "$SUBDIR$file" "$(print_patch "$patch")" >&2
 		status=1
 		continue
 	fi
 
-	next_patch=$(next_patch_for_file $patch "$SUBDIR$file")
+	next_patch=$(next_patch_for_file "$patch" "$SUBDIR$file")
 	if [ -n "$next_patch" ]
 	then
 		printf $"File %s modified by patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $next_patch)"
+		       "$SUBDIR$file" "$(print_patch "$next_patch")"
 		status=1
 		continue
 	fi
 
 	# Restore file from backup
-	if ! $QUILT_DIR/scripts/backup-files -r -t -s -B $QUILT_PC/$patch/ "$SUBDIR$file"
+	if ! $QUILT_DIR/scripts/backup-files -r -t -s -B "$QUILT_PC/$patch/" "$SUBDIR$file"
 	then
 		printf $"Failed to remove file %s from patch %s\n" \
-		       "$SUBDIR$file" "$(print_patch $patch)" >&2
+		       "$SUBDIR$file" "$(print_patch "$patch")" >&2
 		status=1
 		continue
 	fi
 
-	if [ -e $(dirname $QUILT_PC/$patch~refresh) -a \
-	     -e $(patch_file_name $patch) ]
+	if [ -e "$(dirname "$QUILT_PC/$patch~refresh")" -a \
+	     -e "$(patch_file_name "$patch")" ]
 	then
 		# The patch must be refreshed in order to get rid of the
 		# patch permanently.
-		touch $QUILT_PC/$patch~refresh
+		touch "$QUILT_PC/$patch~refresh"
 	fi
 
 	printf $"File %s removed from patch %s\n" \
