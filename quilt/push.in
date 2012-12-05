@@ -64,9 +64,9 @@ interrupt()
 {
 	local patch=$1
 
-	rollback_patch $patch
+	rollback_patch "$patch"
 	printf $"Interrupted by user; patch %s was not applied.\n" \
-	       "$(print_patch $patch)" >&2
+	       "$(print_patch "$patch")" >&2
 	exit 1
 }
 
@@ -115,26 +115,26 @@ apply_patch()
 	local patch=$1 patch_file=$2
 	local output
 
-	[ -s $patch_file ] || return 0
+	[ -s "$patch_file" ] || return 0
 
-	set -- patch $QUILT_PATCH_OPTS $(push_patch_args $patch) \
+	set -- patch $QUILT_PATCH_OPTS $(push_patch_args "$patch") \
 		     --backup --prefix="$QUILT_PC/$patch/" \
 		     $no_reject_files -E $more_patch_args
 
 	if [ "${patch_file:(-3)}" = ".gz" ]
 	then
-		gzip -cd $patch_file | "$@" 2>&1
+		gzip -cd "$patch_file" | "$@" 2>&1
 	elif [ "${patch_file:(-4)}" = ".bz2" ]
 	then
-		bzip2 -cd $patch_file | "$@" 2>&1
+		bzip2 -cd "$patch_file" | "$@" 2>&1
 	elif [ "${patch_file:(-3)}" = ".xz" ]
 	then
-		xz -cd $patch_file | "$@" 2>&1
+		xz -cd "$patch_file" | "$@" 2>&1
 	elif [ "${patch_file:(-5)}" = ".lzma" ]
 	then
-		lzma -cd $patch_file | "$@" 2>&1
+		lzma -cd "$patch_file" | "$@" 2>&1
 	else
-		"$@" -i $patch_file 2>&1
+		"$@" -i "$patch_file" 2>&1
 	fi
 }
 
@@ -142,7 +142,7 @@ rollback_patch()
 {
 	local patch=$1
 
-	$QUILT_DIR/scripts/backup-files $silent_unless_verbose -r -B $QUILT_PC/$patch/ -
+	$QUILT_DIR/scripts/backup-files $silent_unless_verbose -r -B "$QUILT_PC/$patch/" -
 }
 
 cleanup_patch_output() {
@@ -174,19 +174,19 @@ cleanup_patch_output() {
 add_patch()
 {
 	local patch=$1
-	local patch_file=$(patch_file_name $patch)
+	local patch_file=$(patch_file_name "$patch")
 	local file status tmp
 
-	printf $"Applying patch %s\n" "$(print_patch $patch)"
+	printf $"Applying patch %s\n" "$(print_patch "$patch")"
 	trap "interrupt $patch" SIGINT
 
 	no_reject_files=
 	if [ -z "$opt_leave_rejects" ]; then
-		tmp="$(gen_tempfile)"
+		tmp=$(gen_tempfile)
 		no_reject_files="-r $tmp"
 	fi
 
-	apply_patch $patch "$patch_file"
+	apply_patch "$patch" "$patch_file"
 	status=$?
 	trap "" SIGINT
 
@@ -194,48 +194,48 @@ add_patch()
 
 	if [ $status -eq 0 -o -n "$opt_force" ]
 	then
-		add_to_db $patch
+		add_to_db "$patch"
 		if [ $status -eq 0 ]
 		then
-			rm -f $QUILT_PC/$patch~refresh
+			rm -f "$QUILT_PC/$patch~refresh"
 		else
-			touch $QUILT_PC/$patch~refresh
+			touch "$QUILT_PC/$patch~refresh"
 		fi
 
 		if [ -e "$QUILT_PC/$patch" ]
 		then
-			touch $QUILT_PC/$patch/.timestamp
+			touch "$QUILT_PC/$patch/.timestamp"
 		else
 			mkdir "$QUILT_PC/$patch"
 		fi
 
-		if ! [ -e $patch_file ]
+		if ! [ -e "$patch_file" ]
 		then
 			printf $"Patch %s does not exist; applied empty patch\n" \
-			       "$(print_patch $patch)"
+			       "$(print_patch "$patch")"
 		elif [ -z "$(shopt -s nullglob ; echo "$QUILT_PC/$patch/"*)" ]
 		then
 			printf $"Patch %s appears to be empty; applied\n" \
-			       "$(print_patch $patch)"
+			       "$(print_patch "$patch")"
 		elif [ $status -ne 0 ]
 		then
 			printf $"Applied patch %s (forced; needs refresh)\n" \
-			       "$(print_patch $patch)"
+			       "$(print_patch "$patch")"
 		fi
 	else
-		rollback_patch $patch
-		tmp="$(gen_tempfile)"
+		rollback_patch "$patch"
+		tmp=$(gen_tempfile)
 		no_reject_files="-r $tmp"
 		opt_reverse=1
-		if apply_patch $patch "$patch_file" > /dev/null 2> /dev/null
+		if apply_patch "$patch" "$patch_file" > /dev/null 2> /dev/null
 		then
 			printf $"Patch %s can be reverse-applied\n" \
 			       "$(print_patch "$patch")"
 		else
 			printf $"Patch %s does not apply (enforce with -f)\n" \
-			       "$(print_patch $patch)"
+			       "$(print_patch "$patch")"
 		fi
-		rollback_patch $patch
+		rollback_patch "$patch"
 		rm -f $tmp
 		status=1
 	fi
@@ -248,7 +248,7 @@ list_patches()
 	local top=$(top_patch) n=0 patch
 	if [ -n "$top" ]
 	then
-		patches_after $top
+		patches_after "$top"
 	else
 		cat_series
 	fi \
@@ -346,11 +346,11 @@ fi
 
 if [ $# -eq 1 ]
 then
-	if is_numeric $1
+	if is_numeric "$1"
 	then
 		number=$1
 	else
-		stop_at_patch="$1"
+		stop_at_patch=$1
 	fi
 else
 	[ -z "$opt_all" ] && number=1
@@ -372,10 +372,10 @@ fi
 [ -n "$opt_fuzz" ] && more_patch_args="$more_patch_args -F$opt_fuzz"
 
 top=$(top_patch)
-if [ -n "$top" -a -e $QUILT_PC/$top~refresh ]
+if [ -n "$top" -a -e "$QUILT_PC/$top~refresh" ]
 then
 	printf $"The topmost patch %s needs to be refreshed first.\n" \
-	       "$(print_patch $top)"
+	       "$(print_patch "$top")"
 	exit 1
 fi
 
@@ -383,7 +383,7 @@ patches=$(list_patches)
 create_db
 for patch in $patches
 do
-	if ! add_patch $patch
+	if ! add_patch "$patch"
 	then
 		exit 1
 	fi
