@@ -58,7 +58,7 @@ then
 fi
 
 top=$(find_top_patch) || exit 2
-echo "$(print_patch $top)"
+echo "$(print_patch "$top")"
 
 ### Local Variables:
 ### mode: shell-script

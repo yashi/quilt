@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Dec  5 14:44:13 CET 2012 - jdelvare@suse.de
+
+- top: Fix parameter quoting.
+
+-------------------------------------------------------------------
 Wed Dec  5 14:43:58 CET 2012 - jdelvare@suse.de
 
 - push: Fix variable usage in interrupt.
