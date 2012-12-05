@@ -62,7 +62,9 @@ be used.
 
 interrupt()
 {
-	rollback_patch $1
+	local patch=$1
+
+	rollback_patch $patch
 	printf $"Interrupted by user; patch %s was not applied.\n" \
 	       "$(print_patch $patch)" >&2
 	exit 1
