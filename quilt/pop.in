@@ -105,19 +105,10 @@ check_for_pending_changes()
 
 	if [ -s "$patch_file" ]
 	then
-		if ! cat_file "$patch_file" \
-		     | patch -d $workdir $QUILT_PATCH_OPTS \
-			     $(patch_args "$patch") \
-			     --no-backup-if-mismatch -E -f \
-			     >/dev/null 2>/dev/null
-		then
-			if ! [ -e "$QUILT_PC/$patch" ]
-			then
-				printf $"Failed to patch temporary files\n" >&2
-				rm -rf $workdir
-				return 1
-			fi
-		fi
+		cat_file "$patch_file" \
+		| patch -d $workdir $QUILT_PATCH_OPTS \
+			$(patch_args "$patch") --no-backup-if-mismatch \
+			-E -f >/dev/null 2>/dev/null
 	fi
 
 	local file file2 failed
