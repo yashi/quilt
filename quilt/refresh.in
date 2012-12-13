@@ -247,7 +247,7 @@ do
 	fi
 done >> $tmp_patch
 
-if ! [ -s $tmp_patch ]
+if [ -n "$opt_fork" -a ! -s $tmp_patch ]
 then
 	printf $"Nothing in patch %s\n" "$(print_patch "$patch")" >&2
 	die 1
@@ -347,7 +347,12 @@ then
 			"$(print_patch "$old_patch")" \
 			"$(print_patch "$patch")"
 	else
-		printf $"Refreshed patch %s\n" "$(print_patch "$patch")"
+		if [ -s $tmp_patch ]
+		then
+			printf $"Refreshed patch %s\n" "$(print_patch "$patch")"
+		else
+			printf $"Nothing in patch %s\n" "$(print_patch "$patch")"
+		fi
 	fi
 	touch "$QUILT_PC/$patch/.timestamp"
 else
