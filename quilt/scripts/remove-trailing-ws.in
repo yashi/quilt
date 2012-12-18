@@ -106,7 +106,7 @@ while (<>) {
     }
 }
 
-foreach my $file (keys %files) {
+foreach my $file (sort keys %files) {
     my @lines = @{$files{$file}};
     if ($opt_n) {
 	print STDERR sprintf(
