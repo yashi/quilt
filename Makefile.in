@@ -379,6 +379,8 @@ test/.depend : Makefile $(TESTS)
 			{ print FILENAME, ":", "quilt/"$$1}' $(TESTS); \
 	    $(AWK) 'sub(/.*\<quilt_command /, "") && ($$1 !~ /[^a-z]/)	\
 			{ print FILENAME, ":", "quilt/"$$1 }' quilt/*.in; \
+	    $(AWK) 'sub(/.*\$$ *%{QUILT_DIR}\/scripts\//, "")		\
+			{ print FILENAME, ":", "quilt/scripts/"$$1 }' $(TESTS); \
 	) | sort -u | $(SED) -re 's:^test/(.*)\.test:test/.\1.ok:' \
 	    -e 's:quilt/graph:quilt/graph quilt/scripts/dependency-graph:' \
 	    -e 's:quilt/mail:quilt/mail quilt/scripts/edmail:' \
