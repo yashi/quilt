@@ -48,6 +48,7 @@ while (<>) {
     print unless $opt_n;
     if (/^--- ./) {
 	# unified diff
+	$file = undef;
 	while (<>) {
 	    print unless $opt_n;
 	    if (/^\+\+\+ (.+?)(?:[ \t][^\t]*)?$/) {
@@ -81,6 +82,7 @@ while (<>) {
 	}
     } elsif (/^\*\*\* ./) {
 	# context diff
+	$file = undef;
 	while (<>) {
 	    print unless $opt_n;
 	    if ($file && /^--- (\d+)(?:,(\d+))? ----$/) {
