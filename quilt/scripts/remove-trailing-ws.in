@@ -88,14 +88,13 @@ while (<>) {
 		my $last_line = defined $2 ? $2 : $1;
 		while ($line_number <= $last_line) {
 		    $_ = <>;
-		    defined $_
-			or die sprintf(_("%s: I'm confused.\n"), $0);
+		    defined $_ or last;
 		    if (s/(^[+!] .*?)[ \t]+$/$1/) {
 			push @{$files{$file}}, $line_number;
 		    }
 		    $line_number++;
 		    print unless $opt_n;
-		    last if (/^\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*$/);
+		    last if (/^\*\*\*[* ]/);
 		}
 	    } elsif (/^--- (.+?)(?:[ \t][^\t]*)?$/) {
 		$file = $1;
