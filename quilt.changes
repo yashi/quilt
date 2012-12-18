@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Tue Dec 18 18:20:49 CET 2012 - jdelvare@suse.de
+
+- test/remove-trailing-ws.test: Add a test case for
+  the remove-trailing-ws script.
+- remove-trailing-ws: Undefine $file at the end of every file.
+
+-------------------------------------------------------------------
+Tue Dec 18 18:20:27 CET 2012 - krebbel@linux.vnet.ibm.com
+
+- remove-trailing-ws: Fix parsing of some context diffs.
+
+-------------------------------------------------------------------
+Tue Dec 18 18:19:43 CET 2012 - jdelvare@suse.de
+
+- remove-trailing-ws: Sort output.
+- Makefile: Fix test case dependencies on helper scripts.
+
+-------------------------------------------------------------------
 Wed Dec  5 14:44:13 CET 2012 - jdelvare@suse.de
 
 - top: Fix parameter quoting.
