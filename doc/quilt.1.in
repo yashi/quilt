@@ -208,7 +208,7 @@ QUILT_REFRESH_ARGS.
 
 The pager quilt shall use for commands which produce paginated output. If
 unset, the values of GIT_PAGER or PAGER is used.  If none of these variables
-is set, "less" is used.  An empty value indicates that no pager should be
+is set, "less -R" is used.  An empty value indicates that no pager should be
 used.
 
 .IP EDITOR 4

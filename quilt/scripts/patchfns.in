@@ -1002,9 +1002,9 @@ setup_pager()
 {
 	test -t 1 || return 0
 
-	# QUILT_PAGER = QUILT_PAGER | GIT_PAGER | PAGER | less
+	# QUILT_PAGER = QUILT_PAGER | GIT_PAGER | PAGER | less -R
 	# NOTE: QUILT_PAGER='' is significant
-	QUILT_PAGER=${QUILT_PAGER-${GIT_PAGER-${PAGER-less}}}
+	QUILT_PAGER=${QUILT_PAGER-${GIT_PAGER-${PAGER-less -R}}}
 
 	[ -z "$QUILT_PAGER" -o "$QUILT_PAGER" = "cat" ]  && return 0
 
