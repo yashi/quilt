@@ -28,6 +28,9 @@ heuristic to determine which files are modified by unapplied patches.
 Note that this heuristic is much slower than scanning applied patches.)
 
 -v	Verbose, more user friendly output.
+
+--color[=always|auto|never]
+	Use syntax coloring (auto activates it only if the output is a tty).
 "
 		exit 0
 	else

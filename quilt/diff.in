@@ -69,7 +69,7 @@ included.
 	is invoked with the original and new file name as arguments.
 
 --color[=always|auto|never]
-	Use syntax coloring.
+	Use syntax coloring (auto activates it only if the output is a tty).
 
 --sort	Sort files by their name instead of preserving the original order.
 "

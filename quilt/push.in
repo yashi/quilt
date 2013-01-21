@@ -52,7 +52,7 @@ be used.
 	is not actually applied.
 
 --color[=always|auto|never]
-	Use syntax coloring.
+	Use syntax coloring (auto activates it only if the output is a tty).
 "
 		exit 0
 	else

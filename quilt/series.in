@@ -25,6 +25,9 @@ usage()
 		printf $"
 Print the names of all patches in the series file.
 
+--color[=always|auto|never]
+	Use syntax coloring (auto activates it only if the output is a tty).
+	
 -v	Verbose, more user friendly output.
 "
 		exit 0
