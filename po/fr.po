@@ -1441,7 +1441,7 @@ msgstr "Aucun patch dans la série\\n"
 
 #: quilt/scripts/patchfns.in:461 quilt/scripts/patchfns.in:478
 msgid "No series file found\\n"
-msgstr "Fichier de série non trouvé"
+msgstr "Fichier de série non trouvé\\n"
 
 #: quilt/scripts/patchfns.in:534
 msgid "Patch %s is not in series\\n"
