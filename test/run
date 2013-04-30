@@ -157,7 +157,7 @@ sub process_test($$$$) {
                push @good, ($use_re ? '=~' : '==');
            }
        }
-       my $good = !(grep /!/, @good);
+       my $good = !grep(/!/, @good);
        $tests++;
        $failed++ unless $good;
        print_body(($good ? $OK : $FAILED)."\n");
