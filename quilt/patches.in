@@ -77,7 +77,7 @@ touched_by_patch()
 scan_unapplied()
 {
 	local color=$1 prefix=$2 file=$3 strip
-	shift 2
+	shift 3
 	local file_bre="$(quote_bre $file)" patch
 
 	for patch in "$@"
