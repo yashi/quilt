@@ -63,7 +63,7 @@ touched_by_patch()
 	[ $strip = ab ] && strip=1
 	cat_file $(patch_file_name $patch) \
 	|  awk '
-	/^\+\+\+[ \t]/ {
+	/^(\+\+\+|---)[ \t]/ {
 		sub(/^(\+\+\+|---)[ \t]/, "")
 		sub(/[ \t][^ \t]*$/, "")
 		sub(/^\/dev\/null/, "")

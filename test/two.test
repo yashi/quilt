@@ -160,3 +160,17 @@
 	> Removing patch %{_P}patch2.diff
 	> Removing patch %{_P}patch1.diff
 	> No patches applied
+
+	$ quilt patches file4
+	> %{_P}patch1.diff
+	> %{_P}subdir/patch3.diff
+
+	$ quilt push -qa
+	> Applying patch %{_P}patch1.diff
+	> Applying patch %{_P}patch2.diff
+	> Applying patch %{_P}subdir/patch3.diff
+	> Now at patch %{_P}subdir/patch3.diff
+
+	$ quilt patches file4
+	> %{_P}patch1.diff
+	> %{_P}subdir/patch3.diff

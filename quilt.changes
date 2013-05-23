@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu May 23 08:29:24 CEST 2013 - jdelvare@suse.de
+
+- patches: Also match deleted files in unapplied patches.
+
+-------------------------------------------------------------------
 Wed May 22 10:54:08 CEST 2013 - jdelvare@suse.de
 
 - patches: Fix shift in scan_unapplied.
