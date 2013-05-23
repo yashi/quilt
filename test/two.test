@@ -174,3 +174,12 @@
 	$ quilt patches file4
 	> %{_P}patch1.diff
 	> %{_P}subdir/patch3.diff
+
+	$ quilt pop -q patch2.diff
+	> Removing patch %{_P}subdir/patch3.diff
+	> Now at patch %{_P}patch2.diff
+
+	$ quilt patches -v dir/file3 file4
+	> + %{_P}patch1.diff
+	> = %{_P}patch2.diff
+	>   %{_P}subdir/patch3.diff

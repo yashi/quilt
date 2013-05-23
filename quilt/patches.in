@@ -17,13 +17,15 @@ then
 	. $QUILT_DIR/scripts/patchfns
 fi
 
+declare -a opt_files=()
+
 usage()
 {
-	printf $"Usage: quilt patches [-v] {file}\n"
+	printf $"Usage: quilt patches [-v] {file} [files...]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
-Print the list of patches that modify the specified file. (Uses a
+Print the list of patches that modify any of the specified files. (Uses a
 heuristic to determine which files are modified by unapplied patches.
 Note that this heuristic is much slower than scanning applied patches.)
 
@@ -38,18 +40,26 @@ Note that this heuristic is much slower than scanning applied patches.)
 	fi
 }
 
+# Uses global variable opt_files
 scan_applied()
 {
-	local color=$1 prefix=$2 file=$3
-	shift 3
-	local patch
+	local color=$1 prefix=$2
+	shift 2
+	local patch file match
 
 	for patch in "$@"
 	do
-		if [ -f "$(backup_file_name $patch "$file")" ]
-		then
-			echo "$color$prefix$(print_patch $patch)$color_clear"
-		fi
+		match=
+		for file in "${opt_files[@]}"
+		do
+			if [ -f "$(backup_file_name $patch "$file")" ]
+			then
+				match=1
+				break
+			fi
+		done
+
+		[ -z "$match" ] || echo "$color$prefix$(print_patch $patch)$color_clear"
 	done
 }
 
@@ -74,22 +84,31 @@ touched_by_patch()
 	}'
 }
 
+# Uses global variable opt_files
 scan_unapplied()
 {
-	local color=$1 prefix=$2 file=$3 strip
-	shift 3
-	local file_bre="$(quote_bre $file)" patch
+	local color=$1 prefix=$2 strip
+	shift 2
+	local patch file file_bre match
 
 	for patch in "$@"
 	do
 		strip=$(patch_strip_level $patch)
 		[ "$strip" = ab ] && strip=1
 
-		if touched_by_patch $strip $patch \
-		   | grep -q "^$file_bre\$"
-		then
-			echo "$color$prefix$(print_patch $patch)$color_clear"
-		fi
+		match=
+		for file in "${opt_files[@]}"
+		do
+			file_bre="$(quote_bre "$file")"
+			if touched_by_patch $strip $patch \
+			   | grep -q "^$file_bre\$"
+			then
+				match=1
+				break
+			fi
+		done
+
+		[ -z "$match" ] || echo "$color$prefix$(print_patch $patch)$color_clear"
 	done
 }
 
@@ -129,11 +148,15 @@ do
 	esac
 done
 
-if [ $# -ne 1 ]
+if [ $# -lt 1 ]
 then
 	usage
 fi
-opt_file="$SUBDIR$1"
+while [ $# -ge 1 ]
+do
+	opt_files[${#opt_files[@]}]="$SUBDIR$1"
+	shift
+done
 
 top=$(top_patch)
 
@@ -152,12 +175,12 @@ fi
 
 setup_pager
 
-scan_applied "$color_series_app" "$applied" "$opt_file" \
+scan_applied "$color_series_app" "$applied" \
 	$(patches_before $top)
 [ -n "$top" ] && \
-	scan_applied "$color_series_top" "$current" "$opt_file" \
+	scan_applied "$color_series_top" "$current" \
 		$top
-scan_unapplied "$color_series_una" "$unapplied" "$opt_file" \
+scan_unapplied "$color_series_una" "$unapplied" \
 	$(patches_after $top)
 
 ### Local Variables:
