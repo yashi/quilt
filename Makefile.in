@@ -274,7 +274,7 @@ Makefile : Makefile.in configure
 	@echo "Please run ./configure"
 	@false
 
-compat_leftover := $(filter-out $(COMPAT),$(shell $(FIND) compat -maxdepth 1 -type f -perm +111))
+compat_leftover := $(filter-out $(COMPAT),$(shell $(FIND) compat -type f -perm -0100))
 
 .PHONY :: compat
 compat :: $(COMPAT)
