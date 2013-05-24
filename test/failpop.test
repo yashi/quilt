@@ -15,8 +15,6 @@
 	$ quilt refresh
 	> Refreshed patch %{P}test.diff
 
-	$ sleep 2
-
 	$ sed -e "s/ /_/g" patches/test.diff > patches/test.new
 	$ mv patches/test.new patches/test.diff
 	$ quilt pop
