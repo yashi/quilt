@@ -75,6 +75,8 @@ Test the delete command.
 	$ touch .pc/test3/dir/file
 	$ chmod a-rx .pc/test3/dir
 
+	# Note that this will succeed (instead of the expected failure) if
+	# running as root, but you shouldn't do that anyway.
 	$ quilt delete "test3"
 	> Removing patch %{P}test3
 	>~ find: `?\./dir'?: Permission denied
