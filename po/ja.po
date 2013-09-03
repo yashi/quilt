@@ -8,10 +8,10 @@ msgstr ""
 "PO-Revision-Date: 2011-02-01 19:37+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
 #: bin/quilt.in:36
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
@@ -178,7 +178,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:583
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:589
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -209,6 +209,7 @@ msgstr ""
 "[--sort] [--color] [ファイル ...]\\n"
 
 #: quilt/diff.in:28
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -254,7 +255,7 @@ msgid ""
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 "\n"
 "--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
@@ -424,7 +425,7 @@ msgstr ""
 "-p strip-level\n"
 "\tパッチを適用するときに、ファイル名から省くパス名要素の数\n"
 
-#: quilt/fold.in:129
+#: quilt/fold.in:131
 msgid "File %s may be corrupted\\n"
 msgstr "ファイル %s は壊れている可能性があります\\n"
 
@@ -913,18 +914,23 @@ msgstr ""
 "\n"
 "最上位または指定されたパッチの次のパッチ名を表示。\n"
 
-#: quilt/patches.in:22
-msgid "Usage: quilt patches [-v] {file}\\n"
+#: quilt/patches.in:24
+#, fuzzy
+msgid "Usage: quilt patches [-v] {file} [files...]\\n"
 msgstr "使い方: quilt patches [-v] {ファイル}\\n"
 
-#: quilt/patches.in:25
+#: quilt/patches.in:27
+#, fuzzy
 msgid ""
 "\n"
-"Print the list of patches that modify the specified file. (Uses a\n"
+"Print the list of patches that modify any of the specified files. (Uses a\n"
 "heuristic to determine which files are modified by unapplied patches.\n"
 "Note that this heuristic is much slower than scanning applied patches.)\n"
 "\n"
 "-v\tVerbose, more user friendly output.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "指定されたファイルに対し、変更を行なうパッチのリストを表示。 (適用されて\n"
@@ -980,41 +986,37 @@ msgstr ""
 "\n"
 "-v\t詳細に表示。\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:886
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:892
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:904
-msgid "Failed to patch temporary files\\n"
-msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
-
-#: quilt/pop.in:134
+#: quilt/pop.in:125
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "パッチ %s を、正常にはずすことができません (リフレッシュするか -fを付\n"
 "けてはずしてください)\\n"
 
-#: quilt/pop.in:159
+#: quilt/pop.in:150
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "パッチ %s は、空のようです。はずします\\n"
 
-#: quilt/pop.in:164
+#: quilt/pop.in:155
 msgid "Removing patch %s\\n"
 msgstr "パッチ %s をはずします\\n"
 
-#: quilt/pop.in:235
+#: quilt/pop.in:226
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 
-#: quilt/pop.in:245
+#: quilt/pop.in:236
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:492
+#: quilt/pop.in:252 quilt/scripts/patchfns.in:498
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:268 quilt/push.in:396
+#: quilt/pop.in:259 quilt/push.in:397
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -1034,13 +1036,14 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color"
-"[=always|auto|never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
+"color[=always|auto|never]] [num|patch]\\n"
 msgstr ""
-"使い方: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color"
-"[=always|auto|never]] [num|patch]\\n"
+"使い方: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
+"color[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1070,7 +1073,7 @@ msgid ""
 "\tis not actually applied.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "seriesに登録されているパッチを適用する。オプションが無い場合は series\n"
@@ -1103,36 +1106,36 @@ msgstr ""
 "        シンタックスの色付けを行なう。\n"
 "\n"
 
-#: quilt/push.in:66
+#: quilt/push.in:68
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
-#: quilt/push.in:178
+#: quilt/push.in:180
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:213
+#: quilt/push.in:214
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:217
+#: quilt/push.in:218
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:221
+#: quilt/push.in:222
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:231
+#: quilt/push.in:232
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "パッチ %s は、反転して適用することができます\\n"
 
-#: quilt/push.in:234
+#: quilt/push.in:235
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:376
+#: quilt/push.in:377
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
@@ -1268,7 +1271,7 @@ msgid ""
 msgstr ""
 "--strip-trailing-whitespace は影になっているファイルがある場合は使えません"
 
-#: quilt/refresh.in:252
+#: quilt/refresh.in:252 quilt/refresh.in:354
 msgid "Nothing in patch %s\\n"
 msgstr "パッチ %s にはなにも含まれていません\\n"
 
@@ -1276,7 +1279,7 @@ msgstr "パッチ %s にはなにも含まれていません\\n"
 msgid "Patch %s is unchanged\\n"
 msgstr "パッチ %s に変更はありません\\n"
 
-#: quilt/refresh.in:350
+#: quilt/refresh.in:352
 msgid "Refreshed patch %s\\n"
 msgstr "パッチ %s をリフレッシュしました\\n"
 
@@ -1390,36 +1393,40 @@ msgstr "表示用の名前 `%s' が対にならない括弧を含んでいます
 msgid "Delivery address `%s' is invalid\n"
 msgstr "配送先のアドレス `%s' が不正です\n"
 
-#: quilt/scripts/patchfns.in:211 quilt/scripts/patchfns.in:505
+#: quilt/scripts/patchfns.in:217 quilt/scripts/patchfns.in:511
 msgid "%s is not a regular file\\n"
 msgstr "%s は普通のファイルではありません\\n"
 
-#: quilt/scripts/patchfns.in:459 quilt/scripts/patchfns.in:476
+#: quilt/scripts/patchfns.in:465 quilt/scripts/patchfns.in:482
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/scripts/patchfns.in:461 quilt/scripts/patchfns.in:478
+#: quilt/scripts/patchfns.in:467 quilt/scripts/patchfns.in:484
 msgid "No series file found\\n"
 msgstr "シリーズファイルが見つかりません\\n"
 
-#: quilt/scripts/patchfns.in:534
+#: quilt/scripts/patchfns.in:540
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:562
+#: quilt/scripts/patchfns.in:568
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:599
+#: quilt/scripts/patchfns.in:605
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:632
+#: quilt/scripts/patchfns.in:638
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
-#: quilt/scripts/patchfns.in:945
+#: quilt/scripts/patchfns.in:910
+msgid "Failed to patch temporary files\\n"
+msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
+
+#: quilt/scripts/patchfns.in:951
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1431,7 +1438,7 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:1089
+#: quilt/scripts/patchfns.in:1095
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1444,33 +1451,32 @@ msgstr ""
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "書式: %s [p num] [-n] [パッチ]\n"
 
-#: quilt/scripts/remove-trailing-ws.in:65
-#: quilt/scripts/remove-trailing-ws.in:92
+#: quilt/scripts/remove-trailing-ws.in:66
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s: 混乱しました\n"
 
-#: quilt/scripts/remove-trailing-ws.in:113
+#: quilt/scripts/remove-trailing-ws.in:114
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
 
-#: quilt/scripts/remove-trailing-ws.in:116
+#: quilt/scripts/remove-trailing-ws.in:117
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "警告: %2$s の %1$s 行目末尾に空白文字があります\n"
 
-#: quilt/scripts/remove-trailing-ws.in:120
+#: quilt/scripts/remove-trailing-ws.in:121
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
 
-#: quilt/scripts/remove-trailing-ws.in:123
+#: quilt/scripts/remove-trailing-ws.in:124
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "%2$s の %1$s 行目末尾にある空白文字を削除します\n"
 
-#: quilt/scripts/remove-trailing-ws.in:143
+#: quilt/scripts/remove-trailing-ws.in:144
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "%s から %s へ名前を変更しました: %s\n"
@@ -1480,10 +1486,14 @@ msgid "Usage: quilt series [-v]\\n"
 msgstr "使い方: quilt series [-v]\\n"
 
 #: quilt/series.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
 "\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
+"\t\n"
 "-v\tVerbose, more user friendly output.\n"
 msgstr ""
 "\n"
@@ -1492,15 +1502,15 @@ msgstr ""
 "-v\t詳細で見やすい表示。\n"
 "\n"
 
-#: quilt/setup.in:31
+#: quilt/setup.in:34 quilt/setup.in:53
 msgid "Directory %s exists\\n"
 msgstr "ディレクトリ %s は、すでに存在します\\n"
 
-#: quilt/setup.in:37
+#: quilt/setup.in:59
 msgid "File %s exists\\n"
 msgstr "ファイル %s は、すでに存在します\\n"
 
-#: quilt/setup.in:75
+#: quilt/setup.in:99
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
 "{specfile|seriesfile}\\n"
@@ -1508,7 +1518,7 @@ msgstr ""
 "使い方: quilt setup [-d path-prefix] [-v] [--sourcedir ディレクトリ] [--"
 "fuzz=N] {specファイル|シリーズファイル}\\n"
 
-#: quilt/setup.in:78
+#: quilt/setup.in:102
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1537,21 +1547,21 @@ msgstr ""
 "--fuzz=N\n"
 "\t最大何行のずれを許すか指定する\n"
 
-#: quilt/setup.in:149
+#: quilt/setup.in:173
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "%%prepセクションの解析に失敗しました。完全に作業が完了していない場合がありま"
 "す\\n"
 
-#: quilt/setup.in:152
+#: quilt/setup.in:176
 msgid "The -v option will show rpm's output\\n"
 msgstr "-vオプションを使って、rpmの出力を表示できます"
 
-#: quilt/setup.in:195
+#: quilt/setup.in:228 quilt/setup.in:240
 msgid "File %s not found\\n"
 msgstr "ファイル %s が見つかりません"
 
-#: quilt/setup.in:198
+#: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "アーカイブ %s を展開しています\\n"
 

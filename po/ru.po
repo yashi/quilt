@@ -11,6 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2011-09-20 07:55+0000\n"
 "Last-Translator: Sergey Basalaev <SBasalaev@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -180,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Отсутствует следующий патч\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:583
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:589
 msgid "Patch %s is currently applied\\n"
 msgstr "Патч %s применён\\n"
 
@@ -260,7 +261,7 @@ msgid ""
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 "\n"
 "--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
@@ -426,7 +427,7 @@ msgstr ""
 "\tЧисло компонент пути, которые необходимо удалить из имён файлов\n"
 "\tпри наложении патча.\n"
 
-#: quilt/fold.in:129
+#: quilt/fold.in:131
 msgid "File %s may be corrupted\\n"
 msgstr "Файл %s может быть повреждён\\n"
 
@@ -842,19 +843,23 @@ msgstr ""
 "Вывести имя патча, следующего за указанным или верхним патчем в\n"
 "файле series.\n"
 
-#: quilt/patches.in:22
+#: quilt/patches.in:24
 #, fuzzy
-msgid "Usage: quilt patches [-v] {file}\\n"
+msgid "Usage: quilt patches [-v] {file} [files...]\\n"
 msgstr "Синтаксис: quilt patches {файл}\\n"
 
-#: quilt/patches.in:25
+#: quilt/patches.in:27
+#, fuzzy
 msgid ""
 "\n"
-"Print the list of patches that modify the specified file. (Uses a\n"
+"Print the list of patches that modify any of the specified files. (Uses a\n"
 "heuristic to determine which files are modified by unapplied patches.\n"
 "Note that this heuristic is much slower than scanning applied patches.)\n"
 "\n"
 "-v\tVerbose, more user friendly output.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "Вывести список всех патчей, изменяющих указанный файл. (Использует\n"
@@ -908,41 +913,37 @@ msgstr ""
 "\n"
 "-v\tПодробный вывод.\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:886
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:892
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Не удалось скопировать файлы во временный каталог\\n"
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:904
-msgid "Failed to patch temporary files\\n"
-msgstr "Не удалось применить патч к временным файлам\\n"
-
-#: quilt/pop.in:134
+#: quilt/pop.in:125
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Не удалось чисто удалить патч %s (обновите его или удалите принудительно с -"
 "f)\\n"
 
-#: quilt/pop.in:159
+#: quilt/pop.in:150
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "Похоже, патч %s пуст, удаление\\n"
 
-#: quilt/pop.in:164
+#: quilt/pop.in:155
 msgid "Removing patch %s\\n"
 msgstr "Удаление патча %s\\n"
 
-#: quilt/pop.in:235
+#: quilt/pop.in:226
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Сначала нужно обновить патч %s.\\n"
 
-#: quilt/pop.in:245
+#: quilt/pop.in:236
 msgid "No patch removed\\n"
 msgstr "Не удалено ни одного патча\\n"
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:492
+#: quilt/pop.in:252 quilt/scripts/patchfns.in:498
 msgid "No patches applied\\n"
 msgstr "Нет применённых патчей\\n"
 
-#: quilt/pop.in:268 quilt/push.in:396
+#: quilt/pop.in:259 quilt/push.in:397
 msgid "Now at patch %s\\n"
 msgstr "Текущий патч: %s\\n"
 
@@ -963,8 +964,8 @@ msgstr ""
 #: quilt/push.in:24
 #, fuzzy
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color"
-"[=always|auto|never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
+"color[=always|auto|never]] [num|patch]\\n"
 msgstr "Синтаксис: quilt push [-afqv] [--leave-rejects] [число|патч]\\n"
 
 #: quilt/push.in:27
@@ -998,7 +999,7 @@ msgid ""
 "\tis not actually applied.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "Применить патчи из файла series.  Без опций накладывается следующий\n"
@@ -1026,36 +1027,36 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tИспользовать подсветку синтаксиса.\n"
 
-#: quilt/push.in:66
+#: quilt/push.in:68
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Прервано пользователем; патч %s не был наложен.\\n"
 
-#: quilt/push.in:178
+#: quilt/push.in:180
 msgid "Applying patch %s\\n"
 msgstr "Наложение патча %s\\n"
 
-#: quilt/push.in:213
+#: quilt/push.in:214
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Патч %s не существует; наложен пустой патч\\n"
 
-#: quilt/push.in:217
+#: quilt/push.in:218
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Похоже, патч %s пуст; наложен\\n"
 
-#: quilt/push.in:221
+#: quilt/push.in:222
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Применён патч %s (принудительно; следует сделать refresh)\\n"
 
-#: quilt/push.in:231
+#: quilt/push.in:232
 #, fuzzy
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Патч %s применён\\n"
 
-#: quilt/push.in:234
+#: quilt/push.in:235
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Патч %s не применяется (принудить с -f)\\n"
 
-#: quilt/push.in:376
+#: quilt/push.in:377
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Сначала необходимо обновить самый верхний патч %s.\\n"
 
@@ -1182,7 +1183,7 @@ msgstr ""
 "Нельзя использовать --strip-trailing-whitespace на патче с затенёнными "
 "файлами.\\n"
 
-#: quilt/refresh.in:252
+#: quilt/refresh.in:252 quilt/refresh.in:354
 msgid "Nothing in patch %s\\n"
 msgstr "Ничего нет в патче %s\\n"
 
@@ -1190,7 +1191,7 @@ msgstr "Ничего нет в патче %s\\n"
 msgid "Patch %s is unchanged\\n"
 msgstr "Патч %s не изменён\\n"
 
-#: quilt/refresh.in:350
+#: quilt/refresh.in:352
 msgid "Refreshed patch %s\\n"
 msgstr "Патч %s обновлён\\n"
 
@@ -1314,38 +1315,42 @@ msgstr "Отображаемое имя '%s' содержит непарные �
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Некорректный адрес назначения '%s'\n"
 
-#: quilt/scripts/patchfns.in:211 quilt/scripts/patchfns.in:505
+#: quilt/scripts/patchfns.in:217 quilt/scripts/patchfns.in:511
 #, fuzzy
 msgid "%s is not a regular file\\n"
 msgstr "Патч %s не входит в файл series\\n"
 
-#: quilt/scripts/patchfns.in:459 quilt/scripts/patchfns.in:476
+#: quilt/scripts/patchfns.in:465 quilt/scripts/patchfns.in:482
 #, fuzzy
 msgid "No patches in series\\n"
 msgstr "Нет применённых патчей\\n"
 
-#: quilt/scripts/patchfns.in:461 quilt/scripts/patchfns.in:478
+#: quilt/scripts/patchfns.in:467 quilt/scripts/patchfns.in:484
 msgid "No series file found\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:534
+#: quilt/scripts/patchfns.in:540
 msgid "Patch %s is not in series\\n"
 msgstr "Патч %s не в серии\\n"
 
-#: quilt/scripts/patchfns.in:562
+#: quilt/scripts/patchfns.in:568
 msgid "Patch %s is not applied\\n"
 msgstr "Патч %s не применён\\n"
 
-#: quilt/scripts/patchfns.in:599
+#: quilt/scripts/patchfns.in:605
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "Серия файлов полностью применена, заканчивается на патче %s\\n"
 
-#: quilt/scripts/patchfns.in:632
+#: quilt/scripts/patchfns.in:638
 #, fuzzy
 msgid "Patch %s does not exist\\n"
 msgstr "Патч %s не в серии\\n"
 
-#: quilt/scripts/patchfns.in:945
+#: quilt/scripts/patchfns.in:910
+msgid "Failed to patch temporary files\\n"
+msgstr "Не удалось применить патч к временным файлам\\n"
+
+#: quilt/scripts/patchfns.in:951
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1357,7 +1362,7 @@ msgstr ""
 "отмените все патчи, используя версию quilt, которая использовалась для их "
 "наложения, прежде чем использовать эту версию.\\n"
 
-#: quilt/scripts/patchfns.in:1089
+#: quilt/scripts/patchfns.in:1095
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1370,33 +1375,32 @@ msgstr ""
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "СИНТАКСИС: %s [-p число] [-n] [патч]\n"
 
-#: quilt/scripts/remove-trailing-ws.in:65
-#: quilt/scripts/remove-trailing-ws.in:92
+#: quilt/scripts/remove-trailing-ws.in:66
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s: я в растерянности.\n"
 
-#: quilt/scripts/remove-trailing-ws.in:113
+#: quilt/scripts/remove-trailing-ws.in:114
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "Предупреждение: пробел в конце строки %s файла %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:116
+#: quilt/scripts/remove-trailing-ws.in:117
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "Предупреждение: пробел в конце строк %s файла %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:120
+#: quilt/scripts/remove-trailing-ws.in:121
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "Удаление пробела из конца строки %s файла %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:123
+#: quilt/scripts/remove-trailing-ws.in:124
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "Удаление пробела из конца строк %s файла %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:143
+#: quilt/scripts/remove-trailing-ws.in:144
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "Переименование %s в %s: %s\n"
@@ -1406,10 +1410,14 @@ msgid "Usage: quilt series [-v]\\n"
 msgstr "Синтаксис: quilt series [-v]\\n"
 
 #: quilt/series.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
 "\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
+"\t\n"
 "-v\tVerbose, more user friendly output.\n"
 msgstr ""
 "\n"
@@ -1417,15 +1425,15 @@ msgstr ""
 "\n"
 "-v\tПодробный, более дружественный вывод.\n"
 
-#: quilt/setup.in:31
+#: quilt/setup.in:34 quilt/setup.in:53
 msgid "Directory %s exists\\n"
 msgstr "Директория %s существует\\n"
 
-#: quilt/setup.in:37
+#: quilt/setup.in:59
 msgid "File %s exists\\n"
 msgstr "Файл %s существует\\n"
 
-#: quilt/setup.in:75
+#: quilt/setup.in:99
 #, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
@@ -1433,7 +1441,7 @@ msgid ""
 msgstr ""
 "Синтаксис: quilt setup [-d префикс-пути] [-v] {файл-spec|файл-series}\\n"
 
-#: quilt/setup.in:78
+#: quilt/setup.in:102
 #, fuzzy
 msgid ""
 "\n"
@@ -1456,21 +1464,21 @@ msgstr ""
 "\n"
 "-v\tвывод отладочной информации.\n"
 
-#: quilt/setup.in:149
+#: quilt/setup.in:173
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "Секция %%prep файла %s содержит ошибки; результаты могут быть незавершены\\n"
 
-#: quilt/setup.in:152
+#: quilt/setup.in:176
 msgid "The -v option will show rpm's output\\n"
 msgstr "Опция -v покажет вывод rpm\\n"
 
-#: quilt/setup.in:195
+#: quilt/setup.in:228 quilt/setup.in:240
 #, fuzzy
 msgid "File %s not found\\n"
 msgstr "Файл %s не изменяется\\n"
 
-#: quilt/setup.in:198
+#: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "Распаковка архива %s\\n"
 

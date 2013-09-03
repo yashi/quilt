@@ -9,6 +9,7 @@ msgstr ""
 "PO-Revision-Date: 2005-07-19 11:32+0200\n"
 "Last-Translator: Andreas Gruenbacher <agruen@suse.de>\n"
 "Language-Team:  <en@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -182,7 +183,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Kein Patch %s\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:583
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:589
 msgid "Patch %s is currently applied\\n"
 msgstr "Patch %s ist momentan angewandt\\n"
 
@@ -213,6 +214,7 @@ msgstr ""
 "index] [--sort] [--color] [datei ...]\\n"
 
 #: quilt/diff.in:28
+#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -258,7 +260,7 @@ msgid ""
 "\tis invoked with the original and new file name as arguments.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 "\n"
 "--sort\tSort files by their name instead of preserving the original order.\n"
 msgstr ""
@@ -435,7 +437,7 @@ msgstr ""
 "\tDie Anzahl der Komponenten im Pfadnamen, die beim Anwenden des Patches\n"
 "\tentfernt werden sollen.\n"
 
-#: quilt/fold.in:129
+#: quilt/fold.in:131
 msgid "File %s may be corrupted\\n"
 msgstr "Datei %s ist möglicherweise defekt\\n"
 
@@ -924,18 +926,23 @@ msgstr ""
 "Gibt den Namen des nächsten Patches nach dem obersten oder angegebenen\n"
 "Patch in der series-Datei aus.\n"
 
-#: quilt/patches.in:22
-msgid "Usage: quilt patches [-v] {file}\\n"
+#: quilt/patches.in:24
+#, fuzzy
+msgid "Usage: quilt patches [-v] {file} [files...]\\n"
 msgstr "Verwendung: quilt patches [-v] {file}\\n"
 
-#: quilt/patches.in:25
+#: quilt/patches.in:27
+#, fuzzy
 msgid ""
 "\n"
-"Print the list of patches that modify the specified file. (Uses a\n"
+"Print the list of patches that modify any of the specified files. (Uses a\n"
 "heuristic to determine which files are modified by unapplied patches.\n"
 "Note that this heuristic is much slower than scanning applied patches.)\n"
 "\n"
 "-v\tVerbose, more user friendly output.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "Gibt die Liste der Patches aus, die die angegebene Datei verändern.\n"
@@ -989,41 +996,37 @@ msgstr ""
 "\n"
 "-v\tViele Meldungen ausgeben.\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:886
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:892
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Konnte Dateien nicht in temporäres Verzeichnis kopieren\\n"
 
-#: quilt/pop.in:116 quilt/scripts/patchfns.in:904
-msgid "Failed to patch temporary files\\n"
-msgstr "Konnte temporäre Dateien nicht patchen\\n"
-
-#: quilt/pop.in:134
+#: quilt/pop.in:125
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Patch %s kann nicht entfernt werden (Patch aktualisieren oder entfernen "
 "erzwingen mit -f)\\n"
 
-#: quilt/pop.in:159
+#: quilt/pop.in:150
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "Patch %s scheint leer zu sein; wird entfernt\\n"
 
-#: quilt/pop.in:164
+#: quilt/pop.in:155
 msgid "Removing patch %s\\n"
 msgstr "Entferne patch %s\\n"
 
-#: quilt/pop.in:235
+#: quilt/pop.in:226
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 
-#: quilt/pop.in:245
+#: quilt/pop.in:236
 msgid "No patch removed\\n"
 msgstr "Kein Patch entfernt\\n"
 
-#: quilt/pop.in:261 quilt/scripts/patchfns.in:492
+#: quilt/pop.in:252 quilt/scripts/patchfns.in:498
 msgid "No patches applied\\n"
 msgstr "Keine Patches angewandt\\n"
 
-#: quilt/pop.in:268 quilt/push.in:396
+#: quilt/pop.in:259 quilt/push.in:397
 msgid "Now at patch %s\\n"
 msgstr "Jetzt in Patch %s\\n"
 
@@ -1043,8 +1046,8 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color"
-"[=always|auto|never]] [num|patch]\\n"
+"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
+"color[=always|auto|never]] [num|patch]\\n"
 msgstr ""
 "Verwendung: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
 "color[=always|auto|never]] [num|patch]\\n"
@@ -1080,7 +1083,7 @@ msgid ""
 "\tis not actually applied.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tUse syntax coloring.\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
 "Patches in der series-Datei anwenden. Es kann eine Anzahl von Patches,\n"
@@ -1106,35 +1109,35 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tSyntax-Einfärbung aktivieren (immer, automatisch, nie).\n"
 
-#: quilt/push.in:66
+#: quilt/push.in:68
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Unterbrechung durch Benutzer; Patch %s wurde nicht angewandt.\\n"
 
-#: quilt/push.in:178
+#: quilt/push.in:180
 msgid "Applying patch %s\\n"
 msgstr "Wende Patch %s an\\n"
 
-#: quilt/push.in:213
+#: quilt/push.in:214
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Patch %s existiert nicht; wende leeren patch an\\n"
 
-#: quilt/push.in:217
+#: quilt/push.in:218
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Patch %s scheint leer zu sein; angewandt\\n"
 
-#: quilt/push.in:221
+#: quilt/push.in:222
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Patch %s angewandt (erzwungen, muss aktualisiert werden (Refresh))\\n"
 
-#: quilt/push.in:231
+#: quilt/push.in:232
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Patch %s kann verkehrt angewandt werden\\n"
 
-#: quilt/push.in:234
+#: quilt/push.in:235
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
-#: quilt/push.in:376
+#: quilt/push.in:377
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 
@@ -1279,7 +1282,7 @@ msgstr ""
 "Kann --strip-trailing-whitespace nicht für Patches verwenden, die Dateien "
 "enthalten, die danach von anderen Patches weiter verändert werden.\\n"
 
-#: quilt/refresh.in:252
+#: quilt/refresh.in:252 quilt/refresh.in:354
 msgid "Nothing in patch %s\\n"
 msgstr "Patch %s ist leer\\n"
 
@@ -1287,7 +1290,7 @@ msgstr "Patch %s ist leer\\n"
 msgid "Patch %s is unchanged\\n"
 msgstr "Patch %s ist unverändert\\n"
 
-#: quilt/refresh.in:350
+#: quilt/refresh.in:352
 msgid "Refreshed patch %s\\n"
 msgstr "Patch %s aktualisiert\\n"
 
@@ -1403,36 +1406,40 @@ msgstr "Anzeigename `%s' enthält eine unvollständige Klammerung\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
-#: quilt/scripts/patchfns.in:211 quilt/scripts/patchfns.in:505
+#: quilt/scripts/patchfns.in:217 quilt/scripts/patchfns.in:511
 #, fuzzy
 msgid "%s is not a regular file\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:459 quilt/scripts/patchfns.in:476
+#: quilt/scripts/patchfns.in:465 quilt/scripts/patchfns.in:482
 msgid "No patches in series\\n"
 msgstr "Keine Patches in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:461 quilt/scripts/patchfns.in:478
+#: quilt/scripts/patchfns.in:467 quilt/scripts/patchfns.in:484
 msgid "No series file found\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:534
+#: quilt/scripts/patchfns.in:540
 msgid "Patch %s is not in series\\n"
 msgstr "Patch %s ist nicht in der series-Datei\\n"
 
-#: quilt/scripts/patchfns.in:562
+#: quilt/scripts/patchfns.in:568
 msgid "Patch %s is not applied\\n"
 msgstr "Patch %s ist nicht angewandt\\n"
 
-#: quilt/scripts/patchfns.in:599
+#: quilt/scripts/patchfns.in:605
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "series-Datei vollständig angewandt, endet in Patch %s\\n"
 
-#: quilt/scripts/patchfns.in:632
+#: quilt/scripts/patchfns.in:638
 msgid "Patch %s does not exist\\n"
 msgstr "Patch %s existiert nicht\\n"
 
-#: quilt/scripts/patchfns.in:945
+#: quilt/scripts/patchfns.in:910
+msgid "Failed to patch temporary files\\n"
+msgstr "Konnte temporäre Dateien nicht patchen\\n"
+
+#: quilt/scripts/patchfns.in:951
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1445,7 +1452,7 @@ msgstr ""
 "quilt alle Patches mit der Version von quilt, die zur Erstellung des "
 "Arbeitsverzeichnisses verwendet wurde.\\n"
 
-#: quilt/scripts/patchfns.in:1089
+#: quilt/scripts/patchfns.in:1095
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1458,33 +1465,32 @@ msgstr ""
 msgid "SYNOPSIS: %s [-p num] [-n] [patch]\n"
 msgstr "Aufruf: %s [-p num] [-n] [patch]\n"
 
-#: quilt/scripts/remove-trailing-ws.in:65
-#: quilt/scripts/remove-trailing-ws.in:92
+#: quilt/scripts/remove-trailing-ws.in:66
 #, perl-format
 msgid "%s: I'm confused.\n"
 msgstr "%s: Ich bin verwirrt.\n"
 
-#: quilt/scripts/remove-trailing-ws.in:113
+#: quilt/scripts/remove-trailing-ws.in:114
 #, perl-format
 msgid "Warning: trailing whitespace in line %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:116
+#: quilt/scripts/remove-trailing-ws.in:117
 #, perl-format
 msgid "Warning: trailing whitespace in lines %s of %s\n"
 msgstr "Warnung: abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:120
+#: quilt/scripts/remove-trailing-ws.in:121
 #, perl-format
 msgid "Removing trailing whitespace from line %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in Zeile %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:123
+#: quilt/scripts/remove-trailing-ws.in:124
 #, perl-format
 msgid "Removing trailing whitespace from lines %s of %s\n"
 msgstr "Entferne abschliessende Leerzeichen in den Zeilen %s von %s\n"
 
-#: quilt/scripts/remove-trailing-ws.in:143
+#: quilt/scripts/remove-trailing-ws.in:144
 #, perl-format
 msgid "Renaming %s to %s: %s\n"
 msgstr "Umbenennen von %s auf %s: %s\n"
@@ -1494,10 +1500,14 @@ msgid "Usage: quilt series [-v]\\n"
 msgstr "Verwendung: quilt series [-v]\\n"
 
 #: quilt/series.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
 "\n"
+"--color[=always|auto|never]\n"
+"\tUse syntax coloring (auto activates it only if the output is a tty).\n"
+"\t\n"
 "-v\tVerbose, more user friendly output.\n"
 msgstr ""
 "\n"
@@ -1505,15 +1515,15 @@ msgstr ""
 "\n"
 "-v\tAusführlichere, benutzerfreundliche Ausgabe.\n"
 
-#: quilt/setup.in:31
+#: quilt/setup.in:34 quilt/setup.in:53
 msgid "Directory %s exists\\n"
 msgstr "Verzeichnis %s existiert\\n"
 
-#: quilt/setup.in:37
+#: quilt/setup.in:59
 msgid "File %s exists\\n"
 msgstr "Datei %s existiert\\n"
 
-#: quilt/setup.in:75
+#: quilt/setup.in:99
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
 "{specfile|seriesfile}\\n"
@@ -1521,7 +1531,7 @@ msgstr ""
 "Verwendung: quilt setup [-d pfad-präfix] [-v] [--sourcedir verzeichnis] [--"
 "fuzz=N] {spec-datei|series-datei}\\n"
 
-#: quilt/setup.in:78
+#: quilt/setup.in:102
 #, fuzzy
 msgid ""
 "\n"
@@ -1548,21 +1558,21 @@ msgstr ""
 "\n"
 "-v\tAusführliche Ausgabe.\n"
 
-#: quilt/setup.in:149
+#: quilt/setup.in:173
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "Der %%prep-Abschnitt von %s ist fehlgeschlagen; die Ergebnisse sind "
 "möglicherweise unvollständig\\n"
 
-#: quilt/setup.in:152
+#: quilt/setup.in:176
 msgid "The -v option will show rpm's output\\n"
 msgstr "Die Option -v zeigt die Ausgaben von rpm an\\n"
 
-#: quilt/setup.in:195
+#: quilt/setup.in:228 quilt/setup.in:240
 msgid "File %s not found\\n"
 msgstr "Datei %s nicht gefunden\\n"
 
-#: quilt/setup.in:198
+#: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "Entpacke Archiv %s\\n"
 
