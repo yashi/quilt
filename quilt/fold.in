@@ -99,6 +99,8 @@ patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level \
 
 [ -n "$opt_force" ] && failed=
 
+saved_IFS=$IFS
+IFS=$'\n'
 if [ -z "$failed" ]
 then
 	# Copy additional files from workdir to the backup directory
@@ -132,6 +134,7 @@ then
 	rm -rf $workdir
 	exit 1
 fi
+IFS=$saved_IFS
 
 rm -rf $workdir
 exit 0

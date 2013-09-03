@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep  3 08:02:52 CEST 2013 - mquinson@debian.org
+
+- quilt/fold.in: make it work with filenames with spaces
+  (closes http://savannah.nongnu.org/bugs/?39833)
+  Report and patch by David Leonard, thanks!
+
+-------------------------------------------------------------------
 Fri May 24 15:12:50 CEST 2013 - jdelvare@suse.de
 
 - Makefile: Fix "find -perm" usage.
