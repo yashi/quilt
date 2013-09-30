@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep 30 14:19:26 CEST 2013 - jdelvare@suse.de
+
+- delete.test: Cope with new quoting style in find error message.
+  Also support find being a compat script.
+
+-------------------------------------------------------------------
 Tue Sep  3 08:02:52 CEST 2013 - mquinson@debian.org
 
 - quilt/fold.in: make it work with filenames with spaces

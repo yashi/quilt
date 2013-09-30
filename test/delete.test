@@ -79,7 +79,7 @@ Test the delete command.
 	# running as root, but you shouldn't do that anyway.
 	$ quilt delete "test3"
 	> Removing patch %{P}test3
-	>~ find: `?\./dir'?: Permission denied
+	>~ .*find: [`']?\./dir'?: Permission denied
 
 	$ chmod a+rx .pc/test3/dir
 
