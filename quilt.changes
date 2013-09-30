@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 30 14:21:45 CEST 2013 - jdelvare@suse.de
+
+- Makefile.in: Fix support for configure --with-xargs.
+
+-------------------------------------------------------------------
 Mon Sep 30 14:19:26 CEST 2013 - jdelvare@suse.de
 
 - delete.test: Cope with new quoting style in find error message.

@@ -30,6 +30,7 @@ TR :=		@TR@
 SED :=		@SED@
 AWK :=		@AWK@
 FIND :=		@FIND@
+XARGS :=	@XARGS@
 DIFF :=		@DIFF@
 PATCH :=	@PATCH@
 MKTEMP :=	@MKTEMP@
