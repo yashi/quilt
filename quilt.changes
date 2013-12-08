@@ -3,6 +3,7 @@ Sun Dec  8 10:46:10 CET 2013 - mquinson@debian.org
 
 - quilt/mail.in: accept recipents that have no full name along with
   the email. Thanks to Christoph Lameter for the detailed bug report.
+- doc/quilt.1.in: document QUILT_COLOR
 
 -------------------------------------------------------------------
 Mon Sep 30 14:21:45 CEST 2013 - jdelvare@suse.de

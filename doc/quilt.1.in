@@ -1,6 +1,6 @@
 .\\" Created by Martin Quinson from the tex documentation
 .\\"
-.TH quilt 1 "June 2, 2006" "quilt"
+.TH quilt 1 "Dec 8, 2013" "quilt"
  
 .SH NAME
 quilt \\- tool to manage series of patches
@@ -15,7 +15,7 @@ changes each patch makes. Patches can be applied, un-applied, refreshed,
 etc. The key philosophical concept is that your primary output is patches.
 
 With quilt, all work occurs within a single directory tree. Commands can be
-be invoked from anywhere within the source tree. They are of the form
+invoked from anywhere within the source tree. They are of the form
 .B quilt cmd
 similar to CVS, svn or git commands. They can be abbreviated as long as the specified
 part of the command is unique. All commands print some help text with
@@ -54,7 +54,7 @@ contains a list of patch file names that defines the order in which patches
 are applied. Unless there are means by which series files can be generated
 automatically, it is usually provided along with a set of patches. In this
 file, each patch file name is on a separate line. Patch files are identified
-by pathnames that are relative to the
+by path names that are relative to the
 .I patches
 directory; patches may be in sub-directories below this directory. Lines
 in the series file that start with a hash character (#) are ignored.
@@ -156,6 +156,11 @@ syntax colored when writing to a terminal.
 
 In addition to that, quilt recognizes the following variables:
 
+.IP EDITOR 4
+
+The program to run to edit files.  If it isn't redefined in the
+configuration file, $EDITOR as defined in the environment will be used.
+
 .IP QUILT_DIFF_OPTS 4
 
 Additional options that quilt shall pass to GNU diff when generating
@@ -211,10 +216,73 @@ unset, the values of GIT_PAGER or PAGER is used.  If none of these variables
 is set, "less -R" is used.  An empty value indicates that no pager should be
 used.
 
-.IP EDITOR 4
+.IP QUILT_COLORS 4
 
-The program to run to edit files.  If it isn't redefined in the
-configuration file, $EDITOR as defined in the environment will be used.
+By default, quilt uses its predefined color set in order to be more 
+comprehensible when distiguishing various types of patches, eg.
+applied/unapplied, failed, etc.
+
+To override one or more color settings, set the QUILT_COLORS variable in 
+following syntax - colon (:) separated list of elements, each being of the
+form <format name>=<foreground color>[;<background color>] 
+
+Format names with their respective default values are listed below, 
+along with their usage(s).	
+Color codes(values) are standard bash coloring escape codes. 
+See more at http://tldp.org/LDP/abs/html/colorizing.html#AEN20229
+
+.RS 4
+.IP \\fBdiff_hdr\\fP 10
+Used in 'quilt diff' to color the index line. Defaults to 32 (green).
+
+.IP \\fBdiff_add\\fP 10
+Used in 'quilt diff' to color added lines. Defaults to 36 (azure).
+
+.IP \\fBdiff_mod\\fP 10
+Used in 'quilt diff' to color modified lines. Defaults to 35 (purple).
+
+.IP \\fBdiff_rem\\fP 10
+Used in 'quilt diff' to color removed lines. Defaults to 35 (purple).
+
+.IP \\fBdiff_hunk\\fP 10
+Used in 'quilt diff' to color hunk header. Defaults to 33 (brown/orange).
+
+.IP \\fBdiff_ctx\\fP 10
+Used in 'quilt diff' to color the text after end of hunk header (diff --show-c-function generates this). Defaults to 35 (purple).
+
+.IP \\fBdiff_cctx\\fP 10
+Used in 'quilt diff' to color the 15-asterisk sequence before or after a hunk. Defaults to 33 (brown/orange).
+
+.IP \\fBpatch_fuzz\\fP 10
+Used in 'quilt push' to color the patch fuzz information. Defaults to 35 (purple).
+
+.IP \\fBpatch_fail\\fP 10
+Used in 'quilt push' to color the fail message. Defaults to 31 (red).
+
+.IP \\fBseries_app\\fP 10
+Used in 'quilt series' and 'quilt patches' to color the applied patch names. Defaults to 32 (green).
+
+.IP \\fBseries_top\\fP 10
+Used in 'quilt series' and 'quilt patches' to color the top patch name. Defaults to 33 (brown/orange).
+
+.IP \\fBseries_una\\fP 10
+Used in 'quilt series' and 'quilt patches' to color unapplied patch names. Defaults to 0 (no special color).
+
+.RE 
+.RS 4
+In addition, the \\fBclear\\fP format name is used to turn off special
+coloring. Its value is 0; it is not advised to modify it.
+
+The content of QUILT_COLORS superseeds default values. So the value
+diff_hdr=35;44 will get you the diff headers in magenta over blue
+instead of the default green over unchanged background. For that, add
+the following content to ~/.quiltrc (or /etc/quilt.quiltrc):
+
+.nf
+  QUILT_DIFF_ARGS="--color"
+  QUILT_COLORS='diff_hdr=35;44'
+.fi
+.RE 4
 
 .SH AUTHORS
 
