@@ -64,29 +64,38 @@
 	< Subject: Must not expand * ? [abc]
 	<
 
+	$ cat - no-subject > patches/7.diff
+	< Subject of 7.diff
+	<
+	< Signed-off-by: someone@without.name
+	<
+	
 	$ ls patches/ > series
 	$ quilt mail --mbox mbox --prefix "test" --subject "This is a test" -m "Message"
 	$ sed -nre "s/^(From [^ ]*).*/\\1/p" -e "/^Subject:/p" -e "/^To:/p" -e "/^Cc:/p" -e "/^ /p" -e "/^Replace-.*:/p" -e "/^Recipient-.*:/p" mbox
 	> From a@b.c
-	> Subject: [test 0/6] This is a test
+	> Subject: [test 0/7] This is a test
 	> From a@b.c
 	> Cc: Dummy <dummy@some.where>
-	> Subject: [test 1/6] Subject of 1.diff
+	> Subject: [test 1/7] Subject of 1.diff
 	> From a@b.c
 	> Cc: Dummy <dummy@some.where>
-	> Subject: [test 2/6] Subject of 2.diff is: split into multiple lines
+	> Subject: [test 2/7] Subject of 2.diff is: split into multiple lines
 	> From a@b.c
 	> To: "John X. Doe" <jxd@some.where>
-	> Subject: [test 3/6] Subject of 3.diff
+	> Subject: [test 3/7] Subject of 3.diff
 	> To: John X. Doe <jxd@some.where>
 	> From a@b.c
 	> Cc: "Joe R. Hacker" <joe@foo.baz>,
 	>  "John X. Doe" <jxd@some.where>,
 	>  =?UTF-8?q?=C3=9C=20is=20an=20umlaut?= <used@in.german>
-	> Subject: [test 4/6] First paragraph used as subject of 4.diff.
+	> Subject: [test 4/7] First paragraph used as subject of 4.diff.
 	> Cc: "John X. Doe" <jxd@some.where>
 	> Cc: Ü is an umlaut <used@in.german>
 	> From a@b.c
-	> Subject: [test 5/6] Subject of 5.diff
+	> Subject: [test 5/7] Subject of 5.diff
 	> From a@b.c
-	> Subject: [test 6/6] Must not expand * ? [abc]
+	> Subject: [test 6/7] Must not expand * ? [abc]
+	> From a@b.c
+	> Cc: someone@without.name
+	> Subject: [test 7/7] Subject of 7.diff
