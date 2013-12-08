@@ -6,6 +6,7 @@ Sun Dec  8 10:46:10 CET 2013 - mquinson@debian.org
 - quilt/mail.in: Add missing MIME headers (MIME-Version, Content-Type)
   (this closes the bug #21114 on Savannah)
 - doc/quilt.1.in: document QUILT_COLOR (closes #32093 on Savannah)
+- po/fr.po: update 2 strings
 
 -------------------------------------------------------------------
 Mon Sep 30 14:21:45 CEST 2013 - jdelvare@suse.de

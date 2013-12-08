@@ -1,12 +1,13 @@
 # quilt french translation
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
-# Martin Quinson <Martin.Quinson@tuxfamily.org>, 2003.
+# Martin Quinson <Martin.Quinson@tuxfamily.org>, 2003, 2013.
 # Jean Delvare <jdelvare@suse.de>, 2005, 2011.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.43\n"
-"PO-Revision-Date: 2006-01-04 17:30+0100\n"
+"PO-Revision-Date: 2013-12-08 21:47+0100\n"
 "Last-Translator: Jean Delvare <khali@linux-fr.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -946,12 +947,10 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/patches.in:24
-#, fuzzy
 msgid "Usage: quilt patches [-v] {file} [files...]\\n"
-msgstr "Usage : quilt patches [-v] {fichier}\\n"
+msgstr "Usage : quilt patches [-v] {fichier} [fichiers...]\\n"
 
 #: quilt/patches.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of patches that modify any of the specified files. (Uses a\n"
@@ -964,7 +963,7 @@ msgid ""
 "\tUse syntax coloring (auto activates it only if the output is a tty).\n"
 msgstr ""
 "\n"
-"Affiche la liste des patches modifiant le fichier spécifié. \n"
+"Affiche la liste des patches modifiant l'un des fichiers spécifiés. \n"
 "\n"
 "Une heuristique est utilisée pour déterminer quels fichiers sont \n"
 "modifiés par les patches n'étant pas appliqués. Veuillez noter que \n"
