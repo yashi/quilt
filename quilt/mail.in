@@ -186,7 +186,7 @@ do
 	-m)
 		if [ -n "$opt_message" ]
 		then
-			echo "Introduction message already specified" >&2
+			echo $"Introduction message already specified" >&2
 			exit 1
 		fi
 		opt_message=$2
@@ -194,7 +194,7 @@ do
 	-M)
 		if [ -n "$opt_message" ]
 		then
-			echo "Introduction message already specified" >&2
+			echo $"Introduction message already specified" >&2
 			exit 1
 		fi
 		opt_message=$(< "$2")
@@ -256,7 +256,7 @@ fi
 # check if formail is installed before doing anything
 if ! type formail &> /dev/null
 then
-        echo "You have to install 'formail' to use 'quilt mail'" >&2
+        echo $"You have to install 'formail' to use 'quilt mail'" >&2
         exit 1
 fi
 

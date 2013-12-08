@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Dec  8 23:32:16 CET 2013 - mquinson@debian.org
+
+- Mark some more strings as translatable
+
+-------------------------------------------------------------------
 Sun Dec  8 21:50:33 CET 2013 - mquinson@debian.org
 
 - configure*: Bump version to 0.61 "better releasing quilt than working"
