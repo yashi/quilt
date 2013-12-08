@@ -621,6 +621,8 @@ for patch in "${patches[@]}"; do
 		    		{ print }
 		' $introduction
 		references_header $introduction
+		echo "MIME-Version: 1.0"
+		echo "Content-Type: text/plain; charset=$opt_charset"	      
 		echo "Content-Disposition: inline; filename=$patch"
 		awk '
 		    kill_header { if (/^[ \t]/) next ; kill_header = 0 }
