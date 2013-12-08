@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Dec  8 21:50:33 CET 2013 - mquinson@debian.org
+
+- configure*: Bump version to 0.61 "better releasing quilt than working"
+
+-------------------------------------------------------------------
 Sun Dec  8 10:46:10 CET 2013 - mquinson@debian.org
 
 - quilt/mail.in: accept recipents that have no full name along with
