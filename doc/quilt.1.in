@@ -284,6 +284,12 @@ the following content to ~/.quiltrc (or /etc/quilt.quiltrc):
 .fi
 .RE 4
 
+.IP QUILT_LESS_ARGS 4
+
+The value quilt sets in the LESS environment variable before starting the
+pager regardless of which pager quilt is configured to use.  Defaults to
+the existing value of LESS, or "-FRSX" if LESS is undefined.
+
 .SH AUTHORS
 
 Quilt started as a series of scripts written by Andrew Morton

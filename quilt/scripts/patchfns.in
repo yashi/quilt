@@ -1008,7 +1008,8 @@ setup_pager()
 
 	[ -z "$QUILT_PAGER" -o "$QUILT_PAGER" = "cat" ]  && return 0
 
-	export LESS="${LESS:-FRSX}"
+	QUILT_LESS_ARGS="${QUILT_LESS_ARGS-${LESS:-FRSX}}"
+	export LESS="${QUILT_LESS_ARGS}"
 
 	# NOTE: with "exec > >($pager)" there is no way to get the pid of the
 	# pager so we can't wait for it to complete.  Otherwise we wouldn't
