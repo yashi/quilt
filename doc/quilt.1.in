@@ -161,6 +161,12 @@ In addition to that, quilt recognizes the following variables:
 The program to run to edit files.  If it isn't redefined in the
 configuration file, $EDITOR as defined in the environment will be used.
 
+.IP LESS 4
+
+The arguments used to invoke the pager.  Inherits the existing value
+of $LESS if LESS is already set in the environment, otherwise defaults
+to "-FRSX".
+
 .IP QUILT_DIFF_OPTS 4
 
 Additional options that quilt shall pass to GNU diff when generating
@@ -283,12 +289,6 @@ the following content to ~/.quiltrc (or /etc/quilt.quiltrc):
   QUILT_COLORS='diff_hdr=35;44'
 .fi
 .RE 4
-
-.IP QUILT_LESS_ARGS 4
-
-The value quilt sets in the LESS environment variable before starting the
-pager regardless of which pager quilt is configured to use.  Defaults to
-the existing value of LESS, or "-FRSX" if LESS is undefined.
 
 .SH AUTHORS
 
