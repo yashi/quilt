@@ -588,7 +588,7 @@ find_unapplied_patch()
 	        then
 			printf $"Patch %s is currently applied\n" \
 				"$(print_patch $patch)" >&2
-               		return 1
+			return 2
 	        fi
 		echo "$patch"
 	else
@@ -598,13 +598,13 @@ find_unapplied_patch()
 		then
 			patch_after "$start"
 		else
-			find_first_patch || return 1
+			find_first_patch || return 2
 		fi
 		if [ $? -ne 0 ]
 		then
 			printf $"File series fully applied, ends at patch %s\n" \
 				"$(print_patch $start)" >&2
-			return 1
+			return 2
 		fi
 	fi
 }

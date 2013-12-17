@@ -356,7 +356,7 @@ else
 	[ -z "$opt_all" ] && number=1
 fi
 
-stop_at_patch=$(find_unapplied_patch "$stop_at_patch") || exit 1
+stop_at_patch=$(find_unapplied_patch "$stop_at_patch") || exit
 
 [ -z "$opt_verbose" ] && silent_unless_verbose=-s
 [ -n "$opt_force" ] && opt_leave_rejects=1
