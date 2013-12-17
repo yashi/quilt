@@ -30,6 +30,8 @@
 
 	$ quilt pop
 	> No patch removed
+	$ echo %{?}
+	> 2
 
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top
@@ -96,6 +98,8 @@
 
 	$ quilt pop
 	> No patch removed
+	$ echo %{?}
+	> 2
 
 	$ quilt applied
 	> No patches applied
@@ -133,6 +137,8 @@
 
 	$ quilt push
 	> File series fully applied, ends at patch patches/patch2.diff
+	$ echo %{?}
+	> 2
 
 	$ quilt diff --combine patch1 -P patch2 -p ab
 	> Index: b/f
