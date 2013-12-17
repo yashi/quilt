@@ -62,6 +62,7 @@ sub flush_output($);
 
 my ($prog, $in, $out) = ([], [], []);
 my $prog_line = 0;
+my $last_status = 0;
 my ($tests, $failed) = (0,0);
 my $lineno;
 my $width = ($ENV{COLUMNS} || 80) >> 1;
@@ -92,13 +93,16 @@ for (;;) {
     } elsif ($line =~ s/^\s*> ?//) {
       push @$out, $line;
     } else {
-      process_test($prog, $prog_line, $in, $out);
+      $last_status = process_test($prog, $prog_line, $in, $out) if @$prog;
       last if $prog_line >= $opt_l;
 
       $prog = [];
       $prog_line = 0;
     }
     if ($line =~ s/^\s*\$ ?//) {
+      # Substitute %{?} with the last command's status.
+      $line =~ s[%{\?}][$last_status]eg;
+
       $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
       $prog_line = $lineno;
       $in = [];
@@ -138,7 +142,7 @@ sub process_test($$$$) {
        my $p = [ @$prog ];
        print_body "[$prog_line] \$ ".join(' ',
                   map { s/\s/\\$&/g; $_ } @$p)." -- ";
-       my $result = exec_test($prog, $in);
+       my ($exec_status, $result) = exec_test($prog, $in);
        my @good = ();
        my $nmax = (@$out > @$result) ? @$out : @$result;
        for (my $n=0; $n < $nmax; $n++) {
@@ -171,6 +175,8 @@ sub process_test($$$$) {
 			      $r, $good[$n], $l);
          }
        }
+
+       return $exec_status;
 }
 
 
@@ -180,10 +186,10 @@ sub su($) {
   $user ||= "root";
 
   my ($login, $pass, $uid, $gid) = getpwnam($user)
-    or return [ "su: user $user does not exist\n" ];
+    or return 1, [ "su: user $user does not exist\n" ];
   my @groups = ();
   my $fh = new FileHandle("/etc/group")
-    or return [ "opening /etc/group: $!\n" ];
+    or return 1, [ "opening /etc/group: $!\n" ];
   while (<$fh>) {
     chomp;
     my ($group, $passwd, $gid, $users) = split /:/;
@@ -201,17 +207,17 @@ sub su($) {
   $( = $gid;
   $) = $groups;
   if ($!) {
-    return [ "su: $!\n" ];
+    return 1, [ "su: $!\n" ];
   }
   if ($uid != 0) {
     $> = $uid;
     #$< = $uid;
     if ($!) {
-      return [ "su: $prog->[1]: $!\n" ];
+      return 1, [ "su: $prog->[1]: $!\n" ];
     }
   }
   #print STDERR "[($>,$<)($(,$))]";
-  return [];
+  return 0, [];
 }
 
 
@@ -219,7 +225,7 @@ sub sg($) {
   my ($group) = @_;
 
   my $gid = getgrnam($group)
-    or return [ "sg: group $group does not exist\n" ];
+    or return 1, [ "sg: group $group does not exist\n" ];
   my %groups = map { $_ eq $gid ? () : ($_ => 1) } (split /\s/, $));
   
   #print STDERR "<<", join("/", keys %groups), ">>\n";
@@ -237,10 +243,10 @@ sub sg($) {
 	  $) = $groups;
   }
   if ($!) {
-    return [ "sg: $!\n" ];
+    return 1, [ "sg: $!\n" ];
   }
   print STDERR "[($>,$<)($(,$))]";
-  return [];
+  return 0, [];
 }
 
 
@@ -251,13 +257,13 @@ sub exec_test($$) {
 
   if ($prog->[0] eq "umask") {
     umask oct $prog->[1];
-    return [];
+    return 0, [];
   } elsif ($prog->[0] eq "cd") {
     if (!chdir $prog->[1]) {
-      return [ "chdir: $prog->[1]: $!\n" ];
+      return 1, [ "chdir: $prog->[1]: $!\n" ];
     }
     $ENV{PWD} = getcwd;
-    return [];
+    return 0, [];
   } elsif ($prog->[0] eq "su") {
     return su($prog->[1]);
   } elsif ($prog->[0] eq "sg") {
@@ -267,10 +273,10 @@ sub exec_test($$) {
     # FIXME: need to evaluate $value, so that things like this will work:
     # export dir=$PWD/dir
     $ENV{$name} = $value;
-    return [];
+    return 0, [];
   } elsif ($prog->[0] eq "unset") {
     delete $ENV{$prog->[1]};
-    return [];
+    return 0, [];
   }
 
   pipe *IN2, *OUT
@@ -320,7 +326,8 @@ sub exec_test($$) {
       }
       push @$result, $_;
     }
-    return $result;
+    wait();
+    return $? >> 8, $result;
   } else {
     # Client
     $< = $>;

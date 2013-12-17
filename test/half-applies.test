@@ -16,6 +16,8 @@ $ quilt push
 > Hunk #1 FAILED at 1.
 >~ 1 out of 1 hunk FAILED -- rejects in file `?bar'?
 > Patch patches/foorab.diff does not apply (enforce with -f)
+$ echo %{?}
+> 1
 
 $ quilt push
 > Applying patch patches/foorab.diff
@@ -24,11 +26,15 @@ $ quilt push
 > Hunk #1 FAILED at 1.
 >~ 1 out of 1 hunk FAILED -- rejects in file `?bar'?
 > Patch patches/foorab.diff does not apply (enforce with -f)
+$ echo %{?}
+> 1
 
 $ quilt push -qf
 > Applying patch patches/foorab.diff
 >~ 1 out of 1 hunk FAILED( -- saving rejects to( file)? bar.rej)?
 > Applied patch patches/foorab.diff (forced; needs refresh)
+$ echo %{?}
+> 1
 
 $ quilt diff
 > Index: foo
@@ -38,3 +44,5 @@ $ quilt diff
 > @@ -1 +1 @@
 > -foo
 > +foo2
+$ echo %{?}
+> 0
