@@ -289,7 +289,7 @@ Used in 'quilt series' and 'quilt patches' to color unapplied patch names. Defau
 In addition, the \\fBclear\\fP format name is used to turn off special
 coloring. Its value is 0; it is not advised to modify it.
 
-The content of QUILT_COLORS superseeds default values. So the value
+The content of QUILT_COLORS supersedes default values. So the value
 diff_hdr=35;44 will get you the diff headers in magenta over blue
 instead of the default green over unchanged background. For that, add
 the following content to ~/.quiltrc (or /etc/quilt.quiltrc):
