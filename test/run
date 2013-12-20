@@ -81,38 +81,41 @@ if (defined $ARGV[0]) {
 	*SOURCE = *STDIN;
 }
 
-for (;;) {
-  my $line = <SOURCE>; $lineno++;
-  if (defined $line) {
-    # Substitute %{VAR} with environment variables.
-    $line =~ s[%{(\w+)}][$ENV{$1}]eg;
-  }
-  if (defined $line) {
-    if ($line =~ s/^\s*< ?//) {
-      push @$in, $line;
-    } elsif ($line =~ s/^\s*> ?//) {
-      push @$out, $line;
-    } else {
-      $last_status = process_test($prog, $prog_line, $in, $out) if @$prog;
-      last if $prog_line >= $opt_l;
+while (defined(my $line = <SOURCE>)) {
+	$lineno++;
+	# Substitute %{VAR} with environment variables
+	$line =~ s[%{(\w+)}][$ENV{$1}]eg;
 
-      $prog = [];
-      $prog_line = 0;
-    }
-    if ($line =~ s/^\s*\$ ?//) {
-      # Substitute %{?} with the last command's status.
-      $line =~ s[%{\?}][$last_status]eg;
+	# Collect input and output for the previous command
+	if ($line =~ s/^\s*< ?//) {
+		push @$in, $line;
+		next;
+	}
+	if ($line =~ s/^\s*> ?//) {
+		push @$out, $line;
+		next;
+	}
 
-      $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
-      $prog_line = $lineno;
-      $in = [];
-      $out = [];
-    }
-  } else {
-    process_test($prog, $prog_line, $in, $out);
-    last;
-  }
+	# We have all input and output, we can execute the command
+	if (@$prog) {
+		$last_status = process_test($prog, $prog_line, $in, $out);
+		$prog = [];
+		last if $prog_line >= $opt_l;
+	}
+
+	# Parse the next command
+	if ($line =~ s/^\s*\$ ?//) {
+		# Substitute %{?} with the last command's status
+		$line =~ s[%{\?}][$last_status]eg;
+
+		$prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
+		$prog_line = $lineno;
+		$in = [];
+		$out = [];
+	}
 }
+# Execute last command if needed
+process_test($prog, $prog_line, $in, $out) if @$prog;
 
 close(SOURCE);
 
@@ -136,8 +139,6 @@ exit $failed ? 1 : 0;
 
 sub process_test($$$$) {
   my ($prog, $prog_line, $in, $out) = @_;
-
-  return unless @$prog;
 
        my $p = [ @$prog ];
        print_body "[$prog_line] \$ ".join(' ',
