@@ -31,9 +31,17 @@
 # Possible improvements:
 #
 # - distinguish stdout and stderr output
-# - add environment variable like assignments
-# - run up to a specific line
 # - resume at a specific line
+#
+
+#
+# Command line parameters:
+#
+# -l N		Stop the test after line N
+# -q		Quiet mode: buffer the output while processing and print the
+#		result at the end; on success, only the summary is printed
+# -v		Verbose mode: print the output of successful commands (by
+#		default the output is only printed for failed commands)
 #
 
 use strict;
@@ -277,8 +285,6 @@ sub exec_test($$) {
     return sg($prog->[1]);
   } elsif ($prog->[0] eq "export") {
     my ($name, $value) = split /=/, $prog->[1];
-    # FIXME: need to evaluate $value, so that things like this will work:
-    # export dir=$PWD/dir
     $ENV{$name} = $value;
     return 0, [];
   } elsif ($prog->[0] eq "unset") {
