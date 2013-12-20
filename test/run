@@ -81,18 +81,24 @@ if (defined $ARGV[0]) {
 	*SOURCE = *STDIN;
 }
 
+# Substitute %{VAR} with environment variables
+sub substitute_vars($)
+{
+	my ($line) = @_;
+	$line =~ s[%{(\w+)}][defined $ENV{$1} ? $ENV{$1} : ""]eg;
+	return $line;
+}
+
 while (defined(my $line = <SOURCE>)) {
 	$lineno++;
-	# Substitute %{VAR} with environment variables
-	$line =~ s[%{(\w+)}][$ENV{$1}]eg;
 
 	# Collect input and output for the previous command
 	if ($line =~ s/^\s*< ?//) {
-		push @$in, $line;
+		push @$in, substitute_vars($line);
 		next;
 	}
 	if ($line =~ s/^\s*> ?//) {
-		push @$out, $line;
+		push @$out, substitute_vars($line);
 		next;
 	}
 
@@ -108,7 +114,7 @@ while (defined(my $line = <SOURCE>)) {
 		# Substitute %{?} with the last command's status
 		$line =~ s[%{\?}][$last_status]eg;
 
-		$prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $line ];
+		$prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, substitute_vars($line) ];
 		$prog_line = $lineno;
 		$in = [];
 		$out = [];
