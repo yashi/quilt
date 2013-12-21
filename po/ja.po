@@ -808,6 +808,15 @@ msgstr ""
 "--reply-to メッセージ\n"
 "\t指定されたメッセージへのリプライとなるように、適切なヘッダを追加。\n"
 
+#: quilt/mail.in:189 quilt/mail.in:197
+#, fuzzy
+msgid "Introduction message already specified"
+msgstr "序文は %s という名前で保存されました\\n"
+
+#: quilt/mail.in:259
+msgid "You have to install 'formail' to use 'quilt mail'"
+msgstr ""
+
 #: quilt/mail.in:302
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
@@ -1564,6 +1573,10 @@ msgstr "ファイル %s が見つかりません"
 #: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "アーカイブ %s を展開しています\\n"
+
+#: quilt/setup.in:252
+msgid "Trying alternative patches and series names..."
+msgstr ""
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"

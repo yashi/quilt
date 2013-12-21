@@ -824,6 +824,15 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
+#: quilt/mail.in:189 quilt/mail.in:197
+#, fuzzy
+msgid "Introduction message already specified"
+msgstr "Einleitung gespeichert als %s\\n"
+
+#: quilt/mail.in:259
+msgid "You have to install 'formail' to use 'quilt mail'"
+msgstr ""
+
 #: quilt/mail.in:302
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
@@ -1575,6 +1584,10 @@ msgstr "Datei %s nicht gefunden\\n"
 #: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "Entpacke Archiv %s\\n"
+
+#: quilt/setup.in:252
+msgid "Trying alternative patches and series names..."
+msgstr ""
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"

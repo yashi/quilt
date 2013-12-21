@@ -838,6 +838,15 @@ msgstr ""
 "--reply-to message\n"
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
+#: quilt/mail.in:189 quilt/mail.in:197
+#, fuzzy
+msgid "Introduction message already specified"
+msgstr "Introduction sauvegardée en tant que %s\\n"
+
+#: quilt/mail.in:259
+msgid "You have to install 'formail' to use 'quilt mail'"
+msgstr ""
+
 #: quilt/mail.in:302
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
@@ -1603,6 +1612,10 @@ msgstr "Le fichier %s est introuvable\\n"
 #: quilt/setup.in:231 quilt/setup.in:243
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
+
+#: quilt/setup.in:252
+msgid "Trying alternative patches and series names..."
+msgstr ""
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"
