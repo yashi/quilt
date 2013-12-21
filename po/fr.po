@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.43\n"
-"PO-Revision-Date: 2013-12-08 21:47+0100\n"
+"PO-Revision-Date: 2013-12-21 17:30+0100\n"
 "Last-Translator: Jean Delvare <khali@linux-fr.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -214,7 +214,6 @@ msgstr ""
 "index] [--sort] [--color] [fichier ...]\\n"
 
 #: quilt/diff.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -310,6 +309,7 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tColorise la syntaxe toujours («always»), de manière automatique\n"
 "\t(«auto») ou jamais («never»).\n"
+"\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 "\n"
 "--sort\tTrie les fichiers par leur nom au lieu de préserver leur ordre\n"
 "\td'origine.\n"
@@ -839,13 +839,12 @@ msgstr ""
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
 #: quilt/mail.in:189 quilt/mail.in:197
-#, fuzzy
 msgid "Introduction message already specified"
-msgstr "Introduction sauvegardée en tant que %s\\n"
+msgstr "Message d'introduction déjà spécifié"
 
 #: quilt/mail.in:259
 msgid "You have to install 'formail' to use 'quilt mail'"
-msgstr ""
+msgstr "Vous devez installer le programme «formail» afin d'utiliser la commande «quilt mail»"
 
 #: quilt/mail.in:302
 msgid "Could not determine the envelope sender address. Please use --sender."
@@ -980,6 +979,11 @@ msgstr ""
 "appliqués.\n"
 "\n"
 "-v\tAffichage verbeux, plus simple à lire.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tColorise la syntaxe toujours («always»), de manière automatique\n"
+"\t(«auto») ou jamais («never»).\n"
+"\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 
 #: quilt/pop.in:22
 msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
@@ -1086,7 +1090,6 @@ msgstr ""
 "color[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1120,12 +1123,10 @@ msgid ""
 msgstr ""
 "\n"
 "Applique un ou plusieurs patches de la série.  Si aucun argument n'est\n"
-"spécifié, le prochain patch est appliqué. Si un nombre est passé en "
-"argument,\n"
+"spécifié, le prochain patch est appliqué. Si un nombre est passé en argument,\n"
 "cela indique la quantité de patchs à appliquer. Si un nom de patch est\n"
 "spécifié, il est appliqué ainsi que tous ceux placés avant lui dans la\n"
-"série. Le nom des patchs peut contenir le préfix patches/ de façon à "
-"pouvoir\n"
+"série. Le nom des patchs peut contenir le préfix patches/ de façon à pouvoir\n"
 "profiter de la complétion sur le nom de fichier.\n"
 "\n"
 "-a\tApplique tous les patches de la série.\n"
@@ -1149,6 +1150,7 @@ msgstr ""
 "--color[=always|auto|never]\n"
 "\tApplique une coloration syntaxique, toujours («always»), de manière\n"
 "\tautomatique («auto») ou jamais («never»).\n"
+"\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 
 #: quilt/push.in:68
 msgid "Interrupted by user; patch %s was not applied.\\n"
@@ -1536,7 +1538,6 @@ msgid "Usage: quilt series [-v]\\n"
 msgstr "Usage : quilt series [-v]\\n"
 
 #: quilt/series.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
@@ -1550,6 +1551,11 @@ msgstr ""
 "Affiche le nom de tous les patches de la série.\n"
 "\n"
 "-v\tAffichage verbeux, plus simple à lire.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tColorise la syntaxe toujours («always»), de manière automatique\n"
+"\t(«auto») ou jamais («never»). Par défaut, auto n'est activée que\n"
+"\tsi la sortie est un tty.\n"
 
 #: quilt/setup.in:34 quilt/setup.in:53
 msgid "Directory %s exists\\n"
@@ -1615,7 +1621,7 @@ msgstr "Désarchivage de %s\\n"
 
 #: quilt/setup.in:252
 msgid "Trying alternative patches and series names..."
-msgstr ""
+msgstr "Tentative d'utilisation des noms de patches et séries alternatifs..."
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"
