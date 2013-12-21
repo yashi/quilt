@@ -1,3 +1,10 @@
+Sat Dec 21 17:00:57 CET 2013 - mquinson@debian.org
+
+- bin/patch-wrapper.in: Die with an informative message when /proc is
+  not mounted, as it is often the case within a chroot. /proc is
+  mandated to to retrieve the cwd and other informations. Without this
+  patch, the script was dying with a cryptic message in this situation.
+
 -------------------------------------------------------------------
 Sun Dec  8 23:32:16 CET 2013 - mquinson@debian.org
 

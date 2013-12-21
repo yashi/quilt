@@ -171,6 +171,10 @@ then
     if [ -n "$opt_input" ]
     then
 	patch=$opt_input
+    elif [ ! -e /proc/self ]
+    then
+	echo "patch-wrapper: /proc not mounted!" >&2
+	exit 1
     elif [ -e /proc/self/fd/0 ]
     then
 	patch=$(readlink /proc/self/fd/0)
