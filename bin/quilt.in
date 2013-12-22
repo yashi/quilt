@@ -10,6 +10,10 @@
 # non-interactively when it's set.
 unset POSIXLY_CORRECT
 
+# unset GREP_OPTIONS as it's quite easy to break quilt with uncommon options
+# see http://bugs.debian.org/715563
+unset GREP_OPTIONS
+
 export TEXTDOMAIN=quilt
 export TEXTDOMAINDIR=@LOCALEDIR@
 
