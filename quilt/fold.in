@@ -94,7 +94,7 @@ trap "failed=1" SIGINT
 
 workdir=$(gen_tempfile -d $PWD)
 patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level \
-      --backup --prefix="$workdir/$SUBDIR" -E $patch_args \
+      --backup --prefix="$workdir/$SUBDIR" $patch_args \
 || failed=1
 
 [ -n "$opt_force" ] && failed=

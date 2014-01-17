@@ -897,7 +897,7 @@ apply_patch_temporarily()
 	then
 		if ! cat_file $patch_file \
 		     | patch -d $workdir $QUILT_PATCH_OPTS $patch_args \
-		     	     --no-backup-if-mismatch -Ef \
+			     --no-backup-if-mismatch -f \
 			     >/dev/null 2>/dev/null
 		then
 			# Generating a relative diff for a subset of files in

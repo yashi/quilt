@@ -108,7 +108,7 @@ check_for_pending_changes()
 		cat_file "$patch_file" \
 		| patch -d $workdir $QUILT_PATCH_OPTS \
 			$(patch_args "$patch") --no-backup-if-mismatch \
-			-E -f >/dev/null 2>/dev/null
+			-f >/dev/null 2>/dev/null
 	fi
 
 	local file file2 failed

@@ -119,7 +119,7 @@ apply_patch()
 
 	set -- patch $QUILT_PATCH_OPTS $(push_patch_args "$patch") \
 		     --backup --prefix="$QUILT_PC/$patch/" \
-		     $no_reject_files -E $more_patch_args
+		     $no_reject_files $more_patch_args
 
 	if [ "${patch_file:(-3)}" = ".gz" ]
 	then
