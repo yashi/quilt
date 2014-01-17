@@ -736,7 +736,7 @@ diff_file()
 		|| old_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
 					-r "$old_file")
 	fi
-	if ! [ -s "$new_file" ]
+	if ! [ -e "$new_file" ]
 	then
 		[ $opt_strip_level = 0 ] \
 		&& old_hdr=$new_hdr
