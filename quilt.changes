@@ -1,9 +1,38 @@
+-------------------------------------------------------------------
+Fri Jan 17 14:37:21 CET 2014 - jdelvare@suse.de
+
+- Stop using patch option -E.
+- Add a test case for patches leaving empty files.
+
+-------------------------------------------------------------------
+Tue Jan  7 15:56:16 CET 2014 - jdelvare@suse.de
+
+- bash_completion: Fix completion of patch names (closes #27111 on
+  Savannah.)
+
+-------------------------------------------------------------------
+
 Sat Dec 21 17:00:57 CET 2013 - mquinson@debian.org
 
 - bin/patch-wrapper.in: Die with an informative message when /proc is
   not mounted, as it is often the case within a chroot. /proc is
   mandated to to retrieve the cwd and other informations. Without this
   patch, the script was dying with a cryptic message in this situation.
+
+-------------------------------------------------------------------
+Fri Dec 20 21:36:29 CET 2013 - jdelvare@suse.de
+
+- test/run: Rewrite the main parsing loop.
+- test/run: Fix variable substitution.
+- test/run: Documentation update.
+
+-------------------------------------------------------------------
+Tue Dec 17 14:03:51 CET 2013 - jdelvare@suse.de
+
+- test/run: Record the status returned by every command, so that
+  test cases can check them.
+- test/*.text: Test the status returned by all commands in 4 test
+  cases.
 
 -------------------------------------------------------------------
 Sun Dec  8 23:32:16 CET 2013 - mquinson@debian.org
