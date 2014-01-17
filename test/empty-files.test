@@ -83,3 +83,39 @@
 	> File deleted2 does not exist
 	$ if test -e emptied2; then if test -s emptied2; then echo "File emptied2 is not empty" ; else echo "File emptied2 is empty" ; fi ; else echo "File emptied2 does not exist" ; fi
 	> File emptied2 is empty
+
+# Test quilt refresh
+	$ quilt delete
+	> Removing patch patches/fold.patch
+	> No patches applied
+	> Removed patch patches/fold.patch
+	$ quilt push -q
+	> Applying patch patches/using-filenames.patch
+	> Now at patch patches/using-filenames.patch
+
+	$ quilt refresh -pab --sort --no-index
+	> Refreshed patch patches/using-filenames.patch
+	$ quilt pop -q
+	> Removing patch patches/using-filenames.patch
+	> No patches applied
+
+	$ quilt push
+	> Applying patch patches/using-filenames.patch
+	> patching file deleted1
+	> patching file emptied1
+	>
+	> Now at patch patches/using-filenames.patch
+	$ if test -e deleted1; then if test -s deleted1; then echo "File deleted1 is not empty" ; else echo "File deleted1 is empty" ; fi ; else echo "File deleted1 does not exist" ; fi
+	> File deleted1 does not exist
+	$ if test -e emptied1; then if test -s emptied1; then echo "File emptied1 is not empty" ; else echo "File emptied1 is empty" ; fi ; else echo "File emptied1 does not exist" ; fi
+	> File emptied1 is empty
+
+	$ cat patches/using-filenames.patch
+	> --- a/deleted1
+	> +++ /dev/null
+	> @@ -1 +0,0 @@
+	> -will be deleted
+	> --- a/emptied1
+	> +++ b/emptied1
+	> @@ -1 +0,0 @@
+	> -will be emptied

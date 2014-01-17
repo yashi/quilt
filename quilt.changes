@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 17 19:12:34 CET 2014 - jdelvare@suse.de
+
+- Fix handling of patches emptying a file.
+- Add a test case for "quilt refresh" on a patch leaving an empty
+  file.
+
+-------------------------------------------------------------------
 Fri Jan 17 18:26:55 CET 2014 - mquinson@debian.org
 
 - test/refresh_patch_order.test: enforces the file order within a patch
