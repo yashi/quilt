@@ -189,7 +189,16 @@ Additional options that quilt shall pass to GNU patch when applying
 patches.  For example, recent versions of GNU patch support the
 "--reject-format=unified" option for generating reject files in unified
 diff style (older patch versions used "--unified-reject-files" for that).
-    
+
+You may also want to add the "-E" option if you have issues with quilt
+not deleting empty files when you think it should. The documentation of
+GNU patch says that "normally this option is unnecessary", but when patch
+is in POSIX mode or if the patch format doesn't allow to distinguish
+empty files from deleted files, patch deletes empty files only if the
+-E option is given. Beware that when passing -E to patch, quilt will
+no longer be able to deal with empty files, which is why using -E is
+no longer the default.
+
 .IP QUILT_DIFFSTAT_OPTS 4
 
 Additional options that quilt shall pass to diffstat when generating
