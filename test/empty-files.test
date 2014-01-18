@@ -43,9 +43,11 @@
 	> patching file emptied1
 	>
 	> Now at patch patches/using-filenames.patch
-	$ if test -e deleted1; then if test -s deleted1; then echo "File deleted1 is not empty" ; else echo "File deleted1 is empty" ; fi ; else echo "File deleted1 does not exist" ; fi
+	$ [ ! -e deleted1 ] && echo "File deleted1 does not exist"
 	> File deleted1 does not exist
-	$ if test -e emptied1; then if test -s emptied1; then echo "File emptied1 is not empty" ; else echo "File emptied1 is empty" ; fi ; else echo "File emptied1 does not exist" ; fi
+	$ [ -e deleted1 -a ! -s deleted1 ] && echo "File deleted1 is empty"
+	$ [ ! -e emptied1 ] && echo "File emptied1 does not exist"
+	$ [ -e emptied1 -a ! -s emptied1 ] && echo "File emptied1 is empty"
 	> File emptied1 is empty
 
 	$ quilt push
@@ -54,9 +56,11 @@
 	> patching file emptied2
 	>
 	> Now at patch patches/using-timestamps.patch
-	$ if test -e deleted2; then if test -s deleted2; then echo "File deleted2 is not empty" ; else echo "File deleted2 is empty" ; fi ; else echo "File deleted2 does not exist" ; fi
+	$ [ ! -e deleted2 ] && echo "File deleted2 does not exist"
 	> File deleted2 does not exist
-	$ if test -e emptied2; then if test -s emptied2; then echo "File emptied2 is not empty" ; else echo "File emptied2 is empty" ; fi ; else echo "File emptied2 does not exist" ; fi
+	$ [ -e deleted2 -a ! -s deleted2 ] && echo "File deleted2 is empty"
+	$ [ ! -e emptied2 ] && echo "File emptied2 does not exist"
+	$ [ -e emptied2 -a ! -s emptied2 ] && echo "File emptied2 is empty"
 	> File emptied2 is empty
 
 # Test quilt fold
@@ -71,17 +75,21 @@
 	$ quilt fold < patches/using-filenames.patch
 	> patching file deleted1
 	> patching file emptied1
-	$ if test -e deleted1; then if test -s deleted1; then echo "File deleted1 is not empty" ; else echo "File deleted1 is empty" ; fi ; else echo "File deleted1 does not exist" ; fi
+	$ [ ! -e deleted1 ] && echo "File deleted1 does not exist"
 	> File deleted1 does not exist
-	$ if test -e emptied1; then if test -s emptied1; then echo "File emptied1 is not empty" ; else echo "File emptied1 is empty" ; fi ; else echo "File emptied1 does not exist" ; fi
+	$ [ -e deleted1 -a ! -s deleted1 ] && echo "File deleted1 is empty"
+	$ [ ! -e emptied1 ] && echo "File emptied1 does not exist"
+	$ [ -e emptied1 -a ! -s emptied1 ] && echo "File emptied1 is empty"
 	> File emptied1 is empty
 
 	$ quilt fold < patches/using-timestamps.patch
 	> patching file deleted2
 	> patching file emptied2
-	$ if test -e deleted2; then if test -s deleted2; then echo "File deleted2 is not empty" ; else echo "File deleted2 is empty" ; fi ; else echo "File deleted2 does not exist" ; fi
+	$ [ ! -e deleted2 ] && echo "File deleted2 does not exist"
 	> File deleted2 does not exist
-	$ if test -e emptied2; then if test -s emptied2; then echo "File emptied2 is not empty" ; else echo "File emptied2 is empty" ; fi ; else echo "File emptied2 does not exist" ; fi
+	$ [ -e deleted2 -a ! -s deleted2 ] && echo "File deleted2 is empty"
+	$ [ ! -e emptied2 ] && echo "File emptied2 does not exist"
+	$ [ -e emptied2 -a ! -s emptied2 ] && echo "File emptied2 is empty"
 	> File emptied2 is empty
 
 # Test quilt refresh
@@ -105,9 +113,11 @@
 	> patching file emptied1
 	>
 	> Now at patch patches/using-filenames.patch
-	$ if test -e deleted1; then if test -s deleted1; then echo "File deleted1 is not empty" ; else echo "File deleted1 is empty" ; fi ; else echo "File deleted1 does not exist" ; fi
+	$ [ ! -e deleted1 ] && echo "File deleted1 does not exist"
 	> File deleted1 does not exist
-	$ if test -e emptied1; then if test -s emptied1; then echo "File emptied1 is not empty" ; else echo "File emptied1 is empty" ; fi ; else echo "File emptied1 does not exist" ; fi
+	$ [ -e deleted1 -a ! -s deleted1 ] && echo "File deleted1 is empty"
+	$ [ ! -e emptied1 ] && echo "File emptied1 does not exist"
+	$ [ -e emptied1 -a ! -s emptied1 ] && echo "File emptied1 is empty"
 	> File emptied1 is empty
 
 	$ cat patches/using-filenames.patch
