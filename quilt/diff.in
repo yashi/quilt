@@ -97,7 +97,7 @@ colorize() {
 
 do_diff()
 {
-	local file=$1 old_file=$2 new_file=$3
+	local file=$1 old_file=$2 new_file=$3 status
 
 	if [ -n "$opt_reverse" ]
 	then
@@ -119,6 +119,13 @@ do_diff()
 		fi
 	else
 		diff_file "$file" "$old_file" "$new_file" | colorize
+
+		# Test the return value of diff, and propagate the error if any
+		status=${PIPESTATUS[0]}
+		if [ $status != 0 ]
+		then
+			die $status
+		fi
 	fi
 }
 

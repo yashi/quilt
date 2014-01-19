@@ -763,6 +763,12 @@ diff_file()
 		echo "$line"
 		cat
 	fi
+
+	# Test the return value of diff, and propagate the error retcode if any
+	if [ ${PIPESTATUS[0]} == 2 ]
+	then
+		return 1
+	fi
 }
 
 cat_file()
