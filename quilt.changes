@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jan 19 09:32:13 CET 2014 - mquinson@debian.org
+
+- refresh, diff: Exit with an error when diff's retcode is 2
+  (error).
+
+-------------------------------------------------------------------
 Fri Jan 17 19:12:34 CET 2014 - jdelvare@suse.de
 
 - Fix handling of patches emptying a file.
