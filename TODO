@@ -8,7 +8,7 @@ General:
 	  changes that have not been folded back into their patches,
 	  similar to:
 	  `for p in $(quilt series); do quilt diff -z $p; done'?
-	
+
 	- Allow to add a directory? Then we could detect also new files
 	  in the directory, without having to add them individually.
 
@@ -56,7 +56,7 @@ quilt new:
 	- Prevent spaces in patch names.
 
 quilt push:
-	
+
 	- Add option to print the reject to stdout
 
 	- If push fails, check if patch can be reversed.
@@ -66,12 +66,12 @@ quilt push:
 	- Check if there are any .orig or .rej files and barf if so.
 
 quilt pop:
-	
+
 	- The timestamp comparison logic is broken; need to track
 	  last-known timestamps per file.
 
 quilt diff:
-	
+
 	- Error message when a file is specified that isn't in the
 	  patch(es).
 
@@ -81,7 +81,7 @@ quilt refresh:
 
 	- Add an -m option similar to `cvs commit -m "..."' to simplify
 	  keeping a change log in the patch documentation?
-	
+
 	- Add option to log the updates of each patch (e.g., append the
 	  output of ``quilt diff -zR'' to patch.log on each update).
 

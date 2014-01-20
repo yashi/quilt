@@ -14,7 +14,7 @@ AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
 	AC_MSG_WARN([no
 
-bash/perl scripts may not be invoked correctly due to problems with your 
+bash/perl scripts may not be invoked correctly due to problems with your
 systems implementation of #! being either broken or non-existant.
 ])
 fi

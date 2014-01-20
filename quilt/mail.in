@@ -97,7 +97,7 @@ references_header() {
 
 	message_id=$(formail -x Message-ID: < "$message")
 	message_id=${message_id# }
-	
+
 	references=$(formail -x References: < "$message")
 	references=${references# }
 	if [ -z "$references" ]
@@ -256,8 +256,8 @@ fi
 # check if formail is installed before doing anything
 if ! type formail &> /dev/null
 then
-        echo $"You have to install 'formail' to use 'quilt mail'" >&2
-        exit 1
+	echo $"You have to install 'formail' to use 'quilt mail'" >&2
+	exit 1
 fi
 
 if [ $# -ge 1 ]
@@ -618,11 +618,11 @@ for patch in "${patches[@]}"; do
 		awk '
 		    /^$/	{ exit }
 		    tolower($0) !~ /^(message-id|references|in-reply-to):/ \
-		    		{ print }
+				{ print }
 		' $introduction
 		references_header $introduction
 		echo "MIME-Version: 1.0"
-		echo "Content-Type: text/plain; charset=$opt_charset"	      
+		echo "Content-Type: text/plain; charset=$opt_charset"
 		echo "Content-Disposition: inline; filename=$patch"
 		awk '
 		    kill_header { if (/^[ \t]/) next ; kill_header = 0 }

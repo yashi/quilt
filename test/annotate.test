@@ -1,5 +1,5 @@
 	$ mkdir patches
-	
+
 	$ cat > foo
 	< foo
 	< bar
@@ -25,10 +25,10 @@
 
 	$ quilt new patch2
 	> Patch patches/patch2 is now on top
-	
+
 	$ quilt add foo
 	> File foo added to patch patches/patch2
-	
+
 	$ sed -e 's:Baz:baz:' foo > foo.new
 	$ mv foo.new foo
 	$ quilt refresh

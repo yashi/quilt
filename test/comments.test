@@ -58,10 +58,10 @@ accidentally removed.
 	> ! one
 	> --- 1 ----
 	> ! two
-	
+
 	$ quilt refresh
 	> Refreshed patch %{P}test.diff
-	
+
 	$ cat patches/test.diff
 	> C1
 	>

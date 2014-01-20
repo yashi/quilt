@@ -70,7 +70,7 @@
 
 	# test a few error cases
 
-        $ quilt import missing.diff.gz
+	$ quilt import missing.diff.gz
 	> Patch missing.diff.gz does not exist
 
 	$ quilt import patches/patch1.diff.gz
@@ -120,7 +120,7 @@
 	# make sure it accepts non-conflicting names
 	# a small presentation problem here
 
-        $ cp patches/patch1.diff.gz t/patch1.patch.gz
+	$ cp patches/patch1.diff.gz t/patch1.patch.gz
 	$ quilt import t/patch1.patch.gz
 	> Importing patch t/patch1.patch.gz (stored as %{P}patch1.patch.gz)
 

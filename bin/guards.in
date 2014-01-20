@@ -73,7 +73,7 @@ sub parse($$) {
 		next;
 	}
 	$line .= $_;
-        my @guards = ();
+	my @guards = ();
 	foreach my $token (split /[\s\t\n]+/, $line) {
 	    next if $token eq "";
 	    if ($token =~ /^[-+]/) {

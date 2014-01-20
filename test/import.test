@@ -89,7 +89,7 @@
 
 	# test a few error cases
 
-        $ quilt import missing.diff
+	$ quilt import missing.diff
 	> Patch missing.diff does not exist
 
 	$ quilt import patches/patch1.diff
@@ -139,7 +139,7 @@
 	# make sure it accepts non-conflicting names
 	# a small presentation problem here
 
-        $ cp patches/patch1.diff t/patch1.patch
+	$ cp patches/patch1.diff t/patch1.patch
 	$ quilt import t/patch1.patch
 	> Importing patch t/patch1.patch (stored as patches/patch1.patch)
 

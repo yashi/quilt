@@ -242,7 +242,7 @@ sub sg($) {
   my $gid = getgrnam($group)
     or return 1, [ "sg: group $group does not exist\n" ];
   my %groups = map { $_ eq $gid ? () : ($_ => 1) } (split /\s/, $));
-  
+
   #print STDERR "<<", join("/", keys %groups), ">>\n";
   my $groups = join(" ", ($gid, $gid, keys %groups));
   #print STDERR "[[$groups]]\n";

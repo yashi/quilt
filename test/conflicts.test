@@ -20,17 +20,17 @@ anymore, then the patch is fixed.
 	< e
 	< f
 	< g
-	
+
 	$ quilt new a.diff
 	> Patch %{P}a.diff is now on top
 	$ echo %{?}
 	> 0
-	
+
 	$ quilt add one.txt
 	> File one.txt added to patch %{P}a.diff
 	$ echo %{?}
 	> 0
-	
+
 	$ mv one.txt one.orig
 	$ sed -e "s/4/4+/" -e 's/d/d+/' one.orig > one.txt
 	$ quilt refresh

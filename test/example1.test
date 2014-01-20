@@ -108,7 +108,7 @@ Or ``quilt edit Oberon.txt''
 	< The juice of it on sleeping eye-lids laid
 	< Will make a man or woman madly dote
 	< Upon the next live creature that it sees.
-	
+
 	$ quilt refresh -p ab
 	> Refreshed patch %{P}flower.diff
 	$ rm -f Oberon.txt.rej

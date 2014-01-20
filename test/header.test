@@ -6,7 +6,7 @@
 
 	$ quilt add foo
 	> File foo added to patch patches/patch
-	
+
 	$ echo bar > foo
 	$ quilt refresh -p ab
 	> Refreshed patch patches/patch
@@ -20,7 +20,7 @@
 	$ quilt header -r
 	< Header2
 	> Replaced header of patch patches/patch
-	
+
 	$ quilt header
 	> Header2
 

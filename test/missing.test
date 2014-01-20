@@ -3,7 +3,7 @@
 	$ cat > patches/series
 	< missing1.diff
 	< missing2.diff
-	
+
 	$ quilt push -qa
 	> Applying patch patches/missing1.diff
 	> Patch patches/missing1.diff does not exist; applied empty patch

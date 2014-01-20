@@ -33,7 +33,7 @@ Pre-quilt (patch-scripts)
 
 Andrew Morton <akpm@digeo.com>
     Collection of scripts for patch management (patch-scripts).
-    
+
 Stephen Cameron <steve.cameron@hp.com>
     Contributed pstatus.
 

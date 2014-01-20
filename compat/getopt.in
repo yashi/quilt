@@ -132,4 +132,3 @@ foreach my $word (@words) {
 }
 
 print " @options @barewords\n"
-

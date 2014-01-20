@@ -116,7 +116,7 @@ do
 
 	if [ -L "$SUBDIR$file" ]
 	then
-	        printf $"Cannot add symbolic link %s\n" "$SUBDIR$file" >&2
+		printf $"Cannot add symbolic link %s\n" "$SUBDIR$file" >&2
 		status=1
 		continue
 	fi

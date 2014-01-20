@@ -14,7 +14,7 @@
 	> mychange1
 
 	# Verify that the custom location is still used even
-	# if QUILT_PATCHES is not set 
+	# if QUILT_PATCHES is not set
 	$ quilt new mychange2
 	> Patch my/changes/mychange2 is now on top
 	# Verify that the root directory can be identified even

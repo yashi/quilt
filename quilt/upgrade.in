@@ -99,7 +99,7 @@ done
 
 if [ -n "$failed" ]
 then
-        printf $"Conversion failed\n" >&2
+	printf $"Conversion failed\n" >&2
 	printf $"
 Please remove all patches using \`quilt pop -a' from the quilt version used to create this working tree, or remove the %s directory and apply the patches from scratch.\n" "$QUILT_PC" >&2
 	exit 1

@@ -167,42 +167,42 @@ options=`getopt -o fRqvah -- "$@"`
 
 if [ $? -ne 0 ]
 then
-        usage
+	usage
 fi
 
 eval set -- "$options"
 
 while true
 do
-        case "$1" in
-        -f)
-                opt_force=1
+	case "$1" in
+	-f)
+		opt_force=1
 		unset opt_remove
 		shift ;;
 	-R)
 		opt_remove=1
 		unset opt_force
 		shift ;;
-        -q)
-                opt_quiet=1
+	-q)
+		opt_quiet=1
 		shift ;;
-        -v)
-                opt_verbose=1
+	-v)
+		opt_verbose=1
 		shift ;;
 	-a)
 		opt_all=1
 		shift ;;
 	-h)
 		usage -h ;;
-        --)
-                shift
+	--)
+		shift
 		break ;;
-        esac
+	esac
 done
 
 if [ $# -gt 1 -o \( -n "$opt_all" -a $# -ne 0 \) ]
 then
-        usage
+	usage
 fi
 
 if [ $# -eq 1 ]
@@ -233,7 +233,7 @@ then
 	exit 1
 elif [ -z "$patches" ]
 then
-        printf $"No patch removed\n" >&2
+	printf $"No patch removed\n" >&2
 	exit 2
 fi
 

@@ -1,5 +1,5 @@
 	$ mkdir patches
-	
+
 	$ echo a > a
 	$ echo b > b
 	$ diff -u a b > patches/patch

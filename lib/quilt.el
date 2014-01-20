@@ -15,7 +15,7 @@
 ;;  Add (load "~/quilt.el") to your .emacs file
 
 ;;; History:
-;; 
+;;
 
 ;;; Code:
 

@@ -166,7 +166,7 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 			| xargs md5sum \
 			) > $tmpdir/more-md5sums
 		fi
-		
+
 		while read md5sum_ file_
 		do
 			if [ "$md5sum" = "$md5sum_" ]
@@ -350,7 +350,7 @@ if [ ! -x $tmpdir/bin/wrapper ]
 then
 	printf "Cannot execute %s; filesystem mounted with noexec?\n" \
 	       $tmpdir/bin/wrapper >&2
- 	printf "Setting %s in ~/.quiltrc may help\n" "VARTMPDIR" >&2
+	printf "Setting %s in ~/.quiltrc may help\n" "VARTMPDIR" >&2
 	exit 1
 fi
 

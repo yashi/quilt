@@ -279,19 +279,19 @@ options=`getopt -o fqvam::h --long fuzz:,merge::,leave-rejects,color:: -- "$@"`
 
 if [ $? -ne 0 ]
 then
-        usage
+	usage
 fi
 
 eval set -- "$options"
 
 while true
 do
-        case "$1" in
-        -f)
-                opt_force=1
+	case "$1" in
+	-f)
+		opt_force=1
 		shift ;;
-        -q)
-                opt_quiet=1
+	-q)
+		opt_quiet=1
 		shift ;;
 	-v)
 		opt_verbose=1
@@ -333,15 +333,15 @@ do
 			usage ;;
 		esac
 		shift 2 ;;
-        --)
-                shift
+	--)
+		shift
 		break ;;
-        esac
+	esac
 done
 
 if [ $# -gt 1 -o \( -n "$opt_all" -a $# -ne 0 \) ]
 then
-        usage
+	usage
 fi
 
 if [ $# -eq 1 ]

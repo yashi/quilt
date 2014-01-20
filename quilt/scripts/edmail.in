@@ -176,7 +176,7 @@ sub process_header($) {
     return if exists $remove_header{lc $name};
     if (exists $replace_name{lc $name}) {
 	    if (exists $replace_value{lc $name}) {
-		print "$replace_name{lc $name}: $replace_value{lc $name}\n"; 
+		print "$replace_name{lc $name}: $replace_value{lc $name}\n";
 		delete $replace_value{lc $name};
 	    }
 	    return;

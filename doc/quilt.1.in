@@ -1,7 +1,7 @@
 .\\" Created by Martin Quinson from the tex documentation
 .\\"
 .TH quilt 1 "Dec 17, 2013" "quilt"
- 
+
 .SH NAME
 quilt \\- tool to manage series of patches
 
@@ -10,7 +10,7 @@ quilt \\- tool to manage series of patches
 [-h] command [options]
 
 .SH DESCRIPTION
-Quilt is a tool to manage large sets of patches by keeping track of the 
+Quilt is a tool to manage large sets of patches by keeping track of the
 changes each patch makes. Patches can be applied, un-applied, refreshed,
 etc. The key philosophical concept is that your primary output is patches.
 
@@ -23,21 +23,21 @@ part of the command is unique. All commands print some help text with
 
 Quilt manages a stack of patches. Patches are applied incrementally on top
 of the base tree plus all preceding patches. They can be pushed on top of
-the stack 
+the stack
 .RB ( "quilt push" ),
 and popped off the stack
-.RB ( "quilt pop" ).  
-Commands are available for querying the contents of the series file 
+.RB ( "quilt pop" ).
+Commands are available for querying the contents of the series file
 .RB ( "quilt series" ,
-see below), the contents of the stack 
+see below), the contents of the stack
 .RB ( "quilt applied" , " quilt previous" , " quilt top" ),
-and the patches that are not applied at a particular moment 
+and the patches that are not applied at a particular moment
 .RB ( "quilt next" , " quilt unapplied" ).
 By default, most commands apply to the topmost patch on the stack.
 
-Patch files are located in the 
+Patch files are located in the
 .I patches
-sub-directory of the source tree (see EXAMPLE OF WORKING TREE below). The 
+sub-directory of the source tree (see EXAMPLE OF WORKING TREE below). The
 .I QUILT_PATCHES
 environment variable can be used to override this location. When not
 found in the current directory, that subdirectory is searched
@@ -63,21 +63,21 @@ space  followed by a hash character. When
 quilt adds, removes, or renames patches, it automatically updates the series
 file. Users of quilt can modify series files while some patches are
 applied, as long as the applied patches remain in their original order.
-                                                             
+
 Different series files can be used to assemble patches in different ways,
 corresponding for example to different development branches.
 
 Before a patch is applied (or ``pushed on the stack''), copies of all files
-the patch modifies are saved to the 
+the patch modifies are saved to the
 .RI .pc/ patch
 directory. The patch is added to the list of currently applied patches
-(.pc/applied-patches). Later when a patch is regenerated 
+(.pc/applied-patches). Later when a patch is regenerated
 .RB ( "quilt refresh" ),
-the backup copies in 
+the backup copies in
 .RI .pc/ patch
 are compared with the current versions of the files in the source tree using
-GNU diff. 
-                                                             
+GNU diff.
+
 Documentation related to a patch can be put at the beginning of a patch
 file.  Quilt is careful to preserve all text that precedes the actual patch
 when doing a refresh. (This is limited to patches in unified format; see
@@ -89,13 +89,13 @@ tree, and in the patches directory.  The first series file that is found is
 used. This may also be a symbolic link, or a file with multiple hard links.
 Usually, only one series file is used for a set of patches, so the
 patches sub-directory is a convenient location.
-                                                             
+
 The .pc directory and its sub-directories cannot be relocated, but it can be
 a symbolic link. While patches are applied to the source tree, this
 directory is essential for many operations, including taking patches off the
-stack 
+stack
 .RB ( "quilt pop" ),
-and refreshing patches 
+and refreshing patches
 .RB ( "quilt refresh" ).
 Files in the .pc directory are automatically removed when they are
 no longer needed, so there is no need to clean up manually.
@@ -182,7 +182,7 @@ to "-FRSX".
 Additional options that quilt shall pass to GNU diff when generating
 patches. A useful setting for C source code is "-p", which causes GNU diff
 to show in the resulting patch which function a change is in.
-    
+
 .IP QUILT_PATCH_OPTS 4
 
 Additional options that quilt shall pass to GNU patch when applying
@@ -243,17 +243,17 @@ used.
 
 .IP QUILT_COLORS 4
 
-By default, quilt uses its predefined color set in order to be more 
+By default, quilt uses its predefined color set in order to be more
 comprehensible when distiguishing various types of patches, eg.
 applied/unapplied, failed, etc.
 
-To override one or more color settings, set the QUILT_COLORS variable in 
+To override one or more color settings, set the QUILT_COLORS variable in
 following syntax - colon (:) separated list of elements, each being of the
-form <format name>=<foreground color>[;<background color>] 
+form <format name>=<foreground color>[;<background color>]
 
-Format names with their respective default values are listed below, 
-along with their usage(s).	
-Color codes(values) are standard bash coloring escape codes. 
+Format names with their respective default values are listed below,
+along with their usage(s).
+Color codes(values) are standard bash coloring escape codes.
 See more at http://tldp.org/LDP/abs/html/colorizing.html#AEN20229
 
 .RS 4
@@ -293,7 +293,7 @@ Used in 'quilt series' and 'quilt patches' to color the top patch name. Defaults
 .IP \\fBseries_una\\fP 10
 Used in 'quilt series' and 'quilt patches' to color unapplied patch names. Defaults to 0 (no special color).
 
-.RE 
+.RE
 .RS 4
 In addition, the \\fBclear\\fP format name is used to turn off special
 coloring. Its value is 0; it is not advised to modify it.
@@ -322,7 +322,7 @@ the pdf documentation, and in the help messages of each commands.
 .SH SEE ALSO
 
 The pdf documentation, which should be under @DOCSUBDIR@/quilt.pdf.
-Note that some distributors compress this file. 
+Note that some distributors compress this file.
 .BR zxpdf ( 1 )
 can be used to display compressed pdf files.
 

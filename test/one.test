@@ -133,13 +133,13 @@ of the installed quilt with `make check'.
 	>  This is file two.
 	> +Another line added.
 	> Warning: more recent patches modify files in patch %{P}patch1.diff
-	
+
 	$ quilt refresh patch1
 	> More recent patches modify files in patch %{P}patch1.diff. Enforce refresh with -f.
-	
+
 	$ quilt refresh -f patch1
 	> Refreshed patch %{P}patch1.diff
-	
+
 	$ echo "Another line here, too." >> dir/file3
 	$ quilt pop -R
 	> Removing patch %{P}subdir/patch3.diff

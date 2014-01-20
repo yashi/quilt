@@ -181,7 +181,7 @@ change_db_strip_level()
 				}
 			  }
 			  if (!p_printed && "'"$level"'" != "")
-			  	insert_arg(2, "'"$level"'")
+				insert_arg(2, "'"$level"'")
 			}
 			{ print }
 		' $SERIES > $tmpfile
@@ -263,7 +263,7 @@ remove_from_series()
 	if [ $? -ne 0 ]
 	then
 		rm -f $tmpfile
-	   	return 1
+		return 1
 	fi
 	cat $tmpfile > $SERIES
 	rm -f $tmpfile
@@ -369,7 +369,7 @@ applied_before()
 		' $DB
 	fi
 }
-		
+
 patches_before()
 {
 	local patch=$1
@@ -563,12 +563,12 @@ find_applied_patch()
 		local patch
 
 		patch=$(find_patch "$name") || return 1
-	        if ! is_applied "$patch"
-	        then
-	                printf $"Patch %s is not applied\n" \
+		if ! is_applied "$patch"
+		then
+			printf $"Patch %s is not applied\n" \
 			       "$(print_patch $patch)" >&2
-	                return 1
-	        fi
+			return 1
+		fi
 		echo "$patch"
 	else
 		find_top_patch
@@ -584,12 +584,12 @@ find_unapplied_patch()
 		local patch
 
 		patch=$(find_patch "$name") || return 1
-	        if is_applied "$patch"
-	        then
+		if is_applied "$patch"
+		then
 			printf $"Patch %s is currently applied\n" \
 				"$(print_patch $patch)" >&2
 			return 2
-	        fi
+		fi
 		echo "$patch"
 	else
 		local start
@@ -724,7 +724,7 @@ diff_file()
 		new_hdr=$dir/$file
 	fi
 	index=$new_hdr
-	
+
 	if ! [ -s "$old_file" ]
 	then
 		old_file=/dev/null
@@ -774,7 +774,7 @@ diff_file()
 cat_file()
 {
 	local filename
-	
+
 	for filename in "$@"
 	do
 		if [ -e "$filename" ]
@@ -923,11 +923,11 @@ apply_patch_temporarily()
 next_filename()
 {
 	local patch=$1 base num
-        base=$(echo "$patch" \
-               | sed -r -e 's:(\.gz|\.bz2|\.xz|\.lzma)$::' -e 's:(\.diff?|\.patch)$::')
-        num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
-        [ -n "$num" ] || num=1
-        echo "${base%-$num}-$((num+1))${patch#$base}"
+	base=$(echo "$patch" \
+	       | sed -r -e 's:(\.gz|\.bz2|\.xz|\.lzma)$::' -e 's:(\.diff?|\.patch)$::')
+	num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
+	[ -n "$num" ] || num=1
+	echo "${base%-$num}-$((num+1))${patch#$base}"
 }
 
 create_db() {

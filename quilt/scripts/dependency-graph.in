@@ -293,7 +293,7 @@ if ($filter_patchnames) {
     local *PIPE;
     my $pid = open(PIPE, "- |");  # fork a child to read from
     die "fork: $!\n"
-    	unless defined $pid;
+	unless defined $pid;
     unless ($pid) {  # child
 	# open a second pipe to the actual filter
 	open(PIPE, "| $filter_patchnames")
@@ -425,7 +425,7 @@ foreach my $key (keys %edges) {
     }
     # Compute a pseudo edge length so that neato works acceptably.
     push @{$edges{$key}{attrs}}, "len=\"" .
-    	sprintf("%.2f", log(abs($to - $from) + 3)) . "\"";
+	sprintf("%.2f", log(abs($to - $from) + 3)) . "\"";
 }
 
 #foreach my $node (@nodes) {

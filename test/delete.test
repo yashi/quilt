@@ -38,7 +38,7 @@ Test the delete command.
 	$ quilt pop
 	> Removing patch %{P}test2
 	> Restoring test.txt
-	> 
+	>
 	> Now at patch %{P}test1
 
 	$ quilt series
@@ -54,7 +54,7 @@ Test the delete command.
 	$ quilt pop
 	> Removing patch %{P}test1
 	> Restoring test.txt
-	> 
+	>
 	> No patches applied
 
 	$ quilt delete test1
