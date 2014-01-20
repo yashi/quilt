@@ -102,13 +102,13 @@ create_db
 rm -rf "$QUILT_PC/$patch"
 mkdir -p "$QUILT_PC/$patch"
 
-if ! insert_in_series $patch ${opt_strip_level:+-p$opt_strip_level} || \
-   ! add_to_db $patch
+if insert_in_series $patch ${opt_strip_level:+-p$opt_strip_level} && \
+   add_to_db $patch
 then
+	printf $"Patch %s is now on top\n" "$(print_patch $patch)"
+else
 	printf $"Failed to create patch %s\n" "$(print_patch $patch)" >&2
 	exit 1
-else
-	printf $"Patch %s is now on top\n" "$(print_patch $patch)"
 fi
 ### Local Variables:
 ### mode: shell-script

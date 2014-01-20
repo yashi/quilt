@@ -199,11 +199,11 @@ patch_in_series()
 {
 	local patch=$1
 
-	if ! [ -e $SERIES ]
+	if [ -e $SERIES ]
 	then
-		return 1
-	else
 		grep -q "^$(quote_bre $patch)\([ \t]\|$\)" $SERIES
+	else
+		return 1
 	fi
 }
 
@@ -725,29 +725,29 @@ diff_file()
 	fi
 	index=$new_hdr
 
-	if ! [ -s "$old_file" ]
+	if [ -s "$old_file" ]
 	then
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| old_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
+					-r "$old_file")
+	else
 		old_file=/dev/null
 		old_hdr=/dev/null
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
 		|| old_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
-	else
-		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
-		|| old_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
-					-r "$old_file")
 	fi
-	if ! [ -e "$new_file" ]
+	if [ -e "$new_file" ]
 	then
+		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
+		|| new_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
+					-r "$new_file")
+	else
 		[ $opt_strip_level = 0 ] \
 		&& old_hdr=$new_hdr
 		new_file=/dev/null
 		new_hdr=/dev/null
 		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
 		|| new_date=$'\t'"1970-01-01 00:00:00.000000000 +0000"
-	else
-		[ -n "$QUILT_NO_DIFF_TIMESTAMPS" ] \
-		|| new_date=$'\t'$(date +'%Y-%m-%d %H:%M:%S.%N %z' \
-					-r "$new_file")
 	fi
 
 	diff $QUILT_DIFF_OPTS \
