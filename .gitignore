@@ -14,10 +14,6 @@ bin/guards.1
 bin/patch-wrapper
 bin/quilt
 
-debian/files
-debian/quilt
-debian/quilt.substvars
-
 doc/quilt.1
 doc/quilt.aux
 doc/quilt.dvi

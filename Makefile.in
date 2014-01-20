@@ -160,9 +160,8 @@ snapshot : $(PACKAGE)-$(GIT_DESC).tar.bz2
 rpm rpmbuild : $(PACKAGE)-$(VERSION).tar.gz
 	$(RPMBUILD) -ta $<
 
-po/quilt.pot: $(filter-out debian/control.in doc/quilt.1.in		\
-			   doc/README.in, $(wildcard */*.in)		\
-					  $(wildcard */*/*.in))
+po/quilt.pot: $(filter-out doc/quilt.1.in doc/README.in,		\
+			   $(wildcard */*.in) $(wildcard */*/*.in))
 	rm -f po/quilt.pot; touch po/quilt.pot
 	for file in $+ ; do						\
 	  if test -n "`$(SED) -ne '1{ /@BASH''@/p }' $$file`"		\
