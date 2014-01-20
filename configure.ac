@@ -367,6 +367,9 @@ fi
 
 QUILT_COMPAT_PROG_PATH(SENDMAIL, sendmail, [], [/usr/sbin])
 
+QUILT_COMPAT_PROG_PATH(CP, cp, [cp])
+QUILT_COMPAT_PROG_PATH(MD5SUM, md5sum, [gmd5sum md5sum])
+
 AC_PATH_PROG(MSGMERGE, [msgmerge])
 AC_PATH_PROG(MSGFMT, [msgfmt])
 AC_PATH_PROG(XGETTEXT, [xgettext])
