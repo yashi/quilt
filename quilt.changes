@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 20 11:04:02 CET 2014 - jdelvare@suse.de
+
+- new, patchfns: Swap negated if/else constructs.
+
+-------------------------------------------------------------------
 Sun Jan 19 09:32:13 CET 2014 - mquinson@debian.org
 
 - refresh, diff: Exit with an error when diff's retcode is 2
