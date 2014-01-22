@@ -597,6 +597,7 @@ MSGUNIQ
 XGETTEXT
 MSGFMT
 MSGMERGE
+MD5SUM
 SENDMAIL
 DIFFSTAT
 XARGS
@@ -683,6 +684,7 @@ with_find
 with_xargs
 with_diffstat
 with_sendmail
+with_md5sum
 enable_nls
 with_patch_wrapper
 with_rpmbuild
@@ -1330,6 +1332,7 @@ Optional Packages:
   --with-diffstat         name of the diffstat executable to use
   --with-sendmail         name of the sendmail executable to use (use
                           --without-sendmail to use an internal mechanism)
+  --with-md5sum           name of the md5sum executable to use
   --with-patch-wrapper    include GNU patch wrapper
   --with-rpmbuild         name of the rpmbuild executable to use
 
@@ -4007,6 +4010,191 @@ $as_echo "$as_me: WARNING: Using internal sendmail mechanism.  Use option '--wit
       COMPAT_PROGRAMS="$COMPAT_PROGRAMS sendmail"
       SENDMAIL=sendmail
       INTERNAL_SENDMAIL=1
+
+  fi
+
+
+
+
+
+
+
+# Check whether --with-cp was given.
+if test "${with_cp+set}" = set; then :
+  withval=$with_cp;
+    if test x"$withval" = xnone; then
+      as_fn_error $? "Invalid configure argument.  use --without-cp" "$LINENO" 5
+    fi
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for cp" >&5
+$as_echo_n "checking for cp... " >&6; }
+      CP="$withval"
+      if test -e "$CP"; then
+	if test ! -f "$CP" -a ! -h "$CP" || test ! -x "$CP"; then
+	  as_fn_error $? "$CP is not an executable file" "$LINENO" 5
+	fi
+      fi
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CP" >&5
+$as_echo "$CP" >&6; }
+      if test ! -e "$CP"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $CP does not exist" >&5
+$as_echo "$as_me: WARNING: $CP does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS cp"
+    fi
+
+else
+
+
+      for ac_prog in cp
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_CP+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $CP in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_CP="$CP" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_CP="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+CP=$ac_cv_path_CP
+if test -n "$CP"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CP" >&5
+$as_echo "$CP" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$CP" && break
+done
+
+      if test -n "$CP" -a "`expr "$CP" : '.*/\([^/]*\)$'`" != "cp"; then
+	COMPAT_SYMLINKS="$COMPAT_SYMLINKS cp"
+      fi
+
+
+
+fi
+
+  if test -z "$CP"; then
+
+      as_fn_error $? "Please specify the location of cp with the option '--with-cp'" "$LINENO" 5
+
+  fi
+
+
+
+
+
+
+# Check whether --with-md5sum was given.
+if test "${with_md5sum+set}" = set; then :
+  withval=$with_md5sum;
+    if test x"$withval" = xnone; then
+      as_fn_error $? "Invalid configure argument.  use --without-md5sum" "$LINENO" 5
+    fi
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for md5sum" >&5
+$as_echo_n "checking for md5sum... " >&6; }
+      MD5SUM="$withval"
+      if test -e "$MD5SUM"; then
+	if test ! -f "$MD5SUM" -a ! -h "$MD5SUM" || test ! -x "$MD5SUM"; then
+	  as_fn_error $? "$MD5SUM is not an executable file" "$LINENO" 5
+	fi
+      fi
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
+$as_echo "$MD5SUM" >&6; }
+      if test ! -e "$MD5SUM"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $MD5SUM does not exist" >&5
+$as_echo "$as_me: WARNING: $MD5SUM does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
+    fi
+
+else
+
+
+      for ac_prog in gmd5sum md5sum
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_MD5SUM+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $MD5SUM in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_MD5SUM="$MD5SUM" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_MD5SUM="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+MD5SUM=$ac_cv_path_MD5SUM
+if test -n "$MD5SUM"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
+$as_echo "$MD5SUM" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$MD5SUM" && break
+done
+
+      if test -n "$MD5SUM" -a "`expr "$MD5SUM" : '.*/\([^/]*\)$'`" != "md5sum"; then
+	COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
+      fi
+
+
+
+fi
+
+  if test -z "$MD5SUM"; then
+
+      as_fn_error $? "Please specify the location of md5sum with the option '--with-md5sum'" "$LINENO" 5
 
   fi
 
