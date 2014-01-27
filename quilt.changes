@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 27 10:12:16 CET 2014 - jdelvare@suse.de
+
+- doc/RELEASING: Add step-by-step releasing guide.
+
+-------------------------------------------------------------------
 Mon Jan 20 11:04:02 CET 2014 - jdelvare@suse.de
 
 - new, patchfns: Swap negated if/else constructs.

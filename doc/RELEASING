@@ -1,0 +1,34 @@
+RELEASING QUILT
+===============
+
+Step 1: set the new version and test
+------------------------------------
+
+- Bump the version in AC_INIT in configure.ac
+- Regenerate configure:
+  $ autoconf
+  Make sure you don't use a version of autoconf older than the one
+  previously used.
+- Mention the new version in quilt.changes:
+  - configure*: Bump version to x.y.
+- Make sure that everything builds and runs fine:
+  $ ./configure --prefix=/opt/quilt
+  $ make
+  $ make check
+
+Step 2: tag the new version
+---------------------------
+
+- $ git add configure.ac configure quilt.changes
+  $ git commit -m "Set version to x.y."
+  $ git tag vx.y
+  $ git push
+  $ git push --tags
+
+Step 3: publish the new version
+-------------------------------
+
+- If not done already:
+  $ ./configure --prefix=/opt/quilt
+- $ make publish
+
