@@ -59,7 +59,7 @@ Tue Dec 17 14:03:51 CET 2013 - jdelvare@suse.de
 
 - test/run: Record the status returned by every command, so that
   test cases can check them.
-- test/*.text: Test the status returned by all commands in 4 test
+- test/*.test: Test the status returned by all commands in 4 test
   cases.
 
 -------------------------------------------------------------------
