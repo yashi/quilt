@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 10 13:07:14 CET 2014 - jdelvare@suse.de
+
+- patchfns: Fix "quilt diff -z" on files with spaces in their
+  names.
+
+-------------------------------------------------------------------
 Mon Jan 27 10:12:16 CET 2014 - jdelvare@suse.de
 
 - doc/RELEASING: Add step-by-step releasing guide.

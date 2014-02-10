@@ -893,7 +893,7 @@ apply_patch_temporarily()
 	local prefix=$QUILT_PC/$patch/
 	[ ${prefix:0:1} == / ] || prefix=$PWD/$prefix
 	if ! ( cd $workdir && \
-	       $QUILT_DIR/scripts/backup-files -B $prefix -r -k -s ${@:--} )
+	       $QUILT_DIR/scripts/backup-files -B $prefix -r -k -s "${@:--}" )
 	then
 		printf $"Failed to copy files to temporary directory\n" >&2
 		return 1
