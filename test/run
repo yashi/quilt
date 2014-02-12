@@ -49,22 +49,23 @@ use FileHandle;
 use Getopt::Std;
 use POSIX qw(isatty setuid getcwd);
 use Text::ParseWords;
-use vars qw($opt_l $opt_q $opt_v %output);
+use vars qw($opt_l $opt_q $opt_v %output $OK $FAILED $tests $failed);
 
 $opt_l = ~0;  # a really huge number
 getopts('l:qv');
 
-my ($OK, $FAILED) = ("ok", "failed");
+$OK = "ok";
+$FAILED = "failed";
 if (isatty(fileno(STDOUT))) {
 	$OK = "\033[32m" . $OK . "\033[m";
 	$FAILED = "\033[31m\033[1m" . $FAILED . "\033[m";
 }
+$tests = $failed = 0;
 
 my $prog;
 my ($in, $out) = ([], []);
 my $prog_line = 0;
 my $last_status = 0;
-my ($tests, $failed) = (0,0);
 my $lineno;
 my $width = ($ENV{COLUMNS} || 80) >> 1;
 my $origdir = getcwd;
@@ -97,9 +98,8 @@ sub print_footer($)
 	}
 }
 
-sub flush_output($)
+sub flush_output()
 {
-	my $failed = shift;
 	return unless $opt_q;
 
 	print $output{header} || "",
@@ -315,5 +315,5 @@ if (isatty(fileno(STDOUT))) {
 	}
 }
 print_footer "$status\n";
-flush_output $failed;
+flush_output;
 exit $failed ? 1 : 0;
