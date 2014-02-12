@@ -7,6 +7,7 @@ Wed Feb 12 20:57:35 CET 2014 - jdelvare@suse.de
 - test/run: Massive reindentation.
 - test/run: Reorder functions.
 - test/run: Declare global variables as such.
+- test/run: Fix the condition for using /bin/sh.
 
 -------------------------------------------------------------------
 Mon Feb 10 13:07:14 CET 2014 - jdelvare@suse.de
