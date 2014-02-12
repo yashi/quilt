@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w -U
+#!/usr/bin/perl -w
 
 # Copyright (c) 2007, 2008 Andreas Gruenbacher.
 # All rights reserved.
@@ -50,8 +50,6 @@ use Getopt::Std;
 use POSIX qw(isatty setuid getcwd);
 use Text::ParseWords;
 use vars qw($opt_l $opt_q $opt_v %output);
-
-no warnings qw(taint);
 
 $opt_l = ~0;  # a really huge number
 getopts('l:qv');
@@ -195,76 +193,6 @@ sub process_test($$$$) {
 }
 
 
-sub su($) {
-  my ($user) = @_;
-
-  $user ||= "root";
-
-  my ($login, $pass, $uid, $gid) = getpwnam($user)
-    or return 1, [ "su: user $user does not exist\n" ];
-  my @groups = ();
-  my $fh = new FileHandle("/etc/group")
-    or return 1, [ "opening /etc/group: $!\n" ];
-  while (<$fh>) {
-    chomp;
-    my ($group, $passwd, $gid, $users) = split /:/;
-    foreach my $u (split /,/, $users) {
-      push @groups, $gid
-	if ($user eq $u);
-    }
-  }
-  $fh->close;
-
-  my $groups = join(" ", ($gid, $gid, @groups));
-  #print STDERR "[[$groups]]\n";
-  $! = 0;  # reset errno
-  $> = 0;
-  $( = $gid;
-  $) = $groups;
-  if ($!) {
-    return 1, [ "su: $!\n" ];
-  }
-  if ($uid != 0) {
-    $> = $uid;
-    #$< = $uid;
-    if ($!) {
-      return 1, [ "su: $prog->[1]: $!\n" ];
-    }
-  }
-  #print STDERR "[($>,$<)($(,$))]";
-  return 0, [];
-}
-
-
-sub sg($) {
-  my ($group) = @_;
-
-  my $gid = getgrnam($group)
-    or return 1, [ "sg: group $group does not exist\n" ];
-  my %groups = map { $_ eq $gid ? () : ($_ => 1) } (split /\s/, $));
-
-  #print STDERR "<<", join("/", keys %groups), ">>\n";
-  my $groups = join(" ", ($gid, $gid, keys %groups));
-  #print STDERR "[[$groups]]\n";
-  $! = 0;  # reset errno
-  if ($> != 0) {
-	  my $uid = $>;
-	  $> = 0;
-	  $( = $gid;
-	  $) = $groups;
-	  $> = $uid;
-  } else {
-	  $( = $gid;
-	  $) = $groups;
-  }
-  if ($!) {
-    return 1, [ "sg: $!\n" ];
-  }
-  print STDERR "[($>,$<)($(,$))]";
-  return 0, [];
-}
-
-
 sub exec_test($$) {
   my ($raw_prog, $in) = @_;
   local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
@@ -280,10 +208,6 @@ sub exec_test($$) {
     }
     $ENV{PWD} = getcwd;
     return 0, [];
-  } elsif ($prog->[0] eq "su") {
-    return su($prog->[1]);
-  } elsif ($prog->[0] eq "sg") {
-    return sg($prog->[1]);
   } elsif ($prog->[0] eq "export") {
     my ($name, $value) = split /=/, $prog->[1];
     $ENV{$name} = $value;
