@@ -119,7 +119,7 @@ sub exec_test($$) {
 	my ($raw_prog, $in) = @_;
 	local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
 	my $prog = [ shellwords($raw_prog) ];
-	my $needs_shell = ($raw_prog =~ /[][|&<>;`\$*?]/);
+	my $needs_shell;
 
 	if ($prog->[0] eq "umask") {
 		umask oct $prog->[1];
@@ -138,6 +138,8 @@ sub exec_test($$) {
 		delete $ENV{$prog->[1]};
 		return 0, [];
 	}
+
+	$needs_shell = ($raw_prog =~ /[][|&<>;`\$*?]/);
 
 	pipe *IN2, *OUT
 		or die "Can't create pipe for reading: $!";
@@ -219,23 +221,20 @@ sub process_test($$$$) {
 	print_body "[$prog_line] \$ $prog -- ";
 	my ($exec_status, $result) = exec_test($prog, $in);
 	my @good = ();
+	my $good = 1;
 	my $nmax = (@$out > @$result) ? @$out : @$result;
 	for (my $n = 0; $n < $nmax; $n++) {
-		my $use_re;
-		if (defined $out->[$n] && $out->[$n] =~ /^~ /) {
-			$use_re = 1;
-			$out->[$n] =~ s/^~ //g;
-		}
+		my $use_re = defined($out->[$n]) && ($out->[$n] =~ s/^~ //);
 
 		if (!defined($out->[$n]) || !defined($result->[$n]) ||
 		    (!$use_re && $result->[$n] ne $out->[$n]) ||
 		    ( $use_re && $result->[$n] !~ /^$out->[$n]/)) {
 			push @good, ($use_re ? '!~' : '!=');
+			$good = 0;
 		} else {
 			push @good, ($use_re ? '=~' : '==');
 		}
 	}
-	my $good = !grep(/!/, @good);
 	$tests++;
 	$failed++ unless $good;
 	print_body(($good ? $OK : $FAILED)."\n");
