@@ -68,7 +68,8 @@ sub print_body($);
 sub print_footer($);
 sub flush_output($);
 
-my ($prog, $in, $out) = ([], [], []);
+my $prog;
+my ($in, $out) = ([], []);
 my $prog_line = 0;
 my $last_status = 0;
 my ($tests, $failed) = (0,0);
@@ -111,9 +112,9 @@ while (defined(my $line = <SOURCE>)) {
 	}
 
 	# We have all input and output, we can execute the command
-	if (@$prog) {
+	if (defined $prog) {
 		$last_status = process_test($prog, $prog_line, $in, $out);
-		$prog = [];
+		$prog = undef;
 		last if $prog_line >= $opt_l;
 	}
 
@@ -122,14 +123,14 @@ while (defined(my $line = <SOURCE>)) {
 		# Substitute %{?} with the last command's status
 		$line =~ s[%{\?}][$last_status]eg;
 
-		$prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, substitute_vars($line) ];
+		chomp($prog = substitute_vars($line));
 		$prog_line = $lineno;
 		$in = [];
 		$out = [];
 	}
 }
 # Execute last command if needed
-process_test($prog, $prog_line, $in, $out) if @$prog;
+process_test($prog, $prog_line, $in, $out) if defined $prog;
 
 close(SOURCE);
 
@@ -154,9 +155,7 @@ exit $failed ? 1 : 0;
 sub process_test($$$$) {
   my ($prog, $prog_line, $in, $out) = @_;
 
-       my $p = [ @$prog ];
-       print_body "[$prog_line] \$ ".join(' ',
-                  map { s/\s/\\$&/g; $_ } @$p)." -- ";
+       print_body "[$prog_line] \$ $prog -- ";
        my ($exec_status, $result) = exec_test($prog, $in);
        my @good = ();
        my $nmax = (@$out > @$result) ? @$out : @$result;
@@ -266,9 +265,10 @@ sub sg($) {
 
 
 sub exec_test($$) {
-  my ($prog, $in) = @_;
+  my ($raw_prog, $in) = @_;
   local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
-  my $needs_shell = (join('', @$prog) =~ /[][|<>"'`\$\*\?]/);
+  my $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $raw_prog ];
+  my $needs_shell = ($raw_prog =~ /[][|<>;"'`\$\*\?]/);
 
   if ($prog->[0] eq "umask") {
     umask oct $prog->[1];
@@ -357,7 +357,7 @@ sub exec_test($$) {
       or die "Can't join STDOUT and STDERR: $!";
 
     if ($needs_shell) {
-      exec ('/bin/sh', '-c', join(" ", @$prog));
+      exec ('/bin/sh', '-c', $raw_prog);
     } else {
       exec @$prog;
     }

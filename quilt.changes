@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb 12 20:57:35 CET 2014 - jdelvare@suse.de
+
+- test/run: Delay command line splitting.
+
+-------------------------------------------------------------------
 Mon Feb 10 13:07:14 CET 2014 - jdelvare@suse.de
 
 - patchfns: Fix "quilt diff -z" on files with spaces in their
