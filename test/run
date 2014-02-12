@@ -48,6 +48,7 @@ use strict;
 use FileHandle;
 use Getopt::Std;
 use POSIX qw(isatty setuid getcwd);
+use Text::ParseWords;
 use vars qw($opt_l $opt_q $opt_v %output);
 
 no warnings qw(taint);
@@ -267,8 +268,8 @@ sub sg($) {
 sub exec_test($$) {
   my ($raw_prog, $in) = @_;
   local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
-  my $prog = [ map { s/\\(.)/$1/g; $_ } split /(?<!\\)\s+/, $raw_prog ];
-  my $needs_shell = ($raw_prog =~ /[][|<>;"'`\$\*\?]/);
+  my $prog = [ shellwords($raw_prog) ];
+  my $needs_shell = ($raw_prog =~ /[][|<>;`\$\*\?]/);
 
   if ($prog->[0] eq "umask") {
     umask oct $prog->[1];

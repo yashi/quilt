@@ -2,6 +2,7 @@
 Wed Feb 12 20:57:35 CET 2014 - jdelvare@suse.de
 
 - test/run: Delay command line splitting.
+- test/run: Use perl module Text::ParseWords.
 
 -------------------------------------------------------------------
 Mon Feb 10 13:07:14 CET 2014 - jdelvare@suse.de
