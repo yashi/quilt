@@ -12,6 +12,7 @@ http://the-tech.mit.edu/Shakespeare/midsummer/full.html
 	$ quilt new flower.diff
 	> Patch %{P}flower.diff is now on top
 
+	$ quilt files
 	$ quilt add Oberon.txt
 	> File Oberon.txt added to patch %{P}flower.diff
 

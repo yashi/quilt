@@ -128,7 +128,7 @@ list_files_in_patch()
 	fi
 	# Note: If opt_labels is set, then use_status is not set.
 	IFS=
-	echo $(files_in_patch "$patch") |
+	files_in_patch "$patch" |
 	sort |
 	while read file
 	do
