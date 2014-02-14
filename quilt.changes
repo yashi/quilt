@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 14 15:52:26 CET 2014 - jdelvare@suse.de
+
+- bash_completion: Simplify _quilt_comfile.
+
+-------------------------------------------------------------------
 Fri Feb 14 15:49:11 CET 2014 - jdelvare@suse.de
 
 - files: Return nothing if there are no files.

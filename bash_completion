@@ -86,7 +86,7 @@ fi
 _quilt_comfile()
 {
 	COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -f -- "$cur" ) )
-	echo $( compgen -d -- "$cur" ) | while read d ; do
+	compgen -d -- "$cur" | while read d ; do
 	  COMPREPLY=( ${COMPREPLY[@]:-} "$d/" )
 	done
 }
