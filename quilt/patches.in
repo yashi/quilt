@@ -70,7 +70,6 @@ scan_applied()
 touched_by_patch()
 {
 	local strip=$1 patch=$2
-	[ $strip = ab ] && strip=1
 	cat_file $(patch_file_name $patch) \
 	|  awk '
 	/^(\+\+\+|---)[ \t]/ {
@@ -89,7 +88,14 @@ scan_unapplied()
 {
 	local color=$1 prefix=$2 strip
 	shift 2
-	local patch file file_bre match
+	local patch file match
+	local -a files_bre
+
+	# Quote each file name only once
+	for file in "${opt_files[@]}"
+	do
+		files_bre[${#files_bre[@]}]=$(quote_bre "$file")
+	done
 
 	for patch in "$@"
 	do
@@ -97,11 +103,10 @@ scan_unapplied()
 		[ "$strip" = ab ] && strip=1
 
 		match=
-		for file in "${opt_files[@]}"
+		for file in "${files_bre[@]}"
 		do
-			file_bre="$(quote_bre "$file")"
 			if touched_by_patch $strip $patch \
-			   | grep -q "^$file_bre\$"
+			   | grep -q "^$file\$"
 			then
 				match=1
 				break
