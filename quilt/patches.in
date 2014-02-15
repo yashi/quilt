@@ -88,7 +88,7 @@ scan_unapplied()
 {
 	local color=$1 prefix=$2 strip
 	shift 2
-	local patch file match
+	local patch file
 	local -a files_bre
 
 	# Quote each file name only once
@@ -97,23 +97,19 @@ scan_unapplied()
 		files_bre[${#files_bre[@]}]=$(quote_bre "$file")
 	done
 
+	# "Or" all files in a single pattern
+	file=\\\($(array_join \\\| "${files_bre[@]}")\\\)
+
 	for patch in "$@"
 	do
 		strip=$(patch_strip_level $patch)
 		[ "$strip" = ab ] && strip=1
 
-		match=
-		for file in "${files_bre[@]}"
-		do
-			if touched_by_patch $strip $patch \
-			   | grep -q "^$file\$"
-			then
-				match=1
-				break
-			fi
-		done
-
-		[ -z "$match" ] || echo "$color$prefix$(print_patch $patch)$color_clear"
+		if touched_by_patch $strip "$patch" \
+		   | grep -q "^$file\$"
+		then
+			echo "$color$prefix$(print_patch $patch)$color_clear"
+		fi
 	done
 }
 

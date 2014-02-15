@@ -76,6 +76,20 @@ trap run_exit_handlers EXIT
 
 # ========================================================
 
+# Join multiple stings using the given separator.
+array_join()
+{
+	local sep=$1 str=$2
+	shift 2
+
+	printf %s "$str"
+
+	for str in "$@"
+	do
+		printf %s%s "$sep" "$str"
+	done
+}
+
 # Quote a string for use in a basic regular expression.
 quote_bre()
 {
