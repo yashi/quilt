@@ -653,7 +653,7 @@ find_patch_file()
 		return 1
 	fi
 
-	echo $(patch_file_name "$patch")
+	patch_file_name "$patch"
 }
 
 file_in_patch()
