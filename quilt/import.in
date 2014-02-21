@@ -49,6 +49,31 @@ current top patch, and must be pushed after import to apply them.
 	fi
 }
 
+find_patch_file()
+{
+	local name="$1"
+
+	if [ ${name:0:1} = / ]
+	then
+		# Patch has absolute path
+		if [ -r "$name" ]
+		then
+			echo "$name"
+			return
+		fi
+	else
+		# Patch has a relative path
+		if [ -r "$SUBDIR$name" ]
+		then
+			echo "$SUBDIR$name"
+			return
+		fi
+	fi
+
+	printf $"Patch %s does not exist\n" "$name" >&2
+	return 1
+}
+
 merge_patches()
 {
 	local old="$1" new="$2"
