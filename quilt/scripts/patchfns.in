@@ -644,16 +644,8 @@ find_patch_file()
 		fi
 	fi
 
-	local patch
-
-	patch=$(find_patch_in_series "$name" 2>/dev/null)
-	if [ -z "$patch" ]
-	then
-		printf $"Patch %s does not exist\n" "$name" >&2
-		return 1
-	fi
-
-	patch_file_name "$patch"
+	printf $"Patch %s does not exist\n" "$name" >&2
+	return 1
 }
 
 file_in_patch()
