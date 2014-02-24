@@ -20,10 +20,28 @@ file creates and deletions.
 	$ rm -f delete
 	$ quilt refresh
 	> Refreshed patch %{P}test.diff
+	$ quilt header -r
+	< ---
+	<  create |    1 +
+	<  delete |    1 -
+	<  2 files changed, 1 insertion(+), 1 deletion(-)
+	<
+	> Replaced header of patch %{P}test.diff
+
+	$ quilt patches -v create
+	> = %{P}test.diff
+	$ quilt patches delete
+	> %{P}test.diff
 
 	$ quilt pop -q
 	> Removing patch %{P}test.diff
 	> No patches applied
+
+	$ quilt patches create
+	> %{P}test.diff
+	$ quilt patches -v delete
+	>   %{P}test.diff
+	$ quilt patches -- /dev/null dev/null null ---
 
 	$ echo create > create
 	$ rm -f delete

@@ -9,6 +9,9 @@ $ quilt add foo
 
 $ quilt files
 > foo
+$ quilt patches foo
+> patches/test.diff
+$ quilt patches "foo bar"
 
 $ echo foo > "foo bar"
 $ quilt add "foo bar"
@@ -17,6 +20,10 @@ $ quilt add "foo bar"
 $ quilt files
 > foo
 > foo bar
+$ quilt patches "foo bar"
+> patches/test.diff
+$ quilt patches bar
+$ quilt patches "foo bar baz"
 
 $ quilt add "a: b [c]"
 > File a: b [c] added to patch patches/test.diff
@@ -25,6 +32,11 @@ $ quilt files
 > a: b [c]
 > foo
 > foo bar
+$ quilt patches 'a: b [c]'
+> patches/test.diff
+$ quilt patches a
+$ quilt patches b
+$ quilt patches 'a: b c'
 
 $ echo bar > "foo bar"
 $ echo "new line" > "a: b [c]"
