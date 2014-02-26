@@ -93,9 +93,11 @@ $ rm -rf "dir"
 $ mkdir "space [dir]"
 $ echo 1 > "space [dir]/foo.orig"
 $ echo 2 > "space [dir]/foo"
-$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > foo.diff
-$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > revert.diff
-$ diff -u "space [dir]/foo.orig" "space [dir]/foo" > again.diff
+# Recent versions of GNU diff will quote such file names, but old versions
+# of GNU patch do not support that, so strip the quotes
+$ diff -u "space [dir]/foo.orig" "space [dir]/foo" | sed -e 's:"::g' > foo.diff
+$ cp foo.diff revert.diff
+$ cp foo.diff again.diff
 $ mv "space [dir]/foo.orig" "space [dir]/foo"
 $ tar cf - "space [dir]" | gzip > "space [dir].tar.gz"
 $ rm -rf "space [dir]"
