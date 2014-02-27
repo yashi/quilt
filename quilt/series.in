@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt series [-v]\n"
+	printf $"Usage: quilt series [--color[=always|auto|never]] [-v]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"

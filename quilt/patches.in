@@ -21,7 +21,7 @@ declare -a opt_files=()
 
 usage()
 {
-	printf $"Usage: quilt patches [-v] {file} [files...]\n"
+	printf $"Usage: quilt patches [-v] [--color[=always|auto|never]] {file} [files...]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
