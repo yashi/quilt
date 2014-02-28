@@ -22,7 +22,8 @@ exec 4> /dev/null
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-usage () {
+usage ()
+{
 	echo "Usage: $0 -B prefix {-b|-r|-c|-L} [-s] [-k] [-t] [-L] {-f {file|-}|-|file ...}
 
 	Create or restore backup copies of a list of files.
@@ -55,7 +56,8 @@ usage () {
 : ${QUILT_DIR=@QUILT_DIR@}
 . $QUILT_DIR/scripts/utilfns
 
-ensure_nolinks() {
+ensure_nolinks()
+{
 	local filename=$1
 	local link_count tmpname
 
@@ -78,7 +80,8 @@ notify_action()
 	done < "$filename"
 }
 
-backup() {
+backup()
+{
 	local file=$1
 	local backup=$OPT_PREFIX$file
 	local dir

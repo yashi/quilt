@@ -16,7 +16,8 @@ fi
 . $QUILT_DIR/scripts/patchfns
 cd ${SUBDIR:-.}
 
-usage() {
+usage()
+{
 	echo "Usage: ${0##*/} [--fuzz=N] specfile"
 	exit 1
 }
@@ -143,7 +144,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	#! @BASH@
 
 	# find original data file by md5sum
-	original_file() {
+	original_file()
+	{
 		local file=$1 md5sum
 
 		set -- $(md5sum < $file)
@@ -180,7 +182,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	}
 
 	# Extract a command line option with or without argument
-	cmdline_option() {
+	cmdline_option()
+	{
 		local letter=$1 no_arg=$2
 		shift
 
@@ -200,24 +203,28 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	}
 
 	# Extract the -p option from the command line
-	strip_option() {
+	strip_option()
+	{
 		set -- $(cmdline_option p "$@")
 		[ "$1" != -p1 ] && echo $1
 	}
 
 	# Extract the -R option from the command line
-	reverse_option() {
+	reverse_option()
+	{
 		set -- $(cmdline_option R no_arg "$@")
 		echo $1
 	}
 
-	patch_opt_d() {
+	patch_opt_d()
+	{
 		local subdir=$(cmdline_option d "$@")
 		[ -z "$subdir" ] || echo "${subdir:2}"
 
 	}
 
-	patch_input_file() {
+	patch_input_file()
+	{
 		while [ $# -gt 0 ]; do
 			case "$1" in
 			-i|--input)
@@ -240,7 +247,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		return 1
 	}
 
-	tar_input_file() {
+	tar_input_file()
+	{
 		case "$1" in
 		*C*f*)
 			echo "$3"
@@ -251,7 +259,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	}
 
-	unzip_input_file() {
+	unzip_input_file()
+	{
 		while [ $# -gt 0 ]; do
 			case "$1" in
 			-*)
@@ -266,7 +275,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		return 1
 	}
 
-	tar_opt_C() {
+	tar_opt_C()
+	{
 		case "$1" in
 		*C*f*)
 			echo "$2"
@@ -274,7 +284,8 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	}
 
-	pwd_to_dir() {
+	pwd_to_dir()
+	{
 		local subdir=$1 dir
 
 		if [ -n "$subdir" ]

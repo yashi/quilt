@@ -79,7 +79,8 @@ included.
 	fi
 }
 
-colorize() {
+colorize()
+{
 	if [ -n "$opt_color" ]
 	then
 		sed -e '

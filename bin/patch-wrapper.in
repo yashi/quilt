@@ -26,7 +26,8 @@ then
     set -- --posix "$@"
 fi
 
-backup_files() {
+backup_files()
+{
     declare dir=${QUILT_PC:-.pc}/$patch
 
     if [ "$backup_mode" = --backup-if-mismatch ]
@@ -64,7 +65,8 @@ backup_files() {
     fi
 }
 
-find_pipe_patch() {
+find_pipe_patch()
+{
     declare patch=$1
     patch=${patch//\[/\\[}
     patch=${patch//\]/\\]}

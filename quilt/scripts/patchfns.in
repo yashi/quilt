@@ -47,7 +47,8 @@ fi
 
 declare -a exit_handlers
 
-add_exit_handler() {
+add_exit_handler()
+{
 	exit_handlers[${#exit_handlers[@]}]=$1
 }
 
@@ -911,7 +912,8 @@ next_filename()
 	echo "${base%-$num}-$((num+1))${patch#$base}"
 }
 
-create_db() {
+create_db()
+{
 	if ! [ -e $QUILT_PC ]
 	then
 		mkdir -p $QUILT_PC
@@ -927,7 +929,8 @@ create_db() {
 	fi
 }
 
-version_check() {
+version_check()
+{
 	[ -e $QUILT_PC ] || return 0
 
 	if [ -e $QUILT_PC/.version ]
@@ -945,7 +948,8 @@ version_check() {
 	return 1
 }
 
-print_patch() {
+print_patch()
+{
 	echo -n "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
 }
 

@@ -38,7 +38,8 @@ tree is searched. Please see the grep(1) manual page for options.
 	fi
 }
 
-get_options() {
+get_options()
+{
 	getopt -o EFGPe:f:iwxzsvVm:bHnhqoaId:D:RrlLcB:ZA:C:Uu		      \
 		--long extended-regexp,fixed-strings,basic-regexp,perl-regexp \
 		--long regexp:,file:,ignore-case,word-regexp	      \
@@ -53,13 +54,15 @@ get_options() {
 		-- "$@"
 }
 
-shift_myargs() {
+shift_myargs()
+{
 	set -- "${myargs[@]}"
 	shift
 	myargs=( "$@" )
 }
 
-shift_args() {
+shift_args()
+{
 	while true
 	do
 		case "${myargs[0]}" in

@@ -145,7 +145,8 @@ rollback_patch()
 	$QUILT_DIR/scripts/backup-files $silent_unless_verbose -r -B "$QUILT_PC/$patch/" -
 }
 
-cleanup_patch_output() {
+cleanup_patch_output()
+{
 	if [ -z "$opt_leave_rejects" ]
 	then
 		if [ -n "$opt_quiet" ]; then
