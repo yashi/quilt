@@ -157,7 +157,7 @@
 	$ quilt diff -P patch1 --combine patch2
 	> Patch patches/patch2.diff not applied before patch patches/patch1.diff
 
-	$ echo patch3.diff >> %{P}/series
+	$ echo patch3.diff >> %{P}series
 	$ quilt diff -P patch1 --combine patch3
 	> Patch patches/patch3.diff is not applied
 

@@ -69,7 +69,7 @@ Test the delete command.
 	$ quilt series
 
 	# Force the pop operaton to fail
-	$ echo "test3" > %{P}/series
+	$ echo "test3" > %{P}series
 	$ echo "test3" > .pc/applied-patches
 	$ mkdir -p .pc/test3/dir
 	$ touch .pc/test3/dir/file
