@@ -3,8 +3,6 @@ and verifies their output. Much needs to be done; particularly
 it sould be possible to run the tests using the built instead
 of the installed quilt with `make check'.
 
-(To run, type `./run one.test' in this directory.)
-
 	$ mkdir patches
 
 	$ mkdir dir
