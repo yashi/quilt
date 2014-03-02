@@ -67,14 +67,8 @@ fi
 
 setup_pager
 
-(
-	echo "$patch"
-	patches_after "$patch"
-) \
-| while read patch
-do
-	echo "$(print_patch $patch)"
-done
+printf "$(patch_format)\n" "$patch" $(patches_after "$patch")
+
 ### Local Variables:
 ### mode: shell-script
 ### End:

@@ -953,6 +953,14 @@ print_patch()
 	echo -n "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
 }
 
+# Generate a format suitable to print patch names with printf
+patch_format()
+{
+	local prefix=${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}
+
+	echo -n "${prefix/\%/%%}%s"
+}
+
 setup_colors()
 {
 	local C=diff_hdr=32:diff_add=36:diff_mod=35:diff_rem=35:diff_hunk=33:diff_ctx=35:diff_cctx=33:patch_offs=33:patch_fuzz=35:patch_fail=31:series_app=32:series_top=33:series_una=00:clear=00
