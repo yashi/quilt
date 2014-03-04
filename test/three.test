@@ -61,6 +61,24 @@
 	$ quilt refresh
 	> Refreshed patch %{P}patch2.diff
 
+	# Test diff called with multiple file names
+	$ quilt diff -p0 f g
+	> Index: g
+	> ===================================================================
+	> --- /dev/null
+	> +++ g
+	> @@ -0,0 +1 @@
+	> +g
+
+	# Test that diff strips the "./" prefix
+	$ quilt diff -p0 ./f ./g
+	> Index: g
+	> ===================================================================
+	> --- /dev/null
+	> +++ g
+	> @@ -0,0 +1 @@
+	> +g
+
 	$ quilt pop
 	> Removing patch patches/patch2.diff
 	> Removing g

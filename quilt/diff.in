@@ -219,7 +219,7 @@ done
 
 QUILT_DIFF_OPTS="$QUILT_DIFF_OPTS $opt_format"
 
-opt_files=( $(for file in "$@"; do echo "$SUBDIR$file" ; done) )
+opt_files=( $(for file in "$@"; do echo "$SUBDIR${file#./}" ; done) )
 
 if [ $[0$opt_combine + 0$opt_snapshot + 0$opt_relative] -gt 1 ]
 then
@@ -259,8 +259,10 @@ if [ -n "$opt_snapshot" -a ${#opt_files[@]} -eq 0 ]
 then
 	# Add all files in the snapshot into the file list (they may all
 	# have changed).
-	files=( $(find $QUILT_PC/$snap_subdir -type f | sort) )
-	printf "%s\n" "${files[@]#$QUILT_PC/$snap_subdir/}" >&4
+	files=( $(find $QUILT_PC/$snap_subdir -type f \
+		  | sed -e "s/^$(quote_bre $QUILT_PC/$snap_subdir/)//" \
+		  | sort) )
+	printf "%s\n" "${files[@]}" >&4
 	unset files
 	# Also look at all patches that are currently applied.
 	opt_combine=1
@@ -298,7 +300,7 @@ do
 	for file in $(files_in_patch_ordered "$patch")
 	do
 		if [ ${#opt_files[@]} -gt 0 ] && \
-		   ! in_array "$file" "${opt_files[@]#./}"
+		   ! in_array "$file" "${opt_files[@]}"
 		then
 			continue
 		fi
