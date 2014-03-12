@@ -950,7 +950,7 @@ version_check()
 
 print_patch()
 {
-	echo -n "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
+	echo "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
 }
 
 # Generate a format suitable to print patch names with printf

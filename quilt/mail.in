@@ -466,7 +466,7 @@ dup_subjects=( $(
 		}
 		else subjects[$0] = patch }' \
 	| while read patch; do
-		echo "$(print_patch "$patch")"
+		print_patch $patch
 	  done
 	) )
 if [ ${#dup_subjects[@]} -ne 0 ]

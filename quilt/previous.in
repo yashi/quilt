@@ -62,7 +62,7 @@ patch=$(find_patch_in_series "$1") || exit 1
 previous=$(applied_before "$patch" | tail -n 1)
 if [ -n "$previous" ]
 then
-	echo "$(print_patch $previous)"
+	print_patch $previous
 else
 	exit 2
 fi
