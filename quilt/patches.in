@@ -45,21 +45,18 @@ scan_applied()
 {
 	local color=$1 prefix=$2
 	shift 2
-	local patch file match
+	local patch file
 
 	for patch in "$@"
 	do
-		match=
 		for file in "${opt_files[@]}"
 		do
 			if [ -f "$(backup_file_name $patch "$file")" ]
 			then
-				match=1
+				echo "$color$prefix$(print_patch $patch)$color_clear"
 				break
 			fi
 		done
-
-		[ -z "$match" ] || echo "$color$prefix$(print_patch $patch)$color_clear"
 	done
 }
 
