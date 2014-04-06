@@ -443,7 +443,7 @@ next_patch_for_file()
 	then
 		for patch in $patches_on_top
 		do
-			if [ -f $(backup_file_name $patch $file) ]
+			if file_in_patch "$file" $patch
 			then
 				echo $patch
 				break

@@ -51,7 +51,7 @@ scan_applied()
 	do
 		for file in "${opt_files[@]}"
 		do
-			if [ -f "$(backup_file_name $patch "$file")" ]
+			if file_in_patch "$file" $patch
 			then
 				echo "$color$prefix$(print_patch $patch)$color_clear"
 				break
