@@ -30,8 +30,11 @@ Authors:
 %setup
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --mandir=%_mandir
-make prefix=/usr RELEASE=%release
+CFLAGS="$RPM_OPT_FLAGS" \
+./configure --prefix=/usr \
+	--mandir=%_mandir \
+	--docdir=%_docdir/%{name}-%{version}
+make RELEASE=%release
 
 %install
 rm -rf $RPM_BUILD_ROOT
