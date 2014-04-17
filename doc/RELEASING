@@ -9,8 +9,8 @@ Step 1: set the new version and test
   $ autoconf
   Make sure you don't use a version of autoconf older than the one
   previously used.
-- Mention the new version in quilt.changes:
-  - configure*: Bump version to x.y.
+- Mention the new version in NEWS, with a summary of all user-visible
+  changes.
 - Make sure that everything builds and runs fine:
   $ ./configure --prefix=/opt/quilt
   $ make
@@ -19,7 +19,7 @@ Step 1: set the new version and test
 Step 2: tag the new version
 ---------------------------
 
-- $ git add configure.ac configure quilt.changes
+- $ git add configure.ac configure NEWS
   $ git commit -m "Set version to x.y."
   $ git tag vx.y
   $ git push
