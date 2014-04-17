@@ -59,7 +59,7 @@ DIRT +=		$(shell $(FIND) . -name '*~')
 DIRT +=		$(shell $(FIND) . -name '.\#*')
 
 SRC +=		COPYING AUTHORS TODO Makefile.in configure.ac		\
-		config/install-sh quilt.spec.in quilt.changes		\
+		config/install-sh quilt.spec.in NEWS			\
 		bash_completion quilt.quiltrc aclocal.m4 git-desc
 DIRT +=		quilt.spec
 
@@ -115,7 +115,6 @@ SRC +=		$(PO:%=po/%)
 DIRT +=		po/*.mo po/*~
 
 SRC +=		$(wildcard test/*.test) test/run test/test.quiltrc
-SRC +=		changes2changelog
 
 NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns quilt/scripts/utilfns
 
@@ -245,10 +244,12 @@ $(PACKAGE)-$(GIT_DESC).tar.bz2 : $(SRC) configure $(PACKAGE).spec
 	rm -f $(PACKAGE)-$(GIT_DESC)
 	@echo "File $@ created."
 
-$(PACKAGE).spec : $(PACKAGE).spec.in $(PACKAGE).changes Makefile
+$(PACKAGE).spec : $(PACKAGE).spec.in NEWS Makefile
 	@echo "Generating spec file" ;					\
 	set -e ;							\
-	changelog="`./changes2changelog $(PACKAGE).changes`" ;		\
+	changelog="`sed 						\
+		-e 's/^Version \([0-9.]*\) (\(.*\))/* \2 - upstream\n- Update to version \1/' \
+		-e 's/^  -/  +/' < NEWS`" ;				\
 	$(AWK) '{ gsub(/@VERSION''@/, "$(VERSION)") ;			\
 		  gsub(/@RELEASE''@/, "$(RELEASE)") ;			\
 		  gsub(/@CHANGELOG''@/, changelog) ;			\
