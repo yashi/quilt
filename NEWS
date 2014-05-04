@@ -1,3 +1,18 @@
+Version 0.62 (not released yet)
+  - New NEWS file, containing a human-readable changelog
+  - Option -E is no longer passed to patch by default
+  - Huge performance improvement (e.g., for commands series, applied and unapplied)
+  - configure: Add compat symlinks for cp and md5sum
+  - Return 2 when there is nothing to do, contrasting with errors (ret=1)
+  - Exit with an error when diff's retcode=2 (error) on patch refresh
+  - bash_completion: cleanups and performance improvement (Savannah's #27111)
+  - test/run: Use perl module Text::ParseWords (+ performance improvement)
+  - Add some tests to our testsuite, for a better coverage
+  - Fix heuristic for unapplied patches with timestamps
+  - Bug fix: Patches emptying files should work now
+  - Bug fix: Check for duplicate patch in series (Savannah's #20628)
+  - Portability fixes for older Bash and GNU patch
+
 Version 0.61 (Sun Dec 08 2013)
   - Almost two years of fixes and minor improvements
   - Fix support for ./configure --with-xargs
