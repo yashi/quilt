@@ -138,18 +138,33 @@ around quilt.
 .fam C
 .RS
 .nf
-work/ -+- ...
-       |- patches/ -+- series
-       |            |- patch2.diff
-       |            |- patch1.diff
-       |            +- ...
-       +- .pc/ -+- applied-patches
-                |- patch1.diff/ -+- ...
-                |- patch2.diff/ -+- ...
-                +- ...
+work/
+├── patches/
+│    ├── series         (list of patches to apply)
+│    ├── patch1.diff    (one particular patch)
+│    ├── patch2.diff
+│    └── ...
+├── .pc/
+│    ├── .quilt_patches (content of QUILT_PATCHES)
+│    ├── .quilt_series  (content of QUILT_SERIES)
+│    ├── patch1.diff/   (copy of patched files)
+│    │    └── ...
+│    ├── patch2.diff/
+│    │    └── ...
+│    └── ...
+└── ...
 .fi
 .RE
 .fam T
+
+The patches/ directory is precious as it contains all your patches as
+well as the order in which it should be applied.
+
+The .pc/ directory contains some metadata about the current state of
+your patch serie. Changing its content is not advised. This directory
+can usually be regenerated from the initial files and the
+content of the patches/ directory (provided that all patches were
+regenerated before the removal).
 
 .SH EXAMPLE
 
