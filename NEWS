@@ -1,4 +1,4 @@
-Version 0.62 (not released yet)
+Version 0.62 (Wed May 07 2014)
   - New NEWS file, containing a human-readable changelog
   - Option -E is no longer passed to patch by default
   - Huge performance improvement (e.g., for commands series, applied and unapplied)
