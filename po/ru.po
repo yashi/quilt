@@ -18,19 +18,19 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-09-20 08:04+0000\n"
 "X-Generator: Launchpad (build 13980)\n"
 
-#: bin/quilt.in:36
+#: bin/quilt.in:40
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
 msgstr "Синтаксис: quilt [--trace[=verbose]] [--quiltrc=XX] команда [-h] ..."
 
-#: bin/quilt.in:37
+#: bin/quilt.in:41
 msgid "       quilt --version"
 msgstr "       quilt --version"
 
-#: bin/quilt.in:39
+#: bin/quilt.in:43
 msgid "Commands are:"
 msgstr "Команды:"
 
-#: bin/quilt.in:44
+#: bin/quilt.in:48
 #, fuzzy
 msgid ""
 "\n"
@@ -181,7 +181,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Отсутствует следующий патч\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:589
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:604
 msgid "Patch %s is currently applied\\n"
 msgstr "Патч %s применён\\n"
 
@@ -208,7 +208,7 @@ msgstr "Не удалось отменить патч %s\\n"
 msgid ""
 "Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
-"[--sort] [--color] [file ...]\\n"
+"[--sort] [--color[=always|auto|never]] [file ...]\\n"
 msgstr ""
 "Синтаксис: quilt diff [-p n] [-u|-U число|-c|-C число] [--combine патч|-z] [-"
 "R] [-P патч] [--snapshot] [--diff=утилита] [--no-timestamps] [--no-index] [--"
@@ -307,7 +307,7 @@ msgstr ""
 "\n"
 "--sort\tСортировать файлы по имени, не сохраняя их исходного порядка.\n"
 
-#: quilt/diff.in:218
+#: quilt/diff.in:226
 #, fuzzy
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
@@ -315,29 +315,29 @@ msgstr ""
 "Опции \\`-c patch', \\`--snapshot' и \\`-z' не могут использоваться "
 "совместно.\\n"
 
-#: quilt/diff.in:232
+#: quilt/diff.in:240
 #, fuzzy
 msgid ""
 "Cannot diff patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
 msgstr "Невозможно сравнить патчи с -p%s, используйте -p0 либо -p1\\n"
 
-#: quilt/diff.in:241
+#: quilt/diff.in:249
 msgid "No snapshot to diff against\\n"
 msgstr ""
 
-#: quilt/diff.in:273 quilt/files.in:105 quilt/mail.in:418
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:422
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Патч %s не был применён перед патчем %s\\n"
 
-#: quilt/diff.in:341
+#: quilt/diff.in:351
 msgid "File %s is not being modified\\n"
 msgstr "Файл %s не изменяется\\n"
 
-#: quilt/diff.in:360 quilt/refresh.in:234
+#: quilt/diff.in:370
 msgid "Diff failed, aborting\\n"
 msgstr "Не удалось выполнить diff, завершение\\n"
 
-#: quilt/diff.in:367
+#: quilt/diff.in:377
 #, fuzzy
 msgid "Warning: more recent patches modify files in patch %s\\n"
 msgstr "Более новые патчи изменяют файлы в патче %s\\n"
@@ -471,7 +471,7 @@ msgstr "Патч %s уже существует, выберите новое и�
 msgid "Fork of patch %s to patch %s failed\\n"
 msgstr "Не удалось создать ответвление патча %s в патч %s\\n"
 
-#: quilt/fork.in:102 quilt/refresh.in:346
+#: quilt/fork.in:102 quilt/refresh.in:347
 msgid "Fork of patch %s created as %s\\n"
 msgstr "Ответвление патча %s создано как %s\\n"
 
@@ -648,50 +648,55 @@ msgid ""
 "\tmust be specified. This option is only effective when -f is used.\n"
 msgstr ""
 
-#: quilt/import.in:71
+#: quilt/import.in:73
+#, fuzzy
+msgid "Patch %s does not exist\\n"
+msgstr "Патч %s не в серии\\n"
+
+#: quilt/import.in:96
 msgid "Patch headers differ:\\n"
 msgstr ""
 
-#: quilt/import.in:74
+#: quilt/import.in:99
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
 
-#: quilt/import.in:139
+#: quilt/import.in:164
 #, fuzzy
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
 msgstr "Опцию \\`-n' можно использовать только при импорте одного патча\\n"
 
-#: quilt/import.in:169
+#: quilt/import.in:194
 msgid "Patch %s is applied\\n"
 msgstr "Патч %s применён\\n"
 
-#: quilt/import.in:178
+#: quilt/import.in:203
 #, fuzzy
 msgid "Patch %s already exists in series.\\n"
 msgstr "Патч %s не в серии\\n"
 
-#: quilt/import.in:184
+#: quilt/import.in:209
 msgid "Patch %s exists. Replace with -f.\\n"
 msgstr "Патч %s существует. Принудительно заменить можно опцией -f.\\n"
 
-#: quilt/import.in:195
+#: quilt/import.in:220
 msgid "Replacing patch %s with new version\\n"
 msgstr "Замена патча %s новой версией\\n"
 
-#: quilt/import.in:199
+#: quilt/import.in:224
 #, fuzzy
 msgid "Importing patch %s\\n"
 msgstr "Удаление патча %s\\n"
 
-#: quilt/import.in:201
+#: quilt/import.in:226
 msgid "Importing patch %s (stored as %s)\\n"
 msgstr "Импорт патча %s (сохранён как %s)\\n"
 
-#: quilt/import.in:214
+#: quilt/import.in:239
 msgid "Failed to import patch %s\\n"
 msgstr "Не удалось импортировать патч %s\\n"
 
-#: quilt/import.in:223 quilt/refresh.in:333
+#: quilt/import.in:248 quilt/refresh.in:334
 msgid "Failed to insert patch %s into file series\\n"
 msgstr "Не удалось вставить патч %s в файл series\\n"
 
@@ -753,40 +758,40 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:189 quilt/mail.in:197
+#: quilt/mail.in:192 quilt/mail.in:200
 msgid "Introduction message already specified"
 msgstr ""
 
-#: quilt/mail.in:259
+#: quilt/mail.in:262
 msgid "You have to install 'formail' to use 'quilt mail'"
 msgstr ""
 
-#: quilt/mail.in:302
+#: quilt/mail.in:305
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:446
+#: quilt/mail.in:450
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:470
+#: quilt/mail.in:474
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:479
+#: quilt/mail.in:483
 #, fuzzy
 msgid "File %s does not exist\\n"
 msgstr "Файл %s существует\\n"
 
-#: quilt/mail.in:539
+#: quilt/mail.in:543
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:542
+#: quilt/mail.in:546
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:656
+#: quilt/mail.in:660
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -829,13 +834,13 @@ msgstr ""
 msgid "Patch %s exists already\\n"
 msgstr "Патч %s уже существует\\n"
 
-#: quilt/new.in:108 quilt/refresh.in:342
-msgid "Failed to create patch %s\\n"
-msgstr "Не удалось создать патч %s\\n"
-
-#: quilt/new.in:111
+#: quilt/new.in:108
 msgid "Patch %s is now on top\\n"
 msgstr "Патч %s теперь наверху\\n"
+
+#: quilt/new.in:110 quilt/refresh.in:343
+msgid "Failed to create patch %s\\n"
+msgstr "Не удалось создать патч %s\\n"
 
 #: quilt/next.in:22
 msgid "Usage: quilt next [patch]\\n"
@@ -853,7 +858,8 @@ msgstr ""
 
 #: quilt/patches.in:24
 #, fuzzy
-msgid "Usage: quilt patches [-v] {file} [files...]\\n"
+msgid ""
+"Usage: quilt patches [-v] [--color[=always|auto|never]] {file} [files...]\\n"
 msgstr "Синтаксис: quilt patches {файл}\\n"
 
 #: quilt/patches.in:27
@@ -921,7 +927,7 @@ msgstr ""
 "\n"
 "-v\tПодробный вывод.\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:892
+#: quilt/pop.in:100 quilt/scripts/patchfns.in:880
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Не удалось скопировать файлы во временный каталог\\n"
 
@@ -947,11 +953,11 @@ msgstr "Сначала нужно обновить патч %s.\\n"
 msgid "No patch removed\\n"
 msgstr "Не удалено ни одного патча\\n"
 
-#: quilt/pop.in:252 quilt/scripts/patchfns.in:498
+#: quilt/pop.in:252 quilt/scripts/patchfns.in:513
 msgid "No patches applied\\n"
 msgstr "Нет применённых патчей\\n"
 
-#: quilt/pop.in:259 quilt/push.in:397
+#: quilt/pop.in:259 quilt/push.in:422
 msgid "Now at patch %s\\n"
 msgstr "Текущий патч: %s\\n"
 
@@ -1039,32 +1045,37 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Прервано пользователем; патч %s не был наложен.\\n"
 
-#: quilt/push.in:180
+#: quilt/push.in:181
 msgid "Applying patch %s\\n"
 msgstr "Наложение патча %s\\n"
 
-#: quilt/push.in:214
+#: quilt/push.in:215
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Патч %s не существует; наложен пустой патч\\n"
 
-#: quilt/push.in:218
+#: quilt/push.in:219
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Похоже, патч %s пуст; наложен\\n"
 
-#: quilt/push.in:222
+#: quilt/push.in:223
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "Применён патч %s (принудительно; следует сделать refresh)\\n"
 
-#: quilt/push.in:232
+#: quilt/push.in:233
 #, fuzzy
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Патч %s применён\\n"
 
-#: quilt/push.in:235
+#: quilt/push.in:236
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Патч %s не применяется (принудить с -f)\\n"
 
-#: quilt/push.in:377
+#: quilt/push.in:291
+#, fuzzy
+msgid "Patch %s is already applied; check your series file\\n"
+msgstr "Патч %s уже применён\\n"
+
+#: quilt/push.in:396
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Сначала необходимо обновить самый верхний патч %s.\\n"
 
@@ -1174,32 +1185,39 @@ msgid "Can only refresh the topmost patch with -z currently\\n"
 msgstr ""
 
 #: quilt/refresh.in:202
-msgid "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
+#, fuzzy
+msgid ""
+"Cannot refresh patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
 msgstr "Не удалось обновить патчи с -p%s, используйте -p0 или -p1\\n"
 
-#: quilt/refresh.in:240
+#: quilt/refresh.in:235
+#, fuzzy
+msgid "Diff failed on file '%s', aborting\\n"
+msgstr "Не удалось выполнить diff, завершение\\n"
+
+#: quilt/refresh.in:241
 msgid ""
 "More recent patches modify files in patch %s. Enforce refresh with -f.\\n"
 msgstr ""
 "Более новые патчи изменяют файлы в патче %s. Принудительное обновление можно "
 "сделать с помощью опции -f.\\n"
 
-#: quilt/refresh.in:246
+#: quilt/refresh.in:247
 msgid ""
 "Cannot use --strip-trailing-whitespace on a patch that has shadowed files.\\n"
 msgstr ""
 "Нельзя использовать --strip-trailing-whitespace на патче с затенёнными "
 "файлами.\\n"
 
-#: quilt/refresh.in:252 quilt/refresh.in:354
+#: quilt/refresh.in:253 quilt/refresh.in:355
 msgid "Nothing in patch %s\\n"
 msgstr "Ничего нет в патче %s\\n"
 
-#: quilt/refresh.in:324
+#: quilt/refresh.in:325
 msgid "Patch %s is unchanged\\n"
 msgstr "Патч %s не изменён\\n"
 
-#: quilt/refresh.in:352
+#: quilt/refresh.in:353
 msgid "Refreshed patch %s\\n"
 msgstr "Патч %s обновлён\\n"
 
@@ -1323,42 +1341,37 @@ msgstr "Отображаемое имя '%s' содержит непарные �
 msgid "Delivery address `%s' is invalid\n"
 msgstr "Некорректный адрес назначения '%s'\n"
 
-#: quilt/scripts/patchfns.in:217 quilt/scripts/patchfns.in:511
+#: quilt/scripts/patchfns.in:232 quilt/scripts/patchfns.in:526
 #, fuzzy
 msgid "%s is not a regular file\\n"
 msgstr "Патч %s не входит в файл series\\n"
 
-#: quilt/scripts/patchfns.in:465 quilt/scripts/patchfns.in:482
+#: quilt/scripts/patchfns.in:480 quilt/scripts/patchfns.in:497
 #, fuzzy
 msgid "No patches in series\\n"
 msgstr "Нет применённых патчей\\n"
 
-#: quilt/scripts/patchfns.in:467 quilt/scripts/patchfns.in:484
+#: quilt/scripts/patchfns.in:482 quilt/scripts/patchfns.in:499
 msgid "No series file found\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:540
+#: quilt/scripts/patchfns.in:555
 msgid "Patch %s is not in series\\n"
 msgstr "Патч %s не в серии\\n"
 
-#: quilt/scripts/patchfns.in:568
+#: quilt/scripts/patchfns.in:583
 msgid "Patch %s is not applied\\n"
 msgstr "Патч %s не применён\\n"
 
-#: quilt/scripts/patchfns.in:605
+#: quilt/scripts/patchfns.in:620
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "Серия файлов полностью применена, заканчивается на патче %s\\n"
 
-#: quilt/scripts/patchfns.in:638
-#, fuzzy
-msgid "Patch %s does not exist\\n"
-msgstr "Патч %s не в серии\\n"
-
-#: quilt/scripts/patchfns.in:910
+#: quilt/scripts/patchfns.in:898
 msgid "Failed to patch temporary files\\n"
 msgstr "Не удалось применить патч к временным файлам\\n"
 
-#: quilt/scripts/patchfns.in:951
+#: quilt/scripts/patchfns.in:941
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1370,7 +1383,7 @@ msgstr ""
 "отмените все патчи, используя версию quilt, которая использовалась для их "
 "наложения, прежде чем использовать эту версию.\\n"
 
-#: quilt/scripts/patchfns.in:1095
+#: quilt/scripts/patchfns.in:1094
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1414,8 +1427,9 @@ msgid "Renaming %s to %s: %s\n"
 msgstr "Переименование %s в %s: %s\n"
 
 #: quilt/series.in:22
-msgid "Usage: quilt series [-v]\\n"
-msgstr "Синтаксис: quilt series [-v]\\n"
+#, fuzzy
+msgid "Usage: quilt series [--color[=always|auto|never]] [-v]\\n"
+msgstr "Синтаксис: quilt push [-afqv] [--leave-rejects] [число|патч]\\n"
 
 #: quilt/series.in:25
 #, fuzzy
@@ -1425,7 +1439,7 @@ msgid ""
 "\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring (auto activates it only if the output is a tty).\n"
-"\t\n"
+"\n"
 "-v\tVerbose, more user friendly output.\n"
 msgstr ""
 "\n"
@@ -1433,15 +1447,15 @@ msgstr ""
 "\n"
 "-v\tПодробный, более дружественный вывод.\n"
 
-#: quilt/setup.in:34 quilt/setup.in:53
+#: quilt/setup.in:35 quilt/setup.in:55
 msgid "Directory %s exists\\n"
 msgstr "Директория %s существует\\n"
 
-#: quilt/setup.in:59
+#: quilt/setup.in:61
 msgid "File %s exists\\n"
 msgstr "Файл %s существует\\n"
 
-#: quilt/setup.in:99
+#: quilt/setup.in:102
 #, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
@@ -1449,7 +1463,7 @@ msgid ""
 msgstr ""
 "Синтаксис: quilt setup [-d префикс-пути] [-v] {файл-spec|файл-series}\\n"
 
-#: quilt/setup.in:102
+#: quilt/setup.in:105
 #, fuzzy
 msgid ""
 "\n"
@@ -1472,25 +1486,25 @@ msgstr ""
 "\n"
 "-v\tвывод отладочной информации.\n"
 
-#: quilt/setup.in:173
+#: quilt/setup.in:176
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "Секция %%prep файла %s содержит ошибки; результаты могут быть незавершены\\n"
 
-#: quilt/setup.in:176
+#: quilt/setup.in:179
 msgid "The -v option will show rpm's output\\n"
 msgstr "Опция -v покажет вывод rpm\\n"
 
-#: quilt/setup.in:228 quilt/setup.in:240
+#: quilt/setup.in:231 quilt/setup.in:243
 #, fuzzy
 msgid "File %s not found\\n"
 msgstr "Файл %s не изменяется\\n"
 
-#: quilt/setup.in:231 quilt/setup.in:243
+#: quilt/setup.in:234 quilt/setup.in:246
 msgid "Unpacking archive %s\\n"
 msgstr "Распаковка архива %s\\n"
 
-#: quilt/setup.in:252
+#: quilt/setup.in:255
 msgid "Trying alternative patches and series names..."
 msgstr ""
 
@@ -1589,6 +1603,13 @@ msgstr ""
 "использованной при создании этого рабочего дерева, или удалите директорию %s "
 "и примените все патчи с нуля.\\n"
 
+#~ msgid ""
+#~ "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
+#~ msgstr "Не удалось обновить патчи с -p%s, используйте -p0 или -p1\\n"
+
+#~ msgid "Usage: quilt series [-v]\\n"
+#~ msgstr "Синтаксис: quilt series [-v]\\n"
+
 #~ msgid "Patch is not applied\\n"
 #~ msgstr "Патч не применён\\n"
 
@@ -1669,9 +1690,6 @@ msgstr ""
 
 #~ msgid "Patch %s not found in file series\\n"
 #~ msgstr "Патч %s не найден в файле series\\n"
-
-#~ msgid "Patch %s is already applied\\n"
-#~ msgstr "Патч %s уже применён\\n"
 
 #~ msgid "Display name '%s' contains invalid characters\n"
 #~ msgstr "Отображаемое имя '%s' содержит некорректные символы\n"
