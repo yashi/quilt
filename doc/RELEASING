@@ -15,6 +15,10 @@ Step 1: set the new version and test
   $ ./configure --prefix=/opt/quilt
   $ make
   $ make check
+- If you can update one translation file, do so and commit the po file
+  Even better, give ping the translators (their names and emails are
+  in the po file headers), and give them the opportunity to update
+  their work. 
 
 Step 2: tag the new version
 ---------------------------
