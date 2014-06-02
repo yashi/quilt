@@ -13,7 +13,7 @@ What happens when diff fails because of a permission error?
 	$ chmod -r test.txt
 
 	$ quilt refresh
-	> diff: test.txt: Permission denied
+	>~ .*diff: test\.txt: Permission denied
 	> Diff failed on file 'test.txt', aborting
 	$ echo %{?}
 	> 1
