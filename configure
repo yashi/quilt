@@ -4423,13 +4423,17 @@ You can download GNU Gettext from ftp.gnu.org
 " "$LINENO" 5
 fi
 
+PATCH_WRAPPER=
 
 # Check whether --with-patch-wrapper was given.
 if test "${with_patch_wrapper+set}" = set; then :
   withval=$with_patch_wrapper;
+      if test "$withval" = yes ; then
+	PATCH_WRAPPER=$withval
+      fi
+
 fi
 
-PATCH_WRAPPER=$withval
 
 
 if test $USE_NLS = no ; then

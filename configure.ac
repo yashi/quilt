@@ -394,9 +394,13 @@ You can download GNU Gettext from ftp.gnu.org
 ])
 fi
 
+PATCH_WRAPPER=
 AC_ARG_WITH(patch-wrapper, AC_HELP_STRING(
-    [--with-patch-wrapper], [include GNU patch wrapper]))
-PATCH_WRAPPER=$withval
+    [--with-patch-wrapper], [include GNU patch wrapper]), [
+      if test "$withval" = yes ; then
+	PATCH_WRAPPER=$withval
+      fi
+    ])
 AC_SUBST(PATCH_WRAPPER)
 
 if test $USE_NLS = no ; then
