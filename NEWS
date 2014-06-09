@@ -1,5 +1,4 @@
-
-Version 0.63 (Wed May 07 2014)
+Version 0.63 (Sun May 25 2014)
   - New NEWS file, containing a human-readable changelog
   - Option -E is no longer passed to patch by default
   - Huge performance improvement (e.g., for commands series, applied and unapplied)
@@ -14,7 +13,8 @@ Version 0.63 (Wed May 07 2014)
   - Bug fix: Check for duplicate patch in series (Savannah's #20628)
   - Portability fixes for older Bash and GNU patch
 
-Version 0.62 (was a buggy release, with an incomplete tarfile)
+Version 0.62 (Wed May 07 2014)
+  - Was a buggy release, with an incomplete tarfile
 
 Version 0.61 (Sun Dec 08 2013)
   - Almost two years of fixes and minor improvements
