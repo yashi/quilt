@@ -259,7 +259,8 @@ fi
 # check if formail is installed before doing anything
 if ! type formail &> /dev/null
 then
-	echo $"You have to install 'formail' to use 'quilt mail'" >&2
+	printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
+	       formail procmail mail >&2
 	exit 1
 fi
 

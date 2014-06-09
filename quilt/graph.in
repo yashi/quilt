@@ -109,6 +109,20 @@ then
 	usage
 fi
 
+if [ "$opt_format" = "ps" ] && ! type dot &> /dev/null
+then
+	printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
+	       dot graphviz "graph -T" >&2
+	exit 1
+fi
+
+if [ -n "$opt_reduce" ] && ! type tred &> /dev/null
+then
+	printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
+	       tred graphviz "graph --reduce" >&2
+	exit 1
+fi
+
 if [ -z "$opt_all" ]
 then
 	patch=$(find_applied_patch "$1") || exit 1
