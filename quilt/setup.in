@@ -6,6 +6,9 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+# Version check is irrelevant to this command.
+skip_version_check=1
+
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then

@@ -32,6 +32,13 @@ $ quilt push -qa
 > Now at patch patches/again.diff
 $ cd ..
 $ rm -rf dir
+
+# Quilt setup should happily ignore patches and .pc directories
+$ mkdir .pc patches
+$ quilt setup series
+> Unpacking archive dir.tar.gz
+$ rm -rf dir .pc patches
+
 $ quilt setup -d other series
 > Unpacking archive dir.tar.gz
 $ cd other/dir
