@@ -173,6 +173,14 @@ case "$1" in
 *.spec)
 	spec_file=$1
 
+	# check if rpmbuild is installed before running inspect
+	if ! type rpmbuild &> /dev/null
+	then
+		printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
+		       rpmbuild rpm-build setup >&2
+		exit 1
+	fi
+
 	if ! $QUILT_DIR/scripts/inspect $verbose $opt_sourcedir $opt_fuzz \
 					"$spec_file" 2>&1 > $tmpfile
 	then
