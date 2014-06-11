@@ -473,7 +473,7 @@ dup_subjects=( $(
 if [ ${#dup_subjects[@]} -ne 0 ]
 then
 	printf $"Patches %s have duplicate subject headers.\n" \
-	       "$(set -- "${dup_subjects[*]/%/, }"; echo ${1%, })"
+	       "$(array_join ", " "${dup_subjects[@]}")"
 	exit 1
 fi
 
