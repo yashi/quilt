@@ -979,6 +979,21 @@ quilt_command()
 	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
+check_external_tool()
+{
+	local tool=$1 package=$2 options=$3
+	local command=$QUILT_COMMAND
+
+	[ -n "$options" ] && command="$command $options"
+
+	if ! type "$tool" &> /dev/null
+	then
+		printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
+		       "$tool" "$package" "$command" >&2
+		exit 1
+	fi
+}
+
 declare pager_fifo pager_fifo_dir pager_pid
 
 wait_for_pager()

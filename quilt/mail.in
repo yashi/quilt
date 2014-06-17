@@ -257,12 +257,7 @@ then
 fi
 
 # check if formail is installed before doing anything
-if ! type formail &> /dev/null
-then
-	printf $"You have to install '%s' (from package %s) to use 'quilt %s'\n" \
-	       formail procmail mail >&2
-	exit 1
-fi
+check_external_tool formail procmail
 
 if [ $# -ge 1 ]
 then
