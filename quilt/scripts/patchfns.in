@@ -656,8 +656,8 @@ filenames_in_patch()
 		$3 != "----" && $3 != "****" \
 			{ sub(/\t.*/, "")
 			  sub(/^... /, "")
-			  for (n=0 ; n<'"$strip"'; n++)
-			      sub(/^([^\/]+\/)/, "")
+			  for (n=0 ; n<'$strip'; n++)
+			      sub(/^[^\/]+\//, "")
 			  print $0 }' $patch_file
 	fi
 }
