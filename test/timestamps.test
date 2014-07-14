@@ -6,6 +6,9 @@ $ cat > patches/series
 < unified-create.patch
 < unified-update.patch
 < unified-delete.patch
+< context-create.patch
+< context-update.patch
+< context-delete.patch
 
 $ cat > patches/unified-create.patch
 < diff -ruN a/file b/file
@@ -29,18 +32,57 @@ $ cat > patches/unified-delete.patch
 < @@ -1 +0,0 @@
 < -updated line
 
+$ cat > patches/context-create.patch
+< *** /dev/null	2014-06-24 08:55:39.152180961 +0200
+< --- b/file	2014-06-26 13:08:29.608831581 +0200
+< ***************
+< *** 0 ****
+< --- 1 ----
+< + new line
+
+$ cat > patches/context-update.patch
+< *** a/file	2014-06-26 13:08:29.608831581 +0200
+< --- b/file	2014-06-26 13:08:33.872849083 +0200
+< ***************
+< *** 1 ****
+< ! new line
+< --- 1 ----
+< ! updated line
+
+$ cat > patches/context-delete.patch
+< *** a/file	2014-06-26 13:08:33.872849083 +0200
+< --- /dev/null	2014-06-24 08:55:39.152180961 +0200
+< ***************
+< *** 1 ****
+< - updated line
+< --- 0 ----
+
+# Test unapplied patches
 $ quilt patches file
 > patches/unified-create.patch
 > patches/unified-update.patch
 > patches/unified-delete.patch
+> patches/context-create.patch
+> patches/context-update.patch
+> patches/context-delete.patch
+
+# Make sure we don't take line counts as file names
+$ quilt patches 1
 
 $ quilt push -qa
 > Applying patch patches/unified-create.patch
 > Applying patch patches/unified-update.patch
 > Applying patch patches/unified-delete.patch
-> Now at patch patches/unified-delete.patch
+> Applying patch patches/context-create.patch
+> Applying patch patches/context-update.patch
+> Applying patch patches/context-delete.patch
+> Now at patch patches/context-delete.patch
 
+# Test applied patches
 $ quilt patches file
 > patches/unified-create.patch
 > patches/unified-update.patch
 > patches/unified-delete.patch
+> patches/context-create.patch
+> patches/context-update.patch
+> patches/context-delete.patch
