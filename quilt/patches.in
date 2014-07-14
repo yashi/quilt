@@ -60,30 +60,10 @@ scan_applied()
 	done
 }
 
-# Note that we can only guess which files a patch touches because of the
-# complicated heuristics that patch uses (see "Multiple Patches in a File"
-# in the diff info pages).
-
-touched_by_patch()
-{
-	local strip=$1 patch=$2
-	cat_file $(patch_file_name $patch) \
-	|  awk '
-	/^(\+\+\+|---)[ \t]/ {
-		sub(/^(\+\+\+|---)[ \t]/, "")
-		sub(/\t[^\t]*$/, "")
-		sub(/^\/dev\/null/, "")
-		for (i=0; i<'$strip'; i++)
-			sub(/^[^\/]*\//, "")
-		if ($0 != "")
-			print
-	}'
-}
-
 # Uses global variable opt_files
 scan_unapplied()
 {
-	local color=$1 prefix=$2 strip
+	local color=$1 prefix=$2
 	shift 2
 	local patch file
 	local -a files_bre
@@ -99,10 +79,7 @@ scan_unapplied()
 
 	for patch in "$@"
 	do
-		strip=$(patch_strip_level $patch)
-		[ "$strip" = ab ] && strip=1
-
-		if touched_by_patch $strip "$patch" \
+		if filenames_in_patch "$patch" \
 		   | grep -q "^$file\$"
 		then
 			echo "$color$prefix$(print_patch $patch)$color_clear"
