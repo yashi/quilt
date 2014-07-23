@@ -662,7 +662,8 @@ filenames_in_patch()
 				next
 			  for (n=0 ; n<'$strip'; n++)
 			      sub(/^[^\/]+\//, "")
-			  print $0 }' $patch_file
+			  if (!printed[$0]++)
+			      print $0 }' $patch_file
 	fi
 }
 
@@ -677,7 +678,7 @@ files_in_patch_ordered()
 	$1 == "-" { out=1 ; next }
 	!out	{ files[$0]=1
 		  new_files[++n]=$0 }
-	out	{ if ($0 in files && !($0 in printed)) {
+	out	{ if ($0 in files) {
 		    print $0
 		    printed[$0]=1
 		  }
