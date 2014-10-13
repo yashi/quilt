@@ -8,6 +8,9 @@
 
 : ${QUILT_DIR=@QUILT_DIR@}
 
+# Version check is irrelevant to this script.
+skip_version_check=1
+
 if ! [ -r $QUILT_DIR/scripts/patchfns ]
 then
 	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
