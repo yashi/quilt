@@ -250,13 +250,58 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	tar_input_file()
 	{
 		case "$1" in
+		# Modern option format
+		-*)
+			while [ $# -gt 0 ]; do
+				case "$1" in
+				# Extract the file name (long option)
+				--file)
+					echo "$2"
+					return
+					;;
+				--file=*)
+					echo "${1#--file=}"
+					return
+					;;
+				# Skip other long options
+				--*)
+					shift
+					;;
+				# Extract the file name (short option)
+				-*f)
+					echo "$2"
+					return
+					;;
+				-f*)
+					echo "${1#-f}"
+					return
+					;;
+				# Skip other short options and parameters
+				*)
+					shift
+					;;
+				esac
+			done
+			;;
+		# Legacy option format (must always come first)
 		*C*f*)
 			echo "$3"
+			return
 			;;
 		*f*)
 			echo "$2"
+			return
+			;;
+		?*)
+			# Eat legacy options and try again
+			until [ $# -eq 0 -o "${1:0:1}" = "-" ]; do
+				shift
+			done
+			tar_input_file "$@"
+			return
 			;;
 		esac
+		return 1
 	}
 
 	unzip_input_file()
