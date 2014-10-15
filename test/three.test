@@ -191,3 +191,26 @@
 	> Patch patch4.diff is not in series
 
 	$ quilt grep "not there"
+
+	$ quilt push -q 2
+	> Applying patch patches/patch1.diff
+	> Applying patch patches/patch2.diff
+	> Now at patch patches/patch2.diff
+
+	$ quilt pop -q 2
+	> Removing patch patches/patch2.diff
+	> Removing patch patches/patch1.diff
+	> No patches applied
+
+	$ quilt push -q 10
+	> Applying patch patches/patch1.diff
+	> Applying patch patches/patch2.diff
+	> Applying patch patches/patch3.diff
+	> Patch patches/patch3.diff does not exist; applied empty patch
+	> Now at patch patches/patch3.diff
+
+	$ quilt pop -q 10
+	> Patch patches/patch3.diff appears to be empty, removing
+	> Removing patch patches/patch2.diff
+	> Removing patch patches/patch1.diff
+	> No patches applied
