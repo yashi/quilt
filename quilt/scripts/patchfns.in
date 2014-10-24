@@ -356,7 +356,7 @@ top_patch()
 
 is_numeric()
 {
-	echo $1 | grep -q '^[0-9]*$'
+	[[ "$1" =~ ^[0-9]+$ ]]
 }
 
 is_applied()
