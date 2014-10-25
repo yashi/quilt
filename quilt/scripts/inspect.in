@@ -142,7 +142,7 @@ done > $tmpdir/md5sums
 echo >&4
 shopt -u nullglob
 
-# wrapper script for patch and tar
+# wrapper script for patch, tar and unzip
 cat <<-'EOF' > $tmpdir/bin/wrapper
 	#! @BASH@
 
