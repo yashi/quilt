@@ -953,6 +953,24 @@ version_check()
 	return 1
 }
 
+consistency_check()
+{
+	local top applied patches
+
+	top=$(top_patch)
+	applied=$(applied_before "$top")
+	patches=$(patches_before "$top")
+
+	if [ "$applied" != "$patches" ]
+	then
+		return 1
+	else
+		# Skip check until series file is modified again
+		touch "$DB"
+		return 0
+	fi
+}
+
 print_patch()
 {
 	echo "${QUILT_PATCHES_PREFIX:+$SUBDIR_DOWN$QUILT_PATCHES/}$1"
@@ -1109,10 +1127,21 @@ fi
 
 DB="$QUILT_PC/applied-patches"
 
-if [ -z "$skip_version_check" ] && ! version_check
+if [ -z "$skip_version_check" ]
 then
-	printf $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'.\n" >&2
-	exit 1
+	if ! version_check
+	then
+		printf $"The working tree was created by an older version of quilt. Please run 'quilt upgrade'.\n" >&2
+		exit 1
+	fi
+
+	# Check if series file was modified manually, and if this is the case,
+	# make sure it is still consistent with the applied patches
+	if [ -s "$DB" -a ! "$DB" -nt "$SERIES" ] && [ "$QUILT_COMMAND" != pop ] && ! consistency_check
+	then
+		printf $"The series file no longer matches the applied patches. Please run 'quilt pop -a'.\n" >&2
+		exit 1
+	fi
 fi
 ### Local Variables:
 ### mode: shell-script

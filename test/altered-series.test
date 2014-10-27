@@ -1,0 +1,44 @@
+# Check that manual changes to the series file are detected
+
+$ mkdir patches
+$ cat > patches/series
+< 01.patch
+< 02.patch
+< 03.patch
+
+$ quilt push -q
+> Applying patch patches/01.patch
+> Patch patches/01.patch does not exist; applied empty patch
+> Now at patch patches/01.patch
+
+$ quilt series -v
+> = patches/01.patch
+>   patches/02.patch
+>   patches/03.patch
+
+# Touch the series file but preserve the order -> OK
+$ touch patches/series
+
+$ quilt series -v
+> = patches/01.patch
+>   patches/02.patch
+>   patches/03.patch
+
+# Change the order of the patch series -> complain
+$ cat > patches/series
+< 03.patch
+< 01.patch
+< 02.patch
+
+$ quilt series -v
+> The series file no longer matches the applied patches. Please run 'quilt pop -a'.
+
+$ quilt pop -a
+> Patch patches/01.patch appears to be empty, removing
+>
+> No patches applied
+
+$ quilt series -v
+>   patches/03.patch
+>   patches/01.patch
+>   patches/02.patch
