@@ -399,6 +399,11 @@ then
 fi
 
 patches=$(list_patches)
+if [ -z "$patches" ]
+then
+	printf $"No patch applied\n" >&2
+	exit 2
+fi
 
 # In theory, these patches can't be already applied. However in the case
 # of a generated or manually tweaked series file, this could happen and

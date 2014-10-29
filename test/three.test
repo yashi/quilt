@@ -214,3 +214,13 @@
 	> Removing patch patches/patch2.diff
 	> Removing patch patches/patch1.diff
 	> No patches applied
+
+	$ quilt push 0
+	> No patch applied
+	$ echo %{?}
+	> 2
+
+	$ quilt pop 0
+	> No patch removed
+	$ echo %{?}
+	> 2
