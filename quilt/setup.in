@@ -200,7 +200,7 @@ case "$1" in
 		"# Source: "*)
 			shift 2
 			source="$@"
-			filetype="$(file -b "$source")"
+			filetype=$(file -b "$source")
 			case "$filetype" in
 			Zip*)
 				echo "unzip ${tar_dir:-.} ${source// /\\ }"
@@ -268,9 +268,9 @@ while read tag dir arg1 arg2
 do
 	case "$tag" in
 	tar|unzip)
-		tar_dir="$dir"
+		tar_dir=$dir
 		[ "$tar_dir" = . ] && tar_dir=
-		tar_file="$arg1"
+		tar_file=$arg1
 		;;
 	patch)
 		if [ ! -e "$prefix$dir/$QUILT_PATCHES" ]
