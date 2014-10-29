@@ -21,7 +21,7 @@ cd ${SUBDIR:-.}
 
 usage()
 {
-	echo "Usage: ${0##*/} [--fuzz=N] specfile"
+	echo "Usage: ${0##*/} [-v] [--sourcedir dir] [--fuzz=N] specfile"
 	exit 1
 }
 
