@@ -350,6 +350,10 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		echo "$dir"
 	}
 
+	PATH=${PATH#*:}
+	# If we are called too early, pass through without processing
+	[ -n "$RPM_BUILD_DIR" ] || exec ${0##*/} "$@"
+
 	tmpdir=${RPM_BUILD_DIR%/*}
 	rm -f $tmpdir/data
 	case "${0##*/}" in
@@ -396,7 +400,6 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 		esac
 	fi
 
-	PATH=${PATH#*:}
 	if [ -n "$inputfile" ]
 	then
 		${0##*/} "$@"
