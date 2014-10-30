@@ -237,6 +237,13 @@ then
 	exit 2
 fi
 
+# We will update the list of applied patches, which in turn will disable the
+# consistency check. Enable it again if needed.
+if [ -z "$opt_all" -a ! "$DB" -nt "$SERIES" ] && ! consistency_check
+then
+	rearm_check=1
+fi
+
 for patch in $patches
 do
 	if ! remove_patch "$patch"
@@ -257,6 +264,8 @@ else
 	# corner cases such as files added to a patch but not modified.
 	$QUILT_DIR/scripts/backup-files -L -s -B "$QUILT_PC/$patch/" -
 	printf $"Now at patch %s\n" "$(print_patch "$patch")"
+
+	[ -z "$rearm_check" ] || touch "$SERIES"
 fi
 ### Local Variables:
 ### mode: shell-script
