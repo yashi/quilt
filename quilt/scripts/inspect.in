@@ -355,7 +355,6 @@ cat <<-'EOF' > $tmpdir/bin/wrapper
 	[ -n "$RPM_BUILD_DIR" ] || exec ${0##*/} "$@"
 
 	tmpdir=${RPM_BUILD_DIR%/*}
-	rm -f $tmpdir/data
 	case "${0##*/}" in
 	patch)
 		inputfile=$(patch_input_file "$@")
