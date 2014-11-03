@@ -71,6 +71,15 @@ check_for_existing_files()
 	return $status
 }
 
+# Resolve ".." in path and clean up double slashes
+normalize_path()
+{
+	echo "$1" | sed -r -e 's://:/:g' \
+			   -e ':again' \
+			   -e 's:/[^/]+/\.\.(/|$):\1:g' \
+			   -e 'tagain'
+}
+
 create_symlink()
 {
 	local target=$1 link=$2 up
@@ -80,16 +89,8 @@ create_symlink()
 		return
 	fi
 
-	set -- "$(echo "$PWD/$target" | \
-		  sed -r -e 's://:/:g' \
-			 -e ':again' \
-			 -e 's:/[^/]+/\.\.(/|$):\1:g' \
-			 -e 'tagain')" \
-	       "$(echo "$PWD/$link" | \
-		  sed -r -e 's://:/:g' \
-			 -e ':again' \
-			 -e 's:/[^/]+/\.\.(/|$):\1:g' \
-			 -e 'tagain')"
+	set -- "$(normalize_path "$PWD/$target")" \
+	       "$(normalize_path "$PWD/$link")"
 	while [ "${1%%/*}" = "${2%%/*}" ]
 	do
 		set -- "${1#*/}" "${2#*/}"
