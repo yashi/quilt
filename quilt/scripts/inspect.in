@@ -87,7 +87,7 @@ for file in $sourcedir/*
 do
 	basename=${file##*/}
 	case "$basename" in
-		ready|bigpack|MD5SUMS|MD5SUMS.meta|*.spec|*.changes)
+		ready|bigpack|_constraints|_service|baselibs.conf|MD5SUMS|MD5SUMS.meta|*.spec|*.changes|*.sig|*.sign|*rpmlintrc)
 			continue
 			;;
 	esac
