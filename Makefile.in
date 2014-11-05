@@ -78,8 +78,8 @@ QUILT :=	$(QUILT_IN)
 SRC +=		$(QUILT_SRC:%=quilt/%)
 DIRT +=		$(QUILT_IN:%=quilt/%)
 
-SCRIPTS_IN :=	patchfns inspect dependency-graph edmail	\
-		remove-trailing-ws backup-files
+SCRIPTS_IN :=	patchfns inspect inspect-wrapper dependency-graph	\
+		edmail remove-trailing-ws backup-files
 
 SCRIPTS_SRC :=	$(SCRIPTS_IN:%=%.in)
 SCRIPTS :=	$(SCRIPTS_IN)
@@ -390,7 +390,7 @@ test/.depend : Makefile $(TESTS)
 	    -e 's:quilt/graph:quilt/graph quilt/scripts/dependency-graph:' \
 	    -e 's:quilt/mail:quilt/mail quilt/scripts/edmail:' \
 	    -e 's:quilt/refresh:quilt/refresh quilt/scripts/remove-trailing-ws:' \
-	    -e 's:quilt/setup:quilt/setup quilt/scripts/inspect:' \
+	    -e 's:quilt/setup:quilt/setup quilt/scripts/inspect quilt/scripts/inspect-wrapper:' \
 	  > $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
