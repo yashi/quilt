@@ -226,13 +226,15 @@ unzip)
 	inputfile=$(unzip_input_file "$@")
 	;;
 esac
-if [ -z "$inputfile" ]
+if [ -n "$inputfile" ]
 then
+	unpackfile=$(original_file "$inputfile")
+else
 	# put data from stdin into tmpfile
 	cat > $tmpdir/data
+	unpackfile=$(original_file $tmpdir/data)
 fi
 
-unpackfile=$(original_file ${inputfile:-$tmpdir/data})
 if [ -n "$unpackfile" ]
 then
 	case "${0##*/}" in
