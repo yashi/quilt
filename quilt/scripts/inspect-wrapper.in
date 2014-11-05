@@ -30,7 +30,7 @@ original_file()
 	do
 		if [ "$md5sum" = "$md5sum_" ]
 		then
-			echo ${file_#\*}
+			echo $QUILT_SETUP_PREFIX${file_#\*}
 			return 0
 		fi
 	done < $tmpdir/more-md5sums

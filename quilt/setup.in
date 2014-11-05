@@ -101,6 +101,27 @@ create_symlink()
 	ln -s "${1:-.}" "$link"
 }
 
+dir_to_dir()
+{
+	local from=$1 to=$2
+
+	[ "${from:0:1}" = / ] || from=$PWD/$from
+	from=$(normalize_path "$from")
+
+	[ "${to:0:1}" = / ] || to=$PWD/$to
+	to=$(normalize_path "$to")
+
+	# If the target is a subdirectory of the origin, we can express the path
+	# in a relative way. Otherwise, return the absolute path.
+	if [ "${to:0:${#from}}" = "$from" ]
+	then
+		to=${to:${#from}}
+		to=${to#/}
+	fi
+
+	echo "$to"
+}
+
 usage()
 {
 	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] {specfile|seriesfile}\n"
@@ -169,6 +190,11 @@ fi
 
 tmpfile=$(gen_tempfile)
 add_exit_handler "rm -f $tmpfile"
+
+# The patches link will point to the source directory, while extra patches
+# may be available under $prefix. If the latter is a subdirectory of the former,
+# a prefix can be added to fix up the path to the extra patches.
+export QUILT_SETUP_PREFIX=$(dir_to_dir "$sourcedir" "$prefix")
 
 case "$1" in
 *.spec)
