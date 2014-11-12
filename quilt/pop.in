@@ -19,7 +19,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt pop [-afRqv] [num|patch]\n"
+	printf $"Usage: quilt pop [-afRqv] [--refresh] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -41,6 +41,9 @@ completion can be used.
 -q	Quiet operation.
 
 -v	Verbose operation.
+
+--refresh
+	Automatically refresh every patch before it gets unapplied.
 "
 		exit 0
 	else
@@ -163,7 +166,7 @@ remove_patch()
 	return $status
 }
 
-options=`getopt -o fRqvah -- "$@"`
+options=`getopt -o fRqvah --long refresh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -194,6 +197,9 @@ do
 		shift ;;
 	-h)
 		usage -h ;;
+	--refresh)
+		opt_refresh=1
+		shift ;;
 	--)
 		shift
 		break ;;
@@ -203,6 +209,12 @@ done
 if [ $# -gt 1 -o \( -n "$opt_all" -a $# -ne 0 \) ]
 then
 	usage
+fi
+
+if [ -n "$opt_force" -a -n "$opt_refresh" ]
+then
+	printf $"Options %s and %s are mutually exclusive\n" "-f" "--refresh"
+	exit 1
 fi
 
 if [ $# -eq 1 ]
@@ -246,6 +258,7 @@ fi
 
 for patch in $patches
 do
+	[ -z "$opt_refresh" ] || quilt_command refresh $QUILT_REFRESH_ARGS
 	if ! remove_patch "$patch"
 	then
 		exit 1

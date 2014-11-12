@@ -1,0 +1,30 @@
+$ mkdir patches
+
+$ echo a > a
+$ echo b > b
+
+$ quilt new a.patch
+> Patch patches/a.patch is now on top
+$ quilt add a
+> File a added to patch patches/a.patch
+$ echo A > a
+
+$ quilt new b.patch
+> Patch patches/b.patch is now on top
+$ quilt add b
+> File b added to patch patches/b.patch
+$ echo B > b
+
+$ quilt pop -fa --refresh
+> Options -f and --refresh are mutually exclusive
+
+$ quilt pop -a --refresh
+> Refreshed patch patches/b.patch
+> Removing patch patches/b.patch
+> Restoring b
+>
+> Refreshed patch patches/a.patch
+> Removing patch patches/a.patch
+> Restoring a
+>
+> No patches applied
