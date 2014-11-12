@@ -998,6 +998,11 @@ quilt_command()
 	local command=$1
 	shift
 
+	# Refreshing here must produce the same output as "quilt refresh" on
+	# the command line
+	export QUILT_NO_DIFF_INDEX
+	export QUILT_NO_DIFF_TIMESTAMPS
+
 	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
