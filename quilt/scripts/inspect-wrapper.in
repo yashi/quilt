@@ -261,7 +261,7 @@ fi
 
 if [ -n "$inputfile" ]
 then
-	${0##*/} "$@"
+	exec ${0##*/} "$@"
 else
-	${0##*/} "$@" < $tmpdir/data
+	exec ${0##*/} "$@" < $tmpdir/data
 fi
