@@ -28,3 +28,28 @@ $ quilt pop -a --refresh
 > Restoring a
 >
 > No patches applied
+
+$ quilt push -a --refresh
+> Applying patch patches/a.patch
+> patching file a
+> Patch patches/a.patch is unchanged
+>
+> Applying patch patches/b.patch
+> patching file b
+> Patch patches/b.patch is unchanged
+>
+> Now at patch patches/b.patch
+
+$ quilt push -fa --refresh
+> Options -f and --refresh are mutually exclusive
+
+$ quilt pop -a --refresh
+> Patch patches/b.patch is unchanged
+> Removing patch patches/b.patch
+> Restoring b
+>
+> Patch patches/a.patch is unchanged
+> Removing patch patches/a.patch
+> Restoring a
+>
+> No patches applied

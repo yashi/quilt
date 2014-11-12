@@ -21,7 +21,7 @@ setup_colors
 
 usage()
 {
-	printf $"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color[=always|auto|never]] [num|patch]\n"
+	printf $"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--color[=always|auto|never]] [--refresh] [num|patch]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -53,6 +53,9 @@ be used.
 
 --color[=always|auto|never]
 	Use syntax coloring (auto activates it only if the output is a tty).
+
+--refresh
+	Automatically refresh every patch after it was successfully applied.
 "
 		exit 0
 	else
@@ -294,7 +297,7 @@ check_duplicate_patches()
 	return 1
 }
 
-options=`getopt -o fqvam::h --long fuzz:,merge::,leave-rejects,color:: -- "$@"`
+options=`getopt -o fqvam::h --long fuzz:,merge::,leave-rejects,color::,refresh -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -352,6 +355,9 @@ do
 			usage ;;
 		esac
 		shift 2 ;;
+	--refresh)
+		opt_refresh=1
+		shift ;;
 	--)
 		shift
 		break ;;
@@ -361,6 +367,12 @@ done
 if [ $# -gt 1 -o \( -n "$opt_all" -a $# -ne 0 \) ]
 then
 	usage
+fi
+
+if [ -n "$opt_force" -a -n "$opt_refresh" ]
+then
+	printf $"Options %s and %s are mutually exclusive\n" "-f" "--refresh"
+	exit 1
 fi
 
 if [ $# -eq 1 ]
@@ -417,6 +429,7 @@ do
 	then
 		exit 1
 	fi
+	[ -z "$opt_refresh" ] || quilt_command refresh $QUILT_REFRESH_ARGS
 	[ -n "$opt_quiet" ] || echo
 done \
 | cleanup_patch_output \
