@@ -291,6 +291,17 @@ then
 	check_for_existing_files || exit 1
 fi
 
+series_header()
+{
+	local tar_dir=$1 tar_file=$2 dir=$3
+
+	echo "# Patch series file for quilt, created by ${0##*/}"
+	[ -n "$tar_dir" ] && echo "# Sourcedir: $tar_dir"
+	[ -n "$tar_file" ] && echo "# Source: $tar_file"
+	echo "# Patchdir: $dir"
+	echo "#"
+}
+
 while read tag dir arg1 arg2
 do
 	case "$tag" in
@@ -314,15 +325,8 @@ do
 		else
 			if ! [ -e "$prefix$dir/$QUILT_SERIES" ]
 			then
-				(	echo "# Patch series file for quilt," \
-					     "created by ${0##*/}"
-					[ -n "$tar_dir" ] \
-						&& echo "# Sourcedir: $tar_dir"
-					[ -n "$tar_file" ] \
-						&& echo "# Source: $tar_file"
-					echo "# Patchdir: $dir"
-					echo "#"
-				) > "$prefix$dir/$QUILT_SERIES"
+				series_header "$tar_dir" "$tar_file" "$dir" \
+					      > "$prefix$dir/$QUILT_SERIES"
 			fi
 			echo "$arg1" $arg2 >> "$prefix$dir/$QUILT_SERIES"
 		fi
