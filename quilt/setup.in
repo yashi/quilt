@@ -284,39 +284,40 @@ case "$1" in
 	;;
 esac
 
-# Make sure that unpacking will not overwrite anything
-[ -n "$opt_fast" ] || \
-check_for_existing_directories || exit 1
+if [ -z "$opt_fast" ]
+then
+	# Make sure that unpacking will not overwrite anything
+	check_for_existing_directories || exit 1
 
-[ -n "$opt_fast" ] || \
-while read tag dir arg1 arg2
-do
-	case "$tag" in
-	tar)
-		tarball=$sourcedir$arg1
-		if [ ! -e "$tarball" ]
-		then
-			printf $"File %s not found\n" "$tarball" >&2
-			exit 1
-		fi
-		printf $"Unpacking archive %s\n" "$tarball"
-		mkdir -p "${prefix:-.}" "$prefix$dir"
-		cat_file "$tarball" \
-		| tar xf - -C "$prefix$dir"
-		;;
-	unzip)
-		tarball=$sourcedir$arg1
-		if [ ! -e "$tarball" ]
-		then
-			printf $"File %s not found\n" "$tarball" >&2
-			exit 1
-		fi
-		printf $"Unpacking archive %s\n" "$tarball"
-		mkdir -p "${prefix:-.}" "$prefix$dir"
-		unzip -qqo "$tarball" -d "$prefix$dir"
-		;;
-	esac
-done < $tmpfile
+	while read tag dir arg1 arg2
+	do
+		case "$tag" in
+		tar)
+			tarball=$sourcedir$arg1
+			if [ ! -e "$tarball" ]
+			then
+				printf $"File %s not found\n" "$tarball" >&2
+				exit 1
+			fi
+			printf $"Unpacking archive %s\n" "$tarball"
+			mkdir -p "${prefix:-.}" "$prefix$dir"
+			cat_file "$tarball" \
+			| tar xf - -C "$prefix$dir"
+			;;
+		unzip)
+			tarball=$sourcedir$arg1
+			if [ ! -e "$tarball" ]
+			then
+				printf $"File %s not found\n" "$tarball" >&2
+				exit 1
+			fi
+			printf $"Unpacking archive %s\n" "$tarball"
+			mkdir -p "${prefix:-.}" "$prefix$dir"
+			unzip -qqo "$tarball" -d "$prefix$dir"
+			;;
+		esac
+	done < $tmpfile
+fi
 
 if ! check_for_existing_files
 then
