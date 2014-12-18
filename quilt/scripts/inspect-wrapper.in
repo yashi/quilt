@@ -215,14 +215,17 @@ PATH=${PATH#*:}
 tmpdir=${RPM_BUILD_DIR%/*}
 case "${0##*/}" in
 patch)
+	echo -n p >&4
 	inputfile=$(patch_input_file "$@")
 	;;
 tar)
+	echo -n t >&4
 	inputfile=$(tar_input_file "$@")
 	# For tar, file - means read from stdin
 	[ "$inputfile" = "-" ] && inputfile=
 	;;
 unzip)
+	echo -n Z >&4
 	inputfile=$(unzip_input_file "$@")
 	;;
 esac
@@ -239,20 +242,17 @@ if [ -n "$unpackfile" ]
 then
 	case "${0##*/}" in
 	patch)
-		echo -n p >&4
 		subdir=$(patch_opt_d "$@")
 		dir=$(pwd_to_dir $subdir)
 		echo "${0##*/} ${dir:-.} $unpackfile" \
 		     $(strip_option "$@") $(reverse_option "$@") >&3
 		;;
 	tar)
-		echo -n t >&4
 		subdir=$(tar_opt_C "$@")
 		dir=$(pwd_to_dir $subdir)
 		echo "${0##*/} ${dir:-.} $unpackfile" >&3
 		;;
 	unzip)
-		echo -n Z >&4
 		dir=$(pwd_to_dir)
 		echo "${0##*/} ${dir:-.} $unpackfile" >&3
 		;;
