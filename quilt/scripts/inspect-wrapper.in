@@ -220,12 +220,14 @@ patch)
 	;;
 tar)
 	echo -n t >&4
+	[ -n "$QUILT_SETUP_FAST" ] && exec ${0##*/} "$@"
 	inputfile=$(tar_input_file "$@")
 	# For tar, file - means read from stdin
 	[ "$inputfile" = "-" ] && inputfile=
 	;;
 unzip)
 	echo -n Z >&4
+	[ -n "$QUILT_SETUP_FAST" ] && exec ${0##*/} "$@"
 	inputfile=$(unzip_input_file "$@")
 	;;
 esac
@@ -258,6 +260,9 @@ then
 		;;
 	esac
 fi
+
+# In fast mode, we don't actually apply patches
+[ -n "$QUILT_SETUP_FAST" ] && exit 0
 
 if [ -n "$inputfile" ]
 then

@@ -21,11 +21,11 @@ cd ${SUBDIR:-.}
 
 usage()
 {
-	echo "Usage: ${0##*/} [-v] [--sourcedir dir] [--fuzz=N] specfile"
+	echo "Usage: ${0##*/} [-v] [--sourcedir dir] [--targetdir dir] [--fuzz=N] specfile"
 	exit 1
 }
 
-options=$(getopt -o v --long sourcedir:,fuzz: -n "${0##*/}" -- "$@") || exit
+options=$(getopt -o v --long sourcedir:,targetdir:,fuzz: -n "${0##*/}" -- "$@") || exit
 
 eval set -- "$options"
 
@@ -39,6 +39,9 @@ do
 		shift ;;
 	--sourcedir)
 		sourcedir=${2%/}/
+		shift 2 ;;
+	--targetdir)
+		targetdir=$2
 		shift 2 ;;
 	--fuzz)
 		# Only works with rpm 4.6 and later
@@ -68,8 +71,16 @@ fi
 tmpdir=$(gen_tempfile -d ${VARTMPDIR:-/var/tmp}/${0##*/})
 mkdir -p $tmpdir || exit 1
 add_exit_handler "rm -rf $tmpdir"
-mkdir -p $tmpdir/build
 mkdir -p $tmpdir/bin
+if [ -n "$targetdir" ]
+then
+	# Fast mode
+	[ -d "$targetdir" ] || mkdir -p "$targetdir" || exit 1
+	ln -s "$targetdir" $tmpdir/build
+else
+	# Standard mode
+	mkdir -p $tmpdir/build
+fi
 
 # Redirect file descriptors
 # 5 is used in verbose mode, 4 in non-verbose mode, and 2 for both (real errors)
@@ -89,6 +100,11 @@ do
 	case "$basename" in
 		ready|bigpack|_constraints|_service|baselibs.conf|MD5SUMS|MD5SUMS.meta|*.spec|*.changes|*.sig|*.sign|*rpmlintrc)
 			continue
+			;;
+		# In fast mode, we are only interested in patches, so filter out
+		# archives
+		*.tar|*.tar.Z|*.tar.gz|*.tgz|*.tar.bz2|*.tar.xz|*.zip)
+			[ -n "$targetdir" ] && continue
 			;;
 	esac
 	[ -f "$file" ] || continue
@@ -150,6 +166,7 @@ ln -s $QUILT_DIR/scripts/inspect-wrapper $tmpdir/bin/unzip
 echo -n "### rpmbuild: " >&4
 
 export PATH="$tmpdir/bin:$PATH"
+export QUILT_SETUP_FAST=${targetdir:+1}
 rpmbuild --eval "%define _sourcedir $sourcedir" \
 	 --eval "%define _specdir   $specdir" \
 	 --eval "%define _builddir  $tmpdir/build" \

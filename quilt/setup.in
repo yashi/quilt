@@ -124,7 +124,7 @@ dir_to_dir()
 
 usage()
 {
-	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] {specfile|seriesfile}\n"
+	printf $"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--slow|--fast] {specfile|seriesfile}\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -139,6 +139,17 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 
 --fuzz=N
 	Set the maximum fuzz factor (needs rpm 4.6 or later).
+
+--slow	Use the original, slow method to process the spec file. This is the
+	default for now, but that might change in the future. In this mode,
+	rpmbuild generates a working tree in a temporary directory while all
+	its actions are recorded, and then everything is replayed from scratch
+	in the target directory.
+
+--fast	Use an alternative, faster method to process the spec file. In this
+	mode, rpmbuild is told to generate a working tree directly in the
+	target directory. If the input is a series file, it is assumed that
+	all archives have been extracted manually beforehand.
 "
 		exit 0
 	else
@@ -146,7 +157,7 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 	fi
 }
 
-options=`getopt -o d:vh --long sourcedir:,fuzz: -- "$@"`
+options=`getopt -o d:vh --long sourcedir:,fuzz:,slow,fast -- "$@"`
 
 if [ $? -ne 0 ]
 then
@@ -175,6 +186,12 @@ do
 	--fuzz)
 		opt_fuzz="--fuzz $2"
 		shift 2 ;;
+	--slow)
+		opt_fast=
+		shift ;;
+	--fast)
+		opt_fast=1
+		shift ;;
 	--)
 		shift
 		break ;;
@@ -203,8 +220,24 @@ case "$1" in
 	# check if rpmbuild is installed before running inspect
 	check_external_tool rpmbuild rpm-build
 
-	if ! $QUILT_DIR/scripts/inspect $verbose $opt_sourcedir $opt_fuzz \
-					"$spec_file" 2>&1 > $tmpfile
+	if [ -n "$opt_fast" ]
+	then
+		if [ "${prefix:0:1}" = / ]
+		then
+			targetdir=$prefix
+		else
+			targetdir=$PWD/$prefix
+		fi
+
+		$QUILT_DIR/scripts/inspect $verbose $opt_sourcedir $opt_fuzz \
+					   --targetdir "$targetdir" \
+					   "$spec_file" 2>&1 > $tmpfile
+	else
+		$QUILT_DIR/scripts/inspect $verbose $opt_sourcedir $opt_fuzz \
+					   "$spec_file" 2>&1 > $tmpfile
+	fi
+
+	if [ $? -ne 0 ]
 	then
 		printf $"The %%prep section of %s failed; results may be incomplete\n" "$spec_file"
 		if [ -z "$verbose" ]
@@ -252,8 +285,10 @@ case "$1" in
 esac
 
 # Make sure that unpacking will not overwrite anything
+[ -n "$opt_fast" ] || \
 check_for_existing_directories || exit 1
 
+[ -n "$opt_fast" ] || \
 while read tag dir arg1 arg2
 do
 	case "$tag" in
