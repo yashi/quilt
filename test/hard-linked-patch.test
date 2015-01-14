@@ -1,0 +1,36 @@
+If a patch file has hard links, refreshing it should break the links
+so that the other copies are left unmodified.
+
+$ mkdir patches
+
+$ cat > patches/patch
+< --- file.orig
+< +++ file
+< @@ -1 +1 @@
+< -a
+< +b
+$ echo patch -p0 > patches/series
+$ ln patches/patch hardlink
+
+$ echo a > file
+$ quilt push -q
+> Applying patch patches/patch
+> Now at patch patches/patch
+
+$ echo c > file
+$ quilt refresh --no-index
+> Refreshed patch patches/patch
+
+$ cat patches/patch
+> --- file.orig
+> +++ file
+> @@ -1 +1 @@
+> -a
+> +c
+
+$ cat hardlink
+> --- file.orig
+> +++ file
+> @@ -1 +1 @@
+> -a
+> +b
