@@ -45,14 +45,14 @@
       (or (getenv "QUILT_PATCHES")
           "patches")))
 
-(defun quilt-find-dir (fn)
+(defun quilt-find-dir (fn &optional prefn)
   "Return the top level dir of quilt from FN."
-  (if (or (not fn) (equal fn "/"))
+  (if (or (not fn) (equal fn "/") (equal fn prefn))
       nil
     (let ((d (file-name-directory fn)))
       (if (file-accessible-directory-p (concat d "/.pc"))
 	  d
-	(quilt-find-dir (directory-file-name d))))))
+	(quilt-find-dir (directory-file-name d) d)))))
 
 (defun quilt-dir (&optional fn)
   "Return the top level dir of quilt from FN.  FN is just a hint and find from other way if FN is nil."
