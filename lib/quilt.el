@@ -126,7 +126,7 @@
 
 (defun quilt-patch-list ()
   "Return the list of the name of patches."
-  (quilt-cmd-to-list "seriess"))
+  (quilt-cmd-to-list "series"))
 
 (defun quilt-files-affected (&optional first last)
   "Return the file names which modified from FIRST to LAST."
