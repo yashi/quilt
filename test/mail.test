@@ -76,7 +76,9 @@
 	<
 
 	$ cat - no-subject > patches/7.diff
-	< Subject of 7.diff
+	< Subject: Subject of 7.diff is so long
+	<  that it spans over
+	<  multiple lines
 	<
 	< Signed-off-by: someone@without.name
 	<
@@ -109,4 +111,6 @@
 	> Subject: [test 6/7] Must not expand * ? [abc]
 	> From a@b.c
 	> Cc: someone@without.name
-	> Subject: [test 7/7] Subject of 7.diff
+	> Subject: [test 7/7] Subject of 7.diff is so long
+	>  that it spans over
+	>  multiple lines
