@@ -544,10 +544,6 @@ msgstr ""
 msgid "Introduction message already specified"
 msgstr ""
 
-#: quilt/mail.in:262
-msgid "You have to install 'formail' to use 'quilt mail'"
-msgstr ""
-
 #: quilt/mail.in:305
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""

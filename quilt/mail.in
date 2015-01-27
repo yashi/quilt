@@ -81,6 +81,18 @@ msgid()
 	echo "$timestamp@${opt_sender_address#*@}"
 }
 
+# Extract RFC 2822 compliant header values, including Long Header Fields,
+# from messages
+
+extract_header_value()
+{
+      local header=$1
+
+      # Long Header Fields may span multiple lines, in which case CRLF
+      # is followed by space or tab (RFC 2822)
+      sed -n "/^${header}/,/^[^[:blank:]]/ { /^${header}/ { s/^${header}//p; n; }; /^[^[:blank:]]/q; /^$/q; p; }"
+}
+
 # See RFC 2822 Internet Message Format for how the In-Reply-To and
 # References headers are generated...
 
@@ -88,7 +100,7 @@ in_reply_to_header()
 {
 	local message=$1 message_id
 
-	message_id=$(formail -x Message-ID: < "$message")
+	message_id=$(extract_header_value Message-ID: < "$message")
 	message_id=${message_id# }
 	[ -n "$message_id" ] && echo "In-Reply-To: $message_id"
 }
@@ -97,14 +109,14 @@ references_header()
 {
 	local message=$1 message_id references in_reply_to
 
-	message_id=$(formail -x Message-ID: < "$message")
+	message_id=$(extract_header_value Message-ID: < "$message")
 	message_id=${message_id# }
 
-	references=$(formail -x References: < "$message")
+	references=$(extract_header_value References: < "$message")
 	references=${references# }
 	if [ -z "$references" ]
 	then
-		in_reply_to=$(formail -x In-Reply-To: < "$message")
+		in_reply_to=$(extract_header_value In-Reply-To: < "$message")
 		in_reply_to=${in_reply_to# }
 		if [ -n "$in_reply_to" ]
 		then
@@ -256,9 +268,6 @@ then
 	usage
 fi
 
-# check if formail is installed before doing anything
-check_external_tool formail procmail
-
 if [ $# -ge 1 ]
 then
 	if [ "$1" = - ]
@@ -329,7 +338,7 @@ then
 		local -a mh
 
 		# Does this patch have a Subject: line?
-		subject=$(formail -x Subject: < $tmpdir/header)
+		subject=$(extract_header_value Subject: < $tmpdir/header)
 		if [ -n "$subject" ]
 		then
 			awk '
@@ -439,7 +448,7 @@ do
 	| quilt_mail_patch_filter "$patch" > "$tmpdir/$patch"
 	status=${PIPESTATUS[1]}
 
-	subject=$(formail -x Replace-Subject: < "$tmpdir/$patch" | join_lines)
+	subject=$(extract_header_value Replace-Subject: < "$tmpdir/$patch" | join_lines)
 	if [ $status -ne 0 -o -z "$subject" ]
 	then
 		printf \
@@ -482,7 +491,7 @@ then
 
 	if [ -z "$opt_subject" ]
 	then
-		opt_subject="Re: $(formail -x Subject: < "$opt_reply_to" \
+		opt_subject="Re: $(extract_header_value Subject: < "$opt_reply_to" \
 			      | sed -e 's/^ *\([rR][eE]: *\)*//')"
 	fi
 fi
@@ -531,7 +540,7 @@ then
 	fi
 fi
 
-subject=$(formail -x Subject: < $introduction | join_lines)
+subject=$(extract_header_value Subject: < $introduction | join_lines)
 if [ -z "$subject" ]
 then
 	if [ -z "$opt_message" ]
@@ -550,7 +559,7 @@ then
 	exec 1> $opt_mbox
 fi
 
-subject_prefix=$(formail -x Subject-Prefix: < $introduction | join_lines)
+subject_prefix=$(extract_header_value Subject-Prefix: < $introduction | join_lines)
 [ -n "$subject_prefix" ] && subject_prefix="$subject_prefix "
 
 subject_prefix=${subject_prefix//\'/\'\'}
