@@ -120,9 +120,9 @@ NON_EXEC_IN :=	doc/quilt.1 doc/README quilt/scripts/patchfns quilt/scripts/utilf
 GIT_DESC :=	$(shell ./git-desc | sed -e 's:^v::')
 
 # Tests are sorted to make it easier to compare the results between runs
-TESTS :=	$(filter-out test/patch-wrapper.test,$(sort $(wildcard test/*.test)))
-ifneq ($(PATCH_WRAPPER),)
-TESTS +=	test/patch-wrapper.test
+TESTS :=	$(sort $(wildcard test/*.test))
+ifeq ($(PATCH_WRAPPER),)
+TESTS :=	$(filter-out test/patch-wrapper.test,$(TESTS))
 endif
 DIRT +=		test/.depend $(wildcard test/.*.ok)
 
