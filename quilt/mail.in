@@ -500,7 +500,7 @@ introduction="$(gen_tempfile)"
 (
 	cat <<-EOF
 	Message-Id: <$(msgid)>
-	User-Agent: quilt/@VERSION@-@RELEASE@
+	User-Agent: quilt/@VERSION@
 	Date: $(date --rfc-822)
 	From: ${opt_from:-$opt_sender}
 	To: $(IFS=,; echo "${opt_to[*]}")
