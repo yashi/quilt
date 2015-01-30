@@ -183,7 +183,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "Pas de patch suivant\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:604
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:603
 msgid "Patch %s is currently applied\\n"
 msgstr "Le patch %s est actuellement appliqué\\n"
 
@@ -332,7 +332,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Pas d'instantané avec lequel comparer\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:422
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -842,36 +842,36 @@ msgstr ""
 "--reply-to message\n"
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
-#: quilt/mail.in:192 quilt/mail.in:200
+#: quilt/mail.in:204 quilt/mail.in:212
 msgid "Introduction message already specified"
 msgstr "Message d'introduction déjà spécifié"
 
-#: quilt/mail.in:305
+#: quilt/mail.in:310
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:450
+#: quilt/mail.in:455
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:474
+#: quilt/mail.in:479
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:483
+#: quilt/mail.in:488
 msgid "File %s does not exist\\n"
 msgstr "Le fichier %s n'existe pas\\n"
 
-#: quilt/mail.in:543
+#: quilt/mail.in:548
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:546
+#: quilt/mail.in:551
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:660
+#: quilt/mail.in:665
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -989,10 +989,12 @@ msgstr ""
 "\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 
 #: quilt/pop.in:22
-msgid "Usage: quilt pop [-afRqv] [num|patch]\\n"
+#, fuzzy
+msgid "Usage: quilt pop [-afRqv] [--refresh] [num|patch]\\n"
 msgstr "Usage : quilt pop [-afRqv] [num|patch]\\n"
 
 #: quilt/pop.in:25
+#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the stack of applied patches.  Without options,\n"
@@ -1013,6 +1015,9 @@ msgid ""
 "-q\tQuiet operation.\n"
 "\n"
 "-v\tVerbose operation.\n"
+"\n"
+"--refresh\n"
+"\tAutomatically refresh every patch before it gets unapplied.\n"
 msgstr ""
 "\n"
 "Retire un ou plusieurs patches de la pile. Si aucun argument n'est \n"
@@ -1034,37 +1039,41 @@ msgstr ""
 "\n"
 "-v\tOpère verbeusement.\n"
 
-#: quilt/pop.in:100 quilt/scripts/patchfns.in:880
+#: quilt/pop.in:103 quilt/scripts/patchfns.in:884
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "Impossible de copier les fichiers dans le répertoire temporaire\\n"
 
-#: quilt/pop.in:125
+#: quilt/pop.in:128
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne se retire pas proprement (rafraichissez le, ou forcez avec -"
 "f)\\n"
 
-#: quilt/pop.in:150
+#: quilt/pop.in:153
 msgid "Patch %s appears to be empty, removing\\n"
 msgstr "Le patch %s semble vide, enlevé\\n"
 
-#: quilt/pop.in:155
+#: quilt/pop.in:158
 msgid "Removing patch %s\\n"
 msgstr "Retrait de %s\\n"
 
-#: quilt/pop.in:226
+#: quilt/pop.in:216 quilt/push.in:373
+msgid "Options %s and %s are mutually exclusive\\n"
+msgstr ""
+
+#: quilt/pop.in:238
 msgid "Patch %s needs to be refreshed first.\\n"
 msgstr "Le patch %s doit être rafraichi au préalable.\\n"
 
-#: quilt/pop.in:236
+#: quilt/pop.in:248
 msgid "No patch removed\\n"
 msgstr "Aucun patch retiré\\n"
 
-#: quilt/pop.in:252 quilt/scripts/patchfns.in:513
+#: quilt/pop.in:272 quilt/scripts/patchfns.in:512
 msgid "No patches applied\\n"
 msgstr "Aucun patch n'est appliqué\\n"
 
-#: quilt/pop.in:259 quilt/push.in:422
+#: quilt/pop.in:279 quilt/push.in:437
 msgid "Now at patch %s\\n"
 msgstr "Le patch %s est maintenant au sommet\\n"
 
@@ -1085,14 +1094,16 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/push.in:24
+#, fuzzy
 msgid ""
 "Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [num|patch]\\n"
+"color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
 "Usage : quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
 "color[=always|auto|never]] [num|patch]\\n"
 
 #: quilt/push.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1106,8 +1117,7 @@ msgid ""
 "\n"
 "-q\tQuiet operation.\n"
 "\n"
-"-f\tForce apply, even if the patch has rejects. Unless in quiet mode,\n"
-"\tapply the patch interactively: the patch utility may ask questions.\n"
+"-f\tForce apply, even if the patch has rejects.\n"
 "\n"
 "-v\tVerbose operation.\n"
 "\n"
@@ -1123,6 +1133,9 @@ msgid ""
 "\n"
 "--color[=always|auto|never]\n"
 "\tUse syntax coloring (auto activates it only if the output is a tty).\n"
+"\n"
+"--refresh\n"
+"\tAutomatically refresh every patch after it was successfully applied.\n"
 msgstr ""
 "\n"
 "Applique un ou plusieurs patches de la série.  Si aucun argument n'est\n"
@@ -1157,42 +1170,47 @@ msgstr ""
 "\tautomatique («auto») ou jamais («never»).\n"
 "\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 
-#: quilt/push.in:68
+#: quilt/push.in:70
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "Interrompu par l'utilisateur ; le patch %s n'a pas été appliqué.\\n"
 
-#: quilt/push.in:181
+#: quilt/push.in:183
 msgid "Applying patch %s\\n"
 msgstr "Application de %s\\n"
 
-#: quilt/push.in:215
+#: quilt/push.in:217
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "Le patch %s n'existe pas ; patch vide appliqué\\n"
 
-#: quilt/push.in:219
+#: quilt/push.in:221
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "Le patch %s semble vide. Il a été appliqué.\\n"
 
-#: quilt/push.in:223
+#: quilt/push.in:225
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr "%s a été appliqué (forcé ; vous devriez le rafraîchir)\\n"
 
-#: quilt/push.in:233
+#: quilt/push.in:235
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "Le patch %s peut être appliqué à l'envers\\n"
 
-#: quilt/push.in:236
+#: quilt/push.in:238
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 "Le patch %s ne s'applique pas proprement (forcez l'application avec -f)\\n"
 
-#: quilt/push.in:291
+#: quilt/push.in:293
 msgid "Patch %s is already applied; check your series file\\n"
 msgstr "Le patch %s est déjà appliqué. Vérifiez votre fichier series.\\n"
 
-#: quilt/push.in:396
+#: quilt/push.in:405
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
+
+#: quilt/push.in:413
+#, fuzzy
+msgid "No patch applied\\n"
+msgstr "Aucun patch n'est appliqué\\n"
 
 #: quilt/refresh.in:22
 msgid ""
@@ -1460,35 +1478,35 @@ msgstr "Le nom `%s' est mal parenthésé\n"
 msgid "Delivery address `%s' is invalid\n"
 msgstr "L'adresse de destination `%s' est invalide\n"
 
-#: quilt/scripts/patchfns.in:232 quilt/scripts/patchfns.in:526
+#: quilt/scripts/patchfns.in:231 quilt/scripts/patchfns.in:525
 msgid "%s is not a regular file\\n"
 msgstr "%s n'est pas un fichier régulier\\n"
 
-#: quilt/scripts/patchfns.in:480 quilt/scripts/patchfns.in:497
+#: quilt/scripts/patchfns.in:479 quilt/scripts/patchfns.in:496
 msgid "No patches in series\\n"
 msgstr "Aucun patch dans la série\\n"
 
-#: quilt/scripts/patchfns.in:482 quilt/scripts/patchfns.in:499
+#: quilt/scripts/patchfns.in:481 quilt/scripts/patchfns.in:498
 msgid "No series file found\\n"
 msgstr "Fichier de série non trouvé\\n"
 
-#: quilt/scripts/patchfns.in:555
+#: quilt/scripts/patchfns.in:554
 msgid "Patch %s is not in series\\n"
 msgstr "Le patch %s n'est pas dans la série\\n"
 
-#: quilt/scripts/patchfns.in:583
+#: quilt/scripts/patchfns.in:582
 msgid "Patch %s is not applied\\n"
 msgstr "Le patch %s n'est pas appliqué\\n"
 
-#: quilt/scripts/patchfns.in:620
+#: quilt/scripts/patchfns.in:619
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr "La série est complètement appliquée. Le dernier patch est %s.\\n"
 
-#: quilt/scripts/patchfns.in:898
+#: quilt/scripts/patchfns.in:902
 msgid "Failed to patch temporary files\\n"
 msgstr "Impossible de patcher les fichiers temporaires\\n"
 
-#: quilt/scripts/patchfns.in:941
+#: quilt/scripts/patchfns.in:945
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1500,13 +1518,23 @@ msgstr ""
 "format %s (inclus). Veuillez retirer vos patches avec la version \n"
 "utilisée pour les appliquer avant d'installer une version plus ancienne.\\n"
 
-#: quilt/scripts/patchfns.in:1094
+#: quilt/scripts/patchfns.in:1018
+msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
+msgstr ""
+
+#: quilt/scripts/patchfns.in:1138
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
 msgstr ""
 "Votre arbre a été créé par une vieille version de quilt. Veuillez \n"
 "utiliser « quilt upgrade ».\\n"
+
+#: quilt/scripts/patchfns.in:1146
+msgid ""
+"The series file no longer matches the applied patches. Please run 'quilt pop "
+"-a'.\\n"
+msgstr ""
 
 #: quilt/scripts/remove-trailing-ws.in:43
 #, perl-format
@@ -1566,23 +1594,24 @@ msgstr ""
 "\n"
 "-v\tAffichage verbeux, plus simple à lire.\n"
 
-#: quilt/setup.in:35 quilt/setup.in:55
+#: quilt/setup.in:38 quilt/setup.in:58
 msgid "Directory %s exists\\n"
 msgstr "Le répertoire %s existe\\n"
 
-#: quilt/setup.in:61
+#: quilt/setup.in:64
 msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
-#: quilt/setup.in:102
+#: quilt/setup.in:264
+#, fuzzy
 msgid ""
-"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] "
-"{specfile|seriesfile}\\n"
+"Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
+"slow|--fast] {specfile|seriesfile}\\n"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] [-v] [--sourcedir répertoire] [--"
 "fuzz=N] {fichier_spec|fichier_séries}\\n"
 
-#: quilt/setup.in:105
+#: quilt/setup.in:267
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1596,39 +1625,37 @@ msgid ""
 "\n"
 "--fuzz=N\n"
 "\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
+"\n"
+"--slow\tUse the original, slow method to process the spec file. This is the\n"
+"\tdefault for now, but that might change in the future. In this mode,\n"
+"\trpmbuild generates a working tree in a temporary directory while all\n"
+"\tits actions are recorded, and then everything is replayed from scratch\n"
+"\tin the target directory.\n"
+"\n"
+"--fast\tUse an alternative, faster method to process the spec file. In this\n"
+"\tmode, rpmbuild is told to generate a working tree directly in the\n"
+"\ttarget directory. If the input is a series file, it is assumed that\n"
+"\tall archives have been extracted manually beforehand.\n"
 msgstr ""
-"\n"
-"Initialise un arbre de sources à partir d'un fichier de\n"
-"spécification rpm, ou d'un fichier de série quilt.\n"
-"\n"
-"-d\tPréfixe de chemin optionel (sous-répertoire).\n"
-"\n"
-"--sourcefdir\n"
-"\tRépertoire contenant les sources. Valeur par défaut : \\`.'.\n"
-"\n"
-"-v\tAffichage verbeux pour le debug.\n"
-"\n"
-"--fuzz=N\n"
-"\tDéfinit le niveau maximum de flou (nécessite rpm 4.6 ou supérieur).\n"
 
-#: quilt/setup.in:176
+#: quilt/setup.in:371
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "La section %%prep de %s a échoué ; les résultats sont peut-être incomplets\\n"
 
-#: quilt/setup.in:179
+#: quilt/setup.in:374
 msgid "The -v option will show rpm's output\\n"
 msgstr "L'option -v montre les affichages de rpm\\\\n"
 
-#: quilt/setup.in:231 quilt/setup.in:243
+#: quilt/setup.in:428 quilt/setup.in:440
 msgid "File %s not found\\n"
 msgstr "Le fichier %s est introuvable\\n"
 
-#: quilt/setup.in:234 quilt/setup.in:246
+#: quilt/setup.in:431 quilt/setup.in:443
 msgid "Unpacking archive %s\\n"
 msgstr "Désarchivage de %s\\n"
 
-#: quilt/setup.in:255
+#: quilt/setup.in:453
 msgid "Trying alternative patches and series names..."
 msgstr "Tentative d'utilisation des noms de patches et séries alternatifs..."
 
@@ -1732,3 +1759,31 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Initializes a source tree from an rpm spec file or a quilt series file.\n"
+#~ "\n"
+#~ "-d\tOptional path prefix for the resulting source tree.\n"
+#~ "\n"
+#~ "--sourcedir\n"
+#~ "\tDirectory that contains the package sources. Defaults to \\`.'.\n"
+#~ "\n"
+#~ "-v\tVerbose debug output.\n"
+#~ "\n"
+#~ "--fuzz=N\n"
+#~ "\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Initialise un arbre de sources à partir d'un fichier de\n"
+#~ "spécification rpm, ou d'un fichier de série quilt.\n"
+#~ "\n"
+#~ "-d\tPréfixe de chemin optionel (sous-répertoire).\n"
+#~ "\n"
+#~ "--sourcefdir\n"
+#~ "\tRépertoire contenant les sources. Valeur par défaut : \\`.'.\n"
+#~ "\n"
+#~ "-v\tAffichage verbeux pour le debug.\n"
+#~ "\n"
+#~ "--fuzz=N\n"
+#~ "\tDéfinit le niveau maximum de flou (nécessite rpm 4.6 ou supérieur).\n"
