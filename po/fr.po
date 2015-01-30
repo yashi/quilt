@@ -1,14 +1,13 @@
 # quilt french translation
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 # Martin Quinson <Martin.Quinson@loria.fr>, 2003, 2013, 2014.
-# Jean Delvare <jdelvare@suse.de>, 2005, 2011.
+# Jean Delvare <jdelvare@suse.de>, 2005, 2011, 2015.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.43\n"
-"PO-Revision-Date: 2014-05-07 19:52+0200\n"
-"Last-Translator: Martin Quinson <Martin.Quinson@loria.fr>\n"
+"Project-Id-Version: quilt 0.64\n"
+"PO-Revision-Date: 2015-01-30 15:40+0100\n"
+"Last-Translator: Jean Delvare <jdelvare@suse.de>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -989,12 +988,10 @@ msgstr ""
 "\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
 
 #: quilt/pop.in:22
-#, fuzzy
 msgid "Usage: quilt pop [-afRqv] [--refresh] [num|patch]\\n"
-msgstr "Usage : quilt pop [-afRqv] [num|patch]\\n"
+msgstr "Usage : quilt pop [-afRqv] [--refresh] [num|patch]\\n"
 
 #: quilt/pop.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the stack of applied patches.  Without options,\n"
@@ -1038,6 +1035,9 @@ msgstr ""
 "-q\tOpère silencieusement.\n"
 "\n"
 "-v\tOpère verbeusement.\n"
+"\n"
+"--refresh\n"
+"\tRafraichit automatiquement chaque patch avant de l'enlever.\n"
 
 #: quilt/pop.in:103 quilt/scripts/patchfns.in:884
 msgid "Failed to copy files to temporary directory\\n"
@@ -1059,7 +1059,7 @@ msgstr "Retrait de %s\\n"
 
 #: quilt/pop.in:216 quilt/push.in:373
 msgid "Options %s and %s are mutually exclusive\\n"
-msgstr ""
+msgstr "Les options %s et %s sont mutuellement exclusives\\n"
 
 #: quilt/pop.in:238
 msgid "Patch %s needs to be refreshed first.\\n"
@@ -1094,16 +1094,14 @@ msgstr ""
 "-n\tAffiche le nom de fichier au lieu du nom de patch.\n"
 
 #: quilt/push.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
 "color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
 "Usage : quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [num|patch]\\n"
+"color[=always|auto|never]] [--refresh] [num|patch]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1169,6 +1167,10 @@ msgstr ""
 "\tApplique une coloration syntaxique, toujours («always»), de manière\n"
 "\tautomatique («auto») ou jamais («never»).\n"
 "\t«auto» n'est activé par défaut que si la sortie est un tty.\n"
+"\n"
+"--refresh\n"
+"\tRafraichit automatiquement chaque patch ayant été appliqué avec\n"
+"\tsuccès.\n"
 
 #: quilt/push.in:70
 msgid "Interrupted by user; patch %s was not applied.\\n"
@@ -1208,9 +1210,8 @@ msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Le patch au sommet %s doit être rafraichi au préalable.\\n"
 
 #: quilt/push.in:413
-#, fuzzy
 msgid "No patch applied\\n"
-msgstr "Aucun patch n'est appliqué\\n"
+msgstr "Aucun patch appliqué\\n"
 
 #: quilt/refresh.in:22
 msgid ""
@@ -1520,7 +1521,7 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1018
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
-msgstr ""
+msgstr "Vous devez installer '%s' (paquet %s) pour utiliser « quilt %s »\\n"
 
 #: quilt/scripts/patchfns.in:1138
 msgid ""
@@ -1535,6 +1536,8 @@ msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
 msgstr ""
+"Le fichier series ne correspond plus aux patchs appliqués. Veuillez "
+"utiliser « quilt pop -a ».\\n"
 
 #: quilt/scripts/remove-trailing-ws.in:43
 #, perl-format
@@ -1603,13 +1606,12 @@ msgid "File %s exists\\n"
 msgstr "Le fichier %s existe\\n"
 
 #: quilt/setup.in:264
-#, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
 msgstr ""
 "Usage : quilt setup [-d répertoire_source] [-v] [--sourcedir répertoire] [--"
-"fuzz=N] {fichier_spec|fichier_séries}\\n"
+"fuzz=N] [--slow|--fast] {fichier_spec|fichier_séries}\\n"
 
 #: quilt/setup.in:267
 msgid ""
@@ -1637,6 +1639,32 @@ msgid ""
 "\ttarget directory. If the input is a series file, it is assumed that\n"
 "\tall archives have been extracted manually beforehand.\n"
 msgstr ""
+"\n"
+"Initialise un arbre de sources à partir d'un fichier de\n"
+"spécification rpm, ou d'un fichier de série quilt.\n"
+"\n"
+"-d\tPréfixe de chemin optionel (sous-répertoire).\n"
+"\n"
+"--sourcefdir\n"
+"\tRépertoire contenant les sources. Valeur par défaut : \\`.'.\n"
+"\n"
+"-v\tAffichage verbeux pour le debug.\n"
+"\n"
+"--fuzz=N\n"
+"\tDéfinit le niveau maximum de flou (nécessite rpm 4.6 ou supérieur).\n"
+"\n"
+"--slow\tUtilise la méthode originale, lente, pour traiter le fichier de\n"
+"\tspécification rpm. C'est la méthode par défaut pour l'instant, mais\n"
+"\tcela pourrait changer dans le futur. Dans ce mode, rpmbuild produit\n"
+"\tun arbre de travail dans un répertoire temporaire tout en enregistrant\n"
+"\ttoutes ses actions, puis l'enregistrement est rejoué dans le répertoire\n"
+"\tde destination.\n"
+"\n"
+"--fast\tUtilise une méthode alternative, plus rapide, pour traiter le\n"
+"\tfichier de spécification rpm. Dans ce mode, rpmbuild travaille\n"
+"\tdirectement dans le répertoire de destination. Si l'entrée est un\n"
+"\tfichier de série quilt, il est supposé que toutes les archives ont\n"
+"\tdéjà été extraites manuellement.\n"
 
 #: quilt/setup.in:371
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
@@ -1759,31 +1787,3 @@ msgstr ""
 "Veuillez retirer tous les patchs en utilisant « quilt pop -a » avec la \n"
 "version utilisée pour créer cet arbre de travail, ou effacez le répertoire\n"
 "%s et réappliquez complètement vos patchs.\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Initializes a source tree from an rpm spec file or a quilt series file.\n"
-#~ "\n"
-#~ "-d\tOptional path prefix for the resulting source tree.\n"
-#~ "\n"
-#~ "--sourcedir\n"
-#~ "\tDirectory that contains the package sources. Defaults to \\`.'.\n"
-#~ "\n"
-#~ "-v\tVerbose debug output.\n"
-#~ "\n"
-#~ "--fuzz=N\n"
-#~ "\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Initialise un arbre de sources à partir d'un fichier de\n"
-#~ "spécification rpm, ou d'un fichier de série quilt.\n"
-#~ "\n"
-#~ "-d\tPréfixe de chemin optionel (sous-répertoire).\n"
-#~ "\n"
-#~ "--sourcefdir\n"
-#~ "\tRépertoire contenant les sources. Valeur par défaut : \\`.'.\n"
-#~ "\n"
-#~ "-v\tAffichage verbeux pour le debug.\n"
-#~ "\n"
-#~ "--fuzz=N\n"
-#~ "\tDéfinit le niveau maximum de flou (nécessite rpm 4.6 ou supérieur).\n"
