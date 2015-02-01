@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: quilt\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-09-20 08:04+0000\n"
-"PO-Revision-Date: 2011-09-20 07:55+0000\n"
-"Last-Translator: Sergey Basalaev <SBasalaev@gmail.com>\n"
+"PO-Revision-Date: 2015-01-31 00:21+0600\n"
+"Last-Translator: Sergey Basalaev <sbasalaev@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2011-09-20 08:04+0000\n"
-"X-Generator: Launchpad (build 13980)\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: bin/quilt.in:40
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
-msgstr "Синтаксис: quilt [--trace[=verbose]] [--quiltrc=XX] команда [-h] ..."
+msgstr "Синтаксис: quilt [--trace[=verbose]] [--quiltrc=XX] команда [-h] …"
 
 #: bin/quilt.in:41
 msgid "       quilt --version"
@@ -31,7 +31,6 @@ msgid "Commands are:"
 msgstr "Команды:"
 
 #: bin/quilt.in:48
-#, fuzzy
 msgid ""
 "\n"
 "Global options:\n"
@@ -57,19 +56,19 @@ msgstr ""
 "\n"
 "--quiltrc файл\n"
 "\tИспользовать указанный файл конфигурации вместо ~/.quiltrc (или\n"
-"\t/etc/quilt.quiltrc, если ~/.quiltrc не существует).  Смотрите\n"
+"\t@ETCDIR@/quilt.quiltrc, если ~/.quiltrc не существует).  Смотрите\n"
 "\tpdf-документацию, чтобы узнать о возможном содержимом.\n"
+"\tСпециальное значение «-» запрещает quilt читать конфигурационные\n"
+"\tфайлы.\n"
 "\n"
 "--version\n"
 "\tНапечатать номер версии и выйти из программы."
 
 #: quilt/add.in:22
-#, fuzzy
 msgid "Usage: quilt add [-P patch] {file} ...\\n"
-msgstr "Синтаксис: quilt add [-p патч] {файл} ...\\n"
+msgstr "Синтаксис: quilt add [-P патч] {файл} …\\n"
 
 #: quilt/add.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Add one or more files to the topmost or named patch.  Files must be\n"
@@ -85,13 +84,12 @@ msgstr ""
 "Файлы, которые изменены патчами, уже наложенными поверх выбранного,\n"
 "не могут быть добавлены.\n"
 "\n"
-"-p патч\n"
+"-P патч\n"
 "\tПатч, к которому добавлять файлы.\n"
 
 #: quilt/add.in:48 quilt/add.in:54
-#, fuzzy
 msgid "File %s is located below %s\\n"
-msgstr "Файл \\`%s' расположен ниже \\`%s'\\n"
+msgstr "Файл %s расположен ниже %s\\n"
 
 #: quilt/add.in:103
 msgid "File %s is already in patch %s\\n"
@@ -114,12 +112,10 @@ msgid "File %s added to patch %s\\n"
 msgstr "Файл %s добавлен к патчу %s\\n"
 
 #: quilt/annotate.in:22
-#, fuzzy
 msgid "Usage: quilt annotate [-P patch] {file}\\n"
-msgstr "Синтаксис: quilt annotate {файл}\\n"
+msgstr "Синтаксис: quilt annotate [-P патч] {файл}\\n"
 
 #: quilt/annotate.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print an annotated listing of the specified file showing which\n"
@@ -131,7 +127,12 @@ msgid ""
 msgstr ""
 "\n"
 "Вывести список, показывающий, какие строки указанного файла\n"
-"какими патчами изменены.\n"
+"какими патчами изменены. В список включаются только примененные\n"
+"патчи.\n"
+"\n"
+"-P патч\n"
+"\tОстановить проверку изменений после указанного патча, а не\n"
+"\tсамого верхнего.\n"
 
 #: quilt/applied.in:22
 msgid "Usage: quilt applied [patch]\\n"
@@ -148,12 +149,10 @@ msgstr ""
 "указанный патч в файле series.\n"
 
 #: quilt/delete.in:22
-#, fuzzy
 msgid "Usage: quilt delete [-r] [--backup] [patch|-n]\\n"
-msgstr "Синтаксис: quilt delete [патч | -n]\\n"
+msgstr "Синтаксис: quilt delete [-r] [--backup] [патч | -n]\\n"
 
 #: quilt/delete.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove the specified or topmost patch from the series file.  If the\n"
@@ -176,6 +175,12 @@ msgstr ""
 "\n"
 "-n\tУдалить патч, предшествующий верхнему, вместо указанного\n"
 "\tили верхнего.\n"
+"\n"
+"-r\tТакже удалить файл удалённого патча из директории патчей.\n"
+"\n"
+"--backup\n"
+"\tНе удалять файл патча, а переименовать в имя_патча~.\n"
+"\tИгнорируется, если не используется вместе с «-r».\n"
 
 #: quilt/delete.in:89
 msgid "No next patch\\n"
@@ -191,31 +196,27 @@ msgstr "Удалён патч %s\\n"
 
 #: quilt/delete.in:116
 msgid "Failed to remove patch %s\\n"
-msgstr "Не удалось отменить патч %s\\n"
+msgstr "Не удалось удалить патч %s\\n"
 
 #: quilt/delete.in:127
-#, fuzzy
 msgid "Failed to backup patch file %s\\n"
-msgstr "Не удалось создать резервную копию файла %s\\n"
+msgstr "Не удалось создать резервную копию файла патча %s\\n"
 
 #: quilt/delete.in:134
-#, fuzzy
 msgid "Failed to remove patch file %s\\n"
-msgstr "Не удалось отменить патч %s\\n"
+msgstr "Не удалось удалить файл патча %s\\n"
 
 #: quilt/diff.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
 "[--sort] [--color[=always|auto|never]] [file ...]\\n"
 msgstr ""
-"Синтаксис: quilt diff [-p n] [-u|-U число|-c|-C число] [--combine патч|-z] [-"
-"R] [-P патч] [--snapshot] [--diff=утилита] [--no-timestamps] [--no-index] [--"
-"sort] [--color] [файл ...]\\n"
+"Синтаксис: quilt diff [-p n|-p ab] [-u|-U число|-c|-C число] [--combine "
+"патч|-z] [-R] [-P патч] [--snapshot] [--diff=утилита] [--no-timestamps] [--"
+"no-index] [--sort] [--color[=always|auto|never]] [файл …]\\n"
 
 #: quilt/diff.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Produces a diff of the specified file(s) in the topmost or specified\n"
@@ -271,6 +272,10 @@ msgstr ""
 "\n"
 "-p n\tСоздать патч в стиле -p n (поддерживаются -p0 и -p1).\n"
 "\n"
+"-p ab\tСоздать патч в стиле -p1, но использовать a/file и b/file как\n"
+"\tимена оригинального и нового файлов вместо имен\n"
+"\tdir.orig/file и dir/file.\n"
+"\n"
 "-u, -U число, -c, -C число\n"
 "\tСоздать универсальный diff (-u, -U) с заданным числом строк\n"
 "\tконтекста. Создать контекстный diff (-c, -C) с заданным числом\n"
@@ -292,38 +297,38 @@ msgstr ""
 "\n"
 "--combine патч\n"
 "\tСоздать объединённый diff для всех патчей между этим патчем и\n"
-"\tуказанным в опции -P. Имя патча «-» эквивалентно первому\n"
+"\tпатчем, указанным в опции -P. Имя патча «-» эквивалентно первому\n"
 "\tприменённому патчу.\n"
 "\n"
 "--snapshot\n"
-"\tdiff относительно снимка (см. \\`quilt snapshot -h').\n"
+"\tdiff относительно снимка (см. «quilt snapshot -h»).\n"
 "\n"
 "--diff=утилита\n"
 "\tИспользовать указанную утилиту для создания diff. Утилита вызывается\n"
 "\tс именами оригинального файла и нового файла в качестве аргументов.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tИспользовать подсветку синтаксиса.\n"
+"\tИспользовать подсветку синтаксиса (опция auto активирует подсветку только\n"
+"\tпри выводе в терминал).\n"
 "\n"
 "--sort\tСортировать файлы по имени, не сохраняя их исходного порядка.\n"
 
 #: quilt/diff.in:226
-#, fuzzy
 msgid ""
 "Options \\`--combine', \\`--snapshot', and \\`-z' cannot be combined.\\n"
 msgstr ""
-"Опции \\`-c patch', \\`--snapshot' и \\`-z' не могут использоваться "
-"совместно.\\n"
+"Опции «--combine», «--snapshot» и «-z» не могут использоваться совместно.\\n"
 
 #: quilt/diff.in:240
-#, fuzzy
 msgid ""
 "Cannot diff patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
-msgstr "Невозможно сравнить патчи с -p%s, используйте -p0 либо -p1\\n"
+msgstr ""
+"Невозможно сравнить патчи с -p%s, пожалуйста, используйте -p0, -p1 либо -pab"
+"\\n"
 
 #: quilt/diff.in:249
 msgid "No snapshot to diff against\\n"
-msgstr ""
+msgstr "Нет снимка для вывода различий\\n"
 
 #: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
 msgid "Patch %s not applied before patch %s\\n"
@@ -338,9 +343,8 @@ msgid "Diff failed, aborting\\n"
 msgstr "Не удалось выполнить diff, завершение\\n"
 
 #: quilt/diff.in:377
-#, fuzzy
 msgid "Warning: more recent patches modify files in patch %s\\n"
-msgstr "Более новые патчи изменяют файлы в патче %s\\n"
+msgstr "Предупреждение: более новые патчи изменяют файлы в патче %s\\n"
 
 #: quilt/edit.in:24
 msgid "Usage: quilt edit file ...\\n"
@@ -361,7 +365,6 @@ msgid "Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\\n"
 msgstr "Синтаксис: quilt files [-v] [-a] [-l] [--combine патч] [патч]\\n"
 
 #: quilt/files.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of files that the topmost or specified patch changes.\n"
@@ -381,7 +384,7 @@ msgstr ""
 "\n"
 "Вывести список файлов, которые указанный или верхний патч изменяет.\n"
 "\n"
-"-a\tСписок всех файлов во всех применённых патчах.\n"
+"-a\tВывести все файлы во всех применённых патчах.\n"
 "\n"
 "-l\tДобавить имя патча к выводу.\n"
 "\n"
@@ -389,17 +392,15 @@ msgstr ""
 "\n"
 "--combine патч\n"
 "\tСоздать список всех патчей между этим патчем и верхним\n"
-"\tприменённым патчем. Указание имени «-» эквивалентно\n"
+"\tприменённым или указанным патчем. Имя «-» эквивалентно\n"
 "\tуказанию первого применённого патча.\n"
 "\n"
 
 #: quilt/fold.in:22
-#, fuzzy
 msgid "Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
-msgstr "Usage: quilt fold [-p strip-level]\\n"
+msgstr "Синтаксис: quilt fold [-R] [-q] [-f] [-p strip-level]\\n"
 
 #: quilt/fold.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Integrate the patch read from standard input into the topmost patch:\n"
@@ -420,8 +421,16 @@ msgid ""
 msgstr ""
 "\n"
 "Интегрировать патч, считанный со стандартного ввода, в верхний:\n"
-"После проверки того, что все изменённые файлы часть самого верхнего\n"
-"патча, патч применяется с указанным уровнем очистки (по умолчанию 1).\n"
+"После проверки того, что все изменённые файлы входят в самый верхний\n"
+"патч, этот патч применяется с указанным уровнем очистки (по умолчанию 1).\n"
+"\n"
+"-R\tПрименить патч в обратную сторону.\n"
+"\n"
+"-q\tТихий режим.\n"
+"\n"
+"-f\tПринудительно применить, даже если в патче есть отказы. Если не указан "
+"тихий режим,\n"
+"\tпатч применяется интерактивно: утилита может задавать вопросы.\n"
 "\n"
 "-p strip-level\n"
 "\tЧисло компонент пути, которые необходимо удалить из имён файлов\n"
@@ -436,7 +445,6 @@ msgid "Usage: quilt fork [new_name]\\n"
 msgstr "Синтаксис: quilt fork [новое_имя]\\n"
 
 #: quilt/fork.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Fork the topmost patch.  Forking a patch means creating a verbatim copy\n"
@@ -452,14 +460,14 @@ msgid ""
 "patch-2.diff, patch-3.diff).\n"
 msgstr ""
 "\n"
-"Создать ответвление верхнего патча. Создаётся точная копия патча с новым\n"
+"Создать ответвление верхнего патча.  Создаётся точная копия патча с новым\n"
 "именем, и это имя используется вместо оригинального патча в файле series.\n"
-"Это полезно, если необходимо изменить патч, но исходная версия должна\n"
-"быть сохранаена, например, потому что она используется в другой серии\n"
-"патчей или для истории. Типичной последовательностью команд в этом случае\n"
-"может быть: fork, edit, refresh.\n"
+"Это полезно, если необходимо изменить патч, но исходную версию нужно\n"
+"сохранить, например, потому что она используется в другой серии патчей\n"
+"или для истории. Типичной последовательностью команд в этом случае может\n"
+"быть: fork, edit, refresh.\n"
 "\n"
-"Если новое_имя отсутствует, используется имя исходного патча, к которому\n"
+"Если новое_имя не указано, используется имя исходного патча, к которому\n"
 "добавляется «-2».  Если патч уже заканчивается дефисом и числом, то это\n"
 "число увеличивается (т.е. patch.diff, patch-2.diff, patch-3.diff).\n"
 
@@ -476,13 +484,12 @@ msgid "Fork of patch %s created as %s\\n"
 msgstr "Ответвление патча %s создано как %s\\n"
 
 #: quilt/graph.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] "
 "[-T ps] [patch]\\n"
 msgstr ""
 "Синтаксис: quilt graph [--all] [--reduce] [--lines[=число]] [--edge-"
-"labels=файлы] [патч]\\n"
+"labels=файлы] [-T ps] [патч]\\n"
 
 #: quilt/graph.in:26
 msgid ""
@@ -573,7 +580,6 @@ msgstr ""
 "trailing-whitespace] [патч]\\n"
 
 #: quilt/header.in:28
-#, fuzzy
 msgid ""
 "\n"
 "Print or change the header of the topmost or specified patch.\n"
@@ -607,7 +613,7 @@ msgstr ""
 "\tУдалить пробелы из концов строк заголовка.\n"
 "\n"
 "--backup\n"
-"\tСоздать резервную копию старой версии патча в файле патч~.\n"
+"\tСоздать резервную копию старой версии патча в файле имя_патча~.\n"
 
 #: quilt/header.in:169
 msgid "Replaced header of patch %s\\n"
@@ -618,11 +624,12 @@ msgid "Appended text to header of patch %s\\n"
 msgstr "Добавлен текст к заголовку патча %s\\n"
 
 #: quilt/import.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt import [-p num] [-R] [-P patch] [-f] [-d {o|a|n}] patchfile ..."
 "\\n"
-msgstr "Usage: quilt import [-f] [-p число] [-n патч] файл-патча ...\\n"
+msgstr ""
+"Синтаксис: quilt import [-p число] [-R] [-P патч] [-f] [-d {o|a|n}] файл-"
+"патча …\\n"
 
 #: quilt/import.in:25
 msgid ""
@@ -647,33 +654,54 @@ msgid ""
 "\tnew (n) patch header. If both patches include headers, this option\n"
 "\tmust be specified. This option is only effective when -f is used.\n"
 msgstr ""
+"\n"
+"Импортировать внешние патчи. Патчи будут вставлены после текущего верхнего\n"
+"патча и должны быть наложены после импорта, чтобы их применить.\n"
+"\n"
+"-p число\n"
+"\tЧисло уровней директорий, которые нужно убрать перед наложением\n"
+"\t(по умолчанию 1)\n"
+"\n"
+"-R\n"
+"\tПрименить патч в обратную сторону.\n"
+"\n"
+"-P патч\n"
+"\tИмя патча, используемое quilt. Эту опцию можно использовать\n"
+"\tтолько при импорте одиночного патча.\n"
+"\n"
+"-f\tПерезаписать или обновить существующие патчи.\n"
+"\n"
+"-d {o|a|n}\n"
+"\tПри перезаписи существующих патчей, сохранять старые (o), все (a), или\n"
+"\tновые (n) заголовки патчей. Если в обоих патчах есть заголовки, эта опция\n"
+"\tдолжна быть указана. Эта опция имеет эффект только, когда используется -"
+"f.\n"
 
 #: quilt/import.in:73
-#, fuzzy
 msgid "Patch %s does not exist\\n"
-msgstr "Патч %s не в серии\\n"
+msgstr "Патч %s не существует\\n"
 
 #: quilt/import.in:96
 msgid "Patch headers differ:\\n"
-msgstr ""
+msgstr "Заголовки патчей различаются:\\n"
 
 #: quilt/import.in:99
 msgid "Please use -d {o|a|n} to specify which patch header(s) to keep.\\n"
 msgstr ""
+"Пожалуйста, используйте -d {o|a|n}, чтобы определить, какой из заголовков "
+"оставить.\\n"
 
 #: quilt/import.in:164
-#, fuzzy
 msgid "Option \\`-P' can only be used when importing a single patch\\n"
-msgstr "Опцию \\`-n' можно использовать только при импорте одного патча\\n"
+msgstr "Опцию «-P» можно использовать только при импорте одиночного патча\\n"
 
 #: quilt/import.in:194
 msgid "Patch %s is applied\\n"
 msgstr "Патч %s применён\\n"
 
 #: quilt/import.in:203
-#, fuzzy
 msgid "Patch %s already exists in series.\\n"
-msgstr "Патч %s не в серии\\n"
+msgstr "Патч %s уже существует в series.\\n"
 
 #: quilt/import.in:209
 msgid "Patch %s exists. Replace with -f.\\n"
@@ -684,9 +712,8 @@ msgid "Replacing patch %s with new version\\n"
 msgstr "Замена патча %s новой версией\\n"
 
 #: quilt/import.in:224
-#, fuzzy
 msgid "Importing patch %s\\n"
-msgstr "Удаление патча %s\\n"
+msgstr "Импорт патча %s\\n"
 
 #: quilt/import.in:226
 msgid "Importing patch %s (stored as %s)\\n"
@@ -701,14 +728,14 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Не удалось вставить патч %s в файл series\\n"
 
 #: quilt/mail.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
 "subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
-"Синтаксис: quilt mail {--mbox file|--send} [--from ...] [--to ...] [--"
-"cc ...] [--bcc ...] [--subject ...]\\n"
+"Синтаксис: quilt mail {--mbox файл|--send} [-m текст] [-M файл] [--prefix "
+"префикс] [--sender …] [--from …] [--to …] [--cc …] [--bcc …] [--subject …] "
+"[--reply-to message] [первый_патч [последний_патч]]\\n"
 
 #: quilt/mail.in:27
 msgid ""
@@ -757,44 +784,86 @@ msgid ""
 "--reply-to message\n"
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
+"\n"
+"Создать почтовые сообщения из указанного диапазона патчей, или из всех\n"
+"патчей в файле series, и либо сохранить их в файле mailbox, либо послать\n"
+"немедленно. Открывает редактор с шаблоном для введения.\n"
+"Смотрите подробности в %s.\n"
+"При указании диапазона патчей, имя «-» для первого патча указывает первый\n"
+"патч в series, а имя «-» для последнего — последний патч в series.\n"
+"\n"
+"-m текст\n"
+"\tИспользовать указанный текст во введении. При использовании этой\n"
+"\tопции редактор не открывается, и патчи будут обработаны\n"
+"\tнемедленно.\n"
+"\n"
+"-M файл\n"
+"\tКак опция -m, но введение читается из указанного файла.\n"
+"\n"
+"--prefix префикс\n"
+"\tИспользовать альтернативный префикс в квадратных скобках в теме\n"
+"\tписьма. По умолчанию используется «patch».\n"
+"\n"
+"--mbox файл\n"
+"\tСохранить все сообщения в указанном файле формата mbox. Файл mbox\n"
+"\tзатем можно отправить, используя, например, formail.\n"
+"\n"
+"--send\n"
+"\tПослать сообщения напрямую.\n"
+"\n"
+"--sender\n"
+"\tИспользуемый адрес отправителя. Адрес должен быть в виде\n"
+"\t«user@domain.name». Произвольные имена не принимаются.\n"
+"\n"
+"--from, --subject\n"
+"\tЗначения для использования в заголовках From и Subject. Если опция --from\n"
+"\tне указана, используется значение опции --sender.\n"
+"\n"
+"--to, --cc, --bcc\n"
+"\tДобавить получателя к заголовку To, Cc, или Bcc.\n"
+"\n"
+"--signature файл\n"
+"\tДобавить указанную подпись к сообщениям (по умолчанию ~/.signature,\n"
+"\tесли существует; используйте «-», если подпись не нужна).\n"
+"\n"
+"--reply-to сообщение\n"
+"\tДобавить подходящие заголовки для ответа на указанное сообщение.\n"
 
 #: quilt/mail.in:204 quilt/mail.in:212
 msgid "Introduction message already specified"
-msgstr ""
+msgstr "Вводное сообщение уже указано"
 
 #: quilt/mail.in:310
 msgid "Could not determine the envelope sender address. Please use --sender."
-msgstr ""
+msgstr "Не удалось определить адрес отправителя. Используйте опцию --sender."
 
 #: quilt/mail.in:455
 msgid "Unable to extract a subject header from %s\\n"
-msgstr ""
+msgstr "Не удалось извлечь тему письма из %s\\n"
 
 #: quilt/mail.in:479
 msgid "Patches %s have duplicate subject headers.\\n"
-msgstr ""
+msgstr "У патчей %s дублируются заголовки темы.\\n"
 
 #: quilt/mail.in:488
-#, fuzzy
 msgid "File %s does not exist\\n"
-msgstr "Файл %s существует\\n"
+msgstr "Файл %s не существует\\n"
 
 #: quilt/mail.in:548
 msgid "Introduction has no subject header (saved as %s)\\n"
-msgstr ""
+msgstr "Во введении нет заголовка Subject (сохранено как %s)\\n"
 
 #: quilt/mail.in:551
 msgid "Introduction has no subject header\\n"
-msgstr ""
+msgstr "Во введении нет заголовка Subject\\n"
 
 #: quilt/mail.in:665
 msgid "Introduction saved as %s\\n"
-msgstr ""
+msgstr "Введение сохранено как %s\\n"
 
 #: quilt/new.in:22
-#, fuzzy
 msgid "Usage: quilt new [-p n|-p ab] {patchname}\\n"
-msgstr "Синтаксис: quilt new {имя-патча}\\n"
+msgstr "Синтаксис: quilt new [-p n|-p ab] {имя-патча}\\n"
 
 #: quilt/new.in:25
 msgid ""
@@ -815,16 +884,32 @@ msgid ""
 "directory if quilt chooses a top-level directory that is too high up\n"
 "in the directory tree.\n"
 msgstr ""
+"\n"
+"Создать новый патч с указанным именем и вставить его после текущего патча.\n"
+"Имя можно предварять именем директории, чтобы группировать связанные патчи\n"
+"друг с другом.\n"
+"\n"
+"-p n\tСоздать патч в стиле -p n (поддерживаются -p0 или -p1).\n"
+"\n"
+"-p ab\tСоздать патч в стиле -p1, но использовать a/file и b/file в качестве\n"
+"\tимён оригинального и нового файлов вместо имён\n"
+"\tdir.orig/file и dir/file.\n"
+"\n"
+"Quilt можно использовать в поддиректориях дерева исходных файлов. Программа "
+"определяет\n"
+"корень дерева путём поиска директории %s выше текущей директории.\n"
+"Создайте директорию %s в нужной корневой директории,\n"
+"если quilt выбирает в её качестве директорию слишком высоко в дереве\n"
+"исходных кодов.\n"
 
 #: quilt/new.in:76
-#, fuzzy
 msgid ""
 "Cannot create patches with -p%s, please specify -p0, p1, or -pab instead\\n"
-msgstr "Не удалось обновить патчи с -p%s, используйте -p0 или -p1\\n"
+msgstr "Не удалось создать патчи с -p%s, используйте -p0, -p1 или -pab\\n"
 
 #: quilt/new.in:89
 msgid "QUILT_PATCHES(%s) must differ from QUILT_PC(%s)\\n"
-msgstr ""
+msgstr "QUILT_PATCHES(%s) должна отличаться от QUILT_PC(%s)\\n"
 
 #: quilt/new.in:97 quilt/refresh.in:185
 msgid "Patch %s exists already\\n"
@@ -853,13 +938,13 @@ msgstr ""
 "файле series.\n"
 
 #: quilt/patches.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt patches [-v] [--color[=always|auto|never]] {file} [files...]\\n"
-msgstr "Синтаксис: quilt patches {файл}\\n"
+msgstr ""
+"Синтаксис: quilt patches [-v] [--color[=always|auto|never]] {файл} "
+"[файлы…]\\n"
 
 #: quilt/patches.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Print the list of patches that modify any of the specified files. (Uses a\n"
@@ -877,14 +962,16 @@ msgstr ""
 "Учтите, что эвристика медленнее, чем сканирование наложенных патчей.)\n"
 "\n"
 "-v\tПодробный, более дружественный вывод.\n"
+"\n"
+"--color[=always|auto|never]\n"
+"\tИспользовать подсветку синтаксиса (опция auto активирует подсветку только "
+"при выводе в терминал).\n"
 
 #: quilt/pop.in:22
-#, fuzzy
 msgid "Usage: quilt pop [-afRqv] [--refresh] [num|patch]\\n"
-msgstr "Синтаксис: quilt pop [-afRqv] [число|патч]\\n"
+msgstr "Синтаксис: quilt pop [-afRqv] [--refresh] [число|патч]\\n"
 
 #: quilt/pop.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove patch(es) from the stack of applied patches.  Without options,\n"
@@ -912,7 +999,7 @@ msgstr ""
 "\n"
 "Убрать патчи из стека наложенных патчей. Если не указаны опции,\n"
 "отменяется верхний патч.  Если указано число, отменяется указанное\n"
-"число патчей.  Когда указано имя патча, патчи убираются до тех пор,\n"
+"число патчей.  Если указано имя патча, патчи убираются до тех пор,\n"
 "пока указанный патч не окажется на вершине стека. Имена патчей могут\n"
 "содержать префикс patches/ для использования автодополнения.\n"
 "\n"
@@ -924,13 +1011,16 @@ msgstr ""
 "-R\tВсегда проверять, чисто ли удаляются патчи; не надеяться\n"
 "\tна проверки отметок времени.\n"
 "\n"
-"-q\tРаботать тихо.\n"
+"-q\tТихий режим.\n"
 "\n"
 "-v\tПодробный вывод.\n"
+"\n"
+"--refresh\n"
+"\tАвтоматически обновить каждый патч перед его откатом.\n"
 
 #: quilt/pop.in:103 quilt/scripts/patchfns.in:884
 msgid "Failed to copy files to temporary directory\\n"
-msgstr "Не удалось скопировать файлы во временный каталог\\n"
+msgstr "Не удалось скопировать файлы во временную директорию\\n"
 
 #: quilt/pop.in:128
 msgid "Patch %s does not remove cleanly (refresh it or enforce with -f)\\n"
@@ -948,7 +1038,7 @@ msgstr "Удаление патча %s\\n"
 
 #: quilt/pop.in:216 quilt/push.in:373
 msgid "Options %s and %s are mutually exclusive\\n"
-msgstr ""
+msgstr "Опции %s и %s — взаимоисключающие\\n"
 
 #: quilt/pop.in:238
 msgid "Patch %s needs to be refreshed first.\\n"
@@ -981,14 +1071,14 @@ msgstr ""
 "в файле series.\n"
 
 #: quilt/push.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
 "color[=always|auto|never]] [--refresh] [num|patch]\\n"
-msgstr "Синтаксис: quilt push [-afqv] [--leave-rejects] [число|патч]\\n"
+msgstr ""
+"Синтаксис: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
+"color[=always|auto|never]] [--refresh] [число|патч]\\n"
 
 #: quilt/push.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Apply patch(es) from the series file.  Without options, the next patch\n"
@@ -1031,18 +1121,28 @@ msgstr ""
 "\n"
 "-a\tПрименить все патчи из файла series.\n"
 "\n"
+"-q\tТихий режим.\n"
+"\n"
 "-f\tПринудительно применить, даже если наложение вызывает ошибки.\n"
 "\n"
-"-q\tРаботать тихо.\n"
-"\n"
 "-v\tПодробный вывод.\n"
+"\n"
+"--fuzz=N\n"
+"\tУстановить максимальный коэффициент fuzz (по умолчанию: 2).\n"
+"\n"
+"-m, --merge[=merge|diff3]\n"
+"\tСовместить файл патча с оригинальными файлами (см. patch(1)).\n"
 "\n"
 "--leave-rejects\n"
 "\tОставлять файлы reject, созданные программой patch, даже если патч\n"
 "\tне был применён.\n"
 "\n"
 "--color[=always|auto|never]\n"
-"\tИспользовать подсветку синтаксиса.\n"
+"\tИспользовать подсветку синтаксиса (опция auto активирует подсветку только "
+"при выводе в терминал).\n"
+"\n"
+"--refresh\n"
+"\tАвтоматически обновлять каждый патч после того, как он был применен.\n"
 
 #: quilt/push.in:70
 msgid "Interrupted by user; patch %s was not applied.\\n"
@@ -1062,43 +1162,39 @@ msgstr "Похоже, патч %s пуст; наложен\\n"
 
 #: quilt/push.in:225
 msgid "Applied patch %s (forced; needs refresh)\\n"
-msgstr "Применён патч %s (принудительно; следует сделать refresh)\\n"
+msgstr "Наложен патч %s (принудительно; следует сделать refresh)\\n"
 
 #: quilt/push.in:235
-#, fuzzy
 msgid "Patch %s can be reverse-applied\\n"
-msgstr "Патч %s применён\\n"
+msgstr "Патч %s может быть наложен в обратную сторону\\n"
 
 #: quilt/push.in:238
 msgid "Patch %s does not apply (enforce with -f)\\n"
-msgstr "Патч %s не применяется (принудить с -f)\\n"
+msgstr "Патч %s не удаётся наложить (принудить с -f)\\n"
 
 #: quilt/push.in:293
-#, fuzzy
 msgid "Patch %s is already applied; check your series file\\n"
-msgstr "Патч %s уже применён\\n"
+msgstr "Патч %s уже наложен; проверьте свой файл series\\n"
 
 #: quilt/push.in:405
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Сначала необходимо обновить самый верхний патч %s.\\n"
 
 #: quilt/push.in:413
-#, fuzzy
 msgid "No patch applied\\n"
-msgstr "Нет применённых патчей\\n"
+msgstr "Нет наложенных патчей\\n"
 
 #: quilt/refresh.in:22
-#, fuzzy
 msgid ""
 "Usage: quilt refresh [-p n|-p ab] [-u|-U num|-c|-C num] [-z[new_name]] [-f] "
 "[--no-timestamps] [--no-index] [--diffstat] [--sort] [--backup] [--strip-"
 "trailing-whitespace] [patch]\\n"
 msgstr ""
-"Синтаксис: quilt refresh [-p n] [-f] [--no-timestamps] [--no-index] [--"
-"diffstat] [--sort] [--backup] [--strip-trailing-whitespace] [патч]\\n"
+"Синтаксис: quilt refresh [-p n|-p ab] [-u|-U число|-c|-C число] [-"
+"z[новое_имя]] [-f] [--no-timestamps] [--no-index] [--diffstat] [--sort] [--"
+"backup] [--strip-trailing-whitespace] [патч]\\n"
 
 #: quilt/refresh.in:26
-#, fuzzy
 msgid ""
 "\n"
 "Refreshes the specified patch, or the topmost patch by default.\n"
@@ -1163,10 +1259,19 @@ msgstr ""
 "\n"
 "-p n\tСоздать патч в стиле -p n (поддерживаются -p0 и -p1).\n"
 "\n"
+"-p ab\tСоздать патч в стиле -p1, но использовать a/file и b/file в качестве\n"
+"\tимён оригинального и нового файлов вместо\n"
+"\tdir.orig/file и dir/file.\n"
+"\n"
 "-u, -U число, -c, -C число\n"
 "\tСоздать универсальный diff (-u, -U) с заданным числом строк\n"
 "\tконтекста. Создать контекстный diff (-c, -C) с заданным числом\n"
 "\tстрок контекста. По умолчанию число строк контекста равно 3.\n"
+"\n"
+"-z[новое_имя]\n"
+"\tНе обновлять верхний патч, а создать новый патч, содержащий изменения.\n"
+"\tЕсли новое_имя не указано, к оригинальному имени патча добавляется «-2»\n"
+"\tи т.д. (См. команду fork.)\n"
 "\n"
 "--no-timestamps\n"
 "\tНе включать отметки времени в заголовки патчей.\n"
@@ -1190,18 +1295,16 @@ msgstr ""
 
 #: quilt/refresh.in:171
 msgid "Can only refresh the topmost patch with -z currently\\n"
-msgstr ""
+msgstr "Опцией -z в настоящее время можно обновить только верхний патч\\n"
 
 #: quilt/refresh.in:202
-#, fuzzy
 msgid ""
 "Cannot refresh patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
-msgstr "Не удалось обновить патчи с -p%s, используйте -p0 или -p1\\n"
+msgstr "Не удалось обновить патчи с -p%s, используйте -p0, -p1 или -pab\\n"
 
 #: quilt/refresh.in:235
-#, fuzzy
 msgid "Diff failed on file '%s', aborting\\n"
-msgstr "Не удалось выполнить diff, завершение\\n"
+msgstr "Не удалось выполнить diff на файле «%s», завершение\\n"
 
 #: quilt/refresh.in:241
 msgid ""
@@ -1230,12 +1333,10 @@ msgid "Refreshed patch %s\\n"
 msgstr "Патч %s обновлён\\n"
 
 #: quilt/remove.in:22
-#, fuzzy
 msgid "Usage: quilt remove [-P patch] {file} ...\\n"
-msgstr "Синтаксис: quilt remove [-p патч] {файл} ...\\n"
+msgstr "Синтаксис: quilt remove [-P патч] {файл} …\\n"
 
 #: quilt/remove.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Remove one or more files from the topmost or named patch.  Files that\n"
@@ -1245,11 +1346,11 @@ msgid ""
 "\tRemove named files from the named patch.\n"
 msgstr ""
 "\n"
-"Удалить один или более файлов из самого верхнего или названного\n"
+"Удалить один или более файлов из самого верхнего или указанного\n"
 "патча.  Файлы, изменённые патчами поверх указанного патча, не\n"
 "могут быть удалены.\n"
 "\n"
-"-p патч\n"
+"-P патч\n"
 "\tПатч, из которого нужно удалить файлы.\n"
 
 #: quilt/remove.in:73 quilt/revert.in:75
@@ -1265,12 +1366,10 @@ msgid "File %s removed from patch %s\\n"
 msgstr "Файл %s удалён из патча %s\\n"
 
 #: quilt/rename.in:22
-#, fuzzy
 msgid "Usage: quilt rename [-P patch] new_name\\n"
-msgstr "Синтаксис: quilt rename [-p патч] новое_имя\\n"
+msgstr "Синтаксис: quilt rename [-P патч] новое_имя\\n"
 
 #: quilt/rename.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Rename the topmost or named patch.\n"
@@ -1281,7 +1380,7 @@ msgstr ""
 "\n"
 "Переименовать верхний или указанный патч.\n"
 "\n"
-"-p патч\n"
+"-P патч\n"
 "\tПатч, который нужно переименовать.\n"
 
 #: quilt/rename.in:84
@@ -1297,12 +1396,10 @@ msgid "Patch %s renamed to %s\\n"
 msgstr "Патч %s переименован в %s\\n"
 
 #: quilt/revert.in:22
-#, fuzzy
 msgid "Usage: quilt revert [-P patch] {file} ...\\n"
-msgstr "Синтаксис: quilt remove [-p патч] {файл} ...\\n"
+msgstr "Синтаксис: quilt remove [-P патч] {файл} …\\n"
 
 #: quilt/revert.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Revert uncommitted changes to the topmost or named patch for the specified\n"
@@ -1316,60 +1413,55 @@ msgid ""
 "\tRevert changes in the named patch.\n"
 msgstr ""
 "\n"
-"Добавить один или более файлов к верхнему или к названному патчу.\n"
-"Файлы необходимо добавлять к патчу перед тем, как изменять их.\n"
-"Файлы, которые изменены патчами, уже наложенными поверх выбранного,\n"
-"не могут быть добавлены.\n"
+"Отменить незакреплённые изменения в верхнем или указанном патче\n"
+"для указанных файлов: после отмены команда «quilt diff -z» не покажет\n"
+"изменений для этих файлов. Изменения в файлах, которые изменяются патчами\n"
+"поверх выбранного, не могут быть отменены.\n"
 "\n"
-"-p патч\n"
-"\tПатч, к которому добавлять файлы.\n"
+"-P патч\n"
+"\tПатч, изменения в котором нужно отменить.\n"
 
 #: quilt/revert.in:103 quilt/revert.in:112
-#, fuzzy
 msgid "File %s is unchanged\\n"
-msgstr "Патч %s не изменён\\n"
+msgstr "Файл %s не изменён\\n"
 
 #: quilt/revert.in:120
-#, fuzzy
 msgid "Failed to revert changes to %s in patch %s\\n"
-msgstr "Не удалось удалить файл %s из патча %s\\n"
+msgstr "Не удалось отменить изменения в %s в патче %s\\n"
 
 #: quilt/revert.in:124
-#, fuzzy
 msgid "Changes to %s in patch %s reverted\\n"
-msgstr "Не удалось вставить патч %s в файл series\\n"
+msgstr "Изменения в %s в патче %s отменены\\n"
 
 #: quilt/scripts/edmail.in:96
-#, fuzzy, perl-format
+#, perl-format
 msgid "Display name `%s' contains unpaired parentheses\n"
-msgstr "Отображаемое имя '%s' содержит непарные скобки\n"
+msgstr "Отображаемое имя «%s» содержит непарные скобки\n"
 
 #: quilt/scripts/edmail.in:114
-#, fuzzy, perl-format
+#, perl-format
 msgid "Delivery address `%s' is invalid\n"
-msgstr "Некорректный адрес назначения '%s'\n"
+msgstr "Некорректный адрес назначения «%s»\n"
 
 #: quilt/scripts/patchfns.in:231 quilt/scripts/patchfns.in:525
-#, fuzzy
 msgid "%s is not a regular file\\n"
-msgstr "Патч %s не входит в файл series\\n"
+msgstr "%s не является обычным файлом\\n"
 
 #: quilt/scripts/patchfns.in:479 quilt/scripts/patchfns.in:496
-#, fuzzy
 msgid "No patches in series\\n"
-msgstr "Нет применённых патчей\\n"
+msgstr "Нет патчей в файле series\\n"
 
 #: quilt/scripts/patchfns.in:481 quilt/scripts/patchfns.in:498
 msgid "No series file found\\n"
-msgstr ""
+msgstr "Файл series не найден\\n"
 
 #: quilt/scripts/patchfns.in:554
 msgid "Patch %s is not in series\\n"
-msgstr "Патч %s не в серии\\n"
+msgstr "Патча %s нет в файле series\\n"
 
 #: quilt/scripts/patchfns.in:582
 msgid "Patch %s is not applied\\n"
-msgstr "Патч %s не применён\\n"
+msgstr "Патч %s не наложен\\n"
 
 #: quilt/scripts/patchfns.in:619
 msgid "File series fully applied, ends at patch %s\\n"
@@ -1393,7 +1485,7 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1018
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
-msgstr ""
+msgstr "Нужно установить «%s» (из пакета %s), чтобы использовать «quilt %s»\\n"
 
 #: quilt/scripts/patchfns.in:1138
 msgid ""
@@ -1401,13 +1493,15 @@ msgid ""
 "upgrade'.\\n"
 msgstr ""
 "Рабочее дерево было создано более старой версией quilt. Пожалуйста, "
-"выполните 'quilt upgrade'.\\n"
+"выполните «quilt upgrade».\\n"
 
 #: quilt/scripts/patchfns.in:1146
 msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
 msgstr ""
+"Файл series больше не соответствует наложенным патчам. Пожалуйста, выполните "
+"«quilt pop -a».\\n"
 
 #: quilt/scripts/remove-trailing-ws.in:43
 #, perl-format
@@ -1445,12 +1539,10 @@ msgid "Renaming %s to %s: %s\n"
 msgstr "Переименование %s в %s: %s\n"
 
 #: quilt/series.in:22
-#, fuzzy
 msgid "Usage: quilt series [--color[=always|auto|never]] [-v]\\n"
-msgstr "Синтаксис: quilt push [-afqv] [--leave-rejects] [число|патч]\\n"
+msgstr "Синтаксис: quilt series [--color[=always|auto|never]] [-v]\\n"
 
 #: quilt/series.in:25
-#, fuzzy
 msgid ""
 "\n"
 "Print the names of all patches in the series file.\n"
@@ -1463,6 +1555,10 @@ msgstr ""
 "\n"
 "Вывести имена всех патчей в файле series.\n"
 "\n"
+"--color[=always|auto|never]\n"
+"\tИспользовать подсветку синтаксиса (опция auto активирует подсветку только "
+"при выводе в терминал).\n"
+"\n"
 "-v\tПодробный, более дружественный вывод.\n"
 
 #: quilt/setup.in:38 quilt/setup.in:58
@@ -1474,12 +1570,12 @@ msgid "File %s exists\\n"
 msgstr "Файл %s существует\\n"
 
 #: quilt/setup.in:264
-#, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
 msgstr ""
-"Синтаксис: quilt setup [-d префикс-пути] [-v] {файл-spec|файл-series}\\n"
+"Синтаксис: quilt setup [-d префикс-пути] [-v] [--sourcedir путь] [--fuzz=N] "
+"[--slow|--fast] {файл-spec|файл-series}\\n"
 
 #: quilt/setup.in:267
 msgid ""
@@ -1507,6 +1603,32 @@ msgid ""
 "\ttarget directory. If the input is a series file, it is assumed that\n"
 "\tall archives have been extracted manually beforehand.\n"
 msgstr ""
+"\n"
+"Инициализирует дерево исходных кодов из спецификации rpm или файла series.\n"
+"\n"
+"-d\tОпциональный префикс пути для дерева исходных кодов.\n"
+"\n"
+"--sourcedir\n"
+"\tДиректория, которая содержит исходные коды пакета. По умолчанию «.».\n"
+"\n"
+"-v\tПодробный отладочный вывод.\n"
+"\n"
+"--fuzz=N\n"
+"\tУстановить максимальный уровень fuzz (требуется rpm 4.6 или новее).\n"
+"\n"
+"--slow\tИспользовать оригинальный, медленный метод для обработки файла spec. "
+"Это режим\n"
+"\tпо умолчанию в настоящий момент, но в будущем это может измениться. В этом "
+"режиме\n"
+"\trpmbuild генерирует рабочее дерево во временной директории, где все\n"
+"\tего действия записываются, а затем всё проигрывается заново в целевой\n"
+"\tдиректории.\n"
+"\n"
+"--fast\tИспользовать альтернативный, более быстрый метод обработки файла "
+"spec. В этом\n"
+"\tрежиме rpmbuild генерирует рабочее дерево прямо в целевой директории.\n"
+"\tЕсли на ввод дан файл series, предполагается, что все архивы были\n"
+"\tуже распакованы вручную.\n"
 
 #: quilt/setup.in:371
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
@@ -1518,9 +1640,8 @@ msgid "The -v option will show rpm's output\\n"
 msgstr "Опция -v покажет вывод rpm\\n"
 
 #: quilt/setup.in:428 quilt/setup.in:440
-#, fuzzy
 msgid "File %s not found\\n"
-msgstr "Файл %s не изменяется\\n"
+msgstr "Файл %s не найден\\n"
 
 #: quilt/setup.in:431 quilt/setup.in:443
 msgid "Unpacking archive %s\\n"
@@ -1528,7 +1649,7 @@ msgstr "Распаковка архива %s\\n"
 
 #: quilt/setup.in:453
 msgid "Trying alternative patches and series names..."
-msgstr ""
+msgstr "Попытка использовать альтернативные имена для series и patches…"
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"
@@ -1546,9 +1667,9 @@ msgid ""
 msgstr ""
 "\n"
 "Сделать снимок текущего состояния рабочего дерева.  После снятия снимка,\n"
-"дерево можно модифицировать обычными спосоами, включая применение и\n"
-"отмену патчей. Список изменений diff относительно дерева в момент взятия\n"
-"снимка может быть создан с помощью \\`quilt diff --snapshot'.\n"
+"дерево можно модифицировать обычными способами, включая наложение и\n"
+"откат патчей. Список изменений diff относительно дерева в момент взятия\n"
+"снимка может быть создан с помощью «quilt diff --snapshot».\n"
 "\n"
 "-d\tПросто удалить текущий снимок.\n"
 
@@ -1563,7 +1684,7 @@ msgid ""
 "patches.\n"
 msgstr ""
 "\n"
-"Напечатать имя верхнего патча в текущем стеке применённых патчей.\n"
+"Вывести имя верхнего патча в текущем стеке применённых патчей.\n"
 
 #: quilt/unapplied.in:22
 msgid "Usage: quilt unapplied [patch]\\n"
@@ -1576,7 +1697,7 @@ msgid ""
 "the specified patch in the series file.\n"
 msgstr ""
 "\n"
-"Вывести список неприменённых патчей или всех патчей, следующих\n"
+"Вывести список неналоженных патчей или всех патчей, следующих\n"
 "за указанным патчем в файле series.\n"
 
 #: quilt/upgrade.in:25
@@ -1597,7 +1718,7 @@ msgstr ""
 "Обновить метаданные в рабочем дереве со старой версии quilt до текущей\n"
 "версии. Эта команда необходима только, если формат метаданных quilt\n"
 "изменился, а рабочее дерево по-прежнему содержит метаданные старого\n"
-"формата. В этом случае quilt попросит запустить \\`quilt upgrade'.\n"
+"формата. В этом случае quilt попросит запустить «quilt upgrade».\n"
 
 #: quilt/upgrade.in:67
 msgid ""
@@ -1621,122 +1742,6 @@ msgid ""
 "patches from scratch.\\n"
 msgstr ""
 "\n"
-"Пожалуйста, удалите все патчи, используя \\`quilt pop -a' версией quilt, "
+"Пожалуйста, удалите все патчи, используя «quilt pop -a» версией quilt, "
 "использованной при создании этого рабочего дерева, или удалите директорию %s "
 "и примените все патчи с нуля.\\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Initializes a source tree from an rpm spec file or a quilt series file.\n"
-#~ "\n"
-#~ "-d\tOptional path prefix for the resulting source tree.\n"
-#~ "\n"
-#~ "--sourcedir\n"
-#~ "\tDirectory that contains the package sources. Defaults to \\`.'.\n"
-#~ "\n"
-#~ "-v\tVerbose debug output.\n"
-#~ "\n"
-#~ "--fuzz=N\n"
-#~ "\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Инициализирует исходное дерево из файла rpm spec или файла quilt series.\n"
-#~ "\n"
-#~ "-d\tопциональный префикс пути (поддиректория).\n"
-#~ "\n"
-#~ "-v\tвывод отладочной информации.\n"
-
-#~ msgid ""
-#~ "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
-#~ msgstr "Не удалось обновить патчи с -p%s, используйте -p0 или -p1\\n"
-
-#~ msgid "Usage: quilt series [-v]\\n"
-#~ msgstr "Синтаксис: quilt series [-v]\\n"
-
-#~ msgid "Patch is not applied\\n"
-#~ msgstr "Патч не применён\\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Import external patches.\n"
-#~ "\n"
-#~ "-p num\n"
-#~ "\tNumber of directory levels to strip when applying (default=1)\n"
-#~ "\n"
-#~ "-n patch\n"
-#~ "\tPatch filename to use inside quilt. This option can only be\n"
-#~ "\tused when importing a single patch.\n"
-#~ "\n"
-#~ "-f\tOverwite/update existing patches.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Импортировать внешние патчи.\n"
-#~ "\n"
-#~ "-p число\n"
-#~ "\tЧисло уровней директорий, которые нужно убрать перед наложением\n"
-#~ "\t(по умочанию=1)\n"
-#~ "\n"
-#~ "-n патч\n"
-#~ "\tИмя патча для использования в quilt. Эту опцию можно использовать\n"
-#~ "\tтолько прии импорте одного патча.\n"
-#~ "\n"
-#~ "-f\tПерезаписать или обновить существующие патчи.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Create mail messages from all patches in the series file, and either "
-#~ "store\n"
-#~ "them in a mailbox file, or send them immediately. The editor is opened\n"
-#~ "with a template for the introductory message. Please see the file\n"
-#~ "%s for details.\n"
-#~ "\n"
-#~ "--mbox file\n"
-#~ "\tStore all messages in the specified file in mbox format. The mbox\n"
-#~ "\tcan later be sent using formail, for example.\n"
-#~ "\n"
-#~ "--send\n"
-#~ "\tSend the messages directly using %s.\n"
-#~ "\n"
-#~ "--from, --subject\n"
-#~ "\tThe values for the From and Subject headers to use.\n"
-#~ "\n"
-#~ "--to, --cc, --bcc\n"
-#~ "\tAppend a recipient to the To, Cc, or Bcc header.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Создать почтовые сообщения из всех патчей в файле series, и либо\n"
-#~ "сохранить их в файле mailbox, либо немедленно отослать. Открывается\n"
-#~ "редактор с шаблоном для вводного сообщения. Подробности смотрите в\n"
-#~ "файле %s.\n"
-#~ "\n"
-#~ "--mbox файл\n"
-#~ "\tСохранить все сообщения в указанном файле в формате mbox.\n"
-#~ "\tmbox затем можно отправить, используя, например, formail.\n"
-#~ "\n"
-#~ "--send\n"
-#~ "\tОтослать сообщения немедленно, используя %s.\n"
-#~ "\n"
-#~ "--from, --subject\n"
-#~ "\tЗначения для заголовочных полей From и Subject.\n"
-#~ "\n"
-#~ "--to, --cc, --bcc\n"
-#~ "\tДобавить получателя к заголовку To, Cc, или Bcc.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Create a new patch with the specified file name, and insert it after the\n"
-#~ "topmost patch in the patch series file.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Создать новый патч с указанным именем файла, и вставить его после\n"
-#~ "верхнего патча в файле series.\n"
-
-#~ msgid "Patch %s not found in file series\\n"
-#~ msgstr "Патч %s не найден в файле series\\n"
-
-#~ msgid "Display name '%s' contains invalid characters\n"
-#~ msgstr "Отображаемое имя '%s' содержит некорректные символы\n"
-
-#~ msgid "Display name '%s' contains non-printable or 8-bit characters\n"
-#~ msgstr "Отображаемое имя '%s' содержит непечатные или 8-битные символы\n"
