@@ -97,7 +97,7 @@ create_symlink()
 	do
 		set -- "${1#*/}" "${2#*/}"
 	done
-	up=$(echo "${2%/*}" | sed -re 's:[^/]+:..:g')
+	up=$(echo "$2" | sed -r -e 's:(^|/)[^/]*$::' -e 's:[^/]+:..:g')
 	set -- "${up:+$up/}$1"
 	set -- "${1%/}"
 	ln -s "${1:-.}" "$link"
