@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2015-02-05 09:54+0900\n"
+"PO-Revision-Date: 2015-02-05 23:15+0900\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "Language: \n"
@@ -1476,9 +1476,7 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1018
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
-msgstr ""
-"'quilt %s' を使用するためには、(パッケージ %sから) '%s' をインストール\n"
-"する必要があります\\n"
+msgstr "'%s' (%s パッケージ) がインストールされていないと、'quilt %s' は利用できません\\n"
 
 #: quilt/scripts/patchfns.in:1138
 msgid ""
