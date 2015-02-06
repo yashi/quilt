@@ -1536,8 +1536,8 @@ msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
 msgstr ""
-"Le fichier series ne correspond plus aux patchs appliqués. Veuillez "
-"utiliser « quilt pop -a ».\\n"
+"Le fichier series ne correspond plus aux patchs appliqués. Veuillez utiliser "
+"« quilt pop -a ».\\n"
 
 #: quilt/scripts/remove-trailing-ws.in:43
 #, perl-format
