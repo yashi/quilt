@@ -2,18 +2,19 @@
 # German quilt translation
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 # Andreas Gruenbacher <agruen@suse.de>, 2003, 2005.
+# Petr Tesarik <ptesarik@suse.de>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"PO-Revision-Date: 2005-07-19 11:32+0200\n"
-"Last-Translator: Andreas Gruenbacher <agruen@suse.de>\n"
+"PO-Revision-Date: 2015-02-05 17:48+0100\n"
+"Last-Translator: Petr Tesarik <ptesarik@suse.de>\n"
 "Language-Team:  <en@li.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: bin/quilt.in:40
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
@@ -204,15 +205,14 @@ msgid "Failed to remove patch file %s\\n"
 msgstr "Konnte Patch %s nicht entfernen\\n"
 
 #: quilt/diff.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-z] [-"
 "R] [-P patch] [--snapshot] [--diff=utility] [--no-timestamps] [--no-index] "
 "[--sort] [--color[=always|auto|never]] [file ...]\\n"
 msgstr ""
-"Verwendung: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine patch|-"
-"z] [-R] [-P patch] [--snapshot] [--diff=programm] [--no-timestamps] [--no-"
-"index] [--sort] [--color] [datei ...]\\n"
+"Verwendung: quilt diff [-p n|-p ab] [-u|-U num|-c|-C num] [--combine "
+"patch|-z] [-R] [-P patch] [--snapshot] [--diff=programm] [--no-timestamps] "
+"[--no-index] [--sort] [--color[=always|auto|never]] [datei ...]\\n"
 
 #: quilt/diff.in:28
 #, fuzzy
@@ -328,7 +328,7 @@ msgstr ""
 
 #: quilt/diff.in:249
 msgid "No snapshot to diff against\\n"
-msgstr ""
+msgstr "Kein Snapshot, gegen dem Diff erzeugt werden kann\\n"
 
 #: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
 msgid "Patch %s not applied before patch %s\\n"
@@ -737,15 +737,14 @@ msgid "Failed to insert patch %s into file series\\n"
 msgstr "Konnte Patch %s nicht in die series-Datei einfügen\\n"
 
 #: quilt/mail.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
 "subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
 msgstr ""
-"Verwendung: quilt mail {--mbox datei|--send} [-m text] [--prefix prefix] [--"
-"sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] "
-"[first_patch [last_patch]]\\n"
+"Verwendung: quilt mail {--mbox datei|--send} [-m text] [-M datei] [--"
+"prefix präfix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] "
+"[--subject ...] [--reply-to nachricht] [first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
 #, fuzzy
@@ -830,9 +829,8 @@ msgstr ""
 "\tFüre einen Empfänger an die To, Cc, or Bcc-Kopfzeilen an.\n"
 
 #: quilt/mail.in:204 quilt/mail.in:212
-#, fuzzy
 msgid "Introduction message already specified"
-msgstr "Einleitung gespeichert als %s\\n"
+msgstr "Einleitungsnachricht bereits angegeben"
 
 #: quilt/mail.in:310
 msgid "Could not determine the envelope sender address. Please use --sender."
@@ -899,16 +897,14 @@ msgstr ""
 "im Verzeichnisbaum verwendet.\n"
 
 #: quilt/new.in:76
-#, fuzzy
 msgid ""
 "Cannot create patches with -p%s, please specify -p0, p1, or -pab instead\\n"
 msgstr ""
-"Kann Patches mit Level -p%s nicht aktualisieren, bitte -p0, -p1 oder -pab "
-"angeben\\n"
+"Kann Patches mit -p%s nicht erzeugen, bitte -p0, -p1 oder -pab angeben\\n"
 
 #: quilt/new.in:89
 msgid "QUILT_PATCHES(%s) must differ from QUILT_PC(%s)\\n"
-msgstr ""
+msgstr "QUILT_PATCHES(%s) muss sich von QUILT_PC(%s) unterscheiden\\n"
 
 #: quilt/new.in:97 quilt/refresh.in:185
 msgid "Patch %s exists already\\n"
@@ -937,10 +933,11 @@ msgstr ""
 "Patch in der series-Datei aus.\n"
 
 #: quilt/patches.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt patches [-v] [--color[=always|auto|never]] {file} [files...]\\n"
-msgstr "Verwendung: quilt patches [-v] {file}\\n"
+msgstr ""
+"Verwendung: quilt patches [-v] [--color[=always|auto|never]] {datei} "
+"[datei ...]\\n"
 
 #: quilt/patches.in:27
 #, fuzzy
@@ -963,9 +960,8 @@ msgstr ""
 "-v\tAusführlichere, benutzerfreundliche Ausgabe.\n"
 
 #: quilt/pop.in:22
-#, fuzzy
 msgid "Usage: quilt pop [-afRqv] [--refresh] [num|patch]\\n"
-msgstr "Verwendung: quilt pop [-afRqv] [num|patch]\\n"
+msgstr "Verwendung: quilt pop [-afRqv] [--refresh] [num|patch]\\n"
 
 #: quilt/pop.in:25
 #, fuzzy
@@ -1032,7 +1028,7 @@ msgstr "Entferne patch %s\\n"
 
 #: quilt/pop.in:216 quilt/push.in:373
 msgid "Options %s and %s are mutually exclusive\\n"
-msgstr ""
+msgstr "Optionen %s und %s schließen sich gegenseitig aus\\n"
 
 #: quilt/pop.in:238
 msgid "Patch %s needs to be refreshed first.\\n"
@@ -1065,13 +1061,12 @@ msgstr ""
 "Patch in der series-Datei aus.\n"
 
 #: quilt/push.in:24
-#, fuzzy
 msgid ""
 "Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
 "color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
 "Verwendung: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [num|patch]\\n"
+"color[=always|auto|never]] [--refresh] [num|patch]\\n"
 
 #: quilt/push.in:27
 #, fuzzy
@@ -1161,18 +1156,16 @@ msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "Patch %s lässt sich nicht anwenden (erzwingen mit -f)\\n"
 
 #: quilt/push.in:293
-#, fuzzy
 msgid "Patch %s is already applied; check your series file\\n"
-msgstr "Patch %s existiert bereits, bitte einen anderen Namen wählen\\n"
+msgstr "Patch %s ist bereits angewandt; überprüfen Sie die series-Datei\\n"
 
 #: quilt/push.in:405
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "Der oberste Patch %s muss zuerst aktualisiert werden (Refresh).\\n"
 
 #: quilt/push.in:413
-#, fuzzy
 msgid "No patch applied\\n"
-msgstr "Keine Patches angewandt\\n"
+msgstr "Kein Patch angewandt\\n"
 
 #: quilt/refresh.in:22
 msgid ""
@@ -1296,7 +1289,6 @@ msgid "Can only refresh the topmost patch with -z currently\\n"
 msgstr "Kann nur den obersten Patch mit -z aktualisieren\\n"
 
 #: quilt/refresh.in:202
-#, fuzzy
 msgid ""
 "Cannot refresh patches with -p%s, please specify -p0, -p1, or -pab instead\\n"
 msgstr ""
@@ -1304,9 +1296,8 @@ msgstr ""
 "angeben\\n"
 
 #: quilt/refresh.in:235
-#, fuzzy
 msgid "Diff failed on file '%s', aborting\\n"
-msgstr "Diff fehlgeschlagen, Abbruch.\\n"
+msgstr "Diff auf Datei '%s' fehlgeschlagen, Abbruch\\n"
 
 #: quilt/refresh.in:241
 msgid ""
@@ -1447,9 +1438,8 @@ msgid "Delivery address `%s' is invalid\n"
 msgstr "Zustelladresse `%s' ist ungültig\n"
 
 #: quilt/scripts/patchfns.in:231 quilt/scripts/patchfns.in:525
-#, fuzzy
 msgid "%s is not a regular file\\n"
-msgstr "Patch %s ist nicht in der series-Datei\\n"
+msgstr "%s ist keine reguläre Datei\\n"
 
 #: quilt/scripts/patchfns.in:479 quilt/scripts/patchfns.in:496
 msgid "No patches in series\\n"
@@ -1457,7 +1447,7 @@ msgstr "Keine Patches in der series-Datei\\n"
 
 #: quilt/scripts/patchfns.in:481 quilt/scripts/patchfns.in:498
 msgid "No series file found\\n"
-msgstr ""
+msgstr "Keine series-Datei gefunden\\n"
 
 #: quilt/scripts/patchfns.in:554
 msgid "Patch %s is not in series\\n"
@@ -1491,6 +1481,8 @@ msgstr ""
 #: quilt/scripts/patchfns.in:1018
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
 msgstr ""
+"'%s' (vom Paket '%s') muss installiert sein, um 'quilt %s' zu "
+"verwenden\\n"
 
 #: quilt/scripts/patchfns.in:1138
 msgid ""
@@ -1505,6 +1497,8 @@ msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
 msgstr ""
+"Die series-Datei entspricht nicht mehr der angewandten Patches. Bitte führen "
+"Sie 'quilt pop -a' aus.\\n"
 
 #: quilt/scripts/remove-trailing-ws.in:43
 #, perl-format
@@ -1542,11 +1536,8 @@ msgid "Renaming %s to %s: %s\n"
 msgstr "Umbenennen von %s auf %s: %s\n"
 
 #: quilt/series.in:22
-#, fuzzy
 msgid "Usage: quilt series [--color[=always|auto|never]] [-v]\\n"
-msgstr ""
-"Verwendung: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [num|patch]\\n"
+msgstr "Verwendung: quilt series [--color[=always|auto|never]] [-v]\\n"
 
 #: quilt/series.in:25
 #, fuzzy
@@ -1573,15 +1564,15 @@ msgid "File %s exists\\n"
 msgstr "Datei %s existiert\\n"
 
 #: quilt/setup.in:264
-#, fuzzy
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
 msgstr ""
 "Verwendung: quilt setup [-d pfad-präfix] [-v] [--sourcedir verzeichnis] [--"
-"fuzz=N] {spec-datei|series-datei}\\n"
+"fuzz=N] [--slow|--fast] {spec-datei|series-datei}\\n"
 
 #: quilt/setup.in:267
+#, fuzzy
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1607,6 +1598,15 @@ msgid ""
 "\ttarget directory. If the input is a series file, it is assumed that\n"
 "\tall archives have been extracted manually beforehand.\n"
 msgstr ""
+"\n"
+"Initialisiere einen Quellbaum aus einer rpm spec-Datei oder einer quilt series-Datei.\n"
+"\n"
+"-d\tOptionaler Pfad-Präfix für den erzeugten Quellbaum.\n"
+"\n"
+"--sourcedir\n"
+"\tVerzeichnis, das die Paketquellen enthält. (Default: \\`.'.)\n"
+"\n"
+"-v\tAusführliche Ausgabe.\n"
 
 #: quilt/setup.in:371
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
@@ -1628,7 +1628,7 @@ msgstr "Entpacke Archiv %s\\n"
 
 #: quilt/setup.in:453
 msgid "Trying alternative patches and series names..."
-msgstr ""
+msgstr "Alternative Patches und series-Dateinamen werden versucht..."
 
 #: quilt/snapshot.in:22
 msgid "Usage: quilt snapshot [-d]\\n"
@@ -1729,38 +1729,3 @@ msgstr ""
 "Bitte entfernen Sie alle Patches mit \\`quilt pop -a' der quilt-Version, die "
 "zur Erzeugung des Arbeitsverzeichnis verwendet wurden, oder entfernen Sie "
 "das Verzeichnis %s, und wenden Sie die Patches neu an.\\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Initializes a source tree from an rpm spec file or a quilt series file.\n"
-#~ "\n"
-#~ "-d\tOptional path prefix for the resulting source tree.\n"
-#~ "\n"
-#~ "--sourcedir\n"
-#~ "\tDirectory that contains the package sources. Defaults to \\`.'.\n"
-#~ "\n"
-#~ "-v\tVerbose debug output.\n"
-#~ "\n"
-#~ "--fuzz=N\n"
-#~ "\tSet the maximum fuzz factor (needs rpm 4.6 or later).\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Initialisiere einen Quellbaum aus einer rpm spec-Datei oder einer quilt "
-#~ "series-Datei.\n"
-#~ "\n"
-#~ "-d\tOptionaler Pfad-Präfix für den erzeugten Quellbaum.\n"
-#~ "\n"
-#~ "--sourcedir\n"
-#~ "\tVerzeichnis, das die Paketquellen enthält. (Default: \\`.'.)\n"
-#~ "\n"
-#~ "-v\tAusführliche Ausgabe.\n"
-
-#~ msgid ""
-#~ "Cannot refresh patches with -p%s, please specify -p0 or -p1 instead\\n"
-#~ msgstr ""
-#~ "Kann Patches mit Level -p$opt_strip_level nicht aktualisieren, bitte -p0 "
-#~ "oder -p1 angeben\\n"
-
-#~ msgid "Usage: quilt series [-v]\\n"
-#~ msgstr "Verwendung: quilt series [-v]\\n"
