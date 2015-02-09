@@ -1,8 +1,33 @@
+Version 0.64 (Mon Feb 09 2015)
+  - Check for series file consistency
+  - Performance: Several optimizations
+  - Test suite: Several fixes and coverage improvements
+  - Test suite: Run the tests in predictable order
+  - files: Add support for unapplied patches
+  - graph: Check for graphviz availability
+  - mail: Remove procmail dependency
+  - mail: Don't include the release number in User-Agent
+  - pop: Add --refresh option
+  - push: Add --refresh option
+  - push: Do not use interactive mode with -f
+  - setup: Skip version check
+  - setup: Check for rpmbuild availability
+  - setup: Handle long options passed to tar
+  - setup: Several cleanups and minor fixes
+  - setup: Major performance optimizations
+  - setup: Fix path to extra patches in series file
+  - setup: Trace calls earlier
+  - setup: Add --fast option
+  - setup: Fix link creation
+  - quilt.el: Fix tramp support
+  - quilt.el: Fix patch select completion
+
 Version 0.63 (Sun May 25 2014)
   - New NEWS file, containing a human-readable changelog
   - Option -E is no longer passed to patch by default
-  - Huge performance improvement (e.g., for commands series, applied and unapplied)
-  - configure: Add compat symlinks for cp and md5sum
+  - Huge performance improvement (e.g., for commands series, applied and
+    unapplied)
+  - configure: Add compat symlinks for md5sum
   - Return 2 when there is nothing to do, contrasting with errors (ret=1)
   - Exit with an error when diff's retcode=2 (error) on patch refresh
   - bash_completion: cleanups and performance improvement (Savannah's #27111)
