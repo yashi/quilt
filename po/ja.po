@@ -1476,7 +1476,9 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1018
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
-msgstr "'%s' (%s パッケージ) がインストールされていないと、'quilt %s' は利用できません\\n"
+msgstr ""
+"'%s' (%s パッケージ) がインストールされていないと、'quilt %s' は利用できませ"
+"ん\\n"
 
 #: quilt/scripts/patchfns.in:1138
 msgid ""
