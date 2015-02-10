@@ -4,7 +4,11 @@ RELEASING QUILT
 Step 1: set the new version and test
 ------------------------------------
 
-- Bump the version in AC_INIT in configure.ac
+- If you can update one translation file, do so and commit the po file.
+  Even better, ping the translators (their names and emails are in the po
+  file headers, asking on the quilt-dev list can work too), and give them
+  the opportunity to update their work. Count one week for that.
+- Bump the version in AC_INIT in configure.ac.
 - Regenerate configure:
   $ autoconf
   Make sure you don't use a version of autoconf older than the one
@@ -15,10 +19,6 @@ Step 1: set the new version and test
   $ ./configure --prefix=/opt/quilt
   $ make
   $ make check
-- If you can update one translation file, do so and commit the po file
-  Even better, give ping the translators (their names and emails are
-  in the po file headers), and give them the opportunity to update
-  their work. 
 
 Step 2: tag the new version
 ---------------------------
@@ -34,5 +34,6 @@ Step 3: publish the new version
 
 - If not done already:
   $ ./configure --prefix=/opt/quilt
+- If you have multiple PGP keys, make sure the right one is selected.
 - $ make publish
 
