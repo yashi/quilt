@@ -11,40 +11,45 @@
 	> File sub/g added to patch patches/p.diff
 	> File sub/h added to patch patches/p.diff
 
-	$ rm -f sub/g
 	$ echo h1 > sub/h
+	$ quilt revert sub/h
+	> Changes to sub/h in patch patches/p.diff reverted
+
+	$ quilt diff -z
+
+# Our patch modifies file f, deletes file g and creates file h
+	$ echo f2 > sub/f
+	$ rm -f sub/g
+	$ echo h2 > sub/h
 	$ quilt refresh
 	> Refreshed patch patches/p.diff
 
+# Check if we can revert modifications
 	$ cd sub
-	$ echo f2 > f
-	$ quilt revert f
+	$ echo f3 > f
+	$ echo h3 > h
+	$ quilt revert f g h
 	> Changes to sub/f in patch ../patches/p.diff reverted
-
-	$ quilt diff -z
-	$ quilt pop -qf
-	> Removing patch ../patches/p.diff
-	> No patches applied
-
-	$ quilt push -q
-	> Applying patch ../patches/p.diff
-	> Now at patch ../patches/p.diff
-
-	$ echo g2 > g
-	$ quilt revert g
-	> Changes to sub/g in patch ../patches/p.diff reverted
-
-	$ quilt diff -z
-	$ quilt pop -qf
-	> Removing patch ../patches/p.diff
-	> No patches applied
-
-	$ quilt push -q
-	> Applying patch ../patches/p.diff
-	> Now at patch ../patches/p.diff
-
-	$ echo h2 > h
-	$ quilt revert h
+	> File sub/g is unchanged
 	> Changes to sub/h in patch ../patches/p.diff reverted
 
 	$ quilt diff -z
+
+# Check if we can revert file creation
+	$ echo g3 > g
+	$ quilt revert f g
+	> File sub/f is unchanged
+	> Changes to sub/g in patch ../patches/p.diff reverted
+
+	$ quilt diff -z
+	$ [ ! -e g ] || echo "File sub/g shouldn't exist"
+
+# Check if we can revert file deletion
+	$ rm f h
+	$ quilt revert f h
+	> Changes to sub/f in patch ../patches/p.diff reverted
+	> Changes to sub/h in patch ../patches/p.diff reverted
+
+	$ quilt diff -z
+	$ [ -e f ] || echo "File sub/f should exist"
+	$ [ -e h ] || echo "File sub/h should exist"
