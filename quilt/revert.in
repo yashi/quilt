@@ -129,4 +129,4 @@ exit $status
 ### Local Variables:
 ### mode: shell-script
 ### End:
-# vim:filetype=sh:w
+# vim:filetype=sh
