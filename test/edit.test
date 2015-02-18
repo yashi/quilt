@@ -37,6 +37,19 @@ $ quilt files
 $ quilt refresh
 > Refreshed patch patches/patch
 
+# Test the behavior if the editor deletes a file completely
+$ echo foobaz > foobaz
+$ cat > editor
+< #! /bin/sh
+< echo Deleting $1
+< rm -f $1
+
+$ quilt edit foobaz
+> File foobaz added to patch patches/patch
+> Deleting foobaz
+
+$ [ ! -e foobaz ] || echo "File foobaz shouldn't exist"
+
 # Test the behavior if the editor is called on a new file but
 # does not actually create it
 $ cat > editor
@@ -47,6 +60,23 @@ $ quilt edit nofoo
 > File nofoo added to patch patches/patch
 > Doing nothing to nofoo
 > File nofoo removed from patch patches/patch
+
+# Test the behavior if the patch is deleting a file and the
+# user calls "quilt edit" on that file but makes no change to it
+$ rm -f foobar
+$ quilt refresh
+> Refreshed patch patches/patch
+$ quilt diff -p ab --no-index foobar
+> --- a/foobar
+> +++ /dev/null
+> @@ -1 +0,0 @@
+> -foobar
+
+$ quilt edit foobar
+> File foobar is already in patch patches/patch
+> Doing nothing to foobar
+
+$ [ ! -e foobar ] || echo "File foobar shouldn't exist"
 
 # Test the behavior if the editor creates a brand new file
 $ cat > editor
@@ -62,5 +92,6 @@ $ cat foo2
 
 $ quilt files -v
 > + foo2
->   foobar
+> - foobar
+> - foobaz
 >   subdir/foo
