@@ -785,7 +785,10 @@ cat_to_new_file()
 {
 	local filename="$1"
 
-	[ -e "$filename" ] && rm -f "$filename"
+	if [ -e "$filename" -a ! -L "$filename" ]
+	then
+		rm -f "$filename"
+	fi
 
 	case "$filename" in
 	*.gz)

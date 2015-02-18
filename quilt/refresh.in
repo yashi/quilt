@@ -324,7 +324,12 @@ if [ -e "$patch_file" ] && \
 then
 	printf $"Patch %s is unchanged\n" "$(print_patch "$patch")"
 elif ( [ -z "$QUILT_BACKUP" -o ! -e "$patch_file" ] || \
-       mv "$patch_file" "$patch_file~" ) && \
+       if [ -L "$patch_file" ] ; \
+       then \
+          cp "$patch_file" "$patch_file~"; \
+       else \
+          mv "$patch_file" "$patch_file~"; \
+       fi ) && \
      cat_to_new_file "$patch_file" < $tmp_result
 then
 	if [ -n "$opt_fork" ]

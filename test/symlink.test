@@ -1,0 +1,53 @@
+	$ mkdir patches
+
+# quilt should not remove symlinks to patch files
+	$ echo foo > foo
+	$ quilt new test.diff
+	> Patch patches/test.diff is now on top
+
+	$ quilt add foo
+	> File foo added to patch patches/test.diff
+
+	$ echo "foo changed" > foo
+	$ quilt refresh
+	> Refreshed patch patches/test.diff
+
+# Setup a symlink
+	$ mv patches/test.diff .
+	$ ln -s ../test.diff patches/test.diff
+	$ readlink patches/test.diff
+	> ../test.diff
+
+# Test the refresh
+	$ echo "foo changed 2" > foo
+	$ quilt refresh --no-index -p ab
+	> Refreshed patch patches/test.diff
+
+	$ readlink patches/test.diff
+	> ../test.diff
+
+# Test the refresh --backup
+	$ echo "foo changed 3" > foo
+	$ quilt refresh --backup --no-index -p ab
+	> Refreshed patch patches/test.diff
+
+	$ readlink patches/test.diff
+	> ../test.diff
+
+	$ cat patches/test.diff
+	> --- a/foo
+	> +++ b/foo
+	> @@ -1 +1 @@
+	> -foo
+	> +foo changed 3
+
+	$ readlink patches/test.diff~
+	$ echo %{?}
+	> 1
+
+	$ cat patches/test.diff~
+	> --- a/foo
+	> +++ b/foo
+	> @@ -1 +1 @@
+	> -foo
+	> +foo changed 2
