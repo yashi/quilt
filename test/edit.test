@@ -37,6 +37,17 @@ $ quilt files
 $ quilt refresh
 > Refreshed patch patches/patch
 
+# Test the behavior if the editor is called on a new file but
+# does not actually create it
+$ cat > editor
+< #! /bin/sh
+< echo Doing nothing to $1
+
+$ quilt edit nofoo
+> File nofoo added to patch patches/patch
+> Doing nothing to nofoo
+> File nofoo removed from patch patches/patch
+
 # Test the behavior if the editor creates a brand new file
 $ cat > editor
 < #! /bin/sh
