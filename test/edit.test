@@ -1,5 +1,6 @@
 $ mkdir patches subdir
 
+# Test the behavior if the editor modifies existing files
 $ cat > editor
 < #! /bin/sh
 < echo Editing $1
@@ -16,15 +17,15 @@ $ quilt edit foobar
 > File foobar added to patch patches/patch
 > Editing foobar
 
+$ cat foobar
+> barbar
+
 $ cd subdir
 $ echo foo > foo
 $ quilt edit foo
 > File subdir/foo added to patch ../patches/patch
 > Editing subdir/foo
-
 $ cd ..
-$ cat foobar
-> barbar
 
 $ cat subdir/foo
 > bar
@@ -32,3 +33,23 @@ $ cat subdir/foo
 $ quilt files
 > foobar
 > subdir/foo
+
+$ quilt refresh
+> Refreshed patch patches/patch
+
+# Test the behavior if the editor creates a brand new file
+$ cat > editor
+< #! /bin/sh
+< echo Creating $1
+< echo "new line" > $1
+
+$ quilt edit foo2
+> File foo2 added to patch patches/patch
+> Creating foo2
+$ cat foo2
+> new line
+
+$ quilt files -v
+> + foo2
+>   foobar
+>   subdir/foo
