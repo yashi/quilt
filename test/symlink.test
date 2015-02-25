@@ -73,6 +73,7 @@
 	> +foo changed 4
 
 # Test the refresh --backup when target is read-only
+	$ rm -f test.diff
 	$ mv patches/test.diff .
 	$ ln -s ../test.diff patches/test.diff
 	$ chmod -w test.diff
