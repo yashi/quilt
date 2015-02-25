@@ -785,7 +785,10 @@ cat_to_new_file()
 {
 	local filename="$1"
 
-	if [ -e "$filename" -a ! -L "$filename" ]
+	# If the destination file is a symbolic link, preserve it unless its
+	# target is read-only. In other cases, delete the patch file first in
+	# case it has hard links.
+	if [ -e "$filename" -a ! \( -L "$filename" -a -w "$filename" \) ]
 	then
 		rm -f "$filename"
 	fi
