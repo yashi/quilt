@@ -28,6 +28,7 @@
 
 # Test the refresh --backup
 	$ echo "foo changed 3" > foo
+	$ touch -r patches/test.diff test.timeref
 	$ quilt refresh --backup --no-index -p ab
 	> Refreshed patch patches/test.diff
 
@@ -51,6 +52,8 @@
 	> @@ -1 +1 @@
 	> -foo
 	> +foo changed 2
+
+	$ [ patches/test.diff~ -nt test.timeref ] && echo "mtimes differ"
 
 # Test the refresh when target is read-only
 	$ chmod -w test.diff

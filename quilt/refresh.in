@@ -326,7 +326,7 @@ then
 elif ( [ -z "$QUILT_BACKUP" -o ! -e "$patch_file" ] || \
        if [ -L "$patch_file" ] ; \
        then \
-          cp "$patch_file" "$patch_file~"; \
+          cp -p "$patch_file" "$patch_file~"; \
        else \
           mv "$patch_file" "$patch_file~"; \
        fi ) && \
