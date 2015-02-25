@@ -267,6 +267,7 @@ $(patsubst %.in,%,$(wildcard bin/*.in quilt/*.in quilt/scripts/*.in)) :: Makefil
 		-e 's:@ETCDIR''@:$(etcdir):g'				\
 		-e 's:@LOCALEDIR''@:$(localedir):g'			\
 		-e 's:@DOCSUBDIR''@:$(docdir):g'			\
+		-e '/^### Local Variables:/Q'				\
 		$< > $@
 	@$(if $(filter $@,$(NON_EXEC_IN)),,chmod +x $@)
 
