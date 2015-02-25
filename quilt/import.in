@@ -252,7 +252,6 @@ do
 
 	rm -rf $QUILT_PC/$patch
 done
-
 ### Local Variables:
 ### mode: shell-script
 ### End:

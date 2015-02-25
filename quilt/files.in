@@ -175,7 +175,6 @@ for patch in "${patches[@]}"
 do
 	list_files_in_patch "$patch"
 done
-
 ### Local Variables:
 ### mode: shell-script
 ### End:

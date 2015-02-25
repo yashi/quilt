@@ -68,7 +68,6 @@ fi
 setup_pager
 
 printf "$(patch_format)\n" "$patch" $(patches_after "$patch")
-
 ### Local Variables:
 ### mode: shell-script
 ### End:

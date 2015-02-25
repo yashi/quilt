@@ -127,7 +127,6 @@ find "${myargs[@]:-.}" \( \
 else
 	cat
 fi
-
 ### Local Variables:
 ### mode: shell-script
 ### End:
