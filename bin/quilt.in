@@ -151,3 +151,7 @@ unset args
 
 export QUILT_COMMAND="${command##*/}"
 bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt ${command##*/}" "$@"
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

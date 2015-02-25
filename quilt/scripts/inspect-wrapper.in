@@ -270,3 +270,7 @@ then
 else
 	exec ${0##*/} "$@" < $tmpdir/data
 fi
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh

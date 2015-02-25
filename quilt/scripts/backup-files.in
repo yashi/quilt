@@ -364,3 +364,7 @@ while [ $# -gt 0 ]; do
 	$OPT_WHAT "$1"
 	shift
 done
+### Local Variables:
+### mode: shell-script
+### End:
+# vim:filetype=sh
