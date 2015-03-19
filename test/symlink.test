@@ -55,6 +55,43 @@
 
 	$ [ patches/test.diff~ -nt test.timeref ] && echo "mtimes differ"
 
+# Test the header update
+	$ quilt header -a
+	< A test patch
+	> Appended text to header of patch patches/test.diff
+
+	$ readlink patches/test.diff
+	> ../test.diff
+
+# Test the header update with a backup
+	$ touch -r patches/test.diff test.timeref
+	$ quilt header -r --backup
+	> Replaced header of patch patches/test.diff
+
+	$ readlink patches/test.diff
+	> ../test.diff
+
+	$ cat patches/test.diff
+	> --- a/foo
+	> +++ b/foo
+	> @@ -1 +1 @@
+	> -foo
+	> +foo changed 3
+
+	$ readlink patches/test.diff~
+	$ echo %{?}
+	> 1
+
+	$ cat patches/test.diff~
+	> A test patch
+	> --- a/foo
+	> +++ b/foo
+	> @@ -1 +1 @@
+	> -foo
+	> +foo changed 3
+
+	$ [ patches/test.diff~ -nt test.timeref ] && echo "mtimes differ"
+
 # Test the refresh when target is read-only
 	$ chmod -w test.diff
 	$ echo "foo changed 4" > foo

@@ -783,7 +783,19 @@ cat_file()
 
 cat_to_new_file()
 {
-	local filename="$1"
+	local filename=$1 backup=$2
+
+	# If the file exists, back it up if requested. Return immediately upon
+	# failure.
+	if [ -e "$filename" -a -n "$backup" ]
+	then
+		if [ -L "$filename" ]
+		then
+			cp -p "$filename" "$filename~"
+		else
+			mv "$filename" "$filename~"
+		fi || return
+	fi
 
 	# If the destination file is a symbolic link, preserve it unless its
 	# target is read-only. In other cases, delete the patch file first in
