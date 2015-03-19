@@ -34,3 +34,27 @@ $ cat hardlink
 > @@ -1 +1 @@
 > -a
 > +b
+
+Same goes for a patch header update.
+
+$ rm -f hardlink
+$ ln patches/patch hardlink
+
+$ quilt header -r
+< c is so much better than a
+> Replaced header of patch patches/patch
+
+$ cat patches/patch
+> c is so much better than a
+> --- file.orig
+> +++ file
+> @@ -1 +1 @@
+> -a
+> +c
+
+$ cat hardlink
+> --- file.orig
+> +++ file
+> @@ -1 +1 @@
+> -a
+> +c
