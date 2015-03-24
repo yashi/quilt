@@ -420,6 +420,8 @@ then
 
 	while read tag dir arg1 arg2
 	do
+		[ "${arg1:0:1}" != '#' ] || continue
+
 		case "$tag" in
 		tar)
 			tarball=$sourcedir$arg1

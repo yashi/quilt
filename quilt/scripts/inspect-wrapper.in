@@ -35,6 +35,8 @@ original_file()
 		fi
 	done < $tmpdir/more-md5sums
 
+	# Return md5sum and error if we can't match the file
+	echo $md5sum
 	return 1
 }
 
@@ -239,27 +241,32 @@ else
 	cat > $tmpdir/data
 	unpackfile=$(original_file $tmpdir/data)
 fi
-
-if [ -n "$unpackfile" ]
+if [ $? -ne 0 ]
 then
-	case "${0##*/}" in
-	patch)
-		subdir=$(patch_opt_d "$@")
-		dir=$(pwd_to_dir $subdir)
-		echo "${0##*/} ${dir:-.} $unpackfile" \
-		     $(strip_option "$@") $(reverse_option "$@") >&3
-		;;
-	tar)
-		subdir=$(tar_opt_C "$@")
-		dir=$(pwd_to_dir $subdir)
-		echo "${0##*/} ${dir:-.} $unpackfile" >&3
-		;;
-	unzip)
-		dir=$(pwd_to_dir)
-		echo "${0##*/} ${dir:-.} $unpackfile" >&3
-		;;
-	esac
+	# Report problem to the caller
+	echo -n "?" >&4
+	printf "Warning: no match for file with md5sum %s\n" \
+	       $unpackfile >&2
+	unpackfile="#$unpackfile"
 fi
+
+case "${0##*/}" in
+patch)
+	subdir=$(patch_opt_d "$@")
+	dir=$(pwd_to_dir $subdir)
+	echo "${0##*/} ${dir:-.} $unpackfile" \
+	     $(strip_option "$@") $(reverse_option "$@") >&3
+	;;
+tar)
+	subdir=$(tar_opt_C "$@")
+	dir=$(pwd_to_dir $subdir)
+	echo "${0##*/} ${dir:-.} $unpackfile" >&3
+	;;
+unzip)
+	dir=$(pwd_to_dir)
+	echo "${0##*/} ${dir:-.} $unpackfile" >&3
+	;;
+esac
 
 # In fast mode, we don't actually apply patches
 [ -n "$QUILT_SETUP_FAST" ] && exit 0
