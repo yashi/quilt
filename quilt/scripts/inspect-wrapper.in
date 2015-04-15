@@ -210,26 +210,29 @@ pwd_to_dir()
 	echo "$dir"
 }
 
+# Who were we called as?
+command=${0##*/}
+
 PATH=${PATH#*:}
 # If we are called too early, pass through without processing
-[ -n "$RPM_BUILD_DIR" ] || exec ${0##*/} "$@"
+[ -n "$RPM_BUILD_DIR" ] || exec $command "$@"
 
 tmpdir=${RPM_BUILD_DIR%/*}
-case "${0##*/}" in
+case $command in
 patch)
 	echo -n p >&4
 	inputfile=$(patch_input_file "$@")
 	;;
 tar)
 	echo -n t >&4
-	[ -n "$QUILT_SETUP_FAST" ] && exec ${0##*/} "$@"
+	[ -n "$QUILT_SETUP_FAST" ] && exec tar "$@"
 	inputfile=$(tar_input_file "$@")
 	# For tar, file - means read from stdin
 	[ "$inputfile" = "-" ] && inputfile=
 	;;
 unzip)
 	echo -n Z >&4
-	[ -n "$QUILT_SETUP_FAST" ] && exec ${0##*/} "$@"
+	[ -n "$QUILT_SETUP_FAST" ] && exec unzip "$@"
 	inputfile=$(unzip_input_file "$@")
 	;;
 esac
@@ -250,21 +253,21 @@ then
 	unpackfile="#$unpackfile"
 fi
 
-case "${0##*/}" in
+case $command in
 patch)
 	subdir=$(patch_opt_d "$@")
 	dir=$(pwd_to_dir $subdir)
-	echo "${0##*/} ${dir:-.} $unpackfile" \
+	echo "patch ${dir:-.} $unpackfile" \
 	     $(strip_option "$@") $(reverse_option "$@") >&3
 	;;
 tar)
 	subdir=$(tar_opt_C "$@")
 	dir=$(pwd_to_dir $subdir)
-	echo "${0##*/} ${dir:-.} $unpackfile" >&3
+	echo "tar ${dir:-.} $unpackfile" >&3
 	;;
 unzip)
 	dir=$(pwd_to_dir)
-	echo "${0##*/} ${dir:-.} $unpackfile" >&3
+	echo "unzip ${dir:-.} $unpackfile" >&3
 	;;
 esac
 
@@ -273,9 +276,9 @@ esac
 
 if [ -n "$inputfile" ]
 then
-	exec ${0##*/} "$@"
+	exec $command "$@"
 else
-	exec ${0##*/} "$@" < $tmpdir/data
+	exec $command "$@" < $tmpdir/data
 fi
 ### Local Variables:
 ### mode: shell-script
