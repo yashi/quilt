@@ -13,7 +13,7 @@ docdir :=	@docdir@
 mandir :=	@mandir@
 localedir :=	$(datadir)/locale
 emacsdir :=	$(datadir)/emacs/site-lisp
-etcdir :=	$(subst /usr/etc,/etc,$(prefix)/etc)
+etcdir :=	@sysconfdir@
 
 INSTALL :=	@INSTALL@
 POD2MAN :=	@POD2MAN@
