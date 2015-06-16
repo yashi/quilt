@@ -244,9 +244,17 @@ then
 		unpackfile=$QUILT_SETUP_PREFIX$(dir_to_dir "$RPM_BUILD_DIR" "$inputfile")
 	fi
 else
-	# put data from stdin into tmpfile
-	cat > $tmpdir/data
-	md5sum=$(md5sum < $tmpdir/data)
+	if [ -n "$QUILT_SETUP_FAST" ]
+	then
+		# In fast mode we can read from stdin directly, we won't let
+		# patch apply the patch anyway
+		md5sum=$(md5sum)
+	else
+		# put data from stdin into tmpfile
+		cat > $tmpdir/data
+		md5sum=$(md5sum < $tmpdir/data)
+	fi
+
 	unpackfile=$(original_file $md5sum)
 	if [ $? -ne 0 ]
 	then
