@@ -3,10 +3,8 @@
 # find original data file by md5sum
 original_file()
 {
-	local file=$1 md5sum
+	local md5sum=$1
 
-	set -- $(md5sum < $file)
-	md5sum=$1
 	while read md5sum_ file_
 	do
 		if [ "$md5sum" = "$md5sum_" ]
@@ -248,7 +246,8 @@ then
 else
 	# put data from stdin into tmpfile
 	cat > $tmpdir/data
-	unpackfile=$(original_file $tmpdir/data)
+	md5sum=$(md5sum < $tmpdir/data)
+	unpackfile=$(original_file $md5sum)
 	if [ $? -ne 0 ]
 	then
 		# Report problem to the caller
