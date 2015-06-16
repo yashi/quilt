@@ -229,6 +229,7 @@ inspect()
 		# Standard mode
 		mkdir -p $tmpdir/build
 	fi
+	export -f normalize_path dir_to_dir
 
 	# Redirect file descriptors
 	# 5 is used in verbose mode, 4 in non-verbose mode, and 2 for both (real errors)

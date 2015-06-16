@@ -236,21 +236,27 @@ unzip)
 	inputfile=$(unzip_input_file "$@")
 	;;
 esac
+
 if [ -n "$inputfile" ]
 then
-	unpackfile=$(original_file "$inputfile")
+	if [ "${inputfile:0:1}" = / ]
+	then
+		unpackfile=${inputfile/$RPM_SOURCE_DIR}
+	else
+		unpackfile=$QUILT_SETUP_PREFIX$(dir_to_dir "$RPM_BUILD_DIR" "$inputfile")
+	fi
 else
 	# put data from stdin into tmpfile
 	cat > $tmpdir/data
 	unpackfile=$(original_file $tmpdir/data)
-fi
-if [ $? -ne 0 ]
-then
-	# Report problem to the caller
-	echo -n "?" >&4
-	printf "Warning: no match for file with md5sum %s\n" \
-	       $unpackfile >&2
-	unpackfile="#$unpackfile"
+	if [ $? -ne 0 ]
+	then
+		# Report problem to the caller
+		echo -n "?" >&4
+		printf "Warning: no match for file with md5sum %s\n" \
+		       $unpackfile >&2
+		unpackfile="#$unpackfile"
+	fi
 fi
 
 case $command in
