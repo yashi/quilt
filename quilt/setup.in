@@ -230,10 +230,9 @@ inspect()
 		exec 3>&1 4>&2 5>/dev/null
 	fi
 
-	if [ -n "$targetdir" ]
+	if [ -n "$QUILT_SETUP_FAST" ]
 	then
 		# Fast mode
-		export QUILT_SETUP_FAST=1
 		[ -d "$targetdir" ] || mkdir -p "$targetdir" || exit 1
 		ln -s "$targetdir" $tmpdir/build
 		export -f create_md5sums
@@ -328,10 +327,10 @@ do
 		DEFINE_FUZZ="%define _default_patch_fuzz $2"
 		shift 2 ;;
 	--slow)
-		opt_fast=
+		QUILT_SETUP_FAST=
 		shift ;;
 	--fast)
-		opt_fast=1
+		export QUILT_SETUP_FAST=1
 		shift ;;
 	--)
 		shift
@@ -359,7 +358,7 @@ case "$1" in
 	# check if rpmbuild is installed before running inspect
 	check_external_tool rpmbuild rpm-build
 
-	if [ -n "$opt_fast" ]
+	if [ -n "$QUILT_SETUP_FAST" ]
 	then
 		if [ "${prefix:0:1}" = / ]
 		then
@@ -416,7 +415,7 @@ case "$1" in
 	;;
 esac
 
-if [ -z "$opt_fast" ]
+if [ -z "$QUILT_SETUP_FAST" ]
 then
 	# Make sure that unpacking will not overwrite anything
 	check_for_existing_directories || exit 1
