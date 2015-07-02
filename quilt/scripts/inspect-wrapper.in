@@ -235,6 +235,13 @@ unzip)
 	;;
 esac
 
+# If the file was not passed as a parameter, try to identify stdin
+if [ -n "$QUILT_SETUP_FAST" -a -z "$inputfile" ]
+then
+	inputfile=$(readlink /proc/self/fd/0)
+	[ "${inputfile:0:1}" = / -a -f "$inputfile" ] || inputfile=
+fi
+
 if [ -n "$inputfile" ]
 then
 	if [ "${inputfile:0:1}" = / ]
