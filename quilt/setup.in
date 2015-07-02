@@ -220,17 +220,6 @@ inspect()
 	ln -s $QUILT_DIR/scripts/inspect-wrapper $tmpdir/bin/patch
 	ln -s $QUILT_DIR/scripts/inspect-wrapper $tmpdir/bin/tar
 	ln -s $QUILT_DIR/scripts/inspect-wrapper $tmpdir/bin/unzip
-	if [ -n "$targetdir" ]
-	then
-		# Fast mode
-		export QUILT_SETUP_FAST=1
-		[ -d "$targetdir" ] || mkdir -p "$targetdir" || exit 1
-		ln -s "$targetdir" $tmpdir/build
-	else
-		# Standard mode
-		mkdir -p $tmpdir/build
-	fi
-	export -f normalize_path dir_to_dir
 
 	# Redirect file descriptors
 	# 5 is used in verbose mode, 4 in non-verbose mode, and 2 for both (real errors)
@@ -241,12 +230,19 @@ inspect()
 		exec 3>&1 4>&2 5>/dev/null
 	fi
 
-	if [ -n "$QUILT_SETUP_FAST" ]
+	if [ -n "$targetdir" ]
 	then
+		# Fast mode
+		export QUILT_SETUP_FAST=1
+		[ -d "$targetdir" ] || mkdir -p "$targetdir" || exit 1
+		ln -s "$targetdir" $tmpdir/build
 		export -f create_md5sums
 	else
+		# Standard mode
+		mkdir -p $tmpdir/build
 		create_md5sums "$sourcedir" $tmpdir/md5sums
 	fi
+	export -f normalize_path dir_to_dir
 
 	# let rpm do all the dirty specfile stuff ...
 	echo -n "### rpmbuild: " >&4
