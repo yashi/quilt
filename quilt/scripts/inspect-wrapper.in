@@ -5,6 +5,13 @@ original_file()
 {
 	local md5sum=$1
 
+	if ! [ -e $tmpdir/md5sums ]
+	then
+		echo >&4
+		create_md5sums "$RPM_SOURCE_DIR" $tmpdir/md5sums
+		echo -n "### rpmbuild: " >&4
+	fi
+
 	while read md5sum_ file_
 	do
 		if [ "$md5sum" = "$md5sum_" ]

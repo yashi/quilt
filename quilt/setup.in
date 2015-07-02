@@ -142,7 +142,7 @@ create_md5sums()
 			# In fast mode, we are only interested in patches, so filter out
 			# archives
 			*.tar|*.tar.Z|*.tar.gz|*.tgz|*.tar.bz2|*.tar.xz|*.zip)
-				[ -n "$targetdir" ] && continue
+				[ -n "$QUILT_SETUP_FAST" ] && continue
 				;;
 		esac
 		[ -f "$file" ] || continue
@@ -223,6 +223,7 @@ inspect()
 	if [ -n "$targetdir" ]
 	then
 		# Fast mode
+		export QUILT_SETUP_FAST=1
 		[ -d "$targetdir" ] || mkdir -p "$targetdir" || exit 1
 		ln -s "$targetdir" $tmpdir/build
 	else
@@ -240,12 +241,17 @@ inspect()
 		exec 3>&1 4>&2 5>/dev/null
 	fi
 
-	create_md5sums "$sourcedir" $tmpdir/md5sums
+	if [ -n "$QUILT_SETUP_FAST" ]
+	then
+		export -f create_md5sums
+	else
+		create_md5sums "$sourcedir" $tmpdir/md5sums
+	fi
 
 	# let rpm do all the dirty specfile stuff ...
 	echo -n "### rpmbuild: " >&4
 
-	PATH="$tmpdir/bin:$PATH" QUILT_SETUP_FAST=${targetdir:+1} \
+	PATH="$tmpdir/bin:$PATH" \
 	rpmbuild --eval "%define _sourcedir $abs_sourcedir" \
 		 --eval "%define _specdir   $specdir" \
 		 --eval "%define _builddir  $tmpdir/build" \
