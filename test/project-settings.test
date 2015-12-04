@@ -1,0 +1,22 @@
+# Project settings should take precedence over user settings
+$ export QUILT_PATCHES=my_patches
+$ export QUILT_SERIES=my_series
+
+$ mkdir quilt_patches
+$ mkdir .pc
+$ echo 2 > .pc/.version
+$ echo quilt_patches > .pc/.quilt_patches
+$ echo quilt_series > .pc/.quilt_series
+$ echo create.patch > quilt_patches/quilt_series
+
+$ cat > quilt_patches/create.patch
+< --- a/file
+< +++ b/file
+< @@ -0,0 +1 @@
+< +new line
+
+$ quilt push
+> Applying patch quilt_patches/create.patch
+> patching file file
+>
+> Now at patch quilt_patches/create.patch

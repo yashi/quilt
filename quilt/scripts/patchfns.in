@@ -1123,13 +1123,13 @@ fi
 
 if [ -r $QUILT_PC/.quilt_patches ]
 then
-	: ${QUILT_PATCHES:=$(< $QUILT_PC/.quilt_patches)}
+	QUILT_PATCHES=$(< $QUILT_PC/.quilt_patches)
 else
 	: ${QUILT_PATCHES:=patches}
 fi
 if [ -r $QUILT_PC/.quilt_series ]
 then
-	: ${QUILT_SERIES:=$(< $QUILT_PC/.quilt_series)}
+	QUILT_SERIES=$(< $QUILT_PC/.quilt_series)
 else
 	: ${QUILT_SERIES:=series}
 fi
