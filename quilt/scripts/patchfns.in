@@ -741,19 +741,21 @@ diff_file()
 	     "$old_file" "$new_file" \
 	| if read line
 	then
+		local status=0
+
 		if [[ "$line" =~ ^Binary\ files\ .*\ differ$ ]]
 		then
-			echo "$line"
-			return 1
-		fi
-
-		if [ -z "$QUILT_NO_DIFF_INDEX" ]
+			status=1
+		elif [ -z "$QUILT_NO_DIFF_INDEX" ]
 		then
 			echo "Index: $index"
 			echo "==================================================================="
 		fi
+
 		echo "$line"
 		cat
+
+		return $status
 	fi
 
 	# Test the return value of diff, and propagate the error retcode if any
