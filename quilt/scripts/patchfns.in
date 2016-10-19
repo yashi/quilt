@@ -759,6 +759,7 @@ diff_file()
 	# Test the return value of diff, and propagate the error retcode if any
 	if [ ${PIPESTATUS[0]} == 2 -o ${PIPESTATUS[1]} == 1 ]
 	then
+		printf $"Diff failed on file '%s', aborting\n" "$new_file" >&2
 		return 1
 	fi
 }

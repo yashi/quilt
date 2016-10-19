@@ -232,7 +232,6 @@ do
 	fi
 	if ! diff_file "$file" "$old_file" "$new_file"
 	then
-		printf $"Diff failed on file '%s', aborting\n" "$new_file" >&2
 		die 1
 	fi
 
