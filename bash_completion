@@ -195,7 +195,13 @@ _quilt_completion()
 	   COMPREPLY=( $( compgen -W "-a -f -R -q -v --refresh -h $(quilt --quiltrc - applied 2>/dev/null)" -- $cur ) )
 	   ;;
 	push)
-	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --fuzz -m --merge --leave-rejects --color --refresh $(quilt --quiltrc - unapplied 2>/dev/null)" -- $cur ) )
+	   case $prev in
+	     --fuzz)
+		;;
+	     *)
+		COMPREPLY=( $( compgen -W "-a -f -q -v -h --fuzz -m --merge --leave-rejects --color --refresh $(quilt --quiltrc - unapplied 2>/dev/null)" -- $cur ) )
+		;;
+	   esac
 	   ;;
 	refresh)
 	   case $prev in
