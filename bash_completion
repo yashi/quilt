@@ -174,6 +174,16 @@ _quilt_completion()
 		;;
 	   esac
 	   ;;
+	new)
+	   case $prev in
+	     -p)
+		COMPREPLY=( $( compgen -W "0 1 ap" -- $cur ) )
+		;;
+	     *)
+		COMPREPLY=( $( compgen -W "-p -h" -- $cur ) )
+		;;
+	   esac
+	   ;;
 	next|previous)
 	   COMPREPLY=( $( compgen -W "$(quilt --quiltrc - series) -h" -- $cur ) )
 	   ;;
@@ -242,7 +252,7 @@ _quilt_completion()
 	unapplied)
 	   COMPREPLY=( $( compgen -W "-h $(quilt --quiltrc - series)" -- $cur ) )
 	   ;;
-	fork|new|top|upgrade)
+	fork|top|upgrade)
 	   ;;
     esac
     return 0
