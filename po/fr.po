@@ -1525,7 +1525,7 @@ msgstr "Vous devez installer '%s' (paquet %s) pour utiliser « quilt %s »\\n"
 
 #: quilt/scripts/patchfns.in:1124
 msgid "Cannot change into parent directory %s/\\n"
-msgstr ""
+msgstr "Impossible de remplacer le répertoire de travail en cours par %s/\\n"
 
 #: quilt/scripts/patchfns.in:1165
 msgid ""
