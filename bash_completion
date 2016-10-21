@@ -82,7 +82,8 @@ fi
 #
 _quilt_comfile()
 {
-	COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -f -- "$cur" ) )
+	local IFS=$'\t\n'
+	COMPREPLY=( "${COMPREPLY[@]}" $( compgen -f -- "$cur" ) )
 }
 
 _quilt_completion()
@@ -126,7 +127,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-P -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -137,7 +138,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-P -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -159,13 +160,13 @@ _quilt_completion()
 		;;
 	     *)
 		_filedir
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --sort" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --sort" -- $cur ) )
 		;;
 	   esac
 	   ;;
 	edit)
 	   _quilt_comfile
-	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
+	   COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-h" -- $cur ) )
 	   ;;
 	files)
 	   case $prev in
@@ -184,7 +185,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -203,7 +204,7 @@ _quilt_completion()
 	   ;;
 	grep)
 	   _longopt grep
-	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-h" -- $cur ) )
+	   COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-h" -- $cur ) )
 	   ;;
 	header)
 	   COMPREPLY=( $( compgen -W "-a -e -h -r --backup --strip-diffstat --strip-trailing-whitespace $(quilt --quiltrc - series)" -- $cur ) )
@@ -220,7 +221,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-p -P -f -d -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -f -d -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -232,7 +233,7 @@ _quilt_completion()
 	   ;;
 	patches)
 	   _quilt_comfile
-	   COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-v -h" -- $cur ) )
+	   COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-v -h" -- $cur ) )
 	   ;;
 	pop)
 	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt --quiltrc - applied 2>/dev/null)" -- $cur ) )
@@ -259,7 +260,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-P -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-P -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -283,7 +284,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -W "-d -v -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-d -v -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
