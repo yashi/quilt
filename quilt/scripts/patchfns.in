@@ -1121,7 +1121,7 @@ then
 	    SUBDIR_DOWN=$down
 	    if ! cd $basedir/
 	    then
-		echo "Cannot change into parent directory $basedir/" >&2
+		printf $"Cannot change into parent directory %s/\n" "$basedir" >&2
 		exit 1
 	    fi
 	    break
