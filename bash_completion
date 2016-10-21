@@ -84,7 +84,7 @@ _quilt_completion()
 	diff)
 	   case $prev in
 	     -p)
-		COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
+		COMPREPLY=( $( compgen -W "0 1 ab" -- $cur ) )
 		;;
 	     -P|--combine)
 		COMPREPLY=( $( compgen -W "$(quilt --quiltrc - applied 2>/dev/null)" -- $cur ) )
@@ -93,7 +93,7 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --sort" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --color --sort" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -114,11 +114,11 @@ _quilt_completion()
 	fold)
 	   case $prev in
 	     -p)
-		COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
+		COMPREPLY=( $( compgen -W "0 1 2 3 4 5 6 7 8 9 10" -- $cur ) )
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-R -q -f -p -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -154,35 +154,35 @@ _quilt_completion()
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -f -d -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -R -P -f -d -h" -- $cur ) )
 		;;
 	   esac
 	   ;;
 	mail)
-	   COMPREPLY=( $( compgen -W "-m --prefix --mbox --send --sender --from --subject --to --cc --bcc" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-m -M --prefix --mbox --send --sender --from --subject --to --cc --bcc --signature --reply-to -h" -- $cur ) )
 	   ;;
 	next|previous)
-	   COMPREPLY=( $( compgen -W "$(quilt --quiltrc - series)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "$(quilt --quiltrc - series) -h" -- $cur ) )
 	   ;;
 	patches)
 	   _quilt_comfile
-	   COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-v -h" -- $cur ) )
+	   COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-v --color -h" -- $cur ) )
 	   ;;
 	pop)
-	   COMPREPLY=( $( compgen -W "-a -f -R -q -v -h $(quilt --quiltrc - applied 2>/dev/null)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -R -q -v --refresh -h $(quilt --quiltrc - applied 2>/dev/null)" -- $cur ) )
 	   ;;
 	push)
-	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --leave-rejects --color $(quilt --quiltrc - unapplied 2>/dev/null)" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-a -f -q -v -h --fuzz -m --merge --leave-rejects --color --refresh $(quilt --quiltrc - unapplied 2>/dev/null)" -- $cur ) )
 	   ;;
 	refresh)
 	   case $prev in
 	     -p)
-		COMPREPLY=( $( compgen -W "0 1" -- $cur ) )
+		COMPREPLY=( $( compgen -W "0 1 ap" -- $cur ) )
 		;;
 	     -U|-C)
 		;;
 	     *)
-		COMPREPLY=( $( compgen -W "-p -u -U -c -C -f -h $(quilt --quiltrc - applied 2>/dev/null) --no-timestamps --no-index --diffstat --sort --backup --strip-trailing-whitespace" -- $cur ) )
+		COMPREPLY=( $( compgen -W "-p -u -U -c -C -z -f -h $(quilt --quiltrc - applied 2>/dev/null) --no-timestamps --no-index --diffstat --sort --backup --strip-trailing-whitespace" -- $cur ) )
 		;;
 	   esac
 	   ;;
@@ -208,16 +208,18 @@ _quilt_completion()
 	   esac
 	   ;;
 	series)
-	   COMPREPLY=( $( compgen -W "-v -h" -- $cur ) )
+	   COMPREPLY=( $( compgen -W "-v -h --color" -- $cur ) )
 	   ;;
 	setup)
 	   case $prev in
-	     -d)
+	     -d|--sourcedir)
 		_quilt_comfile -d
+		;;
+	     --fuzz)
 		;;
 	     *)
 		_quilt_comfile
-		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-d -v -h" -- $cur ) )
+		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-d -v -h --sourcedir --fuzz --slow --fast" -- $cur ) )
 		;;
 	   esac
 	   ;;
