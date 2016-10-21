@@ -159,7 +159,20 @@ _quilt_completion()
 	   esac
 	   ;;
 	mail)
-	   COMPREPLY=( $( compgen -W "-m -M --prefix --mbox --send --sender --from --subject --to --cc --bcc --signature --reply-to -h" -- $cur ) )
+	   case $prev in
+	     --mbox|-M)
+		_quilt_comfile
+		;;
+	     --signature)
+		_quilt_comfile
+		COMPREPLY=( "${COMPREPLY[@]}" - )
+		;;
+	     --prefix|--sender|--from|--subject|--to|--cc|--bcc|--charset|--reply-to)
+		;;
+	     *)
+		COMPREPLY=( $( compgen -W "-m -M --prefix --mbox --send --sender --from --subject --to --cc --bcc --charset --signature --reply-to -h" -- $cur ) )
+		;;
+	   esac
 	   ;;
 	next|previous)
 	   COMPREPLY=( $( compgen -W "$(quilt --quiltrc - series) -h" -- $cur ) )
