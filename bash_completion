@@ -78,12 +78,12 @@ if ! type _longopt &> /dev/null ; then
     }
 fi
 
-# Complete on files, not on directories
+# Complete on files (by default) or directories (with -d)
 #
 _quilt_comfile()
 {
 	local IFS=$'\t\n'
-	COMPREPLY=( "${COMPREPLY[@]}" $( compgen -f -- "$cur" ) )
+	COMPREPLY=( "${COMPREPLY[@]}" $( compgen ${1:--f} -- "$cur" ) )
 }
 
 _quilt_completion()
@@ -280,7 +280,7 @@ _quilt_completion()
 	setup)
 	   case $prev in
 	     -d)
-		_filedir -d
+		_quilt_comfile -d
 		;;
 	     *)
 		_quilt_comfile
