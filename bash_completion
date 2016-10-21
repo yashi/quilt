@@ -159,7 +159,7 @@ _quilt_completion()
 	     --diff|-U|-C)
 		;;
 	     *)
-		_filedir
+		_quilt_comfile
 		COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "-p -P -u -U -c -C -R -z -h --snapshot --diff --no-timestamps --no-index --combine --sort" -- $cur ) )
 		;;
 	   esac
