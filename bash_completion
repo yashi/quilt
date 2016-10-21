@@ -11,8 +11,6 @@
 # completion to work then you must set QUILT_PC in your global environment
 # (for example in ~/.profile) and not just in your quiltrc file.
 
-if type quilt &> /dev/null ; then
-
 # Complete on files (by default) or directories (with -d)
 #
 _quilt_comfile()
@@ -243,5 +241,3 @@ _quilt_completion()
 && _quilt_complete_opt="-o filenames"
 complete -F _quilt_completion $_quilt_complete_opt quilt
 unset -v _quilt_complete_opt
-
-fi
