@@ -21,7 +21,7 @@ fi
 
 usage()
 {
-	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [first_patch [last_patch]]\n"
+	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [--charset ...] [--signature file] [first_patch [last_patch]]\n"
 	if [ x$1 = x-h ]
 	then
 		printf $"
@@ -61,6 +61,9 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 
 --to, --cc, --bcc
 	Append a recipient to the To, Cc, or Bcc header.
+
+--charset
+	Specify the input charset.
 
 --signature file
 	Append the specified signature to messages (defaults to ~/.signature
