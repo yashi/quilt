@@ -30,7 +30,7 @@ _quilt_completion()
     # quilt sub commands
     cmds='add annotate applied delete diff edit files fold fork graph \
 	  grep header import mail new next patches pop previous push refresh \
-	  remove rename revert series setup snapshot top unapplied'
+	  remove rename revert series setup snapshot top unapplied upgrade'
 
     # if no command were given, complete on commands
     if [[ $COMP_CWORD -eq 1 ]] ; then
