@@ -80,15 +80,9 @@ fi
 
 # Complete on files, not on directories
 #
-# Directories are shown in completion, but with their trailing / so that
-#  user can go in them. It ought to be a more standard way to achieve this.
-#
 _quilt_comfile()
 {
 	COMPREPLY=( ${COMPREPLY[@]:-} $( compgen -f -- "$cur" ) )
-	compgen -d -- "$cur" | while read d ; do
-	  COMPREPLY=( ${COMPREPLY[@]:-} "$d/" )
-	done
 }
 
 _quilt_completion()
@@ -305,6 +299,9 @@ _quilt_completion()
     return 0
 }
 
+# With option "filenames", directories are shown in completion with their
+# trailing / so that the user can go in them.
+#
 [ ${BASH_VERSINFO[0]} '>' 2 -o \
   ${BASH_VERSINFO[0]}  =  2 -a ${BASH_VERSINFO[1]} '>' 04 ] \
 && _quilt_complete_opt="-o filenames"
