@@ -211,7 +211,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr ""
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -489,7 +489,8 @@ msgstr ""
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
-"subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
+"subject ...] [--reply-to message] [--charset ...] [--signature file] "
+"[first_patch [last_patch]]\\n"
 msgstr ""
 
 #: quilt/mail.in:27
@@ -532,6 +533,9 @@ msgid ""
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
+"--charset\n"
+"\tSpecify the input charset.\n"
+"\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
 "\tif found; use \\`-' for no signature).\n"
@@ -540,35 +544,35 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:204 quilt/mail.in:212
+#: quilt/mail.in:207 quilt/mail.in:215
 msgid "Introduction message already specified"
 msgstr ""
 
-#: quilt/mail.in:310
+#: quilt/mail.in:313
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:455
+#: quilt/mail.in:458
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:479
+#: quilt/mail.in:482
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:488
+#: quilt/mail.in:491
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:548
+#: quilt/mail.in:551
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:551
+#: quilt/mail.in:554
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:665
+#: quilt/mail.in:668
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -725,8 +729,8 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [--refresh] [num|patch]\\n"
+"Usage: quilt push [-afqvm] [--fuzz=N] [--merge[=merge|diff3]] [--leave-"
+"rejects] [--color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
 
 #: quilt/push.in:27

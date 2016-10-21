@@ -330,7 +330,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Нет снимка для вывода различий\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Патч %s не был применён перед патчем %s\\n"
 
@@ -731,13 +731,16 @@ msgstr "Не удалось вставить патч %s в файл series\\n"
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
-"subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
+"subject ...] [--reply-to message] [--charset ...] [--signature file] "
+"[first_patch [last_patch]]\\n"
 msgstr ""
 "Синтаксис: quilt mail {--mbox файл|--send} [-m текст] [-M файл] [--prefix "
 "префикс] [--sender …] [--from …] [--to …] [--cc …] [--bcc …] [--subject …] "
-"[--reply-to message] [первый_патч [последний_патч]]\\n"
+"[--reply-to message] [--charset …] [--signature файл] [первый_патч "
+"[последний_патч]]\\n"
 
 #: quilt/mail.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -776,6 +779,9 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--charset\n"
+"\tSpecify the input charset.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -829,35 +835,35 @@ msgstr ""
 "--reply-to сообщение\n"
 "\tДобавить подходящие заголовки для ответа на указанное сообщение.\n"
 
-#: quilt/mail.in:204 quilt/mail.in:212
+#: quilt/mail.in:207 quilt/mail.in:215
 msgid "Introduction message already specified"
 msgstr "Вводное сообщение уже указано"
 
-#: quilt/mail.in:310
+#: quilt/mail.in:313
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Не удалось определить адрес отправителя. Используйте опцию --sender."
 
-#: quilt/mail.in:455
+#: quilt/mail.in:458
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Не удалось извлечь тему письма из %s\\n"
 
-#: quilt/mail.in:479
+#: quilt/mail.in:482
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "У патчей %s дублируются заголовки темы.\\n"
 
-#: quilt/mail.in:488
+#: quilt/mail.in:491
 msgid "File %s does not exist\\n"
 msgstr "Файл %s не существует\\n"
 
-#: quilt/mail.in:548
+#: quilt/mail.in:551
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Во введении нет заголовка Subject (сохранено как %s)\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:554
 msgid "Introduction has no subject header\\n"
 msgstr "Во введении нет заголовка Subject\\n"
 
-#: quilt/mail.in:665
+#: quilt/mail.in:668
 msgid "Introduction saved as %s\\n"
 msgstr "Введение сохранено как %s\\n"
 
@@ -1072,11 +1078,11 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [--refresh] [num|patch]\\n"
+"Usage: quilt push [-afqvm] [--fuzz=N] [--merge[=merge|diff3]] [--leave-"
+"rejects] [--color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
-"Синтаксис: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [--refresh] [число|патч]\\n"
+"Синтаксис: quilt push [-afqvm] [--fuzz=N] [--merge[=merge|diff3]] [--leave-"
+"rejects] [--color[=always|auto|never]] [--refresh] [число|патч]\\n"
 
 #: quilt/push.in:27
 msgid ""

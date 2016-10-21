@@ -331,7 +331,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Pas d'instantané avec lequel comparer\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:427
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -742,13 +742,16 @@ msgstr "Impossible d'inserer %s dans le fichier de série.\\n"
 msgid ""
 "Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] "
 "[--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
-"subject ...] [--reply-to message] [first_patch [last_patch]]\\n"
+"subject ...] [--reply-to message] [--charset ...] [--signature file] "
+"[first_patch [last_patch]]\\n"
 msgstr ""
 "Usage : quilt mail {--mbox fichier|--send} [-m texte] [-M fichier] [--prefix "
 "préfixe] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--"
-"subject ...] [--reply-to message] [premier_patch [dernier_patch]]\\n"
+"subject ...] [--reply-to message] [--charset ...] [--signature fichier] "
+"[premier_patch [dernier_patch]]\\n"
 
 #: quilt/mail.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -787,6 +790,9 @@ msgid ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
+"\n"
+"--charset\n"
+"\tSpecify the input charset.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -841,36 +847,36 @@ msgstr ""
 "--reply-to message\n"
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
-#: quilt/mail.in:204 quilt/mail.in:212
+#: quilt/mail.in:207 quilt/mail.in:215
 msgid "Introduction message already specified"
 msgstr "Message d'introduction déjà spécifié"
 
-#: quilt/mail.in:310
+#: quilt/mail.in:313
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:455
+#: quilt/mail.in:458
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:479
+#: quilt/mail.in:482
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:488
+#: quilt/mail.in:491
 msgid "File %s does not exist\\n"
 msgstr "Le fichier %s n'existe pas\\n"
 
-#: quilt/mail.in:548
+#: quilt/mail.in:551
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:554
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:665
+#: quilt/mail.in:668
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
@@ -1095,11 +1101,11 @@ msgstr ""
 
 #: quilt/push.in:24
 msgid ""
-"Usage: quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [--refresh] [num|patch]\\n"
+"Usage: quilt push [-afqvm] [--fuzz=N] [--merge[=merge|diff3]] [--leave-"
+"rejects] [--color[=always|auto|never]] [--refresh] [num|patch]\\n"
 msgstr ""
-"Usage : quilt push [-afqv] [--merge[=merge|diff3]] [--leave-rejects] [--"
-"color[=always|auto|never]] [--refresh] [num|patch]\\n"
+"Usage : quilt push [-afqvm] [--fuzz=N] [--merge[=merge|diff3]] [--leave-"
+"rejects] [--color[=always|auto|never]] [--refresh] [num|patch]\\n"
 
 #: quilt/push.in:27
 msgid ""
