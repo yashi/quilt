@@ -1,21 +1,22 @@
 # translation of de.po to
 # German quilt translation
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+#
 # Andreas Gruenbacher <agruen@suse.de>, 2003, 2005.
 # Petr Tesarik <ptesarik@suse.de>, 2015.
-# Holger Wansing <linux@wansing-online.de>, 2015.
-#
+# Holger Wansing <linux@wansing-online.de>, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.64\n"
-"PO-Revision-Date: 2015-02-10 17:06+0100\n"
+"PO-Revision-Date: 2016-10-22 23:34+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
-"Language-Team: <debian-l10n-german@lists.debian.org>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: Lokalize 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bin/quilt.in:40
 msgid "Usage: quilt [--trace[=verbose]] [--quiltrc=XX] command [-h] ..."
@@ -753,7 +754,6 @@ msgstr ""
 "[first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -809,7 +809,7 @@ msgstr ""
 "Datei speichern oder sofort versenden. Der Editor wird mit einem\n"
 "Einleitungstext als Vorlage geöffnet. Für Details lesen Sie %s.\n"
 "Wenn ein Bereich von Patches angegeben wird, kann \\`-' für den ersten bzw.\n"
-"letzten Patch in der series-Datei angegeben werden.\n"
+"\\`-' für den letzten Patch der Serie angegeben werden.\n"
 "\n"
 "-m text\n"
 "\tText, der als Einleitungstext verwendet werden soll. Bei Verwendung\n"
@@ -840,6 +840,9 @@ msgstr ""
 "\n"
 "--to, --cc, --bcc\n"
 "\tEinen Empfänger zur To-, Cc-, oder Bcc-Kopfzeile hinzufügen.\n"
+"\n"
+"--charset\n"
+"\tDiesen Eingabe-Zeichensatz verwenden.\n"
 "\n"
 "--signature datei\n"
 "\tDie angegebene Signatur an Nachrichten anhängen (Standard ist\n"
@@ -1535,7 +1538,7 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1124
 msgid "Cannot change into parent directory %s/\\n"
-msgstr ""
+msgstr "Wechsel in übergeordnetes Verzeichnis %s/ nicht möglich\\n"
 
 #: quilt/scripts/patchfns.in:1165
 msgid ""
