@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quilt 0.33\n"
-"PO-Revision-Date: 2015-02-05 23:15+0900\n"
+"Project-Id-Version: quilt 0.65\n"
+"PO-Revision-Date: 2016-11-03 21:40+0700\n"
 "Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
 "Language-Team: Quilt\n"
 "Language: \n"
@@ -319,7 +319,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "diff対象のスナップショトがありません\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:432
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "パッチ %s は、パッチ %s の前に適用されていません\\n"
 
@@ -725,7 +725,6 @@ msgstr ""
 "[first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
-#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -766,7 +765,9 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
 "--charset\n"
-"\tSpecify the input charset.\n"
+"\tSpecify a particular message encoding on systems which don't use\n"
+"\tUTF-8 or ISO-8859-15. This character encoding must match the one\n"
+"\tused in the patches.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -813,6 +814,10 @@ msgstr ""
 "--to, --cc, --bcc\n"
 "\tToやCc、Bccへの受信者の追加。\n"
 "\n"
+"--charset\n"
+"\tUTF-8 や ISO-8859-15 を使っていないシステムで、メールの文字コードを指定。\n"
+"\t指定した文字コードは、パッチと一致している必要がある。\n"
+"\n"
 "--signature ファイル\n"
 "\t指定されたシグネチャをメッセージに追記 (もしあれば、~/.signature\n"
 "        がデフォルトで使われる。\\`-' を指定するとシグネチャ無しとなる)。\n"
@@ -820,37 +825,37 @@ msgstr ""
 "--reply-to メッセージ\n"
 "\t指定されたメッセージへのリプライとなるように、適切なヘッダを追加。\n"
 
-#: quilt/mail.in:207 quilt/mail.in:215
+#: quilt/mail.in:209 quilt/mail.in:217
 msgid "Introduction message already specified"
 msgstr "概要文はすでに指定されています"
 
-#: quilt/mail.in:313
+#: quilt/mail.in:315
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:458
+#: quilt/mail.in:460
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:482
+#: quilt/mail.in:484
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:491
+#: quilt/mail.in:493
 msgid "File %s does not exist\\n"
 msgstr "ファイル %s が存在しません\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:553
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "概要文に件名部分がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:554
+#: quilt/mail.in:556
 msgid "Introduction has no subject header\\n"
 msgstr "概要文に件名部分がありません\\n"
 
-#: quilt/mail.in:668
+#: quilt/mail.in:670
 msgid "Introduction saved as %s\\n"
 msgstr "概要文は %s という名前で保存されました\\n"
 
@@ -1488,7 +1493,7 @@ msgstr ""
 
 #: quilt/scripts/patchfns.in:1124
 msgid "Cannot change into parent directory %s/\\n"
-msgstr ""
+msgstr "上のディレクトリー %s に変更できません/\\n"
 
 #: quilt/scripts/patchfns.in:1165
 msgid ""
