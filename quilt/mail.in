@@ -63,7 +63,9 @@ first, and a last patch name of \`-' denotes the last patch in the series.
 	Append a recipient to the To, Cc, or Bcc header.
 
 --charset
-	Specify the input charset.
+	Specify a particular message encoding on systems which don't use
+	UTF-8 or ISO-8859-15. This character encoding must match the one
+	used in the patches.
 
 --signature file
 	Append the specified signature to messages (defaults to ~/.signature
