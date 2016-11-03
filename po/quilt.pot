@@ -211,7 +211,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr ""
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:432
 msgid "Patch %s not applied before patch %s\\n"
 msgstr ""
 
@@ -534,7 +534,9 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
 "--charset\n"
-"\tSpecify the input charset.\n"
+"\tSpecify a particular message encoding on systems which don't use\n"
+"\tUTF-8 or ISO-8859-15. This character encoding must match the one\n"
+"\tused in the patches.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -544,35 +546,35 @@ msgid ""
 "\tAdd the appropriate headers to reply to the specified message.\n"
 msgstr ""
 
-#: quilt/mail.in:207 quilt/mail.in:215
+#: quilt/mail.in:209 quilt/mail.in:217
 msgid "Introduction message already specified"
 msgstr ""
 
-#: quilt/mail.in:313
+#: quilt/mail.in:315
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:458
+#: quilt/mail.in:460
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:482
+#: quilt/mail.in:484
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:491
+#: quilt/mail.in:493
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:551
+#: quilt/mail.in:553
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:554
+#: quilt/mail.in:556
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:668
+#: quilt/mail.in:670
 msgid "Introduction saved as %s\\n"
 msgstr ""
 

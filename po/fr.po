@@ -331,7 +331,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Pas d'instantané avec lequel comparer\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:432
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Le patch %s n'est pas appliqué avant %s\\n."
 
@@ -791,7 +791,9 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
 "--charset\n"
-"\tSpecify the input charset.\n"
+"\tSpecify a particular message encoding on systems which don't use\n"
+"\tUTF-8 or ISO-8859-15. This character encoding must match the one\n"
+"\tused in the patches.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -844,7 +846,9 @@ msgstr ""
 "\tcachée, respectivement.\n"
 "\n"
 "--charset\n"
-"\tSpecifie le jeu de caractères d'entrée.\n"
+"\tSpecifie un encodage particulier pour le message, pour les systèmes\n"
+"\tn'utilisant ni UTF-8 ni ISO-8859-15. Cet encodage de caractères doit\n"
+"\tcorrespondre à celui utilisé dans les patches.\n"
 "\n"
 "--signature fichier\n"
 "\tAjoute la signature spécifiée à la fin des messages (~/.signature\n"
@@ -853,36 +857,36 @@ msgstr ""
 "--reply-to message\n"
 "\tAjoute les en-têtes appropriés pour répondre au message spécifié.\n"
 
-#: quilt/mail.in:207 quilt/mail.in:215
+#: quilt/mail.in:209 quilt/mail.in:217
 msgid "Introduction message already specified"
 msgstr "Message d'introduction déjà spécifié"
 
-#: quilt/mail.in:313
+#: quilt/mail.in:315
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Impossible de déterminer l'adresse d'expéditeur. Utilisez --sender."
 
-#: quilt/mail.in:458
+#: quilt/mail.in:460
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Impossible d'extraire une ligne de sujet de %s\\n"
 
-#: quilt/mail.in:482
+#: quilt/mail.in:484
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Les patches %s ont des sujets dupliqués.\\n"
 
-#: quilt/mail.in:491
+#: quilt/mail.in:493
 msgid "File %s does not exist\\n"
 msgstr "Le fichier %s n'existe pas\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:553
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 "L'introduction n'a pas de ligne de sujet (sauvegardé en tant que %s)\\n"
 
-#: quilt/mail.in:554
+#: quilt/mail.in:556
 msgid "Introduction has no subject header\\n"
 msgstr "L'introduction ne contient pas de ligne de sujet\\n"
 
-#: quilt/mail.in:668
+#: quilt/mail.in:670
 msgid "Introduction saved as %s\\n"
 msgstr "Introduction sauvegardée en tant que %s\\n"
 
