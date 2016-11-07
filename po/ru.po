@@ -330,7 +330,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Нет снимка для вывода различий\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:432
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Патч %s не был применён перед патчем %s\\n"
 
@@ -740,6 +740,7 @@ msgstr ""
 "[последний_патч]]\\n"
 
 #: quilt/mail.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -780,7 +781,9 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
 "--charset\n"
-"\tSpecify the input charset.\n"
+"\tSpecify a particular message encoding on systems which don't use\n"
+"\tUTF-8 or ISO-8859-15. This character encoding must match the one\n"
+"\tused in the patches.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -837,35 +840,35 @@ msgstr ""
 "--reply-to сообщение\n"
 "\tДобавить подходящие заголовки для ответа на указанное сообщение.\n"
 
-#: quilt/mail.in:207 quilt/mail.in:215
+#: quilt/mail.in:209 quilt/mail.in:217
 msgid "Introduction message already specified"
 msgstr "Вводное сообщение уже указано"
 
-#: quilt/mail.in:313
+#: quilt/mail.in:315
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr "Не удалось определить адрес отправителя. Используйте опцию --sender."
 
-#: quilt/mail.in:458
+#: quilt/mail.in:460
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Не удалось извлечь тему письма из %s\\n"
 
-#: quilt/mail.in:482
+#: quilt/mail.in:484
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "У патчей %s дублируются заголовки темы.\\n"
 
-#: quilt/mail.in:491
+#: quilt/mail.in:493
 msgid "File %s does not exist\\n"
 msgstr "Файл %s не существует\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:553
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Во введении нет заголовка Subject (сохранено как %s)\\n"
 
-#: quilt/mail.in:554
+#: quilt/mail.in:556
 msgid "Introduction has no subject header\\n"
 msgstr "Во введении нет заголовка Subject\\n"
 
-#: quilt/mail.in:668
+#: quilt/mail.in:670
 msgid "Introduction saved as %s\\n"
 msgstr "Введение сохранено как %s\\n"
 

@@ -337,7 +337,7 @@ msgstr ""
 msgid "No snapshot to diff against\\n"
 msgstr "Kein Snapshot, um ein Diff zu erzeugen\\n"
 
-#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:430
+#: quilt/diff.in:283 quilt/files.in:105 quilt/mail.in:432
 msgid "Patch %s not applied before patch %s\\n"
 msgstr "Patch %s ist nicht vor Patch %s angewandt\\n"
 
@@ -754,6 +754,7 @@ msgstr ""
 "[first_patch [last_patch]]\\n"
 
 #: quilt/mail.in:27
+#, fuzzy
 msgid ""
 "\n"
 "Create mail messages from a specified range of patches, or all patches in\n"
@@ -794,7 +795,9 @@ msgid ""
 "\tAppend a recipient to the To, Cc, or Bcc header.\n"
 "\n"
 "--charset\n"
-"\tSpecify the input charset.\n"
+"\tSpecify a particular message encoding on systems which don't use\n"
+"\tUTF-8 or ISO-8859-15. This character encoding must match the one\n"
+"\tused in the patches.\n"
 "\n"
 "--signature file\n"
 "\tAppend the specified signature to messages (defaults to ~/.signature\n"
@@ -853,37 +856,37 @@ msgstr ""
 "\tDie entsprechenden Header hinzufügen, um auf die angegebene\n"
 "\tNachricht zu antworten.\n"
 
-#: quilt/mail.in:207 quilt/mail.in:215
+#: quilt/mail.in:209 quilt/mail.in:217
 msgid "Introduction message already specified"
 msgstr "Einleitungstext bereits angegeben"
 
-#: quilt/mail.in:313
+#: quilt/mail.in:315
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 "Die Envelope-Adresse konnte nicht festgestellt werden. Bitte verwenden Sie --"
 "sender."
 
-#: quilt/mail.in:458
+#: quilt/mail.in:460
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "Es konnte keine Subject-Kopfzeile aus %s extrahiert werden\\n"
 
-#: quilt/mail.in:482
+#: quilt/mail.in:484
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "Die Patches %s haben dieselben Subject-Kopfzeilen.\\n"
 
-#: quilt/mail.in:491
+#: quilt/mail.in:493
 msgid "File %s does not exist\\n"
 msgstr "Datei %s existiert nicht\\n"
 
-#: quilt/mail.in:551
+#: quilt/mail.in:553
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile (gespeichert als %s)\\n"
 
-#: quilt/mail.in:554
+#: quilt/mail.in:556
 msgid "Introduction has no subject header\\n"
 msgstr "Die Einleitung hat keine Subject-Kopfzeile\\n"
 
-#: quilt/mail.in:668
+#: quilt/mail.in:670
 msgid "Introduction saved as %s\\n"
 msgstr "Einleitung gespeichert als %s\\n"
 
