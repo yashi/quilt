@@ -1,3 +1,34 @@
+Version 0.65 (Wed Oct 09 2016)
+  - Translation fixes
+  - Project settings have priority
+  - Reject binary files in patches
+  - Fix a race condition in diff_file
+  - Performance: Optimizations to the setup command
+  - Performance: Optimizations to the bash completion script
+  - Test suite: Improve the edit test case
+  - Test suite: Make the symlink test more robust
+  - Test suite: Test backup failure
+  - Test suite: Test the header command with hard links
+  - diff: Report diff failures
+  - edit: Fix a corner case bug
+  - mail: Fix the help text
+  - push: Fix the synopsis
+  - refresh: Do not remove symlinks
+  - refresh: Break links to read-only patch files
+  - refresh: Always preserve modification time
+  - setup: Report failed look-ups in inspect-wrapper
+  - quilt.el: Fix quilt-editable when patches are stored in subdirs
+  - bash_completion: Handle spaces in file names
+  - bash_completion: Update the list of commands
+  - bash_completion: Add new command options
+  - bash_completion: Fix handling of mail, new, push options
+  - guards: Simplify the help text
+  - guards: Include the file name also in the "Not found" case
+  - guards: Add support for an external filelist in --check mode
+  - guards: Report which config file has problem in --check mode
+  - guards: Documentation update
+  - guards: Clarify a user message
+
 Version 0.64 (Mon Feb 09 2015)
   - Check for series file consistency
   - Performance: Several optimizations
