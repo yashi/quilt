@@ -148,6 +148,8 @@ endif
 %.po : po/quilt.pot
 	$(MSGMERGE) -o $@ $@ $^
 
+updatepo : $(PO:%=po/%)
+
 scripts : $(BIN:%=bin/%) $(QUILT:%=quilt/%)				\
 	  $(SCRIPTS:%=quilt/scripts/%)					\
 	  $(if $(PATCH_WRAPPER),bin/patch-wrapper)
@@ -435,7 +437,7 @@ uninstall ::
 	done
 endif
 
-.PHONY :: all install uninstall clean distclean
+.PHONY :: all install uninstall clean distclean updatepo
 
 # Clear the suffix list
 .SUFFIXES:
