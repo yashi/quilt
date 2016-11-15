@@ -10,11 +10,11 @@ quilt-*.tar.gz
 quilt-*.tar.bz2
 
 bin/guards
-bin/guards.1
 bin/patch-wrapper
 bin/quilt
 
 doc/quilt.1
+doc/guards.1
 doc/quilt.aux
 doc/quilt.dvi
 doc/quilt.log

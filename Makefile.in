@@ -104,8 +104,8 @@ DIRT +=		$(DOC_IN:%=doc/%) doc/reference
 
 MAN1 :=		doc/quilt.1
 ifneq ($(POD2MAN),)
-MAN1 +=		bin/guards.1
-DIRT +=		bin/guards.1
+MAN1 +=		doc/guards.1
+DIRT +=		doc/guards.1
 endif
 
 LINGUAS :=	fr de ja ru
@@ -227,7 +227,7 @@ doc/reference : bin/quilt $(QUILT:%=quilt/%) quilt/scripts/patchfns quilt/script
 	       -e '/^$$/!s/^/  /'					\
 	       -e 's/^  Usage: *//' > $@
 
-bin/guards.1 : bin/guards
+doc/guards.1 : bin/guards
 	$(POD2MAN) $< > $@
 
 $(PACKAGE)-$(VERSION).tar.gz : $(SRC) configure $(PACKAGE).spec
