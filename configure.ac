@@ -366,8 +366,6 @@ fi
 
 QUILT_COMPAT_PROG_PATH(SENDMAIL, sendmail, [], [/usr/sbin])
 
-QUILT_COMPAT_PROG_PATH(MD5SUM, md5sum, [gmd5sum md5sum])
-
 AC_PATH_PROG(MSGMERGE, [msgmerge])
 AC_PATH_PROG(MSGFMT, [msgfmt])
 AC_PATH_PROG(XGETTEXT, [xgettext])
@@ -410,6 +408,8 @@ AC_SUBST(docdir)
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 QUILT_COMPAT_PROG_PATH_OPT(RPMBUILD, rpmbuild, [rpmbuild rpm])
+
+QUILT_COMPAT_PROG_PATH_OPT(MD5SUM, md5sum, [gmd5sum md5sum])
 
 QUILT_COMPAT_PROG_PATH_OPT(P7ZIP, 7z, [7zr 7za 7z])
 
