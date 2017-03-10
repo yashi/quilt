@@ -411,6 +411,8 @@ AC_SUBST(docdir)
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 QUILT_COMPAT_PROG_PATH_OPT(RPMBUILD, rpmbuild, [rpmbuild rpm])
 
+QUILT_COMPAT_PROG_PATH_OPT(P7ZIP, 7z, [7zr 7za 7z])
+
 AC_SUBST(COMPAT_SYMLINKS)
 AC_SUBST(COMPAT_PROGRAMS)
 
