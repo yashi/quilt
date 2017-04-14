@@ -69,7 +69,8 @@ my $last_status = 0;
 my $lineno;
 my $width = ($ENV{COLUMNS} || 80) >> 1;
 my $origdir = getcwd;
-my $workdir = "d.$$";
+my $workdir = defined $ARGV[0] ? "$ARGV[0].$$" : "d.$$";
+my $keep_workdir = $ENV{KEEP_WORKDIR_IF_FAILED} || 0;
 
 sub print_header($)
 {
@@ -302,7 +303,7 @@ close(SOURCE);
 
 # Clean up the mess
 chdir $origdir or die;
-system "rm -rf $workdir";
+system "rm -rf $workdir" unless $keep_workdir and $failed;
 
 my $status = sprintf("%d commands (%d passed, %d failed)",
 	$tests, $tests - $failed, $failed);
