@@ -95,7 +95,7 @@ extract_header_value()
 
       # Long Header Fields may span multiple lines, in which case CRLF
       # is followed by space or tab (RFC 2822)
-      sed -n "/^${header}/,/^[^[:blank:]]/ { /^${header}/ { s/^${header}//p; n; }; /^[^[:blank:]]/q; /^$/q; p; }"
+      sed -ne "/^${header}/I,/^[^[:blank:]]/ { /^${header}/I { s/^${header}//I; p; n; }; /^[^[:blank:]]/q; /^$/q; p; }"
 }
 
 # See RFC 2822 Internet Message Format for how the In-Reply-To and
