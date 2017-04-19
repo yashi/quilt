@@ -376,7 +376,7 @@ editability adjusted."
 			    patch)))
 	    (if (file-exists-p pf)
 		(progn (find-file pf)
-		       (toggle-read-only))
+		       (read-only-mode 0))
 	      (message (format "%s doesn't exist yet." pf)))))))))
 
 (defun quilt-patches ()
@@ -552,8 +552,8 @@ editability adjusted."
       (let ((f (quilt-buffer-file-name-safe)))
 	(if (quilt-owned-p f)
 	    (if (not (quilt-editable f))
-		(toggle-read-only 1)
-	      (toggle-read-only 0)))
+            (read-only-mode 1)
+	      (read-only-mode 0)))
 	(quilt-update-modeline))))
 
 (defun quilt-hook ()
