@@ -152,8 +152,7 @@
   "Return the top patch name.  return nil if there is the bottom of patch stack."
   (if (quilt-bottom-p)
       nil
-    (file-name-nondirectory
-     (substring (quilt-cmd-to-string "top")  0 -1))))
+    (substring (quilt-cmd-to-string "top")  0 -1)))
 
 (defun quilt-complete-list (p l)
   "Call 'completing-read' with prompt P and list L."
@@ -186,7 +185,7 @@
 
 (defun quilt-short-patchname ()
   "Return shortened name of top patch.  Return nil if there is on the bottom of patch stack."
-  (let ((p (quilt-top-patch)))
+  (let ((p (file-name-nondirectory (quilt-top-patch))))
     (if (not p)
 	"none"
       (let ((p2 (file-name-sans-extension p)))
