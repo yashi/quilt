@@ -166,6 +166,7 @@
       (setq n (1+ n))))
   (completing-read p l nil t))
 
+(defvar quilt-edit-top-only 't)
 (defun quilt-editable (f)
   "Return t if F is editable in terms of current patch.  Return nil if otherwise."
   (let ((qd (quilt-dir))
@@ -537,7 +538,6 @@ editability adjusted."
 
 (defvar quilt-mode nil)
 (make-variable-buffer-local 'quilt-mode)
-(defvar quilt-edit-top-only 't)
 
 (defun quilt-mode (&optional arg)
   "Toggle 'quilt-mode'.  Enable 'quilt-mode' if ARG is positive.
