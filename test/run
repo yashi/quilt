@@ -112,7 +112,7 @@ sub flush_output()
 sub substitute_vars($)
 {
 	my ($line) = @_;
-	$line =~ s[%{(\w+)}][defined $ENV{$1} ? $ENV{$1} : ""]eg;
+	$line =~ s[%\{(\w+)\}][defined $ENV{$1} ? $ENV{$1} : ""]eg;
 	return $line;
 }
 
@@ -288,7 +288,7 @@ while (defined(my $line = <SOURCE>)) {
 	# Parse the next command
 	if ($line =~ s/^\s*\$ ?//) {
 		# Substitute %{?} with the last command's status
-		$line =~ s[%{\?}][$last_status]eg;
+		$line =~ s[%\{\?\}][$last_status]eg;
 
 		chomp($prog = substitute_vars($line));
 		$prog_line = $lineno;
