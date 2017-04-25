@@ -403,9 +403,9 @@ endif
 
 # Each tests dependencies are stored in test/.depend
 ifneq ($(findstring check-,$(MAKECMDGOALS)),)
-test/.%.ok : test/%.test FORCE
+test/.%.ok : test/%.test test/run FORCE
 else
-test/.%.ok : test/%.test
+test/.%.ok : test/%.test test/run
 endif
 	@LANG=C; LC_ALL=C;						\
 	export LANG LC_ALL;						\
