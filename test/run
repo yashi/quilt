@@ -185,7 +185,7 @@ sub exec_test($$) {
 		while (<IN>) {
 			#print "< $_";
 			if ($needs_shell) {
-				s#^/bin/sh: line \d+: ##;
+				s#^/bin/sh: (?:line \d+: )?##;
 			}
 			push @$result, $_;
 		}
