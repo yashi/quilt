@@ -1,0 +1,55 @@
+$ mkdir "work dir"
+$ cd "work dir"
+
+$ mkdir project
+$ cd project
+
+$ mkdir patches
+
+$ echo old > a
+$ quilt new 1.patch
+> Patch patches/1.patch is now on top
+
+$ quilt add a
+> File a added to patch patches/1.patch
+
+$ echo new > a
+$ quilt refresh
+> Refreshed patch patches/1.patch
+
+$ cat patches/1.patch
+> Index: project/a
+> ===================================================================
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -old
+> +new
+
+$ quilt diff --no-index
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -old
+> +new
+
+$ quilt pop
+> Removing patch patches/1.patch
+> Restoring a
+>
+> No patches applied
+
+$ quilt push
+> Applying patch patches/1.patch
+> patching file a
+>
+> Now at patch patches/1.patch
+
+$ quilt top
+> patches/1.patch
+
+$ quilt series -v
+> = patches/1.patch
+
+$ quilt remove a
+> File a removed from patch patches/1.patch

@@ -705,7 +705,7 @@ diff_file()
 		old_hdr=$file.orig
 		new_hdr=$file
 	else
-		local dir=$(basename $PWD)
+		local dir=$(basename "$PWD")
 		old_hdr=$dir.orig/$file
 		new_hdr=$dir/$file
 	fi
