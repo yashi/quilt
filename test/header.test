@@ -42,3 +42,16 @@
 	> @@ -1 +1 @@
 	> -foo
 	> +bar
+
+	$ echo -n "No trailing newline" | quilt header -r
+	> Replaced header of patch patches/patch
+
+	$ cat patches/patch
+	> No trailing newline
+	> Index: b/foo
+	> ===================================================================
+	> --- a/foo
+	> +++ b/foo
+	> @@ -1 +1 @@
+	> -foo
+	> +bar
