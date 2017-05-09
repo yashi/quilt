@@ -398,7 +398,7 @@ test/.depend : Makefile $(TESTS)
 	  > $@
 
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
-CHECK_ENV := P=patches/; _P=../patches/; export P _P
+CHECK_ENV := P=patches/; _P=../patches/; export P _P;
 endif
 
 # Each tests dependencies are stored in test/.depend
@@ -410,7 +410,7 @@ endif
 	@LANG=C; LC_ALL=C;						\
 	export LANG LC_ALL;						\
 	unset POSIXLY_CORRECT;						\
-	$(CHECK_ENV);							\
+	$(CHECK_ENV)							\
 	cd $(@D);							\
 	./run -q $(<F)
 	@touch $@
