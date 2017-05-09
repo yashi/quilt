@@ -65,7 +65,7 @@
 	$ quilt delete patch1
 	> Removed patch %{P}patch1.diff.gz
 
-	$ cat %{P}series
+	$ cat patches/series
 	> patch2.diff.gz
 
 	# test a few error cases
@@ -130,7 +130,7 @@
 	> patch2.diff.gz
 	> series
 
-	$ cat %{P}series
+	$ cat patches/series
 	> patch1.patch.gz
 	> patch2.diff.gz
 

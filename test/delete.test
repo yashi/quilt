@@ -62,14 +62,14 @@ Test the delete command.
 
 	$ quilt series
 
-	$ echo "test1" > %{P}series
+	$ echo "test1" > patches/series
 	$ quilt delete -n
 	> Removed patch %{P}test1
 
 	$ quilt series
 
 	# Force the pop operaton to fail
-	$ echo "test3" > %{P}series
+	$ echo "test3" > patches/series
 	$ echo "test3" > .pc/applied-patches
 	$ mkdir -p .pc/test3/dir
 	$ touch .pc/test3/dir/file

@@ -44,7 +44,7 @@
 
 	$ echo f > f
 
-	$ ls %{P}
+	$ ls patches/
 	> series
 
 	$ quilt new patch2.diff
@@ -85,7 +85,7 @@
 	>
 	> Now at patch patches/patch1.diff
 
-	$ ls %{P}
+	$ ls patches/
 	> patch2.diff
 	> series
 
@@ -175,7 +175,7 @@
 	$ quilt diff -P patch1 --combine patch2
 	> Patch patches/patch2.diff not applied before patch patches/patch1.diff
 
-	$ echo patch3.diff >> %{P}series
+	$ echo patch3.diff >> patches/series
 	$ quilt diff -P patch1 --combine patch3
 	> Patch patches/patch3.diff is not applied
 

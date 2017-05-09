@@ -16,7 +16,7 @@ What happens when refresh fails because of a permission error?
 	$ cat > test.txt
 	< This is updated test.txt.
 	$ quilt refresh --backup
-	>~ mv: cannot move [`']?%{P}test.diff'? to [`']?%{P}test.diff~'?: Permission denied
+	>~ mv: cannot move [`']?patches/test.diff'? to [`']?patches/test.diff~'?: Permission denied
 	$ echo %{?}
 	> 1
 

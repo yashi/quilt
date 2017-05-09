@@ -84,7 +84,7 @@
 	$ quilt delete patch1
 	> Removed patch patches/patch1.diff
 
-	$ cat %{P}series
+	$ cat patches/series
 	> patch2.diff
 
 	# test a few error cases
@@ -149,7 +149,7 @@
 	> patch2.diff
 	> series
 
-	$ cat %{P}series
+	$ cat patches/series
 	> patch1.patch
 	> patch2.diff
 

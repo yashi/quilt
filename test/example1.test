@@ -88,7 +88,7 @@ Or ``quilt edit Oberon.txt''
 	>
 	> No patches applied
 
-	$ quilt files %{P}flower.diff
+	$ quilt files patches/flower.diff
 	> Oberon.txt
 
 	$ sed -e "s/girls/maidens/" Oberon.txt > Oberon.new
