@@ -8,7 +8,7 @@
 	$ cat > test.txt
 	< This is test.txt.
 	$ quilt refresh
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 What happens when refresh fails because of a permission error?
 

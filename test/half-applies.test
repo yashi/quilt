@@ -10,29 +10,29 @@ $ mv foo.orig foo
 $ mv bar.orig bar
 $ echo foorab.diff -p0 > patches/series
 $ quilt push
-> Applying patch patches/foorab.diff
+> Applying patch %{P}foorab.diff
 >~ patching file `?foo'?
 >~ patching file `?bar'?
 > Hunk #1 FAILED at 1.
 >~ 1 out of 1 hunk FAILED -- rejects in file `?bar'?
-> Patch patches/foorab.diff does not apply (enforce with -f)
+> Patch %{P}foorab.diff does not apply (enforce with -f)
 $ echo %{?}
 > 1
 
 $ quilt push
-> Applying patch patches/foorab.diff
+> Applying patch %{P}foorab.diff
 >~ patching file `?foo'?
 >~ patching file `?bar'?
 > Hunk #1 FAILED at 1.
 >~ 1 out of 1 hunk FAILED -- rejects in file `?bar'?
-> Patch patches/foorab.diff does not apply (enforce with -f)
+> Patch %{P}foorab.diff does not apply (enforce with -f)
 $ echo %{?}
 > 1
 
 $ quilt push -qf
-> Applying patch patches/foorab.diff
+> Applying patch %{P}foorab.diff
 >~ 1 out of 1 hunk FAILED( -- saving rejects to( file)? bar.rej)?
-> Applied patch patches/foorab.diff (forced; needs refresh)
+> Applied patch %{P}foorab.diff (forced; needs refresh)
 $ echo %{?}
 > 1
 

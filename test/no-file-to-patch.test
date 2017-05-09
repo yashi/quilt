@@ -12,7 +12,7 @@ $ cat > patches/one.patch
 < -foo
 < +bar
 $ quilt push -q
-> Applying patch patches/one.patch
+> Applying patch %{P}one.patch
 > The text leading up to this was:
 > --------------------------
 > |--- a/foo
@@ -20,6 +20,6 @@ $ quilt push -q
 > --------------------------
 > No file to patch.  Skipping patch.
 > 1 out of 1 hunk ignored
-> Patch patches/one.patch does not apply (enforce with -f)
+> Patch %{P}one.patch does not apply (enforce with -f)
 $ echo %{?}
 > 1

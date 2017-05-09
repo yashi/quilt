@@ -4,52 +4,52 @@ $ echo a > a
 $ echo b > b
 
 $ quilt new a.patch
-> Patch patches/a.patch is now on top
+> Patch %{P}a.patch is now on top
 $ quilt add a
-> File a added to patch patches/a.patch
+> File a added to patch %{P}a.patch
 $ echo A > a
 
 $ quilt new b.patch
-> Patch patches/b.patch is now on top
+> Patch %{P}b.patch is now on top
 $ quilt add b
-> File b added to patch patches/b.patch
+> File b added to patch %{P}b.patch
 $ echo B > b
 
 $ quilt pop -fa --refresh
 > Options -f and --refresh are mutually exclusive
 
 $ quilt pop -a --refresh
-> Refreshed patch patches/b.patch
-> Removing patch patches/b.patch
+> Refreshed patch %{P}b.patch
+> Removing patch %{P}b.patch
 > Restoring b
 >
-> Refreshed patch patches/a.patch
-> Removing patch patches/a.patch
+> Refreshed patch %{P}a.patch
+> Removing patch %{P}a.patch
 > Restoring a
 >
 > No patches applied
 
 $ quilt push -a --refresh
-> Applying patch patches/a.patch
+> Applying patch %{P}a.patch
 > patching file a
-> Patch patches/a.patch is unchanged
+> Patch %{P}a.patch is unchanged
 >
-> Applying patch patches/b.patch
+> Applying patch %{P}b.patch
 > patching file b
-> Patch patches/b.patch is unchanged
+> Patch %{P}b.patch is unchanged
 >
-> Now at patch patches/b.patch
+> Now at patch %{P}b.patch
 
 $ quilt push -fa --refresh
 > Options -f and --refresh are mutually exclusive
 
 $ quilt pop -a --refresh
-> Patch patches/b.patch is unchanged
-> Removing patch patches/b.patch
+> Patch %{P}b.patch is unchanged
+> Removing patch %{P}b.patch
 > Restoring b
 >
-> Patch patches/a.patch is unchanged
-> Removing patch patches/a.patch
+> Patch %{P}a.patch is unchanged
+> Removing patch %{P}a.patch
 > Restoring a
 >
 > No patches applied

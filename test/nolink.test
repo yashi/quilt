@@ -7,10 +7,10 @@
 	> 2
 
 	$ quilt new test.diff
-	> Patch patches/test.diff is now on top
+	> Patch %{P}test.diff is now on top
 
 	$ quilt add foo
-	> File foo added to patch patches/test.diff
+	> File foo added to patch %{P}test.diff
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
@@ -20,13 +20,13 @@
 
 	$ echo "foo changed" > foo
 	$ quilt refresh
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ quilt new test2.diff
-	> Patch patches/test2.diff is now on top
+	> Patch %{P}test2.diff is now on top
 
 	$ quilt add foo
-	> File foo added to patch patches/test2.diff
+	> File foo added to patch %{P}test2.diff
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
@@ -36,11 +36,11 @@
 
 	$ echo "foo changed again" > foo
 	$ quilt refresh
-	> Refreshed patch patches/test2.diff
+	> Refreshed patch %{P}test2.diff
 
 	$ quilt pop -q
-	> Removing patch patches/test2.diff
-	> Now at patch patches/test.diff
+	> Removing patch %{P}test2.diff
+	> Now at patch %{P}test.diff
 
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
@@ -49,7 +49,7 @@
 	> 2
 
 	$ quilt pop -q
-	> Removing patch patches/test.diff
+	> Removing patch %{P}test.diff
 	> No patches applied
 
 	$ ls -l foo | awk '{ print $2 }'
@@ -58,18 +58,18 @@
 # quilt revert should not create hard links
 	$ echo bar > bar
 	$ quilt push -q
-	> Applying patch patches/test.diff
-	> Now at patch patches/test.diff
+	> Applying patch %{P}test.diff
+	> Now at patch %{P}test.diff
 
 	$ quilt add bar
-	> File bar added to patch patches/test.diff
+	> File bar added to patch %{P}test.diff
 	$ echo "bar changed" > bar
 	$ quilt revert bar
-	> Changes to bar in patch patches/test.diff reverted
+	> Changes to bar in patch %{P}test.diff reverted
 
 	$ ls -l bar | awk '{ print $2 }'
 	> 1
 
 	$ quilt pop -q
-	> Removing patch patches/test.diff
+	> Removing patch %{P}test.diff
 	> No patches applied

@@ -1,19 +1,19 @@
 	$ mkdir patches
 
 	$ quilt new dotglob.diff
-	> Patch patches/dotglob.diff is now on top
+	> Patch %{P}dotglob.diff is now on top
 
 	$ quilt add .foo
-	> File .foo added to patch patches/dotglob.diff
+	> File .foo added to patch %{P}dotglob.diff
 
 	$ echo dot-foo > .foo
 	$ quilt refresh
-	> Refreshed patch patches/dotglob.diff
+	> Refreshed patch %{P}dotglob.diff
 
 	$ quilt pop -q
-	> Removing patch patches/dotglob.diff
+	> Removing patch %{P}dotglob.diff
 	> No patches applied
 
 	$ quilt push -q
-	> Applying patch patches/dotglob.diff
-	> Now at patch patches/dotglob.diff
+	> Applying patch %{P}dotglob.diff
+	> Now at patch %{P}dotglob.diff

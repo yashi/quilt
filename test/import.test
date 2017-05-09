@@ -29,10 +29,10 @@
 	> Refreshed patch %{P}patchRp0.diff
 
 	$ quilt pop -a
-	> Removing patch patches/patchRp0.diff
+	> Removing patch %{P}patchRp0.diff
 	> Restoring f
 	>
-	> Removing patch patches/patch1.diff
+	> Removing patch %{P}patch1.diff
 	> Removing f
 	>
 	> No patches applied
@@ -46,13 +46,13 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import t/patch1.diff
-	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
+	> Importing patch t/patch1.diff (stored as %{P}patch1.diff)
 
 	$ quilt push
-	> Applying patch patches/patch1.diff
+	> Applying patch %{P}patch1.diff
 	>~ patching file `?f'?
 	>
-	> Now at patch patches/patch1.diff
+	> Now at patch %{P}patch1.diff
 
 	$ quilt new patch2.diff
 	> Patch %{P}patch2.diff is now on top
@@ -66,23 +66,23 @@
 	> Refreshed patch %{P}patch2.diff
 
 	$ quilt pop
-	> Removing patch patches/patch2.diff
+	> Removing patch %{P}patch2.diff
 	> Removing g
 	>
-	> Now at patch patches/patch1.diff
+	> Now at patch %{P}patch1.diff
 
 	$ quilt header -a
 	< original description
-	> Appended text to header of patch patches/patch1.diff
+	> Appended text to header of patch %{P}patch1.diff
 
 	$ quilt pop
-	> Removing patch patches/patch1.diff
+	> Removing patch %{P}patch1.diff
 	> Removing f
 	>
 	> No patches applied
 
 	$ quilt delete patch1
-	> Removed patch patches/patch1.diff
+	> Removed patch %{P}patch1.diff
 
 	$ cat patches/series
 	> patch2.diff
@@ -93,23 +93,23 @@
 	> Patch missing.diff does not exist
 
 	$ quilt import patches/patch1.diff
-	> Importing patch patches/patch1.diff
+	> Importing patch %{P}patch1.diff
 
 	$ quilt import patches/patch2.diff
-	> Patch patches/patch2.diff already exists in series.
+	> Patch %{P}patch2.diff already exists in series.
 
 	# a simple use of import
 
 	$ quilt import t/patch1.diff
-	> Patch patches/patch1.diff exists. Replace with -f.
+	> Patch %{P}patch1.diff exists. Replace with -f.
 
 	$ quilt import -f t/patch1.diff
-	> Replacing patch patches/patch1.diff with new version
+	> Replacing patch %{P}patch1.diff with new version
 
 	# an import requiring a description merge
 	$ sed -e 's/original/new/' patches/patch1.diff > t/patch1.diff
 	$ quilt import t/patch1.diff
-	> Patch patches/patch1.diff exists. Replace with -f.
+	> Patch %{P}patch1.diff exists. Replace with -f.
 
 	$ quilt import -f t/patch1.diff
 	> Patch headers differ:
@@ -119,7 +119,7 @@
 	> Please use -d {o|a|n} to specify which patch header(s) to keep.
 
 	$ quilt import -d a -f t/patch1.diff
-	> Replacing patch patches/patch1.diff with new version
+	> Replacing patch %{P}patch1.diff with new version
 
 	# quilt header does not work in this case because it stops at '---'
 	$ head -n 3 patches/patch1.diff
@@ -128,20 +128,20 @@
 	> new description
 
 	$ quilt import -d n -f t/patch1.diff
-	> Replacing patch patches/patch1.diff with new version
+	> Replacing patch %{P}patch1.diff with new version
 
 	$ quilt header patch1
 	> new description
 
 	$ quilt delete patch1
-	> Removed patch patches/patch1.diff
+	> Removed patch %{P}patch1.diff
 
 	# make sure it accepts non-conflicting names
 	# a small presentation problem here
 
 	$ cp patches/patch1.diff t/patch1.patch
 	$ quilt import t/patch1.patch
-	> Importing patch t/patch1.patch (stored as patches/patch1.patch)
+	> Importing patch t/patch1.patch (stored as %{P}patch1.patch)
 
 	$ ls patches/
 	> patch1.diff
@@ -160,13 +160,13 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import -R t/patchR.diff
-	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+	> Importing patch t/patchR.diff (stored as %{P}patchR.diff)
 
 	$ quilt push
-	> Applying patch patches/patchR.diff
+	> Applying patch %{P}patchR.diff
 	>~ patching file `?f'?
 	>
-	> Now at patch patches/patchR.diff
+	> Now at patch %{P}patchR.diff
 
 	$ cat f
 	> f
@@ -188,7 +188,7 @@
 
 	$ touch f
 	$ quilt pop
-	> Removing patch patches/patchR.diff
+	> Removing patch %{P}patchR.diff
 	> Removing f
 	>
 	> No patches applied
@@ -197,13 +197,13 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import -R -p0 t/patchRp0.diff
-	> Importing patch t/patchRp0.diff (stored as patches/patchRp0.diff)
+	> Importing patch t/patchRp0.diff (stored as %{P}patchRp0.diff)
 
 	$ quilt push
-	> Applying patch patches/patchRp0.diff
+	> Applying patch %{P}patchRp0.diff
 	>~ patching file `?f'?
 	>
-	> Now at patch patches/patchRp0.diff
+	> Now at patch %{P}patchRp0.diff
 
 	$ cat f
 	> f
@@ -220,7 +220,7 @@
 
 	$ touch f
 	$ quilt pop
-	> Removing patch patches/patchRp0.diff
+	> Removing patch %{P}patchRp0.diff
 	> Removing f
 	>
 	> No patches applied
@@ -229,8 +229,8 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import t/patch1.diff t/patchR.diff
-	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
-	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+	> Importing patch t/patch1.diff (stored as %{P}patch1.diff)
+	> Importing patch t/patchR.diff (stored as %{P}patchR.diff)
 
 	$ cat patches/series
 	> patch1.diff
@@ -239,9 +239,9 @@
 	$ rm -rf patches/ .pc/
 	$ mkdir patches
 	$ quilt import t/patchR.diff
-	> Importing patch t/patchR.diff (stored as patches/patchR.diff)
+	> Importing patch t/patchR.diff (stored as %{P}patchR.diff)
 	$ quilt import t/patch1.diff
-	> Importing patch t/patch1.diff (stored as patches/patch1.diff)
+	> Importing patch t/patch1.diff (stored as %{P}patch1.diff)
 
 	$ cat patches/series
 	> patch1.diff
@@ -252,6 +252,6 @@
 	$ cd t
 	$ touch empty2.patch
 	$ quilt import ../empty.patch
-	> Importing patch ../empty.patch (stored as ../patches/empty.patch)
+	> Importing patch ../empty.patch (stored as %{_P}empty.patch)
 	$ quilt import %{PWD}/empty2.patch
-	> Importing patch %{PWD}/empty2.patch (stored as ../patches/empty2.patch)
+	> Importing patch %{PWD}/empty2.patch (stored as %{_P}empty2.patch)

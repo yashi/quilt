@@ -4,11 +4,11 @@
 $ mkdir patches
 
 $ quilt new "patch_with:strange[name]"
-> Patch patches/patch_with:strange[name] is now on top
+> Patch %{P}patch_with:strange[name] is now on top
 
 $ echo foo > foo
 $ quilt add foo
-> File foo added to patch patches/patch_with:strange[name]
+> File foo added to patch %{P}patch_with:strange[name]
 
 $ quilt files
 > foo
@@ -24,45 +24,45 @@ $ quilt diff -p ab -P "patch_with:strange[name]"
 > +bar
 
 $ quilt refresh -p ab
-> Refreshed patch patches/patch_with:strange[name]
+> Refreshed patch %{P}patch_with:strange[name]
 
 $ quilt applied
-> patches/patch_with:strange[name]
+> %{P}patch_with:strange[name]
 
 $ quilt pop -q
-> Removing patch patches/patch_with:strange[name]
+> Removing patch %{P}patch_with:strange[name]
 > No patches applied
 
 $ quilt next
-> patches/patch_with:strange[name]
+> %{P}patch_with:strange[name]
 
 $ quilt push -q "patch_with:strange[name]"
-> Applying patch patches/patch_with:strange[name]
-> Now at patch patches/patch_with:strange[name]
+> Applying patch %{P}patch_with:strange[name]
+> Now at patch %{P}patch_with:strange[name]
 
 $ quilt top
-> patches/patch_with:strange[name]
+> %{P}patch_with:strange[name]
 
 $ quilt rename "another:strange(name)"
-> Patch patches/patch_with:strange[name] renamed to patches/another:strange(name)
+> Patch %{P}patch_with:strange[name] renamed to %{P}another:strange(name)
 
 $ quilt new "{%'}.patch"
-> Patch patches/{%'}.patch is now on top
+> Patch %{P}{%'}.patch is now on top
 
 $ quilt add foo
-> File foo added to patch patches/{%'}.patch
+> File foo added to patch %{P}{%'}.patch
 
 $ echo baz > foo
 "
 $ quilt previous
-> patches/another:strange(name)
+> %{P}another:strange(name)
 
 $ quilt series
-> patches/another:strange(name)
-> patches/{%'}.patch
+> %{P}another:strange(name)
+> %{P}{%'}.patch
 
 $ quilt refresh -p0 "{%'}.patch"
-> Refreshed patch patches/{%'}.patch
+> Refreshed patch %{P}{%'}.patch
 
 $ cat "patches/{%'}.patch"
 > Index: foo
@@ -74,10 +74,10 @@ $ cat "patches/{%'}.patch"
 > +baz
 
 $ quilt pop "another:strange(name)"
-> Removing patch patches/{%'}.patch
+> Removing patch %{P}{%'}.patch
 > Restoring foo
 >
-> Now at patch patches/another:strange(name)
+> Now at patch %{P}another:strange(name)
 
 $ quilt remove foo
-> File foo removed from patch patches/another:strange(name)
+> File foo removed from patch %{P}another:strange(name)

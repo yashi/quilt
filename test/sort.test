@@ -1,23 +1,23 @@
 	$ mkdir patches
 
 	$ quilt new sort.diff
-	> Patch patches/sort.diff is now on top
+	> Patch %{P}sort.diff is now on top
 
 	$ quilt add b f
-	> File b added to patch patches/sort.diff
-	> File f added to patch patches/sort.diff
+	> File b added to patch %{P}sort.diff
+	> File f added to patch %{P}sort.diff
 
 	$ echo b > b
 	$ echo f > f
 	$ quilt refresh
-	> Refreshed patch patches/sort.diff
+	> Refreshed patch %{P}sort.diff
 
 	$ quilt add c
-	> File c added to patch patches/sort.diff
+	> File c added to patch %{P}sort.diff
 
 	$ echo c > c
 	$ quilt refresh
-	> Refreshed patch patches/sort.diff
+	> Refreshed patch %{P}sort.diff
 
 	$ quilt files
 	> b
@@ -30,8 +30,8 @@
 	>~ Index: [^/]+/c
 
 	$ quilt add z x
-	> File z added to patch patches/sort.diff
-	> File x added to patch patches/sort.diff
+	> File z added to patch %{P}sort.diff
+	> File x added to patch %{P}sort.diff
 
 	$ echo z > z
 	$ echo x > x
@@ -50,7 +50,7 @@
 	>~ Index: [^/]+/z
 
 	$ quilt add a
-	> File a added to patch patches/sort.diff
+	> File a added to patch %{P}sort.diff
 
 	$ echo a > a
 	$ quilt files
@@ -70,7 +70,7 @@
 	>~ Index: [^/]+/z
 
 	$ quilt refresh
-	> Refreshed patch patches/sort.diff
+	> Refreshed patch %{P}sort.diff
 
 	$ grep '^Index' patches/sort.diff
 	>~ Index: [^/]+/b
@@ -89,7 +89,7 @@
 	>~ Index: [^/]+/z
 
 	$ quilt refresh --sort
-	> Refreshed patch patches/sort.diff
+	> Refreshed patch %{P}sort.diff
 
 	$ grep '^Index' patches/sort.diff
 	>~ Index: [^/]+/a

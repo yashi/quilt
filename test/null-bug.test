@@ -2,10 +2,10 @@
 
 	$ echo file > file
 	$ quilt new remove.diff
-	> Patch patches/remove.diff is now on top
+	> Patch %{P}remove.diff is now on top
 
 	$ quilt add file
-	> File file added to patch patches/remove.diff
+	> File file added to patch %{P}remove.diff
 
 In this case, the original file in the --- line must not have .orig appended
 or else patch won't know the real original filename anymore.
@@ -20,12 +20,12 @@ or else patch won't know the real original filename anymore.
 	> -file
 
 	$ quilt refresh -p0
-	> Refreshed patch patches/remove.diff
+	> Refreshed patch %{P}remove.diff
 
 	$ quilt pop -q
-	> Removing patch patches/remove.diff
+	> Removing patch %{P}remove.diff
 	> No patches applied
 
 	$ quilt push -q
-	> Applying patch patches/remove.diff
-	> Now at patch patches/remove.diff
+	> Applying patch %{P}remove.diff
+	> Now at patch %{P}remove.diff

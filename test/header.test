@@ -2,14 +2,14 @@
 
 	$ echo foo > foo
 	$ quilt new patch
-	> Patch patches/patch is now on top
+	> Patch %{P}patch is now on top
 
 	$ quilt add foo
-	> File foo added to patch patches/patch
+	> File foo added to patch %{P}patch
 
 	$ echo bar > foo
 	$ quilt refresh -p ab
-	> Refreshed patch patches/patch
+	> Refreshed patch %{P}patch
 
 	$ mv patches/patch patches/patch~
 	$ echo Header > patches/patch
@@ -19,14 +19,14 @@
 
 	$ quilt header -r
 	< Header2
-	> Replaced header of patch patches/patch
+	> Replaced header of patch %{P}patch
 
 	$ quilt header
 	> Header2
 
 	$ quilt header -a
 	< Appended
-	> Appended text to header of patch patches/patch
+	> Appended text to header of patch %{P}patch
 
 	$ quilt header
 	> Header2

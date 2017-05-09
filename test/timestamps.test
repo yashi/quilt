@@ -59,30 +59,30 @@ $ cat > patches/context-delete.patch
 
 # Test unapplied patches
 $ quilt patches file
-> patches/unified-create.patch
-> patches/unified-update.patch
-> patches/unified-delete.patch
-> patches/context-create.patch
-> patches/context-update.patch
-> patches/context-delete.patch
+> %{P}unified-create.patch
+> %{P}unified-update.patch
+> %{P}unified-delete.patch
+> %{P}context-create.patch
+> %{P}context-update.patch
+> %{P}context-delete.patch
 
 # Make sure we don't take line counts as file names
 $ quilt patches 1
 
 $ quilt push -qa
-> Applying patch patches/unified-create.patch
-> Applying patch patches/unified-update.patch
-> Applying patch patches/unified-delete.patch
-> Applying patch patches/context-create.patch
-> Applying patch patches/context-update.patch
-> Applying patch patches/context-delete.patch
-> Now at patch patches/context-delete.patch
+> Applying patch %{P}unified-create.patch
+> Applying patch %{P}unified-update.patch
+> Applying patch %{P}unified-delete.patch
+> Applying patch %{P}context-create.patch
+> Applying patch %{P}context-update.patch
+> Applying patch %{P}context-delete.patch
+> Now at patch %{P}context-delete.patch
 
 # Test applied patches
 $ quilt patches file
-> patches/unified-create.patch
-> patches/unified-update.patch
-> patches/unified-delete.patch
-> patches/context-create.patch
-> patches/context-update.patch
-> patches/context-delete.patch
+> %{P}unified-create.patch
+> %{P}unified-update.patch
+> %{P}unified-delete.patch
+> %{P}context-create.patch
+> %{P}context-update.patch
+> %{P}context-delete.patch

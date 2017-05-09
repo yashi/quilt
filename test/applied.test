@@ -6,30 +6,30 @@
 	$ echo patch -p0 > patches/series
 	$ rm -f b
 	$ quilt push -q
-	> Applying patch patches/patch
-	> Now at patch patches/patch
+	> Applying patch %{P}patch
+	> Now at patch %{P}patch
 
 	$ quilt pop -q
-	> Removing patch patches/patch
+	> Removing patch %{P}patch
 	> No patches applied
 
 	$ patch -s -p0 < patches/patch
 	$ quilt push -q
-	> Applying patch patches/patch
+	> Applying patch %{P}patch
 	> 1 out of 1 hunk FAILED
-	> Patch patches/patch can be reverse-applied
+	> Patch %{P}patch can be reverse-applied
 
 	$ echo patch -p0 -R > patches/series
 	$ quilt push -q
-	> Applying patch patches/patch
-	> Now at patch patches/patch
+	> Applying patch %{P}patch
+	> Now at patch %{P}patch
 
 	$ quilt pop -q
-	> Removing patch patches/patch
+	> Removing patch %{P}patch
 	> No patches applied
 
 	$ patch -s -p0 -R < patches/patch
 	$ quilt push -q
-	> Applying patch patches/patch
+	> Applying patch %{P}patch
 	> 1 out of 1 hunk FAILED
-	> Patch patches/patch can be reverse-applied
+	> Patch %{P}patch can be reverse-applied

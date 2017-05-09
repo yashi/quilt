@@ -14,12 +14,12 @@ $ ln patches/patch hardlink
 
 $ echo a > file
 $ quilt push -q
-> Applying patch patches/patch
-> Now at patch patches/patch
+> Applying patch %{P}patch
+> Now at patch %{P}patch
 
 $ echo c > file
 $ quilt refresh --no-index
-> Refreshed patch patches/patch
+> Refreshed patch %{P}patch
 
 $ cat patches/patch
 > --- file.orig
@@ -42,7 +42,7 @@ $ ln patches/patch hardlink
 
 $ quilt header -r
 < c is so much better than a
-> Replaced header of patch patches/patch
+> Replaced header of patch %{P}patch
 
 $ cat patches/patch
 > c is so much better than a

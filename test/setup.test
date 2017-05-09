@@ -26,10 +26,10 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ..
 > ../series
 $ quilt push -qa
-> Applying patch patches/foo.diff
-> Applying patch patches/revert.diff
-> Applying patch patches/again.diff
-> Now at patch patches/again.diff
+> Applying patch %{P}foo.diff
+> Applying patch %{P}revert.diff
+> Applying patch %{P}again.diff
+> Now at patch %{P}again.diff
 $ cd ..
 $ rm -rf dir
 
@@ -46,10 +46,10 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ../..
 > ../../series
 $ quilt push -qa
-> Applying patch patches/foo.diff
-> Applying patch patches/revert.diff
-> Applying patch patches/again.diff
-> Now at patch patches/again.diff
+> Applying patch %{P}foo.diff
+> Applying patch %{P}revert.diff
+> Applying patch %{P}again.diff
+> Now at patch %{P}again.diff
 $ cd ../..
 $ rm -rf other
 $ mkdir dir1
@@ -64,10 +64,10 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ../..
 > ../../dir1/series
 $ quilt push -qa
-> Applying patch patches/foo.diff
-> Applying patch patches/revert.diff
-> Applying patch patches/again.diff
-> Now at patch patches/again.diff
+> Applying patch %{P}foo.diff
+> Applying patch %{P}revert.diff
+> Applying patch %{P}again.diff
+> Now at patch %{P}again.diff
 $ cd ../..
 $ rm -rf "dir"
 
@@ -122,9 +122,9 @@ $ ls -l patches series | sed -e 's:.* -> ::'
 > ..
 > ../series
 $ quilt push -qa
-> Applying patch patches/foo.diff
-> Applying patch patches/revert.diff
-> Applying patch patches/again.diff
-> Now at patch patches/again.diff
+> Applying patch %{P}foo.diff
+> Applying patch %{P}revert.diff
+> Applying patch %{P}again.diff
+> Now at patch %{P}again.diff
 $ cd ..
 $ rm -rf "space [dir]"

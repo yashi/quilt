@@ -6,14 +6,14 @@
 	$ echo patch -p0 > patches/series
 	$ rm -f b
 	$ quilt push -q
-	> Applying patch patches/patch
-	> Now at patch patches/patch
+	> Applying patch %{P}patch
+	> Now at patch %{P}patch
 
 	$ echo a > a
 	$ quilt refresh
-	> Nothing in patch patches/patch
+	> Nothing in patch %{P}patch
 	$ quilt pop
-	> Removing patch patches/patch
+	> Removing patch %{P}patch
 	> Restoring a
 	>
 	> No patches applied

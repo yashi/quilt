@@ -3,14 +3,14 @@
 # quilt should not remove symlinks to patch files
 	$ echo foo > foo
 	$ quilt new test.diff
-	> Patch patches/test.diff is now on top
+	> Patch %{P}test.diff is now on top
 
 	$ quilt add foo
-	> File foo added to patch patches/test.diff
+	> File foo added to patch %{P}test.diff
 
 	$ echo "foo changed" > foo
 	$ quilt refresh
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 # Setup a symlink
 	$ mv patches/test.diff .
@@ -21,7 +21,7 @@
 # Test the refresh
 	$ echo "foo changed 2" > foo
 	$ quilt refresh --no-index -p ab
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	> ../test.diff
@@ -30,7 +30,7 @@
 	$ echo "foo changed 3" > foo
 	$ touch -r patches/test.diff test.timeref
 	$ quilt refresh --backup --no-index -p ab
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	> ../test.diff
@@ -58,7 +58,7 @@
 # Test the header update
 	$ quilt header -a
 	< A test patch
-	> Appended text to header of patch patches/test.diff
+	> Appended text to header of patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	> ../test.diff
@@ -66,7 +66,7 @@
 # Test the header update with a backup
 	$ touch -r patches/test.diff test.timeref
 	$ quilt header -r --backup
-	> Replaced header of patch patches/test.diff
+	> Replaced header of patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	> ../test.diff
@@ -96,7 +96,7 @@
 	$ chmod -w test.diff
 	$ echo "foo changed 4" > foo
 	$ quilt refresh --no-index -p ab
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	$ echo %{?}
@@ -117,7 +117,7 @@
 
 	$ echo "foo changed 5" > foo
 	$ quilt refresh --backup --no-index -p ab
-	> Refreshed patch patches/test.diff
+	> Refreshed patch %{P}test.diff
 
 	$ readlink patches/test.diff
 	$ echo %{?}

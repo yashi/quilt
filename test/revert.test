@@ -4,16 +4,16 @@
 	$ echo f1 > sub/f
 	$ echo g1 > sub/g
 	$ quilt new p.diff
-	> Patch patches/p.diff is now on top
+	> Patch %{P}p.diff is now on top
 
 	$ quilt add sub/f sub/g sub/h
-	> File sub/f added to patch patches/p.diff
-	> File sub/g added to patch patches/p.diff
-	> File sub/h added to patch patches/p.diff
+	> File sub/f added to patch %{P}p.diff
+	> File sub/g added to patch %{P}p.diff
+	> File sub/h added to patch %{P}p.diff
 
 	$ echo h1 > sub/h
 	$ quilt revert sub/h
-	> Changes to sub/h in patch patches/p.diff reverted
+	> Changes to sub/h in patch %{P}p.diff reverted
 
 	$ quilt diff -z
 
@@ -22,16 +22,16 @@
 	$ rm -f sub/g
 	$ echo h2 > sub/h
 	$ quilt refresh
-	> Refreshed patch patches/p.diff
+	> Refreshed patch %{P}p.diff
 
 # Check if we can revert modifications
 	$ cd sub
 	$ echo f3 > f
 	$ echo h3 > h
 	$ quilt revert f g h
-	> Changes to sub/f in patch ../patches/p.diff reverted
+	> Changes to sub/f in patch %{_P}p.diff reverted
 	> File sub/g is unchanged
-	> Changes to sub/h in patch ../patches/p.diff reverted
+	> Changes to sub/h in patch %{_P}p.diff reverted
 
 	$ quilt diff -z
 
@@ -39,7 +39,7 @@
 	$ echo g3 > g
 	$ quilt revert f g
 	> File sub/f is unchanged
-	> Changes to sub/g in patch ../patches/p.diff reverted
+	> Changes to sub/g in patch %{_P}p.diff reverted
 
 	$ quilt diff -z
 	$ [ ! -e g ] || echo "File sub/g shouldn't exist"
@@ -47,8 +47,8 @@
 # Check if we can revert file deletion
 	$ rm f h
 	$ quilt revert f h
-	> Changes to sub/f in patch ../patches/p.diff reverted
-	> Changes to sub/h in patch ../patches/p.diff reverted
+	> Changes to sub/f in patch %{_P}p.diff reverted
+	> Changes to sub/h in patch %{_P}p.diff reverted
 
 	$ quilt diff -z
 	$ [ -e f ] || echo "File sub/f should exist"

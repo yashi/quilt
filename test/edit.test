@@ -10,11 +10,11 @@ $ chmod +x editor
 $ export EDITOR=%{PWD}/editor
 
 $ quilt new patch
-> Patch patches/patch is now on top
+> Patch %{P}patch is now on top
 
 $ echo foobar > foobar
 $ quilt edit foobar
-> File foobar added to patch patches/patch
+> File foobar added to patch %{P}patch
 > Editing foobar
 
 $ cat foobar
@@ -23,7 +23,7 @@ $ cat foobar
 $ cd subdir
 $ echo foo > foo
 $ quilt edit foo
-> File subdir/foo added to patch ../patches/patch
+> File subdir/foo added to patch %{_P}patch
 > Editing subdir/foo
 $ cd ..
 
@@ -35,7 +35,7 @@ $ quilt files
 > subdir/foo
 
 $ quilt refresh
-> Refreshed patch patches/patch
+> Refreshed patch %{P}patch
 
 # Test the behavior if the editor deletes a file completely
 $ echo foobaz > foobaz
@@ -45,7 +45,7 @@ $ cat > editor
 < rm -f $1
 
 $ quilt edit foobaz
-> File foobaz added to patch patches/patch
+> File foobaz added to patch %{P}patch
 > Deleting foobaz
 
 $ [ ! -e foobaz ] || echo "File foobaz shouldn't exist"
@@ -57,15 +57,15 @@ $ cat > editor
 < echo Doing nothing to $1
 
 $ quilt edit nofoo
-> File nofoo added to patch patches/patch
+> File nofoo added to patch %{P}patch
 > Doing nothing to nofoo
-> File nofoo removed from patch patches/patch
+> File nofoo removed from patch %{P}patch
 
 # Test the behavior if the patch is deleting a file and the
 # user calls "quilt edit" on that file but makes no change to it
 $ rm -f foobar
 $ quilt refresh
-> Refreshed patch patches/patch
+> Refreshed patch %{P}patch
 $ quilt diff -p ab --no-index foobar
 > --- a/foobar
 > +++ /dev/null
@@ -73,7 +73,7 @@ $ quilt diff -p ab --no-index foobar
 > -foobar
 
 $ quilt edit foobar
-> File foobar is already in patch patches/patch
+> File foobar is already in patch %{P}patch
 > Doing nothing to foobar
 
 $ [ ! -e foobar ] || echo "File foobar shouldn't exist"
@@ -85,7 +85,7 @@ $ cat > editor
 < echo "new line" > $1
 
 $ quilt edit foo2
-> File foo2 added to patch patches/patch
+> File foo2 added to patch %{P}patch
 > Creating foo2
 $ cat foo2
 > new line

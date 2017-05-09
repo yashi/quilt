@@ -37,7 +37,7 @@
 	> Patch %{P}patch1.diff is now on top
 
 	$ quilt top
-	> patches/patch1.diff
+	> %{P}patch1.diff
 
 	$ quilt add f
 	> File f added to patch %{P}patch1.diff
@@ -51,7 +51,7 @@
 	> Patch %{P}patch2.diff is now on top
 
 	$ quilt previous
-	> patches/patch1.diff
+	> %{P}patch1.diff
 
 	$ quilt add g
 	> File g added to patch %{P}patch2.diff
@@ -80,21 +80,21 @@
 	> +g
 
 	$ quilt pop
-	> Removing patch patches/patch2.diff
+	> Removing patch %{P}patch2.diff
 	> Removing g
 	>
-	> Now at patch patches/patch1.diff
+	> Now at patch %{P}patch1.diff
 
 	$ ls patches/
 	> patch2.diff
 	> series
 
 	$ quilt next
-	> patches/patch2.diff
+	> %{P}patch2.diff
 
 	$ quilt previous
 	$ quilt previous patch2
-	> patches/patch1.diff
+	> %{P}patch1.diff
 
 	$ quilt pop
 	> Patch %{P}patch1.diff does not remove cleanly (refresh it or enforce with -f)
@@ -103,10 +103,10 @@
 	> Refreshed patch %{P}patch1.diff
 
 	$ quilt refresh patch2
-	> Patch patches/patch2.diff is not applied
+	> Patch %{P}patch2.diff is not applied
 
 	$ quilt pop
-	> Removing patch patches/patch1.diff
+	> Removing patch %{P}patch1.diff
 	> Removing f
 	>
 	> No patches applied
@@ -123,21 +123,21 @@
 	> No patches applied
 
 	$ quilt unapplied
-	> patches/patch1.diff
-	> patches/patch2.diff
+	> %{P}patch1.diff
+	> %{P}patch2.diff
 
 	$ quilt previous
 	> No patches applied
 
 	$ quilt next
-	> patches/patch1.diff
+	> %{P}patch1.diff
 
 	$ quilt applied patch1
-	> Patch patches/patch1.diff is not applied
+	> Patch %{P}patch1.diff is not applied
 
 	$ quilt unapplied patch2
 	$ quilt unapplied patch1
-	> patches/patch2.diff
+	> %{P}patch2.diff
 
 	$ quilt revert f
 	> No patches applied
@@ -146,15 +146,15 @@
 	> Patch patch3.diff is not in series
 
 	$ quilt push -qa
-	> Applying patch patches/patch1.diff
-	> Applying patch patches/patch2.diff
-	> Now at patch patches/patch2.diff
+	> Applying patch %{P}patch1.diff
+	> Applying patch %{P}patch2.diff
+	> Now at patch %{P}patch2.diff
 
 	$ quilt push patch2
-	> Patch patches/patch2.diff is currently applied
+	> Patch %{P}patch2.diff is currently applied
 
 	$ quilt push
-	> File series fully applied, ends at patch patches/patch2.diff
+	> File series fully applied, ends at patch %{P}patch2.diff
 	$ echo %{?}
 	> 2
 
@@ -173,11 +173,11 @@
 	> +g
 
 	$ quilt diff -P patch1 --combine patch2
-	> Patch patches/patch2.diff not applied before patch patches/patch1.diff
+	> Patch %{P}patch2.diff not applied before patch %{P}patch1.diff
 
 	$ echo patch3.diff >> patches/series
 	$ quilt diff -P patch1 --combine patch3
-	> Patch patches/patch3.diff is not applied
+	> Patch %{P}patch3.diff is not applied
 
 	$ quilt pop -qaR
 	> Removing patch %{P}patch2.diff
@@ -193,26 +193,26 @@
 	$ quilt grep "not there"
 
 	$ quilt push -q 2
-	> Applying patch patches/patch1.diff
-	> Applying patch patches/patch2.diff
-	> Now at patch patches/patch2.diff
+	> Applying patch %{P}patch1.diff
+	> Applying patch %{P}patch2.diff
+	> Now at patch %{P}patch2.diff
 
 	$ quilt pop -q 2
-	> Removing patch patches/patch2.diff
-	> Removing patch patches/patch1.diff
+	> Removing patch %{P}patch2.diff
+	> Removing patch %{P}patch1.diff
 	> No patches applied
 
 	$ quilt push -q 10
-	> Applying patch patches/patch1.diff
-	> Applying patch patches/patch2.diff
-	> Applying patch patches/patch3.diff
-	> Patch patches/patch3.diff does not exist; applied empty patch
-	> Now at patch patches/patch3.diff
+	> Applying patch %{P}patch1.diff
+	> Applying patch %{P}patch2.diff
+	> Applying patch %{P}patch3.diff
+	> Patch %{P}patch3.diff does not exist; applied empty patch
+	> Now at patch %{P}patch3.diff
 
 	$ quilt pop -q 10
-	> Patch patches/patch3.diff appears to be empty, removing
-	> Removing patch patches/patch2.diff
-	> Removing patch patches/patch1.diff
+	> Patch %{P}patch3.diff appears to be empty, removing
+	> Removing patch %{P}patch2.diff
+	> Removing patch %{P}patch1.diff
 	> No patches applied
 
 	$ quilt push 0

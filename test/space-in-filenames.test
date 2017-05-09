@@ -1,39 +1,39 @@
 $ mkdir patches
 
 $ quilt new test.diff
-> Patch patches/test.diff is now on top
+> Patch %{P}test.diff is now on top
 
 $ echo foo > foo
 $ quilt add foo
-> File foo added to patch patches/test.diff
+> File foo added to patch %{P}test.diff
 
 $ quilt files
 > foo
 $ quilt patches foo
-> patches/test.diff
+> %{P}test.diff
 $ quilt patches "foo bar"
 
 $ echo foo > "foo bar"
 $ quilt add "foo bar"
-> File foo bar added to patch patches/test.diff
+> File foo bar added to patch %{P}test.diff
 
 $ quilt files
 > foo
 > foo bar
 $ quilt patches "foo bar"
-> patches/test.diff
+> %{P}test.diff
 $ quilt patches bar
 $ quilt patches "foo bar baz"
 
 $ quilt add "a: b [c]"
-> File a: b [c] added to patch patches/test.diff
+> File a: b [c] added to patch %{P}test.diff
 
 $ quilt files
 > a: b [c]
 > foo
 > foo bar
 $ quilt patches 'a: b [c]'
-> patches/test.diff
+> %{P}test.diff
 $ quilt patches a
 $ quilt patches b
 $ quilt patches 'a: b c'
@@ -56,7 +56,7 @@ $ quilt diff -p ab
 > +bar
 
 $ quilt refresh -p ab
-> Refreshed patch patches/test.diff
+> Refreshed patch %{P}test.diff
 $ cat patches/test.diff
 > Index: b/a: b [c]
 > ===================================================================
@@ -73,7 +73,7 @@ $ cat patches/test.diff
 > +bar
 
 $ quilt refresh -p ab --sort
-> Patch patches/test.diff is unchanged
+> Patch %{P}test.diff is unchanged
 $ cat patches/test.diff
 > Index: b/a: b [c]
 > ===================================================================
@@ -97,14 +97,14 @@ $ quilt grep " "
 > a: b [c]:new line
 
 $ quilt remove "a: b [c]"
-> File a: b [c] removed from patch patches/test.diff
+> File a: b [c] removed from patch %{P}test.diff
 
 $ quilt files
 > foo
 > foo bar
 
 $ quilt remove "foo bar"
-> File foo bar removed from patch patches/test.diff
+> File foo bar removed from patch %{P}test.diff
 
 $ quilt files
 > foo

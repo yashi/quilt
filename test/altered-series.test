@@ -7,24 +7,24 @@ $ cat > patches/series
 < 03.patch
 
 $ quilt push -q 2
-> Applying patch patches/01.patch
-> Patch patches/01.patch does not exist; applied empty patch
-> Applying patch patches/02.patch
-> Patch patches/02.patch does not exist; applied empty patch
-> Now at patch patches/02.patch
+> Applying patch %{P}01.patch
+> Patch %{P}01.patch does not exist; applied empty patch
+> Applying patch %{P}02.patch
+> Patch %{P}02.patch does not exist; applied empty patch
+> Now at patch %{P}02.patch
 
 $ quilt series -v
-> + patches/01.patch
-> = patches/02.patch
->   patches/03.patch
+> + %{P}01.patch
+> = %{P}02.patch
+>   %{P}03.patch
 
 # Touch the series file but preserve the order -> OK
 $ touch patches/series
 
 $ quilt series -v
-> + patches/01.patch
-> = patches/02.patch
->   patches/03.patch
+> + %{P}01.patch
+> = %{P}02.patch
+>   %{P}03.patch
 
 # Change the order of the patch series -> complain
 $ cat > patches/series
@@ -36,20 +36,20 @@ $ quilt series -v
 > The series file no longer matches the applied patches. Please run 'quilt pop -a'.
 
 $ quilt pop
-> Patch patches/02.patch appears to be empty, removing
+> Patch %{P}02.patch appears to be empty, removing
 >
-> Now at patch patches/01.patch
+> Now at patch %{P}01.patch
 
 # That wasn't enough, keep complaining
 $ quilt series -v
 > The series file no longer matches the applied patches. Please run 'quilt pop -a'.
 
 $ quilt pop -a
-> Patch patches/01.patch appears to be empty, removing
+> Patch %{P}01.patch appears to be empty, removing
 >
 > No patches applied
 
 $ quilt series -v
->   patches/03.patch
->   patches/01.patch
->   patches/02.patch
+>   %{P}03.patch
+>   %{P}01.patch
+>   %{P}02.patch

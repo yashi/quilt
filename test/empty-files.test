@@ -38,11 +38,11 @@
 
 # Test quilt push
 	$ quilt push
-	> Applying patch patches/using-filenames.patch
+	> Applying patch %{P}using-filenames.patch
 	> patching file deleted1
 	> patching file emptied1
 	>
-	> Now at patch patches/using-filenames.patch
+	> Now at patch %{P}using-filenames.patch
 	$ [ ! -e deleted1 ] && echo "File deleted1 does not exist"
 	> File deleted1 does not exist
 	$ [ -e deleted1 -a ! -s deleted1 ] && echo "File deleted1 is empty"
@@ -51,11 +51,11 @@
 	> File emptied1 is empty
 
 	$ quilt push
-	> Applying patch patches/using-timestamps.patch
+	> Applying patch %{P}using-timestamps.patch
 	> patching file deleted2
 	> patching file emptied2
 	>
-	> Now at patch patches/using-timestamps.patch
+	> Now at patch %{P}using-timestamps.patch
 	$ [ ! -e deleted2 ] && echo "File deleted2 does not exist"
 	> File deleted2 does not exist
 	$ [ -e deleted2 -a ! -s deleted2 ] && echo "File deleted2 is empty"
@@ -65,12 +65,12 @@
 
 # Test quilt fold
 	$ quilt pop -aq
-	> Removing patch patches/using-timestamps.patch
-	> Removing patch patches/using-filenames.patch
+	> Removing patch %{P}using-timestamps.patch
+	> Removing patch %{P}using-filenames.patch
 	> No patches applied
 
 	$ quilt new fold.patch
-	> Patch patches/fold.patch is now on top
+	> Patch %{P}fold.patch is now on top
 
 	$ quilt fold < patches/using-filenames.patch
 	> patching file deleted1
@@ -94,25 +94,25 @@
 
 # Test quilt refresh
 	$ quilt delete
-	> Removing patch patches/fold.patch
+	> Removing patch %{P}fold.patch
 	> No patches applied
-	> Removed patch patches/fold.patch
+	> Removed patch %{P}fold.patch
 	$ quilt push -q
-	> Applying patch patches/using-filenames.patch
-	> Now at patch patches/using-filenames.patch
+	> Applying patch %{P}using-filenames.patch
+	> Now at patch %{P}using-filenames.patch
 
 	$ quilt refresh -pab --sort --no-index
-	> Refreshed patch patches/using-filenames.patch
+	> Refreshed patch %{P}using-filenames.patch
 	$ quilt pop -q
-	> Removing patch patches/using-filenames.patch
+	> Removing patch %{P}using-filenames.patch
 	> No patches applied
 
 	$ quilt push
-	> Applying patch patches/using-filenames.patch
+	> Applying patch %{P}using-filenames.patch
 	> patching file deleted1
 	> patching file emptied1
 	>
-	> Now at patch patches/using-filenames.patch
+	> Now at patch %{P}using-filenames.patch
 	$ [ ! -e deleted1 ] && echo "File deleted1 does not exist"
 	> File deleted1 does not exist
 	$ [ -e deleted1 -a ! -s deleted1 ] && echo "File deleted1 is empty"
