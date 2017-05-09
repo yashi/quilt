@@ -16,7 +16,7 @@ $ cat > quilt_patches/create.patch
 < +new line
 
 $ quilt push
-> Applying patch quilt_patches/create.patch
+>~ Applying patch (quilt_patches/)?create.patch
 > patching file file
 >
-> Now at patch quilt_patches/create.patch
+>~ Now at patch (quilt_patches/)?create.patch

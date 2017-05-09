@@ -91,8 +91,8 @@ $ ls -l quilt_patches quilt_series | sed -e 's:.* -> ::'
 > ..
 > ../series_with_patches
 $ quilt push -qa
-> Applying patch quilt_patches/foo.diff
-> Now at patch quilt_patches/foo.diff
+>~ Applying patch (quilt_patches/)?foo.diff
+>~ Now at patch (quilt_patches/)?foo.diff
 $ cd ..
 $ rm -rf "dir"
 
