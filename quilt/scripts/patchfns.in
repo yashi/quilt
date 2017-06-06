@@ -118,7 +118,7 @@ patch_args()
 {
 	local patch=$1
 
-	if [ -e $SERIES ]
+	if [ -e "$SERIES" ]
 	then
 		awk '
 			{sub(/(^|[ \t]+)#.*/, "") }
@@ -133,7 +133,7 @@ patch_args()
 				print "-p1" ;
 			  exit
 			}
-		' $SERIES
+		' "$SERIES"
 	fi
 }
 
@@ -163,7 +163,7 @@ change_db_strip_level()
 		level=""
 	fi
 
-	if [ -e $SERIES ]
+	if [ -e "$SERIES" ]
 	then
 		local tmpfile=$(gen_tempfile)
 		awk '
@@ -198,10 +198,10 @@ change_db_strip_level()
 				insert_arg(2, "'"$level"'")
 			}
 			{ print }
-		' $SERIES > $tmpfile
-		if ! cmp $SERIES $tmpfile >/dev/null 2>/dev/null
+		' "$SERIES" > $tmpfile
+		if ! cmp "$SERIES" $tmpfile >/dev/null 2>/dev/null
 		then
-			cat $tmpfile > $SERIES
+			cat $tmpfile > "$SERIES"
 		fi
 		rm -f $tmpfile
 	else
@@ -213,9 +213,9 @@ patch_in_series()
 {
 	local patch=$1
 
-	if [ -e $SERIES ]
+	if [ -e "$SERIES" ]
 	then
-		grep -q "^$(quote_bre $patch)\([ \t]\|$\)" $SERIES
+		grep -q "^$(quote_bre $patch)\([ \t]\|$\)" "$SERIES"
 	else
 		return 1
 	fi
@@ -240,7 +240,7 @@ insert_in_series()
 	fi
 
 	tmpfile=$(gen_tempfile) || return 1
-	mkdir -p $(dirname $SERIES)
+	mkdir -p "$(dirname "$SERIES")"
 	if [ -n "$before" ]
 	then
 		awk '
@@ -273,13 +273,13 @@ remove_from_series()
 	awk '
 	! /^'"$(quote_re $patch)"'([ \t]|$)/ \
 				{ print }
-	' $SERIES > $tmpfile
+	' "$SERIES" > $tmpfile
 	if [ $? -ne 0 ]
 	then
 		rm -f $tmpfile
 		return 1
 	fi
-	cat $tmpfile > $SERIES
+	cat $tmpfile > "$SERIES"
 	rm -f $tmpfile
 }
 
@@ -294,13 +294,13 @@ rename_in_series()
 		  good=1 }
 		{ print }
 	END	{ exit(! good) }
-	' $SERIES > $tmpfile
+	' "$SERIES" > $tmpfile
 	if [ $? -ne 0 ]
 	then
 		rm -f $tmpfile
 		return 1
 	fi
-	cat $tmpfile > $SERIES
+	cat $tmpfile > "$SERIES"
 	rm -f $tmpfile
 }
 
@@ -338,10 +338,10 @@ backup_file_name()
 
 cat_series()
 {
-	if [ -e $SERIES ]
+	if [ -e "$SERIES" ]
 	then
 		sed -e '/^#/d' -e 's/^[ '$'\t'']*//' \
-		    -e 's/[ '$'\t''].*//' -e '/^$/d' $SERIES
+		    -e 's/[ '$'\t''].*//' -e '/^$/d' "$SERIES"
 	else
 		return 1
 	fi
@@ -529,7 +529,7 @@ find_patch()
 		local patch=${1#$SUBDIR_DOWN$QUILT_PATCHES/}
 		local bre=$(quote_bre "$patch")
 		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\|\.xz\|\.lzma\)\([ "$'\t'"]\|$\)/!d" \
-			       -e 's/[ '$'\t''].*//' $SERIES)
+			       -e 's/[ '$'\t''].*//' "$SERIES")
 		if [ $# -eq 1 ]
 		then
 			echo $1
@@ -1146,10 +1146,10 @@ fi
 if [ "${QUILT_SERIES:0:1}" = / ]
 then
 	SERIES=$QUILT_SERIES
-elif [ -f $QUILT_PC/$QUILT_SERIES ]
+elif [ -f "$QUILT_PC/$QUILT_SERIES" ]
 then
 	SERIES=$QUILT_PC/$QUILT_SERIES
-elif [ -f $QUILT_SERIES ]
+elif [ -f "$QUILT_SERIES" ]
 then
 	SERIES=$QUILT_SERIES
 else
