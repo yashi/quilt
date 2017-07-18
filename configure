@@ -588,6 +588,8 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 COMPAT_PROGRAMS
 COMPAT_SYMLINKS
+P7ZIP
+MD5SUM
 RPMBUILD
 USE_NLS
 PATCH_WRAPPER
@@ -596,7 +598,6 @@ MSGUNIQ
 XGETTEXT
 MSGFMT
 MSGMERGE
-MD5SUM
 SENDMAIL
 DIFFSTAT
 XARGS
@@ -683,10 +684,11 @@ with_find
 with_xargs
 with_diffstat
 with_sendmail
-with_md5sum
 enable_nls
 with_patch_wrapper
 with_rpmbuild
+with_md5sum
+with_7z
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1331,9 +1333,10 @@ Optional Packages:
   --with-diffstat         name of the diffstat executable to use
   --with-sendmail         name of the sendmail executable to use (use
                           --without-sendmail to use an internal mechanism)
-  --with-md5sum           name of the md5sum executable to use
   --with-patch-wrapper    include GNU patch wrapper
   --with-rpmbuild         name of the rpmbuild executable to use
+  --with-md5sum           name of the md5sum executable to use
+  --with-7z               name of the 7z executable to use
 
 Report bugs to <quilt-dev@nongnu.org>.
 _ACEOF
@@ -4013,99 +4016,6 @@ $as_echo "$as_me: WARNING: Using internal sendmail mechanism.  Use option '--wit
 
 
 
-
-
-
-
-# Check whether --with-md5sum was given.
-if test "${with_md5sum+set}" = set; then :
-  withval=$with_md5sum;
-    if test x"$withval" = xnone; then
-      as_fn_error $? "Invalid configure argument.  use --without-md5sum" "$LINENO" 5
-    fi
-    if test x"$withval" != xno; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for md5sum" >&5
-$as_echo_n "checking for md5sum... " >&6; }
-      MD5SUM="$withval"
-      if test -e "$MD5SUM"; then
-	if test ! -f "$MD5SUM" -a ! -h "$MD5SUM" || test ! -x "$MD5SUM"; then
-	  as_fn_error $? "$MD5SUM is not an executable file" "$LINENO" 5
-	fi
-      fi
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
-$as_echo "$MD5SUM" >&6; }
-      if test ! -e "$MD5SUM"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $MD5SUM does not exist" >&5
-$as_echo "$as_me: WARNING: $MD5SUM does not exist" >&2;}
-      fi
-      COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
-    fi
-
-else
-
-
-      for ac_prog in gmd5sum md5sum
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_MD5SUM+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $MD5SUM in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_MD5SUM="$MD5SUM" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="$PATH:"
-for as_dir in $as_dummy
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_MD5SUM="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-MD5SUM=$ac_cv_path_MD5SUM
-if test -n "$MD5SUM"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
-$as_echo "$MD5SUM" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$MD5SUM" && break
-done
-
-      if test -n "$MD5SUM" -a "`expr "$MD5SUM" : '.*/\([^/]*\)$'`" != "md5sum"; then
-	COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
-      fi
-
-
-
-fi
-
-  if test -z "$MD5SUM"; then
-
-      as_fn_error $? "Please specify the location of md5sum with the option '--with-md5sum'" "$LINENO" 5
-
-  fi
-
-
-
 # Extract the first word of "msgmerge", so it can be a program name with args.
 set dummy msgmerge; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -4436,6 +4346,186 @@ fi
 
   if test -z "$RPMBUILD"; then
     RPMBUILD=rpmbuild
+  fi
+
+
+
+
+
+# Check whether --with-md5sum was given.
+if test "${with_md5sum+set}" = set; then :
+  withval=$with_md5sum;
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for md5sum" >&5
+$as_echo_n "checking for md5sum... " >&6; }
+      MD5SUM="$withval"
+      if test -e "$MD5SUM"; then
+	if test ! -f "$MD5SUM" -a ! -h "$MD5SUM" || test ! -x "$MD5SUM"; then
+	  as_fn_error $? "$MD5SUM is not an executable file" "$LINENO" 5
+	fi
+      fi
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
+$as_echo "$MD5SUM" >&6; }
+      if test ! -e "$MD5SUM"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $MD5SUM does not exist" >&5
+$as_echo "$as_me: WARNING: $MD5SUM does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
+    fi
+
+else
+
+
+      for ac_prog in gmd5sum md5sum
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_MD5SUM+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $MD5SUM in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_MD5SUM="$MD5SUM" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_MD5SUM="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+MD5SUM=$ac_cv_path_MD5SUM
+if test -n "$MD5SUM"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MD5SUM" >&5
+$as_echo "$MD5SUM" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$MD5SUM" && break
+done
+
+      if test -n "$MD5SUM" -a "`expr "$MD5SUM" : '.*/\([^/]*\)$'`" != "md5sum"; then
+	COMPAT_SYMLINKS="$COMPAT_SYMLINKS md5sum"
+      fi
+
+
+    if test -z "$MD5SUM"; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: md5sum not found, some optional functionalities will be missing" >&5
+$as_echo "$as_me: WARNING: md5sum not found, some optional functionalities will be missing" >&2;}
+    fi
+
+fi
+
+  if test -z "$MD5SUM"; then
+    MD5SUM=md5sum
+  fi
+
+
+
+
+
+# Check whether --with-7z was given.
+if test "${with_7z+set}" = set; then :
+  withval=$with_7z;
+    if test x"$withval" != xno; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for 7z" >&5
+$as_echo_n "checking for 7z... " >&6; }
+      P7ZIP="$withval"
+      if test -e "$P7ZIP"; then
+	if test ! -f "$P7ZIP" -a ! -h "$P7ZIP" || test ! -x "$P7ZIP"; then
+	  as_fn_error $? "$P7ZIP is not an executable file" "$LINENO" 5
+	fi
+      fi
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $P7ZIP" >&5
+$as_echo "$P7ZIP" >&6; }
+      if test ! -e "$P7ZIP"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $P7ZIP does not exist" >&5
+$as_echo "$as_me: WARNING: $P7ZIP does not exist" >&2;}
+      fi
+      COMPAT_SYMLINKS="$COMPAT_SYMLINKS 7z"
+    fi
+
+else
+
+
+      for ac_prog in 7zr 7za 7z
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_P7ZIP+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $P7ZIP in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_P7ZIP="$P7ZIP" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="$PATH:"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_P7ZIP="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+P7ZIP=$ac_cv_path_P7ZIP
+if test -n "$P7ZIP"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $P7ZIP" >&5
+$as_echo "$P7ZIP" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$P7ZIP" && break
+done
+
+      if test -n "$P7ZIP" -a "`expr "$P7ZIP" : '.*/\([^/]*\)$'`" != "7z"; then
+	COMPAT_SYMLINKS="$COMPAT_SYMLINKS 7z"
+      fi
+
+
+    if test -z "$P7ZIP"; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: 7z not found, some optional functionalities will be missing" >&5
+$as_echo "$as_me: WARNING: 7z not found, some optional functionalities will be missing" >&2;}
+    fi
+
+fi
+
+  if test -z "$P7ZIP"; then
+    P7ZIP=7z
   fi
 
 
