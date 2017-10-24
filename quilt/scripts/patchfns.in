@@ -1119,7 +1119,7 @@ then
 	then
 	    SUBDIR="${PWD#$basedir/}/"
 	    SUBDIR_DOWN=$down
-	    if ! cd $basedir/
+	    if ! cd "$basedir/"
 	    then
 		printf $"Cannot change into parent directory %s/\n" "$basedir" >&2
 		exit 1
