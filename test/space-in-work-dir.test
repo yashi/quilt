@@ -5,6 +5,7 @@ $ mkdir project
 $ cd project
 
 $ mkdir patches
+$ mkdir subdir
 
 $ echo old > a
 $ quilt new 1.patch
@@ -26,12 +27,16 @@ $ cat patches/1.patch
 > -old
 > +new
 
+# Running a command when not at the root of the project tests additional
+# code paths
+$ cd subdir
 $ quilt diff --no-index
 > --- project.orig/a
 > +++ project/a
 > @@ -1 +1 @@
 > -old
 > +new
+$ cd ..
 
 $ quilt pop
 > Removing patch patches/1.patch
