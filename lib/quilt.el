@@ -184,11 +184,11 @@
 	  result))))
 
 (defun quilt-short-patchname ()
-  "Return shortened name of top patch.  Return nil if there is on the bottom of patch stack."
-  (let ((p (file-name-nondirectory (quilt-top-patch))))
+  "Return shortened name of top patch.  Return \"none\" when on the bottom patch stack."
+  (let ((p (quilt-top-patch)))
     (if (not p)
 	"none"
-      (let ((p2 (file-name-sans-extension p)))
+      (let ((p2 (file-name-sans-extension (file-name-nondirectory p))))
 	   (if (< (length p2) 10)
 	       p2
 	     (concat (substring p2 0 8) ".."))))))
