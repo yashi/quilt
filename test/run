@@ -254,8 +254,8 @@ sub process_test($$$$) {
 }
 
 # Create a dedicated working directory
-mkdir $workdir or die;
-chdir $workdir or die;
+mkdir $workdir or die "Failed to create directory $workdir: $!";
+chdir $workdir or die "Failed to change to directory $workdir: $!";
 $ENV{PWD} = getcwd;
 
 if (defined $ARGV[0]) {
@@ -302,7 +302,7 @@ process_test($prog, $prog_line, $in, $out) if defined $prog;
 close(SOURCE);
 
 # Clean up the mess
-chdir $origdir or die;
+chdir $origdir or die "Failed to change back to directory $origdir: $!";
 system "rm -rf $workdir" unless $keep_workdir and $failed;
 
 my $status = sprintf("%d commands (%d passed, %d failed)",
