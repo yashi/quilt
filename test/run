@@ -255,6 +255,8 @@ sub process_test($$$$) {
 
 # Create a dedicated working directory
 mkdir $workdir or die "Failed to create directory $workdir: $!";
+# Clean up on Ctrl+C
+$SIG{INT} = sub { if (chdir $origdir) { system "rm -rf $workdir" }; exit 1; };
 chdir $workdir or die "Failed to change to directory $workdir: $!";
 $ENV{PWD} = getcwd;
 
