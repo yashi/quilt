@@ -342,4 +342,5 @@ Note that some distributors compress this file.
 can be used to display compressed pdf files.
 
 .BR diff ( 1 ),
-.BR patch ( 1 ).
+.BR patch ( 1 ),
+.BR guards ( 1 ).
