@@ -504,7 +504,7 @@ fi
 introduction="$(gen_tempfile)"
 (
 	cat <<-EOF
-	Message-Id: <$(msgid)>
+	Message-ID: <$(msgid)>
 	User-Agent: quilt/@VERSION@
 	Date: $(date --rfc-822)
 	From: ${opt_from:-$opt_sender}
@@ -628,7 +628,7 @@ for patch in "${patches[@]}"; do
 	# Make pipes fail if any of their commands fail (requires bash 3):
 	set -o pipefail
 
-	( (	echo "Message-Id: <$(msgid)>"
+	( (	echo "Message-ID: <$(msgid)>"
 		awk '
 		    /^$/	{ exit }
 		    tolower($0) !~ /^(message-id|references|in-reply-to):/ \
