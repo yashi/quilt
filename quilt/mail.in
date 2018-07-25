@@ -448,16 +448,24 @@ add_exit_handler "rm -rf $tmpdir"
 
 for patch in "${patches[@]}"
 do
+	patch_file="$(patch_file_name "$patch")"
 	mkdir -p "$tmpdir/$(dirname "$patch")"
-	cat_file "$(patch_file_name "$patch")" \
+	cat_file "$patch_file" \
 	| quilt_mail_patch_filter "$patch" > "$tmpdir/$patch"
 	status=${PIPESTATUS[1]}
 
 	subject=$(extract_header_value Replace-Subject: < "$tmpdir/$patch" | join_lines)
 	if [ $status -ne 0 -o -z "$subject" ]
 	then
-		printf \
+		if [ ! -r "$patch_file" ]
+		then
+			printf \
+$"Patch %s does not exist\n" "$(print_patch "$patch")" >&2
+		else
+			printf \
 $"Unable to extract a subject header from %s\n" "$(print_patch "$patch")" >&2
+		fi
+
 		rm -rf $tmpdir
 		exit 1
 	fi
