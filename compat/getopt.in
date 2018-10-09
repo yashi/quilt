@@ -8,12 +8,12 @@
 
 use strict;
 
-my $opts;
+my $opts = '';
 my @words;
 my $found_sep = 0;
 
 foreach my $arg (@ARGV) {
-  if ($arg eq '--') {
+  if (!$found_sep && $arg eq '--') {
     $found_sep = 1;
   }
   else {
@@ -62,10 +62,17 @@ sub quote_word
 	return "'$word'";
 }
 
+# there can be a second separator, to inhibit processing following arguments
+# as options
+$found_sep = 0;
 foreach my $word (@words) {
+	if ($word eq '--') {
+		$found_sep = 1;
+		next;
+	}
 
 	# allow '-' to be an option value
-	if (!$need_param && $word !~ /^-./) {
+	if ($found_sep || (!$need_param && $word !~ /^-./)) {
 		push @barewords, quote_word($word);
 		next;
 	}
