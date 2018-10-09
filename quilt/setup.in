@@ -141,7 +141,7 @@ create_md5sums()
 				;;
 			# In fast mode, we are only interested in patches, so filter out
 			# archives
-			*.tar|*.tar.Z|*.tar.gz|*.tgz|*.tar.bz2|*.tar.xz|*.zip|*.7z)
+			*.tar|*.tar.Z|*.tar.gz|*.tgz|*.tar.bz2|*.tar.xz|*.tar.lz|*.zip|*.7z)
 				[ -n "$QUILT_SETUP_FAST" ] && continue
 				;;
 		esac
@@ -189,6 +189,12 @@ create_md5sums()
 				echo -n "l" >&4
 				echo "lzma -cd $file | md5sum" >&5
 				set -- $(lzma -cd "$file" | md5sum)
+				echo "$1 $basename"
+				;;
+			lzip*)
+				echo -n "l" >&4
+				echo "lzip -cd $file | md5sum" >&5
+				set -- $(lzip -cd "$file" | md5sum)
 				echo "$1 $basename"
 				;;
 		esac

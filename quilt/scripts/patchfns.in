@@ -528,7 +528,7 @@ find_patch()
 
 		local patch=${1#$SUBDIR_DOWN$QUILT_PATCHES/}
 		local bre=$(quote_bre "$patch")
-		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\|\.xz\|\.lzma\)\([ "$'\t'"]\|$\)/!d" \
+		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\|\.xz\|\.lzma\|\.lz\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' "$SERIES")
 		if [ $# -eq 1 ]
 		then
@@ -783,6 +783,8 @@ cat_file()
 				xz -cd "$filename" ;;
 			*.lzma)
 				lzma -cd "$filename" ;;
+			*.lz)
+				lzip -cd "$filename" ;;
 			*)
 				cat "$filename" ;;
 			esac
@@ -823,6 +825,8 @@ cat_to_new_file()
 		xz -c ;;
 	*.lzma)
 		lzma -c ;;
+	*.lz)
+		lzip -c ;;
 	*)
 		cat ;;
 	esac \
@@ -937,7 +941,7 @@ next_filename()
 {
 	local patch=$1 base num
 	base=$(echo "$patch" \
-	       | sed -r -e 's:(\.gz|\.bz2|\.xz|\.lzma)$::' -e 's:(\.diff?|\.patch)$::')
+	       | sed -r -e 's:(\.gz|\.bz2|\.xz|\.lzma|\.lz)$::' -e 's:(\.diff?|\.patch)$::')
 	num=$(echo "$base" | sed -nre 's:.*-([0-9]+)$:\1:'p)
 	[ -n "$num" ] || num=1
 	echo "${base%-$num}-$((num+1))${patch#$base}"
