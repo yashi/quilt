@@ -108,15 +108,10 @@ foreach my $word (@words) {
 				if (scalar(@letters) == 0) {
 					$need_param = $letter;
 				} else {
-					# short options can have numerical args
-					# embedded in the short option list: -UO
-					die "unexpected character after option $letter"
-						if ($letters[$#letters] !~ /[0-9]/);
-					my @digits;
-					while (scalar(@letters) && ($letters[$#letters] =~ /[0-9]/)) {
-						push @digits, pop @letters;
-					}
-					push @options, quote_word(join('', reverse @digits));
+					# short options can have args
+					# embedded in the short option list
+					push @options, quote_word(join('', reverse @letters));
+					@letters = ();
 				}
 			}
 		}
