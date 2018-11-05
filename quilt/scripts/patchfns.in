@@ -258,6 +258,13 @@ insert_in_series()
 		if [ -e "$SERIES" ]
 		then
 			cat "$SERIES" > $tmpfile
+
+			# Ensure there is a trailing newline before we append the rest
+			last_char=$(tail -c 1 "$tmpfile")
+			if ! [ -z "$last_char" -o "$last_char" = $'\n' -o "$last_char" = $'\r' ]
+			then
+				echo "" >> $tmpfile
+			fi
 		fi
 		echo "$patch$patch_args" >> $tmpfile
 	fi

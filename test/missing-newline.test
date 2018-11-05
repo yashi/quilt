@@ -1,0 +1,22 @@
+$ mkdir patches
+
+$ echo foo > foo
+$ quilt new 1.patch
+> Patch %{P}1.patch is now on top
+
+$ quilt add foo
+> File foo added to patch %{P}1.patch
+
+$ echo bar > foo
+$ quilt refresh -p ab
+> Refreshed patch %{P}1.patch
+
+# Sabotage the series file
+$ echo -n 1.patch > patches/series
+
+# quilt should insert the missing newline before appending
+$ quilt new 2.patch
+> Patch %{P}2.patch is now on top
+$ cat patches/series
+> 1.patch
+> 2.patch
