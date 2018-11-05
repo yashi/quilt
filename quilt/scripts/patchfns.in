@@ -108,6 +108,18 @@ quote_glob()
 	echo "$1" | sed -e 's:\([][*?\\]\):\\\1:g'
 }
 
+# Ensure there is a trailing newline at the end of a file
+ensure_trailing_newline()
+{
+	local last_char
+
+	last_char=$(tail -c 1 "$1")
+	if ! [ -z "$last_char" -o "$last_char" = $'\n' -o "$last_char" = $'\r' ]
+	then
+		echo "" >> "$1"
+	fi
+}
+
 patch_file_name()
 {
 	echo "$QUILT_PATCHES/$1"
@@ -260,11 +272,7 @@ insert_in_series()
 			cat "$SERIES" > $tmpfile
 
 			# Ensure there is a trailing newline before we append the rest
-			last_char=$(tail -c 1 "$tmpfile")
-			if ! [ -z "$last_char" -o "$last_char" = $'\n' -o "$last_char" = $'\r' ]
-			then
-				echo "" >> $tmpfile
-			fi
+			ensure_trailing_newline $tmpfile
 		fi
 		echo "$patch$patch_args" >> $tmpfile
 	fi

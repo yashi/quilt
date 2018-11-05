@@ -155,11 +155,7 @@ else
 	fi
 
 	# Ensure there is a trailing newline before we append the rest
-	last_char=$(tail -c 1 "$tmp")
-	if ! [ -z "$last_char" -o "$last_char" = $'\n' -o "$last_char" = $'\r' ]
-	then
-		echo "" >> $tmp
-	fi
+	ensure_trailing_newline $tmp
 
 	maybe_strip_diffstat < $tmp \
 	| maybe_strip_trailing_whitespace > $tmp2
