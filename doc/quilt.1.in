@@ -221,6 +221,11 @@ patch statistics. For example, "-f0" can be used for an alternative output
 format. Recent versions of diffstat also support alternative rounding
 methods ("-r1", "-r2").
 
+.IP QUILT_PC 4
+
+The location of backup files and any other data relating to the current
+state of the working directory from quilt's perspective. Defaults to ".pc".
+
 .IP QUILT_PATCHES 4
 
 The location of patch files, defaulting to "patches".
