@@ -45,12 +45,28 @@
       (or (getenv "QUILT_PATCHES")
           "patches")))
 
+(defun quilt-pc-directory ()
+  "Return the location of patch files."
+  (or (with-current-buffer (generate-new-buffer " *cmd")
+        (shell-command
+         (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
+                 "echo -n $QUILT_PC")
+         t)
+        (unwind-protect
+            (let ((v (buffer-string)))
+              (if (string= "" (buffer-string))
+                  nil
+                v))
+          (kill-buffer (current-buffer))))
+      (or (getenv "QUILT_PC")
+          ".pc")))
+
 (defun quilt-find-dir (fn &optional prefn)
   "Return the top level dir of quilt from FN."
   (if (or (not fn) (equal fn "/") (equal fn prefn))
       nil
     (let ((d (file-name-directory fn)))
-      (if (file-accessible-directory-p (concat d "/.pc"))
+      (if (file-accessible-directory-p (concat d "/" (quilt-pc-directory)))
 	  d
 	(quilt-find-dir (directory-file-name d) d)))))
 
@@ -84,7 +100,7 @@
       (and
        (not (string-match "\\(~$\\|\\.rej$\\)" fn))
        (not (equal pd (quilt-patches-directory)))
-       (not (equal pd ".pc"))
+       (not (equal pd (quilt-pc-directory)))
        (quilt-p fn)))))
 
 (defun quilt-cmd (cmd &optional buf)
@@ -176,9 +192,9 @@
 	    (quilt-cmd "applied")	; to print error message
 	  (setq dirs (if quilt-edit-top-only
 			 (list (substring (quilt-cmd-to-string "top")  0 -1))
-			 (cdr (cdr (directory-files (concat qd ".pc/"))))))
+			 (cdr (cdr (directory-files (concat qd (quilt-pc-directory) "/"))))))
 	  (while (and (not result) dirs)
-	    (if (file-exists-p (concat qd ".pc/" (car dirs) "/" fn))
+	    (if (file-exists-p (concat qd (quilt-pc-directory) "/" (car dirs) "/" fn))
 		(setq result t)
 	      (setq dirs (cdr dirs))))
 	  result))))
@@ -280,7 +296,7 @@ editability adjusted."
 	    (message "no patch name is supplied")
 	  (quilt-save)
 	  (let (cmd first last)
-	    (if (file-exists-p (concat qd ".pc/" arg))
+	    (if (file-exists-p (concat qd (quilt-pc-directory) "/" arg))
 		(progn
 		  (setq cmd "pop")
 		  (setq first (car (quilt-cmd-to-list (concat "next " arg))))
