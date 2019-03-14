@@ -70,6 +70,7 @@ my $lineno;
 my $width = ($ENV{COLUMNS} || 80) >> 1;
 my $origdir = getcwd;
 my $workdir = defined $ARGV[0] ? "$ARGV[0].$$" : "d.$$";
+my $workdir_absolute;
 my $keep_workdir = $ENV{KEEP_WORKDIR_IF_FAILED} || 0;
 
 sub print_header($)
@@ -116,6 +117,11 @@ sub substitute_vars($)
 	return $line;
 }
 
+sub begins_with($$)
+{
+	return substr($_[0], 0, length($_[1])) eq $_[1];
+}
+
 sub exec_test($$) {
 	my ($raw_prog, $in) = @_;
 	local (*IN, *IN_DUP, *IN2, *OUT_DUP, *OUT, *OUT2);
@@ -130,6 +136,11 @@ sub exec_test($$) {
 			return 1, [ "chdir: $prog->[1]: $!\n" ];
 		}
 		$ENV{PWD} = getcwd;
+		# We must always stay inside the test directory
+		unless (begins_with("$ENV{PWD}/", "$workdir_absolute/")) {
+			return 1, [ "Illegal chdir $prog->[1]\n",
+				    "$ENV{PWD} is not inside $workdir_absolute" ], 1;
+		}
 		return 0, [];
 	} elsif ($prog->[0] eq "export") {
 		my ($name, $value) = split /=/, $prog->[1];
@@ -220,7 +231,7 @@ sub process_test($$$$) {
 	my ($prog, $prog_line, $in, $out) = @_;
 
 	print_body "[$prog_line] \$ $prog -- ";
-	my ($exec_status, $result) = exec_test($prog, $in);
+	my ($exec_status, $result, $stop) = exec_test($prog, $in);
 	my @good = ();
 	my $good = 1;
 	my $nmax = (@$out > @$result) ? @$out : @$result;
@@ -250,7 +261,7 @@ sub process_test($$$$) {
 		}
 	}
 
-	return $exec_status;
+	return $exec_status, $stop;
 }
 
 # Create a dedicated working directory
@@ -259,6 +270,7 @@ mkdir $workdir or die "Failed to create directory $workdir: $!";
 $SIG{INT} = sub { if (chdir $origdir) { system "rm -rf $workdir" }; exit 1; };
 chdir $workdir or die "Failed to change to directory $workdir: $!";
 $ENV{PWD} = getcwd;
+$workdir_absolute = $ENV{PWD};
 
 if (defined $ARGV[0]) {
 	open(SOURCE, "$origdir/$ARGV[0]");
@@ -282,9 +294,10 @@ while (defined(my $line = <SOURCE>)) {
 
 	# We have all input and output, we can execute the command
 	if (defined $prog) {
-		$last_status = process_test($prog, $prog_line, $in, $out);
+		my $stop;
+		($last_status, $stop) = process_test($prog, $prog_line, $in, $out);
 		$prog = undef;
-		last if $prog_line >= $opt_l;
+		last if $prog_line >= $opt_l || $stop;
 	}
 
 	# Parse the next command
