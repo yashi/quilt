@@ -24,7 +24,7 @@
 	$ rm -f patches/patch1.diff
 
 	# test importing into an empty series
-	$ rm -rf patches/ .pc/
+	$ rm -rf patches/ %{QUILT_PC}/
 	$ mkdir patches
 	$ quilt import t/patch1.diff.gz
 	> Importing patch t/patch1.diff.gz (stored as %{P}patch1.diff.gz)

@@ -3,10 +3,10 @@ $ export QUILT_PATCHES=my_patches
 $ export QUILT_SERIES=my_series
 
 $ mkdir quilt_patches
-$ mkdir .pc
-$ echo 2 > .pc/.version
-$ echo quilt_patches > .pc/.quilt_patches
-$ echo quilt_series > .pc/.quilt_series
+$ mkdir %{QUILT_PC}
+$ echo 2 > %{QUILT_PC}/.version
+$ echo quilt_patches > %{QUILT_PC}/.quilt_patches
+$ echo quilt_series > %{QUILT_PC}/.quilt_series
 $ echo create.patch > quilt_patches/quilt_series
 
 $ cat > quilt_patches/create.patch

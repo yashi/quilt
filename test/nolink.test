@@ -15,7 +15,7 @@
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
-	$ ls -l .pc/test.diff/foo | awk '{ print $2 }'
+	$ ls -l %{QUILT_PC}/test.diff/foo | awk '{ print $2 }'
 	> 2
 
 	$ echo "foo changed" > foo
@@ -31,7 +31,7 @@
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
-	$ ls -l .pc/test2.diff/foo | awk '{ print $2 }'
+	$ ls -l %{QUILT_PC}/test2.diff/foo | awk '{ print $2 }'
 	> 1
 
 	$ echo "foo changed again" > foo
@@ -45,7 +45,7 @@
 	$ ls -l foo | awk '{ print $2 }'
 	> 1
 
-	$ ls -l .pc/test.diff/foo | awk '{ print $2 }'
+	$ ls -l %{QUILT_PC}/test.diff/foo | awk '{ print $2 }'
 	> 2
 
 	$ quilt pop -q

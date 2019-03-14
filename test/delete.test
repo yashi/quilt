@@ -70,10 +70,10 @@ Test the delete command.
 
 	# Force the pop operaton to fail
 	$ echo "test3" > patches/series
-	$ echo "test3" > .pc/applied-patches
-	$ mkdir -p .pc/test3/dir
-	$ touch .pc/test3/dir/file
-	$ chmod a-rx .pc/test3/dir
+	$ echo "test3" > %{QUILT_PC}/applied-patches
+	$ mkdir -p %{QUILT_PC}/test3/dir
+	$ touch %{QUILT_PC}/test3/dir/file
+	$ chmod a-rx %{QUILT_PC}/test3/dir
 
 	# Note that this will succeed (instead of the expected failure) if
 	# running as root, but you shouldn't do that anyway.
@@ -81,12 +81,12 @@ Test the delete command.
 	> Removing patch %{P}test3
 	>~ .*find: [`']?\./dir'?: Permission denied
 
-	$ chmod a+rx .pc/test3/dir
+	$ chmod a+rx %{QUILT_PC}/test3/dir
 
-	$ find .pc/test3
-	> .pc/test3
-	> .pc/test3/dir
-	> .pc/test3/dir/file
+	$ find %{QUILT_PC}/test3
+	> %{QUILT_PC}/test3
+	> %{QUILT_PC}/test3/dir
+	> %{QUILT_PC}/test3/dir/file
 
 	$ quilt applied
 	> No patches applied

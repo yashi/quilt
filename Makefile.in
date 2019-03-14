@@ -400,6 +400,7 @@ test/.depend : Makefile $(TESTS)
 ifneq ($(shell . $(QUILTRC) ;  echo $$QUILT_PATCHES_PREFIX),)
 CHECK_ENV := P=patches/; _P=../patches/; export P _P;
 endif
+CHECK_ENV += QUILT_PC=.pc; export QUILT_PC;
 
 # Each tests dependencies are stored in test/.depend
 ifneq ($(findstring check-,$(MAKECMDGOALS)),)

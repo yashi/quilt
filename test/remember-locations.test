@@ -6,9 +6,9 @@
 	>~ Patch (my/changes/)?mychange1 is now on top
 	$ unset QUILT_PATCHES
 	$ unset QUILT_SERIES
-	$ cat .pc/.quilt_patches
+	$ cat %{QUILT_PC}/.quilt_patches
 	> my/changes
-	$ cat .pc/.quilt_series
+	$ cat %{QUILT_PC}/.quilt_series
 	> patchlist
 	$ cat my/changes/patchlist
 	> mychange1
@@ -18,7 +18,7 @@
 	$ quilt new mychange2
 	>~ Patch (my/changes/)?mychange2 is now on top
 	# Verify that the root directory can be identified even
-	# without QUILT_PATCHES with the .pc directory
+	# without QUILT_PATCHES with the QUILT_PC directory
 	$ cd my
 	$ quilt applied
 	>~ (../my/changes/)?mychange1

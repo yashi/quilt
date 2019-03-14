@@ -15,7 +15,7 @@ $ patch-wrapper -s -p0 < foo.diff
 $ quilt pop -q
 > Removing patch %{P}foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ mkdir ${QUILT_PATCHES:-patches}
 $ patch-wrapper --backup -B xxx/ -s -p0 < foo.diff
@@ -24,14 +24,14 @@ $ find xxx -type f
 $ quilt pop -q
 > Removing patch %{P}foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ mkdir ${QUILT_PATCHES:-patches}
 $ patch-wrapper -s -p0 -i foo.diff
 $ quilt pop -q
 > Removing patch %{P}foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ mkdir ${QUILT_PATCHES:-patches}
 $ patch-wrapper -p0 < foo.diff
@@ -39,7 +39,7 @@ $ patch-wrapper -p0 < foo.diff
 $ quilt pop -q
 > Removing patch %{P}foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ mv foo.diff somewhere/
 $ mkdir ${QUILT_PATCHES:-patches}
@@ -48,7 +48,7 @@ $ patch-wrapper -p0 < somewhere/foo.diff
 $ quilt pop -q
 > Removing patch %{P}somewhere/foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ mkdir ${QUILT_PATCHES:-patches}
 $ patch-wrapper -p0 -i somewhere/foo.diff
@@ -56,7 +56,7 @@ $ patch-wrapper -p0 -i somewhere/foo.diff
 $ quilt pop -q
 > Removing patch %{P}somewhere/foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}
 
 $ sed -e 's/5/5b/' foo > foo.new
 $ mv foo.new foo
@@ -73,4 +73,4 @@ $ cat foo.orig
 $ quilt pop -q
 > Removing patch %{P}somewhere/foo.diff
 > No patches applied
-$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-.pc}
+$ rm -rf ${QUILT_PATCHES:-patches} ${QUILT_PC:-%{QUILT_PC}}

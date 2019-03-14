@@ -10,5 +10,5 @@ $ quilt add foo
 $ quilt add patches/bar
 > File patches/bar is located below patches/
 
-$ quilt add .pc/baz
-> File .pc/baz is located below .pc/
+$ quilt add %{QUILT_PC}/baz
+> File %{QUILT_PC}/baz is located below %{QUILT_PC}/
