@@ -178,7 +178,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr "次のパッチはありません\\n"
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:603
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:618
 msgid "Patch %s is currently applied\\n"
 msgstr "パッチ %s は現在適用されています\\n"
 
@@ -602,11 +602,11 @@ msgstr ""
 "--backup\n"
 "\t古いバージョンのパッチのバックアップコピーをパッチ~として作成する。\n"
 
-#: quilt/header.in:167
+#: quilt/header.in:170
 msgid "Replaced header of patch %s\\n"
 msgstr "パッチ %s のヘッダを変更しました\\n"
 
-#: quilt/header.in:170
+#: quilt/header.in:173
 msgid "Appended text to header of patch %s\\n"
 msgstr "パッチ %s のヘッダに追加しました\\n"
 
@@ -663,7 +663,7 @@ msgstr ""
 "\tがある場合は必ずこのオプションを指定する必要がある。このオプショ\n"
 "\tンは -fが指定された時のみ有効。\n"
 
-#: quilt/import.in:73
+#: quilt/import.in:73 quilt/mail.in:463
 msgid "Patch %s does not exist\\n"
 msgstr "パッチ %s が存在しません\\n"
 
@@ -835,27 +835,27 @@ msgstr ""
 "エンベロープの送信者アドレスを確定できませんでした。--senderオプション\n"
 "を使用してください。"
 
-#: quilt/mail.in:460
+#: quilt/mail.in:466
 msgid "Unable to extract a subject header from %s\\n"
 msgstr "%s から件名を取り出せません。\\n"
 
-#: quilt/mail.in:484
+#: quilt/mail.in:492
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr "パッチ %s の件名が重複しています。\\n"
 
-#: quilt/mail.in:493
+#: quilt/mail.in:501
 msgid "File %s does not exist\\n"
 msgstr "ファイル %s が存在しません\\n"
 
-#: quilt/mail.in:553
+#: quilt/mail.in:561
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr "概要文に件名部分がありません(%s として保存されました)\\n"
 
-#: quilt/mail.in:556
+#: quilt/mail.in:564
 msgid "Introduction has no subject header\\n"
 msgstr "概要文に件名部分がありません\\n"
 
-#: quilt/mail.in:670
+#: quilt/mail.in:677
 msgid "Introduction saved as %s\\n"
 msgstr "概要文は %s という名前で保存されました\\n"
 
@@ -1016,7 +1016,7 @@ msgstr ""
 "--refresh\n"
 "\tパッチを外す前に自動的にパッチを更新する。\n"
 
-#: quilt/pop.in:103 quilt/scripts/patchfns.in:911
+#: quilt/pop.in:103 quilt/scripts/patchfns.in:930
 msgid "Failed to copy files to temporary directory\\n"
 msgstr "テンポラリディレクトリへのファイルコピーに失敗しました\\n"
 
@@ -1034,7 +1034,7 @@ msgstr "パッチ %s は、空のようです。はずします\\n"
 msgid "Removing patch %s\\n"
 msgstr "パッチ %s をはずします\\n"
 
-#: quilt/pop.in:216 quilt/push.in:373
+#: quilt/pop.in:216 quilt/push.in:376
 msgid "Options %s and %s are mutually exclusive\\n"
 msgstr "オプション %s と %s は、同時に使用できません\\n"
 
@@ -1046,11 +1046,11 @@ msgstr "最初に、パッチ %s のリフレッシュが必要です。\\n"
 msgid "No patch removed\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:272 quilt/scripts/patchfns.in:512
+#: quilt/pop.in:272 quilt/scripts/patchfns.in:527
 msgid "No patches applied\\n"
 msgstr "適用されているパッチはありません\\n"
 
-#: quilt/pop.in:279 quilt/push.in:437
+#: quilt/pop.in:279 quilt/push.in:440
 msgid "Now at patch %s\\n"
 msgstr "現在位置はパッチ %s です\\n"
 
@@ -1146,41 +1146,41 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr "ユーザによって中断されました。パッチ %s は適用されていません。\\n"
 
-#: quilt/push.in:183
+#: quilt/push.in:186
 msgid "Applying patch %s\\n"
 msgstr "パッチ %s を適用しています\\n"
 
-#: quilt/push.in:217
+#: quilt/push.in:220
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr "パッチ %s は存在しません。空のパッチを適用しました\\n"
 
-#: quilt/push.in:221
+#: quilt/push.in:224
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr "パッチ %s は空のようですが、適用しました\\n"
 
-#: quilt/push.in:225
+#: quilt/push.in:228
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 "パッチ %s を適用しました (強制適用したために、リフレッシュが必要です)\\n"
 
-#: quilt/push.in:235
+#: quilt/push.in:238
 msgid "Patch %s can be reverse-applied\\n"
 msgstr "パッチ %s は、反転して適用することができます\\n"
 
-#: quilt/push.in:238
+#: quilt/push.in:241
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr "パッチ %s が適用できません (強制適用する場合は -fを付けてください)\\n"
 
-#: quilt/push.in:293
+#: quilt/push.in:296
 msgid "Patch %s is already applied; check your series file\\n"
 msgstr ""
 "パッチ %s はすでに適用されています。シリーズファイルを確認してください\\n"
 
-#: quilt/push.in:405
+#: quilt/push.in:408
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr "最上位パッチのリフレッシュが最初に必要です。\\n"
 
-#: quilt/push.in:413
+#: quilt/push.in:416
 msgid "No patch applied\\n"
 msgstr "パッチはひとつも適用されませんでした\\n"
 
@@ -1440,40 +1440,40 @@ msgstr "表示用の名前 `%s' が対にならない括弧を含んでいます
 msgid "Delivery address `%s' is invalid\n"
 msgstr "配送先のアドレス `%s' が不正です\n"
 
-#: quilt/scripts/patchfns.in:231 quilt/scripts/patchfns.in:525
+#: quilt/scripts/patchfns.in:243 quilt/scripts/patchfns.in:540
 msgid "%s is not a regular file\\n"
 msgstr "%s は普通のファイルではありません\\n"
 
-#: quilt/scripts/patchfns.in:479 quilt/scripts/patchfns.in:496
+#: quilt/scripts/patchfns.in:494 quilt/scripts/patchfns.in:511
 msgid "No patches in series\\n"
 msgstr "シリーズに登録されているパッチがありません\\n"
 
-#: quilt/scripts/patchfns.in:481 quilt/scripts/patchfns.in:498
+#: quilt/scripts/patchfns.in:496 quilt/scripts/patchfns.in:513
 msgid "No series file found\\n"
 msgstr "シリーズファイルが見つかりません\\n"
 
-#: quilt/scripts/patchfns.in:554
+#: quilt/scripts/patchfns.in:569
 msgid "Patch %s is not in series\\n"
 msgstr "パッチ %s は seriesの中にありません\\n"
 
-#: quilt/scripts/patchfns.in:582
+#: quilt/scripts/patchfns.in:597
 msgid "Patch %s is not applied\\n"
 msgstr "パッチ %s は適用されていません\\n"
 
-#: quilt/scripts/patchfns.in:619
+#: quilt/scripts/patchfns.in:634
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 "seriesファイルのパッチはすべて適用されています。最終パッチは %s です。\\n"
 
-#: quilt/scripts/patchfns.in:764
+#: quilt/scripts/patchfns.in:779
 msgid "Diff failed on file '%s', aborting\\n"
 msgstr "ファイル'%s'の差分に失敗しました。異常終了します\\n"
 
-#: quilt/scripts/patchfns.in:929
+#: quilt/scripts/patchfns.in:948
 msgid "Failed to patch temporary files\\n"
 msgstr "テンポラリファイルへのパッチ適用に失敗しました\\n"
 
-#: quilt/scripts/patchfns.in:972
+#: quilt/scripts/patchfns.in:991
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1485,17 +1485,17 @@ msgstr ""
 "ていません。ダウングレードする前に、pushしたバージョンの quiltを使って、\n"
 "すべてのパッチを pop してください。\\n"
 
-#: quilt/scripts/patchfns.in:1045
+#: quilt/scripts/patchfns.in:1064
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
 msgstr ""
 "'%s' (%s パッケージ) がインストールされていないと、'quilt %s' は利用できませ"
 "ん\\n"
 
-#: quilt/scripts/patchfns.in:1124
+#: quilt/scripts/patchfns.in:1143
 msgid "Cannot change into parent directory %s/\\n"
 msgstr "上のディレクトリー %s に変更できません/\\n"
 
-#: quilt/scripts/patchfns.in:1165
+#: quilt/scripts/patchfns.in:1184
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
@@ -1503,7 +1503,7 @@ msgstr ""
 "現在作業中のディレクトリは古いバージョンの quiltによって作られたもので"
 "す。'quilt upgrade'を実行してください。\\n"
 
-#: quilt/scripts/patchfns.in:1173
+#: quilt/scripts/patchfns.in:1192
 msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
@@ -1577,7 +1577,7 @@ msgstr "ディレクトリ %s は、すでに存在します\\n"
 msgid "File %s exists\\n"
 msgstr "ファイル %s は、すでに存在します\\n"
 
-#: quilt/setup.in:266
+#: quilt/setup.in:274
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
@@ -1585,7 +1585,7 @@ msgstr ""
 "使い方: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
 
-#: quilt/setup.in:269
+#: quilt/setup.in:277
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1608,8 +1608,7 @@ msgid ""
 "\n"
 "--fast\tUse an alternative, faster method to process the spec file. In this\n"
 "\tmode, rpmbuild is told to generate a working tree directly in the\n"
-"\ttarget directory. If the input is a series file, it is assumed that\n"
-"\tall archives have been extracted manually beforehand.\n"
+"\ttarget directory.\n"
 msgstr ""
 "\n"
 "rpmの specファイルまたは quiltの seriesファイルを使って、ソースツリー\n"
@@ -1632,28 +1631,27 @@ msgstr ""
 "\n"
 "--fast\t別の、速い spec ファイルの処理方法を使用。このモードでは\n"
 "\trpmbuild はターゲットディレクトリで作業ツリーの生成を指示され\n"
-"\tる。もし入力がシリーズファイルの場合、すべてのアーカイブは事前\n"
-"\tに展開されていることが期待される。\n"
+"\tる。\n"
 
-#: quilt/setup.in:373
+#: quilt/setup.in:380
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 "%%prepセクションの解析に失敗しました。完全に作業が完了していない場合がありま"
 "す\\n"
 
-#: quilt/setup.in:376
+#: quilt/setup.in:383
 msgid "The -v option will show rpm's output\\n"
 msgstr "-vオプションを使って、rpmの出力を表示できます"
 
-#: quilt/setup.in:432 quilt/setup.in:444
+#: quilt/setup.in:444 quilt/setup.in:456 quilt/setup.in:467
 msgid "File %s not found\\n"
 msgstr "ファイル %s が見つかりません"
 
-#: quilt/setup.in:435 quilt/setup.in:447
+#: quilt/setup.in:447 quilt/setup.in:459 quilt/setup.in:470
 msgid "Unpacking archive %s\\n"
 msgstr "アーカイブ %s を展開しています\\n"
 
-#: quilt/setup.in:457
+#: quilt/setup.in:480
 msgid "Trying alternative patches and series names..."
 msgstr "別名の patches と series を試します..."
 

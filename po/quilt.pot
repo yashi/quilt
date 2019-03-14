@@ -119,7 +119,7 @@ msgstr ""
 msgid "No next patch\\n"
 msgstr ""
 
-#: quilt/delete.in:102 quilt/scripts/patchfns.in:603
+#: quilt/delete.in:102 quilt/scripts/patchfns.in:618
 msgid "Patch %s is currently applied\\n"
 msgstr ""
 
@@ -399,11 +399,11 @@ msgid ""
 "\tCreate a backup copy of the old version of a patch as patch~.\n"
 msgstr ""
 
-#: quilt/header.in:167
+#: quilt/header.in:170
 msgid "Replaced header of patch %s\\n"
 msgstr ""
 
-#: quilt/header.in:170
+#: quilt/header.in:173
 msgid "Appended text to header of patch %s\\n"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgid ""
 "\tmust be specified. This option is only effective when -f is used.\n"
 msgstr ""
 
-#: quilt/import.in:73
+#: quilt/import.in:73 quilt/mail.in:463
 msgid "Patch %s does not exist\\n"
 msgstr ""
 
@@ -554,27 +554,27 @@ msgstr ""
 msgid "Could not determine the envelope sender address. Please use --sender."
 msgstr ""
 
-#: quilt/mail.in:460
+#: quilt/mail.in:466
 msgid "Unable to extract a subject header from %s\\n"
 msgstr ""
 
-#: quilt/mail.in:484
+#: quilt/mail.in:492
 msgid "Patches %s have duplicate subject headers.\\n"
 msgstr ""
 
-#: quilt/mail.in:493
+#: quilt/mail.in:501
 msgid "File %s does not exist\\n"
 msgstr ""
 
-#: quilt/mail.in:553
+#: quilt/mail.in:561
 msgid "Introduction has no subject header (saved as %s)\\n"
 msgstr ""
 
-#: quilt/mail.in:556
+#: quilt/mail.in:564
 msgid "Introduction has no subject header\\n"
 msgstr ""
 
-#: quilt/mail.in:670
+#: quilt/mail.in:677
 msgid "Introduction saved as %s\\n"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgid ""
 "\tAutomatically refresh every patch before it gets unapplied.\n"
 msgstr ""
 
-#: quilt/pop.in:103 quilt/scripts/patchfns.in:911
+#: quilt/pop.in:103 quilt/scripts/patchfns.in:930
 msgid "Failed to copy files to temporary directory\\n"
 msgstr ""
 
@@ -698,7 +698,7 @@ msgstr ""
 msgid "Removing patch %s\\n"
 msgstr ""
 
-#: quilt/pop.in:216 quilt/push.in:373
+#: quilt/pop.in:216 quilt/push.in:376
 msgid "Options %s and %s are mutually exclusive\\n"
 msgstr ""
 
@@ -710,11 +710,11 @@ msgstr ""
 msgid "No patch removed\\n"
 msgstr ""
 
-#: quilt/pop.in:272 quilt/scripts/patchfns.in:512
+#: quilt/pop.in:272 quilt/scripts/patchfns.in:527
 msgid "No patches applied\\n"
 msgstr ""
 
-#: quilt/pop.in:279 quilt/push.in:437
+#: quilt/pop.in:279 quilt/push.in:440
 msgid "Now at patch %s\\n"
 msgstr ""
 
@@ -774,39 +774,39 @@ msgstr ""
 msgid "Interrupted by user; patch %s was not applied.\\n"
 msgstr ""
 
-#: quilt/push.in:183
+#: quilt/push.in:186
 msgid "Applying patch %s\\n"
 msgstr ""
 
-#: quilt/push.in:217
+#: quilt/push.in:220
 msgid "Patch %s does not exist; applied empty patch\\n"
 msgstr ""
 
-#: quilt/push.in:221
+#: quilt/push.in:224
 msgid "Patch %s appears to be empty; applied\\n"
 msgstr ""
 
-#: quilt/push.in:225
+#: quilt/push.in:228
 msgid "Applied patch %s (forced; needs refresh)\\n"
 msgstr ""
 
-#: quilt/push.in:235
+#: quilt/push.in:238
 msgid "Patch %s can be reverse-applied\\n"
 msgstr ""
 
-#: quilt/push.in:238
+#: quilt/push.in:241
 msgid "Patch %s does not apply (enforce with -f)\\n"
 msgstr ""
 
-#: quilt/push.in:293
+#: quilt/push.in:296
 msgid "Patch %s is already applied; check your series file\\n"
 msgstr ""
 
-#: quilt/push.in:405
+#: quilt/push.in:408
 msgid "The topmost patch %s needs to be refreshed first.\\n"
 msgstr ""
 
-#: quilt/push.in:413
+#: quilt/push.in:416
 msgid "No patch applied\\n"
 msgstr ""
 
@@ -991,39 +991,39 @@ msgstr ""
 msgid "Delivery address `%s' is invalid\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:231 quilt/scripts/patchfns.in:525
+#: quilt/scripts/patchfns.in:243 quilt/scripts/patchfns.in:540
 msgid "%s is not a regular file\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:479 quilt/scripts/patchfns.in:496
+#: quilt/scripts/patchfns.in:494 quilt/scripts/patchfns.in:511
 msgid "No patches in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:481 quilt/scripts/patchfns.in:498
+#: quilt/scripts/patchfns.in:496 quilt/scripts/patchfns.in:513
 msgid "No series file found\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:554
+#: quilt/scripts/patchfns.in:569
 msgid "Patch %s is not in series\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:582
+#: quilt/scripts/patchfns.in:597
 msgid "Patch %s is not applied\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:619
+#: quilt/scripts/patchfns.in:634
 msgid "File series fully applied, ends at patch %s\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:764
+#: quilt/scripts/patchfns.in:779
 msgid "Diff failed on file '%s', aborting\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:929
+#: quilt/scripts/patchfns.in:948
 msgid "Failed to patch temporary files\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:972
+#: quilt/scripts/patchfns.in:991
 msgid ""
 "The quilt meta-data in this tree has version %s, but this version of quilt "
 "can only handle meta-data formats up to and including version %s. Please pop "
@@ -1031,21 +1031,21 @@ msgid ""
 "downgrading.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1045
+#: quilt/scripts/patchfns.in:1064
 msgid "You have to install '%s' (from package %s) to use 'quilt %s'\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1124
+#: quilt/scripts/patchfns.in:1143
 msgid "Cannot change into parent directory %s/\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1165
+#: quilt/scripts/patchfns.in:1184
 msgid ""
 "The working tree was created by an older version of quilt. Please run 'quilt "
 "upgrade'.\\n"
 msgstr ""
 
-#: quilt/scripts/patchfns.in:1173
+#: quilt/scripts/patchfns.in:1192
 msgid ""
 "The series file no longer matches the applied patches. Please run 'quilt pop "
 "-a'.\\n"
@@ -1109,13 +1109,13 @@ msgstr ""
 msgid "File %s exists\\n"
 msgstr ""
 
-#: quilt/setup.in:266
+#: quilt/setup.in:274
 msgid ""
 "Usage: quilt setup [-d path-prefix] [-v] [--sourcedir dir] [--fuzz=N] [--"
 "slow|--fast] {specfile|seriesfile}\\n"
 msgstr ""
 
-#: quilt/setup.in:269
+#: quilt/setup.in:277
 msgid ""
 "\n"
 "Initializes a source tree from an rpm spec file or a quilt series file.\n"
@@ -1138,27 +1138,26 @@ msgid ""
 "\n"
 "--fast\tUse an alternative, faster method to process the spec file. In this\n"
 "\tmode, rpmbuild is told to generate a working tree directly in the\n"
-"\ttarget directory. If the input is a series file, it is assumed that\n"
-"\tall archives have been extracted manually beforehand.\n"
+"\ttarget directory.\n"
 msgstr ""
 
-#: quilt/setup.in:373
+#: quilt/setup.in:380
 msgid "The %%prep section of %s failed; results may be incomplete\\n"
 msgstr ""
 
-#: quilt/setup.in:376
+#: quilt/setup.in:383
 msgid "The -v option will show rpm's output\\n"
 msgstr ""
 
-#: quilt/setup.in:432 quilt/setup.in:444
+#: quilt/setup.in:444 quilt/setup.in:456 quilt/setup.in:467
 msgid "File %s not found\\n"
 msgstr ""
 
-#: quilt/setup.in:435 quilt/setup.in:447
+#: quilt/setup.in:447 quilt/setup.in:459 quilt/setup.in:470
 msgid "Unpacking archive %s\\n"
 msgstr ""
 
-#: quilt/setup.in:457
+#: quilt/setup.in:480
 msgid "Trying alternative patches and series names..."
 msgstr ""
 
