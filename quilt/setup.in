@@ -295,8 +295,7 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 
 --fast	Use an alternative, faster method to process the spec file. In this
 	mode, rpmbuild is told to generate a working tree directly in the
-	target directory. If the input is a series file, it is assumed that
-	all archives have been extracted manually beforehand.
+	target directory.
 "
 		exit 0
 	else
@@ -426,7 +425,9 @@ case "$1" in
 	;;
 esac
 
-if [ -z "$QUILT_SETUP_FAST" ]
+# If running on a spec file in fast mode, the source tree is already unpacked;
+# in all other cases, we must prepare the source tree now
+if [ -z "$QUILT_SETUP_FAST" -o -n "$series_file" ]
 then
 	# Make sure that unpacking will not overwrite anything
 	check_for_existing_directories || exit 1
