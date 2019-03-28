@@ -1,3 +1,37 @@
+Version 0.66 (Thu Mar 28 2019)
+  - Add support for lzip archives and patches (#54570)
+  - Document QUILT_PC as user-settable
+  - configure: Don't require md5sum
+  - Test suite: Allow keeping the working directory on failure
+  - Test suite: Fix regex for recent versions of perl
+  - Test suite: Fix /bin/sh filtering
+  - Test suite: Run tests again if test.quiltrc changes
+  - Test suite: Handle alternative QUILT_PATCHES values
+  - Test suite: Increase code path coverage
+  - Test suite: Be verbose on directory error
+  - Test suite: Clean up when interrupted
+  - Test suite: Prevent test cases from escaping
+  - fold: Fix German translation
+  - diff: Add missing quotes in basename call (#50862)
+  - header: Fix corruption when trailing newline is missing (#50841)
+  - mail: Fix patch set threading (#50775)
+  - mail: Fix French translation
+  - mail: Remove Content-Disposition headers
+  - mail: Complain when a patch doesn't exist
+  - new: Fix corruption when trailing newline is missing (#54295)
+  - refresh: Add missing quotes in basename call (#50862)
+  - setup: Add basic support for p7zip (.7z) archives (#49754)
+  - setup: Align --fast on --slow for series files
+  - quilt.el: Define quilt-edit-top-only before it's used
+  - quilt.el: Stop using deprecated toggle-read-only
+  - quilt.el: Don't strip directory in quilt-top-patch
+  - quilt.el: Fix emacs compatibility issue (#51977)
+  - quilt.el: Read QUILT_PC from config file
+  - quiltrc: Support all patch formats by default
+  - guards: Mention it in quilt manual page
+  - compat/getopt: Handle a second separator (#54772)
+  - compat/getopt: Allow non-digit parameter embedded in short option (#54772)
+
 Version 0.65 (Wed Oct 09 2016)
   - Translation fixes
   - Project settings have priority
