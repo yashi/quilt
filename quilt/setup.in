@@ -20,8 +20,13 @@ then
 	. $QUILT_DIR/scripts/patchfns
 	if [ -n "$SUBDIR" ]
 	then
+		# Damn, found an enclosing quilt directory; don't follow its settings
 		cd $SUBDIR
 		unset SUBDIR
+		unset QUILT_PC QUILT_PATCHES QUILT_SERIES
+		: ${QUILT_PC:=.pc}
+		: ${QUILT_PATCHES:=patches}
+		: ${QUILT_SERIES:=series}
 	fi
 fi
 
