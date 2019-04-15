@@ -27,6 +27,7 @@ SHELL:=		@BASH@ # It does not work if dash is used as a shell, for example
 GREP :=		@GREP@
 TAIL :=		@TAIL@
 TR :=		@TR@
+STAT :=		@STAT@
 SED :=		@SED@
 AWK :=		@AWK@
 FIND :=		@FIND@
