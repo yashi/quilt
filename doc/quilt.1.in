@@ -58,8 +58,13 @@ by path names that are relative to the
 .I patches
 directory; patches may be in sub-directories below this directory. Lines
 in the series file that start with a hash character (#) are ignored.
-You can also add a comment after each patch file name, introduced by a
-space  followed by a hash character. When
+Patch options, such as the strip level or whether the patch is reversed, can
+be added after each patch file name. Options are introduced by a space,
+separated by spaces, and follow the syntax of the patch(1) options
+(e.g. -p2). Quilt records patch options automatically when a command
+supporting them is used. Without options, strip level 1 is assumed.
+You can also add a comment after each patch file name and options, introduced
+by a space followed by a hash character. When
 quilt adds, removes, or renames patches, it automatically updates the series
 file. Users of quilt can modify series files while some patches are
 applied, as long as the applied patches remain in their original order.
