@@ -113,9 +113,7 @@ do_diff()
 		[ -s "$new_file" ] || new_file=/dev/null
 		if ! diff -q "$old_file" "$new_file" >/dev/null
 		then
-			export LANG=$ORIGINAL_LANG
-			$opt_diff "$old_file" "$new_file"
-			export LANG=POSIX
+			LANG=$ORIGINAL_LANG $opt_diff "$old_file" "$new_file"
 			true
 		fi
 	else
