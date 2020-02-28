@@ -1105,7 +1105,7 @@ setup_pager()
 	pager_fifo_dir="$(gen_tempfile -d)"
 	pager_fifo="$pager_fifo_dir/0"
 	mkfifo -m 600 "$pager_fifo"
-	$QUILT_PAGER < "$pager_fifo" &
+	LANG=$ORIGINAL_LANG $QUILT_PAGER < "$pager_fifo" &
 	pager_pid=$!
 	exec > "$pager_fifo"
 
