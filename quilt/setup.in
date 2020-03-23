@@ -249,7 +249,7 @@ inspect()
 		ln -s "$targetdir" $tmpdir/build
 		export -f create_md5sums
 	else
-		# Standard mode
+		# Legacy mode
 		mkdir -p $tmpdir/build
 		create_md5sums "$sourcedir" $tmpdir/md5sums
 	fi
@@ -292,15 +292,14 @@ Initializes a source tree from an rpm spec file or a quilt series file.
 --fuzz=N
 	Set the maximum fuzz factor (needs rpm 4.6 or later).
 
---slow	Use the original, slow method to process the spec file. This is the
-	default for now, but that might change in the future. In this mode,
+--slow	Use the original, slow method to process the spec file. In this mode,
 	rpmbuild generates a working tree in a temporary directory while all
 	its actions are recorded, and then everything is replayed from scratch
 	in the target directory.
 
---fast	Use an alternative, faster method to process the spec file. In this
-	mode, rpmbuild is told to generate a working tree directly in the
-	target directory.
+--fast	Use the new, faster method to process the spec file. In this mode,
+	rpmbuild is told to generate a working tree directly in the target
+	directory. This is now the default.
 "
 		exit 0
 	else
@@ -317,6 +316,7 @@ fi
 
 eval set -- "$options"
 
+export QUILT_SETUP_FAST=1
 prefix=
 sourcedir=
 
@@ -342,7 +342,7 @@ do
 		QUILT_SETUP_FAST=
 		shift ;;
 	--fast)
-		export QUILT_SETUP_FAST=1
+		QUILT_SETUP_FAST=1
 		shift ;;
 	--)
 		shift
