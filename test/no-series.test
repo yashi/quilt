@@ -42,8 +42,8 @@ $ quilt refresh
 > No series file found
 
 $ quilt series
-$ quilt snapshot
 $ quilt series -v
+
 $ quilt snapshot
 
 $ quilt top
