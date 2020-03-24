@@ -1,0 +1,53 @@
+# Test case for when no series file exists.
+
+$ mkdir patches
+
+$ quilt applied
+> No series file found
+
+$ quilt diff
+> No series file found
+
+$ quilt files
+> No series file found
+$ quilt files -v
+> No series file found
+
+$ quilt fork
+> No series file found
+
+$ quilt graph
+> No series file found
+
+$ quilt header
+> No series file found
+
+$ quilt next
+> No series file found
+
+$ quilt pop
+> No patch removed
+$ quilt pop -v
+> No patch removed
+
+$ quilt previous
+> No series file found
+
+$ quilt push
+> No series file found
+$ quilt push -v
+> No series file found
+
+$ quilt refresh
+> No series file found
+
+$ quilt series
+$ quilt snapshot
+$ quilt series -v
+$ quilt snapshot
+
+$ quilt top
+> No series file found
+
+$ quilt unapplied
+> No series file found
