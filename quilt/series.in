@@ -95,10 +95,13 @@ then
 	[ -n "$opt_color" ] && setup_colors
 
 	top=$(top_patch)
-	cat_patches "$color_series_app" \
-		"${opt_verbose:++ }" $(patches_before $top)
-	[ -n "$top" ] && cat_patches "$color_series_top" \
-		"${opt_verbose:+= }" $top
+	if [ -n "$top" ]
+	then
+		cat_patches "$color_series_app" \
+			"${opt_verbose:++ }" $(applied_before $top)
+		cat_patches "$color_series_top" \
+			"${opt_verbose:+= }" $top
+	fi
 	cat_patches "$color_series_una" \
 		"${opt_verbose:+  }" $(patches_after $top)
 else
