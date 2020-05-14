@@ -533,7 +533,7 @@ contains the list of patches and how they are applied, and the patches
 themselves are all that's needed. The \textsl{.pc} directory only
 contains quilt's working state, and should not be distributed. Make sure
 that all the patches are up-to-date, and refresh patches when
-necessary. The \textsf{--combine} option of \quilt{diff} can be used for
+necessary. The \textsf{-{}-combine} option of \quilt{diff} can be used for
 generating a single patch out of all the patches in the series file.
 
 \subsection{Merging with upstream}
@@ -672,10 +672,10 @@ the series file in this case.
 \section{Customizing Quilt}
 
 Upon startup, quilt evaluates the file \textsf{.quiltrc} in the user's
-home directory, or the file specified with the \textsf{--quiltrc} option.
+home directory, or the file specified with the \textsf{-{}-quiltrc} option.
 This file is a regular bash script. Default options can be passed to
 any command by defining a \textsf{QUILT\_\textit{COMMAND}\_ARGS} variable
-(for example, \textsf{QUILT\_DIFF\_ARGS="--color=auto"} causes the output
+(for example, \textsf{QUILT\_DIFF\_ARGS="-{}-color=auto"} causes the output
 of \quilt{diff} to be syntax colored when writing to a terminal).
 
 In addition to that, quilt recognizes the following variables:
@@ -691,9 +691,9 @@ patch which function a change is in.
 \item[\textsf{QUILT\_PATCH\_OPTS}]
 Additional options that quilt shall pass to \prog{GNU patch} when
 applying patches. (For example, recent versions of \prog{GNU patch}
-support the ``\textsf{--reject-format=unified}'' option for generating
+support the ``\textsf{-{}-reject-format=unified}'' option for generating
 reject files in unified diff style (older versions used
-``\textsf{--unified-reject-files}'' for that).
+``\textsf{-{}-unified-reject-files}'' for that).
 
 \item[\textsf{QUILT\_PATCHES}]
 The location of patch files (see Section~\ref{sec:basic}).  This setting
