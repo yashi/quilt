@@ -166,7 +166,7 @@ The patches/ directory is precious as it contains all your patches as
 well as the order in which it should be applied.
 
 The .pc/ directory contains some metadata about the current state of
-your patch serie. Changing its content is not advised. This directory
+your patch series. Changing its content is not advised. This directory
 can usually be regenerated from the initial files and the
 content of the patches/ directory (provided that all patches were
 regenerated before the removal).
