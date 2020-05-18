@@ -672,7 +672,8 @@ the series file in this case.
 \section{Customizing Quilt}
 
 Upon startup, quilt evaluates the file \textsf{.quiltrc} in the user's
-home directory, or the file specified with the \textsf{-{}-quiltrc} option.
+home directory, \textsf{/etc/quilt.quiltrc} if the former file does not
+exist, or the file specified with the \textsf{-{}-quiltrc} option.
 This file is a regular bash script. Default options can be passed to
 any command by defining a \textsf{QUILT\_\textit{COMMAND}\_ARGS} variable
 (for example, \textsf{QUILT\_DIFF\_ARGS="-{}-color=auto"} causes the output
