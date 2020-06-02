@@ -1,3 +1,12 @@
+# In order to build the PDF documentation, you need the following packages
+# to be installed:
+#
+# texlive-latex texlive-subfigure texlive-metafont texlive-mfware
+# texlive-cyrillic texlive-collection-langcyrillic texlive-cmap
+# texlive-cm-super
+#
+# Alternatively, installing hevea might be sufficient on some distributions.
+
 all : quilt.pdf quilt-rus.pdf
 
 quilt.ps : quilt.dvi
