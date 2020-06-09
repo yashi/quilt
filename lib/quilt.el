@@ -29,12 +29,12 @@
   "Return t if there is on the bottom of patch stack, return nil if otherwise."
   (if (> (call-process "quilt" nil nil nil "applied") 0) 1))
 
-(defun quilt-patches-directory ()
-  "Return the location of patch files."
+(defun quilt--get-config-variable (var)
+  "Return the value of a configuration variable. Return nil if it is unset."
   (or (with-current-buffer (generate-new-buffer " *cmd")
         (shell-command
          (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
-                 "echo -n $QUILT_PATCHES")
+                 "echo -n $" var)
          t)
         (unwind-protect
             (let ((v (buffer-string)))
@@ -42,24 +42,17 @@
                   nil
                 v))
           (kill-buffer (current-buffer))))
-      (or (getenv "QUILT_PATCHES")
-          "patches")))
+      (getenv var)))
+
+(defun quilt-patches-directory ()
+  "Return the location of patch files."
+  (or (quilt--get-config-variable "QUILT_PATCHES")
+      "patches"))
 
 (defun quilt-pc-directory ()
   "Return the location of the quilt working state directory."
-  (or (with-current-buffer (generate-new-buffer " *cmd")
-        (shell-command
-         (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
-                 "echo -n $QUILT_PC")
-         t)
-        (unwind-protect
-            (let ((v (buffer-string)))
-              (if (string= "" (buffer-string))
-                  nil
-                v))
-          (kill-buffer (current-buffer))))
-      (or (getenv "QUILT_PC")
-          ".pc")))
+  (or (quilt--get-config-variable "QUILT_PC")
+      ".pc"))
 
 (defun quilt-find-dir (fn &optional prefn)
   "Return the top level dir of quilt from FN."
