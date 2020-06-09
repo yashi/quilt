@@ -46,7 +46,7 @@
           "patches")))
 
 (defun quilt-pc-directory ()
-  "Return the location of patch files."
+  "Return the location of the quilt working state directory."
   (or (with-current-buffer (generate-new-buffer " *cmd")
         (shell-command
          (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
