@@ -69,6 +69,10 @@
   (or (quilt--get-config-variable "QUILT_PC")
       ".pc"))
 
+(defun quilt-patches-prefix ()
+  "Return the value of the QUILT_PATCHES_PREFIX config variable. Return nil if it is unset."
+  (quilt--get-config-variable "QUILT_PATCHES_PREFIX"))
+
 (defun quilt-find-dir (fn &optional prefn)
   "Return the top level dir of quilt from FN."
   (if (or (not fn) (equal fn "/") (equal fn prefn))
@@ -189,6 +193,11 @@
       (setq n (1+ n))))
   (completing-read p l nil t))
 
+(defun quilt--strip-patchname (pn)
+  "Return the name of patch PN sans the path to the patches directory."
+  (let ((patches-path (concat (quilt-patches-directory) "/")))
+    (substring pn (length patches-path))))
+
 (defvar quilt-edit-top-only 't)
 (defun quilt-editable (f)
   "Return t if F is editable in terms of current patch.  Return nil if otherwise."
@@ -199,7 +208,10 @@
 	(if (quilt-bottom-p)
 	    (quilt-cmd "applied")	; to print error message
 	  (setq dirs (if quilt-edit-top-only
-			 (list (substring (quilt-cmd-to-string "top")  0 -1))
+			 (list (let ((patch (substring (quilt-cmd-to-string "top")  0 -1)))
+				 (if (quilt-patches-prefix)
+				     (quilt--strip-patchname patch)
+				   patch)))
 			 (cdr (cdr (directory-files (concat qd (quilt-pc-directory) "/"))))))
 	  (while (and (not result) dirs)
 	    (if (file-exists-p (concat qd (quilt-pc-directory) "/" (car dirs) "/" fn))
