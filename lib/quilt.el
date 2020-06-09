@@ -33,7 +33,11 @@
   "Return the value of a configuration variable. Return nil if it is unset."
   (or (with-current-buffer (generate-new-buffer " *cmd")
         (shell-command
-         (concat "test -f ~/.quiltrc && . ~/.quiltrc ;"
+         (concat "if [ -f ~/.quiltrc ]; then"
+                 "  . ~/.quiltrc ;"
+                 "elif [ -f /etc/quilt.quiltrc ]; then"
+                 "  . /etc/quilt.quiltrc ;"
+                 "fi ;"
                  "echo -n $" var)
          t)
         (unwind-protect
