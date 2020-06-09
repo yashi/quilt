@@ -48,9 +48,20 @@
           (kill-buffer (current-buffer))))
       (getenv var)))
 
+(defun quilt--per-project-patches-directory ()
+  (let ((qd (quilt-dir)))
+    (if qd
+        (let ((project-config (concat qd "/"
+                                      (quilt-pc-directory) "/.quilt_patches")))
+          (if (file-readable-p project-config)
+              (with-temp-buffer
+                (insert-file-contents-literally project-config)
+                (substring (buffer-string) 0 -1)))))))
+
 (defun quilt-patches-directory ()
   "Return the location of patch files."
-  (or (quilt--get-config-variable "QUILT_PATCHES")
+  (or (quilt--per-project-patches-directory)
+      (quilt--get-config-variable "QUILT_PATCHES")
       "patches"))
 
 (defun quilt-pc-directory ()
