@@ -489,12 +489,7 @@ find_first_patch()
 	local patch=$(cat_series | head -n 1)
 	if [ -z "$patch" ]
 	then
-		if [ -e "$SERIES" ]
-		then
-			printf $"No patches in series\n" >&2
-		else
-			printf $"No series file found\n" >&2
-		fi
+		printf $"No patches in series\n" >&2
 		return 1
 	fi
 
@@ -506,12 +501,7 @@ find_last_patch()
 	local patch=$(cat_series | tail -n 1)
 	if [ -z "$patch" ]
 	then
-		if [ -e "$SERIES" ]
-		then
-			printf $"No patches in series\n" >&2
-		else
-			printf $"No series file found\n" >&2
-		fi
+		printf $"No patches in series\n" >&2
 		return 1
 	fi
 
@@ -1168,9 +1158,13 @@ then
 elif [ -f "$QUILT_PC/$QUILT_SERIES" ]
 then
 	SERIES=$QUILT_PC/$QUILT_SERIES
+	# We know the file exists, no need to re-check later
+	skip_series_check=1
 elif [ -f "$QUILT_SERIES" ]
 then
 	SERIES=$QUILT_SERIES
+	# We know the file exists, no need to re-check later
+	skip_series_check=1
 else
 	SERIES=$QUILT_PATCHES/$QUILT_SERIES
 fi
@@ -1190,6 +1184,15 @@ then
 	if [ -s "$DB" -a ! "$DB" -nt "$SERIES" ] && [ "$QUILT_COMMAND" != pop ] && ! consistency_check
 	then
 		printf $"The series file no longer matches the applied patches. Please run 'quilt pop -a'.\n" >&2
+		exit 1
+	fi
+fi
+
+if [ -z "$skip_series_check" ]
+then
+	if [ ! -f "$SERIES" ]
+	then
+		printf $"No series file found\n" >&2
 		exit 1
 	fi
 fi

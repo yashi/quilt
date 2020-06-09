@@ -26,9 +26,9 @@ $ quilt next
 > No series file found
 
 $ quilt pop
-> No patch removed
+> No series file found
 $ quilt pop -v
-> No patch removed
+> No series file found
 
 $ quilt previous
 > No series file found
@@ -42,9 +42,12 @@ $ quilt refresh
 > No series file found
 
 $ quilt series
+> No series file found
 $ quilt series -v
+> No series file found
 
 $ quilt snapshot
+> No series file found
 
 $ quilt top
 > No series file found

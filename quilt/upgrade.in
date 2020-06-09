@@ -6,8 +6,9 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Don't abort in version check.
+# Don't abort in version or series check.
 skip_version_check=1
+skip_series_check=1
 
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]

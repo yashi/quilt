@@ -29,9 +29,9 @@
 	> No series file found
 
 	$ quilt pop
-	> No patch removed
+	> No series file found
 	$ echo %{?}
-	> 2
+	> 1
 
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top

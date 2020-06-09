@@ -6,6 +6,9 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
+# One of the few commands which does not need a series file
+skip_series_check=1
+
 # Read in library functions
 if [ "$(type -t patch_file_name)" != function ]
 then
