@@ -1,56 +1,105 @@
 # Test case for when no series file exists.
 
 $ mkdir patches
+$ touch file
+
+$ quilt annotate file
+> No series file found
+$ echo %{?}
+> 1
 
 $ quilt applied
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt diff
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt files
 > No series file found
+$ echo %{?}
+> 1
 $ quilt files -v
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt fork
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt graph
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt header
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt next
 > No series file found
+$ echo %{?}
+> 1
+
+$ quilt patches file
+> No series file found
+$ echo %{?}
+> 1
 
 $ quilt pop
 > No series file found
+$ echo %{?}
+> 1
 $ quilt pop -v
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt previous
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt push
 > No series file found
+$ echo %{?}
+> 1
 $ quilt push -v
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt refresh
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt series
 > No series file found
+$ echo %{?}
+> 1
 $ quilt series -v
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt snapshot
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt top
 > No series file found
+$ echo %{?}
+> 1
 
 $ quilt unapplied
 > No series file found
+$ echo %{?}
+> 1

@@ -2,9 +2,6 @@ Test the delete command.
 
 	$ mkdir patches
 
-	$ quilt delete
-	> No series file found
-
 	$ cat > test.txt
 	< Calling pci_match_id() would be more feasible.
 

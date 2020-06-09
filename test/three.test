@@ -1,38 +1,5 @@
 	$ mkdir patches
 
-	$ touch e
-	$ quilt annotate e
-	> No series file found
-
-	$ quilt top
-	> No series file found
-
-	$ quilt next
-	> No series file found
-
-	$ quilt previous
-	> No series file found
-
-	$ quilt unapplied
-	> No series file found
-
-	$ quilt applied
-	> No series file found
-
-	$ quilt next patch1
-	> No series file found
-
-	$ quilt push patch1
-	> No series file found
-
-	$ quilt push
-	> No series file found
-
-	$ quilt pop
-	> No series file found
-	$ echo %{?}
-	> 1
-
 	$ quilt new patch1.diff
 	> Patch %{P}patch1.diff is now on top
 
