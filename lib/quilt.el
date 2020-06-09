@@ -228,7 +228,7 @@
   (force-mode-line-update))
 
 (defun quilt-revert (filelist)
-  "Refresh contents, editability and modeline of FILESIT.
+  "Refresh contents, editability and modeline of FILELIST.
 FILELIST won't be touched unless their file is a child of the
 current quilt directory.  Each elements in FILELIST should be the absolute
 file names of those files affected by the latest quilt
