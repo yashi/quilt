@@ -80,7 +80,7 @@ die()
 	local status=$1
 	[ -n "$tmp_patch" ] && rm -f $tmp_patch
 	[ -n "$tmp_result" ] && rm -f $tmp_result
-	[ -n "$workdir" ] && rm -rf $workdir
+	[ -n "$workdir" ] && rm -rf "$workdir"
 	exit $status
 }
 
@@ -205,7 +205,7 @@ esac
 trap "die 1" SIGTERM
 
 if [ -n "$opt_fork" ]; then
-	workdir=$(gen_tempfile -d $PWD/quilt)
+	workdir=$(gen_tempfile -d "$PWD/quilt")
 	apply_patch_temporarily "$workdir" "$old_patch" || exit 1
 fi
 

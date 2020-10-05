@@ -89,7 +89,7 @@ top=$(find_top_patch) || exit 1
 
 trap "failed=1" SIGINT
 
-workdir=$(gen_tempfile -d $PWD)
+workdir=$(gen_tempfile -d "$PWD")
 patch -d ${SUBDIR:-.} $QUILT_PATCH_OPTS -p$opt_strip_level \
       --backup --prefix="$workdir/$SUBDIR" $patch_args \
 || failed=1
@@ -102,7 +102,7 @@ if [ -z "$failed" ]
 then
 	# Copy additional files from workdir to the backup directory
 	# For this patch
-	for file in $(find $workdir -type f -a ! -path "$workdir/.timestamp")
+	for file in $(find "$workdir" -type f -a ! -path "$workdir/.timestamp")
 	do
 		file="${file:${#workdir}+1}"
 		backup_file="$(backup_file_name $top "$file")"
@@ -120,7 +120,7 @@ fi
 if [ -n "$failed" ]
 then
 	# Restore all files to the state from before applying the patch
-	for file in $(find $workdir -type f -a ! -path "$workdir/.timestamp")
+	for file in $(find "$workdir" -type f -a ! -path "$workdir/.timestamp")
 	do
 		file="${file:${#workdir}+1}"
 		if ! mv -f "$workdir/$file" "$file"
@@ -128,12 +128,12 @@ then
 			printf $"File %s may be corrupted\n" "$file" >&2
 		fi
 	done
-	rm -rf $workdir
+	rm -rf "$workdir"
 	exit 1
 fi
 IFS=$saved_IFS
 
-rm -rf $workdir
+rm -rf "$workdir"
 exit 0
 ### Local Variables:
 ### mode: shell-script

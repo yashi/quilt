@@ -129,7 +129,7 @@ die()
 {
 	local status=$1
 	[ -e "$tmp_files" ] && rm -f $tmp_files
-	[ -n "$workdir" ] && rm -rf $workdir
+	[ -n "$workdir" ] && rm -rf "$workdir"
 	exit $status
 }
 
@@ -323,7 +323,7 @@ IFS=$saved_IFS
 
 if [ -n "$opt_relative" ]
 then
-	workdir=$(gen_tempfile -d $PWD/quilt)
+	workdir=$(gen_tempfile -d "$PWD/quilt")
 	apply_patch_temporarily "$workdir" "$last_patch" "${files[@]}" \
 	|| die 1
 fi

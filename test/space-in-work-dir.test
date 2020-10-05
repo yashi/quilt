@@ -27,9 +27,49 @@ $ cat patches/1.patch
 > -old
 > +new
 
+$ echo newer > a
+$ quilt diff -z
+> Index: project/a
+> ===================================================================
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -new
+> +newer
+
+$ quilt revert a
+> Changes to a in patch patches/1.patch reverted
+$ quilt diff -z
+$ echo newer > a
+
+$ quilt refresh -z
+> Fork of patch patches/1.patch created as patches/1-2.patch
+$ quilt series
+> patches/1.patch
+> patches/1-2.patch
+$ cat patches/1.patch
+> Index: project/a
+> ===================================================================
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -old
+> +new
+$ cat patches/1-2.patch
+> Index: project/a
+> ===================================================================
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -new
+> +newer
+
 # Running a command when not at the root of the project tests additional
 # code paths
 $ cd subdir
+$ quilt pop -q
+> Removing patch ../patches/1-2.patch
+> Now at patch ../patches/1.patch
 $ quilt diff --no-index
 > --- project.orig/a
 > +++ project/a
@@ -55,6 +95,25 @@ $ quilt top
 
 $ quilt series -v
 > = patches/1.patch
+>   patches/1-2.patch
+
+$ quilt fold < patches/1-2.patch
+> patching file a
+
+$ quilt diff -z
+> Index: project/a
+> ===================================================================
+> --- project.orig/a
+> +++ project/a
+> @@ -1 +1 @@
+> -new
+> +newer
+
+$ quilt refresh
+> Refreshed patch patches/1.patch
+
+$ quilt delete -rn
+> Removed patch patches/1-2.patch
 
 $ quilt remove a
 > File a removed from patch patches/1.patch

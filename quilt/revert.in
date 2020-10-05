@@ -86,9 +86,9 @@ do
 done
 [ $status -eq 0 ] || exit $status
 
-workdir=$(gen_tempfile -d $PWD)
-add_exit_handler "rm -rf $workdir"
-apply_patch_temporarily $workdir $patch "${@/#/$SUBDIR}" || exit 1
+workdir=$(gen_tempfile -d "$PWD")
+add_exit_handler "rm -rf \"$workdir\""
+apply_patch_temporarily "$workdir" $patch "${@/#/$SUBDIR}" || exit 1
 
 for file in ${*/#/$SUBDIR}
 do
