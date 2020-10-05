@@ -7,15 +7,12 @@
 #  See the COPYING and AUTHORS files for more details.
 
 # Read in library functions
-if [ "$(type -t patch_file_name)" != function ]
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
 then
-	if ! [ -r $QUILT_DIR/scripts/patchfns ]
-	then
-		echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-		exit 1
-	fi
-	. $QUILT_DIR/scripts/patchfns
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
 fi
+. $QUILT_DIR/scripts/patchfns
 
 setup_colors
 

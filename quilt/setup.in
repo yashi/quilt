@@ -11,24 +11,22 @@ skip_version_check=1
 skip_series_check=1
 
 # Read in library functions
-if [ "$(type -t patch_file_name)" != function ]
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
 then
-	if ! [ -r $QUILT_DIR/scripts/patchfns ]
-	then
-		echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-		exit 1
-	fi
-	. $QUILT_DIR/scripts/patchfns
-	if [ -n "$SUBDIR" ]
-	then
-		# Damn, found an enclosing quilt directory; don't follow its settings
-		cd $SUBDIR
-		unset SUBDIR
-		unset QUILT_PC QUILT_PATCHES QUILT_SERIES
-		: ${QUILT_PC:=.pc}
-		: ${QUILT_PATCHES:=patches}
-		: ${QUILT_SERIES:=series}
-	fi
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
+
+if [ -n "$SUBDIR" ]
+then
+	# Damn, found an enclosing quilt directory; don't follow its settings
+	cd $SUBDIR
+	unset SUBDIR
+	unset QUILT_PC QUILT_PATCHES QUILT_SERIES
+	: ${QUILT_PC:=.pc}
+	: ${QUILT_PATCHES:=patches}
+	: ${QUILT_SERIES:=series}
 fi
 
 check_for_existing_directories()
