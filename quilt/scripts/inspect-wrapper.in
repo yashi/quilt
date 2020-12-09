@@ -268,7 +268,15 @@ esac
 if [ -n "$QUILT_SETUP_FAST" -a -z "$inputfile" ]
 then
 	inputfile=$(readlink /proc/self/fd/0)
-	[ "${inputfile:0:1}" = / -a -f "$inputfile" ] || inputfile=
+	if [ "${inputfile:0:1}" = / -a -f "$inputfile" ]
+	then
+		# procfs resolved the symlinks, so do the same, otherwise the
+		# path prefix won't match
+		RPM_SOURCE_DIR=$(cd -P "$RPM_SOURCE_DIR" && echo "$PWD")/
+	else
+		# Didn't work, so fall back to the slow method
+		inputfile=
+	fi
 fi
 
 if [ -n "$inputfile" ]
