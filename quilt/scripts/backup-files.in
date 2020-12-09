@@ -89,7 +89,7 @@ backup()
 	dir=$(dirname "$backup")
 	[ -d "$dir" ] || mkdir -p "$dir"
 
-	if [ -e "$file" ]; then
+	if [ -L "$file" -o -e "$file" ]; then
 		$ECHO "Copying $file"
 		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = 1 ]; then
 			cp -p "$file" "$backup"
@@ -110,24 +110,28 @@ restore()
 	local file=$1
 	local backup=$OPT_PREFIX$file
 
-	if [ ! -e "$backup" ]; then
+	if [ ! -L "$backup" -a ! -e "$backup" ]; then
 		return 1
 	fi
-	if [ -s "$backup" ]; then
+	if [ -L "$backup" -o -s "$backup" ]; then
 		$ECHO "Restoring $file"
-		if [ -e "$file" ]; then
+		if [ -L "$file" -o -e "$file" ]; then
 			rm "$file"
 		else
 			mkdir -p "$(dirname "$file")"
 		fi
-		ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
+		if [ -L "$backup" ]; then
+			ln -s "$(readlink "$backup")" "$file"
+		else
+			ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
+		fi
 
-		if [ -n "$OPT_TOUCH" ]; then
+		if [ -n "$OPT_TOUCH" -a ! -L "$file" ]; then
 			touch "$file"
 		fi
 	else
 		$ECHO "Removing $file"
-		if [ -e "$file" ]; then
+		if [ -L "$file" -o -e "$file" ]; then
 			rm "$file"
 		fi
 	fi
@@ -145,11 +149,13 @@ restore_all()
 	# Store the list of files to process
 	EMPTY_FILES=$(gen_tempfile)
 	NONEMPTY_FILES=$(gen_tempfile)
-	trap "rm -f \"$EMPTY_FILES\" \"$NONEMPTY_FILES\"" EXIT
+	LINK_FILES=$(gen_tempfile)
+	trap "rm -f \"$EMPTY_FILES\" \"$NONEMPTY_FILES\" \"$LINK_FILES\"" EXIT
 
 	cd "$OPT_PREFIX"
 	find . -type f -size 0 -print0 > "$EMPTY_FILES"
 	find . -type f -size +0 -print0 > "$NONEMPTY_FILES"
+	find . -type l -print0 > "$LINK_FILES"
 	cd "$OLDPWD"
 
 	if [ -s "$EMPTY_FILES" ]; then
@@ -189,6 +195,20 @@ restore_all()
 		fi
 	fi
 
+	if [ -s "$LINK_FILES" ]; then
+		(cd "$OPT_PREFIX" && find . -type d -print0) \
+		| xargs -0 mkdir -p
+
+		while read -d $'\0' -r
+		do
+			local file=${REPLY#./}
+			local backup=$OPT_PREFIX$file
+
+			$ECHO "Restoring $file"
+			ln -sf "$(readlink "$backup")" "$file"
+		done < "$LINK_FILES"
+	fi
+
 	if [ -z "$OPT_KEEP_BACKUP" ]; then
 		rm -rf "$OPT_PREFIX"
 	fi
@@ -212,7 +232,7 @@ copy()
 	dir=$(dirname "$backup")
 	[ -d "$dir" ] || mkdir -p "$dir"
 
-	if [ -e "$file" ]; then
+	if [ -L "$file" -o -e "$file" ]; then
 		$ECHO "Copying $file"
 		cp -p "$file" "$backup"
 	else
@@ -234,7 +254,7 @@ copy_many()
 	cat "$OPT_FILE" \
 	| while read
 	do
-		if [ -e "$REPLY" ]; then
+		if [ -L "$REPLY" -o -e "$REPLY" ]; then
 			printf '%s\0' "$REPLY" >&3
 		else
 			# This is a rare case, not worth optimizing

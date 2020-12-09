@@ -229,3 +229,36 @@ Unit test of the backup-files script.
 	> 1
 	$ [ ! -s new ] || echo "file snapshot/new should be empty"
 	$ rm -rf snapshot
+
+	# Test backup and restoration of a symbolic link
+	$ mkdir dir
+	$ ln -s foo dir/link
+	$ readlink dir/link
+	> foo
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -b dir/link
+	> Copying dir/link
+	$ readlink backup/dir/link
+	> foo
+	$ rm -f dir/link
+	$ echo crap > dir/link
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -k dir/link
+	> Restoring dir/link
+	$ readlink dir/link
+	> foo
+
+	# Same but reading from a file
+	$ rm -f dir/link
+	$ echo crap > dir/link
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -k -f -
+	< dir/link
+	> Restoring dir/link
+	$ readlink dir/link
+	> foo
+
+	# Same but without specifying the file
+	$ rm -f dir/link
+	$ echo crap > dir/link
+	$ %{QUILT_DIR}/scripts/backup-files -B backup/ -r -
+	> Restoring dir/link
+	$ readlink dir/link
+	> foo
