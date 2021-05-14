@@ -841,18 +841,66 @@ cat_to_new_file()
 patch_header()
 {
 	awk '
-	/^(---|\*\*\*|Index:)[ \t][^ \t]|^diff -/ \
-		{ exit }
-		{ print }
+	!(MAYBE_CONTEXT || MAYBE_UNIFIED) {
+		if (/^\*\*\*[ \t][^ \t]/) {
+			eaten=$0
+			MAYBE_CONTEXT=1
+			next
+		}
+		if (/^---[ \t][^ \t]/) {
+			eaten=$0
+			MAYBE_UNIFIED=1
+			next
+		}
+	}
+	MAYBE_CONTEXT {
+		if (/^---[ \t][^ \t]/)
+			exit
+		print eaten
+		MAYBE_CONTEXT=0
+	}
+	MAYBE_UNIFIED {
+		if (/^+++[ \t][^ \t]/)
+			exit
+		print eaten
+		MAYBE_UNIFIED=0
+	}
+	/^Index:[ \t][^ \t]|^diff -/ { exit }
+	{ print }
 	'
 }
 
 patch_body()
 {
 	awk '
-	!body && /^(---|\*\*\*|Index:)[ \t][^ \t]|^diff -/ \
-		{ body=1 }
-	body	{ print }
+	!(body || MAYBE_CONTEXT || MAYBE_UNIFIED) {
+		if (/^\*\*\*[ \t][^ \t]/) {
+			eaten=$0
+			MAYBE_CONTEXT=1
+			next
+		}
+		if (/^---[ \t][^ \t]/) {
+			eaten=$0
+			MAYBE_UNIFIED=1
+			next
+		}
+	}
+	MAYBE_CONTEXT {
+		if (/^---[ \t][^ \t]/) {
+			print eaten
+			body=1
+		}
+		MAYBE_CONTEXT=0
+	}
+	MAYBE_UNIFIED {
+		if (/^+++[ \t][^ \t]/) {
+			print eaten
+			body=1
+		}
+		MAYBE_UNIFIED=0
+	}
+	!body && /^Index:[ \t][^ \t]|^diff -/ { body=1 }
+	body { print }
 	'
 }
 
