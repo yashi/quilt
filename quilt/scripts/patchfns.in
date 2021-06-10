@@ -33,13 +33,6 @@ then
 	source "$QUILTRC"
 fi
 
-# Add default arguments for this command
-if [ -n "$QUILT_COMMAND" ]; then
-	args="QUILT_$(echo $QUILT_COMMAND | tr a-z A-Z)_ARGS"
-	eval set -- ${!args} \"\$@\"
-	unset args
-fi
-
 . $QUILT_DIR/scripts/utilfns
 
 # ========================================================

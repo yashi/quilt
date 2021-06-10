@@ -150,6 +150,19 @@ set -- "${args[@]}"
 unset args
 
 export QUILT_COMMAND="${command##*/}"
+
+if [ -e "$QUILTRC" ]
+then
+	source "$QUILTRC"
+fi
+
+# Add default arguments for this command
+if [ -n "$QUILT_COMMAND" ]; then
+	args="QUILT_$(echo $QUILT_COMMAND | tr a-z A-Z)_ARGS"
+	eval set -- ${!args} \"\$@\"
+	unset args
+fi
+
 bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt ${command##*/}" "$@"
 ### Local Variables:
 ### mode: shell-script
