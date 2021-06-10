@@ -6,14 +6,6 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt files [-v] [-a] [-l] [--combine patch] [patch]\n"
@@ -69,7 +61,7 @@ do
 		then
 			:
 		else
-			first_patch=$(find_patch_in_series "$2") || exit 1
+			first_patch=$2
 		fi
 		shift 2 ;;
 	--)
@@ -81,6 +73,19 @@ done
 if [ $# -gt 1 ]
 then
 	usage
+fi
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
+
+if [ -n "$first_patch" ]
+then
+	first_patch=$(find_patch_in_series "$first_patch") || exit 1
 fi
 
 last_patch=$(find_patch_in_series "$1") || exit 1

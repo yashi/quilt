@@ -8,14 +8,6 @@
 
 : ${EDITOR:=vi}
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt mail {--mbox file|--send} [-m text] [-M file] [--prefix prefix] [--sender ...] [--from ...] [--to ...] [--cc ...] [--bcc ...] [--subject ...] [--reply-to message] [--charset ...] [--signature file] [first_patch [last_patch]]\n"
@@ -269,6 +261,14 @@ if [ $# -gt 2 -o \( -z "$opt_send" -a -z "$opt_mbox" \) ]
 then
 	usage
 fi
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
 
 if [ $# -ge 1 ]
 then

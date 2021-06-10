@@ -6,14 +6,6 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt graph [--all] [--reduce] [--lines[=num]] [--edge-labels=files] [-T ps] [patch]\n"
@@ -105,6 +97,14 @@ if [ $# -gt 1 -o \( $# -ne 0 -a -n "$opt_all" \) ]
 then
 	usage
 fi
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
 
 [ "$opt_format" = "ps" ] && check_external_tool dot graphviz -T
 [ -n "$opt_reduce" ] && check_external_tool tred graphviz --reduce

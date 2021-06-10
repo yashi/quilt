@@ -6,14 +6,6 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt top\n"
@@ -53,6 +45,14 @@ if [ $# -ne 0 ]
 then
 	usage
 fi
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
 
 top=$(find_top_patch) || exit 2
 print_patch $top

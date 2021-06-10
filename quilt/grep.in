@@ -6,14 +6,6 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt grep [-h|options] {pattern}\n"
@@ -113,6 +105,14 @@ fi
 # Print the filename for each match, unless -h is given. Otherwise, xargs
 # may pass a single filename to grep and cause it to omit the file name.
 [ -z "$opt_h" ] && opt_H=-H
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
 
 find "${myargs[@]:-.}" \( \
 	-path "./$QUILT_PATCHES/*" -o \

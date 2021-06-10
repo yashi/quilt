@@ -6,14 +6,6 @@
 #
 #  See the COPYING and AUTHORS files for more details.
 
-# Read in library functions
-if ! [ -r $QUILT_DIR/scripts/patchfns ]
-then
-	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
-	exit 1
-fi
-. $QUILT_DIR/scripts/patchfns
-
 usage()
 {
 	printf $"Usage: quilt fold [-R] [-q] [-f] [-p strip-level]\n"
@@ -79,6 +71,14 @@ if [ $# -ne 0 ]
 then
 	usage
 fi
+
+# Read in library functions
+if ! [ -r $QUILT_DIR/scripts/patchfns ]
+then
+	echo "Cannot read library $QUILT_DIR/scripts/patchfns" >&2
+	exit 1
+fi
+. $QUILT_DIR/scripts/patchfns
 
 : ${opt_strip_level:=1}
 [ -n "$opt_quiet" ] && patch_args="$patch_args -s"

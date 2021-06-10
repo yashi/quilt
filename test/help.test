@@ -1,0 +1,91 @@
+# We simulate a working tree root so that quilt does not attempt to find one
+# in a parent directory, as this would invalidate this test
+$ mkdir $QUILT_PC
+$ echo 2 > $QUILT_PC/.version
+
+$ quilt add -h | grep -c '^Usage:'
+> 1
+
+$ quilt annotate -h | grep -c '^Usage:'
+> 1
+
+$ quilt applied -h | grep -c '^Usage:'
+> 1
+
+$ quilt delete -h | grep -c '^Usage:'
+> 1
+
+$ quilt diff -h | grep -c '^Usage:'
+> 1
+
+$ quilt edit -h | grep -c '^Usage:'
+> 1
+
+$ quilt files -h | grep -c '^Usage:'
+> 1
+
+$ quilt fold -h | grep -c '^Usage:'
+> 1
+
+$ quilt fork -h | grep -c '^Usage:'
+> 1
+
+$ quilt graph -h | grep -c '^Usage:'
+> 1
+
+$ quilt grep -h | grep -c '^Usage:'
+> 1
+
+$ quilt header -h | grep -c '^Usage:'
+> 1
+
+$ quilt import -h | grep -c '^Usage:'
+> 1
+
+$ quilt mail -h | grep -c '^Usage:'
+> 1
+
+$ quilt new -h | grep -c '^Usage:'
+> 1
+
+$ quilt next -h | grep -c '^Usage:'
+> 1
+
+$ quilt patches -h | grep -c '^Usage:'
+> 1
+
+$ quilt pop -h | grep -c '^Usage:'
+> 1
+
+$ quilt previous -h | grep -c '^Usage:'
+> 1
+
+$ quilt push -h | grep -c '^Usage:'
+> 1
+
+$ quilt refresh -h | grep -c '^Usage:'
+> 1
+
+$ quilt remove -h | grep -c '^Usage:'
+> 1
+
+$ quilt rename -h | grep -c '^Usage:'
+> 1
+
+$ quilt series -h | grep -c '^Usage:'
+> 1
+
+$ quilt setup -h | grep -c '^Usage:'
+> 1
+
+$ quilt snapshot -h | grep -c '^Usage:'
+> 1
+
+$ quilt top -h | grep -c '^Usage:'
+> 1
+
+$ quilt unapplied -h | grep -c '^Usage:'
+> 1
+
+$ quilt upgrade -h | grep -c '^Usage:'
+> 1
