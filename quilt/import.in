@@ -165,7 +165,7 @@ then
 fi
 . $QUILT_DIR/scripts/patchfns
 
-[ -n "$opt_patch"] && opt_patch=${opt_patch#$QUILT_PATCHES/}
+[ -n "$opt_patch" ] && opt_patch=${opt_patch#$QUILT_PATCHES/}
 [ -n "$opt_strip" ] && patch_args="-p$opt_strip"
 if [ -n "$opt_reverse" ]
 then

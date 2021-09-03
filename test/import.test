@@ -255,3 +255,19 @@
 	> Importing patch ../empty.patch (stored as %{_P}empty.patch)
 	$ quilt import %{PWD}/empty2.patch
 	> Importing patch %{PWD}/empty2.patch (stored as %{_P}empty2.patch)
+
+# Test importing under a different name
+	$ cd ..
+	$ quilt delete -rn
+	> Removed patch %{P}empty2.patch
+	$ quilt delete -rn
+	> Removed patch %{P}empty.patch
+	$ quilt import t/patch1.diff -P patch1-renamed.diff
+	> Importing patch t/patch1.diff (stored as %{P}patch1-renamed.diff)
+	$ quilt push
+	> Applying patch %{P}patch1-renamed.diff
+	> patching file f
+	>
+	> Now at patch patches/patch1-renamed.diff
+	$ cat f
+	> f
