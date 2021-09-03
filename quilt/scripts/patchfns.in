@@ -28,11 +28,6 @@ fi
 unset CDPATH
 shopt -s dotglob
 
-if [ -e "$QUILTRC" ]
-then
-	source "$QUILTRC"
-fi
-
 . $QUILT_DIR/scripts/utilfns
 
 # ========================================================
@@ -1079,8 +1074,10 @@ quilt_command()
 	# the command line
 	export QUILT_NO_DIFF_INDEX
 	export QUILT_NO_DIFF_TIMESTAMPS
+	# Propagate tracing options in case we are called recursively
+	export BASH_OPTS
 
-	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} . $QUILT_DIR/$command" "quilt $command" "$@"
+	QUILT_COMMAND="" bash $BASH_OPTS -c "${SUBDIR:+cd $SUBDIR;} [ ! -e \"$QUILTRC\" ] || source \"$QUILTRC\"; . $QUILT_DIR/$command" "quilt $command" "$@"
 }
 
 check_external_tool()

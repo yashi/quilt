@@ -163,7 +163,10 @@ if [ -n "$QUILT_COMMAND" ]; then
 	unset args
 fi
 
-bash $BASH_OPTS -c ". $QUILT_DIR/$command" "quilt ${command##*/}" "$@"
+if [ -n "$BASH_OPTS" ]; then
+	set $BASH_OPTS
+fi
+. "$QUILT_DIR/$command"
 ### Local Variables:
 ### mode: shell-script
 ### End:
