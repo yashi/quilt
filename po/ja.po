@@ -1,12 +1,12 @@
 # Quilt japanese translation
 # Copyright (C) 2003 Free Software Foundation, Inc.
-# Yasushi SHOJI <yashi@atmark-techno.com>, 2003.
+# Yasushi SHOJI <yashi@spacecubics.com>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: quilt 0.65\n"
 "PO-Revision-Date: 2016-11-03 21:40+0700\n"
-"Last-Translator: Yasushi SHOJI <yashi@atmark-techno.com>\n"
+"Last-Translator: Yasushi SHOJI <yashi@spacecubics.com>\n"
 "Language-Team: Quilt\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
