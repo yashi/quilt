@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([quilt],[0.66],[quilt-dev@nongnu.org])
+AC_INIT([quilt],[0.67],[quilt-dev@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_PREREQ(2.53)
 
