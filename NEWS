@@ -1,4 +1,4 @@
-Version 0.67 (Tue Feb 25 2022)
+Version 0.67 (Tue Feb 15 2022)
   - Call pager with original LANG environment variable
   - Consistently complain early if no series file is found
   - Fix handling of symbolic links by several commands
