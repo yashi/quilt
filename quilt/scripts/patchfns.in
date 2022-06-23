@@ -848,7 +848,7 @@ patch_header()
 		MAYBE_CONTEXT=0
 	}
 	MAYBE_UNIFIED {
-		if (/^+++[ \t][^ \t]/)
+		if (/^\+\+\+[ \t][^ \t]/)
 			exit
 		print eaten
 		MAYBE_UNIFIED=0
@@ -881,7 +881,7 @@ patch_body()
 		MAYBE_CONTEXT=0
 	}
 	MAYBE_UNIFIED {
-		if (/^+++[ \t][^ \t]/) {
+		if (/^\+\+\+[ \t][^ \t]/) {
 			print eaten
 			body=1
 		}
