@@ -80,7 +80,7 @@ ignored.
 Patch options, such as the strip level or whether the patch is
 reversed, can be added after each patch file name.
 Options are introduced by a space, separated by spaces, and follow the
-syntax of the patch(1) options (e.g. \\[lq]\\-p2\\[rq]).
+syntax of the patch(1) options (e.g., \\[lq]\\-p2\\[rq]).
 Quilt records patch options automatically when a command supporting
 them is used.
 Without options, strip level 1 is assumed.
@@ -274,7 +274,7 @@ If none of these variables is set, \\[lq]less \\-R\\[rq] is used.
 An empty value indicates that no pager should be used.
 .IP QUILT_COLORS 4
 By default, quilt uses its predefined color set in order to be more
-comprehensible when distiguishing various types of patches, eg.
+comprehensible when distiguishing various types of patches, e.g.,
 applied/unapplied, failed, etc.
 .IP
 To override one or more color settings, set the QUILT_COLORS variable in
