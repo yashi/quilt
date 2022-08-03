@@ -113,14 +113,14 @@ ways, corresponding for example to different development branches.
 .PP
 Before a patch is applied (or \\[lq]pushed on the stack\\[rq]), copies
 of all files the patch modifies are saved to the
-.RI .pc/ patch
+.IR .pc/ patch
 directory.
 The patch is added to the list of currently applied patches
-(.pc/applied\\-patches).
+.RI ( .pc/applied\\-patches ).
 Later when a patch is regenerated
 .RB ( "quilt refresh" ),
 the backup copies in
-.RI .pc/ patch
+.IR .pc/ patch
 are compared with the current versions of the files in the source tree
 using GNU
 .IR diff .
@@ -135,22 +135,27 @@ the GNU
 .I Diffutils
 manual.)
 .PP
-The series file is looked up in the .pc directory, in the root of the
-source tree, and in the patches directory.
+The series file is looked up in the
+.I .pc
+directory, in the root of the source tree, and in the patches directory.
 The first series file that is found is used.
 This may also be a symbolic link, or a file with multiple hard links.
 Usually, only one series file is used for a set of patches, so the
 patches sub-directory is a convenient location.
 .PP
-The .pc directory and its sub-directories cannot be relocated, but it
-can be a symbolic link.
+The
+.I .pc
+directory and its sub-directories cannot be relocated, but it can be a
+symbolic link.
 While patches are applied to the source tree, this directory is
 essential for many operations, including taking patches off the stack
 .RB ( "quilt pop" ),
 and refreshing patches
 .RB ( "quilt refresh" ).
-Files in the .pc directory are automatically removed when they are
-no longer needed, so there is no need to clean up manually.
+Files in the
+.I .pc
+directory are automatically removed when they are no longer needed, so
+there is no need to clean up manually.
 .
 .SS Quilt commands reference
 @REFERENCE@
@@ -162,8 +167,13 @@ Runs the command in bash trace mode (\\-x).
 For internal debugging.
 .TP
 .BI "\\-\\-quiltrc " file
-Use the specified configuration file instead of \\[ti]/.quiltrc (or
-/etc/quilt.quiltrc if \\[ti]/.quiltrc does not exist).
+Use the specified configuration file instead of
+.I \\[ti]/.quiltrc
+(or
+.I /etc/quilt.quiltrc
+if
+.I \\[ti]/.quiltrc
+does not exist).
 See the pdf documentation for details about its possible contents.
 The special value \\[lq]\\-\\[rq] causes
 .I quilt
@@ -188,12 +198,16 @@ This behavior is intended to ease the scripting around
 In addition to that,
 .I quilt
 recognizes the following variables:
-.IP EDITOR 4
+.TP 4
+.I EDITOR
 The program to run to edit files.
 If it isn't redefined in the configuration file, $EDITOR as defined in
 the environment will be used.
-.IP LESS 4
-The arguments used to invoke the pager.
+.TP 4
+.I LESS
+The arguments used to invoke the
+.BR less (1)
+pager.
 Inherits the existing value of $LESS if LESS is already set in the
 environment, otherwise defaults to \\[lq]\\-FRSX\\[rq].
 .
@@ -217,30 +231,43 @@ work/
 └── ...
 .EE
 .PP
-The patches/ directory is precious as it contains all your patches as
-well as the order in which it should be applied.
+The
+.I patches
+directory is precious as it contains all your patches as well as the
+order in which it should be applied.
 .PP
-The .pc/ directory contains some metadata about the current state of
-your patch series.
+The
+.I .pc
+directory contains some metadata about the current state of your patch
+series.
 Changing its content is not advised.
 This directory can usually be regenerated from the initial files and the
-content of the patches/ directory (provided that all patches were
-regenerated before the removal).
+content of the
+.I patches
+directory (provided that all patches were regenerated before the
+removal).
 .
 .SS "Configuration file"
 Upon startup,
 .I quilt
-evaluates the file .quiltrc in the user's home directory, /etc/quilt.quiltrc
+evaluates the file
+.I .quiltrc
+in the user's home directory,
+.I /etc/quilt.quiltrc
 if the former file does not exist, or the file specified with the
 \\-\\-quiltrc option.
 This file is a regular bash script.
-Default options can be passed to any COMMAND by defining a
-QUILT_${COMMAND}_ARGS variable.
+Default options can be passed to any
+.I quilt COMMAND
+by defining a
+.IR QUILT_ COMMAND _ARGS
+variable.
 For example, \\[lq]QUILT_DIFF_ARGS="\\-\\-color=auto"\\[rq] causes the
 output of \\[lq]quilt diff\\[rq] to be syntax colored when writing to a
 terminal.
 .PP
-.IP QUILT_DIFF_OPTS 4
+.TP 4
+.I QUILT_DIFF_OPTS
 Additional options that
 .I quilt
 shall pass to GNU
@@ -249,7 +276,8 @@ when generating patches.
 A useful setting for C source code is \\[lq]\\-p\\[rq], which causes GNU
 .I diff
 to show in the resulting patch which function a change is in.
-.IP QUILT_PATCH_OPTS 4
+.TP 4
+.I QUILT_PATCH_OPTS
 Additional options that
 .I quilt
 shall pass to GNU
@@ -279,7 +307,8 @@ Beware that when passing \\[lq]\\-E\\[rq] to
 .I quilt
 will no longer be able to deal with empty files, which is why using
 \\[lq]\\-E\\[rq] is no longer the default.
-.IP QUILT_DIFFSTAT_OPTS 4
+.TP 4
+.I QUILT_DIFFSTAT_OPTS
 Additional options that
 .I quilt
 shall pass to
@@ -291,54 +320,64 @@ Recent versions of
 .I diffstat
 also support alternative rounding methods (\\[lq]\\-r1\\[rq],
 \\[lq]\\-r2\\[rq]).
-.IP QUILT_PC 4
+.TP 4
+.I QUILT_PC
 The location of backup files and any other data relating to the current
 state of the working directory from
 .IR quilt 's
 perspective.
 Defaults to \\[lq].pc\\[rq].
-.IP QUILT_PATCHES 4
+.TP 4
+.I QUILT_PATCHES
 The location of patch files, defaulting to \\[lq]patches\\[rq].
-.IP QUILT_SERIES 4
+.TP 4
+.I QUILT_SERIES
 The name of the series file, defaulting to \\[lq]series\\[rq].
 Unless an absolute path is used, the search algorithm described above
 applies.
-.IP QUILT_PATCHES_PREFIX 4
+.TP 4
+.I QUILT_PATCHES_PREFIX
 If set to anything,
 .I quilt
 will prefix patch names it prints with their
 directory (QUILT_PATCHES).
-.IP QUILT_NO_DIFF_INDEX 4
+.TP 4
+.I QUILT_NO_DIFF_INDEX
 By default,
 .I quilt
 prepends an \\[lq]Index:\\[rq] line to the patches it generates.
 If this variable is set to anything, no line is prepended.
 This is a shortcut to adding \\-\\-no\\-index to both QUILT_DIFF_ARGS
 and QUILT_REFRESH_ARGS.
-.IP QUILT_NO_DIFF_TIMESTAMPS 4
+.TP 4
+.I QUILT_NO_DIFF_TIMESTAMPS
 By default,
 .I quilt
 includes timestamps in headers when generating patches.
 If this variable is set to anything, no timestamp will be included.
 This is a shortcut to adding \\-\\-no\\-timestamps to both
 QUILT_DIFF_ARGS and QUILT_REFRESH_ARGS.
-.IP QUILT_PAGER 4
+.TP 4
+.I QUILT_PAGER
 The pager
 .I quilt
 shall use for commands which produce paginated output.
 If unset, the values of GIT_PAGER or PAGER is used.
 If none of these variables is set, \\[lq]less \\-R\\[rq] is used.
 An empty value indicates that no pager should be used.
-.IP QUILT_COLORS 4
+.TP 4
+.I QUILT_COLORS
 By default,
 .I quilt
 uses its predefined color set in order to be more
 comprehensible when distiguishing various types of patches, e.g.,
 applied/unapplied, failed, etc.
 .IP
-To override one or more color settings, set the QUILT_COLORS variable in
-following syntax - colon (:) separated list of elements, each being of
-the form <format name>=<foreground color>[;<background color>]
+To override one or more color settings, set the
+.I QUILT_COLORS
+variable in following syntax - colon (:) separated list of elements,
+each being of the form <format name>=<foreground color>[;<background
+color>]
 .IP
 Format names with their respective default values are listed below,
 along with their usage(s).
@@ -405,13 +444,17 @@ In addition, the
 format name is used to turn off special coloring.
 Its value is 0; it is not advised to modify it.
 .PP
-The content of QUILT_COLORS supersedes default values.
+The content of
+.I QUILT_COLORS
+supersedes default values.
 So the value \\[lq]diff_hdr=35;44\\[rq] will get you the
 .I diff
 headers in magenta over blue instead of the default green over unchanged
 background.
-For that, add the following content to \\[ti]/.quiltrc (or
-/etc/quilt.quiltrc):
+For that, add the following content to
+.I \\[ti]/.quiltrc
+(or
+.IR /etc/quilt.quiltrc ):
 .PP
 .EX
 .RS
@@ -425,7 +468,8 @@ QUILT_COLORS='diff_hdr=35;44'
 started as a series of scripts written by Andrew Morton
 .RI ( patch\\-scripts ).
 Based on Andrew's ideas, Andreas Gruenbacher completely rewrote the
-scripts, with the help of several other contributors (see AUTHORS file
+scripts, with the help of several other contributors (see the file
+.I AUTHORS
 in the distribution).
 .PP
 This man page was written by Martin Quinson, based on information found
@@ -438,7 +482,8 @@ below).
 .
 .SH "SEE ALSO"
 .I "How to Survive with Many Patches, or: Introduction to Quilt"
-is installed at @DOCSUBDIR@/quilt.pdf.
+is installed at
+.IR "@DOCSUBDIR@/\\:quilt.pdf" .
 Note that some distributors compress this file.
 .BR zxpdf (1)
 can be used to display compressed pdf files.
