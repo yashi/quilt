@@ -6,8 +6,18 @@
 quilt \\- tool to manage series of patches
 .
 .SH SYNOPSIS
-.B quilt
-[\\-h] command [options]
+.SY quilt
+.RB [ \\-\\-quiltrc
+.IR file ]
+.OP \\-\\-trace
+.I command
+.RI [ options ]
+.YS
+.SY quilt
+.RI [ command ]
+\\-h
+.SY "quilt \\-\\-version"
+.YS
 .
 .SH DESCRIPTION
 Quilt is a tool to manage large sets of patches by keeping track of the
