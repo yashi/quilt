@@ -245,22 +245,28 @@ Defaults to \\[lq]\\-FRSX\\[rq].
 .
 .SH FILES
 .SS "Example of working tree"
+.\\" Many roff output devices do not have font support for Unicode's
+.\\" box-drawing characters (U+2500 to U+257F).
+.schar \\[u2500] \\-
+.schar \\[u2502] |
+.schar \\[u2514] +
+.schar \\[u251C] +
 .EX
 project\\-1.2.3/
-├── patches/
-│    ├── series         (list of patches to apply)
-│    ├── patch1.diff    (one particular patch)
-│    ├── patch2.diff
-│    └── ...
-├── .pc/
-│    ├── .quilt_patches (content of QUILT_PATCHES)
-│    ├── .quilt_series  (content of QUILT_SERIES)
-│    ├── patch1.diff/   (copy of patched files)
-│    │    └── ...
-│    ├── patch2.diff/
-│    │    └── ...
-│    └── ...
-└── ...
+\\[u251C]\\[u2500]\\[u2500] patches/
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] series         (list of patches to apply)
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] patch1.diff    (one particular patch)
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] patch2.diff
+\\[u2502]    \\[u2514]\\[u2500]\\[u2500] ...
+\\[u251C]\\[u2500]\\[u2500] .pc/
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] .quilt_patches (content of QUILT_PATCHES)
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] .quilt_series  (content of QUILT_SERIES)
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] patch1.diff/   (copy of patched files)
+\\[u2502]    \\[u2502]    \\[u2514]\\[u2500]\\[u2500] ...
+\\[u2502]    \\[u251C]\\[u2500]\\[u2500] patch2.diff/
+\\[u2502]    \\[u2502]    \\[u2514]\\[u2500]\\[u2500] ...
+\\[u2502]    \\[u2514]\\[u2500]\\[u2500] ...
+\\[u2514]\\[u2500]\\[u2500] ...
 .EE
 .PP
 The
