@@ -161,6 +161,16 @@ there is no need to clean up manually.
 @REFERENCE@
 .
 .SH OPTIONS
+These options are common to all
+.I quilt
+commands.
+.TP
+.B \\-h
+Print a usage message (for the given
+.IR command ,
+if one is specified, otherwise for
+.I quilt
+itself) and exit.
 .TP
 .B \\-\\-trace
 Runs the command in bash trace mode (\\-x).
