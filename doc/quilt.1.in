@@ -474,10 +474,11 @@ QUILT_COLORS='diff_hdr=35;44'
 .EE
 .
 .SH AUTHORS
+.fchar \\[:u] ue
 .I Quilt
 started as a series of scripts written by Andrew Morton
 .RI ( patch\\-scripts ).
-Based on Andrew's ideas, Andreas Gruenbacher completely rewrote the
+Based on Andrew's ideas, Andreas Gr\\[:u]nbacher completely rewrote the
 scripts, with the help of several other contributors (see the file
 .I AUTHORS
 in the distribution).
