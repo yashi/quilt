@@ -23,40 +23,45 @@ quilt \\- manage a series of patches
 .I Quilt
 is a tool to manage large sets of patches by keeping track of the
 changes each patch makes.
-Patches can be applied, un-applied, refreshed, etc.
-The key philosophical concept is that your primary output is patches.
+Patches can be applied, unapplied, refreshed, and so forth.
+The key philosophical concept is that your primary working material is
+patches.
 .PP
 With
 .IR quilt ,
 all work occurs within a single directory tree.
 Commands can be invoked from anywhere within the source tree.
-They are of the form
-.B quilt cmd
-similar to
+Like
 .IR CVS ,
 .IR Subversion ,
 or
-.I Git
-commands.
-They can be abbreviated as long as the specified part of the command is
-unique.
-All commands print some help text with
-.B quilt cmd \\-h.
+.IR Git ,
+.I quilt
+takes commands of the form \\[lq]quilt
+.IR command \\[rq].
+A command can be truncated (abbreviated) as long as the specified part
+of the command is unambiguous.
+If
+.I command
+is ambiguously short,
+.I quilt
+lists all commands matching that prefix and exits.
+All commands print a brief contextual help message and exit if given the
+\\[lq]\\-h\\[rq] option.
 .PP
 .I Quilt
 manages a stack of patches.
 Patches are applied incrementally on top of the base tree plus all
 preceding patches.
-They can be pushed on top of the stack
-.RB ( "quilt push" ),
-and popped off the stack
-.RB ( "quilt pop" ).
-Commands are available for querying the contents of the series file
-.RB ( "quilt series" ,
-see below), the contents of the stack
-.RB ( "quilt applied" , " quilt previous" , " quilt top" ),
+They can be pushed onto the stack (\\[lq]quilt push\\[rq]),
+and popped off the stack (\\[lq]quilt pop\\[rq]).
+Commands are available for querying
+the contents of the stack (\\[lq]quilt applied\\[rq],
+\\[lq]quilt previous\\[rq],
+\\[lq]quilt top\\[rq])
 and the patches that are not applied at a particular moment
-.RB ( "quilt next" , " quilt unapplied" ).
+(\\[lq]quilt next\\[rq],
+\\[lq]quilt unapplied\\[rq]).
 By default, most commands apply to the topmost patch on the stack.
 .PP
 Patch files are located in the
@@ -68,7 +73,7 @@ under
 below).
 The
 .I QUILT_PATCHES
-environment variable can be used to override this location.
+environment variable overrides this default location.
 When not found in the current directory, that subdirectory is searched
 recursively in the parent directories (this is similar to the way
 .I Git
@@ -78,12 +83,15 @@ The
 directory may contain subdirectories.
 It may also be a symbolic link instead of a directory.
 .PP
-A file called
-.I series
-contains a list of patch file names that defines the order in which
-patches are applied.
-Unless there are means by which series files can be generated
-automatically, it is usually provided along with a set of patches.
+.I Quilt
+creates and maintains a file called
+.IR series ,
+which defines the order in which patches are applied.
+The
+.I QUILT_SERIES
+environment variable overrides this default name.
+You can query the contents of the series file at any time with
+\\[lq]quilt series\\[rq].
 In this file, each patch file name is on a separate line.
 Patch files are identified by path names that are relative to the
 .I patches
@@ -107,26 +115,41 @@ Users of
 .I quilt
 can modify series files while some patches are applied, as long as the
 applied patches remain in their original order.
-.PP
+Unless there are means by which a series file can be generated
+automatically, you should provide it along with any set of
+.IR quilt -managed
+patches you distribute.
 Different series files can be used to assemble patches in different
-ways, corresponding for example to different development branches.
+ways, corresponding (for example) to different development branches.
 .PP
-Before a patch is applied (or \\[lq]pushed on the stack\\[rq]), copies
-of all files the patch modifies are saved to the
-.IR .pc/ patch
-directory.
+Before a patch is applied, copies of all files the patch modifies are
+saved to the
+.IR .pc/ patch-name
+directory, where
+.I patch-name
+is the name of the patch (for example,
+.IR fix\\-buffer\\-overflow.patch ).
 The patch is added to the list of currently applied patches
 .RI ( .pc/applied\\-patches ).
-Later when a patch is regenerated
-.RB ( "quilt refresh" ),
-the backup copies in
-.IR .pc/ patch
+Later, when a patch is regenerated (\\[lq]quilt refresh\\[rq]), the
+backup copies in
+.IR .pc/ patch-name
 are compared with the current versions of the files in the source tree
 using GNU
-.IR diff .
+.BR diff (1).
 .PP
-Documentation related to a patch can be put at the beginning of a patch
-file.
+A similar process occurs when starting a new patch (\\[lq]quilt
+new\\[rq]);
+the new patch file name is added to the series file.
+A file to be changed by the patch is backed up and opened for editing
+(\\[lq]quilt edit\\[rq]).
+After editing, inspect the impact of your changes
+(\\[lq]quilt diff\\[rq]);
+the changes stay local to your working tree until you call
+\\[lq]quilt refresh\\[rq] to write them to the patch file.
+.PP
+Documentation related to a patch can be put at the beginning of its
+patch file (\\[lq]quilt header\\[rq]).
 .I Quilt
 is careful to preserve all text that precedes the actual patch when
 doing a refresh.
@@ -140,18 +163,16 @@ The series file is looked up in the
 directory, in the root of the source tree, and in the patches directory.
 The first series file that is found is used.
 This may also be a symbolic link, or a file with multiple hard links.
-Usually, only one series file is used for a set of patches, so the
-patches subdirectory is a convenient location.
+Usually, only one series file is used for a set of patches, making the
+patches subdirectory a convenient location.
 .PP
 The
 .I .pc
-directory and its subdirectories cannot be relocated, but it can be a
-symbolic link.
+directory cannot be relocated, but it can be a symbolic link.
+Its subdirectories must not be renamed or restructured.
 While patches are applied to the source tree, this directory is
-essential for many operations, including taking patches off the stack
-.RB ( "quilt pop" ),
-and refreshing patches
-.RB ( "quilt refresh" ).
+essential for many operations, including popping patches off the stack
+and refreshing them.
 Files in the
 .I .pc
 directory are automatically removed when they are no longer needed, so
