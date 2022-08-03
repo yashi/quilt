@@ -1,3 +1,4 @@
+'\\" t
 .\\" Created by Martin Quinson from the tex documentation
 .\\"
 .TH quilt 1 "Dec 17, 2013" "quilt"
@@ -426,101 +427,87 @@ If none of these variables is set, \\[lq]less \\-R\\[rq] is used.
 An empty value indicates that no pager should be used.
 .TP 4
 .I QUILT_COLORS
-By default,
+A sequence of definitions that directs
 .I quilt
-uses its predefined color set in order to be more
-comprehensible when distiguishing various types of patches, e.g.,
-applied/unapplied, failed, etc.
+which ANSI escape sequences to associate with an output context,
+overriding the defaults.
+The most common use is to set colors (thus the name of this variable),
+but other attributes exist, such as bold or reverse.
 .IP
-To override one or more color settings, set the
+To override one or more settings, set
 .I QUILT_COLORS
-variable in following syntax - colon (:) separated list of elements,
-each being of the form <format name>=<foreground color>[;<background
-color>]
+to a colon-separated list of elements,
+each of the form
+.RI \\[lq] format-name\\c
+.BI = digit-sequence\\c
+.RB [ ; ...]\\[rq].
 .IP
-Format names with their respective default values are listed below,
-along with their usage(s).
-Color codes(values) are standard bash coloring escape codes.
-See more at http://tldp.org/LDP/abs/html/colorizing.html#AEN20229
-.RS 4
-.TP
-.B diff_hdr
-Used in \\[lq]quilt diff\\[rq] to color the index line.
-Defaults to 32 (green).
-.TP
-.B diff_add
-Used in \\[lq]quilt diff\\[rq] to color added lines.
-Defaults to 36 (azure).
-.TP
-.B diff_mod
-Used in \\[lq]quilt diff\\[rq] to color modified lines.
-Defaults to 35 (purple).
-.TP
-.B diff_rem
-Used in \\[lq]quilt diff\\[rq] to color removed lines.
-Defaults to 35 (purple).
-.TP
-.B diff_hunk
-Used in \\[lq]quilt diff\\[rq] to color hunk header.
-Defaults to 33 (brown/orange).
-.TP
-.B diff_ctx
-Used in \\[lq]quilt diff\\[rq] to color the text after end of hunk
-header (\\[lq]diff \\-\\-show\\-c\\-function\\[rq] generates this).
-Defaults to 35 (purple).
-.TP
-.B diff_cctx
-Used in \\[lq]quilt diff\\[rq] to color the 15-asterisk sequence before
-or after a hunk.
-Defaults to 33 (brown/orange).
-.TP
-.B patch_fuzz
-Used in \\[lq]quilt push\\[rq] to color the patch fuzz information.
-Defaults to 35 (purple).
-.TP
-.B patch_fail
-Used in \\[lq]quilt push\\[rq] to color the fail message.
-Defaults to 31 (red).
-.TP
-.B series_app
-Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
-the applied patch names.
-Defaults to 32 (green).
-.TP
-.B series_top
-Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
-the top patch name.
-Defaults to 33 (brown/orange).
-.TP
-.B series_una
-Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
-unapplied patch names.
-Defaults to 0 (no special color).
-.RE
-.RS 4
-In addition, the
-.B clear
-format name is used to turn off special coloring.
-Its value is 0; it is not advised to modify it.
-.PP
-The content of
-.I QUILT_COLORS
-supersedes default values.
-So the value \\[lq]diff_hdr=35;44\\[rq] will get you the
-.I diff
-headers in magenta over blue instead of the default green over unchanged
-background.
-For that, add the following content to
+Each
+.I digit-sequence
+should be a SGR (Select Graphic Rendition) value supported by your
+terminal.
+The standardized SGR values were specified by ANSI and incorporated
+into ISO-6429 and ECMA-48 (\\[sc]8.3.117).
+The colors have standard names but their values were not defined within
+a color space;
+their precise appearance will vary and may be customizable in your
+terminal (emulator).
+.IP
+Recognized
+.IR format-name s,
+along with the
+.I quilt
+commands that use them,
+their use contexts,
+and default values, follow.
+.TS
+box;
+lI l l l.
+format-name	command	context	default
+_
+.T&
+lB l l l.
+diff_add	diff	added lines	36 (cyan)
+diff_cctx	diff	asterisk sequences	33 (yellow)
+diff_ctx	diff	text after hunk	35 (magenta)
+diff_hdr	diff	index line	32 (green)
+diff_hunk	diff	hunk header	33 (yellow)
+diff_mod	diff	modified lines	35 (magenta)
+diff_rem	diff	removed lines	35 (magenta)
+patch_fail	push	failure message	31 (red)
+patch_fuzz	push	fuzz information	35 (magenta)
+patch_offs	push	offset information	33 (yellow)
+series_app	series	applied patch names	32 (green)
+series_top	series	top patch name	33 (yellow)
+series_una	series	unapplied patch names	0 (none)
+.TE
+.IP
+All
+.IR format-name s
+used by the series command are also used by the patches command.
+.IP
+The special
+.I format-name
+\\[lq]clear\\[rq] is used to turn off special graphic renditions and
+return to the terminal defaults.
+Changing its definition should not be necessary for any terminal that
+claims to support ANSI escape sequences.
+If your terminal is corrupted despite your best efforts, try the command
+\\[lq]tput sgr0\\[rq] to restore the default graphic rendition.
+.IP
+As an example, one can put the following in
 .I \\[ti]/.quiltrc
 (or
 .IR /etc/quilt.quiltrc ):
-.PP
+.RS 12
 .EX
-.RS
 QUILT_DIFF_ARGS="\\-\\-color"
-QUILT_COLORS='diff_hdr=35;44'
-.RE
+# Render diff file headers in bold blue over yellow.
+# Render diff hunk headers in "negative image" yellow.
+# Render failed patches with a red background.
+QUILT_COLORS="diff_hdr=1;34;43:diff_hunk=7;33:patch_fail=41"
 .EE
+.RE
 .
 .SH AUTHORS
 .fchar \\[:u] ue
@@ -559,6 +546,17 @@ documents
 and
 .I patch
 in detail.
+.PP
+.UR https://\\:www.ecma\\-international.org/\\:publications/\\:standards/\\:Ecma\\-048.htm
+.I Control Functions for Coded Character Sets
+(ECMA-48)
+.UE
+specifies the ANSI escape sequences used by
+.IR QUILT_COLORS ;
+section 8.3.117 will be of the most interest.
+See
+.BR console_codes (4)
+for a more convenient, if less canonical, resource.
 .PP
 .BR diff (1),
 .BR diffstat (1),
