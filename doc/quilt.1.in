@@ -3,7 +3,7 @@
 .TH quilt 1 "Dec 17, 2013" "quilt"
 .
 .SH NAME
-quilt \\- tool to manage series of patches
+quilt \\- manage a series of patches
 .
 .SH SYNOPSIS
 .SY quilt
