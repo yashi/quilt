@@ -7,7 +7,7 @@ quilt \\- tool to manage series of patches
 .
 .SH SYNOPSIS
 .B quilt
-[-h] command [options]
+[\\-h] command [options]
 .
 .SH DESCRIPTION
 Quilt is a tool to manage large sets of patches by keeping track of the
@@ -23,7 +23,7 @@ similar to CVS, svn or git commands.
 They can be abbreviated as long as the specified part of the command is
 unique.
 All commands print some help text with
-.B quilt cmd -h.
+.B quilt cmd \\-h.
 .PP
 Quilt manages a stack of patches.
 Patches are applied incrementally on top of the base tree plus all
@@ -70,7 +70,7 @@ ignored.
 Patch options, such as the strip level or whether the patch is
 reversed, can be added after each patch file name.
 Options are introduced by a space, separated by spaces, and follow the
-syntax of the patch(1) options (e.g. -p2).
+syntax of the patch(1) options (e.g. \\-p2).
 Quilt records patch options automatically when a command supporting
 them is used.
 Without options, strip level 1 is assumed.
@@ -89,7 +89,7 @@ files the patch modifies are saved to the
 .RI .pc/ patch
 directory.
 The patch is added to the list of currently applied patches
-(.pc/applied-patches).
+(.pc/applied\\-patches).
 Later when a patch is regenerated
 .RB ( "quilt refresh" ),
 the backup copies in
@@ -127,17 +127,18 @@ no longer needed, so there is no need to clean up manually.
 .
 .SH OPTIONS
 .TP
-.B --trace
-Runs the command in bash trace mode (-x).
+.B \\-\\-trace
+Runs the command in bash trace mode (\\-x).
 For internal debugging.
 .TP
-.BI "--quiltrc " file
+.BI "\\-\\-quiltrc " file
 Use the specified configuration file instead of ~/.quiltrc (or
 /etc/quilt.quiltrc if ~/.quiltrc does not exist).
 See the pdf documentation for details about its possible contents.
-The special value \"-\" causes quilt not to read any configuration file.
+The special value \"\\-\" causes quilt not to read any configuration
+file.
 .TP
-.B --version
+.B \\-\\-version
 Print the version number and exit immediately.
 .
 .SH "EXIT STATUS"
@@ -159,7 +160,7 @@ the environment will be used.
 .IP LESS 4
 The arguments used to invoke the pager.
 Inherits the existing value of $LESS if LESS is already set in the
-environment, otherwise defaults to "-FRSX".
+environment, otherwise defaults to "\\-FRSX".
 .
 .SH FILES
 .SS "Example of working tree"
@@ -194,40 +195,40 @@ regenerated before the removal).
 .SS "Configuration file"
 Upon startup, quilt evaluates the file .quiltrc in the user's home
 directory, /etc/quilt.quiltrc if the former file does not exist, or
-the file specified with the --quiltrc option.
+the file specified with the \\-\\-quiltrc option.
 This file is a regular bash script.
 Default options can be passed to any COMMAND by defining a
 QUILT_${COMMAND}_ARGS variable.
-For example, QUILT_DIFF_ARGS="--color=auto" causes the output of quilt
-diff to be syntax colored when writing to a terminal.
+For example, QUILT_DIFF_ARGS="\\-\\-color=auto" causes the output of
+quilt diff to be syntax colored when writing to a terminal.
 .PP
 .IP QUILT_DIFF_OPTS 4
 Additional options that quilt shall pass to GNU diff when generating
 patches.
-A useful setting for C source code is "-p", which causes GNU diff to
+A useful setting for C source code is "\\-p", which causes GNU diff to
 show in the resulting patch which function a change is in.
 .IP QUILT_PATCH_OPTS 4
 Additional options that quilt shall pass to GNU patch when applying
 patches.
 For example, recent versions of GNU patch support the
-"--reject-format=unified" option for generating reject files in unified
-diff style (older patch versions used "--unified-reject-files" for
-that).
+"\\-\\-reject\\-format=unified" option for generating reject files in
+unified diff style (older patch versions used
+"\\-\\-unified\\-reject\\-files" for that).
 .IP
-You may also want to add the "-E" option if you have issues with quilt
+You may also want to add the "\\-E" option if you have issues with quilt
 not deleting empty files when you think it should.
 The documentation of GNU patch says that "normally this option is
 unnecessary", but when patch is in POSIX mode or if the patch format
 doesn't allow to distinguish empty files from deleted files, patch
-deletes empty files only if the -E option is given.
-Beware that when passing -E to patch, quilt will no longer be able to
-deal with empty files, which is why using -E is no longer the default.
+deletes empty files only if the \\-E option is given.
+Beware that when passing \\-E to patch, quilt will no longer be able to
+deal with empty files, which is why using \\-E is no longer the default.
 .IP QUILT_DIFFSTAT_OPTS 4
 Additional options that quilt shall pass to diffstat when generating
 patch statistics.
-For example, "-f0" can be used for an alternative output format.
+For example, "\\-f0" can be used for an alternative output format.
 Recent versions of diffstat also support alternative rounding methods
-("-r1", "-r2").
+("\\-r1", "\\-r2").
 .IP QUILT_PC 4
 The location of backup files and any other data relating to the current
 state of the working directory from quilt's perspective.
@@ -244,18 +245,18 @@ directory (QUILT_PATCHES).
 .IP QUILT_NO_DIFF_INDEX 4
 By default, quilt prepends an Index: line to the patches it generates.
 If this variable is set to anything, no line is prepended.
-This is a shortcut to adding --no-index to both QUILT_DIFF_ARGS and
-QUILT_REFRESH_ARGS.
+This is a shortcut to adding \\-\\-no\\-index to both QUILT_DIFF_ARGS
+and QUILT_REFRESH_ARGS.
 .IP QUILT_NO_DIFF_TIMESTAMPS 4
 By default, quilt includes timestamps in headers when generating
 patches.
 If this variable is set to anything, no timestamp will be included.
-This is a shortcut to adding --no-timestamps to both QUILT_DIFF_ARGS and
-QUILT_REFRESH_ARGS.
+This is a shortcut to adding \\-\\-no\\-timestamps to both
+QUILT_DIFF_ARGS and QUILT_REFRESH_ARGS.
 .IP QUILT_PAGER 4
 The pager quilt shall use for commands which produce paginated output.
 If unset, the values of GIT_PAGER or PAGER is used.
-If none of these variables is set, "less -R" is used.
+If none of these variables is set, "less \\-R" is used.
 An empty value indicates that no pager should be used.
 .IP QUILT_COLORS 4
 By default, quilt uses its predefined color set in order to be more
@@ -294,7 +295,7 @@ Defaults to 33 (brown/orange).
 .TP
 .B diff_ctx
 Used in 'quilt diff' to color the text after end of hunk header (diff
---show-c-function generates this).
+\\-\\-show\\-c\\-function generates this).
 Defaults to 35 (purple).
 .TP
 .B diff_cctx
@@ -338,14 +339,14 @@ For that, add the following content to ~/.quiltrc (or
 .PP
 .EX
 .RS
-QUILT_DIFF_ARGS="--color"
+QUILT_DIFF_ARGS="\\-\\-color"
 QUILT_COLORS='diff_hdr=35;44'
 .RE
 .EE
 .
 .SH AUTHORS
 Quilt started as a series of scripts written by Andrew Morton
-(patch-scripts).
+(patch\\-scripts).
 Based on Andrew's ideas, Andreas Gruenbacher completely rewrote the
 scripts, with the help of several other contributors (see AUTHORS file
 in the distribution).
