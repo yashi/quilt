@@ -184,7 +184,7 @@ Use the specified configuration file instead of
 if
 .I \\[ti]/.quiltrc
 does not exist).
-See the pdf documentation for details about its possible contents.
+See the PDF documentation for details about its possible contents.
 The special value \\[lq]\\-\\[rq] causes
 .I quilt
 not to read any configuration file.
@@ -483,10 +483,10 @@ scripts, with the help of several other contributors (see the file
 in the distribution).
 .PP
 This man page was written by Martin Quinson, based on information found
-in the pdf documentation, and in the help messages of each commands.
+in the PDF documentation, and in the help messages of each commands.
 .
 .SH EXAMPLES
-Please refer to the pdf documentation for a full example of use (under
+Please refer to the PDF documentation for a full example of use (under
 .B "SEE ALSO"
 below).
 .
@@ -496,7 +496,7 @@ is installed at
 .IR "@DOCSUBDIR@/\\:quilt.pdf" .
 Note that some distributors compress this file.
 .BR zxpdf (1)
-can be used to display compressed pdf files.
+can be used to display compressed PDF files.
 .PP
 The GNU
 .I Diffutils
