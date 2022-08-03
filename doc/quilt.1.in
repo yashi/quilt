@@ -215,15 +215,17 @@ internal operations.
 Print the version number and exit.
 .
 .SH "EXIT STATUS"
-The exit status is 0 if the sub-command was successfully executed, and
-1 in case of error.
+The exit status is 0 if the requested operation completed successfully,
+or 1 in case of error.
 .PP
-An exit status of 2 denotes that
+An exit status of 2 indicates that
 .I quilt
 did not do anything to complete the command.
-This happens in particular when asking to push when the whole stack is
-already pushed, or asking to pop when the whole stack is already popped.
-This behavior is intended to ease the scripting around
+This happens in particular when asking
+.I quilt
+to push when the whole stack is already pushed, or to pop when the whole
+stack is already popped.
+This behavior is intended to ease scripting with
 .IR quilt .
 .
 .SH ENVIRONMENT
