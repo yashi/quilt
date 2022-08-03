@@ -61,7 +61,7 @@ By default, most commands apply to the topmost patch on the stack.
 .PP
 Patch files are located in the
 .I patches
-sub-directory of the source tree (see
+subdirectory of the source tree (see
 .BR "Example of working tree" ,
 under
 .BR FILES ,
@@ -75,7 +75,7 @@ recursively in the parent directories (this is similar to the way
 searches for its configuration files).
 The
 .I patches
-directory may contain sub-directories.
+directory may contain subdirectories.
 It may also be a symbolic link instead of a directory.
 .PP
 A file called
@@ -87,7 +87,7 @@ automatically, it is usually provided along with a set of patches.
 In this file, each patch file name is on a separate line.
 Patch files are identified by path names that are relative to the
 .I patches
-directory; patches may be in sub-directories below this directory.
+directory; patches may be in subdirectories below this directory.
 Lines in the series file that start with a hash character (#) are
 ignored.
 Patch options, such as the strip level or whether the patch is
@@ -141,11 +141,11 @@ directory, in the root of the source tree, and in the patches directory.
 The first series file that is found is used.
 This may also be a symbolic link, or a file with multiple hard links.
 Usually, only one series file is used for a set of patches, so the
-patches sub-directory is a convenient location.
+patches subdirectory is a convenient location.
 .PP
 The
 .I .pc
-directory and its sub-directories cannot be relocated, but it can be a
+directory and its subdirectories cannot be relocated, but it can be a
 symbolic link.
 While patches are applied to the source tree, this directory is
 essential for many operations, including taking patches off the stack
