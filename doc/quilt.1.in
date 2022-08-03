@@ -172,10 +172,6 @@ if one is specified, otherwise for
 .I quilt
 itself) and exit.
 .TP
-.B \\-\\-trace
-Runs the command in bash trace mode (\\-x).
-For internal debugging.
-.TP
 .BI "\\-\\-quiltrc " file
 Use the specified configuration file instead of
 .I \\[ti]/.quiltrc
@@ -188,6 +184,10 @@ See the PDF documentation for details about its possible contents.
 The special value \\[lq]\\-\\[rq] causes
 .I quilt
 not to read any configuration file.
+.TP
+.B \\-\\-trace
+Runs the command in bash trace mode (\\-x).
+For internal debugging.
 .TP
 .B \\-\\-version
 Print the version number and exit immediately.
