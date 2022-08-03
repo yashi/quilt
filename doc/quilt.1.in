@@ -333,7 +333,7 @@ the following content to ~/.quiltrc (or /etc/quilt.quiltrc):
   QUILT_DIFF_ARGS="--color"
   QUILT_COLORS='diff_hdr=35;44'
 .fi
-.RE 4
+.RE
 
 .SH AUTHORS
 
