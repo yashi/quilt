@@ -126,15 +126,18 @@ no longer needed, so there is no need to clean up manually.
 @REFERENCE@
 .
 .SH OPTIONS
-.IP \"\\fB--trace\\fP\" 8
+.TP
+.B --trace
 Runs the command in bash trace mode (-x).
 For internal debugging.
-.IP \"\\fB--quiltrc\\fP file\" 8
+.TP
+.BI "--quiltrc " file
 Use the specified configuration file instead of ~/.quiltrc (or
 /etc/quilt.quiltrc if ~/.quiltrc does not exist).
 See the pdf documentation for details about its possible contents.
 The special value \"-\" causes quilt not to read any configuration file.
-.IP \"\\fB--version\\fP\" 8
+.TP
+.B --version
 Print the version number and exit immediately.
 .
 .SH "EXIT STATUS"
@@ -272,50 +275,63 @@ along with their usage(s).
 Color codes(values) are standard bash coloring escape codes.
 See more at http://tldp.org/LDP/abs/html/colorizing.html#AEN20229
 .RS 4
-.IP \\fBdiff_hdr\\fP 10
+.TP
+.B diff_hdr
 Used in 'quilt diff' to color the index line.
 Defaults to 32 (green).
-.IP \\fBdiff_add\\fP 10
+.TP
+.B diff_add
 Used in 'quilt diff' to color added lines.
 Defaults to 36 (azure).
-.IP \\fBdiff_mod\\fP 10
+.TP
+.B diff_mod
 Used in 'quilt diff' to color modified lines.
 Defaults to 35 (purple).
-.IP \\fBdiff_rem\\fP 10
+.TP
+.B diff_rem
 Used in 'quilt diff' to color removed lines.
 Defaults to 35 (purple).
-.IP \\fBdiff_hunk\\fP 10
+.TP
+.B diff_hunk
 Used in 'quilt diff' to color hunk header.
 Defaults to 33 (brown/orange).
-.IP \\fBdiff_ctx\\fP 10
+.TP
+.B diff_ctx
 Used in 'quilt diff' to color the text after end of hunk header (diff
 --show-c-function generates this).
 Defaults to 35 (purple).
-.IP \\fBdiff_cctx\\fP 10
+.TP
+.B diff_cctx
 Used in 'quilt diff' to color the 15-asterisk sequence before or after a
 hunk.
 Defaults to 33 (brown/orange).
-.IP \\fBpatch_fuzz\\fP 10
+.TP
+.B patch_fuzz
 Used in 'quilt push' to color the patch fuzz information.
 Defaults to 35 (purple).
-.IP \\fBpatch_fail\\fP 10
+.TP
+.B patch_fail
 Used in 'quilt push' to color the fail message.
 Defaults to 31 (red).
-.IP \\fBseries_app\\fP 10
+.TP
+.B series_app
 Used in 'quilt series' and 'quilt patches' to color the applied patch
 names.
 Defaults to 32 (green).
-.IP \\fBseries_top\\fP 10
+.TP
+.B series_top
 Used in 'quilt series' and 'quilt patches' to color the top patch name.
 Defaults to 33 (brown/orange).
-.IP \\fBseries_una\\fP 10
+.TP
+.B series_una
 Used in 'quilt series' and 'quilt patches' to color unapplied patch
 names.
 Defaults to 0 (no special color).
 .RE
 .RS 4
-In addition, the \\fBclear\\fP format name is used to turn off special
-coloring.
+In addition, the
+.B clear
+format name is used to turn off special coloring.
 Its value is 0; it is not advised to modify it.
 .PP
 The content of QUILT_COLORS supersedes default values.
