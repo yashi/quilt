@@ -122,10 +122,10 @@ and refreshing patches
 Files in the .pc directory are automatically removed when they are
 no longer needed, so there is no need to clean up manually.
 .
-.SH QUILT COMMANDS REFERENCE
+.SS Quilt commands reference
 @REFERENCE@
 .
-.SH COMMON OPTIONS TO ALL COMMANDS
+.SH OPTIONS
 .IP \"\\fB--trace\\fP\" 8
 Runs the command in bash trace mode (-x).
 For internal debugging.
@@ -137,7 +137,7 @@ The special value \"-\" causes quilt not to read any configuration file.
 .IP \"\\fB--version\\fP\" 8
 Print the version number and exit immediately.
 .
-.SH EXIT STATUS
+.SH "EXIT STATUS"
 The exit status is 0 if the sub-command was successfully executed, and
 1 in case of error.
 .PP
@@ -147,7 +147,19 @@ This happens in particular when asking to push when the whole stack is
 already pushed, or asking to pop when the whole stack is already popped.
 This behavior is intended to ease the scripting around quilt.
 .
-.SH EXAMPLE OF WORKING TREE
+.SH ENVIRONMENT
+In addition to that, quilt recognizes the following variables:
+.IP EDITOR 4
+The program to run to edit files.
+If it isn't redefined in the configuration file, $EDITOR as defined in
+the environment will be used.
+.IP LESS 4
+The arguments used to invoke the pager.
+Inherits the existing value of $LESS if LESS is already set in the
+environment, otherwise defaults to "-FRSX".
+.
+.SH FILES
+.SS "Example of working tree"
 .fam C
 .RS
 .nf
@@ -180,10 +192,7 @@ This directory can usually be regenerated from the initial files and the
 content of the patches/ directory (provided that all patches were
 regenerated before the removal).
 .
-.SH EXAMPLE
-Please refer to the pdf documentation for a full example of use.
-.
-.SH CONFIGURATION FILE
+.SS "Configuration file"
 Upon startup, quilt evaluates the file .quiltrc in the user's home
 directory, /etc/quilt.quiltrc if the former file does not exist, or
 the file specified with the --quiltrc option.
@@ -193,15 +202,6 @@ QUILT_${COMMAND}_ARGS variable.
 For example, QUILT_DIFF_ARGS="--color=auto" causes the output of quilt
 diff to be syntax colored when writing to a terminal.
 .PP
-In addition to that, quilt recognizes the following variables:
-.IP EDITOR 4
-The program to run to edit files.
-If it isn't redefined in the configuration file, $EDITOR as defined in
-the environment will be used.
-.IP LESS 4
-The arguments used to invoke the pager.
-Inherits the existing value of $LESS if LESS is already set in the
-environment, otherwise defaults to "-FRSX".
 .IP QUILT_DIFF_OPTS 4
 Additional options that quilt shall pass to GNU diff when generating
 patches.
@@ -340,7 +340,10 @@ in the distribution).
 This man page was written by Martin Quinson, based on information found
 in the pdf documentation, and in the help messages of each commands.
 .
-.SH SEE ALSO
+.SH EXAMPLES
+Please refer to the pdf documentation for a full example of use.
+.
+.SH "SEE ALSO"
 The pdf documentation, which should be under @DOCSUBDIR@/quilt.pdf.
 Note that some distributors compress this file.
 .BR zxpdf ( 1 )
