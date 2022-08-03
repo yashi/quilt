@@ -80,7 +80,7 @@ ignored.
 Patch options, such as the strip level or whether the patch is
 reversed, can be added after each patch file name.
 Options are introduced by a space, separated by spaces, and follow the
-syntax of the patch(1) options (e.g. \\-p2).
+syntax of the patch(1) options (e.g. \\[lq]\\-p2\\[rq]).
 Quilt records patch options automatically when a command supporting
 them is used.
 Without options, strip level 1 is assumed.
@@ -94,8 +94,8 @@ applied, as long as the applied patches remain in their original order.
 Different series files can be used to assemble patches in different
 ways, corresponding for example to different development branches.
 .PP
-Before a patch is applied (or ``pushed on the stack''), copies of all
-files the patch modifies are saved to the
+Before a patch is applied (or \\[lq]pushed on the stack\\[rq]), copies
+of all files the patch modifies are saved to the
 .RI .pc/ patch
 directory.
 The patch is added to the list of currently applied patches
@@ -142,11 +142,11 @@ Runs the command in bash trace mode (\\-x).
 For internal debugging.
 .TP
 .BI "\\-\\-quiltrc " file
-Use the specified configuration file instead of ~/.quiltrc (or
-/etc/quilt.quiltrc if ~/.quiltrc does not exist).
+Use the specified configuration file instead of \\[ti]/.quiltrc (or
+/etc/quilt.quiltrc if \\[ti]/.quiltrc does not exist).
 See the pdf documentation for details about its possible contents.
-The special value \"\\-\" causes quilt not to read any configuration
-file.
+The special value \\[lq]\\-\\[rq] causes quilt not to read any
+configuration file.
 .TP
 .B \\-\\-version
 Print the version number and exit immediately.
@@ -170,7 +170,7 @@ the environment will be used.
 .IP LESS 4
 The arguments used to invoke the pager.
 Inherits the existing value of $LESS if LESS is already set in the
-environment, otherwise defaults to "\\-FRSX".
+environment, otherwise defaults to \\[lq]\\-FRSX\\[rq].
 .
 .SH FILES
 .SS "Example of working tree"
@@ -209,51 +209,55 @@ the file specified with the \\-\\-quiltrc option.
 This file is a regular bash script.
 Default options can be passed to any COMMAND by defining a
 QUILT_${COMMAND}_ARGS variable.
-For example, QUILT_DIFF_ARGS="\\-\\-color=auto" causes the output of
-quilt diff to be syntax colored when writing to a terminal.
+For example, \\[lq]QUILT_DIFF_ARGS="\\-\\-color=auto"\\[rq] causes the
+output of \\[lq]quilt diff\\[rq] to be syntax colored when writing to a
+terminal.
 .PP
 .IP QUILT_DIFF_OPTS 4
 Additional options that quilt shall pass to GNU diff when generating
 patches.
-A useful setting for C source code is "\\-p", which causes GNU diff to
-show in the resulting patch which function a change is in.
+A useful setting for C source code is \\[lq]\\-p\\[rq], which causes GNU
+diff to show in the resulting patch which function a change is in.
 .IP QUILT_PATCH_OPTS 4
 Additional options that quilt shall pass to GNU patch when applying
 patches.
 For example, recent versions of GNU patch support the
-"\\-\\-reject\\-format=unified" option for generating reject files in
-unified diff style (older patch versions used
-"\\-\\-unified\\-reject\\-files" for that).
+\\[lq]\\-\\-reject\\-format=unified\\[rq] option for generating reject
+files in \\[lq]unified diff\\[rq] style (older patch versions used
+\\[lq]\\-\\-unified\\-reject\\-files\\[rq] for that).
 .IP
-You may also want to add the "\\-E" option if you have issues with quilt
-not deleting empty files when you think it should.
-The documentation of GNU patch says that "normally this option is
-unnecessary", but when patch is in POSIX mode or if the patch format
-doesn't allow to distinguish empty files from deleted files, patch
-deletes empty files only if the \\-E option is given.
-Beware that when passing \\-E to patch, quilt will no longer be able to
-deal with empty files, which is why using \\-E is no longer the default.
+You may also want to add the \\[lq]\\-E\\[rq] option if you have issues
+with quilt not deleting empty files when you think it should.
+The documentation of GNU patch says that \\[lq]normally this option is
+unnecessary\\[rq], but when patch is in POSIX mode or if the patch
+format doesn't allow to distinguish empty files from deleted files,
+patch deletes empty files only if the \\[lq]\\-E\\[rq] option is given.
+Beware that when passing \\[lq]\\-E\\[rq] to patch, quilt will no longer
+be able to deal with empty files, which is why using \\[lq]\\-E\\[rq] is
+no longer the default.
 .IP QUILT_DIFFSTAT_OPTS 4
 Additional options that quilt shall pass to diffstat when generating
 patch statistics.
-For example, "\\-f0" can be used for an alternative output format.
+For example, \\[lq]\\-f0\\[rq] can be used for an alternative output
+format.
 Recent versions of diffstat also support alternative rounding methods
-("\\-r1", "\\-r2").
+(\\[lq]\\-r1\\[rq], \\[lq]\\-r2\\[rq]).
 .IP QUILT_PC 4
 The location of backup files and any other data relating to the current
 state of the working directory from quilt's perspective.
-Defaults to ".pc".
+Defaults to \\[lq].pc\\[rq].
 .IP QUILT_PATCHES 4
-The location of patch files, defaulting to "patches".
+The location of patch files, defaulting to \\[lq]patches\\[rq].
 .IP QUILT_SERIES 4
-The name of the series file, defaulting to "series".
+The name of the series file, defaulting to \\[lq]series\\[rq].
 Unless an absolute path is used, the search algorithm described above
 applies.
 .IP QUILT_PATCHES_PREFIX 4
 If set to anything, quilt will prefix patch names it prints with their
 directory (QUILT_PATCHES).
 .IP QUILT_NO_DIFF_INDEX 4
-By default, quilt prepends an Index: line to the patches it generates.
+By default, quilt prepends an \\[lq]Index:\\[rq] line to the patches it
+generates.
 If this variable is set to anything, no line is prepended.
 This is a shortcut to adding \\-\\-no\\-index to both QUILT_DIFF_ARGS
 and QUILT_REFRESH_ARGS.
@@ -266,7 +270,7 @@ QUILT_DIFF_ARGS and QUILT_REFRESH_ARGS.
 .IP QUILT_PAGER 4
 The pager quilt shall use for commands which produce paginated output.
 If unset, the values of GIT_PAGER or PAGER is used.
-If none of these variables is set, "less \\-R" is used.
+If none of these variables is set, \\[lq]less \\-R\\[rq] is used.
 An empty value indicates that no pager should be used.
 .IP QUILT_COLORS 4
 By default, quilt uses its predefined color set in order to be more
@@ -284,55 +288,56 @@ See more at http://tldp.org/LDP/abs/html/colorizing.html#AEN20229
 .RS 4
 .TP
 .B diff_hdr
-Used in 'quilt diff' to color the index line.
+Used in \\[lq]quilt diff\\[rq] to color the index line.
 Defaults to 32 (green).
 .TP
 .B diff_add
-Used in 'quilt diff' to color added lines.
+Used in \\[lq]quilt diff\\[rq] to color added lines.
 Defaults to 36 (azure).
 .TP
 .B diff_mod
-Used in 'quilt diff' to color modified lines.
+Used in \\[lq]quilt diff\\[rq] to color modified lines.
 Defaults to 35 (purple).
 .TP
 .B diff_rem
-Used in 'quilt diff' to color removed lines.
+Used in \\[lq]quilt diff\\[rq] to color removed lines.
 Defaults to 35 (purple).
 .TP
 .B diff_hunk
-Used in 'quilt diff' to color hunk header.
+Used in \\[lq]quilt diff\\[rq] to color hunk header.
 Defaults to 33 (brown/orange).
 .TP
 .B diff_ctx
-Used in 'quilt diff' to color the text after end of hunk header (diff
-\\-\\-show\\-c\\-function generates this).
+Used in \\[lq]quilt diff\\[rq] to color the text after end of hunk
+header (\\[lq]diff \\-\\-show\\-c\\-function\\[rq] generates this).
 Defaults to 35 (purple).
 .TP
 .B diff_cctx
-Used in 'quilt diff' to color the 15-asterisk sequence before or after a
-hunk.
+Used in \\[lq]quilt diff\\[rq] to color the 15-asterisk sequence before
+or after a hunk.
 Defaults to 33 (brown/orange).
 .TP
 .B patch_fuzz
-Used in 'quilt push' to color the patch fuzz information.
+Used in \\[lq]quilt push\\[rq] to color the patch fuzz information.
 Defaults to 35 (purple).
 .TP
 .B patch_fail
-Used in 'quilt push' to color the fail message.
+Used in \\[lq]quilt push\\[rq] to color the fail message.
 Defaults to 31 (red).
 .TP
 .B series_app
-Used in 'quilt series' and 'quilt patches' to color the applied patch
-names.
+Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
+the applied patch names.
 Defaults to 32 (green).
 .TP
 .B series_top
-Used in 'quilt series' and 'quilt patches' to color the top patch name.
+Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
+the top patch name.
 Defaults to 33 (brown/orange).
 .TP
 .B series_una
-Used in 'quilt series' and 'quilt patches' to color unapplied patch
-names.
+Used in \\[lq]quilt series\\[rq] and \\[lq]quilt patches\\[rq] to color
+unapplied patch names.
 Defaults to 0 (no special color).
 .RE
 .RS 4
@@ -342,9 +347,11 @@ format name is used to turn off special coloring.
 Its value is 0; it is not advised to modify it.
 .PP
 The content of QUILT_COLORS supersedes default values.
-So the value diff_hdr=35;44 will get you the diff headers in magenta
-over blue instead of the default green over unchanged background.
-For that, add the following content to ~/.quiltrc (or
+So the value \\[lq]diff_hdr=35;44\\[rq] will get you the
+.I diff
+headers in magenta over blue instead of the default green over unchanged
+background.
+For that, add the following content to \\[ti]/.quiltrc (or
 /etc/quilt.quiltrc):
 .PP
 .EX
