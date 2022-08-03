@@ -61,7 +61,11 @@ By default, most commands apply to the topmost patch on the stack.
 .PP
 Patch files are located in the
 .I patches
-sub-directory of the source tree (see EXAMPLE OF WORKING TREE below).
+sub-directory of the source tree (see
+.BR "Example of working tree" ,
+under
+.BR FILES ,
+below).
 The
 .I QUILT_PATCHES
 environment variable can be used to override this location.
@@ -127,8 +131,9 @@ file.
 is careful to preserve all text that precedes the actual patch when
 doing a refresh.
 (This is limited to patches in unified format; see
-.B diff
-documentation).
+the GNU
+.I Diffutils
+manual.)
 .PP
 The series file is looked up in the .pc directory, in the root of the
 source tree, and in the patches directory.
@@ -427,14 +432,30 @@ This man page was written by Martin Quinson, based on information found
 in the pdf documentation, and in the help messages of each commands.
 .
 .SH EXAMPLES
-Please refer to the pdf documentation for a full example of use.
+Please refer to the pdf documentation for a full example of use (under
+.B "SEE ALSO"
+below).
 .
 .SH "SEE ALSO"
-The pdf documentation, which should be under @DOCSUBDIR@/quilt.pdf.
+.I "How to Survive with Many Patches, or: Introduction to Quilt"
+is installed at @DOCSUBDIR@/quilt.pdf.
 Note that some distributors compress this file.
-.BR zxpdf ( 1 )
+.BR zxpdf (1)
 can be used to display compressed pdf files.
 .PP
-.BR diff ( 1 ),
-.BR patch ( 1 ),
-.BR guards ( 1 ).
+The GNU
+.I Diffutils
+manual,
+.UR https://\\:www.gnu.org/\\:software/\\:diffutils/\\:manual/
+.I "Comparing and Merging Files"
+.UE ,
+documents
+.I diff
+and
+.I patch
+in detail.
+.PP
+.BR diff (1),
+.BR diffstat (1),
+.BR guards (1),
+.BR patch (1)
