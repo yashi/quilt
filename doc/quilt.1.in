@@ -163,9 +163,7 @@ environment, otherwise defaults to "-FRSX".
 .
 .SH FILES
 .SS "Example of working tree"
-.fam C
-.RS
-.nf
+.EX
 work/
 ├── patches/
 │    ├── series         (list of patches to apply)
@@ -181,9 +179,7 @@ work/
 │    │    └── ...
 │    └── ...
 └── ...
-.fi
-.RE
-.fam T
+.EE
 .PP
 The patches/ directory is precious as it contains all your patches as
 well as the order in which it should be applied.
@@ -340,11 +336,12 @@ over blue instead of the default green over unchanged background.
 For that, add the following content to ~/.quiltrc (or
 /etc/quilt.quiltrc):
 .PP
-.nf
-  QUILT_DIFF_ARGS="--color"
-  QUILT_COLORS='diff_hdr=35;44'
-.fi
+.EX
+.RS
+QUILT_DIFF_ARGS="--color"
+QUILT_COLORS='diff_hdr=35;44'
 .RE
+.EE
 .
 .SH AUTHORS
 Quilt started as a series of scripts written by Andrew Morton
