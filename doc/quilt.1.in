@@ -229,21 +229,19 @@ This behavior is intended to ease scripting with
 .IR quilt .
 .
 .SH ENVIRONMENT
-In addition to that,
-.I quilt
+.I Quilt
 recognizes the following variables:
 .TP 4
 .I EDITOR
-The program to run to edit files.
-If it isn't redefined in the configuration file, $EDITOR as defined in
-the environment will be used.
+Specify the program to run to edit files;
+for instance,
+with \\[lq]quilt edit\\[rq] or \\[lq]quilt header \\-e\\[rq].
 .TP 4
 .I LESS
-The arguments used to invoke the
+Specify the arguments used to invoke the
 .BR less (1)
 pager.
-Inherits the existing value of $LESS if LESS is already set in the
-environment, otherwise defaults to \\[lq]\\-FRSX\\[rq].
+Defaults to \\[lq]\\-FRSX\\[rq].
 .
 .SH FILES
 .SS "Example of working tree"
