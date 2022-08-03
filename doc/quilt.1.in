@@ -194,24 +194,25 @@ if one is specified, otherwise for
 itself) and exit.
 .TP
 .BI "\\-\\-quiltrc " file
-Use the specified configuration file instead of
+Use
+.I file
+as the configuration file instead of
 .I \\[ti]/.quiltrc
 (or
 .I /etc/quilt.quiltrc
 if
 .I \\[ti]/.quiltrc
 does not exist).
-See the PDF documentation for details about its possible contents.
 The special value \\[lq]\\-\\[rq] causes
 .I quilt
 not to read any configuration file.
 .TP
 .B \\-\\-trace
-Runs the command in bash trace mode (\\-x).
-For internal debugging.
+Run the command in the shell's trace mode (\\-x) for debugging of
+internal operations.
 .TP
 .B \\-\\-version
-Print the version number and exit immediately.
+Print the version number and exit.
 .
 .SH "EXIT STATUS"
 The exit status is 0 if the sub-command was successfully executed, and
