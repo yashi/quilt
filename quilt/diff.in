@@ -255,7 +255,7 @@ then
 	# Add all files in the snapshot into the file list (they may all
 	# have changed).
 	files=( $(find $QUILT_PC/$snap_subdir -type f \
-		  | sed -e "s/^$(quote_bre $QUILT_PC/$snap_subdir/)//" \
+		  | sed -e "s/^$(quote_sed_re $QUILT_PC/$snap_subdir/)//" \
 		  | sort) )
 	printf "%s\n" "${files[@]}" >&4
 	unset files

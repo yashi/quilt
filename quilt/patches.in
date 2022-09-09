@@ -60,7 +60,7 @@ scan_unapplied()
 	# Quote each file name only once
 	for file in "${opt_files[@]}"
 	do
-		files_bre[${#files_bre[@]}]=$(quote_bre "$file")
+		files_bre[${#files_bre[@]}]=$(quote_grep_re "$file")
 	done
 
 	# "Or" all files in a single pattern

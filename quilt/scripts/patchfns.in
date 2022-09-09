@@ -78,8 +78,14 @@ array_join()
 	done
 }
 
-# Quote a string for use in a basic regular expression.
-quote_bre()
+# Quote a string for use in a regular expression for a grep pattern.
+quote_grep_re()
+{
+	echo "$1" | sed -e 's:\([][^$.*\\]\):\\\1:g'
+}
+
+# Quote a string for use in a regular expression for a sed s/// command.
+quote_sed_re()
 {
 	echo "$1" | sed -e 's:\([][^$/.*\\]\):\\\1:g'
 }
@@ -215,7 +221,7 @@ patch_in_series()
 
 	if [ -e "$SERIES" ]
 	then
-		grep -q "^$(quote_bre $patch)\([ \t]\|$\)" "$SERIES"
+		grep -q "^$(quote_grep_re $patch)\([ \t]\|$\)" "$SERIES"
 	else
 		return 1
 	fi
@@ -365,7 +371,7 @@ is_applied()
 {
 	local patch=$1
 	[ -e $DB ] || return 1
-	grep -q "^$(quote_bre $patch)\$" $DB
+	grep -q "^$(quote_grep_re $patch)\$" $DB
 }
 
 applied_patches()
@@ -465,7 +471,7 @@ remove_from_db()
 	local tmpfile
 	if tmpfile=$(gen_tempfile)
 	then
-		grep -v "^$(quote_bre $patch)\$" $DB > $tmpfile
+		grep -v "^$(quote_grep_re $patch)\$" $DB > $tmpfile
 		cat $tmpfile > $DB
 		rm -f $tmpfile
 		[ -s $DB ] || rm -f $DB
@@ -520,7 +526,7 @@ find_patch()
 		fi
 
 		local patch=${1#$SUBDIR_DOWN$QUILT_PATCHES/}
-		local bre=$(quote_bre "$patch")
+		local bre=$(quote_sed_re "$patch")
 		set -- $(sed -e "/^$bre\(\|\.patch\|\.diff\?\)\(\|\.gz\|\.bz2\|\.xz\|\.lzma\|\.lz\)\([ "$'\t'"]\|$\)/!d" \
 			       -e 's/[ '$'\t''].*//' "$SERIES")
 		if [ $# -eq 1 ]
@@ -631,7 +637,7 @@ files_in_patch()
 	then
 		find "$path" -type f \
 			       -a ! -path "$(quote_glob "$path")/.timestamp" |
-		sed -e "s/$(quote_bre "$path")\///"
+		sed -e "s/$(quote_sed_re "$path")\///"
 	fi
 }
 
