@@ -90,8 +90,8 @@ quote_sed_re()
 	echo "$1" | sed -e 's:\([][^$/.*\\]\):\\\1:g'
 }
 
-# Quote a string for use in an extended regular expression.
-quote_re()
+# Quote a string for use in a regular expression for an awk pattern.
+quote_awk_re()
 {
 	echo "$1" | sed -e 's:\([][?{(|)}^$/.+*\\]\):\\\1:g'
 }
@@ -184,7 +184,7 @@ change_db_strip_level()
 			$nr=value
 		}
 
-		/^'"$(quote_re $patch)"'([ \t]|$)/ \
+		/^'"$(quote_awk_re $patch)"'([ \t]|$)/ \
 			{ p_printed=0
 			  for (i=2; i<=NF && $i !~ /^#/; i++) {
 				if ($i ~ /^-p/) {
@@ -250,7 +250,7 @@ insert_in_series()
 	if [ -n "$before" ]
 	then
 		awk '
-		/^'"$(quote_re $before)"'([ \t]|$)/ \
+		/^'"$(quote_awk_re $before)"'([ \t]|$)/ \
 				{ print "'"$patch$patch_args"'" }
 				{ print }
 		' "$SERIES" > $tmpfile
@@ -280,7 +280,7 @@ remove_from_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	awk '
-	! /^'"$(quote_re $patch)"'([ \t]|$)/ \
+	! /^'"$(quote_awk_re $patch)"'([ \t]|$)/ \
 				{ print }
 	' "$SERIES" > $tmpfile
 	if [ $? -ne 0 ]
@@ -298,8 +298,8 @@ rename_in_series()
 
 	tmpfile=$(gen_tempfile) || return 1
 	awk '
-	/^'"$(quote_re $from)"'([ \t]|$)/ \
-		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
+	/^'"$(quote_awk_re $from)"'([ \t]|$)/ \
+		{ sub(/'"$(quote_awk_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
 		{ print }
 	END	{ exit(! good) }
@@ -319,8 +319,8 @@ rename_in_db()
 	local tmpfile
 	tmpfile=$(gen_tempfile) || return 1
 	awk '
-	/^'"$(quote_re $from)"'$/ \
-		{ sub(/'"$(quote_re $from)"'/, "'"${to//\"/\\\"}"'")
+	/^'"$(quote_awk_re $from)"'$/ \
+		{ sub(/'"$(quote_awk_re $from)"'/, "'"${to//\"/\\\"}"'")
 		  good=1 }
 		{ print }
 	END	{ exit(! good) }
