@@ -109,7 +109,7 @@ then
 		if ! [ -e "$backup_file" ]
 		then
 			if ! mkdir -p "$(dirname "$backup_file")" ||
-			   ! ln "$workdir/$file" "$backup_file"
+			   ! ln -P "$workdir/$file" "$backup_file"
 			then
 				failed=1
 				break

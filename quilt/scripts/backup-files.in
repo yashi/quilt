@@ -94,7 +94,7 @@ backup()
 		if [ -n "$OPT_NOLINKS" -a "$(stat @STAT_HARDLINK@ "$file")" = 1 ]; then
 			cp -p "$file" "$backup"
 		else
-			ln "$file" "$backup" 2>&4 || cp -p "$file" "$backup"
+			ln -P "$file" "$backup" 2>&4 || cp -p "$file" "$backup"
 			if [ -n "$OPT_NOLINKS" ]; then
 				ensure_nolinks "$file"
 			fi
@@ -123,7 +123,7 @@ restore()
 		if [ -L "$backup" ]; then
 			ln -s "$(readlink "$backup")" "$file"
 		else
-			ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
+			ln -P "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
 		fi
 
 		if [ -n "$OPT_TOUCH" -a ! -L "$file" ]; then
@@ -186,7 +186,7 @@ restore_all()
 				local backup=$OPT_PREFIX$file
 
 				$ECHO "Restoring $file"
-				ln "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
+				ln -P "$backup" "$file" 2>&4 || cp -p "$backup" "$file"
 			done < "$NONEMPTY_FILES"
 		fi
 
