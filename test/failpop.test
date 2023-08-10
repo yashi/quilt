@@ -25,5 +25,6 @@
 	$ mv patches/test.new patches/test.diff
 	$ quilt pop
 	> Patch %{P}test.diff does not remove cleanly (refresh it or enforce with -f)
+	> Hint: `quilt diff -z' will show the pending changes.
 	$ echo %{?}
 	> 1

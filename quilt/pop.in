@@ -116,6 +116,7 @@ check_for_pending_changes()
 	then
 		printf $"Patch %s does not remove cleanly (refresh it or enforce with -f)\n" \
 		       "$(print_patch "$patch")" >&2
+		printf $"Hint: \`quilt diff -z' will show the pending changes.\n" >&2
 		status=1
 	fi
 	rm -rf $workdir

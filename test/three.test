@@ -65,6 +65,7 @@
 
 	$ quilt pop
 	> Patch %{P}patch1.diff does not remove cleanly (refresh it or enforce with -f)
+	> Hint: `quilt diff -z' will show the pending changes.
 
 	$ quilt refresh
 	> Refreshed patch %{P}patch1.diff
